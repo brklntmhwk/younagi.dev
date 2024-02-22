@@ -1,0 +1,5 @@
+site:
+  title: My Astro Blog
+  description: My personal website
+blog:
+  description: My personal blog

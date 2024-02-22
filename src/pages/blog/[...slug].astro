@@ -2,16 +2,23 @@
 import { type CollectionEntry, getCollection } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
 
-export async function getStaticPaths() {
-	const posts = await getCollection('blog');
-	return posts.map((post) => ({
-		params: { slug: post.slug },
-		props: post,
-	}));
-}
+// https://docs.astro.build/en/guides/routing/#modifying-the-slug-example-for-ssr
+// export async function getStaticPaths() {
+// 	const posts = await getCollection('blog');
+// 	return posts.map((post) => ({
+// 		params: { slug: post.slug },
+// 		props: post,
+// 	}));
+// }
+
+const posts = await getCollection('blog');
+const { slug } = Astro.params;
 type Props = CollectionEntry<'blog'>;
 
-const post = Astro.props;
+const post = posts.find((post) => post.slug === slug);
+// const post = Astro.props;
+
+if (!post) return Astro.redirect("/404");
 const { Content } = await post.render();
 ---
 

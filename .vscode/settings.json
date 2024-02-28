@@ -21,6 +21,7 @@
     "purgecss",
     "rehype",
     "shiki",
-    "shikiji"
+    "shikiji",
+    "tsconfigs"
   ]
 }

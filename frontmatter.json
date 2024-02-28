@@ -91,7 +91,13 @@
           "title": "Title",
           "name": "title",
           "type": "string",
-          "single": true
+          "single": true,
+          "required": true
+        },
+        {
+          "title": "Description",
+          "name": "description",
+          "type": "string"
         },
         {
           "title": "Modified At",

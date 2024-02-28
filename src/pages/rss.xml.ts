@@ -5,10 +5,9 @@ import { getEntry } from "astro:content";
 
 const meta = await getEntry("meta", "site-data");
 
-// import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
-
 export async function GET(context: APIContext) {
   const posts = await getCollection("blog");
+
   return await rss({
     title: meta.data.site.title,
     description: meta.data.site.description,

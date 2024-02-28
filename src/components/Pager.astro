@@ -1,0 +1,24 @@
+---
+import type { Page } from "astro";
+import type { CollectionEntry } from "astro:content";
+
+type Props = {
+  page?: Page<CollectionEntry<"blog">>;
+}
+
+const { page } = Astro.props;
+---
+
+<nav>
+  {
+    page?.url.prev && (
+      <a href={page?.url.prev}>
+        <span>{"<<"}</span></a>
+    )
+  }
+  {
+    page?.url.next && (
+      <a href={page?.url.next}><span>{">>"}</span></a>
+    )
+  }
+</nav>

@@ -1,26 +1,16 @@
 ---
-// import BaseLayout from '@/layouts/BaseLayout.astro';
-import BaseHead from '@/components/BaseHead.astro';
-import Header from '@/components/Header.astro';
-import Footer from '@/components/Footer.astro';
+import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getEntry } from "astro:content";
 
 const meta = await getEntry("meta", "site-data");
 ---
 
-<html lang="en">
-	<head>
-		<BaseHead title={meta.data.site.title} description={meta.data.site.description} />
-	</head>
-	<body>
-		<Header />
+<BaseLayout title={meta.data.site.title} description={meta.data.site.description}>
 		<main>
 			<h1>🧑‍🚀 Hello, {meta.data.site.title}!</h1>
 			<div class="logo"><b>d<span>ri</span>bb<span>b</span>le</b></div>
 		</main>
-		<Footer />
-	</body>
-</html>
+</BaseLayout>
 
 <style>
 	.logo {

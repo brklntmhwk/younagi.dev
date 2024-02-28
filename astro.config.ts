@@ -25,7 +25,7 @@ export default defineConfig({
     }),
     tailwind(),
   ],
-  output: "server",
+  output: "hybrid",
   adapter: cloudflare(),
   markdown: {
     syntaxHighlight: false,

@@ -1,7 +1,7 @@
 ---
 import HeaderLink from './HeaderLink.astro';
-// import { SITE_TITLE } from '../consts';
 import { getEntry } from "astro:content";
+import SvgIcon from "@/components/Svg/index.astro";
 
 const meta = await getEntry("meta", "site-data");
 ---
@@ -42,6 +42,8 @@ const meta = await getEntry("meta", "site-data");
 					></path></svg
 				>
 			</a>
+			<SvgIcon iconName="pixelarticons:sun" height={30} width={30} />
+			<SvgIcon iconName="pixelarticons:moon" height={30} width={30} />
 		</div>
 	</nav>
 </header>

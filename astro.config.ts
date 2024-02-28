@@ -10,8 +10,8 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
 // import rehypePrettyCode from "rehype-pretty-code";
 import rehypeCodeTitles from "rehype-code-titles";
-
 import tailwind from "@astrojs/tailwind";
+import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
@@ -24,6 +24,13 @@ export default defineConfig({
       keyframes: true,
     }),
     tailwind(),
+    icon({
+      include: {
+        mdi: ["*"],
+        ri: ["unsplash-fill"],
+        pixelarticons: ["sun", "moon"],
+      },
+    }),
   ],
   output: "hybrid",
   adapter: cloudflare(),

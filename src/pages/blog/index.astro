@@ -13,11 +13,39 @@ const posts = (await getCollection('blog')).sort(
 );
 ---
 
+<!-- Blog entry list page -->
+
 <!doctype html>
 <html lang="en">
 	<head>
 		<BaseHead title={meta.data.site.title} description={meta.data.blog.description} />
-		<style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section>
+				<ul>
+					{
+						posts.map((post) => (
+							<li>
+								<a href={`/blog/${post.slug}/`}>
+									<img width={720} height={360} src={post.data.heroImage} alt="" />
+									<h4 class="title">{post.data.title}</h4>
+									<p class="date">
+										<FormattedDate date={post.data.publishedAt} />
+									</p>
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<!-- <style>
 			main {
 				width: 960px;
 			}
@@ -85,29 +113,4 @@ const posts = (await getCollection('blog')).sort(
 					font-size: 1.563em;
 				}
 			}
-		</style>
-	</head>
-	<body>
-		<Header />
-		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.slug}/`}>
-									<img width={720} height={360} src={post.data.heroImage} alt="" />
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.publishedAt} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
-		</main>
-		<Footer />
-	</body>
-</html>
+		</style> -->

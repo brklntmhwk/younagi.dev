@@ -1,0 +1,27 @@
+---
+import type { GetStaticPaths } from "astro";
+// import { Image } from "astro:assets";
+import { type CollectionEntry, getCollection } from "astro:content";
+// import BaseLayout from "../layouts/BaseLayout.astro";
+
+export const getStaticPaths = (async () => {
+  const pages = await getCollection("page");
+
+  return pages.map((page) => {
+    return {
+      params: {
+        page,
+      },
+      props: {
+        page
+      }
+    };
+  });
+}) satisfies GetStaticPaths;
+
+type Props = CollectionEntry<"page">;
+
+---
+
+<!-- <BaseLayout title={}>
+</BaseLayout> -->

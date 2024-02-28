@@ -22,6 +22,3 @@ yarn-error.log*
 
 # Wrangler files
 .wrangler/
-
-# Yarn
-.yarn/

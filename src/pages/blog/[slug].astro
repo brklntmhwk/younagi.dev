@@ -1,10 +1,10 @@
 ---
-import type { InferGetStaticPropsType, GetStaticPaths } from "astro";
-import { getCollection } from "astro:content";
-import BlogLayout from "@/layouts/BlogLayout.astro";
+import type { InferGetStaticPropsType, GetStaticPaths } from 'astro';
+import { getCollection } from 'astro:content';
+import BlogLayout from '@/layouts/BlogLayout.astro';
 
 export const getStaticPaths = (async () => {
-  const entries = await getCollection("blog");
+  const entries = await getCollection('blog');
 
   return entries.map((entry) => ({
     params: { slug: entry.slug },
@@ -14,7 +14,7 @@ export const getStaticPaths = (async () => {
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
-const {entry } = Astro.props;
+const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
 

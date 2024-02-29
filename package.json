@@ -14,7 +14,8 @@
     "wrangler": "npx wrangler",
     "pages:dev": "wrangler pages dev --compatibility-date=2024-01-17 -- astro dev",
     "pages:deploy": "astro build && wrangler pages deploy ./dist",
-    "format": "prettier --write './src/**/*.{js,ts,json,astro}'"
+    "format": "prettier --write './src/**/*.{js,ts,json,astro}'",
+    "prepare": "husky"
   },
   "dependencies": {
     "@astrojs/check": "^0.5.5",
@@ -33,8 +34,14 @@
     "typescript": "^5.3.3"
   },
   "devDependencies": {
+    "@types/eslint": "^8",
     "@types/katex": "^0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-astro": "^0.31.4",
+    "husky": "^9.0.11",
     "katex": "^0.16.9",
+    "lint-staged": "^15.2.2",
     "pagefind": "^1.0.4",
     "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.13.0",

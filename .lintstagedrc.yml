@@ -1,0 +1,7 @@
+'*.{js,jsx,ts,tsx}':
+  - eslint --fix
+  - prettier --write
+  - git add
+'*.{json,css,md,mdx}':
+  - prettier --write
+  - git add

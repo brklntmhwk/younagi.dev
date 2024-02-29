@@ -9,11 +9,11 @@
 </select>
 
 <script>
-  const select = document.getElementById("themeSwitcher") as HTMLSelectElement;
-  const theme = localStorage.getItem("theme");
-  const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
+  const select = document.getElementById('themeSwitcher') as HTMLSelectElement;
+  const theme = localStorage.getItem('theme');
+  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+    ? 'dark'
+    : 'light';
 
   if (theme !== null) {
     select.value = theme;
@@ -22,15 +22,15 @@
   }
 
   function updateTheme(value: string) {
-    const theme = value === "system" ? systemTheme : value;
-    document.documentElement.classList.remove("light", "dark");
+    const theme = value === 'system' ? systemTheme : value;
+    document.documentElement.classList.remove('light', 'dark');
     document.documentElement.classList.add(theme);
-    localStorage.setItem("theme", value);
+    localStorage.setItem('theme', value);
   }
 
   updateTheme(select.value);
 
-  select.addEventListener("change", (event: Event) => {
+  select.addEventListener('change', (event: Event) => {
     const select = event.target as HTMLSelectElement;
     updateTheme(select.value);
   });

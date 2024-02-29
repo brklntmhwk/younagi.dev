@@ -17,13 +17,16 @@
     "astrojs",
     "datetime",
     "fontsource",
+    "iconify",
     "katex",
     "pagefind",
     "pixelarticons",
     "purgecss",
     "rehype",
+    "roboto",
     "shiki",
     "shikiji",
+    "tailwindcss",
     "tsconfigs"
   ]
 }

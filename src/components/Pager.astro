@@ -5,20 +5,69 @@ import type { CollectionEntry } from "astro:content";
 type Props = {
   page?: Page<CollectionEntry<"blog">>;
 }
-
 const { page } = Astro.props;
+
+// const pageNumArr = [...Array(page?.lastPage)].map((_, i) => i + 1);
+
+const paginator = (curPageNum: number, totalPageNum: number, width: number = 2) => {
+  const prevEnd = curPageNum - width
+  const nextEnd = curPageNum + width
+  const ranges = []
+  for (let i = 1; i <= totalPageNum; i += 1) {
+    if (curPageNum === 1) {
+      if (i <= nextEnd) ranges.push(i)
+    } else if (curPageNum === totalPageNum) {
+      if (i >= prevEnd) ranges.push(i)
+    } else {
+      if (i >= prevEnd && i <= nextEnd)  ranges.push(i)
+    }
+  }
+
+  return ranges;
+}
 ---
 
-<nav>
+{
+  page !== undefined ? (
+    <nav class="flex justify-evenly">
   {
-    page?.url.prev && (
-      <a href={page?.url.prev}>
-        <span>{"<<"}</span></a>
+    page.url.prev ? (
+      <div>
+        <a href={page.url.prev}>
+          <span>{"<"}</span>
+        </a>
+      </div>
+    ): (
+      <span>{"<"}</span>
     )
   }
   {
-    page?.url.next && (
-      <a href={page?.url.next}><span>{">>"}</span></a>
+    paginator(page.currentPage, page.lastPage).map((pg) => {
+      if (pg === 1) {
+        return (
+          <li>
+            <a href="/blog">{pg}</a>
+          </li>
+        )
+      } else {
+        return (
+          <li><a href={`/blog/${pg}`}>{pg}</a></li>
+        )
+      }
+    })
+  }
+  <p>{page.currentPage}/{page.lastPage}</p>
+  {
+    page.url.next ? (
+    <div>
+      <a href={page.url.next}><span class="">{">"}</span></a>
+      </div>
+    ): (
+      <span class="">{">"}</span>
     )
   }
-</nav>
+  </nav>
+  ): (
+    <p>No Pagination found..</p>
+  )
+}

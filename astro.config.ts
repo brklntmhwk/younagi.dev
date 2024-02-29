@@ -1,21 +1,21 @@
-import { defineConfig } from "astro/config";
-import mdx from "@astrojs/mdx";
-import sitemap from "@astrojs/sitemap";
-import purgecss from "astro-purgecss";
-import cloudflare from "@astrojs/cloudflare";
-import remarkGfm from "remark-gfm";
-import remarkMath from "remark-math";
-import rehypeKatex from "rehype-katex";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import rehypeSlug from "rehype-slug";
+import { defineConfig } from 'astro/config';
+import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
+import purgecss from 'astro-purgecss';
+import cloudflare from '@astrojs/cloudflare';
+import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypeSlug from 'rehype-slug';
 // import rehypePrettyCode from "rehype-pretty-code";
-import rehypeCodeTitles from "rehype-code-titles";
-import tailwind from "@astrojs/tailwind";
-import icon from "astro-icon";
+import rehypeCodeTitles from 'rehype-code-titles';
+import tailwind from '@astrojs/tailwind';
+import icon from 'astro-icon';
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://my-astro-blog-4xp.pages.dev/",
+  site: 'https://my-astro-blog-4xp.pages.dev/',
   integrations: [
     mdx(),
     sitemap(),
@@ -25,14 +25,10 @@ export default defineConfig({
     }),
     tailwind(),
     icon({
-      include: {
-        mdi: ["*"],
-        ri: ["unsplash-fill"],
-        pixelarticons: ["sun", "moon"],
-      },
+      iconDir: 'src/components/Svg/icons',
     }),
   ],
-  output: "hybrid",
+  output: 'hybrid',
   adapter: cloudflare(),
   markdown: {
     syntaxHighlight: false,
@@ -41,7 +37,7 @@ export default defineConfig({
       [
         rehypeAutolinkHeadings,
         {
-          behavior: "append",
+          behavior: 'append',
         },
       ],
       rehypeKatex,

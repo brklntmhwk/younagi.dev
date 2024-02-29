@@ -1,7 +1,7 @@
 ---
 import HeaderLink from './HeaderLink.astro';
 import { getEntry } from 'astro:content';
-// import SvgIcon from "@/components/SvgIcon.astro";
+import SvgIcon from "@/components/Svg/index.astro";
 import ThemeSwitcher from '@/components/ThemeSwitcher.astro';
 
 const meta = await getEntry('meta', 'site-data');
@@ -16,6 +16,7 @@ const meta = await getEntry('meta', 'site-data');
       <HeaderLink href="/about">About</HeaderLink>
     </div>
     <div class="social-links">
+      <SvgIcon iconName='sun' />
       <a href="https://m.webtoo.ls/@astro" target="_blank">
         <span class="sr-only">Follow Astro on Mastodon</span>
         <svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32"

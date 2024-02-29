@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/package.json",
   "name": "my-astro-blog",
   "type": "module",
   "version": "0.0.1",

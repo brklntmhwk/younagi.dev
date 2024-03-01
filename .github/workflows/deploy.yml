@@ -19,19 +19,20 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: 'package.json'
+          cache: yarn
       - name: Set up yarn with corepack
         run: |
           corepack enable yarn
           yarn --version
-      - name: Get yarn store path
-        id: yarn_cache
-        run: echo "STORE_PATH=$(yarn cache dir)" >> $GITHUB_OUTPUT
-      - name: Set up yarn store
-        uses: actions/cache@v4
-        with:
-          path: ${{ steps.yarn_cache.outputs.STORE_PATH }}
-          key: ${{ runner.os }}-astro-${{ hashFiles('**/yarn-lock.yaml') }}
-          restore-keys: ${{ runner.os }}-astro-
+      # - name: Get yarn store path
+      #   id: yarn_cache
+      #   run: echo "STORE_PATH=$(yarn cache dir)" >> $GITHUB_OUTPUT
+      # - name: Set up yarn store
+      #   uses: actions/cache@v4
+      #   with:
+      #     path: ${{ steps.yarn_cache.outputs.STORE_PATH }}
+      #     key: ${{ runner.os }}-astro-${{ hashFiles('**/yarn-lock.yaml') }}
+      #     restore-keys: ${{ runner.os }}-astro-
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Build project

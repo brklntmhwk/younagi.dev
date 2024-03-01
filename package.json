@@ -15,7 +15,7 @@
     "wrangler": "npx wrangler",
     "pages:dev": "wrangler pages dev --compatibility-date=2024-01-17 -- astro dev",
     "pages:deploy": "astro build && wrangler pages deploy ./dist",
-    "format": "prettier --write './src/**/*.{js,ts,json,astro,svg}'",
+    "format": "prettier --write './src/**/*.{js,ts,json,astro}'",
     "prepare": "husky"
   },
   "dependencies": {

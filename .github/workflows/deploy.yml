@@ -23,9 +23,10 @@ jobs:
         run: |
           corepack enable yarn
           yarn --version
-      - name: Get yarn cache dir
+      - name: Get yarn store path
         id: yarn_cache
         run: echo "STORE_PATH=$(yarn store path)" >> $GITHUB_OUTPUT
+      - name: Set up yarn store
         uses: actions/cache@v4
         with:
           path: ${{ steps.yarn_cache.outputs.STORE_PATH }}

@@ -23,7 +23,7 @@ jobs:
       - name: Set up yarn with corepack
         run: |
           corepack enable yarn
-          corepack prepare yarn@4.1.0 --activate
+          corepack prepare yarn@1.22.11 --activate
           yarn --version
       # - name: Get yarn store path
       #   id: yarn_cache

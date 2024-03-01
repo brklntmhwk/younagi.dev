@@ -1,7 +1,13 @@
-<div class="container">
-  <h1 class="neonText pulsate">404</h1>
-  <h2 class="neonText pulsate">Page Not Found</h2>
-</div>
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+---
+
+<BaseLayout title="404">
+  <main>
+    <h1 class="neonText pulsate">404</h1>
+    <h2 class="neonText pulsate">Page Not Found</h2>
+  </main>
+</BaseLayout>
 
 <style>
   .neonText {
@@ -33,10 +39,6 @@
 
   h2 {
     font-size: 1.8rem;
-  }
-
-  .container {
-    margin-top: 20vh;
   }
 
   @keyframes pulsate {

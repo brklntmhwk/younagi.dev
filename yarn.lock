@@ -4389,6 +4389,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"he@npm:1.2.0":
+  version: 1.2.0
+  resolution: "he@npm:1.2.0"
+  bin:
+    he: bin/he
+  checksum: 10c0/a27d478befe3c8192f006cdd0639a66798979dfa6e2125c6ac582a19a5ebfec62ad83e8382e6036170d873f46e4536a7e795bf8b95bf7c247f4cc0825ccc8c17
+  languageName: node
+  linkType: hard
+
 "html-escaper@npm:^3.0.3":
   version: 3.0.3
   resolution: "html-escaper@npm:3.0.3"
@@ -6215,6 +6224,7 @@ __metadata:
     husky: "npm:^9.0.11"
     katex: "npm:^0.16.9"
     lint-staged: "npm:^15.2.2"
+    node-html-parser: "npm:^6.1.12"
     pagefind: "npm:^1.0.4"
     prettier: "npm:^3.2.5"
     prettier-plugin-astro: "npm:^0.13.0"
@@ -6324,6 +6334,16 @@ __metadata:
   bin:
     node-gyp: bin/node-gyp.js
   checksum: 10c0/abddfff7d873312e4ed4a5fb75ce893a5c4fb69e7fcb1dfa71c28a6b92a7f1ef6b62790dffb39181b5a82728ba8f2f32d229cf8cbe66769fe02cea7db4a555aa
+  languageName: node
+  linkType: hard
+
+"node-html-parser@npm:^6.1.12":
+  version: 6.1.12
+  resolution: "node-html-parser@npm:6.1.12"
+  dependencies:
+    css-select: "npm:^5.1.0"
+    he: "npm:1.2.0"
+  checksum: 10c0/dfd75756b55642b37f8df91e79c35f38f2e6a48b01a309998e4b017c5cf3c98ab3c1edc54b707dfa32d36aff9b21076cd87bb1a93f97da4d0f0fe5e4e599daa5
   languageName: node
   linkType: hard
 

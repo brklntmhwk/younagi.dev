@@ -1,12 +1,12 @@
-import rss from '@astrojs/rss';
-import type { APIContext } from 'astro';
-import { getCollection } from 'astro:content';
-import { getEntry } from 'astro:content';
+import rss from '@astrojs/rss'
+import type { APIContext } from 'astro'
+import { getCollection } from 'astro:content'
+import { getEntry } from 'astro:content'
 
-const meta = await getEntry('meta', 'site-data');
+const meta = await getEntry('meta', 'site-data')
 
 export async function GET(context: APIContext) {
-  const posts = await getCollection('blog');
+  const posts = await getCollection('blog')
 
   return await rss({
     title: meta.data.site.title,
@@ -17,5 +17,5 @@ export async function GET(context: APIContext) {
       pubDate: post.data.publishedAt,
       link: `/blog/${post.slug}/`,
     })),
-  });
+  })
 }

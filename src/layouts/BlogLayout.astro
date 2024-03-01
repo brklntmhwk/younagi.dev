@@ -1,11 +1,11 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import FormattedDate from '../components/FormattedDate.astro';
+import type { CollectionEntry } from 'astro:content'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import FormattedDate from '../components/FormattedDate.astro'
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<'blog'>['data']
 
-const { title, description, publishedAt, modifiedAt, heroImage } = Astro.props;
+const { title, description, publishedAt, modifiedAt, heroImage } = Astro.props
 ---
 
 <BaseLayout title={title} description={description ?? ''}>

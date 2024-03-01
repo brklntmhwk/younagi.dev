@@ -1,32 +1,29 @@
 ---
-import type { InferGetStaticPropsType, GetStaticPaths } from 'astro';
-import { getCollection, getEntry } from 'astro:content';
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import Pager from '@/components/Pager.astro';
-import { LIMIT_PER_PAGE } from '@/lib/consts';
-// import BlogLayout from '../../layouts/BlogLayout.astro';
-
-// https://github.com/manuelernestog/astrofy/blob/main/src/pages/blog/%5B...page%5D.astro
+import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
+import { getCollection, getEntry } from 'astro:content'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Pager from '@/components/Pager.astro'
+import { LIMIT_PER_PAGE } from '@/lib/consts'
 
 export const getStaticPaths = (async ({ paginate }) => {
   const entries = (await getCollection('blog')).sort(
     (a, b) => a.data.publishedAt.valueOf() - b.data.publishedAt.valueOf()
-  );
+  )
 
-  return paginate(entries, { pageSize: LIMIT_PER_PAGE });
-}) satisfies GetStaticPaths;
+  return paginate(entries, { pageSize: LIMIT_PER_PAGE })
+}) satisfies GetStaticPaths
 
-type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
-const meta = await getEntry('meta', 'site-data');
-const { page } = Astro.props;
+const meta = await getEntry('meta', 'site-data')
+const { page } = Astro.props
 ---
 
 <BaseLayout
   title={meta.data.blog.title}
   description={meta.data.blog.description}
 >
-  <div>
+  <main>
     {
       page.data.length === 0 ? (
         <div>
@@ -36,16 +33,14 @@ const { page } = Astro.props;
         <>
           <ul>
             {page.data.map((entry) => (
-              <>
-                <div>
-                  <a href={`blog/${entry.slug}`}>{entry.data.title}</a>
-                </div>
-              </>
+              <li>
+                <a href={`blog/${entry.slug}`}>{entry.data.title}</a>
+              </li>
             ))}
           </ul>
           <Pager page={page} />
         </>
       )
     }
-  </div>
+  </main>
 </BaseLayout>

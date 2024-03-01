@@ -5,6 +5,7 @@ extends:
   - plugin:astro/recommended
   - plugin:@typescript-eslint/recommended
   - prettier
+ignorePatterns: ['*.d.ts']
 overrides:
   - files:
       - '*.astro'

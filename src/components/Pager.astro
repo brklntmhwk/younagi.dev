@@ -31,7 +31,7 @@ const paginator = (
 ---
 
 {
-  page !== undefined ? (
+  page !== undefined && (
     <nav>
       {page.url.prev ? (
         <div>
@@ -70,8 +70,6 @@ const paginator = (
         <Svg iconName="right-arrow" width={20} height={20} />
       )}
     </nav>
-  ) : (
-    <></>
   )
 }
 

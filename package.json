@@ -12,9 +12,6 @@
     "preview": "astro preview",
     "sync": "astro sync",
     "astro": "npx astro",
-    "wrangler": "npx wrangler",
-    "pages:dev": "wrangler pages dev --compatibility-date=2024-01-17 -- astro dev",
-    "pages:deploy": "astro build && wrangler pages deploy ./dist",
     "format": "prettier --write './src/**/*.{js,ts,json,astro}'",
     "prepare": "husky"
   },
@@ -54,8 +51,7 @@
     "rehype-pretty-code": "^0.13.0",
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.0",
-    "remark-math": "^6.0.0",
-    "wrangler": "^3.29.0"
+    "remark-math": "^6.0.0"
   },
   "packageManager": "yarn@1.22.15",
   "engines": {

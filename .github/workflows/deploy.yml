@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  YARN_HOME: /home/runner/.local/share/yarn
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -20,6 +23,8 @@ jobs:
         with:
           node-version: 20
           cache: yarn
+      - name: Configure Yarn path
+        run: echo "${{ env.YARN_HOME }}" >> $GITHUB_PATH
       - name: Set up yarn with corepack
         run: |
           corepack enable

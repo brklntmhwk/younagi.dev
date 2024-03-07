@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import purgecss from 'astro-purgecss'
-import cloudflare from '@astrojs/cloudflare'
+// import cloudflare from '@astrojs/cloudflare'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
@@ -24,8 +24,8 @@ export default defineConfig({
     }),
     tailwind(),
   ],
-  output: 'hybrid',
-  adapter: cloudflare(),
+  // output: 'hybrid',
+  // adapter: cloudflare(),
   markdown: {
     syntaxHighlight: false,
     remarkPlugins: [remarkMath, remarkGfm],

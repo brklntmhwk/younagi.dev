@@ -24,4 +24,10 @@ yarn-error.log*
 # .wrangler/
 
 # Yarn
-.yarn/
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

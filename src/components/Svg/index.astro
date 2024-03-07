@@ -9,7 +9,8 @@ type Props = {
 const svgGetter = (iconName: string) => {
   const filepath = `./icons/${iconName}.svg`
   const files = import.meta.glob<string>('./icons/**/*.svg', {
-    as: 'raw',
+    query: '?raw',
+    import: 'default',
     eager: true,
   })
 

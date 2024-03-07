@@ -40,7 +40,7 @@ jobs:
       #     key: ${{ runner.os }}-astro-${{ hashFiles('**/yarn-lock.yaml') }}
       #     restore-keys: ${{ runner.os }}-astro-
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable --immutable-cache
       - name: Build project
         run: yarn run build
       - name: Publish to Cloudflare Pages

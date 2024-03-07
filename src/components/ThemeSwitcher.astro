@@ -2,14 +2,14 @@
 // import SvgIcon from "@/components/SvgIcon.astro";
 ---
 
-<select name="themeSwitcher" id="themeSwitcher">
+<select name="theme-switcher" id="theme-switcher">
   <option value="system">System</option>
   <option value="dark">Dark</option>
   <option value="light">Light</option>
 </select>
 
 <script>
-  const select = document.getElementById('themeSwitcher') as HTMLSelectElement
+  const select = document.getElementById('theme-switcher') as HTMLSelectElement
   const theme = localStorage.getItem('theme')
   const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
     ? 'dark'

@@ -29,7 +29,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@astrojs/check@npm:^0.5.5":
+"@astrojs/check@npm:0.5.6":
   version: 0.5.6
   resolution: "@astrojs/check@npm:0.5.6"
   dependencies:
@@ -46,7 +46,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@astrojs/cloudflare@npm:^9.0.1":
+"@astrojs/cloudflare@npm:9.1.0":
   version: 9.1.0
   resolution: "@astrojs/cloudflare@npm:9.1.0"
   dependencies:
@@ -141,7 +141,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@astrojs/mdx@npm:^2.1.1":
+"@astrojs/mdx@npm:2.1.1":
   version: 2.1.1
   resolution: "@astrojs/mdx@npm:2.1.1"
   dependencies:
@@ -175,7 +175,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@astrojs/rss@npm:^4.0.5":
+"@astrojs/rss@npm:4.0.5":
   version: 4.0.5
   resolution: "@astrojs/rss@npm:4.0.5"
   dependencies:
@@ -185,7 +185,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@astrojs/sitemap@npm:^3.1.1":
+"@astrojs/sitemap@npm:3.1.1":
   version: 3.1.1
   resolution: "@astrojs/sitemap@npm:3.1.1"
   dependencies:
@@ -195,7 +195,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@astrojs/tailwind@npm:^5.1.0":
+"@astrojs/tailwind@npm:5.1.0":
   version: 5.1.0
   resolution: "@astrojs/tailwind@npm:5.1.0"
   dependencies:
@@ -775,7 +775,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fontsource-variable/roboto-condensed@npm:^5.0.1":
+"@fontsource-variable/roboto-condensed@npm:5.0.2":
   version: 5.0.2
   resolution: "@fontsource-variable/roboto-condensed@npm:5.0.2"
   checksum: 10c0/569cdc24d1bf631f3362aa968cb5de4a1e68b0a4bc31e1fbd8964db1f6e4645f98a59ee9d2102876380bc6335f0d9a947b8b627ebb84f745267987cf86d9ec0f
@@ -814,7 +814,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@iconify-json/pixelarticons@npm:^1.1.10":
+"@iconify-json/pixelarticons@npm:1.1.10":
   version: 1.1.10
   resolution: "@iconify-json/pixelarticons@npm:1.1.10"
   dependencies:
@@ -1172,7 +1172,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:^8":
+"@types/eslint@npm:8.56.5":
   version: 8.56.5
   resolution: "@types/eslint@npm:8.56.5"
   dependencies:
@@ -1214,7 +1214,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/katex@npm:^0, @types/katex@npm:^0.16.0":
+"@types/katex@npm:0.16.7, @types/katex@npm:^0.16.0":
   version: 0.16.7
   resolution: "@types/katex@npm:0.16.7"
   checksum: 10c0/68dcb9f68a90513ec78ca0196a142e15c2a2c270b1520d752bafd47a99207115085a64087b50140359017d7e9c870b3c68e7e4d36668c9e348a9ef0c48919b5a
@@ -1299,7 +1299,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^7.1.0":
+"@typescript-eslint/eslint-plugin@npm:7.1.1":
   version: 7.1.1
   resolution: "@typescript-eslint/eslint-plugin@npm:7.1.1"
   dependencies:
@@ -1324,7 +1324,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^7.1.0":
+"@typescript-eslint/parser@npm:7.1.1":
   version: 7.1.1
   resolution: "@typescript-eslint/parser@npm:7.1.1"
   dependencies:
@@ -1785,7 +1785,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"astro-purgecss@npm:^4.1.0":
+"astro-purgecss@npm:4.1.0":
   version: 4.1.0
   resolution: "astro-purgecss@npm:4.1.0"
   peerDependencies:
@@ -1795,7 +1795,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"astro@npm:^4.4.2":
+"astro@npm:4.4.13":
   version: 4.4.13
   resolution: "astro@npm:4.4.13"
   dependencies:
@@ -2895,7 +2895,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-prettier@npm:^9.1.0":
+"eslint-config-prettier@npm:9.1.0":
   version: 9.1.0
   resolution: "eslint-config-prettier@npm:9.1.0"
   peerDependencies:
@@ -2906,7 +2906,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-astro@npm:^0.31.4":
+"eslint-plugin-astro@npm:0.31.4":
   version: 0.31.4
   resolution: "eslint-plugin-astro@npm:0.31.4"
   dependencies:
@@ -2940,7 +2940,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^8.57.0":
+"eslint@npm:8.57.0":
   version: 8.57.0
   resolution: "eslint@npm:8.57.0"
   dependencies:
@@ -3881,7 +3881,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"husky@npm:^9.0.11":
+"husky@npm:9.0.11":
   version: 9.0.11
   resolution: "husky@npm:9.0.11"
   bin:
@@ -4307,7 +4307,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"katex@npm:^0.16.0, katex@npm:^0.16.9":
+"katex@npm:0.16.9, katex@npm:^0.16.0":
   version: 0.16.9
   resolution: "katex@npm:0.16.9"
   dependencies:
@@ -4386,7 +4386,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lint-staged@npm:^15.2.2":
+"lint-staged@npm:15.2.2":
   version: 15.2.2
   resolution: "lint-staged@npm:15.2.2"
   dependencies:
@@ -5517,40 +5517,40 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "my-astro-blog@workspace:."
   dependencies:
-    "@astrojs/check": "npm:^0.5.5"
-    "@astrojs/cloudflare": "npm:^9.0.1"
-    "@astrojs/mdx": "npm:^2.1.1"
-    "@astrojs/rss": "npm:^4.0.5"
-    "@astrojs/sitemap": "npm:^3.1.1"
-    "@astrojs/tailwind": "npm:^5.1.0"
-    "@fontsource-variable/roboto-condensed": "npm:^5.0.1"
-    "@iconify-json/pixelarticons": "npm:^1.1.10"
-    "@types/eslint": "npm:^8"
-    "@types/katex": "npm:^0"
-    "@typescript-eslint/eslint-plugin": "npm:^7.1.0"
-    "@typescript-eslint/parser": "npm:^7.1.0"
-    astro: "npm:^4.4.2"
-    astro-purgecss: "npm:^4.1.0"
-    eslint: "npm:^8.57.0"
-    eslint-config-prettier: "npm:^9.1.0"
-    eslint-plugin-astro: "npm:^0.31.4"
-    husky: "npm:^9.0.11"
-    katex: "npm:^0.16.9"
-    lint-staged: "npm:^15.2.2"
-    node-html-parser: "npm:^6.1.12"
-    pagefind: "npm:^1.0.4"
-    prettier: "npm:^3.2.5"
-    prettier-plugin-astro: "npm:^0.13.0"
-    purgecss: "npm:^5.0.0"
-    rehype-autolink-headings: "npm:^7.1.0"
-    rehype-code-titles: "npm:^1.2.0"
-    rehype-katex: "npm:^7.0.0"
-    rehype-pretty-code: "npm:^0.13.0"
-    rehype-slug: "npm:^6.0.0"
-    remark-gfm: "npm:^4.0.0"
-    remark-math: "npm:^6.0.0"
-    tailwindcss: "npm:^3.4.1"
-    typescript: "npm:^5.3.3"
+    "@astrojs/check": "npm:0.5.6"
+    "@astrojs/cloudflare": "npm:9.1.0"
+    "@astrojs/mdx": "npm:2.1.1"
+    "@astrojs/rss": "npm:4.0.5"
+    "@astrojs/sitemap": "npm:3.1.1"
+    "@astrojs/tailwind": "npm:5.1.0"
+    "@fontsource-variable/roboto-condensed": "npm:5.0.2"
+    "@iconify-json/pixelarticons": "npm:1.1.10"
+    "@types/eslint": "npm:8.56.5"
+    "@types/katex": "npm:0.16.7"
+    "@typescript-eslint/eslint-plugin": "npm:7.1.1"
+    "@typescript-eslint/parser": "npm:7.1.1"
+    astro: "npm:4.4.13"
+    astro-purgecss: "npm:4.1.0"
+    eslint: "npm:8.57.0"
+    eslint-config-prettier: "npm:9.1.0"
+    eslint-plugin-astro: "npm:0.31.4"
+    husky: "npm:9.0.11"
+    katex: "npm:0.16.9"
+    lint-staged: "npm:15.2.2"
+    node-html-parser: "npm:6.1.12"
+    pagefind: "npm:1.0.4"
+    prettier: "npm:3.2.5"
+    prettier-plugin-astro: "npm:0.13.0"
+    purgecss: "npm:5.0.0"
+    rehype-autolink-headings: "npm:7.1.0"
+    rehype-code-titles: "npm:1.2.0"
+    rehype-katex: "npm:7.0.0"
+    rehype-pretty-code: "npm:0.13.0"
+    rehype-slug: "npm:6.0.0"
+    remark-gfm: "npm:4.0.0"
+    remark-math: "npm:6.0.0"
+    tailwindcss: "npm:3.4.1"
+    typescript: "npm:5.4.2"
   languageName: unknown
   linkType: soft
 
@@ -5642,7 +5642,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-html-parser@npm:^6.1.12":
+"node-html-parser@npm:6.1.12":
   version: 6.1.12
   resolution: "node-html-parser@npm:6.1.12"
   dependencies:
@@ -5870,7 +5870,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pagefind@npm:^1.0.4":
+"pagefind@npm:1.0.4":
   version: 1.0.4
   resolution: "pagefind@npm:1.0.4"
   dependencies:
@@ -6207,7 +6207,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-astro@npm:^0.13.0":
+"prettier-plugin-astro@npm:0.13.0":
   version: 0.13.0
   resolution: "prettier-plugin-astro@npm:0.13.0"
   dependencies:
@@ -6218,7 +6218,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^3.0.0, prettier@npm:^3.2.5":
+"prettier@npm:3.2.5, prettier@npm:^3.0.0":
   version: 3.2.5
   resolution: "prettier@npm:3.2.5"
   bin:
@@ -6292,7 +6292,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"purgecss@npm:^5.0.0":
+"purgecss@npm:5.0.0":
   version: 5.0.0
   resolution: "purgecss@npm:5.0.0"
   dependencies:
@@ -6363,7 +6363,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rehype-autolink-headings@npm:^7.1.0":
+"rehype-autolink-headings@npm:7.1.0":
   version: 7.1.0
   resolution: "rehype-autolink-headings@npm:7.1.0"
   dependencies:
@@ -6377,7 +6377,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rehype-code-titles@npm:^1.2.0":
+"rehype-code-titles@npm:1.2.0":
   version: 1.2.0
   resolution: "rehype-code-titles@npm:1.2.0"
   dependencies:
@@ -6387,7 +6387,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rehype-katex@npm:^7.0.0":
+"rehype-katex@npm:7.0.0":
   version: 7.0.0
   resolution: "rehype-katex@npm:7.0.0"
   dependencies:
@@ -6413,7 +6413,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rehype-pretty-code@npm:^0.13.0":
+"rehype-pretty-code@npm:0.13.0":
   version: 0.13.0
   resolution: "rehype-pretty-code@npm:0.13.0"
   dependencies:
@@ -6440,7 +6440,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rehype-slug@npm:^6.0.0":
+"rehype-slug@npm:6.0.0":
   version: 6.0.0
   resolution: "rehype-slug@npm:6.0.0"
   dependencies:
@@ -6476,7 +6476,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remark-gfm@npm:^4.0.0":
+"remark-gfm@npm:4.0.0, remark-gfm@npm:^4.0.0":
   version: 4.0.0
   resolution: "remark-gfm@npm:4.0.0"
   dependencies:
@@ -6490,7 +6490,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remark-math@npm:^6.0.0":
+"remark-math@npm:6.0.0":
   version: 6.0.0
   resolution: "remark-math@npm:6.0.0"
   dependencies:
@@ -7302,7 +7302,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:^3.4.1":
+"tailwindcss@npm:3.4.1":
   version: 3.4.1
   resolution: "tailwindcss@npm:3.4.1"
   dependencies:
@@ -7559,7 +7559,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.3.3":
+"typescript@npm:5.4.2":
   version: 5.4.2
   resolution: "typescript@npm:5.4.2"
   bin:
@@ -7569,7 +7569,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5.3.3#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A5.4.2#optional!builtin<compat/typescript>":
   version: 5.4.2
   resolution: "typescript@patch:typescript@npm%3A5.4.2#optional!builtin<compat/typescript>::version=5.4.2&hash=d69c25"
   bin:

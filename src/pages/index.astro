@@ -10,27 +10,37 @@ const meta = await getEntry('meta', 'site-data')
   description={meta.data.site.description}
 >
   <main>
-    <h1>🧑‍🚀 Hello, {meta.data.site.title}!</h1>
-    <div class="logo"><b>d<span>ri</span>bb<span>b</span>le</b></div>
+    <!-- <h1>🧑‍🚀 Hello, {meta.data.site.title}!</h1> -->
+    <div class="logo"><b>a<span>ge</span>nn<span>sa</span>ism</b></div>
   </main>
 </BaseLayout>
 
 <style>
+  @import url(//fonts.googleapis.com/css?family=Vibur);
+  html,
+  body {
+    height: 100%;
+  }
+  body {
+    background: linear-gradient(rgba(27, 29, 44, 0.7), rgba(27, 29, 44, 0.7)),
+      url('/brick-wall.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    backdrop-filter: grayscale(50%);
+    margin: 0;
+  }
   .logo {
     text-align: center;
-    width: 65%;
-    height: 250px;
+    font-size: 10rem;
+    /* width: 65%; */
+    /* height: 250px; */
     margin: auto;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
     user-select: none;
   }
 
   .logo b {
-    font: 500 10vh 'Vibur';
+    font: 500 13vh 'Vibur';
     color: #fee;
     text-shadow:
       0 -40px 100px,

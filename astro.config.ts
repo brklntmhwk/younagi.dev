@@ -10,7 +10,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeSlug from 'rehype-slug'
 // import rehypePrettyCode from "rehype-pretty-code";
 import rehypeCodeTitles from 'rehype-code-titles'
-import tailwind from '@astrojs/tailwind'
+// import tailwind from '@astrojs/tailwind'
 
 // https://astro.build/config
 export default defineConfig({
@@ -22,7 +22,7 @@ export default defineConfig({
       fontFace: true,
       keyframes: true,
     }),
-    tailwind(),
+    // tailwind(),
   ],
   // output: 'hybrid',
   // adapter: cloudflare(),

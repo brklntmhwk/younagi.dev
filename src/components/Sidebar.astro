@@ -1,0 +1,34 @@
+---
+import { getEntry } from 'astro:content'
+import HeaderLink from './HeaderLink.astro'
+
+const meta = await getEntry('meta', 'site-data')
+---
+
+<nav>
+  <h2><a href="/">{meta.data.site.title}</a></h2>
+  <div class="nav-links">
+    <HeaderLink href="/">Home</HeaderLink>
+    <HeaderLink href="/blog">Blog</HeaderLink>
+    <HeaderLink href="/about">About</HeaderLink>
+  </div>
+</nav>
+
+<style>
+  nav {
+    display: none;
+  }
+  .nav-links {
+    display: grid;
+    gap: 4px;
+  }
+  @media (min-width: 1024px) {
+    nav {
+      display: block;
+      padding: 8px 15px 5px 25px;
+      width: 120px;
+      border: 2px solid black;
+      box-sizing: border-box;
+    }
+  }
+</style>

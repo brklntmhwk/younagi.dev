@@ -22,8 +22,8 @@ const meta = await getEntry('meta', 'site-data')
     height: 100%;
   }
   body {
-    background: linear-gradient(rgba(27, 29, 44, 0.7), rgba(27, 29, 44, 0.7)),
-      url('/brick-wall.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(8, 10, 24, 0.7)),
+      url('/brick-wall2.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -32,7 +32,8 @@ const meta = await getEntry('meta', 'site-data')
   }
   .logo {
     text-align: center;
-    font-size: 10rem;
+    font-size: 5.2rem;
+    /* font-family: 'TiltNeon'; */
     /* width: 65%; */
     /* height: 250px; */
     margin: auto;
@@ -48,7 +49,16 @@ const meta = await getEntry('meta', 'site-data')
       0 0 1em #ff4444,
       0 0 0.5em #ff4444,
       0 0 0.1em #ff4444,
-      0 10px 3px #000;
+      0 15px 3px #000;
+    /* 0 0 7px #fee,
+      0 0 10px #fee,
+      0 0 21px #fee,
+      0 0 42px #ff4444,
+      0 0 82px #ff4444,
+      0 0 92px #ff4444,
+      0 0 102px #ff4444,
+      0 0 151px #ff4444; */
+    animation: pulsate 0.11s ease-in-out infinite alternate;
   }
   .logo b span {
     animation: blink linear infinite 2s;
@@ -86,6 +96,26 @@ const meta = await getEntry('meta', 'site-data')
     92.5% {
       color: inherit;
       text-shadow: inherit;
+    }
+  }
+  @keyframes pulsate {
+    100% {
+      text-shadow:
+        0 -41.5px 101px,
+        0 0 2px,
+        0 0 0.9em #ff4444,
+        0 0 0.45em #ff4444,
+        0 0 0.1em #ff4444,
+        0 14.5px 2.5px #000;
+    }
+    0% {
+      text-shadow:
+        0 -41.5px 101px,
+        0 0 1px,
+        0 0 0.95em #ff4444,
+        0 0 0.4em #ff4444,
+        0 0 0.1em #ff4444,
+        0 13.5px 1.5px #000;
     }
   }
 </style>

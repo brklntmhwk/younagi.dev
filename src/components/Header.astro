@@ -2,7 +2,7 @@
 import HeaderLink from './HeaderLink.astro'
 import { getEntry } from 'astro:content'
 import Svg from '@/components/Svg/index.astro'
-import ThemeSwitcher from '@/components/ThemeSwitcher.astro'
+// import ThemeSwitcher from '@/components/ThemeSwitcher.astro'
 
 const meta = await getEntry('meta', 'site-data')
 ---
@@ -16,7 +16,7 @@ const meta = await getEntry('meta', 'site-data')
       <HeaderLink href="/about">About</HeaderLink>
     </div>
     <div class="social-links">
-      <a href=""><Svg iconName="moon" width={30} height={30} /></a>
+      <!-- <a href=""><Svg iconName="moon" width={30} height={30} /></a> -->
       <a href="https://m.webtoo.ls/@astro" target="_blank">
         <span class="sr-only">Follow Astro on Mastodon</span>
         <svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32"
@@ -39,10 +39,11 @@ const meta = await getEntry('meta', 'site-data')
         <span class="sr-only">Go to Astro's GitHub repo</span>
         <Svg iconName="github" />
       </a>
-      <ThemeSwitcher />
+      <!-- <ThemeSwitcher /> -->
     </div>
   </nav>
 </header>
+
 <style>
   header {
     margin: 0;
@@ -80,6 +81,11 @@ const meta = await getEntry('meta', 'site-data')
   }
   @media (max-width: 720px) {
     .social-links {
+      display: none;
+    }
+  }
+  @media (min-width: 1024px) {
+    header {
       display: none;
     }
   }

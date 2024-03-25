@@ -135,11 +135,20 @@ hr {
     padding: 1em;
   }
 }
-.content-wrapper {
-  display: flex;
-  flex-direction: row;
+.base-wrapper {
+  display: grid;
 }
-
+/* @media (min-width: 640px) {
+  .base-wrapper {
+    display: grid;
+  }
+} */
+@media (min-width: 1024px) {
+  .base-wrapper {
+    display: flex;
+    flex-direction: row;
+  }
+}
 .sr-only {
   border: 0;
   padding: 0;

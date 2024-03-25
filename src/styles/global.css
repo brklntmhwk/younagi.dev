@@ -44,8 +44,10 @@ body {
   line-height: 1.7;
 }
 main {
+  /* width: 100%; */
   width: 720px;
-  max-width: calc(100% - 2em);
+  max-width: calc(100% - 18rem);
+  /* max-width: calc(100% - 2em); */
   margin: auto;
   padding: 3em 1em;
 }
@@ -147,6 +149,9 @@ hr {
   .base-wrapper {
     display: flex;
     flex-direction: row;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
   }
 }
 .sr-only {

@@ -65,11 +65,12 @@ const meta = await getEntry('meta', 'site-data')
   }
   @media (min-width: 1024px) {
     nav {
-      display: grid;
-      gap: 10px;
-      /* position: sticky; */
+      display: block;
+      /* gap: 10px; */
+      position: sticky;
+      top: 0;
       padding: 8px 15px 5px 25px;
-      width: 16rem;
+      width: 18rem;
       border: 2px solid black;
       box-sizing: border-box;
     }

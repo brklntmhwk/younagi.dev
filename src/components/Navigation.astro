@@ -34,8 +34,11 @@ const meta = await getEntry('meta', 'site-data')
     </a>
     <a href="https://github.com/brklntmhwk" target="_blank">
       <span class="sr-only">Go to the GitHub repo</span>
-      <Svg iconName="github" />
+      <Svg iconName="github" width={32} height={32} />
     </a>
+  </div>
+  <div class="mobile-menu">
+    <Svg iconName="hamburger" width={32} height={32} />
   </div>
 </nav>
 
@@ -56,12 +59,20 @@ const meta = await getEntry('meta', 'site-data')
     text-decoration: none;
     border-bottom-color: var(--accent);
   }
-  .social-links {
+  .social-links,
+  .nav-links {
     display: none;
   }
+  .mobile-menu {
+    display: block;
+  }
   @media (min-width: 768px) {
-    .social-links {
+    .social-links,
+    .nav-links {
       display: flex;
+    }
+    .mobile-menu {
+      display: none;
     }
   }
   @media (min-width: 1024px) {

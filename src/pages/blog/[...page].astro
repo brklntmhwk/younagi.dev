@@ -34,7 +34,7 @@ const { page } = Astro.props
           <ul>
             {page.data.map((entry) => (
               <li>
-                <a href={`blog/${entry.slug}`}>{entry.data.title}</a>
+                <a href={`/blog/${entry.slug}`}>{entry.data.title}</a>
               </li>
             ))}
           </ul>

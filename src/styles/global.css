@@ -44,11 +44,12 @@ body {
   line-height: 1.7;
 }
 main {
-  /* width: 100%; */
-  width: 720px;
-  max-width: calc(100% - 18rem);
+  width: 100%;
+  /* width: 720px; */
+  /* max-width: calc(100% - 18rem); */
+  grid-area: main;
   /* max-width: calc(100% - 2em); */
-  margin: auto;
+  /* margin: auto; */
   padding: 3em 1em;
 }
 h1,
@@ -147,11 +148,18 @@ hr {
 } */
 @media (min-width: 1024px) {
   .base-wrapper {
-    display: flex;
-    flex-direction: row;
-    margin: 0 auto;
     width: 100%;
-    max-width: 1200px;
+    display: grid;
+    grid-template-columns: 20rem 1fr;
+    grid-template-rows: 2fr 1fr;
+    grid-auto-rows: minmax(100px, auto);
+    grid-template-areas:
+      'navigation main'
+      'footer footer';
+    /* display: flex;
+    flex-direction: row; */
+    /* margin: 0 auto; */
+    /* max-width: 1024px; */
   }
 }
 .sr-only {

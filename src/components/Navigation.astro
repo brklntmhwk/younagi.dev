@@ -38,7 +38,7 @@ const meta = await getEntry('meta', 'site-data')
     </a>
   </div>
   <div class="mobile-menu">
-    <Svg iconName="hamburger" width={32} height={32} />
+    <button><Svg iconName="hamburger" width={32} height={32} /></button>
   </div>
 </nav>
 
@@ -48,11 +48,12 @@ const meta = await getEntry('meta', 'site-data')
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0 8px;
   }
   nav a {
-    padding: 1em 0.5em;
+    /* padding: 1em 0.5em; */
     color: var(--black);
-    border-bottom: 4px solid transparent;
+    border-bottom: 2px solid transparent;
     text-decoration: none;
   }
   nav a.active {
@@ -66,10 +67,19 @@ const meta = await getEntry('meta', 'site-data')
   .mobile-menu {
     display: block;
   }
+  .mobile-menu button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
   @media (min-width: 768px) {
+    nav {
+      padding: 0 10px;
+    }
     .social-links,
     .nav-links {
       display: flex;
+      column-gap: 15px;
     }
     .mobile-menu {
       display: none;
@@ -77,17 +87,36 @@ const meta = await getEntry('meta', 'site-data')
   }
   @media (min-width: 1024px) {
     nav {
-      display: block;
+      display: grid;
+      grid-template-rows: 1fr 3fr 1fr;
+      grid-template-areas:
+        'blog-title'
+        'nav-links'
+        'social-links';
+      justify-content: start;
+      align-items: start;
       position: sticky;
       top: 0;
-      padding: 8px 15px 5px 25px;
-      width: 20rem;
-      border: 2px solid black;
+      padding: 12px 15px 12px 25px;
+      width: 18rem;
+      height: 100vh;
+      border-right: 1px solid black;
       box-sizing: border-box;
+    }
+    nav h2 {
+      grid-area: blog-title;
     }
     .nav-links {
       display: grid;
-      gap: 4px;
+      grid-area: nav-links;
+      gap: 15px;
+    }
+    .social-links {
+      grid-area: social-links;
+      display: flex;
+      justify-content: space-evenly;
+      column-gap: 10px;
+      align-self: end;
     }
   }
 </style>

@@ -36,25 +36,29 @@ const paginator = (
       {page.url.prev ? (
         <div>
           <a href={page.url.prev}>
-            <Svg iconName="left-arrow" width={20} height={20} />
+            <Svg iconName="left-arrow" width={22} height={22} />
           </a>
         </div>
       ) : (
-        <Svg iconName="left-arrow" width={20} height={20} />
+        <Svg iconName="left-arrow" width={22} height={22} />
       )}
       {paginator(page.currentPage, page.lastPage).map((pg) => {
-        if (pg === 1) {
-          return (
-            <li>
-              <a href="/blog">{pg}</a>
-            </li>
-          )
+        if (pg === page.currentPage) {
+          return <li>{pg}</li>
         } else {
-          return (
-            <li>
-              <a href={`/blog/${pg}`}>{pg}</a>
-            </li>
-          )
+          if (pg === 1) {
+            return (
+              <li>
+                <a href="/blog">{pg}</a>
+              </li>
+            )
+          } else {
+            return (
+              <li>
+                <a href={`/blog/${pg}`}>{pg}</a>
+              </li>
+            )
+          }
         }
       })}
       <p>
@@ -63,11 +67,11 @@ const paginator = (
       {page.url.next ? (
         <div>
           <a href={page.url.next}>
-            <Svg iconName="right-arrow" width={20} height={20} />
+            <Svg iconName="right-arrow" width={22} height={22} />
           </a>
         </div>
       ) : (
-        <Svg iconName="right-arrow" width={20} height={20} />
+        <Svg iconName="right-arrow" width={22} height={22} />
       )}
     </nav>
   )
@@ -79,7 +83,11 @@ const paginator = (
     justify-content: space-evenly;
     align-items: center;
   }
-  li {
+  nav li {
     list-style-type: none;
+    font-size: 20px;
+  }
+  nav a {
+    text-decoration: none;
   }
 </style>

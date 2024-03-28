@@ -24,23 +24,71 @@ const { page } = Astro.props
   description={meta.data.blog.description}
 >
   <main>
-    {
-      page.data.length === 0 ? (
-        <div>
+    <section>
+      <h1>Blog</h1>
+      {
+        page.data.length === 0 ? (
           <p>Woops! No entry found..</p>
-        </div>
-      ) : (
-        <>
-          <ul>
-            {page.data.map((entry) => (
-              <li>
-                <a href={`/blog/${entry.slug}`}>{entry.data.title}</a>
-              </li>
-            ))}
-          </ul>
-          <Pager page={page} />
-        </>
-      )
-    }
+        ) : (
+          <>
+            <ul class="entry-list">
+              {page.data.map((entry) => (
+                <li>
+                  <article>
+                    <span class="date">
+                      <time datetime={entry.data.publishedAt.toISOString()}>
+                        {new Intl.DateTimeFormat('en-US', {
+                          year: 'numeric',
+                          month: 'short',
+                          day: 'numeric',
+                        }).format(entry.data.publishedAt)}
+                      </time>
+                    </span>
+                    <a href={`/blog/${entry.slug}`}>{entry.data.title}</a>
+                    <span>{entry.data.description}</span>
+                    <ul class="tag-list">
+                      {entry.data.tags?.map((tag) => (
+                        <li>
+                          <a href="/">#{tag}</a>
+                        </li>
+                      ))}
+                    </ul>
+                  </article>
+                </li>
+              ))}
+            </ul>
+          </>
+        )
+      }
+    </section>
+    <Pager page={page} />
   </main>
 </BaseLayout>
+<style>
+  main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  ul.entry-list {
+    display: grid;
+    row-gap: 15px;
+  }
+  ul.entry-list > li {
+    list-style: none;
+    border: 1px solid black;
+  }
+  ul.entry-list article {
+    display: grid;
+    row-gap: 5px;
+  }
+  ul.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 10px;
+    padding: 0;
+  }
+  ul.tag-list > li {
+    list-style: none;
+  }
+</style>

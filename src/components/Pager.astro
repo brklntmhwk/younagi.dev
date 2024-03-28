@@ -42,28 +42,27 @@ const paginator = (
       ) : (
         <Svg iconName="left-arrow" width={22} height={22} />
       )}
-      {paginator(page.currentPage, page.lastPage).map((pg) => {
-        if (pg === page.currentPage) {
-          return <li>{pg}</li>
-        } else {
-          if (pg === 1) {
-            return (
-              <li>
-                <a href="/blog">{pg}</a>
-              </li>
-            )
+      <section class="page-nums">
+        {paginator(page.currentPage, page.lastPage).map((pg) => {
+          if (pg === page.currentPage) {
+            return <li>{pg}</li>
           } else {
-            return (
-              <li>
-                <a href={`/blog/${pg}`}>{pg}</a>
-              </li>
-            )
+            if (pg === 1) {
+              return (
+                <li>
+                  <a href="/blog">{pg}</a>
+                </li>
+              )
+            } else {
+              return (
+                <li>
+                  <a href={`/blog/${pg}`}>{pg}</a>
+                </li>
+              )
+            }
           }
-        }
-      })}
-      <p>
-        {page.currentPage}/{page.lastPage}
-      </p>
+        })}
+      </section>
       {page.url.next ? (
         <div>
           <a href={page.url.next}>
@@ -80,8 +79,13 @@ const paginator = (
 <style>
   nav {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
+    padding: 0 10px;
+  }
+  section.page-nums {
+    display: flex;
+    column-gap: 1.5em;
   }
   nav li {
     list-style-type: none;

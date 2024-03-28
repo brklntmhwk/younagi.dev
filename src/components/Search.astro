@@ -1,0 +1,49 @@
+---
+import '@pagefind/default-ui/css/ui.css'
+import Svg from '@/components/Svg/index.astro'
+---
+
+<div id="search-modal" class="hidden">
+  <div id="search-wrapper">
+    <div id="search"></div>
+  </div>
+</div>
+<button id="search-icon-button">
+  <span class="sr-only">Search blog entries</span>
+  <Svg iconName="magnifier" width={32} height={32} />
+</button>
+<style>
+  #search-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 40;
+  }
+  #search-modal.hidden {
+    display: none;
+  }
+  #search-wrapper {
+    max-width: 30rem;
+    max-height: 100vh;
+    padding: 1rem;
+    border-radius: 0.25rem;
+  }
+  #search-icon-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+</style>
+<script>
+  import { PagefindUI } from '@pagefind/default-ui'
+
+  function initPagefind() {
+    new PagefindUI({
+      element: '#search',
+    })
+  }
+
+  document.addEventListener('DOMContentLoaded', initPagefind)
+</script>

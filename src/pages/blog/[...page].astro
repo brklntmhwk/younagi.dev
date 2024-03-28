@@ -4,6 +4,7 @@ import { getCollection, getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import Pager from '@/components/Pager.astro'
 import Svg from '@/components/Svg/index.astro'
+import Search from '@/components/Search.astro'
 import { LIMIT_PER_PAGE } from '@/lib/consts'
 
 export const getStaticPaths = (async ({ paginate }) => {
@@ -27,6 +28,7 @@ const { page } = Astro.props
   <main>
     <section>
       <h1>Blog</h1>
+      <Search />
       {
         page.data.length === 0 ? (
           <p>Woops! No entry found..</p>

@@ -8,7 +8,7 @@ import Hamburger from '@/components/Hamburger.astro'
 // const meta = await getEntry('meta', 'site-data')
 ---
 
-<nav>
+<nav class="nav-menu">
   <a class="blog-title" href="/"
     ><Svg iconName="site-logo" width={32} height={32} /></a
   >
@@ -35,7 +35,7 @@ import Hamburger from '@/components/Hamburger.astro'
 </nav>
 
 <style>
-  nav {
+  nav.nav-menu {
     background-color: rgba(255 255 255 0.4);
     backdrop-filter: opacity(0.2);
     backdrop-filter: blur(6px);
@@ -46,7 +46,7 @@ import Hamburger from '@/components/Hamburger.astro'
     z-index: 10;
     /* width: 100%; */
     height: 2.5rem;
-    margin: 1.5rem 1.05rem;
+    margin: 1.5rem 1.05rem; /* これの影響でハンバーガーのコンテンツ領域や検索モーダルの背景の両端が切れてるが、ナビのPADDING効かない分MARGINいじらないといけない現状 */
     box-sizing: border-box;
     /* padding: 1.5rem 1.05rem; */
     /* grid-area: navigation; */
@@ -54,13 +54,13 @@ import Hamburger from '@/components/Hamburger.astro'
     align-items: center;
     justify-content: space-between;
   }
-  nav a {
+  nav.nav-menu a {
     /* padding: 1em 0.5em; */
     color: var(--black);
     border-bottom: 2px solid transparent;
     text-decoration: none;
   }
-  nav a.active {
+  nav.nav-menu a.active {
     text-decoration: none;
     border-bottom-color: var(--accent);
   }
@@ -73,13 +73,8 @@ import Hamburger from '@/components/Hamburger.astro'
     align-items: center;
     column-gap: 1rem;
   }
-  .mobile-menu button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-  }
   @media (min-width: 768px) {
-    nav {
+    nav.nav-menu {
       height: 2.5rem;
       box-sizing: border-box;
       padding: 1rem 1.25rem;
@@ -94,7 +89,7 @@ import Hamburger from '@/components/Hamburger.astro'
     }
   }
   @media (min-width: 1024px) {
-    nav {
+    nav.nav-menu {
       display: grid;
       grid-template-rows: 1fr 6fr 1fr;
       grid-template-columns: 1fr;

@@ -9,7 +9,9 @@ import Hamburger from '@/components/Hamburger.astro'
 ---
 
 <nav>
-  <a href="/"><Svg iconName="site-logo" width={32} height={32} /></a>
+  <a class="blog-title" href="/"
+    ><Svg iconName="site-logo" width={32} height={32} /></a
+  >
   <div class="nav-links">
     <HeaderLink href="/">Home</HeaderLink>
     <HeaderLink href="/blog">Blog</HeaderLink>
@@ -34,10 +36,14 @@ import Hamburger from '@/components/Hamburger.astro'
 
 <style>
   nav {
+    background-color: rgba(255 255 255 0.4);
+    backdrop-filter: opacity(0.2);
+    backdrop-filter: blur(6px);
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
+    z-index: 10;
     /* width: 100%; */
     height: 2.5rem;
     margin: 1.5rem 1.05rem;
@@ -75,12 +81,13 @@ import Hamburger from '@/components/Hamburger.astro'
   @media (min-width: 768px) {
     nav {
       height: 2.5rem;
+      box-sizing: border-box;
       padding: 1rem 1.25rem;
     }
     .icon-links,
     .nav-links {
       display: flex;
-      column-gap: 15px;
+      column-gap: 1.5rem;
     }
     .mobile-menu {
       display: none;
@@ -89,22 +96,24 @@ import Hamburger from '@/components/Hamburger.astro'
   @media (min-width: 1024px) {
     nav {
       display: grid;
-      grid-template-rows: 1fr 3fr 1fr;
+      grid-template-rows: 1fr 6fr 1fr;
+      grid-template-columns: 1fr;
+      grid-area: navigation;
       grid-template-areas:
         'blog-title'
         'nav-links'
         'icon-links';
-      justify-content: start;
       align-items: start;
       position: sticky;
-      top: 0;
-      padding: 12px 15px 12px 25px;
+      /* top: 0; */
+      padding: 1.25rem 1.75rem;
+      margin: 0;
       width: 18rem;
       height: 100vh;
       border-right: 1px solid #e4e9f0;
       box-sizing: border-box;
     }
-    nav h2 {
+    nav a.blog-title {
       grid-area: blog-title;
     }
     .nav-links {
@@ -115,8 +124,8 @@ import Hamburger from '@/components/Hamburger.astro'
     .icon-links {
       grid-area: icon-links;
       display: flex;
-      justify-content: space-evenly;
-      column-gap: 10px;
+      justify-content: space-between;
+      column-gap: 1.5rem;
       align-self: end;
     }
     .mobile-menu {

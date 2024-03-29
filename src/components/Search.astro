@@ -19,6 +19,7 @@ import Svg from '@/components/Svg/index.astro'
     left: 0;
     width: 100%;
     height: 100vh;
+    padding-top: 1.5rem;
     z-index: 90;
 
     background-color: hsla(223, 13%, 10%, 0.66);
@@ -62,21 +63,11 @@ import Svg from '@/components/Svg/index.astro'
       },
     })
 
-    const modalButton = document.querySelector('#search-icon-button')
-    const modal = document.querySelector('#search-modal')
-    const input = document.querySelector(
-      '.pagefind-ui__search-input'
-    ) as HTMLInputElement | null
-
-    if (modalButton && modal && input) {
-      listen(modalButton, modal, input)
-    }
-
-    function listen(
+    const listenToModalEvents = (
       modalButton: Element,
       modal: Element,
       input: HTMLInputElement
-    ) {
+    ) => {
       modalButton.addEventListener('click', () => {
         modal.classList.toggle('hidden')
         input.focus()
@@ -98,6 +89,16 @@ import Svg from '@/components/Svg/index.astro'
           input.focus()
         }
       })
+    }
+
+    const modalButton = document.querySelector('#search-icon-button')
+    const modal = document.querySelector('#search-modal')
+    const input = document.querySelector(
+      '.pagefind-ui__search-input'
+    ) as HTMLInputElement | null
+
+    if (modalButton && modal && input) {
+      listenToModalEvents(modalButton, modal, input)
     }
   }
 

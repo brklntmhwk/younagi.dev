@@ -163,6 +163,7 @@ hr {
   .base-wrapper {
     width: 100%;
     min-height: 100vh;
+    margin: 0;
     display: grid;
     grid-template-columns: 18rem 1fr;
     grid-template-rows: 1fr auto;

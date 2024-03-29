@@ -16,7 +16,19 @@ declare module '@pagefind/default-ui' {
       showEmptyFilters?: boolean
       debounceTimeoutMs?: number
       mergeIndex?: any
-      translations?: any
+      translations?: {
+        placeholder?: string
+        clear_search?: string
+        load_more?: string
+        search_label?: string
+        filters_label?: string
+        zero_results?: string
+        many_results?: string
+        one_result?: string
+        alt_search?: string
+        search_suggestion?: string
+        searching?: string
+      }
       autofocus?: boolean
       sort?: any
     })

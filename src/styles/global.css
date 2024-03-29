@@ -1,4 +1,9 @@
 :root {
+  --fg: #1c1b22;
+  --bg: #f7f7fa;
+  --line: #8a829955;
+  --code: #e8e8e8;
+
   --accent: #cd4b51;
   --accent-dark: #000d8a;
   --black: 15, 18, 25;
@@ -46,12 +51,8 @@ body {
 }
 main {
   /* width: 100%; */
-  /* width: 720px; */
-  /* max-width: calc(100% - 18rem); */
   grid-area: main;
-  /* max-width: calc(100% - 2em); */
-  /* margin: auto; */
-  padding: 3em 1em;
+  padding: 2.25em 1.25em;
 }
 h1,
 h2,
@@ -143,17 +144,14 @@ hr {
 .base-wrapper {
   width: 100%;
   display: grid;
-  grid-template-rows: 100px auto 1fr;
+  margin-top: 2.5rem;
+  grid-template-rows: auto 1fr;
+  /* grid-template-rows: 4.5rem auto 1fr; */
   grid-template-areas:
-    'navigation'
+    /* 'navigation' */
     'main'
     'footer';
 }
-/* @media (min-width: 640px) {
-  .base-wrapper {
-    display: grid;
-  }
-} */
 @media (min-width: 1024px) {
   main {
     /* width: 100%; */

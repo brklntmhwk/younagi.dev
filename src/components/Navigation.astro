@@ -1,29 +1,25 @@
 ---
-import { getEntry } from 'astro:content'
+// import { getEntry } from 'astro:content'
 import HeaderLink from './HeaderLink.astro'
 import Svg from '@/components/Svg/index.astro'
 import Search from '@/components/Search.astro'
+import Hamburger from '@/components/Hamburger.astro'
 
-const meta = await getEntry('meta', 'site-data')
+// const meta = await getEntry('meta', 'site-data')
 ---
 
 <nav>
-  <h2><a href="/">{meta.data.site.title}</a></h2>
+  <a href="/"><Svg iconName="site-logo" width={32} height={32} /></a>
   <div class="nav-links">
     <HeaderLink href="/">Home</HeaderLink>
     <HeaderLink href="/blog">Blog</HeaderLink>
     <HeaderLink href="/about">About</HeaderLink>
   </div>
-  <div class="social-links">
+  <div class="icon-links">
     <Search />
     <a href="https://twitter.com/astrodotbuild" target="_blank">
-      <span class="sr-only">Follow Astro on Twitter</span>
-      <svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32"
-        ><path
-          fill="currentColor"
-          d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"
-        ></path></svg
-      >
+      <span class="sr-only">Follow Me on X(previous Twitter)</span>
+      <Svg iconName="twitter" width={32} height={32} />
     </a>
     <a href="https://github.com/brklntmhwk" target="_blank">
       <span class="sr-only">Go to the GitHub repo</span>
@@ -31,17 +27,26 @@ const meta = await getEntry('meta', 'site-data')
     </a>
   </div>
   <div class="mobile-menu">
-    <button><Svg iconName="hamburger" width={32} height={32} /></button>
+    <Search />
+    <Hamburger />
   </div>
 </nav>
 
 <style>
   nav {
-    grid-area: navigation;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    /* width: 100%; */
+    height: 2.5rem;
+    margin: 1.5rem 1.05rem;
+    box-sizing: border-box;
+    /* padding: 1.5rem 1.05rem; */
+    /* grid-area: navigation; */
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 8px;
   }
   nav a {
     /* padding: 1em 0.5em; */
@@ -53,12 +58,14 @@ const meta = await getEntry('meta', 'site-data')
     text-decoration: none;
     border-bottom-color: var(--accent);
   }
-  .social-links,
+  .icon-links,
   .nav-links {
     display: none;
   }
   .mobile-menu {
-    display: block;
+    display: flex;
+    align-items: center;
+    column-gap: 1rem;
   }
   .mobile-menu button {
     background-color: transparent;
@@ -67,9 +74,10 @@ const meta = await getEntry('meta', 'site-data')
   }
   @media (min-width: 768px) {
     nav {
-      padding: 0 10px;
+      height: 2.5rem;
+      padding: 1rem 1.25rem;
     }
-    .social-links,
+    .icon-links,
     .nav-links {
       display: flex;
       column-gap: 15px;
@@ -85,7 +93,7 @@ const meta = await getEntry('meta', 'site-data')
       grid-template-areas:
         'blog-title'
         'nav-links'
-        'social-links';
+        'icon-links';
       justify-content: start;
       align-items: start;
       position: sticky;
@@ -104,12 +112,15 @@ const meta = await getEntry('meta', 'site-data')
       grid-area: nav-links;
       gap: 15px;
     }
-    .social-links {
-      grid-area: social-links;
+    .icon-links {
+      grid-area: icon-links;
       display: flex;
       justify-content: space-evenly;
       column-gap: 10px;
       align-self: end;
+    }
+    .mobile-menu {
+      display: none;
     }
   }
 </style>

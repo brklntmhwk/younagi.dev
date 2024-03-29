@@ -2,9 +2,9 @@
 import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
 import { getCollection, getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import FormattedDate from '@/components/FormattedDate.astro'
 import Pager from '@/components/Pager.astro'
 import Svg from '@/components/Svg/index.astro'
-import Search from '@/components/Search.astro'
 import { LIMIT_PER_PAGE } from '@/lib/consts'
 
 export const getStaticPaths = (async ({ paginate }) => {
@@ -28,7 +28,6 @@ const { page } = Astro.props
   <main>
     <section>
       <h1>Blog</h1>
-      <Search />
       {
         page.data.length === 0 ? (
           <p>Woops! No entry found..</p>
@@ -41,24 +40,12 @@ const { page } = Astro.props
                     <section class="date">
                       <div>
                         <Svg iconName="publish" width={20} height={20} />
-                        <time datetime={entry.data.publishedAt.toISOString()}>
-                          {new Intl.DateTimeFormat('en-US', {
-                            year: 'numeric',
-                            month: 'short',
-                            day: 'numeric',
-                          }).format(entry.data.publishedAt)}
-                        </time>
+                        <FormattedDate date={entry.data.publishedAt} />
                       </div>
                       {entry.data.modifiedAt && (
                         <div>
                           <Svg iconName="update" width={20} height={20} />
-                          <time datetime={entry.data.modifiedAt.toISOString()}>
-                            {new Intl.DateTimeFormat('en-US', {
-                              year: 'numeric',
-                              month: 'short',
-                              day: 'numeric',
-                            }).format(entry.data.modifiedAt)}
-                          </time>
+                          <FormattedDate date={entry.data.modifiedAt} />
                         </div>
                       )}
                     </section>

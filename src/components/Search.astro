@@ -17,11 +17,10 @@ import Svg from '@/components/Svg/index.astro'
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     padding-top: 1.5rem;
     z-index: 90;
-
     background-color: hsla(223, 13%, 10%, 0.66);
     backdrop-filter: blur(0.25rem);
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
@@ -32,6 +31,10 @@ import Svg from '@/components/Svg/index.astro'
     --pagefind-ui-border-width: 1px;
     --pagefind-ui-font: initial;
     --pagefind-ui-tag: color-mix(in srgb, var(--code) 95%, var(--fg) 5%);
+  }
+  @media (min-width: 1024px) {
+    #search-modal {
+    }
   }
   #search-modal.hidden {
     display: none;

@@ -144,7 +144,8 @@ hr {
 .base-wrapper {
   width: 100%;
   display: grid;
-  margin-top: 2.5rem;
+  padding-top: 3.75rem;
+  /* margin-top: 2.75rem; */
   grid-template-rows: auto 1fr;
   /* grid-template-rows: 4.5rem auto 1fr; */
   grid-template-areas:
@@ -163,6 +164,7 @@ hr {
   .base-wrapper {
     width: 100%;
     min-height: 100vh;
+    padding-top: 0;
     margin: 0;
     display: grid;
     grid-template-columns: 18rem 1fr;

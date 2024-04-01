@@ -1,0 +1,62 @@
+---
+import { Image } from 'astro:assets'
+import { getEntry } from 'astro:content'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+
+const meta = await getEntry('meta', 'site-data')
+---
+
+<BaseLayout
+  title={meta.data.about.title}
+  description={meta.data.about.description}
+>
+  <main>
+    <h1>About Me</h1>
+    <section class="profile-section">
+      <Image
+        alt="My profile icon"
+        class="profile-icon"
+        src="/blog-placeholder-about.jpg"
+        width={150}
+        height={150}
+        format="avif"
+        quality={75}
+      />
+      <div>
+        <span class="my-name">brklntmhwk</span>
+        <p class="short-intro">Hello. This is my short introduction.</p>
+      </div>
+    </section>
+    <hr />
+    <article>
+      <slot />
+    </article>
+  </main>
+</BaseLayout>
+<style>
+  section.profile-section {
+    padding: 2.25rem 0;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+  @media (min-width: 1024px) {
+    section.profile-section {
+      gap: 2.5rem;
+      justify-content: start;
+    }
+  }
+  .profile-icon {
+    border-radius: 9999px;
+    object-fit: cover;
+  }
+  section.profile-section div {
+    display: grid;
+  }
+  span.my-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  p.short-intro {
+  }
+</style>

@@ -2,6 +2,7 @@
 import type { Page } from 'astro'
 import type { CollectionEntry } from 'astro:content'
 import Svg from '@/components/Svg/index.astro'
+import { DEFAULT_PAGINATION_WIDTH } from '@/lib/consts'
 
 type Props = {
   page?: Page<CollectionEntry<'blog'>>
@@ -11,7 +12,7 @@ const { page } = Astro.props
 const paginator = (
   curPageNum: number,
   totalPageNum: number,
-  width: number = 2
+  width: number = DEFAULT_PAGINATION_WIDTH
 ) => {
   const prevEnd = curPageNum - width
   const nextEnd = curPageNum + width

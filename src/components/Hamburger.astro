@@ -1,5 +1,5 @@
 ---
-import HeaderLink from './HeaderLink.astro'
+import NavLink from './NavLink.astro'
 import Svg from '@/components/Svg/index.astro'
 ---
 
@@ -7,11 +7,11 @@ import Svg from '@/components/Svg/index.astro'
   <input type="checkbox" id="menu-toggle-check" />
   <label for="menu-toggle-check" class="hamburger-icon-btn"><span></span></label
   >
-  <nav class="menu-content">
+  <nav class="mobile-nav">
     <div class="nav-links">
-      <HeaderLink href="/">Home</HeaderLink>
-      <HeaderLink href="/blog">Blog</HeaderLink>
-      <HeaderLink href="/about">About</HeaderLink>
+      <NavLink href="/">Home</NavLink>
+      <NavLink href="/blog">Blog</NavLink>
+      <NavLink href="/about">About</NavLink>
     </div>
     <div class="icon-links">
       <a href="https://twitter.com/astrodotbuild" target="_blank">
@@ -26,7 +26,7 @@ import Svg from '@/components/Svg/index.astro'
   </nav>
 </div>
 <style>
-  nav.menu-content {
+  nav.mobile-nav {
     width: 100%;
     height: 100vh;
     position: fixed;
@@ -34,12 +34,12 @@ import Svg from '@/components/Svg/index.astro'
     left: 100%;
     z-index: 80;
     padding-top: 3rem;
-    margin-top: 5.25rem;
+    margin-top: 4.75rem;
     background-color: #f4f4f4;
     transition: all 0.2s;
   }
-  nav.menu-content > * {
-    padding: 0.75rem 2.25rem;
+  nav.mobile-nav > * {
+    padding: 0.75rem 2.5rem;
   }
   .nav-links {
     display: grid;
@@ -89,7 +89,7 @@ import Svg from '@/components/Svg/index.astro'
     top: 0;
     transform: rotate(-45deg);
   }
-  #menu-toggle-check:checked ~ nav.menu-content {
+  #menu-toggle-check:checked ~ nav.mobile-nav {
     left: 0;
   }
   #menu-toggle-check {

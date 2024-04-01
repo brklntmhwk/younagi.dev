@@ -32,39 +32,37 @@ const { page } = Astro.props
         page.data.length === 0 ? (
           <p>Woops! No entry found..</p>
         ) : (
-          <>
-            <ul class="entry-list">
-              {page.data.map((entry) => (
-                <li>
-                  <article>
-                    <section class="date">
+          <ul class="entry-list">
+            {page.data.map((entry) => (
+              <li>
+                <article>
+                  <section class="date">
+                    <div>
+                      <Svg iconName="publish" width={20} height={20} />
+                      <FormattedDate date={entry.data.publishedAt} />
+                    </div>
+                    {entry.data.modifiedAt && (
                       <div>
-                        <Svg iconName="publish" width={20} height={20} />
-                        <FormattedDate date={entry.data.publishedAt} />
+                        <Svg iconName="update" width={20} height={20} />
+                        <FormattedDate date={entry.data.modifiedAt} />
                       </div>
-                      {entry.data.modifiedAt && (
-                        <div>
-                          <Svg iconName="update" width={20} height={20} />
-                          <FormattedDate date={entry.data.modifiedAt} />
-                        </div>
-                      )}
-                    </section>
-                    <a class="blog-title" href={`/blog/${entry.slug}`}>
-                      {entry.data.title}
-                    </a>
-                    <span>{entry.data.description}</span>
-                    <ul class="tag-list">
-                      {entry.data.tags?.map((tag) => (
-                        <li>
-                          <a href="/">#{tag}</a>
-                        </li>
-                      ))}
-                    </ul>
-                  </article>
-                </li>
-              ))}
-            </ul>
-          </>
+                    )}
+                  </section>
+                  <a class="blog-title" href={`/blog/${entry.slug}`}>
+                    {entry.data.title}
+                  </a>
+                  <span>{entry.data.description}</span>
+                  <ul class="tag-list">
+                    {entry.data.tags?.map((tag) => (
+                      <li>
+                        <a href="/">#{tag}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              </li>
+            ))}
+          </ul>
         )
       }
     </section>

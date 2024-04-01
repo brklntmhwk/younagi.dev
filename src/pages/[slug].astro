@@ -1,7 +1,7 @@
 ---
 import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
-// import { Image } from "astro:assets";
 import { getCollection } from 'astro:content'
+import AboutLayout from '@/layouts/AboutLayout.astro'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 
 export const getStaticPaths = (async () => {
@@ -23,8 +23,19 @@ const { page } = Astro.props
 const { Content } = await page.render()
 ---
 
-<BaseLayout title={page.data.title} description={page.data.description ?? ''}>
-  <main>
-    <Content />
-  </main>
-</BaseLayout>
+{
+  page.slug === 'about' ? (
+    <AboutLayout>
+      <Content />
+    </AboutLayout>
+  ) : (
+    <BaseLayout
+      title={page.data.title}
+      description={page.data.description ?? ''}
+    >
+      <main>
+        <Content />
+      </main>
+    </BaseLayout>
+  )
+}

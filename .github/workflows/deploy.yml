@@ -43,6 +43,8 @@ jobs:
         run: yarn install --immutable --immutable-cache --check-cache --inline-builds
       - name: Build project
         run: yarn run build
+      - name: Generate search index
+        run: npx pagefind --site dist
       - name: Publish to Cloudflare Pages
         id: cloudflare_pages_deploy
         uses: cloudflare/pages-action@v1

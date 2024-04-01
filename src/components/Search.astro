@@ -17,34 +17,34 @@ import Svg from '@/components/Svg/index.astro'
     position: fixed;
     top: 0;
     left: 0;
+    right: 0;
     width: 100vw;
     height: 100vh;
     padding-top: 1.5rem;
     z-index: 90;
-    background-color: hsla(223, 13%, 10%, 0.66);
-    backdrop-filter: blur(0.25rem);
+    background-color: hsla(223, 13%, 10%, 0.6);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
     --pagefind-ui-background: var(--bg);
     --pagefind-ui-border: var(--line);
     --pagefind-ui-text: var(--fg);
     --pagefind-ui-primary: var(--fg);
     --pagefind-ui-border-width: 1px;
+    --pagefind-ui-border-radius: 3px;
+    --pagefind-ui-image-box-ratio: 5 / 4;
     --pagefind-ui-font: initial;
     --pagefind-ui-tag: color-mix(in srgb, var(--code) 95%, var(--fg) 5%);
-  }
-  @media (min-width: 1024px) {
-    #search-modal {
-    }
   }
   #search-modal.hidden {
     display: none;
   }
   #search-wrapper {
     background-color: color-mix(in srgb, var(--bg) 97%, var(--fg) 3%);
-    max-width: 30rem;
+    max-width: 32rem;
     max-height: 100vh;
-    padding: 1rem;
-    border-radius: 0.25rem;
+    padding: 1.25rem;
+    border-radius: 0.15rem;
     margin: 0 auto;
     overflow-y: auto;
   }
@@ -54,6 +54,10 @@ import Svg from '@/components/Svg/index.astro'
     cursor: pointer;
     padding: 0;
   }
+  #search input:focus {
+    border: solid 2px var(--accent);
+    outline: solid 2px var(--accent);
+  }
 </style>
 <script>
   import { PagefindUI } from '@pagefind/default-ui'
@@ -62,7 +66,7 @@ import Svg from '@/components/Svg/index.astro'
     new PagefindUI({
       element: '#search',
       translations: {
-        placeholder: 'Search articles',
+        placeholder: 'Search pages',
       },
     })
 

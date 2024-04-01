@@ -1,8 +1,8 @@
 :root {
-  --fg: #1c1b22;
-  --bg: #f7f7fa;
-  --line: #8a829955;
-  --code: #e8e8e8;
+  --fg: hsla(248.57, 11.48%, 11.96%, 1);
+  --bg: hsla(0, 0%, 96.08%, 1);
+  --line: hsla(260.87, 10.13%, 55.49%, 0.33);
+  --code: hsla(0, 0%, 90.98%, 1);
 
   --accent: #cd4b51;
   --accent-dark: #000d8a;
@@ -193,41 +193,3 @@ hr {
   /* added line to stop words getting smushed together (as they go onto seperate lines and some screen readers do not understand line feeds as a space */
   white-space: nowrap;
 }
-
-/* main {
-  width: calc(100% - 2em);
-  max-width: 100%;
-  margin: 0;
-}
-.hero-image {
-  width: 100%;
-}
-.hero-image img {
-  display: block;
-  margin: 0 auto;
-  border-radius: 12px;
-  box-shadow: var(--box-shadow);
-}
-.prose {
-  width: 720px;
-  max-width: calc(100% - 2em);
-  margin: auto;
-  padding: 1em;
-  color: rgb(var(--gray-dark));
-}
-.title {
-  margin-bottom: 1em;
-  padding: 1em 0;
-  text-align: center;
-  line-height: 1;
-}
-.title h1 {
-  margin: 0 0 0.5em 0;
-}
-.date {
-  margin-bottom: 0.5em;
-  color: rgb(var(--gray));
-}
-.last-updated-on {
-  font-style: italic;
-} */

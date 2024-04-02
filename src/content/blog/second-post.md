@@ -4,7 +4,7 @@ description: Lorem ipsum dolor sit amet
 publishedAt: Jul 08 2022
 heroImage: /blog-placeholder-4.jpg
 category:
-  - Experiment
+  - experiment
 type: blog
 ---
 

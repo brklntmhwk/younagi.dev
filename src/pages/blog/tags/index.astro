@@ -1,0 +1,36 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { getCollection, getEntry } from 'astro:content'
+
+const entries = await getCollection('blog')
+const tags = [...new Set(entries.flatMap((entry) => entry.data.tags ?? []))]
+const meta = await getEntry('meta', 'site-data')
+---
+
+<BaseLayout
+  title={meta.data.blog.tags.title}
+  description={meta.data.blog.tags.description ?? ''}
+>
+  <main>
+    <h1>Tags</h1>
+    <ul>
+      {
+        tags.flatMap((tag) => (
+          <li>
+            <a href={`/blog/tags/${tag}`}>{tag}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</BaseLayout>
+<style>
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+  li {
+    text-transform: capitalize;
+  }
+</style>

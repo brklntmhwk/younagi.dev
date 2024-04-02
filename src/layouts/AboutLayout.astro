@@ -28,7 +28,7 @@ const meta = await getEntry('meta', 'site-data')
       </div>
     </section>
     <hr />
-    <article>
+    <article class="about-content">
       <slot />
     </article>
   </main>
@@ -37,6 +37,7 @@ const meta = await getEntry('meta', 'site-data')
   section.profile-section {
     padding: 2.25rem 0;
     display: flex;
+    flex-wrap: wrap;
     gap: 1.5rem;
     justify-content: center;
   }
@@ -58,5 +59,8 @@ const meta = await getEntry('meta', 'site-data')
     font-weight: 600;
   }
   p.short-intro {
+  }
+  article.about-content {
+    padding: 1.25rem;
   }
 </style>

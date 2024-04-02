@@ -1,0 +1,36 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { getCollection, getEntry } from 'astro:content'
+
+const entries = await getCollection('blog')
+const categories = [...new Set(entries.flatMap((entry) => entry.data.category))]
+const meta = await getEntry('meta', 'site-data')
+---
+
+<BaseLayout
+  title={meta.data.blog.categories.title}
+  description={meta.data.blog.categories.description ?? ''}
+>
+  <main>
+    <h1>Categories</h1>
+    <ul>
+      {
+        categories.flatMap((category) => (
+          <li>
+            <a href={`/blog/categories/${category}`}>{category}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</BaseLayout>
+<style>
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+  li {
+    text-transform: capitalize;
+  }
+</style>

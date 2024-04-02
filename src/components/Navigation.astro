@@ -1,14 +1,11 @@
 ---
-// import { getEntry } from 'astro:content'
-import NavLink from './NavLink.astro'
+import NavLink from '@/components/NavLink.astro'
 import Svg from '@/components/Svg/index.astro'
 import Search from '@/components/Search.astro'
 import Hamburger from '@/components/Hamburger.astro'
-
-// const meta = await getEntry('meta', 'site-data')
 ---
 
-<nav>
+<nav data-pagefind-ignore="all">
   <a class="blog-title" href="/"
     ><Svg iconName="site-logo" width={32} height={32} /></a
   >
@@ -101,7 +98,7 @@ import Hamburger from '@/components/Hamburger.astro'
       align-items: start;
       position: sticky;
       /* top: 0; */
-      padding: 1.25rem 1.75rem;
+      padding: 1.75rem 1.75rem;
       margin: 0;
       width: 18rem;
       height: 100vh;

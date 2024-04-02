@@ -32,6 +32,14 @@ const meta = defineCollection({
     blog: z.object({
       title: z.string(),
       description: z.string(),
+      categories: z.object({
+        title: z.string(),
+        description: z.string().optional(),
+      }),
+      tags: z.object({
+        title: z.string(),
+        description: z.string().optional(),
+      }),
     }),
     about: z.object({
       title: z.string(),

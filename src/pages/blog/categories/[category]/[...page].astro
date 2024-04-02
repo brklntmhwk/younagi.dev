@@ -1,8 +1,8 @@
 ---
 import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
 import { getCollection, getEntry } from 'astro:content'
-import BlogList from '@/components/BlogList.astro'
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import BlogList from '@/components/BlogList.astro'
 import Pager from '@/components/Pager.astro'
 import { LIMIT_PER_PAGE } from '@/lib/consts'
 
@@ -10,41 +10,42 @@ export const getStaticPaths = (async ({ paginate }) => {
   const entries = (await getCollection('blog')).sort(
     (a, b) => a.data.publishedAt.valueOf() - b.data.publishedAt.valueOf()
   )
+  const categories = [
+    ...new Set(entries.flatMap((entry) => entry.data.category)),
+  ]
 
-  return paginate(entries, { pageSize: LIMIT_PER_PAGE })
+  return categories.flatMap((category) => {
+    const displayEntries = entries.filter(
+      (entry) => entry.data.category[0] === category
+    )
+
+    return paginate(displayEntries, {
+      pageSize: LIMIT_PER_PAGE,
+      params: { category },
+    })
+  })
 }) satisfies GetStaticPaths
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
 const meta = await getEntry('meta', 'site-data')
 const { page } = Astro.props
+const { category } = Astro.params
 ---
 
 <BaseLayout
-  title={meta.data.blog.title}
+  title={`${meta.data.blog.title} - Category: ${category}`}
   description={meta.data.blog.description}
->
-  <main>
+  ><main>
     <section>
-      <h1>Blog</h1>
-      <div class="taxonomy-links">
-        <a href="/blog/categories">Categories</a>
-        <a href="/blog/tags">Tags</a>
-      </div>
-      <BlogList entries={page.data} kind="blog" />
+      <h1>{category}</h1>
+      <BlogList entries={page.data} kind="taxonomy" />
     </section>
     <Pager page={page} />
   </main>
 </BaseLayout>
 <style>
-  main {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  .taxonomy-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
+  h1 {
+    text-transform: capitalize;
   }
 </style>

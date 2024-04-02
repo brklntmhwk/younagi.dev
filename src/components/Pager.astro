@@ -7,6 +7,8 @@ import { DEFAULT_PAGINATION_WIDTH } from '@/lib/consts'
 type Props = {
   page?: Page<CollectionEntry<'blog'>>
 }
+
+const currentPath = Astro.url.pathname
 const { page } = Astro.props
 
 const paginator = (
@@ -33,47 +35,61 @@ const paginator = (
 
 {
   page !== undefined && (
-    <nav>
-      {page.url.prev ? (
-        <div>
-          <a href={page.url.prev}>
-            <Svg iconName="left-arrow" width={22} height={22} />
-          </a>
-        </div>
-      ) : (
-        <Svg iconName="left-arrow" width={22} height={22} />
-      )}
-      <section class="page-nums">
-        {paginator(page.currentPage, page.lastPage).map((pg) => {
-          if (pg === page.currentPage) {
-            return <li>{pg}</li>
-          } else {
-            if (pg === 1) {
-              return (
-                <li>
-                  <a href="/blog">{pg}</a>
-                </li>
-              )
+    <>
+      <nav data-pagefind-ignore="all">
+        {page.url.prev ? (
+          <div>
+            <a href={page.url.prev}>
+              <Svg iconName="left-arrow" width={22} height={22} />
+            </a>
+          </div>
+        ) : (
+          <Svg iconName="left-arrow" width={22} height={22} />
+        )}
+        <section class="page-nums">
+          {paginator(page.currentPage, page.lastPage).map((pg) => {
+            if (pg === page.currentPage) {
+              return <li>{pg}</li>
             } else {
-              return (
-                <li>
-                  <a href={`/blog/${pg}`}>{pg}</a>
-                </li>
-              )
+              if (pg === 1) {
+                return (
+                  <li>
+                    <a
+                      href={`/${currentPath.split('/').slice(1, -1).join('/')}`}
+                    >
+                      {pg}
+                    </a>
+                  </li>
+                )
+              } else {
+                return (
+                  <li>
+                    {page.currentPage === 1 ? (
+                      <a href={`${currentPath}/${pg}`}>{pg}</a>
+                    ) : (
+                      <a
+                        href={`/${currentPath.split('/').slice(1, -1).join('/')}/${pg}`}
+                      >
+                        {pg}
+                      </a>
+                    )}
+                  </li>
+                )
+              }
             }
-          }
-        })}
-      </section>
-      {page.url.next ? (
-        <div>
-          <a href={page.url.next}>
-            <Svg iconName="right-arrow" width={22} height={22} />
-          </a>
-        </div>
-      ) : (
-        <Svg iconName="right-arrow" width={22} height={22} />
-      )}
-    </nav>
+          })}
+        </section>
+        {page.url.next ? (
+          <div>
+            <a href={page.url.next}>
+              <Svg iconName="right-arrow" width={22} height={22} />
+            </a>
+          </div>
+        ) : (
+          <Svg iconName="right-arrow" width={22} height={22} />
+        )}
+      </nav>
+    </>
   )
 }
 

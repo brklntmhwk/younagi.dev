@@ -1,13 +1,11 @@
 ---
-title: Thirdddddddd post
+title: Thirdddddddaaad post
 description: Lorem ipsum dolor sit amet
 publishedAt: Jul 08 2022
 heroImage: /blog-placeholder-2.jpg
 category:
-  - Trip
+  - trip
 draft: true
-categories:
-  - Trip
 type: blog
 ---
 

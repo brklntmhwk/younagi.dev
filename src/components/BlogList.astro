@@ -1,0 +1,105 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import FormattedDate from '@/components/FormattedDate.astro'
+import Svg from '@/components/Svg/index.astro'
+
+type Props = {
+  entries: CollectionEntry<'blog'>[]
+  kind: 'blog' | 'taxonomy'
+}
+
+const { entries, kind } = Astro.props
+---
+
+{
+  entries.length !== 0 ? (
+    <ul class="entry-list">
+      {entries.map((entry) => (
+        <li>
+          <article>
+            <section class="date">
+              <div>
+                <Svg iconName="publish" width={20} height={20} />
+                <FormattedDate date={entry.data.publishedAt} />
+              </div>
+              {entry.data.modifiedAt && (
+                <div>
+                  <Svg iconName="update" width={20} height={20} />
+                  <FormattedDate date={entry.data.modifiedAt} />
+                </div>
+              )}
+            </section>
+            <a class="blog-title" href={`/blog/${entry.slug}`}>
+              {entry.data.title}
+            </a>
+            <span>{entry.data.description}</span>
+            {kind === 'blog' && (
+              <section class="taxonomies">
+                <a href={`/blog/categories/${entry.data.category}`}>
+                  {entry.data.category}
+                </a>
+                <ul class="tag-list">
+                  {entry.data.tags?.map((tag) => (
+                    <li>
+                      <a href={`/blog/tags/${tag}`}>#{tag}</a>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+          </article>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p>Woops! No entry found..</p>
+  )
+}
+<style>
+  a.blog-title {
+    font-size: 2rem;
+    font-weight: bolder;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+      text-underline-offset: 7px;
+    }
+  }
+  ul.entry-list {
+    display: grid;
+    row-gap: 1.25rem;
+    padding: 0;
+  }
+  ul.entry-list > li {
+    list-style: none;
+    /* border: 1px solid black; */
+  }
+  ul.entry-list article {
+    display: grid;
+    row-gap: 5px;
+  }
+  ul.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 10px;
+    padding: 0;
+  }
+  ul.tag-list > li {
+    list-style: none;
+  }
+  section.date {
+    display: flex;
+    column-gap: 10px;
+  }
+  section.date > div {
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+  }
+  section.taxonomies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    text-transform: capitalize;
+  }
+</style>

@@ -5,32 +5,73 @@ import FormattedDate from '../components/FormattedDate.astro'
 
 type Props = CollectionEntry<'blog'>['data']
 
-const { title, description, publishedAt, modifiedAt, heroImage } = Astro.props
+const {
+  title,
+  description,
+  category,
+  tags,
+  publishedAt,
+  modifiedAt,
+  heroImage,
+} = Astro.props
 ---
 
 <BaseLayout title={title} description={description ?? ''}>
   <main>
     <article>
-      <div class="hero-image">
-        {heroImage && <img width={1020} height={510} src={heroImage} alt="" />}
-      </div>
-      <div class="prose">
-        <div class="title">
-          <div class="date">
-            <FormattedDate date={publishedAt} />
-            {
-              modifiedAt && (
-                <div class="last-updated-on">
-                  Last updated on <FormattedDate date={modifiedAt} />
-                </div>
-              )
-            }
-          </div>
-          <h1>{title}</h1>
-          <hr />
+      <section class="blog-metadata">
+        <div class="hero-image">
+          {
+            heroImage && (
+              <img width={1020} height={510} src={heroImage} alt="" />
+            )
+          }
         </div>
+        <div class="date">
+          <FormattedDate date={publishedAt} />
+          {
+            modifiedAt && (
+              <div class="last-updated-on">
+                Last updated on <FormattedDate date={modifiedAt} />
+              </div>
+            )
+          }
+        </div>
+        <h1>{title}</h1>
+        <section class="taxonomies">
+          <a href={`/blog/categories/${category[0]}`}>{category[0]}</a>
+          {
+            tags && (
+              <ul>
+                {tags.map((tag) => (
+                  <li>
+                    <a href={`/blog/tags/${tag}`}>{tag}</a>
+                  </li>
+                ))}
+              </ul>
+            )
+          }
+        </section>
+      </section>
+      <hr />
+      <div class="prose">
         <slot />
       </div>
     </article>
   </main>
 </BaseLayout>
+<style>
+  article {
+    display: grid;
+  }
+  hr {
+    width: 100%;
+  }
+  section.taxonomies {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    text-transform: capitalize;
+  }
+</style>

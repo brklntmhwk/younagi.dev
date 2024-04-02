@@ -4,6 +4,12 @@ site:
 blog:
   title: My Astro Blog
   description: My personal blog
+  categories:
+    title: Categories
+    description: Blog categories
+  tags:
+    title: Tags
+    description: Blog tags
 about:
   title: About Me
   description: Who am I?

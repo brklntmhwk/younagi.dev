@@ -4,7 +4,7 @@ description: Here is a sample of some basic Markdown syntax that can be used whe
 publishedAt: Jul 08 2022
 heroImage: /blog-placeholder-1.jpg
 category:
-  - Others
+  - others
 type: blog
 draft: true
 ---

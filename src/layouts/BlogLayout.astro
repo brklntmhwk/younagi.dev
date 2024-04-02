@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import FormattedDate from '../components/FormattedDate.astro'
+import Svg from '@/components/Svg/index.astro'
 
 type Props = CollectionEntry<'blog'>['data']
 
@@ -27,12 +28,16 @@ const {
             )
           }
         </div>
-        <div class="date">
-          <FormattedDate date={publishedAt} />
+        <div class="date-meta">
+          <div>
+            <Svg iconName="publish" width={20} height={20} />
+            <FormattedDate date={publishedAt} />
+          </div>
           {
             modifiedAt && (
-              <div class="last-updated-on">
-                Last updated on <FormattedDate date={modifiedAt} />
+              <div>
+                <Svg iconName="update" width={20} height={20} />
+                <FormattedDate date={modifiedAt} />
               </div>
             )
           }
@@ -42,10 +47,10 @@ const {
           <a href={`/blog/categories/${category[0]}`}>{category[0]}</a>
           {
             tags && (
-              <ul>
+              <ul class="tag-list">
                 {tags.map((tag) => (
                   <li>
-                    <a href={`/blog/tags/${tag}`}>{tag}</a>
+                    <a href={`/blog/tags/${tag}`}>#{tag}</a>
                   </li>
                 ))}
               </ul>
@@ -71,7 +76,18 @@ const {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.75rem;
+    gap: 1.25rem;
     text-transform: capitalize;
+  }
+  .date-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+  ul.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin: 0;
   }
 </style>

@@ -5,55 +5,60 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 <BaseLayout title="404">
   <main>
     <h1 class="neonText pulsate">404</h1>
-    <h2 class="neonText pulsate">Page Not Found</h2>
+    <p class="neonText pulsate">Page Not Found</p>
   </main>
 </BaseLayout>
-
 <style>
+  main {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(8, 10, 24, 0.7)),
+      url('/brick-wall3.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    backdrop-filter: grayscale(50%);
+    margin-top: 2.5rem;
+  }
+  @media (min-width: 1024px) {
+    main {
+      margin-top: 0;
+    }
+  }
   .neonText {
     color: #fff;
     text-shadow:
-      0 0 7px #fff,
-      0 0 10px #fff,
-      0 0 21px #fff,
-      0 0 42px #0fa,
-      0 0 82px #0fa,
-      0 0 92px #0fa,
-      0 0 102px #0fa,
-      0 0 151px #0fa;
+      0 0 5px #fff,
+      0 0 8px #fff,
+      0 0 18px #fff,
+      0 0 37px #0fa,
+      0 0 75px #0fa,
+      0 0 85px #0fa,
+      0 0 98px #0fa,
+      0 0 141px #0fa;
   }
   h1,
-  h2 {
+  p {
     text-align: center;
     text-transform: uppercase;
-    font-weight: 400;
   }
-
-  h1 {
-    font-size: 4.2rem;
+  p {
+    font-size: 1.5rem;
+    margin: 0;
   }
-
   .pulsate {
-    animation: pulsate 1.5s infinite alternate;
+    animation: pulsate 1.25s infinite alternate;
   }
-
-  h2 {
-    font-size: 1.8rem;
-  }
-
   @keyframes pulsate {
     100% {
       text-shadow:
-        0 0 4px #fff,
-        0 0 11px #fff,
-        0 0 19px #fff,
-        0 0 40px #0fa,
-        0 0 80px #0fa,
+        0 0 3px #fff,
+        0 0 10px #fff,
+        0 0 15px #fff,
+        0 0 30px #0fa,
+        0 0 60px #0fa,
+        0 0 70px #0fa,
         0 0 90px #0fa,
-        0 0 100px #0fa,
-        0 0 150px #0fa;
+        0 0 120px #0fa;
     }
-
     0% {
       text-shadow:
         0 0 2px #fff,

@@ -37,33 +37,6 @@ const svgGetter = (iconName: string) => {
 const { iconName, ...attributes } = Astro.props
 const { attributes: baseAttributes, innerHTML } = svgGetter(iconName)
 const svgAttributes = { ...baseAttributes, ...attributes }
-
-// import { Icon } from 'astro-icon/components'
-// import { Debug } from 'astro:components';
-
-// type svgGlobFile = Record<
-//   'default',
-//   {
-//     src: string
-//     width: number
-//     height: number
-//     format: 'svg'
-//   }
-// >
-
-// const icons = (await Astro.glob('../Svg/icons/*.svg')) as svgGlobFile[]
-
-// const iconNames = [
-//   ...icons.map((icon) =>
-//     icon.default.src.substring(icon.default.src.lastIndexOf('/') + 1)
-//   ),
-// ] as const
-
-// type Props = {
-//   iconName: (typeof iconNames)[number]
-// }
-
-// const { iconName } = Astro.props
 ---
 
 <svg {...svgAttributes} set:html={innerHTML} />

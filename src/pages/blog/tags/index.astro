@@ -17,7 +17,7 @@ const meta = await getEntry('meta', 'site-data')
       {
         tags.flatMap((tag) => (
           <li>
-            <a href={`/blog/tags/${tag}`}>{tag}</a>
+            <a href={`/blog/tags/${tag}`}>#{tag}</a>
           </li>
         ))
       }

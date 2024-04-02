@@ -35,9 +35,25 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: 'PixelMplus10';
+  src: url('/fonts/PixelMplus10-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  font-stretch: ultra-stretched;
+}
+@font-face {
+  font-family: 'PixelMplus12';
+  src: url('/fonts/PixelMplus12-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  font-stretch: ultra-stretched;
+}
 body {
   width: 100%;
-  font-family: 'Atkinson', sans-serif;
+  font-family: 'PixelMplus10', sans-serif;
   margin: 0;
   padding: 0;
   text-align: left;

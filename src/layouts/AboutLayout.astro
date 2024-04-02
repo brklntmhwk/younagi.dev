@@ -17,15 +17,12 @@ const meta = await getEntry('meta', 'site-data')
         alt="My profile icon"
         class="profile-icon"
         src="/blog-placeholder-about.jpg"
-        width={150}
-        height={150}
+        width={180}
+        height={180}
         format="avif"
-        quality={75}
+        quality={50}
       />
-      <div>
-        <span class="my-name">brklntmhwk</span>
-        <p class="short-intro">Hello. This is my short introduction.</p>
-      </div>
+      <span class="my-name">brklntmhwk</span>
     </section>
     <hr />
     <article class="about-content">
@@ -35,14 +32,24 @@ const meta = await getEntry('meta', 'site-data')
 </BaseLayout>
 <style>
   section.profile-section {
-    padding: 2.25rem 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
+    padding: 1.75rem 0;
+    display: grid;
     justify-content: center;
+    place-items: center;
+    gap: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    section.profile-section {
+      padding: 2.25rem 0;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      justify-content: center;
+    }
   }
   @media (min-width: 1024px) {
     section.profile-section {
+      padding: 2.25rem 0;
       gap: 2.5rem;
       justify-content: start;
     }
@@ -61,6 +68,11 @@ const meta = await getEntry('meta', 'site-data')
   p.short-intro {
   }
   article.about-content {
-    padding: 1.25rem;
+    padding: 0.5rem;
+  }
+  @media (min-width: 768px) {
+    article.about-content {
+      padding: 1.25rem;
+    }
   }
 </style>

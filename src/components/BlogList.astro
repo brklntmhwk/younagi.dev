@@ -58,22 +58,16 @@ const { entries, kind } = Astro.props
 <style>
   a.blog-title {
     font-size: 2rem;
-    font-weight: 400;
+    font-weight: 700;
     text-decoration: none;
     &:hover {
       text-decoration: underline;
       text-underline-offset: 7px;
     }
-    /* &:hover::before {
-      font-family: 'PixelMplus10';
-      content: '▶';
-      font-size: 1.25rem;
-      align-self: center;
-    } */
   }
   ul.entry-list {
     display: grid;
-    row-gap: 1.25rem;
+    gap: 1.75rem;
     padding: 0;
   }
   ul.entry-list > li {

@@ -52,10 +52,14 @@ const today = new Date()
 <style>
   footer {
     grid-area: footer;
-    padding: 2em 1em 6em 1em;
+    padding: 2em 1em 3.5em 1em;
     background: linear-gradient(var(--gray-gradient)) no-repeat;
     color: rgb(var(--gray));
     text-align: center;
+  }
+  @media (min-width: 1024px) {
+    footer {
+    }
   }
   .social-links {
     display: flex;

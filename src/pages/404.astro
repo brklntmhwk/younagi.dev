@@ -10,12 +10,13 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 </BaseLayout>
 <style>
   main {
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(8, 10, 24, 0.7)),
+    /* background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(8, 10, 24, 0.7)),
       url('/brick-wall3.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    backdrop-filter: grayscale(50%);
+    backdrop-filter: grayscale(50%); */
+    box-sizing: border-box;
     margin-top: 2.5rem;
   }
   @media (min-width: 1024px) {
@@ -29,11 +30,11 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
       0 0 5px #fff,
       0 0 8px #fff,
       0 0 18px #fff,
-      0 0 37px #0fa,
-      0 0 75px #0fa,
-      0 0 85px #0fa,
-      0 0 98px #0fa,
-      0 0 141px #0fa;
+      0 0 37px rgb(0, 255, 136),
+      0 0 75px rgb(0, 255, 136),
+      0 0 85px rgb(0, 255, 136),
+      0 0 98px rgb(0, 255, 136),
+      0 0 141px rgb(0, 255, 136);
   }
   h1,
   p {
@@ -53,22 +54,22 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
         0 0 3px #fff,
         0 0 10px #fff,
         0 0 15px #fff,
-        0 0 30px #0fa,
-        0 0 60px #0fa,
-        0 0 70px #0fa,
-        0 0 90px #0fa,
-        0 0 120px #0fa;
+        0 0 30px rgb(0, 255, 136),
+        0 0 60px rgb(0, 255, 136),
+        0 0 70px rgb(0, 255, 136),
+        0 0 90px rgb(0, 255, 136),
+        0 0 120px rgb(0, 255, 136);
     }
     0% {
       text-shadow:
         0 0 2px #fff,
         0 0 4px #fff,
         0 0 6px #fff,
-        0 0 10px #0fa,
-        0 0 45px #0fa,
-        0 0 55px #0fa,
-        0 0 70px #0fa,
-        0 0 80px #0fa;
+        0 0 10px rgb(0, 255, 136),
+        0 0 45px rgb(0, 255, 136),
+        0 0 55px rgb(0, 255, 136),
+        0 0 70px rgb(0, 255, 136),
+        0 0 80px rgb(0, 255, 136);
     }
   }
 </style>

@@ -29,19 +29,19 @@ const { entries, kind } = Astro.props
                 </div>
               )}
             </section>
-            <a class="blog-title" href={`/blog/${entry.slug}`}>
+            <a class="blog-title" href={`/blog/${entry.slug}/`}>
               {entry.data.title}
             </a>
             <span>{entry.data.description}</span>
             {kind === 'blog' && (
               <section class="taxonomies">
-                <a href={`/blog/categories/${entry.data.category}`}>
+                <a href={`/blog/categories/${entry.data.category}/`}>
                   {entry.data.category}
                 </a>
                 <ul class="tag-list">
                   {entry.data.tags?.map((tag) => (
                     <li>
-                      <a href={`/blog/tags/${tag}`}>#{tag}</a>
+                      <a href={`/blog/tags/${tag}/`}>#{tag}</a>
                     </li>
                   ))}
                 </ul>

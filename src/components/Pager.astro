@@ -55,7 +55,7 @@ const paginator = (
                 return (
                   <li>
                     <a
-                      href={`/${currentPath.split('/').slice(1, -1).join('/')}`}
+                      href={`/${currentPath.split('/').slice(1, -2).join('/')}/`}
                     >
                       {pg}
                     </a>
@@ -65,10 +65,14 @@ const paginator = (
                 return (
                   <li>
                     {page.currentPage === 1 ? (
-                      <a href={`${currentPath}/${pg}`}>{pg}</a>
+                      <a
+                        href={`/${currentPath.split('/').slice(1, -1)}/${pg}/`}
+                      >
+                        {pg}
+                      </a>
                     ) : (
                       <a
-                        href={`/${currentPath.split('/').slice(1, -1).join('/')}/${pg}`}
+                        href={`/${currentPath.split('/').slice(1, -2).join('/')}/${pg}/`}
                       >
                         {pg}
                       </a>

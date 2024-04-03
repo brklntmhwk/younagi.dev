@@ -26,6 +26,7 @@ export default defineConfig({
   ],
   // output: 'hybrid',
   // adapter: cloudflare(),
+  trailingSlash: 'always',
   markdown: {
     syntaxHighlight: false,
     remarkPlugins: [remarkMath, remarkGfm],

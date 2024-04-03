@@ -28,8 +28,8 @@ const { page } = Astro.props
     <section>
       <h1>Blog</h1>
       <div class="taxonomy-links">
-        <a href="/blog/categories">Categories</a>
-        <a href="/blog/tags">Tags</a>
+        <a href="/blog/categories/">Categories</a>
+        <a href="/blog/tags/">Tags</a>
       </div>
       <BlogList entries={page.data} kind="blog" />
     </section>

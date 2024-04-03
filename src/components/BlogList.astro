@@ -19,7 +19,7 @@ const { entries, kind } = Astro.props
           <article>
             <section class="date">
               <div>
-                <Svg iconName="publish" width={20} height={20} />
+                <Svg iconName="upload" width={20} height={20} />
                 <FormattedDate date={entry.data.publishedAt} />
               </div>
               {entry.data.modifiedAt && (
@@ -58,12 +58,18 @@ const { entries, kind } = Astro.props
 <style>
   a.blog-title {
     font-size: 2rem;
-    font-weight: bolder;
+    font-weight: 400;
     text-decoration: none;
     &:hover {
       text-decoration: underline;
       text-underline-offset: 7px;
     }
+    /* &:hover::before {
+      font-family: 'PixelMplus10';
+      content: '▶';
+      font-size: 1.25rem;
+      align-self: center;
+    } */
   }
   ul.entry-list {
     display: grid;

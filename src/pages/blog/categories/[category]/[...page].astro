@@ -36,7 +36,8 @@ const { category } = Astro.params
 <BaseLayout
   title={`${meta.data.blog.title} - Category: ${category}`}
   description={meta.data.blog.description}
-  ><main>
+>
+  <main data-pagefind-ignore="all">
     <section>
       <h1>{category}</h1>
       <BlogList entries={page.data} kind="taxonomy" />

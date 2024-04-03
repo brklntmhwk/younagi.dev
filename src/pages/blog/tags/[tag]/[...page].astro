@@ -34,7 +34,7 @@ const { tag } = Astro.params
 <BaseLayout
   title={`${meta.data.blog.title} - Tag: ${tag}`}
   description={meta.data.blog.description}
-  ><main>
+  ><main data-pagefind-ignore="all">
     <section>
       <h1>{tag}</h1>
       <BlogList entries={page.data} kind="taxonomy" />

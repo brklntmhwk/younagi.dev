@@ -40,11 +40,11 @@ const paginator = (
         {page.url.prev ? (
           <div>
             <a href={page.url.prev}>
-              <Svg iconName="left-arrow" width={22} height={22} />
+              <Svg iconName="chevron-left" width={22} height={22} />
             </a>
           </div>
         ) : (
-          <Svg iconName="left-arrow" width={22} height={22} />
+          <Svg iconName="chevron-left" width={22} height={22} />
         )}
         <section class="page-nums">
           {paginator(page.currentPage, page.lastPage).map((pg) => {
@@ -82,11 +82,11 @@ const paginator = (
         {page.url.next ? (
           <div>
             <a href={page.url.next}>
-              <Svg iconName="right-arrow" width={22} height={22} />
+              <Svg iconName="chevron-right" width={22} height={22} />
             </a>
           </div>
         ) : (
-          <Svg iconName="right-arrow" width={22} height={22} />
+          <Svg iconName="chevron-right" width={22} height={22} />
         )}
       </nav>
     </>

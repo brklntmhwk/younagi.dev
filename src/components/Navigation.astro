@@ -54,14 +54,9 @@ import Hamburger from '@/components/Hamburger.astro'
     /* grid-area: navigation; */
   }
   nav a {
-    /* padding: 1em 0.5em; */
     color: var(--black);
     border-bottom: 2px solid transparent;
     text-decoration: none;
-  }
-  nav a.active {
-    text-decoration: none;
-    border-bottom-color: var(--accent);
   }
   .icon-links,
   .nav-links {
@@ -100,7 +95,7 @@ import Hamburger from '@/components/Hamburger.astro'
       align-items: start;
       position: sticky;
       /* top: 0; */
-      padding: 1.75rem 1.75rem;
+      padding: 1.75rem 1.85rem;
       margin: 0;
       width: 18rem;
       height: 100vh;
@@ -113,13 +108,32 @@ import Hamburger from '@/components/Hamburger.astro'
     .nav-links {
       display: grid;
       grid-area: nav-links;
-      gap: 15px;
+      gap: 1.5rem;
+      margin-left: 1.45rem;
+    }
+    .nav-links a {
+      position: relative;
+      &:hover::before {
+        font-family: 'PixelMplus10';
+        content: '▶';
+        position: absolute;
+        top: 0;
+        left: -1.4rem;
+        font-size: 1.25rem;
+        align-self: center;
+      }
+    }
+    .nav-links a.active {
+      text-decoration: underline;
+      text-decoration-color: var(--accent);
+      text-underline-offset: 8px;
     }
     .icon-links {
+      padding: 0 0.5rem;
       grid-area: icon-links;
       display: flex;
       justify-content: space-between;
-      column-gap: 1.5rem;
+      gap: 1.5rem;
       align-self: end;
     }
     .mobile-menu {

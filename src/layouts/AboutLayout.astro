@@ -10,7 +10,7 @@ const meta = await getEntry('meta', 'site-data')
   title={meta.data.about.title}
   description={meta.data.about.description}
 >
-  <main>
+  <main data-pagefind-ignore="all">
     <h1>About Me</h1>
     <section class="profile-section">
       <Image
@@ -63,8 +63,6 @@ const meta = await getEntry('meta', 'site-data')
   span.my-name {
     font-size: 1.5rem;
     font-weight: 600;
-  }
-  p.short-intro {
   }
   article.about-content {
     padding: 0.5rem;

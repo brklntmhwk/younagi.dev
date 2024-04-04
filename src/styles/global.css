@@ -145,10 +145,9 @@ a:hover {
 a.hover::before {
   font-family: 'PixelMplus10';
   content: '▶';
-  color: red;
 }
 p {
-  font-size: 0.9em;
+  font-size: 0.85em;
   margin-bottom: 1em;
 }
 .prose {
@@ -200,16 +199,6 @@ hr {
   border: none;
   border-top: 1px solid rgb(var(--gray-light));
 }
-
-/* @media (max-width: 720px) {
-  body {
-    font-size: 18px;
-  }
-  main {
-    padding: 1em;
-  }
-} */
-
 .sr-only {
   border: 0;
   padding: 0;

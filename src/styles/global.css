@@ -67,10 +67,16 @@
   font-display: swap;
   font-stretch: 200%;
 }
+@font-face {
+  font-family: 'DotGothic16';
+  src: url('/fonts/DotGothic16-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 body {
   width: 100%;
   font-family: 'PixelMplus10', sans-serif;
-  /* font-weight: 400; */
   margin: 0;
   padding: 0;
   text-align: left;
@@ -85,7 +91,17 @@ body {
 main {
   /* width: 100%; */
   grid-area: main;
-  padding: 2.25em 1.25em;
+  padding: 2.25rem 1.5rem;
+}
+@media (min-width: 768px) {
+  main {
+    padding: 2.25rem 2.75rem;
+  }
+}
+@media (min-width: 1024px) {
+  main {
+    padding: 2rem 2.25rem;
+  }
 }
 h1,
 h2,
@@ -132,7 +148,11 @@ a.hover::before {
   color: red;
 }
 p {
+  font-size: 0.9em;
   margin-bottom: 1em;
+}
+.prose {
+  font-family: 'DotGothic16';
 }
 .prose p {
   margin-bottom: 2em;

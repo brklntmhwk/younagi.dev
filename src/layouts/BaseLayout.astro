@@ -34,6 +34,11 @@ const { title, description } = Astro.props
           'main'
           'footer';
       }
+      @media (min-width: 768px) {
+        .base-wrapper {
+          padding-top: 5rem;
+        }
+      }
       @media (min-width: 1024px) {
         main {
           /* width: 100%; */
@@ -43,13 +48,13 @@ const { title, description } = Astro.props
         }
 
         .base-wrapper {
-          width: 100%;
+          /* width: 100%; */
           min-height: 100vh;
           padding-top: 0;
           margin: 0;
-          display: grid;
+          /* display: grid; */
           grid-template-columns: 18rem 1fr;
-          grid-template-rows: 1fr auto;
+          /* grid-template-rows: 1fr auto; */
           /* grid-auto-columns: 18rem minmax(50rem, auto); */
           grid-auto-rows: minmax(100px, auto);
           grid-template-areas:

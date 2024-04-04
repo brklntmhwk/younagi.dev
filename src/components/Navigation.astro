@@ -5,12 +5,13 @@ import Search from '@/components/Search.astro'
 ---
 
 <nav data-pagefind-ignore="all">
-  <a class="blog-title" href="/"
-    ><Svg iconName="logo" width={54} height={48} /></a
-  >
+  <a class="blog-title" href="/">
+    <Svg iconName="logo" width={54} height={50} />
+  </a>
   <input type="checkbox" id="menu-toggle-check" />
-  <label for="menu-toggle-check" class="hamburger-icon-btn"><span></span></label
-  >
+  <label for="menu-toggle-check" class="hamburger-icon-btn">
+    <span></span>
+  </label>
   <div class="nav-menu-container">
     <div class="nav-links">
       <NavLink href="/">Home</NavLink>
@@ -30,7 +31,6 @@ import Search from '@/components/Search.astro'
     </div>
   </div>
 </nav>
-
 <style>
   nav {
     background-color: rgba(255 255 255 0.4);
@@ -42,10 +42,10 @@ import Search from '@/components/Search.astro'
     top: 0;
     left: 0;
     right: 0;
-    z-index: 10;
-    height: 2.75rem;
+    z-index: 50;
+    height: 4.25rem;
     box-sizing: border-box;
-    padding: 2.75rem 1.25rem;
+    padding: 0.5rem 1.25rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -55,18 +55,23 @@ import Search from '@/components/Search.astro'
     border-bottom: 2px solid transparent;
     text-decoration: none;
   }
+  nav a.blog-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .nav-menu-container {
     width: 100%;
     height: 100vh;
     position: fixed;
     top: 0;
     left: 100%;
-    z-index: 80;
+    z-index: 50;
     display: flex;
     flex-direction: column;
     gap: 3.5rem;
     padding-top: 3rem;
-    margin-top: 5.35rem;
+    margin-top: 4.25rem;
     background-color: #f4f4f4;
     transition: all 0.2s;
   }
@@ -111,7 +116,7 @@ import Search from '@/components/Search.astro'
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 90;
+    z-index: 50;
   }
   .hamburger-icon-btn span,
   .hamburger-icon-btn span:before,
@@ -151,9 +156,9 @@ import Search from '@/components/Search.astro'
 
   @media (min-width: 768px) {
     nav {
-      height: 2.85rem;
+      height: 5.25rem;
       box-sizing: border-box;
-      padding: 2.75rem 1.5rem;
+      padding: 0.85rem 1.5rem;
     }
     .nav-menu-container {
       /* width: 100%; */
@@ -166,7 +171,7 @@ import Search from '@/components/Search.astro'
       justify-content: space-between;
       flex-direction: unset;
       align-items: center;
-      gap: 3.75rem;
+      gap: 4rem;
       padding-top: 0;
       margin-top: 0;
       background-color: transparent;
@@ -180,10 +185,11 @@ import Search from '@/components/Search.astro'
       display: flex;
     }
     .nav-links {
-      gap: 2.75rem;
+      gap: 3.25rem;
     }
     .icon-links {
-      gap: 1.75rem;
+      justify-content: unset;
+      gap: 2rem;
     }
     label.hamburger-icon-btn {
       display: none;

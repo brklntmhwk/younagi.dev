@@ -22,6 +22,9 @@ import Svg from '@/components/Svg/index.astro'
     height: 100vh;
     padding-top: 1.5rem;
     z-index: 90;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
     background-color: hsla(223, 13%, 10%, 0.6);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
@@ -40,13 +43,22 @@ import Svg from '@/components/Svg/index.astro'
     display: none;
   }
   #search-wrapper {
+    color: #fff;
     background-color: color-mix(in srgb, var(--bg) 97%, var(--fg) 3%);
-    max-width: 32rem;
-    max-height: 100vh;
-    padding: 1.25rem;
-    border-radius: 0.15rem;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 38rem;
+    max-height: 85vh;
+    padding: 1.5rem;
+    border-style: solid;
+    border-width: 8px;
+    border-image-source: url('/border-image.gif');
+    border-image-slice: 12;
+    border-image-repeat: repeat;
+    border-image-outset: 0.2rem;
+    image-rendering: pixelated;
+    margin: 0 1.5rem;
     overflow-y: auto;
+    box-sizing: border-box;
   }
   #search-icon-button {
     background-color: transparent;

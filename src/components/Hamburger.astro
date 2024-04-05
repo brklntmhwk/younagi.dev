@@ -118,7 +118,8 @@ import Svg from '@/components/Svg/index.astro'
     transform: rotate(-45deg);
   }
   #menu-toggle-check:checked ~ nav.mobile-nav {
-    left: 0;
+    transform: translateX(-100%);
+    /* left: 0; */
   }
   #menu-toggle-check {
     display: none;

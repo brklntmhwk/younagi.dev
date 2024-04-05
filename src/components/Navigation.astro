@@ -2,17 +2,14 @@
 import NavLink from '@/components/NavLink.astro'
 import Svg from '@/components/Svg/index.astro'
 import Search from '@/components/Search.astro'
+import NavMenuContainer from '@/components/NavMenuContainer.astro'
 ---
 
 <nav data-pagefind-ignore="all">
   <a class="blog-title" href="/">
     <Svg iconName="logo" width={54} height={50} />
   </a>
-  <input type="checkbox" id="menu-toggle-check" />
-  <label for="menu-toggle-check" class="hamburger-icon-btn">
-    <span></span>
-  </label>
-  <div class="nav-menu-container">
+  <NavMenuContainer>
     <div class="nav-links">
       <NavLink href="/">Home</NavLink>
       <NavLink href="/blog/">Blog</NavLink>
@@ -29,7 +26,7 @@ import Search from '@/components/Search.astro'
         <Svg iconName="github" width={32} height={32} />
       </a>
     </div>
-  </div>
+  </NavMenuContainer>
 </nav>
 <style>
   nav {
@@ -60,28 +57,10 @@ import Search from '@/components/Search.astro'
     justify-content: center;
     align-items: center;
   }
-  .nav-menu-container {
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 100%;
-    z-index: 50;
-    display: flex;
-    flex-direction: column;
-    gap: 3.5rem;
-    padding-top: 3rem;
-    margin-top: 4.25rem;
-    background-color: #f4f4f4;
-    transform: translateX(100%);
-    transition: transform 0.3s ease-in-out;
-  }
-  .nav-menu-container > * {
-    padding: 0.75rem 2.75rem;
-  }
   .nav-links {
     display: grid;
     gap: 1.5rem;
+    padding: 0.75rem 2.75rem;
     margin-left: 1.25rem;
   }
   .nav-links a {
@@ -105,86 +84,18 @@ import Search from '@/components/Search.astro'
     display: flex;
     justify-content: center;
     gap: 1.25rem;
+    padding: 0.75rem 2.75rem;
   }
-  label.hamburger-icon-btn {
-    display: flex;
-    place-self: center;
-  }
-  .hamburger-icon-btn {
-    height: 2.5rem;
-    width: 2.5rem;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 50;
-  }
-  .hamburger-icon-btn span,
-  .hamburger-icon-btn span:before,
-  .hamburger-icon-btn span:after {
-    font-family: 'PixelMplus10';
-    content: '';
-    display: block;
-    height: 3px;
-    width: 25px;
-    border-radius: 3px;
-    background-color: #000000;
-    position: absolute;
-  }
-  .hamburger-icon-btn span:before {
-    bottom: 8px;
-  }
-  .hamburger-icon-btn span:after {
-    top: 8px;
-  }
-  #menu-toggle-check:checked ~ .hamburger-icon-btn span {
-    background-color: transparent;
-  }
-  #menu-toggle-check:checked ~ .hamburger-icon-btn span::before {
-    bottom: 0;
-    transform: rotate(45deg);
-  }
-  #menu-toggle-check:checked ~ .hamburger-icon-btn span::after {
-    top: 0;
-    transform: rotate(-45deg);
-  }
-  #menu-toggle-check:checked ~ .nav-menu-container {
-    transform: translateX(-100%);
-    /* left: 0; */
-  }
-  #menu-toggle-check {
-    display: none;
-  }
-
   @media (min-width: 768px) {
     nav {
       height: 5.25rem;
       box-sizing: border-box;
       padding: 0.85rem 1.5rem;
     }
-    .nav-menu-container {
-      /* width: 100%; */
-      width: unset;
-      height: 100%;
-      position: static;
-      z-index: 0;
-      display: flex;
-      /* place-items: start; */
-      justify-content: space-between;
-      flex-direction: unset;
-      align-items: center;
-      gap: 4rem;
-      padding-top: 0;
-      margin-top: 0;
-      background-color: transparent;
-      transition: unset;
-    }
-    .nav-menu-container > * {
-      padding: 0;
-    }
     .icon-links,
     .nav-links {
       display: flex;
+      padding: 0;
     }
     .nav-links {
       gap: 3.25rem;
@@ -192,9 +103,6 @@ import Search from '@/components/Search.astro'
     .icon-links {
       justify-content: unset;
       gap: 2rem;
-    }
-    label.hamburger-icon-btn {
-      display: none;
     }
   }
   @media (min-width: 1024px) {
@@ -220,32 +128,13 @@ import Search from '@/components/Search.astro'
       grid-area: blog-title;
       place-self: center;
     }
-    .nav-menu-container {
-      grid-area: nav-menu;
-      grid-template-rows: 7fr 1fr;
-      grid-template-columns: 1fr;
-      grid-template-areas:
-        'nav-links'
-        'icon-links';
-      height: 100%;
-      position: static;
-      z-index: 10;
-      display: grid;
-      gap: 0;
-      padding-top: 0;
-      margin-top: 0;
-      background-color: transparent;
-      transition: unset;
-    }
-    .nav-menu-container > * {
-      padding: 0;
-    }
     .nav-links {
       grid-area: nav-links;
       display: grid;
       gap: 2rem;
       align-self: start;
       margin-left: 1.5rem;
+      padding: 0;
     }
     .nav-links a {
       position: relative;
@@ -271,9 +160,6 @@ import Search from '@/components/Search.astro'
       justify-content: space-between;
       gap: 1.75rem;
       align-self: end;
-    }
-    label.hamburger-icon-btn {
-      display: none;
     }
   }
 </style>

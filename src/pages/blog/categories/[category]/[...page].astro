@@ -40,6 +40,7 @@ const { category } = Astro.params
   <main data-pagefind-ignore="all">
     <section>
       <h1>{category}</h1>
+      <a href="/blog/tags/">◀ Back to Category List</a>
       <BlogList entries={page.data} kind="taxonomy" />
     </section>
     <Pager page={page} />

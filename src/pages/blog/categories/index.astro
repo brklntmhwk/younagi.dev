@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getCollection, getEntry } from 'astro:content'
+import TaxonomyList from '@/components/TaxonomyList.astro'
 
 const entries = await getCollection('blog')
 const categories = [...new Set(entries.flatMap((entry) => entry.data.category))]
@@ -13,25 +14,7 @@ const meta = await getEntry('meta', 'site-data')
 >
   <main data-pagefind-ignore="all">
     <h1>Categories</h1>
-    <ul>
-      {
-        categories.flatMap((category) => (
-          <li>
-            <a href={`/blog/categories/${category}/`}>{category}</a>
-          </li>
-        ))
-      }
-    </ul>
-    <a href="/blog/">◀ Back to Blog Top</a>
+    <TaxonomyList kind="categories" taxonomyList={categories} />
+    <a href="/blog/">◀ Back to Top</a>
   </main>
 </BaseLayout>
-<style>
-  ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.25rem;
-  }
-  li {
-    text-transform: capitalize;
-  }
-</style>

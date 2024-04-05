@@ -1,0 +1,34 @@
+---
+type Props = {
+  taxonomyList: Array<string>
+  kind: 'categories' | 'tags'
+}
+
+const { taxonomyList, kind } = Astro.props
+---
+
+{
+  taxonomyList.length !== 0 ? (
+    <ul class="taxonomy-list">
+      {taxonomyList.flatMap((taxonomy) => (
+        <li>
+          <a href={`/blog/${kind}/${taxonomy}/`}>
+            {kind === 'tags' ? `#${taxonomy}` : taxonomy}
+          </a>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p>Woops! No taxonomy found..</p>
+  )
+}
+<style>
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+  li {
+    text-transform: capitalize;
+  }
+</style>

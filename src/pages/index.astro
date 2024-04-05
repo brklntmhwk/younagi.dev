@@ -9,19 +9,10 @@ const meta = await getEntry('meta', 'site-data')
   title={meta.data.site.title}
   description={meta.data.site.description}
 >
-  <main>
-    <div class="logo"><b>a<span>ge</span>nn<span>sa</span>ism</b></div>
-  </main>
+  <main></main>
 </BaseLayout>
 <style>
-  /* @import url(//fonts.googleapis.com/css?family=Vibur); */
   main {
-    /* background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(8, 10, 24, 0.7)),
-      url('/brick-wall3.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    backdrop-filter: grayscale(50%); */
     margin-top: 2.5rem;
     box-sizing: border-box;
     width: 100%;
@@ -29,81 +20,6 @@ const meta = await getEntry('meta', 'site-data')
   @media (min-width: 1024px) {
     main {
       margin-top: 0;
-    }
-  }
-  .logo {
-    text-align: center;
-    font-size: 4.5rem;
-    margin: auto;
-    user-select: none;
-  }
-
-  .logo b {
-    font-family: 'PixelMplus10', sans-serif;
-    font-weight: 500;
-    color: #fee;
-    animation: pulsate 0.11s ease-in-out infinite alternate;
-  }
-  .logo b span {
-    animation: blink linear infinite 2s;
-  }
-  .logo b span:nth-of-type(2) {
-    animation: blink linear infinite 3s;
-  }
-  @keyframes blink {
-    78% {
-      color: inherit;
-      text-shadow: inherit;
-    }
-    79% {
-      color: #333;
-    }
-    80% {
-      text-shadow: none;
-    }
-    81% {
-      color: inherit;
-      text-shadow: inherit;
-    }
-    82% {
-      color: #333;
-      text-shadow: none;
-    }
-    83% {
-      color: inherit;
-      text-shadow: inherit;
-    }
-    92% {
-      color: #333;
-      text-shadow: none;
-    }
-    92.5% {
-      color: inherit;
-      text-shadow: inherit;
-    }
-  }
-  @keyframes pulsate {
-    100% {
-      text-shadow:
-        0 -45.5px 150px #fff,
-        0 0 2px #fff,
-        0 0 0.1em #ff4444,
-        0 0 0.3em #ff4444,
-        0 0 0.6em #ff4444,
-        0 0 1em #ff4444,
-        0 0 1.4em #ff4444,
-        0 11.5px 2.5px #000;
-    }
-    0% {
-      text-shadow:
-        0 -41.5px 149px #fff,
-        0 0 1px #fff,
-        0 0 0.1em #ff4444,
-        0 0 0.25em #ff4444,
-        0 0 0.55em #ff4444,
-        0 0 0.95em #ff4444,
-        0 0 1.35em #ff4444,
-        0 10.5px 1.5px #000;
     }
   }
 </style>

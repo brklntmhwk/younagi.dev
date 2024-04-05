@@ -1,7 +1,7 @@
 ---
 title: Third post
 description: Lorem ipsum dolor sit amet
-publishedAt: Jul 08 2022
+publishedAt: Jul 08 2023
 heroImage: /blog-placeholder-2.jpg
 category:
   - trip

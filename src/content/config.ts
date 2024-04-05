@@ -40,6 +40,10 @@ const meta = defineCollection({
         title: z.string(),
         description: z.string().optional(),
       }),
+      archive: z.object({
+        title: z.string(),
+        description: z.string().optional(),
+      }),
     }),
     about: z.object({
       title: z.string(),

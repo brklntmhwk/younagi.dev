@@ -1,7 +1,7 @@
 ---
 type Props = {
   taxonomyList: Array<string>
-  kind: 'categories' | 'tags'
+  kind: 'categories' | 'tags' | 'archive'
 }
 
 const { taxonomyList, kind } = Astro.props
@@ -19,7 +19,7 @@ const { taxonomyList, kind } = Astro.props
       ))}
     </ul>
   ) : (
-    <p>Woops! No taxonomy found..</p>
+    <p>Woops! No {kind} found..</p>
   )
 }
 <style>

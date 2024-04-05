@@ -1,0 +1,29 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { getCollection, getEntry } from 'astro:content'
+import TaxonomyList from '@/components/TaxonomyList.astro'
+
+const entries = await getCollection('blog')
+const dates = [
+  ...new Set(
+    entries.map((entry) =>
+      new Date(entry.data.publishedAt)
+        .toLocaleDateString('sv-SE')
+        .replaceAll('-', '')
+    )
+  ),
+]
+const meta = await getEntry('meta', 'site-data')
+---
+
+<BaseLayout
+  title={meta.data.blog.archive.title}
+  description={meta.data.blog.archive.description ?? ''}
+>
+  <main data-pagefind-ignore="all">
+    <h1>Archive</h1>
+    <a href="/blog/">◀ Back to Top</a>
+    <hr />
+    <TaxonomyList kind="archive" taxonomyList={dates} />
+  </main>
+</BaseLayout>

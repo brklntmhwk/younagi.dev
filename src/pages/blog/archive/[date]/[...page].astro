@@ -10,18 +10,27 @@ export const getStaticPaths = (async ({ paginate }) => {
   const entries = (await getCollection('blog')).sort(
     (a, b) => a.data.publishedAt.valueOf() - b.data.publishedAt.valueOf()
   )
-  const categories = [
-    ...new Set(entries.flatMap((entry) => entry.data.category)),
+  const dates = [
+    ...new Set(
+      entries.map((entry) =>
+        new Date(entry.data.publishedAt)
+          .toLocaleDateString('sv-SE')
+          .replaceAll('-', '')
+      )
+    ),
   ]
 
-  return categories.flatMap((category) => {
+  return dates.flatMap((date) => {
     const displayEntries = entries.filter(
-      (entry) => entry.data.category[0] === category
+      (entry) =>
+        new Date(entry.data.publishedAt)
+          .toLocaleDateString('sv-SE')
+          .replaceAll('-', '') === date
     )
 
     return paginate(displayEntries, {
       pageSize: LIMIT_PER_PAGE,
-      params: { category },
+      params: { date },
     })
   })
 }) satisfies GetStaticPaths
@@ -30,17 +39,17 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
 const meta = await getEntry('meta', 'site-data')
 const { page } = Astro.props
-const { category } = Astro.params
+const { date } = Astro.params
 ---
 
 <BaseLayout
-  title={`${meta.data.blog.title} - Category: ${category}`}
+  title={`${meta.data.blog.title} - Archive: ${date}`}
   description={meta.data.blog.description}
 >
   <main data-pagefind-ignore="all">
     <section>
-      <h1>{category}</h1>
-      <a href="/blog/categories/">◀ Back to Category List</a>
+      <h1>{date}</h1>
+      <a href="/blog/archive/">◀ Back to Archive</a>
       <BlogList entries={page.data} kind="taxonomy" />
     </section>
     <Pager page={page} />

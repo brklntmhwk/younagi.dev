@@ -87,9 +87,35 @@ const { entries, kind } = Astro.props
   ul.tag-list > li {
     list-style: none;
   }
+  article {
+    position: relative;
+    border-top: 4px solid #000000;
+    border-right: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+    border-left: 2px solid #000000;
+    border-radius: 0.3rem;
+  }
+  article::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    bottom: -8px;
+    left: -6px;
+    right: -6px;
+    border-top: 2px solid #000000;
+    border-right: 2px solid #000000;
+    border-bottom: 4px solid #000000;
+    border-left: 2px solid #000000;
+    border-radius: 0.5rem;
+    z-index: -1;
+  }
+  article > * {
+    padding-left: 0.85rem;
+  }
   section.date {
     display: flex;
-    column-gap: 10px;
+    gap: 10px;
+    padding-top: 1rem;
   }
   section.date > div {
     display: flex;

@@ -7,12 +7,30 @@
     {
       "title": "blog",
       "path": "[[workspace]]/src/content/blog",
-      "contentTypes": ["blog"]
+      "contentTypes": [
+        "blog"
+      ],
+      "defaultLocale": "en"
     },
     {
       "title": "page",
       "path": "[[workspace]]/src/content/page",
-      "contentTypes": ["page"]
+      "contentTypes": [
+        "page"
+      ],
+      "defaultLocale": "en"
+    }
+  ],
+  "frontMatter.content.i18n": [
+    {
+      "title": "English",
+      "locale": "en",
+      "path": "."
+    },
+    {
+      "title": "Japanese",
+      "locale": "ja",
+      "path": "ja"
     }
   ],
   "frontMatter.taxonomy.contentTypes": [

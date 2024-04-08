@@ -4,7 +4,8 @@ import { getCollection, getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import BlogList from '@/components/BlogList.astro'
 import Pager from '@/components/Pager.astro'
-import { LIMIT_PER_PAGE } from '@/lib/consts'
+import { LIMIT_PER_PAGE } from '@/consts'
+import { formatArchiveDate } from '@/utils/formatArchiveDate'
 
 export const getStaticPaths = (async ({ paginate }) => {
   const entries = (await getCollection('blog')).sort(
@@ -12,20 +13,13 @@ export const getStaticPaths = (async ({ paginate }) => {
   )
   const dates = [
     ...new Set(
-      entries.map((entry) =>
-        new Date(entry.data.publishedAt)
-          .toLocaleDateString('sv-SE')
-          .replaceAll('-', '')
-      )
+      entries.map((entry) => formatArchiveDate(entry.data.publishedAt))
     ),
   ]
 
   return dates.flatMap((date) => {
     const displayEntries = entries.filter(
-      (entry) =>
-        new Date(entry.data.publishedAt)
-          .toLocaleDateString('sv-SE')
-          .replaceAll('-', '') === date
+      (entry) => formatArchiveDate(entry.data.publishedAt) === date
     )
 
     return paginate(displayEntries, {

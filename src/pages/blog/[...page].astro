@@ -4,7 +4,7 @@ import { getCollection, getEntry } from 'astro:content'
 import BlogList from '@/components/BlogList.astro'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import Pager from '@/components/Pager.astro'
-import { LIMIT_PER_PAGE } from '@/lib/consts'
+import { LIMIT_PER_PAGE } from '@/consts'
 
 export const getStaticPaths = (async ({ paginate }) => {
   const entries = (await getCollection('blog')).sort(

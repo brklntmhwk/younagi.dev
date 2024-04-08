@@ -10,6 +10,7 @@ const dates = [
       new Date(entry.data.publishedAt)
         .toLocaleDateString('sv-SE')
         .replaceAll('-', '')
+        .substring(0, 6)
     )
   ),
 ]

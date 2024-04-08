@@ -176,7 +176,8 @@ blockquote {
 }
 hr {
   border: none;
-  border-top: 1px solid rgb(var(--gray-light));
+  border-top: 4px double #000000;
+  /* border-top: 1px solid rgb(var(--gray-light)); */
 }
 .sr-only {
   border: 0;

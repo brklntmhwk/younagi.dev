@@ -2,17 +2,11 @@
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getCollection, getEntry } from 'astro:content'
 import TaxonomyList from '@/components/TaxonomyList.astro'
+import { formatArchiveDate } from '@/utils/formatArchiveDate'
 
 const entries = await getCollection('blog')
 const dates = [
-  ...new Set(
-    entries.map((entry) =>
-      new Date(entry.data.publishedAt)
-        .toLocaleDateString('sv-SE')
-        .replaceAll('-', '')
-        .substring(0, 6)
-    )
-  ),
+  ...new Set(entries.map((entry) => formatArchiveDate(entry.data.publishedAt))),
 ]
 const meta = await getEntry('meta', 'site-data')
 ---

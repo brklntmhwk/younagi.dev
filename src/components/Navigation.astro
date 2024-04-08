@@ -3,27 +3,29 @@ import NavLink from '@/components/NavLink.astro'
 import Svg from '@/components/Svg/index.astro'
 import Search from '@/components/Search.astro'
 import NavMenuContainer from '@/components/NavMenuContainer.astro'
+import { getLocaleFromUrl, useTranslations } from '@/i18n/utils'
+
+const locale = getLocaleFromUrl(Astro.url)
+const t = useTranslations(locale)
 ---
 
 <nav data-pagefind-ignore="all">
   <a class="blog-title" href="/">
     <!-- <Svg iconName="logo" width={54} height={50} /> -->
-    blog
+    Astro
   </a>
   <NavMenuContainer>
     <div class="nav-links">
-      <NavLink href="/">Home</NavLink>
-      <NavLink href="/blog/">Blog</NavLink>
-      <NavLink href="/about/">About</NavLink>
+      <NavLink href={`/${locale}/`}>{t('nav.home')}</NavLink>
+      <NavLink href={`/${locale}/blog/`}>{t('nav.blog')}</NavLink>
+      <NavLink href={`/${locale}/about/`}>{t('nav.about')}</NavLink>
     </div>
     <div class="icon-links">
       <Search />
       <a href="https://twitter.com/astrodotbuild" target="_blank">
-        <span class="sr-only">Follow Me on X(previous Twitter)</span>
         <Svg iconName="twitter" width={32} height={32} />
       </a>
       <a href="https://github.com/brklntmhwk" target="_blank">
-        <span class="sr-only">Go to the GitHub repo</span>
         <Svg iconName="github" width={32} height={32} />
       </a>
     </div>

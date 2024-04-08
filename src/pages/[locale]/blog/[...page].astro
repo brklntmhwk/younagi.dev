@@ -11,26 +11,34 @@ export const getStaticPaths = (async ({ paginate }) => {
     (a, b) => a.data.publishedAt.valueOf() - b.data.publishedAt.valueOf()
   )
 
-  return paginate(entries, { pageSize: LIMIT_PER_PAGE })
+  return entries.flatMap((entry) => {
+    const [locale, ..._slug] = entry.slug.split('/')
+
+    return paginate(entries, {
+      pageSize: LIMIT_PER_PAGE,
+      params: { locale },
+    })
+  })
 }) satisfies GetStaticPaths
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
-const meta = await getEntry('meta', 'site-data')
+const { locale } = Astro.params
 const { page } = Astro.props
+const meta = await getEntry('meta', `${locale}/site-data`)
 ---
 
 <BaseLayout
-  title={meta.data.blog.title}
-  description={meta.data.blog.description}
+  title={meta ? meta.data.site.title : ''}
+  description={meta ? meta.data.site.description : ''}
 >
   <main>
     <section>
       <h1>Blog</h1>
       <div class="taxonomy-links">
-        <a href="/blog/categories/">Categories</a>
-        <a href="/blog/tags/">Tags</a>
-        <a href="/blog/archive/">Archive</a>
+        <a href=`${locale}/blog/categories/`>Categories</a>
+        <a href=`${locale}/blog/tags/`>Tags</a>
+        <a href=`${locale}/blog/archive/`>Archive</a>
       </div>
       <BlogList entries={page.data} kind="blog" />
     </section>

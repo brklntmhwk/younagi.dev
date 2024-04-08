@@ -1,8 +1,8 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getEntry } from 'astro:content'
+import BaseLayout from '@/layouts/BaseLayout.astro'
 
-const meta = await getEntry('meta', 'site-data')
+const meta = await getEntry('meta', 'en/site-data')
 ---
 
 <BaseLayout

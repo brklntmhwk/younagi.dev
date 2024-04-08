@@ -1,75 +1,27 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import { getLocaleFromUrl, useTranslations } from '@/i18n/utils'
+
+const locale = getLocaleFromUrl(Astro.url)
+const t = useTranslations(locale)
 ---
 
 <BaseLayout title="404">
   <main data-pagefind-ignore="all">
-    <h1 class="neonText pulsate">404</h1>
-    <p class="neonText pulsate">Page Not Found</p>
+    <h1>404</h1>
+    <p>{t('404.not_found')}</p>
+    <a href="/">◀ {t('global.back_to_top')}</a>
   </main>
 </BaseLayout>
 <style>
   main {
-    /* background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(8, 10, 24, 0.7)),
-      url('/brick-wall3.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    backdrop-filter: grayscale(50%); */
     box-sizing: border-box;
     margin-top: 2.5rem;
+    text-align: center;
   }
   @media (min-width: 1024px) {
     main {
       margin-top: 0;
-    }
-  }
-  .neonText {
-    color: #fff;
-    text-shadow:
-      0 0 5px #fff,
-      0 0 8px #fff,
-      0 0 18px #fff,
-      0 0 37px rgb(0, 255, 136),
-      0 0 75px rgb(0, 255, 136),
-      0 0 85px rgb(0, 255, 136),
-      0 0 98px rgb(0, 255, 136),
-      0 0 141px rgb(0, 255, 136);
-  }
-  h1,
-  p {
-    text-align: center;
-    text-transform: uppercase;
-  }
-  p {
-    font-size: 1.5rem;
-    margin: 0;
-  }
-  .pulsate {
-    animation: pulsate 1.25s infinite alternate;
-  }
-  @keyframes pulsate {
-    100% {
-      text-shadow:
-        0 0 3px #fff,
-        0 0 10px #fff,
-        0 0 15px #fff,
-        0 0 30px rgb(0, 255, 136),
-        0 0 60px rgb(0, 255, 136),
-        0 0 70px rgb(0, 255, 136),
-        0 0 90px rgb(0, 255, 136),
-        0 0 120px rgb(0, 255, 136);
-    }
-    0% {
-      text-shadow:
-        0 0 2px #fff,
-        0 0 4px #fff,
-        0 0 6px #fff,
-        0 0 10px rgb(0, 255, 136),
-        0 0 45px rgb(0, 255, 136),
-        0 0 55px rgb(0, 255, 136),
-        0 0 70px rgb(0, 255, 136),
-        0 0 80px rgb(0, 255, 136);
     }
   }
 </style>

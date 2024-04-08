@@ -1,0 +1,18 @@
+site:
+  title: Astro ウェブサイト
+  description: 個人ウェブサイト
+blog:
+  title: ブログ
+  description: 個人ブログ
+  categories:
+    title: カテゴリー
+    description: ブログのカテゴリー
+  tags:
+    title: タグ
+    description: ブログのタグ
+  archive:
+    title: アーカイブ
+    description: ブログのアーカイブ
+about:
+  title: 自己紹介
+  description: 自己紹介

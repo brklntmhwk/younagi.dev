@@ -4,6 +4,7 @@ import '@fontsource-variable/roboto-condensed'
 import BaseHead from '../components/BaseHead.astro'
 import Navigation from '../components/Navigation.astro'
 import Footer from '../components/Footer.astro'
+import { getLocaleFromUrl } from '@/i18n/utils'
 
 type Props = {
   title: string
@@ -14,7 +15,7 @@ const { title, description } = Astro.props
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={getLocaleFromUrl(Astro.url)}>
   <head>
     <BaseHead title={title} description={description ?? ''} />
   </head>

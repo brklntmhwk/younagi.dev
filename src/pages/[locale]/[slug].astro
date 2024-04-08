@@ -7,14 +7,19 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 export const getStaticPaths = (async () => {
   const pages = await getCollection('page')
 
-  return pages.map((page) => ({
-    params: {
-      slug: page.slug,
-    },
-    props: {
-      page,
-    },
-  }))
+  return pages.map((page) => {
+    const [locale, slug] = page.slug.split('/')
+
+    return {
+      params: {
+        slug: slug,
+        locale: locale,
+      },
+      props: {
+        page,
+      },
+    }
+  })
 }) satisfies GetStaticPaths
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>
@@ -24,7 +29,7 @@ const { Content } = await page.render()
 ---
 
 {
-  page.slug === 'about' ? (
+  page.slug.includes('about') ? (
     <AboutLayout>
       <Content />
     </AboutLayout>

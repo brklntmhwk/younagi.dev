@@ -5,6 +5,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 import BlogList from '@/components/BlogList.astro'
 import Pager from '@/components/Pager.astro'
 import { LIMIT_PER_PAGE } from '@/consts'
+import { langList } from '@/i18n/ui'
 
 export const getStaticPaths = (async ({ paginate }) => {
   const entries = (await getCollection('blog')).sort(
@@ -13,24 +14,30 @@ export const getStaticPaths = (async ({ paginate }) => {
   const categories = [
     ...new Set(entries.flatMap((entry) => entry.data.category)),
   ]
+  //これだとenのパスしか生成されない
+  // const [locale, ..._slug] = entries.at(0)!.slug.split('/')
 
-  return categories.flatMap((category) => {
-    const displayEntries = entries.filter(
-      (entry) => entry.data.category[0] === category
-    )
+  return langList.flatMap((lang) => {
+    return categories.flatMap((category) => {
+      const displayEntries = entries.filter(
+        (entry) =>
+          entry.data.category[0] === category &&
+          entry.slug.split('/')[0] === lang
+      )
 
-    return paginate(displayEntries, {
-      pageSize: LIMIT_PER_PAGE,
-      params: { category },
+      return paginate(displayEntries, {
+        pageSize: LIMIT_PER_PAGE,
+        params: { locale: lang, category },
+      })
     })
   })
 }) satisfies GetStaticPaths
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
-const meta = await getEntry('meta', 'site-data')
 const { page } = Astro.props
-const { category } = Astro.params
+const { category, locale } = Astro.params
+const meta = await getEntry('meta', `${locale}/site-data`)
 ---
 
 <BaseLayout
@@ -40,7 +47,7 @@ const { category } = Astro.params
   <main data-pagefind-ignore="all">
     <section>
       <h1>{category}</h1>
-      <a href="/blog/categories/">◀ Back to Category List</a>
+      <a href={`/${locale}/blog/categories/`}>◀ Back to Category List</a>
       <BlogList entries={page.data} kind="taxonomy" />
     </section>
     <Pager page={page} />

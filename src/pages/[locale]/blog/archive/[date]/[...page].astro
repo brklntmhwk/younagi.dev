@@ -6,6 +6,7 @@ import BlogList from '@/components/BlogList.astro'
 import Pager from '@/components/Pager.astro'
 import { LIMIT_PER_PAGE } from '@/consts'
 import { formatArchiveDate } from '@/utils/formatArchiveDate'
+import { langList } from '@/i18n/ui'
 
 export const getStaticPaths = (async ({ paginate }) => {
   const entries = (await getCollection('blog')).sort(
@@ -16,24 +17,48 @@ export const getStaticPaths = (async ({ paginate }) => {
       entries.map((entry) => formatArchiveDate(entry.data.publishedAt))
     ),
   ]
+  //これだとenのパスしか生成されない
+  // const [locale, ..._slug] = entries.at(0)!.slug.split('/')
 
-  return dates.flatMap((date) => {
-    const displayEntries = entries.filter(
-      (entry) => formatArchiveDate(entry.data.publishedAt) === date
-    )
+  return langList.flatMap((lang) => {
+    return dates.flatMap((date) => {
+      const displayEntries = entries.filter(
+        (entry) =>
+          formatArchiveDate(entry.data.publishedAt) === date &&
+          entry.slug.split('/')[0] === lang
+      )
 
-    return paginate(displayEntries, {
-      pageSize: LIMIT_PER_PAGE,
-      params: { date },
+      return paginate(displayEntries, {
+        pageSize: LIMIT_PER_PAGE,
+        params: { locale: lang, date },
+      })
     })
   })
+
+  // for (let lang of langList) {
+  //   const localeEntries = entries.filter(
+  //     (entry) =>
+  //       formatArchiveDate(entry.data.publishedAt) === date &&
+  //       entry.slug.split('/')[0] === lang
+  //   )
+  //   displayEntries.push(...localeEntries)
+  // }
+
+  // return langList.flatMap((lang) => {
+  //   return dates.flatMap((date) =>
+  //     paginate(displayEntries, {
+  //       pageSize: LIMIT_PER_PAGE,
+  //       params: { locale: lang, date },
+  //     })
+  //   )
+  // })
 }) satisfies GetStaticPaths
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
-const meta = await getEntry('meta', 'site-data')
 const { page } = Astro.props
-const { date } = Astro.params
+const { date, locale } = Astro.params
+const meta = await getEntry('meta', `${locale}/site-data`)
 ---
 
 <BaseLayout
@@ -43,7 +68,7 @@ const { date } = Astro.params
   <main data-pagefind-ignore="all">
     <section>
       <h1>{date}</h1>
-      <a href="/blog/archive/">◀ Back to Archive</a>
+      <a href={`/${locale}/blog/archive/`}>◀ Back to Archive</a>
       <BlogList entries={page.data} kind="taxonomy" />
     </section>
     <Pager page={page} />

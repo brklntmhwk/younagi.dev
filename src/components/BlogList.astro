@@ -2,12 +2,14 @@
 import type { CollectionEntry } from 'astro:content'
 import FormattedDate from '@/components/FormattedDate.astro'
 import Svg from '@/components/Svg/index.astro'
+import { getLocaleFromUrl } from '@/i18n/utils'
 
 type Props = {
   entries: CollectionEntry<'blog'>[]
   kind: 'blog' | 'taxonomy'
 }
 
+const locale = getLocaleFromUrl(Astro.url)
 const { entries, kind } = Astro.props
 ---
 
@@ -29,19 +31,23 @@ const { entries, kind } = Astro.props
                 </div>
               )}
             </section>
-            <a class="blog-title" href={`/blog/${entry.slug}/`}>
+            <!-- 応急処置 -->
+            <a
+              class="blog-title"
+              href={`/${locale}/blog/${entry.slug.split('/').pop()}/`}
+            >
               {entry.data.title}
             </a>
             <span>{entry.data.description}</span>
             {kind === 'blog' && (
               <section class="taxonomies">
-                <a href={`/blog/categories/${entry.data.category}/`}>
+                <a href={`/${locale}/blog/categories/${entry.data.category}/`}>
                   {entry.data.category}
                 </a>
                 <ul class="tag-list">
                   {entry.data.tags?.map((tag) => (
                     <li>
-                      <a href={`/blog/tags/${tag}/`}>#{tag}</a>
+                      <a href={`/${locale}/blog/tags/${tag}/`}>#{tag}</a>
                     </li>
                   ))}
                 </ul>

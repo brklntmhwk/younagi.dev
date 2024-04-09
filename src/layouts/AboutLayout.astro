@@ -2,8 +2,10 @@
 import { Image } from 'astro:assets'
 import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import { getLocaleFromUrl } from '@/i18n/utils'
 
-const meta = await getEntry('meta', 'site-data')
+const locale = getLocaleFromUrl(Astro.url)
+const meta = await getEntry('meta', `${locale}/site-data`)
 ---
 
 <BaseLayout

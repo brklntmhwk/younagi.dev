@@ -13,8 +13,12 @@ export const getStaticPaths = (async ({ paginate }) => {
 
   return entries.flatMap((entry) => {
     const [locale, ..._slug] = entry.slug.split('/')
+    const displayEntries = entries.filter(
+      (entry) => entry.slug.split('/')[0] === locale
+    )
+    // ↑ 挙動は正常だけどなんかロジック変？
 
-    return paginate(entries, {
+    return paginate(displayEntries, {
       pageSize: LIMIT_PER_PAGE,
       params: { locale },
     })
@@ -36,9 +40,9 @@ const meta = await getEntry('meta', `${locale}/site-data`)
     <section>
       <h1>Blog</h1>
       <div class="taxonomy-links">
-        <a href=`${locale}/blog/categories/`>Categories</a>
-        <a href=`${locale}/blog/tags/`>Tags</a>
-        <a href=`${locale}/blog/archive/`>Archive</a>
+        <a href=`/${locale}/blog/categories/`>Categories</a>
+        <a href=`/${locale}/blog/tags/`>Tags</a>
+        <a href=`/${locale}/blog/archive/`>Archive</a>
       </div>
       <BlogList entries={page.data} kind="blog" />
     </section>

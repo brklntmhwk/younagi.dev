@@ -1,5 +1,5 @@
 ---
-title: Third post
+title: n番目の post
 description: Lorem ipsum dolor sit amet
 publishedAt: Jul 08 2023
 heroImage: /blog-placeholder-2.jpg

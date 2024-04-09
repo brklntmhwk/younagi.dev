@@ -3,6 +3,7 @@ import NavLink from '@/components/NavLink.astro'
 import Svg from '@/components/Svg/index.astro'
 import Search from '@/components/Search.astro'
 import NavMenuContainer from '@/components/NavMenuContainer.astro'
+import LocalePicker from '@/components/LocalePicker.astro'
 import { getLocaleFromUrl, useTranslations } from '@/i18n/utils'
 
 const locale = getLocaleFromUrl(Astro.url)
@@ -21,10 +22,8 @@ const t = useTranslations(locale)
       <NavLink href={`/${locale}/about/`}>{t('nav.about')}</NavLink>
     </div>
     <div class="icon-links">
+      <LocalePicker />
       <Search />
-      <a href="https://twitter.com/astrodotbuild" target="_blank">
-        <Svg iconName="twitter" width={32} height={32} />
-      </a>
       <a href="https://github.com/brklntmhwk" target="_blank">
         <Svg iconName="github" width={32} height={32} />
       </a>

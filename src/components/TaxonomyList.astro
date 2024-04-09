@@ -1,9 +1,12 @@
 ---
+import { getLocaleFromUrl } from '@/i18n/utils'
+
 type Props = {
-  taxonomyList: Array<string>
+  taxonomyList: string[]
   kind: 'categories' | 'tags' | 'archive'
 }
 
+const locale = getLocaleFromUrl(Astro.url)
 const { taxonomyList, kind } = Astro.props
 ---
 
@@ -12,7 +15,7 @@ const { taxonomyList, kind } = Astro.props
     <ul class="taxonomy-list">
       {taxonomyList.flatMap((taxonomy) => (
         <li>
-          <a href={`/blog/${kind}/${taxonomy}/`}>
+          <a href={`/${locale}/blog/${kind}/${taxonomy}/`}>
             {kind === 'tags' ? `#${taxonomy}` : taxonomy}
           </a>
         </li>

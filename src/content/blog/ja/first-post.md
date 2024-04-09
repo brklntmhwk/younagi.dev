@@ -1,5 +1,5 @@
 ---
-title: First post
+title: 1番目の post
 description: Lorem ipsum dolor sit amet
 publishedAt: Jul 08 2022
 heroImage: /blog-placeholder-3.jpg

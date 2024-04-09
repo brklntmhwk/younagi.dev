@@ -1,14 +1,23 @@
 ---
+import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getCollection, getEntry } from 'astro:content'
 import TaxonomyList from '@/components/TaxonomyList.astro'
 import { formatArchiveDate } from '@/utils/formatArchiveDate'
+import { langList } from '@/i18n/ui'
+
+export const getStaticPaths = (async () => {
+  return langList.map((lang) => ({ params: { locale: lang } }))
+}) satisfies GetStaticPaths
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
 const entries = await getCollection('blog')
 const dates = [
   ...new Set(entries.map((entry) => formatArchiveDate(entry.data.publishedAt))),
 ]
-const meta = await getEntry('meta', 'site-data')
+const { locale } = Astro.params
+const meta = await getEntry('meta', `${locale}/site-data`)
 ---
 
 <BaseLayout
@@ -17,7 +26,7 @@ const meta = await getEntry('meta', 'site-data')
 >
   <main data-pagefind-ignore="all">
     <h1>Archive</h1>
-    <a href="/blog/">◀ Back to Top</a>
+    <a href={`/${locale}/blog/`}>◀ Back to Top</a>
     <hr />
     <TaxonomyList kind="archive" taxonomyList={dates} />
   </main>

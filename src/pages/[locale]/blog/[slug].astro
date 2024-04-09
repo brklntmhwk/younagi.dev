@@ -6,10 +6,11 @@ import BlogLayout from '@/layouts/BlogLayout.astro'
 export const getStaticPaths = (async () => {
   const entries = await getCollection('blog')
 
-  return entries.map((entry) => ({
-    params: { slug: entry.slug },
-    props: { entry },
-  }))
+  return entries.map((entry) => {
+    const [locale, slug] = entry.slug.split('/')
+
+    return { params: { locale, slug: slug }, props: { entry } }
+  })
 }) satisfies GetStaticPaths
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>

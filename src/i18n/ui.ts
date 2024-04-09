@@ -1,8 +1,8 @@
 export const languages = {
   en: 'English',
-  ja: 'Japanese',
+  ja: '日本語',
 }
-
+export const langList = ['en', 'ja'] as const
 export const defaultLang = 'en'
 
 // Preferably yaml

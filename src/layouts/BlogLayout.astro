@@ -3,9 +3,11 @@ import type { CollectionEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import FormattedDate from '../components/FormattedDate.astro'
 import Svg from '@/components/Svg/index.astro'
+import { getLocaleFromUrl } from '@/i18n/utils'
 
 type Props = CollectionEntry<'blog'>['data']
 
+const locale = getLocaleFromUrl(Astro.url)
 const {
   title,
   description,
@@ -44,13 +46,15 @@ const {
         </div>
         <h1 class="entry-title">{title}</h1>
         <section class="taxonomies">
-          <a href={`/blog/categories/${category[0]}/`}>{category[0]}</a>
+          <a href={`/${locale}/blog/categories/${category[0]}/`}
+            >{category[0]}</a
+          >
           {
             tags && (
               <ul class="tag-list">
                 {tags.map((tag) => (
                   <li>
-                    <a href={`/blog/tags/${tag}/`}>#{tag}</a>
+                    <a href={`/${locale}/blog/tags/${tag}/`}>#{tag}</a>
                   </li>
                 ))}
               </ul>

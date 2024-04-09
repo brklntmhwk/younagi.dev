@@ -1,5 +1,5 @@
 ---
-title: Markdown Style Guide
+title: マークダウンスタイルガイド
 description: Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
 publishedAt: Jul 08 2022
 heroImage: /blog-placeholder-1.jpg

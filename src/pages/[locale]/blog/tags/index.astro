@@ -5,7 +5,7 @@ import { getCollection, getEntry } from 'astro:content'
 import TaxonomyList from '@/components/TaxonomyList.astro'
 import { langList } from '@/i18n/ui'
 
-export const getStaticPaths = (async () => {
+export const getStaticPaths = (() => {
   return langList.map((lang) => ({ params: { locale: lang } }))
 }) satisfies GetStaticPaths
 

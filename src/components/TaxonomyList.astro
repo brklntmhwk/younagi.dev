@@ -12,7 +12,15 @@ const { taxonomyList, kind } = Astro.props
 
 {
   taxonomyList.length !== 0 ? (
-    <ul class="taxonomy-list">
+    <ul
+      class:list={[
+        'taxonomy-list',
+        {
+          horizontal: kind === 'categories' || kind === 'tags',
+          vertical: kind === 'archive',
+        },
+      ]}
+    >
       {taxonomyList.flatMap((taxonomy) => (
         <li>
           <a href={`/${locale}/blog/${kind}/${taxonomy}/`}>
@@ -27,11 +35,18 @@ const { taxonomyList, kind } = Astro.props
 }
 <style>
   ul.taxonomy-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.25rem;
+    padding-top: 1.25rem;
   }
   li {
     text-transform: capitalize;
+  }
+  .vertical {
+    display: grid;
+    gap: 1rem;
+  }
+  .horizontal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
   }
 </style>

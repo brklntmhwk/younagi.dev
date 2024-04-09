@@ -39,11 +39,11 @@ const paginator = (
       {page.url.prev ? (
         <div>
           <a href={page.url.prev}>
-            <Svg iconName="chevron-left" width={22} height={22} />
+            <Svg iconName="chevron-left" width={25} height={25} />
           </a>
         </div>
       ) : (
-        <Svg iconName="chevron-left" width={22} height={22} />
+        <Svg iconName="chevron-left" width={25} height={25} />
       )}
       <section class="page-nums">
         {paginator(page.currentPage, page.lastPage).map((pg) => {
@@ -85,11 +85,11 @@ const paginator = (
       {page.url.next ? (
         <div>
           <a href={page.url.next}>
-            <Svg iconName="chevron-right" width={22} height={22} />
+            <Svg iconName="chevron-right" width={25} height={25} />
           </a>
         </div>
       ) : (
-        <Svg iconName="chevron-right" width={22} height={22} />
+        <Svg iconName="chevron-right" width={25} height={25} />
       )}
     </nav>
   )
@@ -100,15 +100,15 @@ const paginator = (
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 10px;
+    padding: 0 0.35rem;
   }
   section.page-nums {
     display: flex;
-    column-gap: 1.5em;
+    gap: 1.75rem;
   }
   nav li {
     list-style-type: none;
-    font-size: 20px;
+    font-size: 1.5rem;
   }
   nav a {
     text-decoration: none;

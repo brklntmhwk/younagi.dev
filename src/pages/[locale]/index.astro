@@ -1,18 +1,18 @@
 ---
 import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
 import { getEntry } from 'astro:content'
-import { getRelativeLocaleUrl } from 'astro:i18n'
+// import { getRelativeLocaleUrl } from 'astro:i18n'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { langList } from '@/i18n/ui'
 
-export const getStaticPaths = (async () => {
+export const getStaticPaths = (() => {
   return langList.map((lang) => ({ params: { locale: lang } }))
 }) satisfies GetStaticPaths
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
 const { locale } = Astro.params
-const url = getRelativeLocaleUrl(locale)
+// const url = getRelativeLocaleUrl(locale)
 const meta = await getEntry('meta', `${locale}/site-data`)
 ---
 
@@ -20,9 +20,7 @@ const meta = await getEntry('meta', `${locale}/site-data`)
   title={meta.data.site.title}
   description={meta.data.site.description}
 >
-  <main>
-    <p>locale: {locale}</p><p>URL: {url}</p>
-  </main>
+  <main></main>
 </BaseLayout>
 <style>
   main {

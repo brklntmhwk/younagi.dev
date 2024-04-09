@@ -63,13 +63,18 @@ const { entries, kind } = Astro.props
 }
 <style>
   a.blog-title {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 700;
     line-height: 1.1;
     text-decoration: none;
     &:hover {
       text-decoration: underline;
       text-underline-offset: 7px;
+    }
+  }
+  @media (min-width: 768px) {
+    a.blog-title {
+      font-size: 1.85rem;
     }
   }
   ul.entry-list {

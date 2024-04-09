@@ -3,7 +3,6 @@
   --bg: hsla(0, 0%, 96.08%, 1);
   --line: hsla(260.87, 10.13%, 55.49%, 0.33);
   --code: hsla(0, 0%, 90.98%, 1);
-
   --accent: #cd4b51;
   --accent-dark: #000d8a;
   --black: 15, 18, 25;
@@ -59,8 +58,6 @@ body {
   margin: 0;
   padding: 0;
   text-align: left;
-  /* background: linear-gradient(var(--gray-gradient)) no-repeat;
-  background-size: 100% 600px; */
   word-wrap: break-word;
   overflow-wrap: break-word;
   color: rgb(var(--gray-dark));
@@ -176,8 +173,7 @@ blockquote {
 }
 hr {
   border: none;
-  border-top: 4px double #000000;
-  /* border-top: 1px solid rgb(var(--gray-light)); */
+  border-top: 1px solid rgb(var(--gray-light));
 }
 .sr-only {
   border: 0;

@@ -1,4 +1,8 @@
 {
+  "files.associations": {
+    "*.css": "css",
+    "css": "css"
+  },
   "[markdown]": {
     "editor.fontSize": 14,
     "editor.lineHeight": 26,

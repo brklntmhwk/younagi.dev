@@ -4,6 +4,9 @@ nav:
     home: ホーム
     blog: ブログ
     about: 運営者
+pager:
+  left_arrow_label: 前のページ
+  right_arrow_label: 次のページ
 pages:
   blog:
     title: ブログ

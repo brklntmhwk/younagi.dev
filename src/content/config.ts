@@ -63,6 +63,10 @@ const i18n = defineCollection({
         about: z.string(),
       }),
     }),
+    pager: z.object({
+      left_arrow_label: z.string(),
+      right_arrow_label: z.string(),
+    }),
     pages: z.object({
       blog: z.object({
         title: z.string(),

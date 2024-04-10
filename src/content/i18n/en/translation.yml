@@ -4,6 +4,9 @@ nav:
     home: Home
     blog: Blog
     about: About
+pager:
+  left_arrow_label: Previous page
+  right_arrow_label: Next page
 pages:
   blog:
     title: Blog

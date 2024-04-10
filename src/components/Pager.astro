@@ -1,14 +1,18 @@
 ---
 import type { Page } from 'astro'
+import { getEntry } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
 import Svg from '@/components/Svg/index.astro'
 import { DEFAULT_PAGINATION_WIDTH } from '@/consts'
+import { getLocaleFromUrl } from '@/i18n/utils'
 
 type Props = {
   page?: Page<CollectionEntry<'blog'>>
 }
 
 const currentPath = Astro.url.pathname
+const locale = getLocaleFromUrl(Astro.url)
+const t = await getEntry('i18n', `${locale}/translation`)
 const { page } = Astro.props
 
 const paginator = (
@@ -38,7 +42,7 @@ const paginator = (
     <nav data-pagefind-ignore="all">
       {page.url.prev ? (
         <div>
-          <a aria-label="" href={page.url.prev}>
+          <a aria-label={t.data.pager.left_arrow_label} href={page.url.prev}>
             <Svg iconName="chevron-left" width={25} height={25} />
           </a>
         </div>
@@ -84,7 +88,7 @@ const paginator = (
       </ul>
       {page.url.next ? (
         <div>
-          <a aria-label="" href={page.url.next}>
+          <a aria-label={t.data.pager.right_arrow_label} href={page.url.next}>
             <Svg iconName="chevron-right" width={25} height={25} />
           </a>
         </div>

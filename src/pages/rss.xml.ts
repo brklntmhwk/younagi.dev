@@ -3,7 +3,7 @@ import type { APIContext } from 'astro'
 import { getCollection } from 'astro:content'
 import { getEntry } from 'astro:content'
 
-const meta = await getEntry('meta', 'site-data')
+const meta = await getEntry('meta', 'en/site-data')
 
 export async function GET(context: APIContext) {
   const posts = await getCollection('blog')

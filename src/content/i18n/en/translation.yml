@@ -1,0 +1,21 @@
+nav:
+  blog_title: Astro
+  nav_links:
+    home: Home
+    blog: Blog
+    about: About
+pages:
+  blog:
+    title: Blog
+    back_to_top: Back to Top
+    categories:
+      title: Categories
+      back_to_top: Back to Category List
+    tags:
+      title: Tags
+      back_to_top: Back to Tag List
+    archive:
+      title: Archive
+      back_to_top: Back to Archive
+  about:
+    title: About

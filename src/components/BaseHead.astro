@@ -1,6 +1,8 @@
 ---
 import '../styles/global.css'
 import { ViewTransitions } from 'astro:transitions'
+import { getAbsoluteLocaleUrl } from 'astro:i18n'
+import { langList } from '@/i18n/ui'
 
 type Props = {
   title: string
@@ -9,6 +11,8 @@ type Props = {
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+const [_firstSlash, _locale, ...rest] = Astro.url.pathname.split('/')
+const slug = rest.join('/')
 const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props
 ---
 
@@ -43,6 +47,15 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props
   media="print"
   onload='this.media="all"'
 />
+{
+  langList.map((lang) => (
+    <link
+      rel="alternate"
+      href={getAbsoluteLocaleUrl(lang, slug)}
+      hreflang={lang}
+    />
+  ))
+}
 <link rel="canonical" href={canonicalURL} />
 <title data-pagefind-meta="title">{title}</title>
 <meta name="title" content={title} />

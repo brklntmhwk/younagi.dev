@@ -5,7 +5,7 @@ import { getCollection, getEntry } from 'astro:content'
 import TaxonomyList from '@/components/TaxonomyList.astro'
 import { langList } from '@/i18n/ui'
 
-export const getStaticPaths = (async () => {
+export const getStaticPaths = (() => {
   return langList.map((lang) => ({ params: { locale: lang } }))
 }) satisfies GetStaticPaths
 
@@ -15,15 +15,16 @@ const entries = await getCollection('blog')
 const categories = [...new Set(entries.flatMap((entry) => entry.data.category))]
 const { locale } = Astro.params
 const meta = await getEntry('meta', `${locale}/site-data`)
+const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
 <BaseLayout
   title={meta.data.blog.categories.title}
-  description={meta.data.blog.categories.description ?? ''}
+  description={meta.data.blog.categories.description}
 >
   <main data-pagefind-ignore="all">
-    <h1>Categories</h1>
-    <a href={`/${locale}/blog/`}>◀ Back to Top</a>
+    <h1>{t.data.pages.blog.categories.title}</h1>
+    <a href={`/${locale}/blog/`}>◀ {t.data.pages.blog.back_to_top}</a>
     <hr />
     <TaxonomyList kind="categories" taxonomyList={categories} />
   </main>

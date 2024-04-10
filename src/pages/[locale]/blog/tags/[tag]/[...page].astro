@@ -12,8 +12,6 @@ export const getStaticPaths = (async ({ paginate }) => {
     (a, b) => a.data.publishedAt.valueOf() - b.data.publishedAt.valueOf()
   )
   const tags = [...new Set(entries.flatMap((entry) => entry.data.tags ?? []))]
-  //これだとenのパスしか生成されない
-  // const [locale, ..._slug] = entries.at(0)!.slug.split('/')
 
   return langList.flatMap((lang) => {
     return tags.flatMap((tag) => {
@@ -35,6 +33,7 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>
 const { page } = Astro.props
 const { tag, locale } = Astro.params
 const meta = await getEntry('meta', `${locale}/site-data`)
+const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
 <BaseLayout
@@ -44,7 +43,9 @@ const meta = await getEntry('meta', `${locale}/site-data`)
   <main data-pagefind-ignore="all">
     <section>
       <h1>{tag}</h1>
-      <a href={`/${locale}/blog/tags/`}>◀ Back to Tag List</a>
+      <a href={`/${locale}/blog/tags/`}>
+        ◀ {t.data.pages.blog.tags.back_to_top}
+      </a>
       <BlogList entries={page.data} kind="taxonomy" />
     </section>
     <Pager page={page} />

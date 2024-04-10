@@ -6,7 +6,7 @@ import TaxonomyList from '@/components/TaxonomyList.astro'
 import { formatArchiveDate } from '@/utils/formatArchiveDate'
 import { langList } from '@/i18n/ui'
 
-export const getStaticPaths = (async () => {
+export const getStaticPaths = (() => {
   return langList.map((lang) => ({ params: { locale: lang } }))
 }) satisfies GetStaticPaths
 
@@ -18,15 +18,16 @@ const dates = [
 ]
 const { locale } = Astro.params
 const meta = await getEntry('meta', `${locale}/site-data`)
+const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
 <BaseLayout
   title={meta.data.blog.archive.title}
-  description={meta.data.blog.archive.description ?? ''}
+  description={meta.data.blog.archive.description}
 >
   <main data-pagefind-ignore="all">
-    <h1>Archive</h1>
-    <a href={`/${locale}/blog/`}>◀ Back to Top</a>
+    <h1>{t.data.pages.blog.archive.title}</h1>
+    <a href={`/${locale}/blog/`}>◀ {t.data.pages.blog.back_to_top}</a>
     <hr />
     <TaxonomyList kind="archive" taxonomyList={dates} />
   </main>

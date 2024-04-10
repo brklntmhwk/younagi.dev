@@ -17,8 +17,6 @@ export const getStaticPaths = (async ({ paginate }) => {
       entries.map((entry) => formatArchiveDate(entry.data.publishedAt))
     ),
   ]
-  //これだとenのパスしか生成されない
-  // const [locale, ..._slug] = entries.at(0)!.slug.split('/')
 
   return langList.flatMap((lang) => {
     return dates.flatMap((date) => {
@@ -34,24 +32,6 @@ export const getStaticPaths = (async ({ paginate }) => {
       })
     })
   })
-
-  // for (let lang of langList) {
-  //   const localeEntries = entries.filter(
-  //     (entry) =>
-  //       formatArchiveDate(entry.data.publishedAt) === date &&
-  //       entry.slug.split('/')[0] === lang
-  //   )
-  //   displayEntries.push(...localeEntries)
-  // }
-
-  // return langList.flatMap((lang) => {
-  //   return dates.flatMap((date) =>
-  //     paginate(displayEntries, {
-  //       pageSize: LIMIT_PER_PAGE,
-  //       params: { locale: lang, date },
-  //     })
-  //   )
-  // })
 }) satisfies GetStaticPaths
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>
@@ -59,6 +39,7 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>
 const { page } = Astro.props
 const { date, locale } = Astro.params
 const meta = await getEntry('meta', `${locale}/site-data`)
+const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
 <BaseLayout
@@ -68,7 +49,9 @@ const meta = await getEntry('meta', `${locale}/site-data`)
   <main data-pagefind-ignore="all">
     <section>
       <h1>{date}</h1>
-      <a href={`/${locale}/blog/archive/`}>◀ Back to Archive</a>
+      <a href={`/${locale}/blog/archive/`}>
+        ◀ {t.data.pages.blog.archive.back_to_top}
+      </a>
       <BlogList entries={page.data} kind="taxonomy" />
     </section>
     <Pager page={page} />

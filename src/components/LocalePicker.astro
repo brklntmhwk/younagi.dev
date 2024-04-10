@@ -106,10 +106,6 @@ const slug = rest.join('/')
         if (e.key === 'Escape') {
           modal.classList.add('hidden')
         }
-        if (e.code === 'KeyF' && e.ctrlKey && e.shiftKey) {
-          e.preventDefault()
-          modal.classList.toggle('hidden')
-        }
       })
     }
 

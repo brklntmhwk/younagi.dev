@@ -1,0 +1,21 @@
+nav:
+  blog_title: アストロ
+  nav_links:
+    home: ホーム
+    blog: ブログ
+    about: 運営者
+pages:
+  blog:
+    title: ブログ
+    back_to_top: トップに戻る
+    categories:
+      title: カテゴリー
+      back_to_top: カテゴリ一覧
+    tags:
+      title: タグ
+      back_to_top: タグ一覧
+    archive:
+      title: アーカイブ
+      back_to_top: アーカイブ一覧
+  about:
+    title: 運営者

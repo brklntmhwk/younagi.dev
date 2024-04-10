@@ -55,8 +55,8 @@ const meta = defineCollection({
 const i18n = defineCollection({
   type: 'data',
   schema: z.object({
+    blog_name: z.string(),
     nav: z.object({
-      blog_title: z.string(),
       nav_links: z.object({
         home: z.string(),
         blog: z.string(),

@@ -40,6 +40,12 @@ const { taxonomyList, kind } = Astro.props
   li {
     text-transform: capitalize;
   }
+  a {
+    color: var(--accent);
+    &:hover {
+      color: var(--accent-dark);
+    }
+  }
   .vertical {
     display: grid;
     gap: 1rem;

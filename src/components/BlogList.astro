@@ -139,5 +139,11 @@ const { entries, kind } = Astro.props
     flex-wrap: wrap;
     gap: 0.85rem;
     text-transform: capitalize;
+    & a {
+      color: var(--accent);
+      &:hover {
+        color: var(--accent-dark);
+      }
+    }
   }
 </style>

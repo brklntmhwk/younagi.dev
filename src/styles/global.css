@@ -3,8 +3,8 @@
   --bg: hsla(0, 0%, 96.08%, 1);
   --line: hsla(260.87, 10.13%, 55.49%, 0.33);
   --code: hsla(0, 0%, 90.98%, 1);
-  --accent: #cd4b51;
-  --accent-dark: #000d8a;
+  --accent: #0100f8;
+  --accent-dark: #00007d;
   --black: 15, 18, 25;
   --gray: 96, 115, 159;
   --gray-light: 229, 233, 240;
@@ -96,15 +96,8 @@ b {
   font-weight: 700;
 }
 a {
-  color: var(--accent);
+  color: var(--black);
   text-decoration: none;
-}
-a:hover {
-  color: var(--accent);
-}
-a.hover::before {
-  font-family: 'PixelMplus10';
-  content: '▶';
 }
 p {
   font-size: 0.85em;
@@ -112,9 +105,15 @@ p {
 }
 .prose {
   font-family: 'DotGothic16', sans-serif;
-}
-.prose p {
-  margin-bottom: 2em;
+  & a {
+    color: var(--accent);
+    &:hover {
+      color: var(--accent-dark);
+    }
+  }
+  & p {
+    margin-bottom: 2em;
+  }
 }
 ul {
   padding: 0;

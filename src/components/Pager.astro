@@ -98,7 +98,6 @@ const paginator = (
     </nav>
   )
 }
-
 <style>
   nav {
     display: flex;
@@ -116,5 +115,9 @@ const paginator = (
   }
   nav a {
     text-decoration: none;
+    color: var(--accent);
+    &:hover {
+      color: var(--accent-dark);
+    }
   }
 </style>

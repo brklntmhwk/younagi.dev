@@ -82,14 +82,17 @@ const {
     align-items: center;
     gap: 1.25rem;
     text-transform: capitalize;
+    & a {
+      color: var(--accent);
+      &:hover {
+        color: var(--accent-dark);
+      }
+    }
   }
   .date-meta {
     display: flex;
     flex-wrap: wrap;
     gap: 1.25rem;
-  }
-  h1.entry-title {
-    font-size: 2.8em;
   }
   ul.tag-list {
     display: flex;

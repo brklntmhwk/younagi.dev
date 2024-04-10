@@ -49,7 +49,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
   <main data-pagefind-ignore="all">
     <section>
       <h1>{date}</h1>
-      <a href={`/${locale}/blog/archive/`}>
+      <a class="back-to-link" href={`/${locale}/blog/archive/`}>
         ◀ {t.data.pages.blog.archive.back_to_top}
       </a>
       <BlogList entries={page.data} kind="taxonomy" />

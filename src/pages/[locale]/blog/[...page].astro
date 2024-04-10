@@ -66,5 +66,11 @@ const t = await getEntry('i18n', `${locale}/translation`)
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
+    & a {
+      color: var(--accent);
+      &:hover {
+        color: var(--accent-dark);
+      }
+    }
   }
 </style>

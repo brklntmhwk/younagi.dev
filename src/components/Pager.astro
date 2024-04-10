@@ -112,6 +112,9 @@ const paginator = (
   nav li {
     list-style-type: none;
     font-size: 1.5rem;
+    &:not(a) {
+      color: var(--gray);
+    }
   }
   nav a {
     text-decoration: none;
@@ -119,5 +122,8 @@ const paginator = (
     &:hover {
       color: var(--accent-dark);
     }
+  }
+  :not(a > svg) {
+    color: var(--gray);
   }
 </style>

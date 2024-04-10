@@ -3,13 +3,12 @@
   --bg: hsla(0, 0%, 96.08%, 1);
   --line: hsla(260.87, 10.13%, 55.49%, 0.33);
   --code: hsla(0, 0%, 90.98%, 1);
-  --accent: #0100f8;
-  --accent-dark: #00007d;
-  --black: 15, 18, 25;
-  --gray: 96, 115, 159;
-  --gray-light: 229, 233, 240;
-  --gray-dark: 34, 41, 57;
-  --gray-gradient: rgba(var(--gray-light), 50%), #fff;
+  --accent: hsla(240.24, 100%, 48.63%, 1);
+  --accent-dark: hsla(240, 98.54%, 26.86%, 1);
+  --black: hsla(240, 6.9%, 11.37%, 1);
+  --gray: hsla(60, 0.52%, 62.55%, 1);
+  --gray-light: hsla(0, 0%, 84.71%, 1);
+  --gray-dark: hsla(0, 0.41%, 51.96%, 1);
   --box-shadow: 0 2px 6px rgba(var(--gray), 25%),
     0 8px 24px rgba(var(--gray), 33%), 0 16px 32px rgba(var(--gray), 33%);
 }
@@ -74,22 +73,22 @@ h6 {
   line-height: 1.2;
 }
 h1 {
-  font-size: 3.052em;
+  font-size: 3.25rem;
   font-weight: 700;
 }
 h2 {
-  font-size: 2.441em;
+  font-size: 2.85rem;
   font-weight: 400;
 }
 h3 {
-  font-size: 1.953em;
+  font-size: 2.25rem;
   font-weight: 400;
 }
 h4 {
-  font-size: 1.563em;
+  font-size: 1.85rem;
 }
 h5 {
-  font-size: 1.25em;
+  font-size: 1.5rem;
 }
 strong,
 b {
@@ -98,6 +97,12 @@ b {
 a {
   color: var(--black);
   text-decoration: none;
+}
+a.back-to-link {
+  color: var(--accent);
+  &:hover {
+    color: var(--accent-dark);
+  }
 }
 p {
   font-size: 0.85em;
@@ -138,7 +143,7 @@ img {
 }
 code {
   padding: 2px 5px;
-  background-color: rgb(var(--gray-light));
+  background-color: var(--gray-light);
   border-radius: 2px;
 }
 pre {
@@ -156,7 +161,7 @@ blockquote {
 }
 hr {
   border: none;
-  border-top: 1px solid rgb(var(--gray-light));
+  border-top: 1px solid var(--gray-light);
 }
 .sr-only {
   border: 0;

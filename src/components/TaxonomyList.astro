@@ -10,29 +10,25 @@ const locale = getLocaleFromUrl(Astro.url)
 const { taxonomyList, kind } = Astro.props
 ---
 
-{
-  taxonomyList.length !== 0 ? (
-    <ul
-      class:list={[
-        'taxonomy-list',
-        {
-          horizontal: kind === 'categories' || kind === 'tags',
-          vertical: kind === 'archive',
-        },
-      ]}
-    >
-      {taxonomyList.flatMap((taxonomy) => (
-        <li>
-          <a href={`/${locale}/blog/${kind}/${taxonomy}/`}>
-            {kind === 'tags' ? `#${taxonomy}` : taxonomy}
-          </a>
-        </li>
-      ))}
-    </ul>
-  ) : (
-    <p>Woops! No {kind} found..</p>
-  )
-}
+<ul
+  class:list={[
+    'taxonomy-list',
+    {
+      horizontal: kind === 'categories' || kind === 'tags',
+      vertical: kind === 'archive',
+    },
+  ]}
+>
+  {
+    taxonomyList.flatMap((taxonomy) => (
+      <li>
+        <a href={`/${locale}/blog/${kind}/${taxonomy}/`}>
+          {kind === 'tags' ? `#${taxonomy}` : taxonomy}
+        </a>
+      </li>
+    ))
+  }
+</ul>
 <style>
   ul.taxonomy-list {
     padding-top: 1.25rem;

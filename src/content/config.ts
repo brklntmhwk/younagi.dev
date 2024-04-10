@@ -82,6 +82,11 @@ const i18n = defineCollection({
       }),
       about: z.object({
         title: z.string(),
+        my_name: z.string(),
+      }),
+      not_found: z.object({
+        message: z.string(),
+        back_to_top: z.string(),
       }),
     }),
   }),

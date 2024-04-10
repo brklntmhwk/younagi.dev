@@ -1,5 +1,5 @@
 nav:
-  blog_title: Astro
+  blog_title: Chamber of Nagi
   nav_links:
     home: Home
     blog: Blog
@@ -19,3 +19,7 @@ pages:
       back_to_top: Back to Archive
   about:
     title: About
+    my_name: Nagi
+  not_found:
+    message: Page Not Found
+    back_to_top: Back to Top

@@ -1,16 +1,17 @@
 ---
+import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import { getLocaleFromUrl, useTranslations } from '@/i18n/utils'
+import { getLocaleFromUrl } from '@/i18n/utils'
 
 const locale = getLocaleFromUrl(Astro.url)
-const t = useTranslations(locale)
+const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
 <BaseLayout title="404">
   <main data-pagefind-ignore="all">
     <h1>404</h1>
-    <p>{t('404.not_found')}</p>
-    <a href="/">◀ {t('global.back_to_top')}</a>
+    <p>{t.data.pages.not_found.message}</p>
+    <a href="/">◀ {t.data.pages.not_found.back_to_top}</a>
   </main>
 </BaseLayout>
 <style>

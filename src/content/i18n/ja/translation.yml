@@ -1,5 +1,5 @@
 nav:
-  blog_title: アストロ
+  blog_title: 凪の小屋
   nav_links:
     home: ホーム
     blog: ブログ
@@ -19,3 +19,7 @@ pages:
       back_to_top: アーカイブ一覧
   about:
     title: 運営者
+    my_name: 凪
+  not_found:
+    message: ページが見つかりませんでした
+    back_to_top: トップに戻る

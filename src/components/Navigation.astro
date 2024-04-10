@@ -5,10 +5,9 @@ import Svg from '@/components/Svg/index.astro'
 import Search from '@/components/Search.astro'
 import NavMenuContainer from '@/components/NavMenuContainer.astro'
 import LocalePicker from '@/components/LocalePicker.astro'
-import { getLocaleFromUrl /* , useTranslations */ } from '@/i18n/utils'
+import { getLocaleFromUrl } from '@/i18n/utils'
 
 const locale = getLocaleFromUrl(Astro.url)
-// const t = useTranslations(locale)
 const t = await getEntry('i18n', `${locale}/translation`)
 ---
 

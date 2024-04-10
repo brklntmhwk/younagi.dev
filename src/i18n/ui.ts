@@ -4,9 +4,6 @@ export const languages = {
 }
 export const langList = ['en', 'ja'] as const
 export const defaultLang = 'en'
-
-// Preferably yaml
-
 export const ui = {
   en: {
     'nav.home': 'Home',

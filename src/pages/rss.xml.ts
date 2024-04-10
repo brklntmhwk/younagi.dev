@@ -7,7 +7,7 @@ import { langList } from '@/i18n/ui'
 export async function GET(context: APIContext) {
   const entries = await getCollection('blog')
 
-  langList.map(async (lang) => {
+  return langList.map(async (lang) => {
     const meta = await getEntry('meta', `${lang}/site-data`)
     const localeEntries = entries.filter(
       (entry) => entry.slug.split('/')[0] === lang
@@ -20,7 +20,7 @@ export async function GET(context: APIContext) {
       items: localeEntries.map((entry) => ({
         ...entry.data,
         pubDate: entry.data.publishedAt,
-        link: `/${lang}/blog/${entry.slug}/`,
+        link: `/${lang}/${entry.collection}/${entry.slug}/`,
       })),
     })
   })

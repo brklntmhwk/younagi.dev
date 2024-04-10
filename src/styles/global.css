@@ -62,9 +62,6 @@ main {
     padding: 2rem 2.25rem;
   }
 }
-h1,
-h2,
-h3,
 h4,
 h5,
 h6 {
@@ -75,14 +72,17 @@ h6 {
 h1 {
   font-size: 2.85rem;
   font-weight: 700;
+  margin: 0 0 0.85rem 0;
 }
 h2 {
   font-size: 2.25rem;
   font-weight: 400;
+  margin: 0 0 0.75rem 0;
 }
 h3 {
   font-size: 1.85rem;
   font-weight: 400;
+  margin: 0 0 0.65rem 0;
 }
 h4 {
   font-size: 1.5rem;

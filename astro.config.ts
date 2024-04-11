@@ -9,6 +9,7 @@ import rehypeKatex from 'rehype-katex'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeSlug from 'rehype-slug'
 import rehypePrettyCode from 'rehype-pretty-code'
+import type { LineElement } from 'rehype-pretty-code'
 import rehypeCodeTitles from 'rehype-code-titles'
 
 // https://astro.build/config
@@ -44,7 +45,7 @@ export default defineConfig({
           content: h(
             'span.heading-anchor-icon',
             {
-              title: 'hash icon link',
+              title: 'Anchor link',
             },
             ['#']
           ),
@@ -54,10 +55,24 @@ export default defineConfig({
         rehypePrettyCode,
         {
           theme: {
-            light: 'github-light',
+            light: 'github-dark',
             dark: 'github-dark',
           },
           grid: false,
+          onVisitLine(element: LineElement) {
+            // Prevent lines from collapsing in `display: grid` mode, and allow empty lines to be copy/pasted
+            if (element.children.length === 0) {
+              element.children = [{ type: 'text', value: ' ' }]
+            }
+          },
+          onVisitHighlightedLine(element: LineElement) {
+            // Each line element by default has `class="line"`.
+            element.properties.className?.push('highlighted')
+          },
+          onVisitHighlightedWord(element: LineElement) {
+            // Each word element has no className by default.
+            element.properties.className = ['word']
+          },
         },
       ],
     ],

@@ -44,8 +44,10 @@ body {
   word-wrap: break-word;
   overflow-wrap: break-word;
   color: var(--black);
+  background: rgb(var(--bg));
   font-size: 20px;
-  line-height: 1.7;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
 }
 main {
   grid-area: main;

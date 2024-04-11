@@ -7,6 +7,10 @@ nav:
 pager:
   left_arrow_label: 前のページ
   right_arrow_label: 次のページ
+locale_picker:
+  button_label: 言語を選択する
+search:
+  button_label: コンテンツを検索する
 pages:
   blog:
     title: ブログ

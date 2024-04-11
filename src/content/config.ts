@@ -7,9 +7,10 @@ const blog = defineCollection({
     description: z.string().optional(),
     publishedAt: z.coerce.date(),
     modifiedAt: z.coerce.date().optional(),
-    category: z.string().array(),
+    category: z.string(),
     tags: z.string().array().optional(),
     heroImage: z.string().optional(),
+    draft: z.enum(['draft', 'in progress', 'published']),
   }),
 })
 
@@ -66,6 +67,12 @@ const i18n = defineCollection({
     pager: z.object({
       left_arrow_label: z.string(),
       right_arrow_label: z.string(),
+    }),
+    locale_picker: z.object({
+      button_label: z.string(),
+    }),
+    search: z.object({
+      button_label: z.string(),
     }),
     pages: z.object({
       blog: z.object({

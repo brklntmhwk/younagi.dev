@@ -46,9 +46,7 @@ const {
         </div>
         <h1 class="entry-title">{title}</h1>
         <section class="taxonomies">
-          <a href={`/${locale}/blog/categories/${category[0]}/`}
-            >{category[0]}</a
-          >
+          <a href={`/${locale}/blog/categories/${category}/`}>{category}</a>
           {
             tags && (
               <ul class="tag-list">
@@ -99,5 +97,37 @@ const {
     flex-wrap: wrap;
     gap: 0.65rem;
     margin: 0;
+  }
+  .prose {
+    font-family: 'DotGothic16', sans-serif;
+    color: var(--gray-dark);
+    a {
+      color: var(--accent);
+      &:hover {
+        color: var(--accent-dark);
+      }
+    }
+    p {
+      margin-bottom: 1.25rem;
+    }
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      a {
+        span.heading-anchor-icon {
+          font-family: 'PixelMplus10', sans-serif;
+          font-weight: 700;
+          color: var(--gray-dark);
+          margin-right: 0.5rem;
+        }
+        &:hover {
+          text-decoration: underline;
+          text-underline-offset: 4px;
+          text-decoration-color: var(--gray-dark);
+        }
+      }
+    }
   }
 </style>

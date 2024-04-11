@@ -33,6 +33,15 @@
       "path": "ja"
     }
   ],
+  "frontMatter.content.draftField": {
+    "name": "draft",
+    "type": "choice",
+    "choices": [
+      "draft",
+      "in progress",
+      "published"
+    ]
+  },
   "frontMatter.taxonomy.contentTypes": [
     {
       "name": "blog",
@@ -59,7 +68,8 @@
           "name": "category",
           "type": "categories",
           "required": true,
-          "taxonomyLimit": 1
+          "taxonomyLimit": 1,
+          "singleValueAsString": true
         },
         {
           "title": "Tags",
@@ -67,10 +77,11 @@
           "type": "tags"
         },
         {
-          "title": "Is in draft",
+          "title": "Draft status",
           "name": "draft",
           "type": "draft",
-          "required": true
+          "required": true,
+          "default": "draft"
         },
         {
           "title": "Published At",
@@ -90,6 +101,16 @@
           "name": "heroImage",
           "type": "image",
           "isPreviewImage": true
+        },
+        {
+          "title": "type",
+          "name": "type",
+          "type": "string"
+        },
+        {
+          "title": "draft",
+          "name": "draft",
+          "type": "draft"
         }
       ]
     },

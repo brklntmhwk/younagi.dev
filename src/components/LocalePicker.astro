@@ -1,7 +1,11 @@
 ---
+import { getEntry } from 'astro:content'
 import { languages } from '@/i18n/ui'
 import Svg from '@/components/Svg/index.astro'
+import { getLocaleFromUrl } from '@/i18n/utils'
 
+const locale = getLocaleFromUrl(Astro.url)
+const t = await getEntry('i18n', `${locale}/translation`)
 const [_firstSlash, _prevLocale, ...rest] = Astro.url.pathname.split('/')
 const slug = rest.join('/')
 ---
@@ -20,7 +24,7 @@ const slug = rest.join('/')
   </div>
 </div>
 <button type="button" id="lang-icon-button">
-  <span class="sr-only">Select a language</span>
+  <span class="sr-only">{t.data.locale_picker.button_label}</span>
   <Svg iconName="alphabet" width={32} height={32} />
 </button>
 <style>
@@ -67,9 +71,7 @@ const slug = rest.join('/')
     padding: 0;
   }
   ul.lang-list a {
-    color: var(--black);
     border-bottom: 2px solid transparent;
-    text-decoration: none;
   }
   ul.lang-list {
     display: grid;
@@ -105,6 +107,10 @@ const slug = rest.join('/')
       window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
           modal.classList.add('hidden')
+        }
+        if (e.code === 'KeyL' && e.ctrlKey && e.shiftKey) {
+          e.preventDefault()
+          modal.classList.toggle('hidden')
         }
       })
     }

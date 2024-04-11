@@ -7,6 +7,10 @@ nav:
 pager:
   left_arrow_label: Previous page
   right_arrow_label: Next page
+locale_picker:
+  button_label: Select a language
+search:
+  button_label: Search content
 pages:
   blog:
     title: Blog

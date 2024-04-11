@@ -1,6 +1,11 @@
 ---
 import '@pagefind/default-ui/css/ui.css'
+import { getEntry } from 'astro:content'
 import Svg from '@/components/Svg/index.astro'
+import { getLocaleFromUrl } from '@/i18n/utils'
+
+const locale = getLocaleFromUrl(Astro.url)
+const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
 <div id="search-modal" class="hidden">
@@ -9,7 +14,7 @@ import Svg from '@/components/Svg/index.astro'
   </div>
 </div>
 <button type="button" id="search-icon-button">
-  <span class="sr-only">Search blog entries</span>
+  <span class="sr-only">{t.data.search.button_label}</span>
   <Svg iconName="magnifier" width={32} height={32} />
 </button>
 <style>

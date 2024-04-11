@@ -3,10 +3,9 @@ title: Markdown Style Guide
 description: Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
 publishedAt: Jul 08 2022
 heroImage: /blog-placeholder-1.jpg
-category:
-  - others
+category: others
 type: blog
-draft: true
+draft: published
 ---
 
 Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
@@ -192,7 +191,7 @@ Output
 ## Other Elements — abbr, sub, sup, kbd, mark
 
 #### Syntax
-
+<!--
 ```markdown
 <abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format.
 
@@ -203,8 +202,15 @@ X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup>
 Press <kbd><kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>Delete</kbd></kbd> to end the session.
 
 Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and other small creatures.
-```
-
+``` -->
+<!--
+```js title="next.config.mjs" {5-11}
+/** @type {import('next').NextConfig} */
+let nextConfig = {
+  reactStrictMode: true,
+};
+``` -->
+<!--
 #### Output
 
 <abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format.
@@ -215,4 +221,4 @@ X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup>
 
 Press <kbd><kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>Delete</kbd></kbd> to end the session.
 
-Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and other small creatures.
+Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and other small creatures. -->

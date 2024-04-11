@@ -3,9 +3,8 @@ title: Thirdd post
 description: Lorem ipsum dolor sit amet
 publishedAt: Jul 08 2022
 heroImage: /blog-placeholder-2.jpg
-category:
-  - trip
-draft: true
+category: others
+draft: published
 type: blog
 tags:
   - tag1

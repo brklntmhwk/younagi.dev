@@ -6,6 +6,12 @@ heroImage: /blog-placeholder-1.jpg
 category: others
 type: blog
 draft: published
+tags:
+  - aaa
+  - tag1
+  - tag2
+  - tag3
+  - bbb
 ---
 
 Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.

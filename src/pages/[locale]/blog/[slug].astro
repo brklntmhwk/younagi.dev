@@ -2,6 +2,7 @@
 import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
 import { getCollection } from 'astro:content'
 import BlogLayout from '@/layouts/BlogLayout.astro'
+import Figure from '@/components/elements/Figure.astro'
 
 export const getStaticPaths = (async () => {
   const entries = await getCollection('blog')
@@ -15,10 +16,14 @@ export const getStaticPaths = (async () => {
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
+export const components = {
+  figure: Figure,
+}
+
 const { entry } = Astro.props
-const { Content /* , headings */ } = await entry.render()
+const { Content, headings } = await entry.render()
 ---
 
-<BlogLayout {...entry.data}>
-  <Content />
+<BlogLayout entry={{ ...entry.data }} headings={headings}>
+  <Content components={components} />
 </BlogLayout>

@@ -11,6 +11,8 @@ locale_picker:
   button_label: 言語を選択する
 search:
   button_label: コンテンツを検索する
+toc:
+  button_label: 目次
 pages:
   blog:
     title: ブログ

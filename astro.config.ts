@@ -56,22 +56,21 @@ export default defineConfig({
         {
           theme: {
             light: 'github-dark',
-            dark: 'github-dark',
           },
-          grid: false,
-          onVisitLine(element: LineElement) {
+          // grid: false,
+          onVisitLine(elm: LineElement) {
             // Prevent lines from collapsing in `display: grid` mode, and allow empty lines to be copy/pasted
-            if (element.children.length === 0) {
-              element.children = [{ type: 'text', value: ' ' }]
+            if (elm.children.length === 0) {
+              elm.children = [{ type: 'text', value: ' ' }]
             }
           },
-          onVisitHighlightedLine(element: LineElement) {
+          onVisitHighlightedLine(elm: LineElement) {
             // Each line element by default has `class="line"`.
-            element.properties.className?.push('highlighted')
+            elm.properties.className?.push('highlighted')
           },
-          onVisitHighlightedWord(element: LineElement) {
+          onVisitHighlightedWord(elm: LineElement) {
             // Each word element has no className by default.
-            element.properties.className = ['word']
+            elm.properties.className = ['word']
           },
         },
       ],

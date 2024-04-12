@@ -11,6 +11,8 @@ locale_picker:
   button_label: Select a language
 search:
   button_label: Search content
+toc:
+  button_label: Table of Content
 pages:
   blog:
     title: Blog

@@ -74,6 +74,9 @@ const i18n = defineCollection({
     search: z.object({
       button_label: z.string(),
     }),
+    toc: z.object({
+      button_label: z.string(),
+    }),
     pages: z.object({
       blog: z.object({
         title: z.string(),

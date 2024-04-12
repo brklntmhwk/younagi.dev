@@ -1,0 +1,184 @@
+---
+import type { MarkdownHeading } from 'astro'
+import { getEntry } from 'astro:content'
+import Svg from '@/components/Svg/index.astro'
+import { getLocaleFromUrl } from '@/i18n/utils'
+import { TOC_MINIMUM_COUNT } from '@/consts'
+
+type Props = {
+  headings: MarkdownHeading[]
+}
+
+const locale = getLocaleFromUrl(Astro.url)
+const t = await getEntry('i18n', `${locale}/translation`)
+const { headings } = Astro.props
+---
+
+{
+  headings.length >= TOC_MINIMUM_COUNT && (
+    <>
+      <div id="toc-modal" class="hidden">
+        <div id="toc-wrapper">
+          <ul class="toc-list">
+            {headings.map((heading) => (
+              <li class={`depth-${heading.depth}`}>
+                <a href={`#${heading.slug}`}>{heading.text.replace('#', '')}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <button type="button" id="toc-icon-button">
+        <span class="sr-only">{t.data.locale_picker.button_label}</span>
+        <Svg iconName="toc" width={32} height={32} />
+        <span>{t.data.toc.button_label}</span>
+      </button>
+    </>
+  )
+}
+<style>
+  #toc-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    padding-top: 2.25rem;
+    z-index: 90;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: hsla(223, 13%, 10%, 0.7);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+    &.hidden {
+      display: none;
+    }
+  }
+  #toc-wrapper {
+    background-color: color-mix(in srgb, var(--bg) 97%, var(--fg) 3%);
+    width: 100%;
+    max-width: 35rem;
+    max-height: 85vh;
+    padding: 0.85rem;
+    border-style: solid;
+    border-width: 8px;
+    border-image-source: url('/border-image.gif');
+    border-image-slice: 12;
+    border-image-repeat: repeat;
+    border-image-outset: 0.2rem;
+    image-rendering: pixelated;
+    margin: 0 1.5rem;
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+  #toc-icon-button {
+    background-color: transparent;
+    color: #222939;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    span {
+      font-size: 1rem;
+    }
+  }
+  ul.toc-list {
+    display: grid;
+    gap: 1rem;
+    margin-left: 1.25rem;
+    li {
+      &.depth-2 {
+        margin-left: 0;
+        &::before {
+          content: '◆ ';
+        }
+      }
+      &.depth-3 {
+        margin-left: 1.25rem;
+        &::before {
+          content: '▶ ';
+        }
+      }
+      &.depth-4 {
+        margin-left: 2.5rem;
+        &::before {
+          content: '◇ ';
+        }
+      }
+      &.depth-5 {
+        margin-left: 3.75rem;
+        &::before {
+          content: '▷ ';
+        }
+      }
+      &.depth-6 {
+        margin-left: 5rem;
+        &::before {
+          content: '・ ';
+        }
+      }
+    }
+    a {
+      border-bottom: 2px solid transparent;
+      /* position: relative;
+      &:hover::before {
+        font-family: 'PixelMplus10';
+        content: '▶';
+        position: absolute;
+        top: -0.25rem;
+        left: -1.5rem;
+        font-size: 1.2rem;
+        align-self: center;
+      } */
+    }
+  }
+</style>
+<script>
+  function init() {
+    const listenToModalEvents = (
+      modalButton: Element,
+      modal: Element,
+      anchorLinks: NodeListOf<Element>
+    ) => {
+      modalButton.addEventListener('click', () => {
+        modal.classList.toggle('hidden')
+      })
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.classList.toggle('hidden')
+        }
+      })
+
+      anchorLinks.forEach((link) => {
+        link.addEventListener('click', () => {
+          modal.classList.toggle('hidden')
+        })
+      })
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          modal.classList.add('hidden')
+        }
+        if (e.code === 'KeyC' && e.ctrlKey && e.shiftKey) {
+          e.preventDefault()
+          modal.classList.toggle('hidden')
+        }
+      })
+    }
+
+    const modalButton = document.querySelector('#toc-icon-button')
+    const modal = document.querySelector('#toc-modal')
+    const anchorLinks = document.querySelectorAll('ul.toc-list > li')
+
+    if (modalButton && modal) {
+      listenToModalEvents(modalButton, modal, anchorLinks)
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', init)
+  document.addEventListener('astro:after-swap', init)
+</script>

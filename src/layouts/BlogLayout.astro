@@ -1,13 +1,19 @@
 ---
+import type { MarkdownHeading } from 'astro'
 import type { CollectionEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import FormattedDate from '../components/FormattedDate.astro'
+import Toc from '@/components/Toc.astro'
 import Svg from '@/components/Svg/index.astro'
 import { getLocaleFromUrl } from '@/i18n/utils'
 
-type Props = CollectionEntry<'blog'>['data']
+type Props = {
+  entry: CollectionEntry<'blog'>['data']
+  headings: MarkdownHeading[]
+}
 
 const locale = getLocaleFromUrl(Astro.url)
+const { entry, headings } = Astro.props
 const {
   title,
   description,
@@ -16,7 +22,7 @@ const {
   publishedAt,
   modifiedAt,
   heroImage,
-} = Astro.props
+} = entry
 ---
 
 <BaseLayout title={title} description={description ?? ''}>
@@ -59,6 +65,7 @@ const {
             )
           }
         </section>
+        <Toc headings={headings} />
       </section>
       <hr />
       <div class="prose">
@@ -73,6 +80,11 @@ const {
   }
   hr {
     width: 100%;
+  }
+  section.blog-metadata {
+    display: grid;
+    gap: 0.35rem;
+    place-items: start;
   }
   section.taxonomies {
     display: flex;

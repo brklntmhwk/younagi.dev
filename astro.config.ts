@@ -31,19 +31,19 @@ export default defineConfig({
       prefixDefaultLocale: true,
     },
   },
-  vite: {
-    build: {
-      cssMinify: 'lightningcss',
-    },
-    css: {
-      transformer: 'lightningcss',
-      lightningcss: {
-        drafts: {
-          customMedia: true,
-        },
-      },
-    },
-  },
+  // vite: {
+  //   build: {
+  //     cssMinify: 'lightningcss',
+  //   },
+  //   css: {
+  //     transformer: 'lightningcss',
+  //     lightningcss: {
+  //       drafts: {
+  //         customMedia: true,
+  //       },
+  //     },
+  //   },
+  // },
   markdown: {
     syntaxHighlight: false,
     remarkPlugins: [remarkMath, remarkGfm],

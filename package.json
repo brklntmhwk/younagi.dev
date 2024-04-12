@@ -42,6 +42,7 @@
     "hastscript": "^9.0.0",
     "husky": "9.0.11",
     "katex": "0.16.9",
+    "lightningcss": "^1.24.1",
     "lint-staged": "15.2.2",
     "node-html-parser": "6.1.12",
     "pagefind": "1.0.4",

@@ -1,8 +1,14 @@
 ---
+import type { HTMLAttributes } from 'astro/types'
+import AstroFigure from './Figure.astro'
 // import { Code as AstroCode } from 'astro:components'
+
+type Props = HTMLAttributes<'code'>
+
+// const props = Astro.props
 ---
 
-<figure>
+<AstroFigure>
   <slot />
-</figure>
+</AstroFigure>
 <style></style>

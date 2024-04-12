@@ -6,7 +6,7 @@ type Props = HTMLAttributes<'figure'>
 const props = Astro.props
 ---
 
-<figure {...props}>
+<figure class="figureeee" {...props}>
   <slot />
 </figure>
 <style>
@@ -38,18 +38,18 @@ const props = Astro.props
       }
       :global([data-highlighted-line]) {
         border-left-color: var(--codehlsign);
-        background: var(--codehl);
+        background-color: var(--codehl);
         :global(span) {
-          background: unset;
+          background-color: unset;
         }
       }
 
       :global([data-highlighted-chars]) {
-        background: var(--codefind);
+        background-color: var(--codefind);
         padding: 0.25rem;
         border-radius: 0.25rem;
         :global(span) {
-          background: unset;
+          background-color: unset;
         }
       }
     }

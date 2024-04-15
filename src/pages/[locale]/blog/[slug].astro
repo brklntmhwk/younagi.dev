@@ -3,6 +3,7 @@ import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
 import { getCollection } from 'astro:content'
 import BlogLayout from '@/layouts/BlogLayout.astro'
 import Figure from '@/components/elements/Figure.astro'
+import Image from '@/components/elements/Image.astro'
 
 export const getStaticPaths = (async () => {
   const entries = await getCollection('blog')
@@ -18,6 +19,7 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
 export const components = {
   figure: Figure,
+  img: Image,
 }
 
 const { entry } = Astro.props

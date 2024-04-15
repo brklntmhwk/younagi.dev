@@ -1,14 +1,84 @@
 ---
-import type { HTMLAttributes } from 'astro/types'
-import AstroFigure from './Figure.astro'
 // import { Code as AstroCode } from 'astro:components'
-
-type Props = HTMLAttributes<'code'>
-
-// const props = Astro.props
+const props = Astro.props
 ---
 
-<AstroFigure>
+<figure {...props}>
   <slot />
-</AstroFigure>
-<style></style>
+</figure>
+<style>
+  figure {
+    margin: 1.5rem 0 1rem 0;
+    position: relative;
+    font-size: 0.85rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    & :global(pre) {
+      border-radius: 0.375rem;
+      overflow-x: auto;
+    }
+    & :global(code) {
+      counter-reset: line;
+      display: grid;
+      & :global([data-line]) {
+        border-left: 4px solid transparent;
+        padding: 0 0.75rem;
+      }
+      & :global([data-line]::before) {
+        counter-increment: line;
+        content: counter(line);
+        display: inline-block;
+        width: 1rem;
+        margin-right: 1.25rem;
+        text-align: right;
+        color: var(--gray-light);
+      }
+      & :global([data-highlighted-line]) {
+        border-left-color: var(--accent);
+        background-color: var(--accent);
+        :global(span) {
+          background-color: unset;
+        }
+      }
+
+      & :global([data-highlighted-chars]) {
+        background-color: var(--accent);
+        padding: 0.25rem;
+        border-radius: 0.25rem;
+        & :global(span) {
+          background-color: unset;
+        }
+      }
+    }
+
+    & :global([data-rehype-pretty-code-title]) {
+      & + :global(pre) {
+        padding-bottom: 0.75rem;
+        padding-top: 3rem;
+      }
+    }
+
+    & :global(pre:not([data-rehype-pretty-code-title] + pre)) {
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
+    }
+
+    & :global([data-rehype-pretty-code-title]) {
+      position: absolute;
+      top: 0;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      padding: 0.375rem 0.75rem;
+      width: 100%;
+      color: var(--accent);
+      background: var(--accent);
+      border-radius: 0.375rem 0.375rem 0 0;
+    }
+  }
+
+  :global(pre[data-theme*=' ']),
+  :global(pre[data-theme*=' '] span) {
+    color: var(--shiki-light);
+    background: var(--shiki-light-bg);
+  }
+</style>

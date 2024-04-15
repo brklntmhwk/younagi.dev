@@ -1,10 +1,19 @@
 ---
+import type { ImageMetadata } from 'astro'
+import { Image as AstroImage } from 'astro:assets'
 
+type Props = {
+  src: string | ImageMetadata
+  alt: string
+}
+
+const { alt, src } = Astro.props
 ---
 
 <figure>
-  <div>
-    <slot />
+  <div class="image-wrapper">
+    {typeof src === 'string' ? <img {alt} {src} /> : <AstroImage {alt} {src} />}
   </div>
-  <figcaption>aaa</figcaption>
+  <figcaption>{alt}</figcaption>
 </figure>
+<style></style>

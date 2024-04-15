@@ -1,17 +1,11 @@
 ---
-title: Markdown Style Guide
+title: マークダウンスタイルガイド
 description: Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
 publishedAt: Jul 08 2022
 heroImage: /blog-placeholder-1.jpg
 category: others
 type: blog
 draft: published
-tags:
-  - aaa
-  - tag1
-  - tag2
-  - tag3
-  - bbb
 ---
 
 Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
@@ -79,7 +73,7 @@ The blockquote element represents content that is quoted from another source, op
 
 #### Output
 
-> Don't communicate by sharing memory, share memory by communicating.<br>
+> Don't communicate by sharing memory, share memory by communicating.<br />
 > — <cite>Rob Pike[^1]</cite>
 
 [^1]: The above quote is excerpted from Rob Pike's [talk](https://www.youtube.com/watch?v=PAAkCSZUG1c) during Gopherfest, November 18, 2015.
@@ -197,7 +191,7 @@ Output
 ## Other Elements — abbr, sub, sup, kbd, mark
 
 #### Syntax
-<!--
+
 ```markdown
 <abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format.
 
@@ -208,15 +202,8 @@ X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup>
 Press <kbd><kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>Delete</kbd></kbd> to end the session.
 
 Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and other small creatures.
-``` -->
-<!--
-```js title="next.config.mjs" {5-11}
-/** @type {import('next').NextConfig} */
-let nextConfig = {
-  reactStrictMode: true,
-};
-``` -->
-<!--
+```
+
 #### Output
 
 <abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format.
@@ -227,4 +214,4 @@ X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup>
 
 Press <kbd><kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>Delete</kbd></kbd> to end the session.
 
-Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and other small creatures. -->
+Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and other small creatures.

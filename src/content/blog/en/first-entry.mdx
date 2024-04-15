@@ -13,6 +13,7 @@ modifiedAt: 2024-04-11T00:31:20.346Z
 ---
 import type {CollectionEntry} from 'astro:content';
 type Props = CollectionEntry<'blog'>['data'];
+const props = Astro.props
 ---
 
 <slot />

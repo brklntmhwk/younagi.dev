@@ -11,7 +11,7 @@ const locale = getLocaleFromUrl(Astro.url)
 const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
-<nav data-pagefind-ignore="all">
+<nav class="glassmorphism" data-pagefind-ignore="all">
   <a class="blog-title" href={`/${locale}/`}>
     {t.data.blog_name}
   </a>
@@ -33,10 +33,6 @@ const t = await getEntry('i18n', `${locale}/translation`)
 <style>
   nav {
     background-color: rgba(255 255 255 0.4);
-    backdrop-filter: opacity(0.2);
-    -webkit-backdrop-filter: opacity(0.2);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
     position: fixed;
     top: 0;
     left: 0;
@@ -48,59 +44,62 @@ const t = await getEntry('i18n', `${locale}/translation`)
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
-  nav a {
-    border-bottom: 2px solid transparent;
-  }
-  a.blog-title {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .nav-links {
-    display: grid;
-    gap: 1.5rem;
-    padding: 0.75rem 2.75rem;
-    margin-left: 1.25rem;
-  }
-  .nav-links a {
-    position: relative;
-    &:hover::before {
-      font-family: 'PixelMplus10';
-      content: '▶';
-      position: absolute;
-      top: 0;
-      left: -1.5rem;
-      font-size: 1.25rem;
-      align-self: center;
+    a:not(.blog-title) {
+      border-bottom: 2px solid transparent;
+    }
+    a.blog-title {
+      font-size: 1.15rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .nav-links {
+      display: grid;
+      gap: 1.5rem;
+      padding: 0.75rem 2.75rem;
+      margin-left: 1.25rem;
+      a {
+        position: relative;
+        font-size: 1.25rem;
+        &.active {
+          font-weight: 700;
+        }
+        &:hover::before {
+          font-family: 'PixelMplus10';
+          content: '▶';
+          position: absolute;
+          top: 0;
+          left: -1.5rem;
+          font-size: 1.25rem;
+          align-self: center;
+        }
+      }
+    }
+    .icon-links {
+      display: flex;
+      justify-content: center;
+      gap: 2.25rem;
+      padding: 0.75rem 2.75rem;
     }
   }
-  .nav-links a.active {
-    font-weight: 700;
-  }
-  .icon-links {
-    display: flex;
-    justify-content: center;
-    gap: 2.25rem;
-    padding: 0.75rem 2.75rem;
-  }
+
   @media (min-width: 768px) {
     nav {
       height: 5.25rem;
       box-sizing: border-box;
       padding: 0.85rem 1.5rem;
-    }
-    .icon-links,
-    .nav-links {
-      display: flex;
-      padding: 0;
-    }
-    .nav-links {
-      gap: 3.25rem;
-    }
-    .icon-links {
-      justify-content: unset;
-      gap: 2rem;
+      .icon-links,
+      .nav-links {
+        display: flex;
+        padding: 0;
+      }
+      .nav-links {
+        gap: 3.25rem;
+      }
+      .icon-links {
+        justify-content: unset;
+        gap: 2rem;
+      }
     }
   }
   @media (min-width: 1024px) {
@@ -121,38 +120,38 @@ const t = await getEntry('i18n', `${locale}/translation`)
       height: 100vh;
       border-right: 1px solid var(--gray-light);
       box-sizing: border-box;
-    }
-    a.blog-title {
-      grid-area: blog-title;
-      place-self: center;
-    }
-    .nav-links {
-      grid-area: nav-links;
-      display: grid;
-      gap: 2rem;
-      align-self: start;
-      margin-left: 1.5rem;
-      padding: 0;
-    }
-    .nav-links a {
-      position: relative;
-      &:hover::before {
-        font-family: 'PixelMplus10';
-        content: '▶';
-        position: absolute;
-        top: 0;
-        left: -1.45rem;
-        font-size: 1.25rem;
-        align-self: center;
+      a.blog-title {
+        grid-area: blog-title;
+        place-self: center;
       }
-    }
-    .icon-links {
-      padding: 0 0.5rem;
-      grid-area: icon-links;
-      display: flex;
-      justify-content: space-between;
-      gap: 1.75rem;
-      align-self: end;
+      .nav-links {
+        grid-area: nav-links;
+        display: grid;
+        gap: 2rem;
+        align-self: start;
+        margin-left: 1.5rem;
+        padding: 0;
+      }
+      .nav-links a {
+        position: relative;
+        &:hover::before {
+          font-family: 'PixelMplus10';
+          content: '▶';
+          position: absolute;
+          top: 0;
+          left: -1.45rem;
+          font-size: 1.25rem;
+          align-self: center;
+        }
+      }
+      .icon-links {
+        padding: 0 0.5rem;
+        grid-area: icon-links;
+        display: flex;
+        justify-content: space-between;
+        gap: 1.75rem;
+        align-self: end;
+      }
     }
   }
 </style>

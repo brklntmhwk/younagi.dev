@@ -3826,7 +3826,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hast@npm:^1.0.0, hast@npm:~1.0.0":
+"hast@npm:^1.0.0":
   version: 1.0.0
   resolution: "hast@npm:1.0.0"
   checksum: 10c0/a1a4ffaa99c6a4cfe6bd31e54ee919625a8ebcfc621d2d06cc76e593d7aeee4f1f430fcdbbf17ae8e249567ee7b724e4814b5eb273455d23bad8334c9bfc667d
@@ -5628,7 +5628,6 @@ __metadata:
     prettier-plugin-astro: "npm:0.13.0"
     purgecss: "npm:5.0.0"
     rehype-autolink-headings: "npm:7.1.0"
-    rehype-code-titles: "npm:1.2.0"
     rehype-katex: "npm:7.0.0"
     rehype-pretty-code: "npm:0.13.0"
     rehype-slug: "npm:6.0.0"
@@ -6342,16 +6341,6 @@ __metadata:
     unified: "npm:^11.0.0"
     unist-util-visit: "npm:^5.0.0"
   checksum: 10c0/3d6653047c83cf7f9455bc0f5483a40170aee211cc057b7541b491d31e54b08fda72ab5ec4caeacea63e8af130584f0e14d5c63f6ddb86b7f34584b9e3f92dcf
-  languageName: node
-  linkType: hard
-
-"rehype-code-titles@npm:1.2.0":
-  version: 1.2.0
-  resolution: "rehype-code-titles@npm:1.2.0"
-  dependencies:
-    hast: "npm:~1.0.0"
-    unist-util-visit: "npm:~4.1.2"
-  checksum: 10c0/05e9250b3558aeb5c1a6bbf5be8495f543fa2d6734ecc3e93dcc2f3001f812f91863358bf20ac4695cdee88595d6510ed5d32cb427880775a1f923515cdb5b00
   languageName: node
   linkType: hard
 
@@ -7754,7 +7743,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"unist-util-visit@npm:^4.0.0, unist-util-visit@npm:~4.1.2":
+"unist-util-visit@npm:^4.0.0":
   version: 4.1.2
   resolution: "unist-util-visit@npm:4.1.2"
   dependencies:

@@ -45,18 +45,17 @@ const t = await getEntry('i18n', `${locale}/translation`)
     display: none;
   }
   #search-wrapper {
-    color: #fff;
     background-color: color-mix(in srgb, var(--bg) 97%, var(--fg) 3%);
     width: 100%;
     max-width: 38rem;
     max-height: 85vh;
     padding: 1.5rem 1rem;
-    border-style: solid;
-    border-width: 8px;
     border-image-source: url('/border-image.gif');
     border-image-slice: 12;
     border-image-repeat: repeat;
     border-image-outset: 0.2rem;
+    border-style: solid;
+    border-width: 8px;
     image-rendering: pixelated;
     margin: 0 1.5rem;
     overflow-y: auto;

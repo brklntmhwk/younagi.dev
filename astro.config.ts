@@ -10,7 +10,6 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeSlug from 'rehype-slug'
 import rehypePrettyCode from 'rehype-pretty-code'
 // import type { LineElement } from 'rehype-pretty-code'
-// import rehypeCodeTitles from 'rehype-code-titles'
 
 // https://astro.build/config
 export default defineConfig({
@@ -31,24 +30,23 @@ export default defineConfig({
       prefixDefaultLocale: true,
     },
   },
-  // vite: {
-  //   build: {
-  //     cssMinify: 'lightningcss',
-  //   },
-  //   css: {
-  //     transformer: 'lightningcss',
-  //     lightningcss: {
-  //       drafts: {
-  //         customMedia: true,
-  //       },
-  //     },
-  //   },
-  // },
+  vite: {
+    build: {
+      cssMinify: 'lightningcss',
+    },
+    css: {
+      transformer: 'lightningcss',
+      lightningcss: {
+        drafts: {
+          customMedia: true,
+        },
+      },
+    },
+  },
   markdown: {
     syntaxHighlight: false,
     remarkPlugins: [remarkMath, remarkGfm],
     rehypePlugins: [
-      // rehypeCodeTitles,
       rehypeKatex,
       rehypeSlug,
       [

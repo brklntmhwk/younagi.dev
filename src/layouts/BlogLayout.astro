@@ -84,39 +84,39 @@ const {
     flex-direction: column;
     flex-grow: 1; */
     display: grid;
-  }
-  hr {
-    width: 100%;
-  }
-  section.blog-metadata {
-    display: grid;
-    gap: 0.5rem;
-    place-items: start;
-  }
-  section.taxonomies {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 1.25rem;
-    text-transform: capitalize;
-    & a {
-      color: var(--accent);
-      text-decoration: none;
-      &:hover {
-        color: var(--accent-dark);
+    hr {
+      width: 100%;
+    }
+    section.blog-metadata {
+      display: grid;
+      gap: 0.5rem;
+      place-items: start;
+      .date-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.25rem;
+      }
+      section.taxonomies {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 1.25rem;
+        text-transform: capitalize;
+        & a {
+          color: var(--accent);
+          text-decoration: none;
+          &:hover {
+            color: var(--accent-dark);
+          }
+        }
+        ul.tag-list {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.65rem;
+          margin: 0;
+        }
       }
     }
-  }
-  .date-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.25rem;
-  }
-  ul.tag-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.65rem;
-    margin: 0;
   }
   .prose {
     overflow-wrap: break-word;

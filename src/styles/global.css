@@ -113,7 +113,9 @@ h6 {
   }
 }
 a.back-to-link {
+  font-size: 1.05rem;
   color: var(--accent);
+  text-decoration: none;
   &:hover {
     color: var(--accent-dark);
   }

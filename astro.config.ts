@@ -15,7 +15,7 @@ import rehypePrettyCode from 'rehype-pretty-code'
 export default defineConfig({
   site: 'https://my-astro-blog-4xp.pages.dev/',
   integrations: [
-    mdx(),
+    mdx({ optimize: true }),
     sitemap(),
     purgecss({
       fontFace: true,
@@ -23,6 +23,10 @@ export default defineConfig({
     }),
   ],
   trailingSlash: 'always',
+  prefetch: {
+    defaultStrategy: 'viewport',
+    prefetchAll: true,
+  },
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'ja'],
@@ -33,10 +37,16 @@ export default defineConfig({
   vite: {
     build: {
       cssMinify: 'lightningcss',
+      sourcemap: 'hidden',
+      minify: 'esbuild',
     },
     css: {
+      devSourcemap: true,
       transformer: 'lightningcss',
+      // @ts-expect-error Object literals may only specify known properties ... probably because Vite or Astro haven't updated their config to reflect the actually existing analyzeDependencies option from LightningCSS yet.
+      analyzeDependencies: true,
       lightningcss: {
+        cssModules: { pattern: '[local]' },
         drafts: {
           customMedia: true,
         },

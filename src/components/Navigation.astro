@@ -22,8 +22,8 @@ const t = await getEntry('i18n', `${locale}/translation`)
       <NavLink href={`/${locale}/about/`}>{t.data.nav.nav_links.about}</NavLink>
     </div>
     <div class="icon-links">
-      <LocalePicker />
-      <Search />
+      <LocalePicker data-border-image-url="url(/border-image.gif)" />
+      <Search data-border-image-url="url(/border-image.gif)" />
       <a href="https://github.com/brklntmhwk" target="_blank">
         <Svg iconName="github" width={32} height={32} />
       </a>

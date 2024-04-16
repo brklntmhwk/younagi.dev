@@ -4,8 +4,13 @@ import { getEntry } from 'astro:content'
 import Svg from '@/components/Svg/index.astro'
 import { getLocaleFromUrl } from '@/i18n/utils'
 
+type Props = {
+  'data-border-image-url'?: string
+}
+
 const locale = getLocaleFromUrl(Astro.url)
 const t = await getEntry('i18n', `${locale}/translation`)
+const { 'data-border-image-url': borderImageUrl } = Astro.props
 ---
 
 <div id="search-modal" class="hidden">
@@ -17,7 +22,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
   <span class="sr-only">{t.data.search.button_label}</span>
   <Svg iconName="magnifier" width={32} height={32} />
 </button>
-<style>
+<style define:vars={{ borderImageUrl }}>
   #search-modal {
     position: fixed;
     top: 0;
@@ -50,7 +55,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
     max-width: 38rem;
     max-height: 85vh;
     padding: 1.5rem 1rem;
-    border-image-source: url('/border-image.gif');
+    border-image-source: var(--borderImageUrl);
     border-image-slice: 12;
     border-image-repeat: repeat;
     border-image-outset: 0.2rem;

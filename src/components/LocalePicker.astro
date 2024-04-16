@@ -4,10 +4,15 @@ import { languages } from '@/i18n/ui'
 import Svg from '@/components/Svg/index.astro'
 import { getLocaleFromUrl } from '@/i18n/utils'
 
+type Props = {
+  'data-border-image-url'?: string
+}
+
 const locale = getLocaleFromUrl(Astro.url)
 const t = await getEntry('i18n', `${locale}/translation`)
 const [_firstSlash, _prevLocale, ...rest] = Astro.url.pathname.split('/')
 const slug = rest.join('/')
+const { 'data-border-image-url': borderImageUrl } = Astro.props
 ---
 
 <div id="lang-modal" class="hidden">
@@ -27,7 +32,7 @@ const slug = rest.join('/')
   <span class="sr-only">{t.data.locale_picker.button_label}</span>
   <Svg iconName="alphabet" width={32} height={32} />
 </button>
-<style>
+<style define:vars={{ borderImageUrl }}>
   #lang-modal {
     position: fixed;
     top: 0;
@@ -54,7 +59,7 @@ const slug = rest.join('/')
     padding: 0.85rem;
     border-style: solid;
     border-width: 8px;
-    border-image-source: url('/border-image.gif');
+    border-image-source: var(--borderImageUrl);
     border-image-slice: 12;
     border-image-repeat: repeat;
     border-image-outset: 0.2rem;

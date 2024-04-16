@@ -7,11 +7,12 @@ import { TOC_MINIMUM_COUNT } from '@/consts'
 
 type Props = {
   headings: MarkdownHeading[]
+  'data-border-image-url'?: string
 }
 
 const locale = getLocaleFromUrl(Astro.url)
 const t = await getEntry('i18n', `${locale}/translation`)
-const { headings } = Astro.props
+const { headings, 'data-border-image-url': borderImageUrl } = Astro.props
 ---
 
 {
@@ -36,7 +37,7 @@ const { headings } = Astro.props
     </>
   )
 }
-<style>
+<style define:vars={{ borderImageUrl }}>
   #toc-modal {
     position: fixed;
     top: 0;
@@ -63,7 +64,7 @@ const { headings } = Astro.props
     padding: 0.85rem;
     border-style: solid;
     border-width: 8px;
-    border-image-source: url('/border-image.gif');
+    border-image-source: var(--borderImageUrl);
     border-image-slice: 12;
     border-image-repeat: repeat;
     border-image-outset: 0.2rem;

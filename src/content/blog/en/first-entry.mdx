@@ -9,10 +9,10 @@ modifiedAt: 2024-04-11T00:31:20.346Z
 
 ## Heading 2
 
-```astro:BlogLayout.astro {1-3}
+```astro title="Template.astro" {1-3}
 ---
-import type {CollectionEntry} from 'astro:content';
-type Props = CollectionEntry<'blog'>['data'];
+import type { CollectionEntry } from 'astro:content'
+type Props = CollectionEntry<'blog'>['data']
 const props = Astro.props
 ---
 

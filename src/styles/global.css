@@ -6,6 +6,8 @@
   --accent: hsla(240.24, 100%, 48.63%, 1);
   --accent-dark: hsla(240, 98.54%, 26.86%, 1);
   --black: hsla(240, 6.9%, 11.37%, 1);
+  --code-highlight: hsla(60, 100%, 92.94%, 0.2);
+  --code-highlight-border: hsla(60, 94.78%, 77.45%, 0.8);
   --gray: hsla(60, 0.52%, 62.55%, 1);
   --gray-light: hsla(0, 0%, 84.71%, 1);
   --gray-dark: rgb(80, 78, 78);
@@ -120,11 +122,12 @@ a.back-to-link {
     color: var(--accent-dark);
   }
 }
-ul {
+ul,
+ol {
   padding: 0;
 }
 li {
-  list-style: none;
+  list-style-type: none;
 }
 img {
   max-width: 100%;

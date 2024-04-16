@@ -125,6 +125,18 @@ const {
       color: var(--gray-dark);
       margin-bottom: 1.25rem;
     }
+    & :global(ul) {
+      padding: 0.85rem 0 0.85rem 2.5rem;
+      & :global(li) {
+        list-style-type: square;
+      }
+    }
+    & :global(ol) {
+      padding: 0.85rem 0 0.85rem 2.5rem;
+      & :global(li) {
+        list-style-type: decimal;
+      }
+    }
     a {
       color: var(--accent);
       &:hover {

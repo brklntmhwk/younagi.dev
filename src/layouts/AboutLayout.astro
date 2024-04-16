@@ -17,7 +17,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
     <h1>{t.data.pages.about.title}</h1>
     <section class="profile-section">
       <Image
-        alt="My profile icon"
+        alt={t.data.pages.about.profile_img_alt}
         class="profile-icon"
         src="/blog-placeholder-about.jpg"
         width={180}
@@ -28,7 +28,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
       <span class="my-name">{t.data.pages.about.my_name}</span>
     </section>
     <hr />
-    <article class="about-content">
+    <article>
       <slot />
     </article>
   </main>
@@ -67,11 +67,11 @@ const t = await getEntry('i18n', `${locale}/translation`)
     font-size: 1.5rem;
     font-weight: 600;
   }
-  article.about-content {
+  article {
     padding: 0.5rem;
   }
   @media (min-width: 768px) {
-    article.about-content {
+    article {
       padding: 1.25rem;
     }
   }

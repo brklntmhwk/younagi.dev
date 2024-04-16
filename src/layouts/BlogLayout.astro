@@ -101,6 +101,7 @@ const {
     text-transform: capitalize;
     & a {
       color: var(--accent);
+      text-decoration: none;
       &:hover {
         color: var(--accent-dark);
       }
@@ -137,27 +138,24 @@ const {
         list-style-type: decimal;
       }
     }
-    a {
+    & :global(a) {
       color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
       &:hover {
         color: var(--accent-dark);
       }
     }
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      a {
-        & span.heading-anchor-icon {
-          color: var(--gray-dark);
-          margin-right: 0.75rem;
-        }
-        & :hover {
-          text-decoration: underline;
-          text-underline-offset: 4px;
-          text-decoration-color: var(--gray-dark);
-        }
+    & :global(a):has(.heading-anchor-icon) {
+      text-decoration: none;
+      & :global(span.heading-anchor-icon) {
+        color: var(--black);
+        margin-right: 0.5rem;
+      }
+      &:hover {
+        text-decoration: underline;
+        text-underline-offset: 4px;
+        text-decoration-color: var(--black);
       }
     }
   }

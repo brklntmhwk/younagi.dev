@@ -75,24 +75,24 @@ const { 'data-border-image-url': borderImageUrl } = Astro.props
     cursor: pointer;
     padding: 0;
   }
-  ul.lang-list a {
-    border-bottom: 2px solid transparent;
-  }
   ul.lang-list {
     display: grid;
     gap: 1rem;
     margin-left: 1.25rem;
-  }
-  ul.lang-list a {
-    position: relative;
-    &:hover::before {
-      font-family: 'PixelMplus10';
-      content: '▶';
-      position: absolute;
-      top: -0.25rem;
-      left: -1.5rem;
-      font-size: 1.2rem;
-      align-self: center;
+    a {
+      color: var(--black);
+      text-decoration: none;
+      position: relative;
+      border-bottom: 2px solid transparent;
+      &:hover::before {
+        font-family: 'PixelMplus10';
+        content: '▶';
+        position: absolute;
+        top: -0.25rem;
+        left: -1.5rem;
+        font-size: 1.2rem;
+        align-self: center;
+      }
     }
   }
 </style>

@@ -29,6 +29,7 @@ pages:
   about:
     title: About
     my_name: Nagi
+    profile_img_alt: My profile image
   not_found:
     message: Page Not Found
     back_to_top: Back to Top

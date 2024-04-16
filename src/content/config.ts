@@ -97,6 +97,7 @@ const i18n = defineCollection({
       about: z.object({
         title: z.string(),
         my_name: z.string(),
+        profile_img_alt: z.string(),
       }),
       not_found: z.object({
         message: z.string(),

@@ -58,6 +58,7 @@ const { entries, kind } = Astro.props
 </ul>
 <style>
   a.blog-title {
+    color: var(--black);
     font-size: 1.5rem;
     font-weight: 700;
     line-height: 1.1;
@@ -76,68 +77,64 @@ const { entries, kind } = Astro.props
     display: grid;
     gap: 1.75rem;
     padding: 0;
-  }
-  ul.entry-list > li {
-    list-style: none;
-    /* border: 1px solid black; */
-  }
-  ul.entry-list article {
-    display: grid;
-    row-gap: 5px;
-  }
-  ul.tag-list {
-    display: flex;
-    flex-wrap: wrap;
-    column-gap: 0.4rem;
-    padding: 0;
-  }
-  ul.tag-list > li {
-    list-style: none;
-  }
-  article {
-    position: relative;
-    border-top: 4px solid var(--black);
-    border-right: 2px solid var(--black);
-    border-bottom: 2px solid var(--black);
-    border-left: 2px solid var(--black);
-    border-radius: 0.3rem;
-  }
-  article::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    bottom: -8px;
-    left: -6px;
-    right: -6px;
-    border-top: 2px solid var(--black);
-    border-right: 2px solid var(--black);
-    border-bottom: 4px solid var(--black);
-    border-left: 2px solid var(--black);
-    border-radius: 0.5rem;
-    z-index: -1;
-  }
-  article > * {
-    padding-left: 0.85rem;
-  }
-  section.date {
-    display: flex;
-    gap: 10px;
-    padding-top: 1rem;
-  }
-  section.date > div {
-    display: flex;
-    align-items: center;
-    column-gap: 5px;
-  }
-  section.taxonomies {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.85rem;
-    text-transform: capitalize;
-    & a {
-      color: var(--accent);
-      &:hover {
-        color: var(--accent-dark);
+    article {
+      position: relative;
+      padding-left: 0.85rem;
+      border-top: 4px solid var(--black);
+      border-right: 2px solid var(--black);
+      border-bottom: 2px solid var(--black);
+      border-left: 2px solid var(--black);
+      border-radius: 0.3rem;
+      display: grid;
+      gap: 0.75rem;
+      &::before {
+        content: '';
+        position: absolute;
+        top: -8px;
+        bottom: -8px;
+        left: -6px;
+        right: -6px;
+        border-top: 2px solid var(--black);
+        border-right: 2px solid var(--black);
+        border-bottom: 4px solid var(--black);
+        border-left: 2px solid var(--black);
+        border-radius: 0.5rem;
+        z-index: -1;
+      }
+    }
+    section.date {
+      display: flex;
+      gap: 10px;
+      padding-top: 1rem;
+    }
+    section.date > div {
+      display: flex;
+      align-items: center;
+      column-gap: 5px;
+    }
+    li {
+      list-style: none;
+    }
+    section.taxonomies {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      text-transform: capitalize;
+      & a {
+        color: var(--accent);
+        text-decoration: none;
+        &:hover {
+          color: var(--accent-dark);
+        }
+      }
+    }
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      padding: 0;
+      li {
+        list-style: none;
       }
     }
   }

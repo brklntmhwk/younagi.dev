@@ -29,6 +29,7 @@ pages:
   about:
     title: 運営者
     my_name: 凪
+    profile_img_alt: プロフィール画像
   not_found:
     message: ページが見つかりませんでした
     back_to_top: トップに戻る

@@ -44,8 +44,8 @@ export const { getStaticPaths, GET } = OGImageRoute({
         },
       },
       fonts: [
-        '../../../public/fonts/PixelMplus10-Regular.woff2',
-        '../../../public/fonts/DotGothic16-Regular.woff2',
+        './src/assets/fonts/PixelMplus10-Regular.woff2',
+        './src/assets/fonts/DotGothic16-Regular.woff2',
       ],
     }
   },

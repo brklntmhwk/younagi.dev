@@ -1887,6 +1887,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"astro-og-canvas@npm:^0.4.2":
+  version: 0.4.2
+  resolution: "astro-og-canvas@npm:0.4.2"
+  dependencies:
+    canvaskit-wasm: "npm:^0.37.0"
+    deterministic-object-hash: "npm:^2.0.2"
+    entities: "npm:^4.4.0"
+  peerDependencies:
+    astro: ^3.0.0 || ^4.0.0
+  checksum: 10c0/e68a67f567f76bfa5b4446cce3f79975556be90301cad4836a51fed9d54ce0bcefb41c7c167b34a63cd2d5641727e8d2d847683fc2d250f4c5e0bdaf8eb5a2cc
+  languageName: node
+  linkType: hard
+
 "astro-purgecss@npm:4.1.0":
   version: 4.1.0
   resolution: "astro-purgecss@npm:4.1.0"
@@ -2231,6 +2244,13 @@ __metadata:
   version: 1.0.30001594
   resolution: "caniuse-lite@npm:1.0.30001594"
   checksum: 10c0/738b4ea8b12f040baafe5fe4c63f16f27c10334e0a36cc9786811b781a92c749523abc88cf20a4f4f9da0413e1c13b0482ee8e8b7398a3554742fba036b8ed91
+  languageName: node
+  linkType: hard
+
+"canvaskit-wasm@npm:^0.37.0":
+  version: 0.37.2
+  resolution: "canvaskit-wasm@npm:0.37.2"
+  checksum: 10c0/6b47913e78d0ab63a863f30630f6c282d7a80358d060807abb14843a8ad191efe6356181a660bc1c8e3aa95821bc86f70d6f802d285b382391d4a191950e1d9c
   languageName: node
   linkType: hard
 
@@ -2670,7 +2690,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"deterministic-object-hash@npm:^2.0.1":
+"deterministic-object-hash@npm:^2.0.1, deterministic-object-hash@npm:^2.0.2":
   version: 2.0.2
   resolution: "deterministic-object-hash@npm:2.0.2"
   dependencies:
@@ -2863,7 +2883,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:^0.19.3, esbuild@npm:^0.19.6, esbuild@npm:~0.19.10":
+"esbuild@npm:^0.19.3, esbuild@npm:^0.19.6":
   version: 0.19.12
   resolution: "esbuild@npm:0.19.12"
   dependencies:
@@ -3481,15 +3501,6 @@ __metadata:
   version: 8.0.1
   resolution: "get-stream@npm:8.0.1"
   checksum: 10c0/5c2181e98202b9dae0bb4a849979291043e5892eb40312b47f0c22b9414fc9b28a3b6063d2375705eb24abc41ecf97894d9a51f64ff021511b504477b27b4290
-  languageName: node
-  linkType: hard
-
-"get-tsconfig@npm:^4.7.2":
-  version: 4.7.3
-  resolution: "get-tsconfig@npm:4.7.3"
-  dependencies:
-    resolve-pkg-maps: "npm:^1.0.0"
-  checksum: 10c0/b15ca9d5d0887ebfccadc9fe88b6ff3827a5691ec90e7608a5e9c74bef959c14aba62f6bb88ac7f50322395731789a2cf654244f00e10f4f76349911b6846d6f
   languageName: node
   linkType: hard
 
@@ -5657,6 +5668,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:7.1.1"
     "@typescript-eslint/parser": "npm:7.1.1"
     astro: "npm:4.4.13"
+    astro-og-canvas: "npm:^0.4.2"
     astro-purgecss: "npm:4.1.0"
     eslint: "npm:8.57.0"
     eslint-config-prettier: "npm:9.1.0"
@@ -5680,12 +5692,10 @@ __metadata:
     remark-gfm: "npm:4.0.0"
     remark-math: "npm:6.0.0"
     satori: "npm:^0.10.13"
-    satori-html: "npm:^0.3.2"
     sharp: "npm:^0.33.2"
     shiki: "npm:^1.3.0"
     shikiji: "npm:^0.10.2"
     solid-js: "npm:^1.8.16"
-    tsx: "npm:^4.7.2"
     typescript: "npm:5.4.2"
     unified: "npm:^11.0.4"
     unist-util-visit: "npm:^5.0.0"
@@ -6594,13 +6604,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve-pkg-maps@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "resolve-pkg-maps@npm:1.0.0"
-  checksum: 10c0/fb8f7bbe2ca281a73b7ef423a1cbc786fb244bd7a95cbe5c3fba25b27d327150beca8ba02f622baea65919a57e061eb5005204daa5f93ed590d9b77463a567ab
-  languageName: node
-  linkType: hard
-
 "resolve@npm:^1.22.4":
   version: 1.22.8
   resolution: "resolve@npm:1.22.8"
@@ -6806,15 +6809,6 @@ __metadata:
   dependencies:
     suf-log: "npm:^2.5.3"
   checksum: 10c0/172eb326121ace1a48e689a1419efab2d780623631d106ac306ac2a055e96813bda36044f20bc4cc28d761427efc136a08d07153d1b8a8ccf0a032dca5fdce3c
-  languageName: node
-  linkType: hard
-
-"satori-html@npm:^0.3.2":
-  version: 0.3.2
-  resolution: "satori-html@npm:0.3.2"
-  dependencies:
-    ultrahtml: "npm:^1.2.0"
-  checksum: 10c0/285a57899c6a6ea1e08771a0d98f743657e8d0eb019db5ec9dfc37ff7485df650b4b376e0505ae497320943c5ae3fc378fc5deff2e617ee50fac65cfa2da01a2
   languageName: node
   linkType: hard
 
@@ -7567,22 +7561,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsx@npm:^4.7.2":
-  version: 4.7.2
-  resolution: "tsx@npm:4.7.2"
-  dependencies:
-    esbuild: "npm:~0.19.10"
-    fsevents: "npm:~2.3.3"
-    get-tsconfig: "npm:^4.7.2"
-  dependenciesMeta:
-    fsevents:
-      optional: true
-  bin:
-    tsx: dist/cli.mjs
-  checksum: 10c0/0338598cc3b7b01a47939297797dfb77a1d675acb33bf71e816faf2b8cb76da3994d341d2920d105dbe98cd01a4babd80ca4b9a5a36120813dd79c4fc1c32df1
-  languageName: node
-  linkType: hard
-
 "tunnel-agent@npm:^0.6.0":
   version: 0.6.0
   resolution: "tunnel-agent@npm:0.6.0"
@@ -7655,13 +7633,6 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 10c0/22e2f213c3ffe5960c5eaec6c95c04e01858fed57a94be250746f540b935b2c18c3c3fc80d3ab65d28c0aba1eb76284557ba3bf521d28caee811c44ba2b648f9
-  languageName: node
-  linkType: hard
-
-"ultrahtml@npm:^1.2.0":
-  version: 1.5.3
-  resolution: "ultrahtml@npm:1.5.3"
-  checksum: 10c0/3df72461e44b6686006e61d96d3bcc6ef1a02d355a6643fb23f5947a75161601dbb5b98258bc0500b10faeebe932b699c371e13bd9e86a99f22f2ce39e1abe82
   languageName: node
   linkType: hard
 

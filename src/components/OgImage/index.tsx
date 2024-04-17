@@ -4,13 +4,13 @@ import sharp from 'sharp'
 
 const ogImage = async (text: string, date?: Date) => {
   const pixelMPlus10Data = readFileSync(
-    `/${process.cwd()}/public/fonts/PixelMplus10-Regular.woff2`
+    `${process.cwd()}/public/fonts/PixelMplus10-Regular.woff2`
   )
   const dotGothic16Data = readFileSync(
-    `/${process.cwd()}/public/fonts/DotGothic16-Regular.woff2`
+    `${process.cwd()}/public/fonts/DotGothic16-Regular.woff2`
   )
   const iconBuffer = readFileSync(
-    `/${process.cwd()}/public/blog-placeholder-1.jpg`
+    `${process.cwd()}/public/blog-placeholder-1.jpg`
   )
   const icon = window.btoa(
     new Uint8Array(iconBuffer).reduce(

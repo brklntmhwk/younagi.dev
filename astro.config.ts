@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
+import solidJs from '@astrojs/solid-js'
 import purgecss from 'astro-purgecss'
 import { h } from 'hastscript'
 import remarkGfm from 'remark-gfm'
@@ -15,11 +16,16 @@ import rehypePrettyCode from 'rehype-pretty-code'
 export default defineConfig({
   site: 'https://my-astro-blog-4xp.pages.dev/',
   integrations: [
-    mdx({ optimize: true }),
+    mdx({
+      optimize: true,
+    }),
     sitemap(),
     purgecss({
       fontFace: true,
       keyframes: true,
+    }),
+    solidJs({
+      exclude: ['**/OgImage/**'],
     }),
   ],
   trailingSlash: 'always',
@@ -46,7 +52,9 @@ export default defineConfig({
       // @ts-expect-error Object literals may only specify known properties ... probably because Vite or Astro haven't updated their config to reflect the actually existing analyzeDependencies option from LightningCSS yet.
       analyzeDependencies: true,
       lightningcss: {
-        cssModules: { pattern: '[local]' },
+        cssModules: {
+          pattern: '[local]',
+        },
         drafts: {
           customMedia: true,
         },

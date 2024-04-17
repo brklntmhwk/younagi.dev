@@ -21,11 +21,13 @@
     "@astrojs/mdx": "2.1.1",
     "@astrojs/rss": "4.0.5",
     "@astrojs/sitemap": "3.1.1",
+    "@astrojs/solid-js": "^4.1.0",
     "@fontsource-variable/roboto-condensed": "5.0.2",
     "@iconify-json/pixelarticons": "1.1.10",
     "astro": "4.4.13",
     "astro-purgecss": "4.1.0",
     "purgecss": "5.0.0",
+    "solid-js": "^1.8.16",
     "typescript": "5.4.2"
   },
   "devDependencies": {

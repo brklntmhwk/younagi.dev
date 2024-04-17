@@ -9,7 +9,6 @@ import rehypeKatex from 'rehype-katex'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeSlug from 'rehype-slug'
 import rehypePrettyCode from 'rehype-pretty-code'
-// import type { LineElement } from 'rehype-pretty-code'
 
 // https://astro.build/config
 export default defineConfig({
@@ -21,9 +20,11 @@ export default defineConfig({
     sitemap(),
     purgecss({
       fontFace: true,
-      keyframes: true,
     }),
   ],
+  // build: {
+  //   format: 'file',
+  // },
   trailingSlash: 'always',
   prefetch: {
     defaultStrategy: 'viewport',
@@ -84,20 +85,6 @@ export default defineConfig({
             dark: 'github-light',
           },
           grid: false,
-          // onVisitLine(elm: LineElement) {
-          //   // Prevent lines from collapsing in `display: grid` mode, and allow empty lines to be copy/pasted
-          //   if (elm.children.length === 0) {
-          //     elm.children = [{ type: 'text', value: ' ' }]
-          //   }
-          // },
-          // onVisitHighlightedLine(elm: LineElement) {
-          //   // Each line element by default has `class="line"`.
-          //   elm.properties.className?.push('highlighted')
-          // },
-          // onVisitHighlightedWord(elm: LineElement) {
-          //   // Each word element has no className by default.
-          //   elm.properties.className = ['word']
-          // },
         },
       ],
     ],

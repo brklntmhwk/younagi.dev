@@ -7,13 +7,13 @@ import sharp from 'sharp'
 
 const ogImage = async (text: string, date?: Date) => {
   const pixelMPlus10Data = readFileSync(
-    `${process.cwd()}/public/fonts/PixelMplus10-Regular.woff2`
+    `/${process.cwd()}/public/fonts/PixelMplus10-Regular.woff2`
   )
   const dotGothic16Data = readFileSync(
-    `${process.cwd()}/public/fonts/DotGothic16-Regular.woff2`
+    `/${process.cwd()}/public/fonts/DotGothic16-Regular.woff2`
   )
   const iconBuffer = readFileSync(
-    `${process.cwd()}/public/blog-placeholder-1.jpg`
+    `/${process.cwd()}/public/blog-placeholder-1.jpg`
   )
   const icon = btoa(
     new Uint8Array(iconBuffer).reduce(
@@ -21,18 +21,6 @@ const ogImage = async (text: string, date?: Date) => {
       ''
     )
   )
-  // const notoFontData = readFileSync('./src/assets/NotoSansCJKjp-Bold.woff')
-
-  // const robotoFontData = readFileSync(
-  //   './node_modules/@fontsource/roboto-mono/files/roboto-mono-latin-500-normal.woff'
-  // )
-
-  // const sfProFontData = readFileSync('./src/assets/SFProJP_semibold.woff')
-
-  // const sfProDisplayFontData = readFileSync(
-  //   './src/assets/sf-pro-display_semibold.woff'
-  // )
-
   const svg = await satori(
     <div
       style={{

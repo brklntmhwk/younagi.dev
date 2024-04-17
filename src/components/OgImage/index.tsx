@@ -15,7 +15,7 @@ const ogImage = async (text: string, date?: Date) => {
   const iconBuffer = readFileSync(
     `/${process.cwd()}/public/blog-placeholder-1.jpg`
   )
-  const icon = btoa(
+  const icon = window.btoa(
     new Uint8Array(iconBuffer).reduce(
       (data, byte) => data + String.fromCharCode(byte),
       ''

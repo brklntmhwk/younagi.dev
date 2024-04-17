@@ -1,3 +1,6 @@
+/** @jsxImportSource react */
+/** @jsxRuntime automatic */
+
 import { readFileSync } from 'fs'
 import satori from 'satori'
 import sharp from 'sharp'

@@ -21,12 +21,12 @@ const { entries, kind } = Astro.props
           <section class="date">
             <div>
               <Svg iconName="upload" width={20} height={20} />
-              <FormattedDate date={entry.data.publishedAt} />
+              <FormattedDate date={entry.data.publishedAt} locale={locale} />
             </div>
             {entry.data.modifiedAt && (
               <div>
                 <Svg iconName="update" width={20} height={20} />
-                <FormattedDate date={entry.data.modifiedAt} />
+                <FormattedDate date={entry.data.modifiedAt} locale={locale} />
               </div>
             )}
           </section>

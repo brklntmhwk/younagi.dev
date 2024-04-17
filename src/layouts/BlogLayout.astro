@@ -39,13 +39,13 @@ const {
         <div class="date-meta">
           <div>
             <Svg iconName="upload" width={20} height={20} />
-            <FormattedDate date={publishedAt} />
+            <FormattedDate date={publishedAt} locale={locale} />
           </div>
           {
             modifiedAt && (
               <div>
                 <Svg iconName="update" width={20} height={20} />
-                <FormattedDate date={modifiedAt} />
+                <FormattedDate date={modifiedAt} locale={locale} />
               </div>
             )
           }
@@ -119,6 +119,7 @@ const {
     }
   }
   .prose {
+    font-size: 1.15rem;
     overflow-wrap: break-word;
     word-wrap: break-word;
     & :global(p) {

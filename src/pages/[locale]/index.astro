@@ -3,7 +3,7 @@ import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
 import { getEntry } from 'astro:content'
 // import { getRelativeLocaleUrl } from 'astro:i18n'
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import { langList } from '@/i18n/ui'
+import { langList } from '@/i18n/data'
 
 export const getStaticPaths = (() => {
   return langList.map((lang) => ({ params: { locale: lang } }))

@@ -27,11 +27,11 @@ const { title, description } = Astro.props
     </div>
     <style>
       .base-wrapper {
-        width: 100%;
+        /* max-width: 48rem; */
         min-height: 100vh;
         margin: 0 auto;
-        display: grid;
         padding-top: 3.75rem;
+        display: grid;
         grid-template-rows: 1fr auto;
         grid-template-columns: 1fr;
         grid-template-areas:
@@ -44,18 +44,10 @@ const { title, description } = Astro.props
         }
       }
       @media (min-width: 1024px) {
-        main {
-          grid-area: main;
-          padding: 2.5em 2em;
-          overflow-y: auto;
-        }
-
         .base-wrapper {
           padding-top: 0;
           margin: 0;
           grid-template-columns: 18rem 1fr;
-          /* grid-template-rows: 1fr auto; */
-          /* grid-auto-columns: 18rem minmax(50rem, auto); */
           grid-auto-rows: minmax(100px, auto);
           grid-template-areas:
             'navigation main'

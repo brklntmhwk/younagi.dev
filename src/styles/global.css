@@ -1,6 +1,6 @@
 :root {
   --fg: hsla(248.57, 11.48%, 11.96%, 1);
-  --bg: hsla(0, 0%, 96.08%, 1);
+  --bg: hsla(0, 0%, 98.7%, 1);
   --line: hsla(260.87, 10.13%, 55.49%, 0.33);
   --code: hsla(0, 0%, 90.98%, 1);
   --accent: hsla(240.24, 100%, 48.63%, 1);
@@ -38,7 +38,6 @@
   font-display: swap;
 }
 body {
-  width: 100%;
   font-family: 'PixelMplus10', sans-serif;
   margin: 0;
   padding: 0;
@@ -46,7 +45,7 @@ body {
   word-wrap: break-word;
   overflow-wrap: break-word;
   color: var(--black);
-  background: rgb(var(--bg));
+  background: var(--bg);
   line-height: 1.5;
   -webkit-text-size-adjust: 100%;
 }
@@ -61,7 +60,9 @@ main {
 }
 @media (min-width: 1024px) {
   main {
-    padding: 2rem 2.25rem;
+    grid-area: main;
+    padding: 3rem 4rem;
+    overflow-y: auto;
   }
 }
 h4,

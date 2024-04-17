@@ -1,4 +1,4 @@
-import { defaultLang, languages } from './ui'
+import { defaultLang, languages } from './data'
 
 export const getLocaleFromUrl = (url: URL) => {
   const [, lang] = url.pathname.split('/')

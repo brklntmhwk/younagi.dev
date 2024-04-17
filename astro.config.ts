@@ -1,7 +1,6 @@
 import { defineConfig } from 'astro/config'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
-import solidJs from '@astrojs/solid-js'
 import purgecss from 'astro-purgecss'
 import { h } from 'hastscript'
 import remarkGfm from 'remark-gfm'
@@ -23,9 +22,6 @@ export default defineConfig({
     purgecss({
       fontFace: true,
       keyframes: true,
-    }),
-    solidJs({
-      exclude: ['**/OgImage/**'],
     }),
   ],
   trailingSlash: 'always',

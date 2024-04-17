@@ -2,7 +2,6 @@ import { defineConfig } from 'astro/config'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import purgecss from 'astro-purgecss'
-import { resolve } from 'path'
 import { h } from 'hastscript'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
@@ -23,9 +22,9 @@ export default defineConfig({
       fontFace: true,
     }),
   ],
-  // build: {
-  //   format: 'file',
-  // },
+  build: {
+    format: 'file',
+  },
   trailingSlash: 'always',
   prefetch: {
     defaultStrategy: 'viewport',
@@ -56,11 +55,6 @@ export default defineConfig({
         drafts: {
           customMedia: true,
         },
-      },
-    },
-    resolve: {
-      alias: {
-        '@': resolve('./src'),
       },
     },
   },

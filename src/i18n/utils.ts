@@ -6,9 +6,3 @@ export const getLocaleFromUrl = (url: URL) => {
 
   return defaultLang
 }
-
-// export const useTranslations = (lang: keyof typeof ui) => {
-//   return function t(key: keyof (typeof ui)[typeof defaultLang]) {
-//     return ui[lang][key] || ui[defaultLang][key]
-//   }
-// }

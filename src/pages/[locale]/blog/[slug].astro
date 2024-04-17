@@ -18,8 +18,8 @@ export const getStaticPaths = (async () => {
 type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
 export const components = {
-  figure: Figure,
   img: Image,
+  figure: Figure,
 }
 
 const { entry } = Astro.props

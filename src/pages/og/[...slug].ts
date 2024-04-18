@@ -23,7 +23,6 @@ const articles = Object.fromEntries(
 //     }
 //   })
 // )
-console.log(articles)
 
 export const { getStaticPaths, GET } = OGImageRoute({
   param: 'slug',

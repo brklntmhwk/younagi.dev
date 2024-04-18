@@ -34,8 +34,10 @@ const {
     height: 630,
     width: 1200,
     image: new URL(
-      `/api/og/${locale}/${collection}/${slug.split('/').pop()}.png`,
+      `/api/og/${slug}.png`,
       Astro.url
+      // `/api/og/${locale}/${collection}/${slug.split('/').pop()}.png`,
+      // Astro.url
     ),
     type: 'article',
   }}

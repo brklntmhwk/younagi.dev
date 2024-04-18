@@ -7,7 +7,7 @@ const articles = Object.fromEntries(
   entries.map(({ slug, data, collection }) => {
     const [locale, rawSlug] = slug.split('/')
 
-    return [`/${locale}/${collection}/${rawSlug!.split('/').pop()}/`, data]
+    return [`/${locale}/${collection}/${rawSlug!.split('/').pop()}`, data]
   })
 )
 // const articles = Object.fromEntries(

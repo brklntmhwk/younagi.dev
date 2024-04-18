@@ -5,7 +5,8 @@ const entries = await getCollection('blog')
 // const pages = await getCollection('page')
 const articles = Object.fromEntries(
   entries.map(({ slug, data, collection }) => {
-    const [locale, rawSlug] = slug.split('/')
+    const locale = slug.slice(0, slug.indexOf('/'))
+    const rawSlug = slug.slice(slug.indexOf('/') + 1)
 
     return [`${locale}/${collection}/${rawSlug}`, data]
   })

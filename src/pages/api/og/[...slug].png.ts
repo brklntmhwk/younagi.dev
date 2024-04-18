@@ -1,12 +1,18 @@
-// import type { APIRoute, APIContext } from 'astro'
 import { getCollection } from 'astro:content'
 import { OGImageRoute } from 'astro-og-canvas'
-// import ogImage from '@/components/OgImage'
 
 const entries = await getCollection('blog')
 const pages = await getCollection('page')
 const articles = Object.fromEntries(
-  [...entries, ...pages].map(({ slug, data }) => [slug, data])
+  [...entries, ...pages].map(({ slug, data, collection }) => {
+    const [locale, rawSlug] = slug.split('/')
+    switch (collection) {
+      case 'blog':
+        return [`/${locale}/${collection}/${rawSlug!.split('/').pop()}/`, data]
+      case 'page':
+        return [`/${locale}/${rawSlug!.split('/').pop()}/`, data]
+    }
+  })
 )
 
 export const { getStaticPaths, GET } = OGImageRoute({
@@ -57,37 +63,3 @@ export const { getStaticPaths, GET } = OGImageRoute({
     }
   },
 })
-
-// const entries = await getCollection('blog')
-// const pages = await getCollection('page')
-// const articles = [...entries, ...pages]
-
-// export const GET: APIRoute = async ({ params }: APIContext) => {
-//   let res = new Response('OG Image Not Found', { status: 404 })
-//   const { type, slug } = params
-//   if (type === 'article') {
-//     const article = articles.find((a) => `${a.collection}/${a.slug}` === slug)
-//     if (article) {
-//       const isBlogEntry = article.collection === 'blog'
-//       const img = await ogImage(
-//         article.data.title,
-//         isBlogEntry
-//           ? article.data.modifiedAt ?? article.data.publishedAt
-//           : undefined
-//       )
-//       res = new Response(img)
-//     }
-//   }
-
-//   return res
-// }
-
-// export const getStaticPaths = async () => {
-//   const ogs = [
-//     ...articles.map((a) => ({
-//       params: { type: 'article', slug: `${a.collection}/${a.slug}` },
-//     })),
-//   ]
-
-//   return ogs
-// }

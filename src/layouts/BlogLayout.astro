@@ -33,7 +33,10 @@ const {
     show: true,
     height: 630,
     width: 1200,
-    image: new URL(`/og/${collection}/${slug}.png`, Astro.url),
+    image: new URL(
+      `/api/og/${locale}/${collection}/${slug.split('/').pop()}.png`,
+      Astro.url
+    ),
   }}
 >
   <main>
@@ -62,13 +65,15 @@ const {
         </div>
         <h1 class="entry-title">{title}</h1>
         <section class="taxonomies">
-          <a href={`/${locale}/blog/categories/${category}/`}>{category}</a>
+          <a href={`/${locale}/${collection}/categories/${category}/`}
+            >{category}</a
+          >
           {
             tags && (
               <ul class="tag-list">
                 {tags.map((tag) => (
                   <li>
-                    <a href={`/${locale}/blog/tags/${tag}/`}>#{tag}</a>
+                    <a href={`/${locale}/${collection}/tags/${tag}/`}>#{tag}</a>
                   </li>
                 ))}
               </ul>

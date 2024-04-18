@@ -35,7 +35,8 @@ const {
     width: 1200,
     image: new URL(
       `/og/${locale}/${collection}/${slug.slice(slug.indexOf('/') + 1)}.png`,
-      Astro.site ?? ''
+      Astro.url
+      // Astro.site ?? ''
     ),
     type: 'article',
   }}

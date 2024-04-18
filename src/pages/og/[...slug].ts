@@ -30,8 +30,9 @@ export const { getStaticPaths, GET } = OGImageRoute({
     return {
       title: page.title,
       description: page.description ?? '',
-      bgGradient: [[47, 28, 66]],
-      border: { color: [227, 182, 237], width: 10, side: 'block-end' },
+      bgGradient: [[26.99, 26.99, 30.99]],
+      border: { color: [138, 130, 153], width: 8, side: 'block-end' },
+      padding: 70,
       font: {
         title: {
           size: 72,
@@ -41,9 +42,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
             'Noto Sans',
             'Noto Sans Arabic',
             'Noto Sans SC',
-            'Noto Sans TC',
             'Noto Sans JP',
-            'Noto Sans KR',
           ],
           weight: 'Medium',
           color: [255, 255, 255],
@@ -54,6 +53,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
           families: [
             'DotGothic16',
             'Noto Sans',
+            'Noto Sans Arabic',
             'Noto Sans SC',
             'Noto Sans JP',
           ],
@@ -61,8 +61,9 @@ export const { getStaticPaths, GET } = OGImageRoute({
           color: [255, 255, 255],
         },
       },
-      bgImage: {
+      logo: {
         path: './src/assets/images/hitokage.png',
+        size: [70, 70],
       },
       fonts: [
         './src/assets/fonts/PixelMplus10-Regular.woff2',

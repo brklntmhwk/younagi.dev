@@ -32,7 +32,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
       title: page.title,
       description: page.description ?? '',
       bgGradient: [[47, 28, 66]],
-      border: { color: [227, 182, 237], width: 10, side: 'block-end' },
+      // border: { color: [227, 182, 237], width: 10, side: 'block-end' },
       font: {
         title: {
           size: 72,
@@ -62,9 +62,9 @@ export const { getStaticPaths, GET } = OGImageRoute({
           color: [255, 255, 255],
         },
       },
-      bgImage: {
-        path: './src/assets/images/hitokage.png',
-      },
+      // bgImage: {
+      //   path: './src/assets/images/hitokage.png',
+      // },
       fonts: [
         './src/assets/fonts/PixelMplus10-Regular.woff2',
         './src/assets/fonts/DotGothic16-Regular.woff2',

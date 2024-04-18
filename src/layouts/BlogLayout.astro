@@ -8,12 +8,13 @@ import Svg from '@/components/Svg/index.astro'
 import { getLocaleFromUrl } from '@/i18n/utils'
 
 type Props = {
-  entry: CollectionEntry<'blog'>['data']
+  entry: CollectionEntry<'blog'>
   headings: MarkdownHeading[]
 }
 
 const locale = getLocaleFromUrl(Astro.url)
 const { entry, headings } = Astro.props
+const { data, collection, slug } = entry
 const {
   title,
   description,
@@ -22,10 +23,19 @@ const {
   publishedAt,
   modifiedAt,
   heroImage,
-} = entry
+} = data
 ---
 
-<BaseLayout title={title} description={description ?? ''}>
+<BaseLayout
+  title={title}
+  description={description ?? ''}
+  og={{
+    show: true,
+    height: 630,
+    width: 1200,
+    image: new URL(`/og/${collection}/${slug}.png`, Astro.url),
+  }}
+>
   <main>
     <article>
       <section class="blog-metadata">

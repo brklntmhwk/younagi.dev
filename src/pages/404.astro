@@ -7,7 +7,7 @@ const locale = getLocaleFromUrl(Astro.url)
 const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
-<BaseLayout title="404">
+<BaseLayout title="404" og={{ show: false }}>
   <main data-pagefind-ignore="all">
     <h1>404</h1>
     <p>{t.data.pages.not_found.message}</p>

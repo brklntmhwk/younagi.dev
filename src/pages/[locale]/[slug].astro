@@ -37,6 +37,7 @@ const { Content } = await page.render()
     <BaseLayout
       title={page.data.title}
       description={page.data.description ?? ''}
+      og={{ show: true }}
     >
       <main>
         <Content />

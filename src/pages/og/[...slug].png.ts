@@ -23,8 +23,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
           size: 72,
           lineHeight: 1.5,
           families: [
-            'Obviously',
-            'Inter',
+            'PixelMPlus10',
             'Noto Sans',
             'Noto Sans Arabic',
             'Noto Sans SC',
@@ -38,10 +37,18 @@ export const { getStaticPaths, GET } = OGImageRoute({
         description: {
           size: 42,
           lineHeight: 1.2,
-          families: ['Inter', 'Noto Sans', 'Noto Sans SC', 'Noto Sans JP'],
+          families: [
+            'DotGothic16',
+            'Noto Sans',
+            'Noto Sans SC',
+            'Noto Sans JP',
+          ],
           weight: 'Normal',
           color: [255, 255, 255],
         },
+      },
+      bgImage: {
+        path: './src/assets/images/hitokage.png',
       },
       fonts: [
         './src/assets/fonts/PixelMplus10-Regular.woff2',

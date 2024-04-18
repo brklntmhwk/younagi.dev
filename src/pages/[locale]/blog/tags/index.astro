@@ -21,6 +21,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
 <BaseLayout
   title={meta.data.blog.tags.title}
   description={meta.data.blog.tags.description}
+  og={{ show: true }}
 >
   <main data-pagefind-ignore="all">
     <h1>{t.data.pages.blog.tags.title}</h1>

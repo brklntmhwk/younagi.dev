@@ -22,9 +22,6 @@ export default defineConfig({
       fontFace: true,
     }),
   ],
-  // build: {
-  //   format: 'file',
-  // },
   trailingSlash: 'always',
   prefetch: {
     defaultStrategy: 'viewport',

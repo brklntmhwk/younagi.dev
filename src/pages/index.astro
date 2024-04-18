@@ -8,6 +8,7 @@ const meta = await getEntry('meta', 'en/site-data')
 <BaseLayout
   title={meta.data.site.title}
   description={meta.data.site.description}
+  og={{ show: true }}
 >
   <main></main>
 </BaseLayout>

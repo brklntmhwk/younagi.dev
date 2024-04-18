@@ -145,8 +145,8 @@ const {
     font-size: 1.15rem;
     overflow-wrap: break-word;
     word-wrap: break-word;
+    font-family: var(--prose-font);
     & :global(p) {
-      font-family: 'DotGothic16', sans-serif;
       color: var(--gray-dark);
       margin-bottom: 1.25rem;
     }
@@ -172,6 +172,7 @@ const {
     }
     & :global(a):has(.heading-anchor-icon) {
       text-decoration: none;
+      font-family: var(--base-font);
       & :global(span.heading-anchor-icon) {
         color: var(--black);
         margin-right: 0.5rem;

@@ -39,7 +39,6 @@ const props = Astro.props
           background-color: unset;
         }
       }
-
       & :global([data-highlighted-chars]) {
         background-color: var(--gray-light);
         padding: 0.25rem;
@@ -49,7 +48,6 @@ const props = Astro.props
         }
       }
     }
-
     & :global([data-rehype-pretty-code-title]) {
       font-family: var(--code-font);
       & + :global(pre) {
@@ -59,7 +57,6 @@ const props = Astro.props
     & :global(pre:not([data-rehype-pretty-code-title] + pre)) {
       padding: 0.75rem 0;
     }
-
     & :global([data-rehype-pretty-code-title]) {
       max-width: 70vw;
       position: absolute;
@@ -74,7 +71,6 @@ const props = Astro.props
       border-radius: 0.15rem 0.15rem 0.15rem 0;
     }
   }
-
   :global(pre[data-theme*=' ']),
   :global(pre[data-theme*=' '] span) {
     color: var(--shiki-light);

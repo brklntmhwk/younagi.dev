@@ -34,9 +34,7 @@ const {
     height: 630,
     width: 1200,
     image: new URL(
-      // `/og/${slug.slice(slug.indexOf('/') + 1)}.png/`,
-      // Astro.url
-      `/og/${locale}/${collection}/${slug.slice(slug.indexOf('/') + 1)}.png/`,
+      `/og/${locale}/${collection}/${slug.slice(slug.indexOf('/') + 1)}.png`,
       Astro.site ?? ''
     ),
     type: 'article',

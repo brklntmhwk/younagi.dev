@@ -8,7 +8,6 @@ const articles = Object.fromEntries(
     const locale = slug.slice(0, slug.indexOf('/'))
     const rawSlug = slug.slice(slug.indexOf('/') + 1)
 
-    // return [rawSlug, data]
     return [`${locale}/${collection}/${rawSlug}`, data]
   })
 )
@@ -32,43 +31,43 @@ export const { getStaticPaths, GET } = OGImageRoute({
       title: page.title,
       description: page.description ?? '',
       bgGradient: [[47, 28, 66]],
-      // border: { color: [227, 182, 237], width: 10, side: 'block-end' },
-      // font: {
-      //   title: {
-      //     size: 72,
-      //     lineHeight: 1.5,
-      //     families: [
-      //       'PixelMPlus10',
-      //       'Noto Sans',
-      //       'Noto Sans Arabic',
-      //       'Noto Sans SC',
-      //       'Noto Sans TC',
-      //       'Noto Sans JP',
-      //       'Noto Sans KR',
-      //     ],
-      //     weight: 'Medium',
-      //     color: [255, 255, 255],
-      //   },
-      //   description: {
-      //     size: 42,
-      //     lineHeight: 1.2,
-      //     families: [
-      //       'DotGothic16',
-      //       'Noto Sans',
-      //       'Noto Sans SC',
-      //       'Noto Sans JP',
-      //     ],
-      //     weight: 'Normal',
-      //     color: [255, 255, 255],
-      //   },
-      // },
-      // bgImage: {
-      //   path: './src/assets/images/hitokage.png',
-      // },
-      // fonts: [
-      //   './src/assets/fonts/PixelMplus10-Regular.woff2',
-      //   './src/assets/fonts/DotGothic16-Regular.woff2',
-      // ],
+      border: { color: [227, 182, 237], width: 10, side: 'block-end' },
+      font: {
+        title: {
+          size: 72,
+          lineHeight: 1.5,
+          families: [
+            'PixelMPlus10',
+            'Noto Sans',
+            'Noto Sans Arabic',
+            'Noto Sans SC',
+            'Noto Sans TC',
+            'Noto Sans JP',
+            'Noto Sans KR',
+          ],
+          weight: 'Medium',
+          color: [255, 255, 255],
+        },
+        description: {
+          size: 42,
+          lineHeight: 1.2,
+          families: [
+            'DotGothic16',
+            'Noto Sans',
+            'Noto Sans SC',
+            'Noto Sans JP',
+          ],
+          weight: 'Normal',
+          color: [255, 255, 255],
+        },
+      },
+      bgImage: {
+        path: './src/assets/images/hitokage.png',
+      },
+      fonts: [
+        './src/assets/fonts/PixelMplus10-Regular.woff2',
+        './src/assets/fonts/DotGothic16-Regular.woff2',
+      ],
     }
   },
 })

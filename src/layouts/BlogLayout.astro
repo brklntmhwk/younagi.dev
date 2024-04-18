@@ -34,10 +34,8 @@ const {
     height: 630,
     width: 1200,
     image: new URL(
-      `/api/og/${slug}.png`,
+      `/api/og/${locale}/${collection}/${slug.slice(slug.indexOf('/'))}.png/`,
       Astro.url
-      // `/api/og/${locale}/${collection}/${slug.split('/').pop()}.png`,
-      // Astro.url
     ),
     type: 'article',
   }}

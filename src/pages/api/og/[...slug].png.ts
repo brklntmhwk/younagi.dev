@@ -2,18 +2,25 @@ import { getCollection } from 'astro:content'
 import { OGImageRoute } from 'astro-og-canvas'
 
 const entries = await getCollection('blog')
-const pages = await getCollection('page')
+// const pages = await getCollection('page')
 const articles = Object.fromEntries(
-  [...entries, ...pages].map(({ slug, data, collection }) => {
+  entries.map(({ slug, data, collection }) => {
     const [locale, rawSlug] = slug.split('/')
-    switch (collection) {
-      case 'blog':
-        return [`/${locale}/${collection}/${rawSlug!.split('/').pop()}/`, data]
-      case 'page':
-        return [`/${locale}/${rawSlug!.split('/').pop()}/`, data]
-    }
+
+    return [`/${locale}/${collection}/${rawSlug!.split('/').pop()}/`, data]
   })
 )
+// const articles = Object.fromEntries(
+//   [...entries, ...pages].map(({ slug, data, collection }) => {
+//     const [locale, rawSlug] = slug.split('/')
+//     switch (collection) {
+//       case 'blog':
+//         return [`/${locale}/${collection}/${rawSlug!.split('/').pop()}/`, data]
+//       case 'page':
+//         return [`/${locale}/${rawSlug!.split('/').pop()}/`, data]
+//     }
+//   })
+// )
 
 export const { getStaticPaths, GET } = OGImageRoute({
   param: 'slug',

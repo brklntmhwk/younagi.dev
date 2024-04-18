@@ -4,12 +4,12 @@ import { OGImageRoute } from 'astro-og-canvas'
 const entries = await getCollection('blog')
 // const pages = await getCollection('page')
 const articles = Object.fromEntries(
-  entries.map(({ slug, data /* , collection */ }) => {
-    // const locale = slug.slice(0, slug.indexOf('/'))
+  entries.map(({ slug, data, collection }) => {
+    const locale = slug.slice(0, slug.indexOf('/'))
     const rawSlug = slug.slice(slug.indexOf('/') + 1)
 
-    return [rawSlug, data]
-    // return [`${locale}/${collection}/${rawSlug}`, data]
+    // return [rawSlug, data]
+    return [`${locale}/${collection}/${rawSlug}`, data]
   })
 )
 // const articles = Object.fromEntries(

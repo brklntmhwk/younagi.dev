@@ -10,13 +10,13 @@ const props = Astro.props
     margin: 1.5rem 0 1rem 0;
     max-width: 86.5vw;
     position: relative;
-    font-size: 0.95rem;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 0.85rem;
     & :global(pre) {
       border-radius: 0.25rem;
       overflow-x: auto;
     }
     & :global(code) {
+      font-family: var(--code-font);
       counter-reset: line;
       display: grid;
       & :global([data-line]) {
@@ -51,6 +51,7 @@ const props = Astro.props
     }
 
     & :global([data-rehype-pretty-code-title]) {
+      font-family: var(--code-font);
       & + :global(pre) {
         padding: 2.85rem 0 0.75rem 0;
       }

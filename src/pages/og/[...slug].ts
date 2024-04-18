@@ -2,7 +2,6 @@ import { getCollection } from 'astro:content'
 import { OGImageRoute } from 'astro-og-canvas'
 
 const entries = await getCollection('blog')
-// const pages = await getCollection('page')
 const articles = Object.fromEntries(
   entries.map(({ slug, data, collection }) => {
     const locale = slug.slice(0, slug.indexOf('/'))
@@ -11,17 +10,6 @@ const articles = Object.fromEntries(
     return [`${locale}/${collection}/${rawSlug}`, data]
   })
 )
-// const articles = Object.fromEntries(
-//   [...entries, ...pages].map(({ slug, data, collection }) => {
-//     const [locale, rawSlug] = slug.split('/')
-//     switch (collection) {
-//       case 'blog':
-//         return [`/${locale}/${collection}/${rawSlug!.split('/').pop()}/`, data]
-//       case 'page':
-//         return [`/${locale}/${rawSlug!.split('/').pop()}/`, data]
-//     }
-//   })
-// )
 
 export const { getStaticPaths, GET } = OGImageRoute({
   param: 'slug',
@@ -31,8 +19,8 @@ export const { getStaticPaths, GET } = OGImageRoute({
       title: page.title,
       description: page.description ?? '',
       bgGradient: [[26.99, 26.99, 30.99]],
-      border: { color: [138, 130, 153], width: 8, side: 'block-end' },
-      padding: 70,
+      border: { color: [232, 232, 232], width: 5, side: 'block-end' },
+      padding: 80,
       font: {
         title: {
           size: 72,
@@ -48,7 +36,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
           color: [255, 255, 255],
         },
         description: {
-          size: 42,
+          size: 36,
           lineHeight: 1.2,
           families: [
             'DotGothic16',

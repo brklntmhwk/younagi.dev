@@ -11,18 +11,32 @@ export function getStaticPaths() {
 export async function GET(context: APIContext) {
   const localeParam = context.params.locale
   const locale = langList.find((lang) => lang === localeParam)
+  if (!locale) {
+    return new Response(null, {
+      status: 400,
+      statusText: 'Bad Request',
+    })
+  }
   const entries = await getCollection('blog')
-  const meta = await getEntry('meta', `${locale ?? 'en'}/site-data`)
+  const localeEntries = entries.filter(
+    (entry) => entry.slug.slice(entry.slug.indexOf('/') + 1)[0] === locale
+  )
+  const meta = await getEntry('meta', `${locale}/site-data`)
 
-  return await rss({
+  const { body } = await rss({
     title: meta.data.site.title,
     description: meta.data.site.description,
     site: context.site ?? '',
-    items: entries.map((entry) => ({
+    items: localeEntries.map((entry) => ({
       ...entry.data,
       pubDate: entry.data.publishedAt,
       link: `/${entry.collection}/${entry.slug}/`,
     })),
     customData: `<language>${locale}</language>`,
+  })
+
+  return new Response(body, {
+    status: 200,
+    statusText: 'RSS Feed successfully generated',
   })
 }

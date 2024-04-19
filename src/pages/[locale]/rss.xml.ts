@@ -19,7 +19,7 @@ export async function GET(context: APIContext) {
   }
   const entries = await getCollection('blog')
   const localeEntries = entries.filter(
-    (entry) => entry.slug.slice(entry.slug.indexOf('/') + 1) === locale
+    (entry) => entry.slug.slice(0, entry.slug.indexOf('/')) === locale
   )
   const meta = await getEntry('meta', `${locale}/site-data`)
 

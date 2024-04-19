@@ -6,7 +6,7 @@ import { getEntry } from 'astro:content'
 export async function GET(context: APIContext) {
   const entries = await getCollection('blog')
   const enEntries = entries.filter(
-    (entry) => entry.slug.slice(entry.slug.indexOf('/') + 1) === 'en'
+    (entry) => entry.slug.slice(0, entry.slug.indexOf('/')) === 'en'
   )
   const meta = await getEntry('meta', 'en/site-data')
 

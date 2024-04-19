@@ -2,17 +2,10 @@ import rss from '@astrojs/rss'
 import type { APIContext } from 'astro'
 import { getCollection } from 'astro:content'
 import { getEntry } from 'astro:content'
-import { langList } from '@/i18n/data'
-
-export function getStaticPaths() {
-  return langList.map((lang) => ({ params: { locale: lang } }))
-}
 
 export async function GET(context: APIContext) {
-  const localeParam = context.params.locale
-  const locale = langList.find((lang) => lang === localeParam)
   const entries = await getCollection('blog')
-  const meta = await getEntry('meta', `${locale ?? 'en'}/site-data`)
+  const meta = await getEntry('meta', 'en/site-data')
 
   return await rss({
     title: meta.data.site.title,
@@ -23,6 +16,6 @@ export async function GET(context: APIContext) {
       pubDate: entry.data.publishedAt,
       link: `/${entry.collection}/${entry.slug}/`,
     })),
-    customData: `<language>${locale}</language>`,
+    customData: '<language>en</language>',
   })
 }

@@ -5,13 +5,16 @@ import { getEntry } from 'astro:content'
 
 export async function GET(context: APIContext) {
   const entries = await getCollection('blog')
+  const enEntries = entries.filter(
+    (entry) => entry.slug.slice(entry.slug.indexOf('/') + 1) === 'en'
+  )
   const meta = await getEntry('meta', 'en/site-data')
 
   return await rss({
     title: meta.data.site.title,
     description: meta.data.site.description,
     site: context.site ?? '',
-    items: entries.map((entry) => ({
+    items: enEntries.map((entry) => ({
       ...entry.data,
       pubDate: entry.data.publishedAt,
       link: `/${entry.collection}/${entry.slug}/`,

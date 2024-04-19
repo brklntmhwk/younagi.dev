@@ -12,8 +12,11 @@ const year = new Date().getFullYear()
   &copy; {year}
   {t.data.blog_name}. All rights reserved.
   <div class="social-links">
-    <a href="https://github.com/brklntmhwk" target="_blank">
+    <a href="https://github.com/brklntmhwk" title="Github" target="_blank">
       <Svg iconName="github" width={32} height={32} />
+    </a>
+    <a href={`/${locale}/rss.xml/`} title="RSS">
+      <Svg iconName="rss" width={32} height={32} />
     </a>
   </div>
 </footer>

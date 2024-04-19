@@ -183,5 +183,18 @@ const {
         text-decoration-color: var(--black);
       }
     }
+    & :global(table) {
+      display: block;
+      max-width: 86vw;
+      border-collapse: collapse;
+      table-layout: fixed;
+      overflow-x: auto;
+      text-align: center;
+      margin: 1.25rem 0;
+      & :global(th, td) {
+        border: 2px solid var(--gray-light);
+        padding: 0.5rem 0.65rem;
+      }
+    }
   }
 </style>

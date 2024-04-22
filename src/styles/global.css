@@ -149,7 +149,7 @@ hr {
 }
 .glassmorphism {
   backdrop-filter: blur(6px);
-  /* -webkit-backdrop-filter: blur(6px); */
+  -webkit-backdrop-filter: blur(6px);
 }
 .sr-only {
   border: 0;

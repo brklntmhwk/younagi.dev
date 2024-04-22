@@ -1,4 +1,5 @@
 ---
+import 'katex/dist/katex.min.css'
 import type { MarkdownHeading } from 'astro'
 import type { CollectionEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
@@ -146,6 +147,7 @@ const {
     overflow-wrap: break-word;
     word-wrap: break-word;
     font-family: var(--prose-font);
+    line-height: 1.65;
     & :global(p) {
       color: var(--gray-dark);
       margin-bottom: 1.25rem;

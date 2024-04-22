@@ -2,7 +2,7 @@
   "$schema": "https://frontmatter.codes/frontmatter.schema.json",
   "frontMatter.framework.id": "astro",
   "frontMatter.preview.host": "http://localhost:4321",
-  "frontMatter.content.publicFolder": "public",
+  "frontMatter.content.publicFolder": "./src/assets/images/",
   "frontMatter.content.pageFolders": [
     {
       "title": "blog",
@@ -142,5 +142,53 @@
         }
       ]
     }
-  ]
+  ],
+  "frontMatter.snippets.wrapper.enabled": false,
+  "frontMatter.content.snippets": {
+    "Image with caption": {
+      "description": "Insert image with caption",
+      "body": "![ [[alt]] ](../../../assets/images/[[filename]])",
+      "isMediaSnippet": true
+    },
+    "Code block with specified language": {
+      "description": "Insert code block snippet",
+      "body": [
+        "```[[language]] title=\"[[filename]]\"",
+        "",
+        "```"
+      ],
+      "fields": [
+        {
+          "name": "language",
+          "title": "Language",
+          "type": "choice",
+          "choices": [
+            "html",
+            "css",
+            "javascript",
+            "typescript",
+            "rust",
+            "yml",
+            "astro",
+            "jsx",
+            "tsx",
+            "json",
+            "markdown",
+            "mdx",
+            "bash",
+            "txt"
+          ],
+          "single": true,
+          "default": "markdown"
+        },
+        {
+          "name": "filename",
+          "title": "filename",
+          "type": "string",
+          "single": true,
+          "default": ""
+        }
+      ]
+    }
+  }
 }

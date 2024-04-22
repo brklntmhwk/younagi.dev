@@ -14,6 +14,10 @@ tags:
   - bbb
 ---
 
+$$
+( \sum_{k=1}^{n} a_k b_k )^2 \leq ( \sum_{k=1}^{n} {a_k}^2 ) ( \sum_{k=1}^{n} {b_k}^2 )
+$$
+
 Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
 
 ## Headings
@@ -21,6 +25,8 @@ Here is a sample of some basic Markdown syntax that can be used when writing Mar
 The following HTML `<h1>`—`<h6>` elements represent six levels of section headings. `<h1>` is the highest section level while `<h6>` is the lowest.
 
 ## H2
+
+![ alt: blog placeholder image ](../../../assets/images/blog-placeholder-1.jpg)
 
 ### H3
 
@@ -46,7 +52,7 @@ Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sap
 
 #### Output
 
-![blog placeholder](/blog-placeholder-1.jpg 'title')
+![hitokage](/src/assets/images/hitokage.png 'hitogage')
 
 ![blog placeholder](../../../assets/images/blog-placeholder-1.jpg 'title')
 
@@ -104,6 +110,10 @@ Output
     <p>Test</p>
   </body>
 </html>
+```
+
+```html title="snippet.html" {1}
+<div>test</div>
 ```
 
 ```js title="somethingTremendouslyVeryVeryLongLongLongTitleFile.js"

@@ -50,7 +50,7 @@ body {
   overflow-wrap: break-word;
   color: var(--black);
   background: var(--bg);
-  line-height: 1.5;
+  line-height: 1.35;
   -webkit-text-size-adjust: 100%;
 }
 main {

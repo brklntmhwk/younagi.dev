@@ -19,7 +19,8 @@ export const getStaticPaths = (async ({ paginate }) => {
     return categories.flatMap((category) => {
       const displayEntries = entries.filter(
         (entry) =>
-          entry.data.category === category && entry.slug.split('/')[0] === lang
+          entry.data.category === category &&
+          entry.slug.slice(0, entry.slug.indexOf('/')) === lang
       )
 
       return paginate(displayEntries, {

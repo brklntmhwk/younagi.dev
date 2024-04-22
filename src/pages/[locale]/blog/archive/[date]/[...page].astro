@@ -23,7 +23,7 @@ export const getStaticPaths = (async ({ paginate }) => {
       const displayEntries = entries.filter(
         (entry) =>
           formatArchiveDate(entry.data.publishedAt) === date &&
-          entry.slug.split('/')[0] === lang
+          entry.slug.slice(0, entry.slug.indexOf('/')) === lang
       )
 
       return paginate(displayEntries, {

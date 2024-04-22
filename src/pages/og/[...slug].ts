@@ -27,10 +27,9 @@ export const { getStaticPaths, GET } = OGImageRoute({
           lineHeight: 1.5,
           families: [
             'PixelMPlus10',
-            'Noto Sans',
-            'Noto Sans Arabic',
-            'Noto Sans SC',
-            'Noto Sans JP',
+            'Arial',
+            'Hiragino Kaku Gothic ProN',
+            'Hiragino Sans',
           ],
           weight: 'Medium',
           color: [255, 255, 255],
@@ -38,13 +37,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
         description: {
           size: 36,
           lineHeight: 1.2,
-          families: [
-            'DotGothic16',
-            'Noto Sans',
-            'Noto Sans Arabic',
-            'Noto Sans SC',
-            'Noto Sans JP',
-          ],
+          families: ['Arial', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans'],
           weight: 'Normal',
           color: [255, 255, 255],
         },
@@ -53,10 +46,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
         path: './src/assets/images/hitokage.png',
         size: [70, 70],
       },
-      fonts: [
-        '/fonts/PixelMplus10-Regular.woff2',
-        '/fonts/DotGothic16-Regular.woff2',
-      ],
+      fonts: ['./src/assets/fonts/PixelMplus10-Regular.woff2'],
     }
   },
 })

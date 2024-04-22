@@ -41,11 +41,9 @@ const paginator = (
   page !== undefined && (
     <nav data-pagefind-ignore="all">
       {page.url.prev ? (
-        <div>
-          <a aria-label={t.data.pager.left_arrow_label} href={page.url.prev}>
-            <Svg iconName="chevron-left" width={25} height={25} />
-          </a>
-        </div>
+        <a aria-label={t.data.pager.left_arrow_label} href={page.url.prev}>
+          <Svg iconName="chevron-left" width={25} height={25} />
+        </a>
       ) : (
         <Svg iconName="chevron-left" width={25} height={25} />
       )}
@@ -87,11 +85,9 @@ const paginator = (
         })}
       </ul>
       {page.url.next ? (
-        <div>
-          <a aria-label={t.data.pager.right_arrow_label} href={page.url.next}>
-            <Svg iconName="chevron-right" width={25} height={25} />
-          </a>
-        </div>
+        <a aria-label={t.data.pager.right_arrow_label} href={page.url.next}>
+          <Svg iconName="chevron-right" width={25} height={25} />
+        </a>
       ) : (
         <Svg iconName="chevron-right" width={25} height={25} />
       )}

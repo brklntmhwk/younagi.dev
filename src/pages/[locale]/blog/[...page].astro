@@ -37,7 +37,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
   description={meta.data.site.description}
   og={{ show: true }}
 >
-  <main>
+  <main data-pagefind-ignore="all">
     <section>
       <h1>{t.data.pages.blog.title}</h1>
       <div class="taxonomy-links">

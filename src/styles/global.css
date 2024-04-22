@@ -117,7 +117,7 @@ h6 {
   }
 }
 a.back-to-link {
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   color: var(--accent);
   text-decoration: none;
   &:hover {

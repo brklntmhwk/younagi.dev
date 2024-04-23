@@ -1,18 +1,17 @@
 :root {
   --fg: hsla(248.57, 11.48%, 11.96%, 1);
   --bg: hsla(0, 0%, 98.7%, 1);
+  --bg-gradient: to top, hsla(0, 0%, 75.47%, 1), hsla(0, 0%, 98.7%, 1);
   --line: hsla(260.87, 10.13%, 55.49%, 0.33);
-  --code: hsla(0, 0%, 90.98%, 1);
   --accent: hsla(240.24, 100%, 48.63%, 1);
   --accent-dark: hsla(240, 98.54%, 26.86%, 1);
-  --black: hsla(240, 6.9%, 11.37%, 1);
+  --pixel-border: hsla(240, 6.9%, 11.37%, 1);
+  --code: hsla(0, 0%, 90.98%, 1);
   --code-highlight: hsla(60, 100%, 92.94%, 0.2);
   --code-highlight-border: hsla(60, 94.78%, 77.45%, 0.8);
   --gray: hsla(60, 0.52%, 62.55%, 1);
   --gray-light: hsla(0, 0%, 84.71%, 1);
   --gray-dark: hsla(0, 1.27%, 30.98%, 1);
-  --gray-gradient: to top, hsla(0, 11.11%, 87.47%, 1),
-    hsla(0, 11.11%, 98.17%, 1);
   --base-font: 'PixelMplus10', Arial, 'Hiragino Kaku Gothic ProN',
     'Hiragino Sans', Meiryo, Verdana, sans-serif;
   --code-font: 'DejaVuSansMono', Menlo, Consolas, monospace;
@@ -23,9 +22,12 @@
   :root {
     --fg: hsla(0, 0%, 98.7%, 1);
     --bg: hsla(248.57, 11.48%, 11.96%, 1);
-    --code: hsla(0, 0%, 90.98%, 1);
+    --bg-gradient: to top,
+      hsla(248.57, 11.48%, 48.96%, 1) hsla(248.57, 11.48%, 11.96%, 1);
     --accent: hsla(215.24, 100%, 48.63%, 1);
     --accent-dark: hsla(220, 98.54%, 40.86%, 1);
+    --pixel-border: hsla(240, 100%, 99.22%, 1);
+    --code: hsla(0, 0%, 90.98%, 1);
     --code-highlight: hsla(213.49, 87.31%, 90%, 0.2);
     --code-highlight-border: hsla(213.49, 84.31%, 70%, 0.8);
   }

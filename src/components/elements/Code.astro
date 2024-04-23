@@ -76,4 +76,11 @@ const props = Astro.props
     color: var(--shiki-light);
     background: var(--shiki-light-bg);
   }
+  @media (prefers-color-scheme: dark) {
+    :global(pre[data-theme*=' ']),
+    :global(pre[data-theme*=' '] span) {
+      color: var(--shiki-dark);
+      background: var(--shiki-dark-bg);
+    }
+  }
 </style>

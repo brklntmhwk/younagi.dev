@@ -1,9 +1,9 @@
 site:
-  title: Astro ウェブサイト
-  description: 個人ウェブサイト
+  title: 凪の小屋
+  description: 凪が独り言ちるウェブサイト
 blog:
-  title: ブログ
-  description: 個人ブログ
+  title: 凪のブログ
+  description: 凪の個人ブログ
   categories:
     title: カテゴリー
     description: ブログのカテゴリー
@@ -15,4 +15,4 @@ blog:
     description: ブログのアーカイブ
 about:
   title: 自己紹介
-  description: 自己紹介
+  description: 凪について

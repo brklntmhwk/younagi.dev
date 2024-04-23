@@ -79,7 +79,7 @@ export default defineConfig({
         {
           theme: {
             light: 'github-dark',
-            dark: 'github-light',
+            dark: 'github-dark',
           },
           grid: false,
         },

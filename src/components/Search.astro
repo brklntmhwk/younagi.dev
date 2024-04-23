@@ -42,7 +42,7 @@ const { 'data-border-image-url': borderImageUrl } = Astro.props
     --pagefind-ui-text: var(--fg);
     --pagefind-ui-primary: var(--fg);
     --pagefind-ui-border-width: 1px;
-    --pagefind-ui-border-radius: 3px;
+    --pagefind-ui-border-radius: 2px;
     --pagefind-ui-font: initial;
     --pagefind-ui-tag: color-mix(in srgb, var(--code) 95%, var(--fg) 5%);
   }
@@ -80,6 +80,8 @@ const { 'data-border-image-url': borderImageUrl } = Astro.props
   function initPagefind() {
     new PagefindUI({
       element: '#search',
+      showImages: false,
+      excerptLength: 20,
     })
 
     const listenToModalEvents = (

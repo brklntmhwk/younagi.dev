@@ -17,6 +17,7 @@ pages:
   blog:
     title: Blog
     back_to_top: Back to Top
+    scroll_to_top: Scroll to Top
     categories:
       title: Categories
       back_to_top: Back to Category List

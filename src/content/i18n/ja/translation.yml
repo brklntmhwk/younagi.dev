@@ -17,6 +17,7 @@ pages:
   blog:
     title: ブログ
     back_to_top: トップに戻る
+    scroll_to_top: ページ上部へ
     categories:
       title: カテゴリー
       back_to_top: カテゴリ一覧

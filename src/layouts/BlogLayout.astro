@@ -2,6 +2,7 @@
 import 'katex/dist/katex.min.css'
 import type { MarkdownHeading } from 'astro'
 import type { CollectionEntry } from 'astro:content'
+import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import FormattedDate from '../components/FormattedDate.astro'
 import Toc from '@/components/Toc.astro'
@@ -25,6 +26,7 @@ const {
   modifiedAt,
   heroImage,
 } = data
+const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
 <BaseLayout
@@ -88,9 +90,17 @@ const {
         />
       </section>
       <hr />
-      <div class="prose">
+      <section class="prose">
         <slot />
-      </div>
+      </section>
+      <section class="guides">
+        <a class="back-to-link" href={`/${locale}/blog/`}
+          >◀ {t.data.pages.blog.back_to_top}</a
+        >
+        <a class="back-to-link" href="#top"
+          >{t.data.pages.blog.scroll_to_top} ▲</a
+        >
+      </section>
     </article>
   </main>
 </BaseLayout>
@@ -101,10 +111,11 @@ const {
     flex-direction: column;
     flex-grow: 1; */
     display: grid;
+    gap: 0.5rem;
     hr {
       width: 100%;
     }
-    section.blog-metadata {
+    .blog-metadata {
       display: grid;
       gap: 0.5rem;
       place-items: start;
@@ -119,7 +130,7 @@ const {
           gap: 0.5rem;
         }
       }
-      section.taxonomies {
+      .taxonomies {
         font-size: 1.15rem;
         display: flex;
         flex-wrap: wrap;
@@ -198,5 +209,9 @@ const {
         padding: 0.5rem 0.65rem;
       }
     }
+  }
+  .guides {
+    display: flex;
+    justify-content: space-between;
   }
 </style>

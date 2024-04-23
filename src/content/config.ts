@@ -81,6 +81,7 @@ const i18n = defineCollection({
       blog: z.object({
         title: z.string(),
         back_to_top: z.string(),
+        scroll_to_top: z.string(),
         categories: z.object({
           title: z.string(),
           back_to_top: z.string(),

@@ -39,7 +39,7 @@ const { Content } = await page.render()
       description={page.data.description ?? ''}
       og={{ show: true }}
     >
-      <main>
+      <main data-pagefind-ignore="all">
         <Content />
       </main>
     </BaseLayout>

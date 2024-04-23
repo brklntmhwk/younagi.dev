@@ -1,12 +1,12 @@
 :root {
   --fg: hsla(248.57, 11.48%, 11.96%, 1);
-  --bg: hsla(0, 0%, 90.7%, 1);
-  --bg-gradient: to top, hsla(0, 0%, 70.47%, 1), hsla(0, 0%, 90.7%, 1);
+  --bg: hsla(0, 0%, 94.7%, 1);
+  --bg-gradient: to top, hsla(0, 0%, 70.47%, 1), hsla(0, 0%, 94.7%, 1);
   --line: hsla(260.87, 10.13%, 55.49%, 0.33);
   --accent: hsla(240.24, 100%, 48.63%, 1);
   --accent-dark: hsla(240, 98.54%, 26.86%, 1);
   --pixel-border: hsla(240, 6.9%, 11.37%, 1);
-  --mobile-nav-bg: hsla(0, 0%, 94.71%, 1);
+  --mobile-nav-bg: hsla(0, 0%, 91.71%, 1);
   --code: hsla(0, 0%, 90.98%, 1);
   --code-highlight: hsla(60, 100%, 92.94%, 0.2);
   --code-highlight-border: hsla(60, 94.78%, 77.45%, 0.8);
@@ -21,7 +21,7 @@
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --fg: hsla(0, 0%, 90.7%, 1);
+    --fg: hsla(0, 0%, 94.7%, 1);
     --bg: hsla(248.57, 11.48%, 11.96%, 1);
     --bg-gradient: to top,
       hsla(248.57, 11.48%, 58.96%, 1) hsla(248.57, 11.48%, 11.96%, 1);

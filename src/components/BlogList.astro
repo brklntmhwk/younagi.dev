@@ -58,7 +58,7 @@ const { entries, kind } = Astro.props
 </ul>
 <style>
   a.blog-title {
-    color: var(--black);
+    color: var(--fg);
     font-size: 1.5rem;
     font-weight: 700;
     line-height: 1.1;
@@ -80,10 +80,10 @@ const { entries, kind } = Astro.props
     article {
       position: relative;
       padding: 0 0.25rem 0 0.85rem;
-      border-top: 4px solid var(--black);
-      border-right: 2px solid var(--black);
-      border-bottom: 2px solid var(--black);
-      border-left: 2px solid var(--black);
+      border-top: 4px solid var(--line);
+      border-right: 2px solid var(--line);
+      border-bottom: 2px solid var(--line);
+      border-left: 2px solid var(--line);
       border-radius: 0.3rem;
       display: grid;
       gap: 0.75rem;
@@ -94,10 +94,10 @@ const { entries, kind } = Astro.props
         bottom: -8px;
         left: -6px;
         right: -6px;
-        border-top: 2px solid var(--black);
-        border-right: 2px solid var(--black);
-        border-bottom: 4px solid var(--black);
-        border-left: 2px solid var(--black);
+        border-top: 2px solid var(--line);
+        border-right: 2px solid var(--line);
+        border-bottom: 4px solid var(--line);
+        border-left: 2px solid var(--line);
         border-radius: 0.5rem;
         z-index: -1;
       }

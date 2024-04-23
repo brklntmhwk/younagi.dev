@@ -71,16 +71,16 @@ const t = await getEntry('i18n', `${locale}/translation`)
   article {
     padding: 0.5rem;
     & :global(a) {
-      color: var(--black);
+      color: var(--fg);
       text-decoration: none;
       & :global(span.heading-anchor-icon) {
-        color: var(--black);
+        color: var(--fg);
         margin-right: 0.5rem;
       }
       &:hover {
         text-decoration: underline;
         text-underline-offset: 4px;
-        text-decoration-color: var(--black);
+        text-decoration-color: var(--fg);
       }
     }
   }

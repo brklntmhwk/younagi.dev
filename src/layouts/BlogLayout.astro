@@ -149,7 +149,7 @@ const {
     font-family: var(--prose-font);
     line-height: 1.65;
     & :global(p) {
-      color: var(--gray-dark);
+      color: var(--fg);
       margin-bottom: 1.25rem;
     }
     & :global(ul) {
@@ -176,13 +176,13 @@ const {
       text-decoration: none;
       font-family: var(--base-font);
       & :global(span.heading-anchor-icon) {
-        color: var(--black);
+        color: var(--fg);
         margin-right: 0.5rem;
       }
       &:hover {
         text-decoration: underline;
         text-underline-offset: 4px;
-        text-decoration-color: var(--black);
+        text-decoration-color: var(--fg);
       }
     }
     & :global(table) {
@@ -194,7 +194,7 @@ const {
       text-align: center;
       margin: 1.25rem 0;
       & :global(th, td) {
-        border: 2px solid var(--gray-light);
+        border: 2px solid var(--line);
         padding: 0.5rem 0.65rem;
       }
     }

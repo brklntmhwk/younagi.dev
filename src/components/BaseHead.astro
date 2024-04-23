@@ -15,7 +15,8 @@ const { title, description, og } = Astro.props
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
+<!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
 <link rel="sitemap" href="/sitemap-index.xml" />
 <meta name="generator" content={Astro.generator} />
 <link
@@ -32,25 +33,20 @@ const { title, description, og } = Astro.props
   type="font/woff2"
   crossorigin
 />
-<!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-  href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap"
-  rel="stylesheet"
-/>
-<link
-  rel="stylesheet"
-  href="{https://fonts.googleapis.com/css2?family=DotGothic16&display=swap}"
-  media="print"
-  onload='this.media="all"'
-/> -->
 {
   langList.map((lang) => (
-    <link
-      rel="alternate"
-      href={getAbsoluteLocaleUrl(lang, slug)}
-      hreflang={lang}
-    />
+    <>
+      <link
+        rel="alternate"
+        href={getAbsoluteLocaleUrl(lang, slug)}
+        hreflang={lang}
+      />
+      <link
+        rel="alternate"
+        type="application/rss+xml"
+        href={getAbsoluteLocaleUrl(lang, 'rss.xml')}
+      />
+    </>
   ))
 }
 <link rel="canonical" href={canonicalURL} />

@@ -11,6 +11,8 @@
   --gray: hsla(60, 0.52%, 62.55%, 1);
   --gray-light: hsla(0, 0%, 84.71%, 1);
   --gray-dark: hsla(0, 1.27%, 30.98%, 1);
+  --gray-gradient: to top, hsla(0, 11.11%, 87.47%, 1),
+    hsla(0, 11.11%, 97.87%, 1);
   --base-font: 'PixelMplus10', Arial, 'Hiragino Kaku Gothic ProN',
     'Hiragino Sans', Meiryo, Verdana, sans-serif;
   --code-font: 'DejaVuSansMono', Menlo, Consolas, monospace;

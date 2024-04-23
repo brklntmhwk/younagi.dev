@@ -15,7 +15,7 @@ const isCodeFigure = Object.hasOwn(props, 'data-rehype-pretty-code-figure')
       <slot />
     </AstroCode>
   ) : (
-    <figure class="figureeee" {...props}>
+    <figure {...props}>
       <slot />
     </figure>
   )

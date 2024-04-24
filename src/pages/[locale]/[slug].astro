@@ -8,11 +8,12 @@ export const getStaticPaths = (async () => {
   const pages = await getCollection('page')
 
   return pages.map((page) => {
-    const [locale, slug] = page.slug.split('/')
+    const locale = page.slug.slice(0, page.slug.indexOf('/'))
+    const rawSlug = page.slug.slice(page.slug.indexOf('/') + 1)
 
     return {
       params: {
-        slug: slug,
+        slug: rawSlug,
         locale: locale,
       },
       props: {

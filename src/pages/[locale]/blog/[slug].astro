@@ -9,9 +9,10 @@ export const getStaticPaths = (async () => {
   const entries = await getCollection('blog')
 
   return entries.map((entry) => {
-    const [locale, slug] = entry.slug.split('/')
+    const locale = entry.slug.slice(0, entry.slug.indexOf('/'))
+    const rawSlug = entry.slug.slice(entry.slug.indexOf('/') + 1)
 
-    return { params: { locale, slug: slug }, props: { entry } }
+    return { params: { locale, slug: rawSlug }, props: { entry } }
   })
 }) satisfies GetStaticPaths
 

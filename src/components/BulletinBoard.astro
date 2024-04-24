@@ -1,14 +1,26 @@
 ---
+import type { CollectionEntry } from 'astro:content'
+import { getEntry } from 'astro:content'
+import { getLocaleFromUrl } from '@/i18n/utils'
+
 type Props = {
-  infoList: string[]
+  newsList: CollectionEntry<'page'>[]
 }
 
-const { infoList } = Astro.props
+const { newsList } = Astro.props
+const locale = getLocaleFromUrl(Astro.url)
+const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
 <div class="bulletin-board">
   <ul>
-    {infoList.map((info) => <li>{info}</li>)}
+    {
+      newsList.length > 0 ? (
+        newsList.map((news) => <li>{news}</li>)
+      ) : (
+        <li>{t.data.bulleting_board.no_news}</li>
+      )
+    }
   </ul>
 </div>
 <style>
@@ -41,13 +53,13 @@ const { infoList } = Astro.props
       margin: 0;
       padding-left: 100%;
       white-space: nowrap;
-      animation: bulletinRoll 18s linear infinite;
+      animation: bulletinRoll 15s linear infinite;
       li {
         display: inline;
         margin: 0 6rem 0 0;
         color: var(--bulletin-board-fg);
-        font-size: 2rem;
-        letter-spacing: 0.25rem;
+        font-size: 1.85rem;
+        letter-spacing: 0.2rem;
         text-shadow: 0 0 5px;
       }
     }

@@ -1,6 +1,6 @@
 ---
 import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
-import { getEntry } from 'astro:content'
+import { getCollection, getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { langList } from '@/i18n/data'
 import BulletinBoard from '@/components/BulletinBoard.astro'
@@ -13,6 +13,8 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
 const { locale } = Astro.params
 const meta = await getEntry('meta', `${locale}/site-data`)
+const pages = await getCollection('page')
+const news = pages.filter((page) => !page.slug.includes('about'))
 ---
 
 <BaseLayout
@@ -21,13 +23,7 @@ const meta = await getEntry('meta', `${locale}/site-data`)
   og={{ show: true }}
 >
   <main data-pagefind-ignore="all">
-    <BulletinBoard
-      infoList={[
-        'Hello, everyone.',
-        'This is a bulletin board that shows...',
-        'Please fasten your seatbelt tightly.',
-      ]}
-    />
+    <BulletinBoard newsList={news} />
   </main>
 </BaseLayout>
 <style>

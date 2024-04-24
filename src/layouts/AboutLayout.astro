@@ -22,8 +22,8 @@ const t = await getEntry('i18n', `${locale}/translation`)
         alt={t.data.pages.about.profile_img_alt}
         class="profile-icon"
         src={profileIcon}
-        width={180}
-        height={180}
+        width={150}
+        height={150}
         loading="eager"
         format="avif"
         quality={75}
@@ -37,7 +37,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
   </main>
 </BaseLayout>
 <style>
-  section.profile-section {
+  .profile-section {
     padding: 1.75rem 0;
     display: grid;
     justify-content: center;
@@ -45,7 +45,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
     gap: 1.5rem;
   }
   @media (min-width: 768px) {
-    section.profile-section {
+    .profile-section {
       padding: 2.25rem 0;
       display: flex;
       justify-content: center;
@@ -53,7 +53,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
     }
   }
   @media (min-width: 1024px) {
-    section.profile-section {
+    .profile-section {
       padding: 2.25rem 0;
       gap: 2.5rem;
       justify-content: start;
@@ -63,7 +63,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
     border-radius: 9999px;
     object-fit: cover;
   }
-  section.profile-section div {
+  .profile-section div {
     display: grid;
   }
   span.my-name {

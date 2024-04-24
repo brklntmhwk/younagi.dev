@@ -13,6 +13,8 @@ search:
   button_label: コンテンツを検索する
 toc:
   button_label: 目次
+bulleting_board:
+  no_news: 最新ニュースはありません。
 pages:
   blog:
     title: ブログ

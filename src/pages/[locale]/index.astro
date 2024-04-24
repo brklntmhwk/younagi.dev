@@ -4,6 +4,7 @@ import { getCollection, getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { langList } from '@/i18n/data'
 import BulletinBoard from '@/components/BulletinBoard.astro'
+import Balloon from '@/components/Balloon.astro'
 import { NEWS_MAXIMUM_COUNT } from '@/consts'
 
 export const getStaticPaths = (() => {
@@ -31,10 +32,15 @@ const latestNews = news.slice(0, NEWS_MAXIMUM_COUNT)
 >
   <main data-pagefind-ignore="all">
     <BulletinBoard newsList={latestNews} />
+    <Balloon direction="left" content="Hello. I'm Nagi." />
   </main>
 </BaseLayout>
 <style>
   main {
+    display: grid;
+    grid-template-rows: fit-content(100%);
+    place-items: start;
+    gap: 1.85rem;
   }
   @media (min-width: 1024px) {
     main {

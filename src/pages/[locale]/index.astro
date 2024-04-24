@@ -3,6 +3,7 @@ import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
 import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { langList } from '@/i18n/data'
+import BulletinBoard from '@/components/BulletinBoard.astro'
 
 export const getStaticPaths = (() => {
   return langList.map((lang) => ({ params: { locale: lang } }))
@@ -19,17 +20,21 @@ const meta = await getEntry('meta', `${locale}/site-data`)
   description={meta.data.site.description}
   og={{ show: true }}
 >
-  <main data-pagefind-ignore="all"></main>
+  <main data-pagefind-ignore="all">
+    <BulletinBoard
+      infoList={[
+        'Hello, everyone.',
+        'This is a bulletin board that shows...',
+        'Please fasten your seatbelt tightly.',
+      ]}
+    />
+  </main>
 </BaseLayout>
 <style>
   main {
-    margin-top: 2.5rem;
-    box-sizing: border-box;
-    width: 100%;
   }
   @media (min-width: 1024px) {
     main {
-      margin-top: 0;
     }
   }
 </style>

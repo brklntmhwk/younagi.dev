@@ -1,0 +1,63 @@
+---
+type Props = {
+  infoList: string[]
+}
+
+const { infoList } = Astro.props
+---
+
+<div class="bulletin-board">
+  <ul>
+    {infoList.map((info) => <li>{info}</li>)}
+  </ul>
+</div>
+<style>
+  .bulletin-board {
+    position: relative;
+    margin: 0 auto;
+    max-width: 60rem;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    background-color: var(--bulletin-board-bg);
+    border: 2px solid var(--gray-dark);
+    border-radius: 0.15rem;
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: '';
+      height: 100%;
+      width: 100%;
+      background-image: radial-gradient(
+        transparent 0 1px,
+        rgba(0, 0, 0, 0.3) 1px
+      );
+      background-size: 3px 3px;
+      z-index: 10;
+    }
+    ul {
+      display: inline-block;
+      margin: 0;
+      padding-left: 100%;
+      white-space: nowrap;
+      animation: bulletinRoll 18s linear infinite;
+      li {
+        display: inline;
+        margin: 0 6rem 0 0;
+        color: var(--bulletin-board-fg);
+        font-size: 2rem;
+        letter-spacing: 0.25rem;
+        text-shadow: 0 0 5px;
+      }
+    }
+  }
+  @keyframes bulletinRoll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+</style>

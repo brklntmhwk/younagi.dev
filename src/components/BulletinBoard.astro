@@ -16,7 +16,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
   <ul>
     {
       newsList.length > 0 ? (
-        newsList.map((news) => <li>{news}</li>)
+        newsList.map((news) => <li>{news.data.title}</li>)
       ) : (
         <li>{t.data.bulleting_board.no_news}</li>
       )

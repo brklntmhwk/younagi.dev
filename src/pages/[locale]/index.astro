@@ -4,6 +4,7 @@ import { getCollection, getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { langList } from '@/i18n/data'
 import BulletinBoard from '@/components/BulletinBoard.astro'
+import { NEWS_MAXIMUM_COUNT } from '@/consts'
 
 export const getStaticPaths = (() => {
   return langList.map((lang) => ({ params: { locale: lang } }))
@@ -13,8 +14,10 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
 const { locale } = Astro.params
 const meta = await getEntry('meta', `${locale}/site-data`)
-const pages = await getCollection('page')
-const news = pages.filter((page) => !page.slug.includes('about'))
+const news = await getCollection('page').then((pages) =>
+  pages.filter((page) => !page.slug.includes('about'))
+)
+const latestNews = news.slice(0, NEWS_MAXIMUM_COUNT)
 ---
 
 <BaseLayout
@@ -23,7 +26,7 @@ const news = pages.filter((page) => !page.slug.includes('about'))
   og={{ show: true }}
 >
   <main data-pagefind-ignore="all">
-    <BulletinBoard newsList={news} />
+    <BulletinBoard newsList={latestNews} />
   </main>
 </BaseLayout>
 <style>

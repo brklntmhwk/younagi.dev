@@ -1,0 +1,11 @@
+User-Agent: Google-Extended
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-Agent: *
+Allow: /
+
+Host: https://my-astro-blog-4xp.pages.dev/
+Sitemap: https://my-astro-blog-4xp.pages.dev/sitemap.xml

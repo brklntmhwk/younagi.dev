@@ -16,7 +16,11 @@ const t = await getEntry('i18n', `${locale}/translation`)
   <ul>
     {
       newsList.length > 0 ? (
-        newsList.map((news) => <li>{news.data.title}</li>)
+        newsList.map((news) => (
+          <li>
+            <a href={`/${news.slug}/`}>{news.data.title}</a>
+          </li>
+        ))
       ) : (
         <li>{t.data.bulleting_board.no_news}</li>
       )
@@ -46,7 +50,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
         rgba(0, 0, 0, 0.3) 1px
       );
       background-size: 3px 3px;
-      z-index: 10;
+      /* z-index: 10; */
     }
     ul {
       display: inline-block;
@@ -60,7 +64,11 @@ const t = await getEntry('i18n', `${locale}/translation`)
         color: var(--bulletin-board-fg);
         font-size: 1.85rem;
         letter-spacing: 0.2rem;
-        text-shadow: 0 0 5px;
+        text-shadow: 0 0 4px;
+        a {
+          color: var(--bulletin-board-fg);
+          text-decoration: none;
+        }
       }
     }
   }

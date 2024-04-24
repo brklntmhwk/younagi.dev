@@ -10,6 +10,7 @@
   --modal-bg: hsla(223, 13%, 10%, 0.7);
   --bulletin-board-fg: hsla(32.94, 100%, 50%, 1);
   --bulletin-board-bg: hsla(30, 9.8%, 20%, 1);
+  --glass-bg: rgba(255, 255, 255, 0.1);
   --code: hsla(0, 0%, 90.98%, 1);
   --code-highlight: hsla(60, 100%, 92.94%, 0.2);
   --code-highlight-border: hsla(60, 94.78%, 77.45%, 0.8);
@@ -33,6 +34,7 @@
     --pixel-border: hsla(220, 100%, 98.22%, 1);
     --mobile-nav-bg: hsla(248.57, 11.48%, 20.96%, 1);
     --modal-bg: hsla(223, 8%, 8%, 0.7);
+    --glass-bg: rgba(0, 0, 0, 0.1);
     --code: hsla(0, 0%, 90.98%, 1);
     --code-highlight: hsla(213.49, 87.31%, 82%, 0.2);
     --code-highlight-border: hsla(213.49, 84.31%, 70%, 0.8);
@@ -168,7 +170,7 @@ hr {
   border-top: 1px solid var(--gray-light);
 }
 .glassmorphism {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--glass-bg);
   backdrop-filter: blur(6px);
   /* -webkit-backdrop-filter: blur(6px); */
 }

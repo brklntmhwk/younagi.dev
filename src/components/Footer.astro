@@ -15,6 +15,9 @@ const year = new Date().getFullYear()
     <a href="https://github.com/brklntmhwk" title="Github" target="_blank">
       <Svg iconName="github" width={32} height={32} />
     </a>
+    <a href="https://unsplash.com/@brklntmhwk" title="Unsplash" target="_blank">
+      <Svg iconName="unsplash" width={32} height={32} />
+    </a>
     <a href={`/${locale}/rss.xml`} title="RSS">
       <Svg iconName="rss" width={32} height={32} />
     </a>
@@ -23,7 +26,7 @@ const year = new Date().getFullYear()
 <style>
   footer {
     grid-area: footer;
-    padding: 2em 1em 3.5em 1em;
+    padding: 2.5rem 1rem 3.5rem 1rem;
     background: linear-gradient(var(--bg-gradient)) no-repeat;
     color: var(--fg);
     text-align: center;
@@ -31,14 +34,16 @@ const year = new Date().getFullYear()
   .social-links {
     display: flex;
     justify-content: center;
-    gap: 1em;
-    margin-top: 1em;
+    gap: 1.75rem;
+    margin-top: 1.5rem;
   }
   .social-links a {
     text-decoration: none;
-    color: rgb(var(--gray));
-  }
-  .social-links a:hover {
-    color: rgb(var(--gray-dark));
+    & svg {
+      fill: var(--fg);
+      &:hover {
+        fill: var(--gray);
+      }
+    }
   }
 </style>

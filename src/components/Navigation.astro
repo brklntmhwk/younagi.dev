@@ -1,7 +1,6 @@
 ---
 import { getEntry } from 'astro:content'
 import NavLink from '@/components/NavLink.astro'
-import Svg from '@/components/Svg/index.astro'
 import Search from '@/components/Search.astro'
 import NavMenuContainer from '@/components/NavMenuContainer.astro'
 import LocalePicker from '@/components/LocalePicker.astro'
@@ -24,9 +23,6 @@ const t = await getEntry('i18n', `${locale}/translation`)
     <div class="icon-links">
       <LocalePicker data-border-image-url="url(/border-image.gif)" />
       <Search data-border-image-url="url(/border-image.gif)" />
-      <a href="https://github.com/brklntmhwk" target="_blank">
-        <Svg iconName="github" width={32} height={32} />
-      </a>
     </div>
   </NavMenuContainer>
 </nav>

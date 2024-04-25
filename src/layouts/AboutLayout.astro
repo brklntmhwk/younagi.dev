@@ -20,7 +20,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
     <section class="profile-section">
       <Image
         alt={t.data.pages.about.profile_img_alt}
-        class="profile-icon"
+        class="icon"
         src={profileIcon}
         width={150}
         height={150}
@@ -58,10 +58,6 @@ const t = await getEntry('i18n', `${locale}/translation`)
       gap: 2.5rem;
       justify-content: start;
     }
-  }
-  .profile-icon {
-    border-radius: 9999px;
-    object-fit: cover;
   }
   .profile-section div {
     display: grid;

@@ -13,6 +13,14 @@
       "defaultLocale": "en"
     },
     {
+      "title": "news",
+      "path": "[[workspace]]/src/content/news",
+      "contentTypes": [
+        "news"
+      ],
+      "defaultLocale": "en"
+    },
+    {
       "title": "page",
       "path": "[[workspace]]/src/content/page",
       "contentTypes": [

@@ -197,6 +197,12 @@ const t = await getEntry('i18n', `${locale}/translation`)
         text-decoration-color: var(--fg);
       }
     }
+    & :global(code:not(figure[data-rehype-pretty-code-figure] code)) {
+      background-color: var(--gray-light);
+      padding: 0.1rem 0.25rem;
+      margin: 0 0.1rem;
+      border-radius: 0.25rem;
+    }
     & :global(table) {
       display: block;
       max-width: 86vw;

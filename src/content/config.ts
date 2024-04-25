@@ -80,6 +80,9 @@ const i18n = defineCollection({
     bulleting_board: z.object({
       no_news: z.string(),
     }),
+    message: z.object({
+      fallback_icon_alt: z.string(),
+    }),
     pages: z.object({
       blog: z.object({
         title: z.string(),

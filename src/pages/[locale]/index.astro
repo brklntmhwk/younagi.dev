@@ -6,8 +6,6 @@ import { langList } from '@/i18n/data'
 import BulletinBoard from '@/components/BulletinBoard.astro'
 import Message from '@/components/Message.astro'
 import { NEWS_MAXIMUM_COUNT } from '@/consts'
-import messageIcon from '@/assets/images/hitokage.png'
-import messageIcon2 from '@/assets/images/profile.png'
 
 export const getStaticPaths = (() => {
   return langList.map((lang) => ({ params: { locale: lang } }))
@@ -35,12 +33,6 @@ const latestNews = news.slice(0, NEWS_MAXIMUM_COUNT)
   <main data-pagefind-ignore="all">
     <BulletinBoard newsList={latestNews} />
     <Message
-      image={{ alt: 'Nagi', src: messageIcon }}
-      direction="left"
-      content="Hello. I'm Nagi."
-    />
-    <Message
-      image={{ alt: 'Nagi', src: messageIcon2 }}
       direction="right"
       content="こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。"
     />

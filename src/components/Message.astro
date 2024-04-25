@@ -1,9 +1,12 @@
 ---
 import type { ImageMetadata } from 'astro'
 import { Image } from 'astro:assets'
+import fallbackIcon from '@/assets/images/profile.png'
+import { getEntry } from 'astro:content'
+import { getLocaleFromUrl } from '@/i18n/utils'
 
 type Props = {
-  image: {
+  image?: {
     alt: string
     src: ImageMetadata
   }
@@ -12,18 +15,23 @@ type Props = {
 }
 
 const { image, direction, content } = Astro.props
+const locale = getLocaleFromUrl(Astro.url)
+const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
 <div class:list={['message', direction]}>
-  <Image
-    class="icon message-icon"
-    src={image.src}
-    alt={image.alt}
-    width={90}
-    height={90}
-    format="avif"
-    quality={40}
-  />
+  <div class="icon-wrapper">
+    <Image
+      class="icon message-icon"
+      src={image ? image.src : fallbackIcon}
+      alt={image ? image.alt : t.data.message.fallback_icon_alt}
+      width={90}
+      height={90}
+      format="avif"
+      quality={45}
+    />
+    <span>{image ? image.alt : t.data.message.fallback_icon_alt}</span>
+  </div>
   <div class:list={['balloon', `from-${direction}`]}>
     <p>{content}</p>
   </div>
@@ -33,7 +41,6 @@ const { image, direction, content } = Astro.props
     max-width: 60rem;
     display: flex;
     gap: 0.5rem;
-    align-items: flex-start;
     &.left {
       align-self: flex-start;
       flex-direction: row;
@@ -42,8 +49,12 @@ const { image, direction, content } = Astro.props
       align-self: flex-end;
       flex-direction: row-reverse;
     }
-    .message-icon {
+    .icon-wrapper {
+      display: flex;
+      flex-direction: column;
+      place-items: center;
       place-self: flex-end;
+      flex-shrink: 0;
     }
     .balloon {
       display: inline-block;
@@ -57,6 +68,9 @@ const { image, direction, content } = Astro.props
       border-image-width: 3;
       border-image-repeat: repeat;
       border-image-outset: 2;
+      p {
+        font-size: 1.05rem;
+      }
       &::before,
       &::after {
         position: absolute;
@@ -123,8 +137,10 @@ const { image, direction, content } = Astro.props
     }
   }
   @media (prefers-color-scheme: dark) {
-    .balloon {
-      border-image-source: url("data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8' ?><svg version='1.1' width='8' height='8' xmlns='http://www.w3.org/2000/svg'><path d='M3 1 h1 v1 h-1 z M4 1 h1 v1 h-1 z M2 2 h1 v1 h-1 z M5 2 h1 v1 h-1 z M1 3 h1 v1 h-1 z M6 3 h1 v1 h-1 z M1 4 h1 v1 h-1 z M6 4 h1 v1 h-1 z M2 5 h1 v1 h-1 z M5 5 h1 v1 h-1 z M3 6 h1 v1 h-1 z M4 6 h1 v1 h-1 z' fill='rgb(246.59, 246.59, 246.59)' /></svg>");
+    .message {
+      .balloon {
+        border-image-source: url("data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8' ?><svg version='1.1' width='8' height='8' xmlns='http://www.w3.org/2000/svg'><path d='M3 1 h1 v1 h-1 z M4 1 h1 v1 h-1 z M2 2 h1 v1 h-1 z M5 2 h1 v1 h-1 z M1 3 h1 v1 h-1 z M6 3 h1 v1 h-1 z M1 4 h1 v1 h-1 z M6 4 h1 v1 h-1 z M2 5 h1 v1 h-1 z M5 5 h1 v1 h-1 z M3 6 h1 v1 h-1 z M4 6 h1 v1 h-1 z' fill='rgb(246.59, 246.59, 246.59)' /></svg>");
+      }
     }
   }
 </style>

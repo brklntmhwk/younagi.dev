@@ -41,6 +41,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
     max-width: 60rem;
     display: flex;
     gap: 0.5rem;
+    padding: 0.75rem 0;
     &.left {
       align-self: flex-start;
       flex-direction: row;
@@ -54,7 +55,11 @@ const t = await getEntry('i18n', `${locale}/translation`)
       flex-direction: column;
       place-items: center;
       place-self: flex-end;
+      gap: 0.25rem;
       flex-shrink: 0;
+      span {
+        font-size: 0.95rem;
+      }
     }
     .balloon {
       display: inline-block;

@@ -11,11 +11,10 @@
   --bulletin-board-fg: hsla(32.94, 100%, 50%, 1);
   --bulletin-board-bg: hsla(30, 9.8%, 20%, 1);
   --glass-bg: rgba(255, 255, 255, 0.1);
-  --code: hsla(0, 0%, 90.98%, 1);
   --code-highlight: hsla(60, 100%, 92.94%, 0.2);
   --code-highlight-border: hsla(60, 94.78%, 77.45%, 0.8);
-  --gray: hsla(60, 0.52%, 62.55%, 1);
-  --gray-light: hsla(0, 0%, 84.71%, 1);
+  --gray: hsla(60, 0.52%, 75.55%, 1);
+  --gray-light: hsla(0, 0%, 86.71%, 1);
   --gray-dark: hsla(0, 1.27%, 30.98%, 1);
   --base-font: 'PixelMplus10', Arial, 'Hiragino Kaku Gothic ProN',
     'Hiragino Sans', Meiryo, Verdana, sans-serif;

@@ -13,6 +13,9 @@ blog:
   archive:
     title: アーカイブ
     description: ブログのアーカイブ
+news:
+  title: 凪のニュース
+  description: このサイトのニュース
 about:
   title: 自己紹介
   description: 凪について

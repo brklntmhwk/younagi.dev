@@ -13,6 +13,9 @@ blog:
   archive:
     title: Archive
     description: Blog archive
+news:
+  title: Nagi's news
+  description: News of this website
 about:
   title: About Me
   description: Who is Nagi?

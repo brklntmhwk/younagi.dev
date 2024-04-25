@@ -15,13 +15,18 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
 const { locale } = Astro.params
 const meta = await getEntry('meta', `${locale}/site-data`)
-const news = await getCollection('page').then((pages) =>
-  pages.filter(
-    (page) =>
-      !page.slug.includes('about') &&
-      page.slug.slice(0, page.slug.indexOf('/')) === locale
+const news = await getCollection('news').then((entries) =>
+  entries.filter(
+    (entry) => entry.slug.slice(0, entry.slug.indexOf('/')) === locale
   )
 )
+// const news = await getCollection('page').then((pages) =>
+//   pages.filter(
+//     (page) =>
+//       !page.slug.includes('about') &&
+//       page.slug.slice(0, page.slug.indexOf('/')) === locale
+//   )
+// )
 const latestNews = news.slice(0, NEWS_MAXIMUM_COUNT)
 ---
 

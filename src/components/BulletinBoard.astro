@@ -4,7 +4,7 @@ import { getEntry } from 'astro:content'
 import { getLocaleFromUrl } from '@/i18n/utils'
 
 type Props = {
-  newsList: CollectionEntry<'page'>[]
+  newsList: CollectionEntry<'news'>[]
 }
 
 const { newsList } = Astro.props
@@ -18,7 +18,11 @@ const t = await getEntry('i18n', `${locale}/translation`)
       newsList.length > 0 ? (
         newsList.map((news) => (
           <li>
-            <a href={`/${news.slug}/`}>{news.data.title}</a>
+            <a
+              href={`/${locale}/${news.collection}/${news.slug.split('/').pop()}/`}
+            >
+              {news.data.title}
+            </a>
           </li>
         ))
       ) : (
@@ -62,8 +66,8 @@ const t = await getEntry('i18n', `${locale}/translation`)
         display: inline;
         margin: 0 6rem 0 0;
         color: var(--bulletin-board-fg);
-        font-size: 1.75rem;
-        letter-spacing: 0.2rem;
+        font-size: 1.65rem;
+        letter-spacing: 0.175rem;
         text-shadow: 0 0 4px;
         a {
           color: var(--bulletin-board-fg);

@@ -115,6 +115,46 @@
       ]
     },
     {
+      "name": "news",
+      "pageBundle": false,
+      "previewPath": "'news'",
+      "filePrefix": null,
+      "clearEmpty": true,
+      "fileType": "md",
+      "fields": [
+        {
+          "title": "Title",
+          "name": "title",
+          "type": "string",
+          "single": true,
+          "required": true
+        },
+        {
+          "title": "Published At",
+          "name": "publishedAt",
+          "type": "datetime",
+          "default": "{{now}}",
+          "isPublishDate": true
+        },
+        {
+          "title": "Modified At",
+          "name": "modifiedAt",
+          "type": "datetime",
+          "isModifiedDate": true
+        },
+        {
+          "title": "type",
+          "name": "type",
+          "type": "string"
+        },
+        {
+          "title": "draft",
+          "name": "draft",
+          "type": "draft"
+        }
+      ]
+    },
+    {
       "name": "page",
       "previewPath": "'page'",
       "pageBundle": false,

@@ -3,6 +3,7 @@ nav:
   nav_links:
     home: ホーム
     blog: ブログ
+    news: ニュース
     about: 運営者
 pager:
   left_arrow_label: 前のページ
@@ -31,6 +32,10 @@ pages:
     archive:
       title: アーカイブ
       back_to_top: アーカイブ一覧
+  news:
+    title: ニュース
+    back_to_top: ニュース一覧
+    scroll_to_top: ページ上部へ
   about:
     title: 運営者
     my_name: 凪

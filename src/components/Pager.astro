@@ -7,7 +7,7 @@ import { DEFAULT_PAGINATION_WIDTH } from '@/consts'
 import { getLocaleFromUrl } from '@/i18n/utils'
 
 type Props = {
-  page?: Page<CollectionEntry<'blog'>>
+  page?: Page<CollectionEntry<'blog'> | CollectionEntry<'news'>>
 }
 
 const currentPath = Astro.url.pathname

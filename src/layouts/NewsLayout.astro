@@ -1,0 +1,91 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import { getEntry } from 'astro:content'
+import FormattedDate from '../components/FormattedDate.astro'
+import Svg from '@/components/Svg/index.astro'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { getLocaleFromUrl } from '@/i18n/utils'
+
+type Props = {
+  entry: CollectionEntry<'news'>
+}
+
+const locale = getLocaleFromUrl(Astro.url)
+const { entry } = Astro.props
+const { data, collection, slug } = entry
+const { title, publishedAt, modifiedAt } = data
+const t = await getEntry('i18n', `${locale}/translation`)
+---
+
+<BaseLayout
+  title={title}
+  description={title}
+  og={{
+    show: true,
+    height: 630,
+    width: 1200,
+    image: new URL(
+      `/og/${locale}/${collection}/${slug.slice(slug.indexOf('/') + 1)}.png`,
+      Astro.url
+    ),
+    type: 'article',
+  }}
+>
+  <main>
+    <article>
+      <h1>{title}</h1>
+      <div class="date-meta">
+        <div>
+          <Svg iconName="upload" width={20} height={20} />
+          <FormattedDate date={publishedAt} locale={locale} />
+        </div>
+        {
+          modifiedAt && (
+            <div>
+              <Svg iconName="update" width={20} height={20} />
+              <FormattedDate date={modifiedAt} locale={locale} />
+            </div>
+          )
+        }
+      </div>
+      <hr />
+      <section>
+        <slot />
+      </section>
+      <hr />
+      <section class="guides">
+        <a class="back-to-link" href={`/${locale}/news/`}
+          >◀ {t.data.pages.news.back_to_top}</a
+        >
+        <a class="back-to-link" href="#top"
+          >{t.data.pages.news.scroll_to_top} ▲</a
+        >
+      </section>
+    </article>
+  </main>
+</BaseLayout>
+<style>
+  article {
+    display: grid;
+    gap: 0.5rem;
+    hr {
+      width: 100%;
+    }
+    .date-meta {
+      font-size: 1.15rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      div {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+    }
+  }
+  .guides {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1.5rem;
+  }
+</style>

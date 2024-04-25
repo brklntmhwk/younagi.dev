@@ -14,6 +14,16 @@ const blog = defineCollection({
   }),
 })
 
+const news = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    publishedAt: z.coerce.date(),
+    modifiedAt: z.coerce.date().optional(),
+    draft: z.enum(['draft', 'in progress', 'published']),
+  }),
+})
+
 const page = defineCollection({
   type: 'content',
   schema: z.object({
@@ -46,6 +56,10 @@ const meta = defineCollection({
         description: z.string(),
       }),
     }),
+    news: z.object({
+      title: z.string(),
+      description: z.string(),
+    }),
     about: z.object({
       title: z.string(),
       description: z.string(),
@@ -61,6 +75,7 @@ const i18n = defineCollection({
       nav_links: z.object({
         home: z.string(),
         blog: z.string(),
+        news: z.string(),
         about: z.string(),
       }),
     }),
@@ -101,6 +116,11 @@ const i18n = defineCollection({
           back_to_top: z.string(),
         }),
       }),
+      news: z.object({
+        title: z.string(),
+        back_to_top: z.string(),
+        scroll_to_top: z.string(),
+      }),
       about: z.object({
         title: z.string(),
         my_name: z.string(),
@@ -114,4 +134,4 @@ const i18n = defineCollection({
   }),
 })
 
-export const collections = { blog, page, meta, i18n }
+export const collections = { blog, news, page, meta, i18n }

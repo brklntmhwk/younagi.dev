@@ -14,7 +14,9 @@ export const getStaticPaths = (async ({ paginate }) => {
 
   return langList.flatMap((lang) => {
     const displayEntries = entries.filter(
-      (entry) => entry.slug.slice(0, entry.slug.indexOf('/')) === lang
+      (entry) =>
+        entry.slug.slice(0, entry.slug.indexOf('/')) === lang &&
+        entry.data.draft === 'published'
     )
 
     return paginate(displayEntries, {

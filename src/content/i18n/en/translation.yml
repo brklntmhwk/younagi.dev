@@ -3,6 +3,7 @@ nav:
   nav_links:
     home: Home
     blog: Blog
+    news: News
     about: About
 pager:
   left_arrow_label: Previous page
@@ -31,6 +32,10 @@ pages:
     archive:
       title: Archive
       back_to_top: Back to Archive
+  news:
+    title: News
+    back_to_top: Back to News List
+    scroll_to_top: Scroll to Top
   about:
     title: About
     my_name: Nagi

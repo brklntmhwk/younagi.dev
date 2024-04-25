@@ -33,12 +33,13 @@ const latestNews = news.slice(0, NEWS_MAXIMUM_COUNT)
   <main data-pagefind-ignore="all">
     <BulletinBoard newsList={latestNews} />
     <Balloon direction="left" content="Hello. I'm Nagi." />
+    <Balloon direction="right" content="Hello. I'm Nagi." />
   </main>
 </BaseLayout>
 <style>
   main {
-    display: grid;
-    grid-template-rows: fit-content(100%);
+    display: flex;
+    flex-direction: column;
     place-items: start;
     gap: 1.85rem;
   }

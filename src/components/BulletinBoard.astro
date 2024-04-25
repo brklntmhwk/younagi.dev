@@ -62,12 +62,21 @@ const t = await getEntry('i18n', `${locale}/translation`)
         display: inline;
         margin: 0 6rem 0 0;
         color: var(--bulletin-board-fg);
-        font-size: 1.85rem;
+        font-size: 1.75rem;
         letter-spacing: 0.2rem;
         text-shadow: 0 0 4px;
         a {
           color: var(--bulletin-board-fg);
           text-decoration: none;
+        }
+      }
+    }
+  }
+  @media (min-width: 768px) {
+    .bulletin-board {
+      ul {
+        li {
+          font-size: 1.85rem;
         }
       }
     }

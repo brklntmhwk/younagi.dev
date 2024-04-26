@@ -88,6 +88,7 @@ body {
   background: var(--bg);
   line-height: 1.35;
   -webkit-text-size-adjust: 100%;
+  touch-action: manipulation;
 }
 main {
   grid-area: main;
@@ -112,7 +113,7 @@ h6 {
   line-height: 1.2;
 }
 h1 {
-  font-size: 2.85rem;
+  font-size: 2.5rem;
   font-weight: 700;
   margin: 0 0 0.85rem 0;
 }
@@ -137,10 +138,10 @@ h6 {
 }
 @media (min-width: 768px) {
   h1 {
-    font-size: 3.25rem;
+    font-size: 3.05rem;
   }
   h2 {
-    font-size: 2.85rem;
+    font-size: 2.65rem;
   }
   h3 {
     font-size: 2.25rem;

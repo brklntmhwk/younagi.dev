@@ -7,13 +7,8 @@ import { DEFAULT_PAGINATION_WIDTH } from '@/consts'
 import { getLocaleFromUrl } from '@/i18n/utils'
 
 type Props = {
-  page?: Page<CollectionEntry<'blog'> | CollectionEntry<'news'>>
+  page?: Page<CollectionEntry<'blog' | 'news'>>
 }
-
-const currentPath = Astro.url.pathname
-const locale = getLocaleFromUrl(Astro.url)
-const t = await getEntry('i18n', `${locale}/translation`)
-const { page } = Astro.props
 
 const paginator = (
   curPageNum: number,
@@ -23,6 +18,7 @@ const paginator = (
   const prevEnd = curPageNum - width
   const nextEnd = curPageNum + width
   const ranges = []
+
   for (let i = 1; i <= totalPageNum; i += 1) {
     if (curPageNum === 1) {
       if (i <= nextEnd) ranges.push(i)
@@ -35,6 +31,11 @@ const paginator = (
 
   return ranges
 }
+
+const currentPath = Astro.url.pathname
+const locale = getLocaleFromUrl(Astro.url)
+const t = await getEntry('i18n', `${locale}/translation`)
+const { page } = Astro.props
 ---
 
 {

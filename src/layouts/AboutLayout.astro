@@ -16,58 +16,36 @@ const t = await getEntry('i18n', `${locale}/translation`)
   og={{ show: true }}
 >
   <main data-pagefind-ignore="all">
-    <h1>{t.data.pages.about.title}</h1>
-    <section class="profile-section">
-      <Image
-        alt={t.data.pages.about.profile_img_alt}
-        class="icon"
-        src={profileIcon}
-        width={150}
-        height={150}
-        loading="eager"
-        format="avif"
-        quality={75}
-      />
-      <span class="my-name">{t.data.pages.about.my_name}</span>
-    </section>
-    <hr />
     <article>
-      <slot />
+      <h1>{t.data.pages.about.title}</h1>
+      <section class="profile">
+        <Image
+          alt={t.data.pages.about.profile_img_alt}
+          class="icon"
+          src={profileIcon}
+          width={150}
+          height={150}
+          loading="eager"
+          format="avif"
+          quality={75}
+        />
+        <span class="my-name">{t.data.pages.about.my_name}</span>
+      </section>
+      <hr />
+      <section class="about-content">
+        <slot />
+      </section>
     </article>
   </main>
 </BaseLayout>
 <style>
-  .profile-section {
-    padding: 1.75rem 0;
-    display: grid;
-    justify-content: center;
-    place-items: center;
-    gap: 1.5rem;
-  }
-  @media (min-width: 768px) {
-    .profile-section {
-      padding: 2.25rem 0;
-      display: flex;
-      justify-content: center;
-      gap: 2.25rem;
-    }
-  }
-  @media (min-width: 1024px) {
-    .profile-section {
-      padding: 2.25rem 0;
-      gap: 2.5rem;
-      justify-content: start;
-    }
-  }
-  .profile-section div {
-    display: grid;
-  }
-  span.my-name {
-    font-size: 1.5rem;
-    font-weight: 600;
-  }
   article {
-    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    hr {
+      width: 100%;
+    }
     & :global(a) {
       color: var(--fg);
       text-decoration: none;
@@ -81,10 +59,89 @@ const t = await getEntry('i18n', `${locale}/translation`)
         text-decoration-color: var(--fg);
       }
     }
+    .profile {
+      padding: 1.75rem 0;
+      display: grid;
+      justify-content: center;
+      place-items: center;
+      gap: 1.5rem;
+      .my-name {
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+    }
+    .about-content {
+      font-size: 1.15rem;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      font-family: var(--prose-font);
+      line-height: 1.65;
+      & :global(h2, h3, h4, h5, h6) {
+        font-family: var(--base-font);
+      }
+      & :global(p) {
+        color: var(--fg);
+        margin-bottom: 1.25rem;
+      }
+      & :global(ul) {
+        padding: 0.85rem 0 0.85rem 2.5rem;
+        & :global(li) {
+          list-style-type: square;
+        }
+      }
+      & :global(ol) {
+        padding: 0.85rem 0 0.85rem 2.5rem;
+        & :global(li) {
+          list-style-type: decimal;
+        }
+      }
+      & :global(a) {
+        color: var(--accent);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        &:hover {
+          color: var(--accent-dark);
+        }
+      }
+      & :global(a):has(.heading-anchor-icon) {
+        text-decoration: none;
+        font-family: var(--base-font);
+        & :global(span.heading-anchor-icon) {
+          color: var(--fg);
+          margin-right: 0.5rem;
+        }
+        &:hover {
+          text-decoration: underline;
+          text-underline-offset: 4px;
+          text-decoration-color: var(--fg);
+        }
+      }
+      & :global(code:not(figure[data-rehype-pretty-code-figure] code)) {
+        font-size: 0.95rem;
+        background-color: var(--gray);
+        padding: 0.1rem 0.25rem;
+        margin: 0 0.1rem;
+        border-radius: 0.25rem;
+      }
+    }
   }
   @media (min-width: 768px) {
     article {
-      padding: 1.25rem;
+      .profile {
+        padding: 2.25rem 0;
+        display: flex;
+        justify-content: center;
+        gap: 2.25rem;
+      }
+    }
+  }
+  @media (min-width: 1024px) {
+    article {
+      .profile {
+        padding: 2.25rem 0;
+        gap: 2.5rem;
+        justify-content: start;
+      }
     }
   }
 </style>

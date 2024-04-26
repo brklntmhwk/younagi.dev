@@ -20,6 +20,9 @@ bulleting_board:
   no_news: No latest news...
 message:
   fallback_icon_alt: Nagi
+svg:
+  not_found_message: not found
+  invalid_error_message: Invalid svg file or svg tags missing
 pages:
   blog:
     title: Blog

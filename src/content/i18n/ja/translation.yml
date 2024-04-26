@@ -20,6 +20,9 @@ bulleting_board:
   no_news: 最新ニュースはありません。
 message:
   fallback_icon_alt: 凪
+svg:
+  not_found_message: が見つかりませんでした
+  invalid_error_message: 無効なSVGファイルであるか、SVGタグがありません
 pages:
   blog:
     title: ブログ

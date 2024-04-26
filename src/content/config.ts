@@ -101,6 +101,10 @@ const i18n = defineCollection({
     message: z.object({
       fallback_icon_alt: z.string(),
     }),
+    svg: z.object({
+      not_found_message: z.string(),
+      invalid_error_message: z.string(),
+    }),
     pages: z.object({
       blog: z.object({
         title: z.string(),

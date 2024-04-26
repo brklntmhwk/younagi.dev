@@ -170,7 +170,7 @@ li {
 img {
   max-width: 100%;
   height: auto;
-  border-radius: 0.25rem;
+  border-radius: 0.15rem;
 }
 blockquote {
   border-left: 4px solid var(--gray-dark);
@@ -180,7 +180,7 @@ blockquote {
 }
 hr {
   border: none;
-  border-top: 1px solid var(--gray-light);
+  border-top: 1px solid var(--line);
 }
 .glassmorphism {
   background: var(--glass-bg);

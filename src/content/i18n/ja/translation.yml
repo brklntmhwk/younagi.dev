@@ -10,6 +10,8 @@ pager:
   right_arrow_label: 次のページ
 locale_picker:
   button_label: 言語を選択する
+theme_toggle:
+  button_label: テーマを切り替える
 search:
   button_label: コンテンツを検索する
 toc:

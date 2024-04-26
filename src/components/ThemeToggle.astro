@@ -1,8 +1,17 @@
 ---
+import { getEntry } from 'astro:content'
+import { getLocaleFromUrl } from '@/i18n/utils'
 import Svg from '@/components/Svg/index.astro'
+
+const locale = getLocaleFromUrl(Astro.url)
+const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
-<button id="theme-toggle-button">
+<button
+  id="theme-toggle-button"
+  type="button"
+  title={t.data.theme_toggle.button_label}
+>
   <Svg class="sun" iconName="sun" width={32} height={32} />
   <Svg class="moon" iconName="moon" width={32} height={32} />
 </button>

@@ -86,6 +86,9 @@ const i18n = defineCollection({
     locale_picker: z.object({
       button_label: z.string(),
     }),
+    theme_toggle: z.object({
+      button_label: z.string(),
+    }),
     search: z.object({
       button_label: z.string(),
     }),

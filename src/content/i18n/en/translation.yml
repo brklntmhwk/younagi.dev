@@ -9,7 +9,9 @@ pager:
   left_arrow_label: Previous page
   right_arrow_label: Next page
 locale_picker:
-  button_label: Select a language
+  button_label: Select language
+theme_toggle:
+  button_label: Toggle theme
 search:
   button_label: Search content
 toc:

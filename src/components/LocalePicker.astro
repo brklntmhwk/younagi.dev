@@ -28,7 +28,11 @@ const { 'data-border-image-url': borderImageUrl } = Astro.props
     </ul>
   </div>
 </div>
-<button type="button" id="lang-icon-button">
+<button
+  type="button"
+  id="lang-icon-button"
+  title={t.data.locale_picker.button_label}
+>
   <span class="sr-only">{t.data.locale_picker.button_label}</span>
   <Svg iconName="alphabet" width={32} height={32} />
 </button>

@@ -1,0 +1,66 @@
+---
+import Svg from '@/components/Svg/index.astro'
+---
+
+<button id="theme-toggle-button">
+  <Svg class="sun" iconName="sun" width={32} height={32} />
+  <Svg class="moon" iconName="moon" width={32} height={32} />
+</button>
+<style>
+  #theme-toggle-button {
+    color: var(--fg);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  .sun {
+    display: inline-block;
+  }
+  .moon {
+    display: none;
+  }
+  :global(.dark) .sun {
+    display: none;
+  }
+  :global(.dark) .moon {
+    display: inline-block;
+  }
+</style>
+<script>
+  function init() {
+    const theme = (() => {
+      if (
+        typeof localStorage !== 'undefined' &&
+        localStorage.getItem('theme')
+      ) {
+        return localStorage.getItem('theme')
+      }
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return 'dark'
+      }
+      return 'light'
+    })()
+
+    if (theme === 'light') {
+      document.documentElement.classList.remove('dark')
+    } else {
+      document.documentElement.classList.add('dark')
+    }
+
+    window.localStorage.setItem('theme', theme ?? 'light')
+
+    const handleToggleClick = () => {
+      const element = document.documentElement
+      element.classList.toggle('dark')
+
+      const isDark = element.classList.contains('dark')
+      localStorage.setItem('theme', isDark ? 'dark' : 'light')
+    }
+
+    const themeButton = document.getElementById('theme-toggle-button')
+    if (themeButton) themeButton.addEventListener('click', handleToggleClick)
+  }
+
+  document.addEventListener('DOMContentLoaded', init)
+  document.addEventListener('astro:after-swap', init)
+</script>

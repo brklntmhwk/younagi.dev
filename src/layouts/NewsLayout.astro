@@ -49,7 +49,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
         }
       </div>
       <hr />
-      <section>
+      <section class="news-content">
         <slot />
       </section>
       <hr />
@@ -81,6 +81,13 @@ const t = await getEntry('i18n', `${locale}/translation`)
         align-items: center;
         gap: 0.5rem;
       }
+    }
+    .news-content {
+      font-size: 1.15rem;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      font-family: var(--prose-font);
+      line-height: 1.65;
     }
   }
   .guides {

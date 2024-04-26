@@ -3,6 +3,7 @@ import { getEntry } from 'astro:content'
 import NavLink from '@/components/NavLink.astro'
 import Search from '@/components/Search.astro'
 import NavMenuContainer from '@/components/NavMenuContainer.astro'
+import ThemeToggle from '@/components/ThemeToggle.astro'
 import LocalePicker from '@/components/LocalePicker.astro'
 import { getLocaleFromUrl } from '@/i18n/utils'
 
@@ -23,6 +24,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
     </div>
     <div class="icon-links">
       <LocalePicker data-border-image-url="url(/border-image.gif)" />
+      <ThemeToggle />
       <Search data-border-image-url="url(/border-image.gif)" />
     </div>
   </NavMenuContainer>

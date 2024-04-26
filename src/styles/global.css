@@ -22,6 +22,21 @@
   --prose-font: Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo,
     sans-serif;
 }
+:root.dark {
+  --fg: hsla(0, 0%, 96.7%, 1);
+  --bg: hsla(248.57, 11.48%, 11.96%, 1);
+  --bg-gradient: to top,
+    hsla(248.57, 11.48%, 58.96%, 1) hsla(248.57, 11.48%, 11.96%, 1);
+  --accent: hsla(215.24, 100%, 52.63%, 1);
+  --accent-dark: hsla(220, 98.54%, 43.86%, 1);
+  --pixel-border: hsla(220, 100%, 98.22%, 1);
+  --mobile-nav-bg: hsla(248.57, 11.48%, 20.96%, 1);
+  --modal-bg: hsla(223, 8%, 8%, 0.8);
+  --glass-bg: rgba(0, 0, 0, 0.1);
+  --code: hsla(0, 0%, 90.98%, 1);
+  --code-highlight: hsla(213.49, 87.31%, 82%, 0.2);
+  --code-highlight-border: hsla(213.49, 84.31%, 70%, 0.8);
+}
 @media (prefers-color-scheme: dark) {
   :root {
     --fg: hsla(0, 0%, 96.7%, 1);
@@ -158,11 +173,10 @@ img {
   border-radius: 0.25rem;
 }
 blockquote {
-  color: var(--gray);
   border-left: 4px solid var(--gray-dark);
   padding: 0 0 0 1.5rem;
   margin: 0px;
-  font-size: 1.15rem;
+  font-size: 1.05rem;
 }
 hr {
   border: none;

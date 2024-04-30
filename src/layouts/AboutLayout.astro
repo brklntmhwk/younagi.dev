@@ -1,9 +1,8 @@
 ---
-import { Image } from 'astro:assets'
 import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getLocaleFromUrl } from '@/i18n/utils'
-import profileIcon from '@/assets/images/profile.png'
+import ProfileIcon from '@/components/ProfileIcon.astro'
 
 const locale = getLocaleFromUrl(Astro.url)
 const meta = await getEntry('meta', `${locale}/site-data`)
@@ -19,16 +18,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
     <article>
       <h1>{t.data.pages.about.title}</h1>
       <section class="profile">
-        <Image
-          alt={t.data.pages.about.profile_img_alt}
-          class="icon"
-          src={profileIcon}
-          width={150}
-          height={150}
-          loading="eager"
-          format="avif"
-          quality={75}
-        />
+        <ProfileIcon size={150} />
         <span class="my-name">{t.data.pages.about.my_name}</span>
       </section>
       <hr />

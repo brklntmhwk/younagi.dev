@@ -5574,6 +5574,7 @@ __metadata:
     shiki: "npm:^1.3.0"
     solid-js: "npm:^1.8.16"
     typescript: "npm:5.4.2"
+    unsplash-js: "npm:^7.0.19"
   languageName: unknown
   linkType: soft
 
@@ -7604,6 +7605,13 @@ __metadata:
     unist-util-is: "npm:^6.0.0"
     unist-util-visit-parents: "npm:^6.0.0"
   checksum: 10c0/51434a1d80252c1540cce6271a90fd1a106dbe624997c09ed8879279667fb0b2d3a685e02e92bf66598dcbe6cdffa7a5f5fb363af8fdf90dda6c855449ae39a5
+  languageName: node
+  linkType: hard
+
+"unsplash-js@npm:^7.0.19":
+  version: 7.0.19
+  resolution: "unsplash-js@npm:7.0.19"
+  checksum: 10c0/ea139e38e80b43d21baa5a97b3a461f0938da4e80c3ca1c2af62e4609ee204f27b20800b7459b62287f39c201d4d6b0578393f8412db4e9d3fd2b586af32a8bb
   languageName: node
   linkType: hard
 

@@ -56,7 +56,8 @@
     "remark-gfm": "4.0.0",
     "remark-math": "6.0.0",
     "sharp": "0.32.6",
-    "shiki": "^1.3.0"
+    "shiki": "^1.3.0",
+    "unsplash-js": "^7.0.19"
   },
   "packageManager": "yarn@1.22.15",
   "engines": {

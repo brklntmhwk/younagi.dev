@@ -1,0 +1,25 @@
+---
+import { Image } from 'astro:assets'
+import { getEntry } from 'astro:content'
+import { getLocaleFromUrl } from '@/i18n/utils'
+import profileIcon from '@/assets/images/profile.png'
+
+type Props = {
+  size: number
+}
+
+const locale = getLocaleFromUrl(Astro.url)
+const t = await getEntry('i18n', `${locale}/translation`)
+const { size } = Astro.props
+---
+
+<Image
+  alt={t.data.pages.about.profile_img_alt}
+  class="icon"
+  src={profileIcon}
+  width={size}
+  height={size}
+  loading="eager"
+  format="avif"
+  quality={75}
+/>

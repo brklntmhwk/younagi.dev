@@ -5,6 +5,8 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 import { langList } from '@/i18n/data'
 import BulletinBoard from '@/components/BulletinBoard.astro'
 import Message from '@/components/Message.astro'
+import PhotoGallery from '@/components/PhotoGallery.astro'
+import { getPhotos } from '@/lib/unsplash/getContent'
 import { NEWS_MAXIMUM_COUNT } from '@/consts'
 
 export const getStaticPaths = (() => {
@@ -20,6 +22,7 @@ const news = await getCollection('news').then((entries) =>
     (entry) => entry.slug.slice(0, entry.slug.indexOf('/')) === locale
   )
 )
+const photos = await getPhotos()
 // const news = await getCollection('page').then((pages) =>
 //   pages.filter(
 //     (page) =>
@@ -41,6 +44,7 @@ const latestNews = news.slice(0, NEWS_MAXIMUM_COUNT)
       direction="right"
       content="こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。こんにちは。"
     />
+    <PhotoGallery {photos} />
   </main>
 </BaseLayout>
 <style>

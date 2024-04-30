@@ -1,0 +1,55 @@
+---
+import { getEntry } from 'astro:content'
+import type { UnsplashPhotoData } from '@/lib/unsplash/getContent'
+import PhotoGalleryItem from './PhotoGalleryItem.astro'
+import { getLocaleFromUrl } from '@/i18n/utils'
+import { ACCOUNT_ID, UNSPLASH_BASE_URL } from '@/consts'
+
+type Props = {
+  photos: UnsplashPhotoData
+}
+
+const locale = getLocaleFromUrl(Astro.url)
+const t = await getEntry('i18n', `${locale}/translation`)
+const { photos } = Astro.props
+---
+
+<div class="photo-gallery-wrapper">
+  <aside>
+    <p>
+      {t.data.photo_gallery.credit_label}
+      <cite>
+        <a href={`${UNSPLASH_BASE_URL}/@${ACCOUNT_ID}`}>@{ACCOUNT_ID}</a>
+      </cite>
+      /
+      <cite>
+        <a href={UNSPLASH_BASE_URL}>Unsplash</a>
+      </cite>
+    </p>
+  </aside>
+  <section class="photo-gallery">
+    {photos && photos.results.map((photo) => <PhotoGalleryItem {photo} />)}
+  </section>
+</div>
+<style>
+  .photo-gallery-wrapper {
+    display: grid;
+    gap: 0.35rem;
+    padding: 0 0.375rem;
+    aside {
+      p {
+        font-size: 0.9rem;
+        a {
+          color: var(--accent);
+          &:hover {
+            color: var(--accent-dark);
+          }
+        }
+      }
+    }
+    .photo-gallery {
+      columns: 2;
+      column-gap: 1.5rem;
+    }
+  }
+</style>

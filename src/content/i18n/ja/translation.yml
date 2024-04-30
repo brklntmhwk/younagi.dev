@@ -20,6 +20,8 @@ bulleting_board:
   no_news: 最新ニュースはありません。
 message:
   fallback_icon_alt: 凪
+photo_gallery:
+  credit_label: 写真提供元：
 svg:
   not_found_message: が見つかりませんでした
   invalid_error_message: 無効なSVGファイルであるか、SVGタグがありません

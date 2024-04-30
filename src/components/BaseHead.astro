@@ -1,6 +1,6 @@
 ---
 import '@/styles/global.css'
-// import { ViewTransitions } from 'astro:transitions'
+import { ViewTransitions } from 'astro:transitions'
 import { getAbsoluteLocaleUrl } from 'astro:i18n'
 import { langList } from '@/i18n/data'
 import type { Props as BaseLayoutProps } from '@/layouts/BaseLayout.astro'
@@ -90,4 +90,4 @@ const { title, description, og } = Astro.props
     </>
   )
 }
-<!-- <ViewTransitions /> -->
+<ViewTransitions />

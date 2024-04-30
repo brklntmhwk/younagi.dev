@@ -38,7 +38,7 @@ const { photos } = Astro.props
     padding: 0 0.375rem;
     aside {
       p {
-        font-size: 0.9rem;
+        font-size: 0.925rem;
         a {
           color: var(--accent);
           &:hover {
@@ -50,6 +50,32 @@ const { photos } = Astro.props
     .photo-gallery {
       columns: 2;
       column-gap: 1.5rem;
+    }
+  }
+  @media (min-width: 768px) {
+    .photo-gallery-wrapper {
+      aside {
+        p {
+          font-size: 1.15rem;
+        }
+      }
+      .photo-gallery {
+        columns: 3;
+      }
+    }
+  }
+  @media (min-width: 1024px) {
+    .photo-gallery-wrapper {
+      .photo-gallery {
+        columns: 2;
+      }
+    }
+  }
+  @media (min-width: 1280px) {
+    .photo-gallery-wrapper {
+      .photo-gallery {
+        columns: 3;
+      }
     }
   }
 </style>

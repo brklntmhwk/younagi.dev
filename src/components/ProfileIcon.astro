@@ -1,25 +1,36 @@
 ---
+import type { ImageMetadata } from 'astro'
+import type { HTMLAttributes } from 'astro/types'
 import { Image } from 'astro:assets'
-import { getEntry } from 'astro:content'
-import { getLocaleFromUrl } from '@/i18n/utils'
-import profileIcon from '@/assets/images/profile.png'
 
 type Props = {
+  alt: string
+  src: string | ImageMetadata
   size: number
-}
+} & Omit<HTMLAttributes<'img'>, 'width' | 'height' | 'src' | 'alt'>
 
-const locale = getLocaleFromUrl(Astro.url)
-const t = await getEntry('i18n', `${locale}/translation`)
-const { size } = Astro.props
+const { src, size, alt, class: className, ...rest } = Astro.props
 ---
 
-<Image
-  alt={t.data.pages.about.profile_img_alt}
-  class="icon"
-  src={profileIcon}
-  width={size}
-  height={size}
-  loading="eager"
-  format="avif"
-  quality={75}
-/>
+{
+  typeof src === 'string' ? (
+    <img
+      class:list={['icon', className]}
+      {src}
+      width={size}
+      height={size}
+      {...rest}
+    />
+  ) : (
+    <Image
+      alt={alt}
+      class:list={['icon', className]}
+      src={src}
+      width={size}
+      height={size}
+      loading="eager"
+      format="avif"
+      quality={75}
+    />
+  )
+}

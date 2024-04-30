@@ -23,13 +23,6 @@ const news = await getCollection('news').then((entries) =>
   )
 )
 const photos = await getPhotos()
-// const news = await getCollection('page').then((pages) =>
-//   pages.filter(
-//     (page) =>
-//       !page.slug.includes('about') &&
-//       page.slug.slice(0, page.slug.indexOf('/')) === locale
-//   )
-// )
 const latestNews = news.slice(0, NEWS_MAXIMUM_COUNT)
 ---
 
@@ -52,7 +45,7 @@ const latestNews = news.slice(0, NEWS_MAXIMUM_COUNT)
     display: flex;
     flex-direction: column;
     place-items: start;
-    gap: 1.85rem;
+    gap: 1.25rem;
   }
   @media (min-width: 1024px) {
     main {

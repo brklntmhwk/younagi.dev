@@ -1,17 +1,21 @@
 ---
+import { Image } from 'astro:assets'
 import { getEntry } from 'astro:content'
 import type { Basic as Photo } from 'unsplash-js/dist/methods/photos/types'
 import { getLocaleFromUrl } from '@/i18n/utils'
 import { toSnakeCase } from '@/utils/toSnakeCase'
+import { getDateDiff } from '@/utils/getDateDiff'
 import ProfileIcon from '@/components/ProfileIcon.astro'
 
 type Props = {
   photo: Photo
+  order: number
 }
 
 const locale = getLocaleFromUrl(Astro.url)
+const t = await getEntry('i18n', `${locale}/translation`)
 const meta = await getEntry('meta', 'en/site-data')
-const { photo } = Astro.props
+const { photo, order } = Astro.props
 const {
   alt_description,
   description,
@@ -23,21 +27,25 @@ const {
   width,
 } = photo
 const createdAt = new Date(created_at)
-const diffMilliSec = createdAt.getTime() - new Date().getTime()
-const diffDays = Math.floor(diffMilliSec / 1000 / 60 / 60 / 24)
+const dateDiff = getDateDiff(createdAt, locale)
 ---
 
 <div class="photo-gallery-item">
   <a
+    aria-label={`${t.data.photo_gallery_item.photo_label}${order}`}
     href={`${links.html}?utm_source=${toSnakeCase(meta.data.site.title)}&utm_medium=referral`}
   >
     <figure class="photo">
-      <img
+      <Image
         src={`${urls.raw}&auto=format&w=1080&q=75`}
-        alt={alt_description || description}
+        alt={alt_description || description || ''}
         width={width}
         height={height}
+        format="avif"
+        loading="eager"
+        quality={45}
       />
+      <figcaption>{alt_description || description}</figcaption>
     </figure>
   </a>
   <section class="photo-metadata">
@@ -50,12 +58,7 @@ const diffDays = Math.floor(diffMilliSec / 1000 / 60 / 60 / 24)
       <span>{user.username}</span>
     </div>
     <span class="photo-date">
-      {
-        new Intl.RelativeTimeFormat(locale, { style: 'short' }).format(
-          diffDays,
-          'day'
-        )
-      }
+      {dateDiff}
     </span>
   </section>
 </div>
@@ -74,6 +77,9 @@ const diffDays = Math.floor(diffMilliSec / 1000 / 60 / 60 / 24)
     border-image-outset: 2;
     .photo {
       margin: 0 auto;
+      figcaption {
+        display: none;
+      }
     }
     .photo-metadata {
       font-size: 0.875rem;

@@ -15,17 +15,18 @@ const { src, size, alt, class: className, ...rest } = Astro.props
 {
   typeof src === 'string' ? (
     <img
-      class:list={['icon', className]}
+      {alt}
       {src}
+      class:list={['icon', className]}
       width={size}
       height={size}
       {...rest}
     />
   ) : (
     <Image
-      alt={alt}
+      {alt}
+      {src}
       class:list={['icon', className]}
-      src={src}
       width={size}
       height={size}
       loading="eager"
@@ -34,3 +35,9 @@ const { src, size, alt, class: className, ...rest } = Astro.props
     />
   )
 }
+<style>
+  .icon {
+    border-radius: 9999px;
+    object-fit: cover;
+  }
+</style>

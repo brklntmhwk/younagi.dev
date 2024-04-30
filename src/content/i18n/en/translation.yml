@@ -22,6 +22,8 @@ message:
   fallback_icon_alt: Nagi
 photo_gallery:
   credit_label: Photos are provided by
+photo_gallery_item:
+  photo_label: From Unsplash, My photo No.
 svg:
   not_found_message: not found
   invalid_error_message: Invalid svg file or svg tags missing

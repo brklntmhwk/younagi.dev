@@ -104,6 +104,9 @@ const i18n = defineCollection({
     photo_gallery: z.object({
       credit_label: z.string(),
     }),
+    photo_gallery_item: z.object({
+      photo_label: z.string(),
+    }),
     svg: z.object({
       not_found_message: z.string(),
       invalid_error_message: z.string(),

@@ -188,10 +188,6 @@ hr {
   backdrop-filter: blur(6px);
   /* -webkit-backdrop-filter: blur(6px); */
 }
-.icon {
-  border-radius: 9999px;
-  object-fit: cover;
-}
 .sr-only {
   border: 0;
   padding: 0;

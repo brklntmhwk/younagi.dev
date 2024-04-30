@@ -28,14 +28,19 @@ const { photos } = Astro.props
     </p>
   </aside>
   <section class="photo-gallery">
-    {photos && photos.results.map((photo) => <PhotoGalleryItem {photo} />)}
+    {
+      photos &&
+        photos.results.map((photo, i) => (
+          <PhotoGalleryItem {photo} order={i + 1} />
+        ))
+    }
   </section>
 </div>
 <style>
   .photo-gallery-wrapper {
     display: grid;
     gap: 0.35rem;
-    padding: 0 0.375rem;
+    padding: 0 0.375rem 0.875rem 0.375rem;
     aside {
       p {
         font-size: 0.925rem;

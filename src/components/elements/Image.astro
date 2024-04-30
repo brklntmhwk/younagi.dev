@@ -13,7 +13,7 @@ const { alt, src } = Astro.props
 <figure>
   {
     typeof src === 'string' ? (
-      <img {alt} {src} />
+      <img aria-label={alt} {alt} {src} />
     ) : (
       <Picture
         aria-label={alt}

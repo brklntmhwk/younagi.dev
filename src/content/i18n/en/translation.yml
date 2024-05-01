@@ -1,10 +1,17 @@
-blog_name: Chamber of Nagi
+website: &website Chamber of Nagi
+author: &author Nagi
+back_to_top: &back_to_top Back to Top
+blog: &blog Blog
+news: &news News
+about: &about About
+
+blog_name: *website
 nav:
   nav_links:
     home: Home
-    blog: Blog
-    news: News
-    about: About
+    blog: *blog
+    news: *news
+    about: *about
 pager:
   left_arrow_label: Previous page
   right_arrow_label: Next page
@@ -19,7 +26,7 @@ toc:
 bulleting_board:
   no_news: No latest news...
 message:
-  fallback_icon_alt: Nagi
+  fallback_icon_alt: *author
 photo_gallery:
   credit_label: Photos are provided by
 photo_gallery_item:
@@ -28,9 +35,11 @@ svg:
   not_found_message: not found
   invalid_error_message: Invalid svg file or svg tags missing
 pages:
+  home:
+    greeting_message: Thank you for visiting my website! Here, I offer what I acquire, experience, or reflect on my daily lives, by posting news and articles every so often.
   blog:
-    title: Blog
-    back_to_top: Back to Top
+    title: *blog
+    back_to_top: *back_to_top
     scroll_to_top: Scroll to Top
     hero_image_label: The hero image of
     categories:
@@ -43,13 +52,13 @@ pages:
       title: Archive
       back_to_top: Back to Archive
   news:
-    title: News
+    title: *news
     back_to_top: Back to News List
     scroll_to_top: Scroll to Top
   about:
-    title: About
-    my_name: Nagi
+    title: *about
+    my_name: *author
     profile_img_alt: My profile image
   not_found:
     message: Page Not Found
-    back_to_top: Back to Top
+    back_to_top: *back_to_top

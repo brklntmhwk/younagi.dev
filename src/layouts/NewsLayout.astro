@@ -33,7 +33,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
 >
   <main>
     <article>
-      <h1>{title}</h1>
+      <h1 class="news-title">{title}</h1>
       <div class="date-meta">
         <div>
           <Svg iconName="upload" width={20} height={20} />
@@ -70,6 +70,9 @@ const t = await getEntry('i18n', `${locale}/translation`)
     gap: 0.5rem;
     hr {
       width: 100%;
+    }
+    .news-title {
+      line-height: 1.175;
     }
     .date-meta {
       font-size: 1.15rem;

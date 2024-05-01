@@ -62,11 +62,11 @@ const t = await getEntry('i18n', `${locale}/translation`)
     .balloon {
       display: inline-block;
       position: relative;
-      padding: 0.175rem 0.5rem;
+      padding: 0.175rem 0.75rem;
       margin: 0.5rem 0.5rem 1.85rem 0.5rem;
       background-color: var(--bg);
       p {
-        font-size: 1.05rem;
+        font-size: 0.95rem;
       }
       &::before,
       &::after {
@@ -137,6 +137,9 @@ const t = await getEntry('i18n', `${locale}/translation`)
     .message {
       .balloon {
         padding: 0.5rem 0.85rem;
+        p {
+          font-size: 1.05rem;
+        }
       }
     }
   }

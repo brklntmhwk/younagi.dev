@@ -50,7 +50,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
       border-bottom: 2px solid transparent;
     }
     a.blog-title {
-      font-size: 1.15rem;
+      font-size: 1.125rem;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -62,7 +62,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
       margin-left: 1.25rem;
       a {
         position: relative;
-        font-size: 1.25rem;
+        font-size: 1.275rem;
         &.active {
           font-weight: 700;
         }
@@ -96,6 +96,9 @@ const t = await getEntry('i18n', `${locale}/translation`)
       }
       .nav-links {
         gap: 3.25rem;
+        a {
+          font-size: 1.025rem;
+        }
       }
       .icon-links {
         justify-content: unset;
@@ -131,17 +134,18 @@ const t = await getEntry('i18n', `${locale}/translation`)
         align-self: start;
         margin-left: 1.5rem;
         padding: 0;
-      }
-      .nav-links a {
-        position: relative;
-        &:hover::before {
-          font-family: 'PixelMplus10';
-          content: '▶';
-          position: absolute;
-          top: 0;
-          left: -1.45rem;
+        a {
           font-size: 1.25rem;
-          align-self: center;
+          position: relative;
+          &:hover::before {
+            font-family: 'PixelMplus10';
+            content: '▶';
+            position: absolute;
+            top: 0;
+            left: -1.45rem;
+            font-size: 1.25rem;
+            align-self: center;
+          }
         }
       }
       .icon-links {

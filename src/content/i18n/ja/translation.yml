@@ -1,10 +1,17 @@
-blog_name: 凪の小屋
+website: &website 凪の小屋
+author: &author 凪
+back_to_top: &back_to_top トップに戻る
+blog: &blog ブログ
+news: &news ニュース
+about: &about 運営者
+
+blog_name: *website
 nav:
   nav_links:
     home: ホーム
-    blog: ブログ
-    news: ニュース
-    about: 運営者
+    blog: *blog
+    news: *news
+    about: *about
 pager:
   left_arrow_label: 前のページ
   right_arrow_label: 次のページ
@@ -19,7 +26,7 @@ toc:
 bulleting_board:
   no_news: 最新ニュースはありません。
 message:
-  fallback_icon_alt: 凪
+  fallback_icon_alt: *author
 photo_gallery:
   credit_label: 写真提供元：
 photo_gallery_item:
@@ -28,9 +35,11 @@ svg:
   not_found_message: が見つかりませんでした
   invalid_error_message: 無効なSVGファイルであるか、SVGタグがありません
 pages:
+  home:
+    greeting_message: ご来訪ありがとうございます！ここでは私が日常の中で得たもの、経験したこと、また内省したことなどについてニュースとブログを通して発信しています。
   blog:
-    title: ブログ
-    back_to_top: トップに戻る
+    title: *blog
+    back_to_top: *back_to_top
     scroll_to_top: ページ上部へ
     hero_image_label: ヒーローイメージ：
     categories:
@@ -43,13 +52,13 @@ pages:
       title: アーカイブ
       back_to_top: アーカイブ一覧
   news:
-    title: ニュース
+    title: *news
     back_to_top: ニュース一覧
     scroll_to_top: ページ上部へ
   about:
-    title: 運営者
-    my_name: 凪
+    title: *about
+    my_name: *author
     profile_img_alt: プロフィール画像
   not_found:
     message: ページが見つかりませんでした
-    back_to_top: トップに戻る
+    back_to_top: *back_to_top

@@ -1,7 +1,8 @@
 {
   "files.associations": {
     "*.css": "css",
-    "css": "css"
+    "css": "css",
+    "*.mdx": "markdown"
   },
   "[markdown]": {
     "editor.fontSize": 14,

@@ -112,6 +112,9 @@ const i18n = defineCollection({
       invalid_error_message: z.string(),
     }),
     pages: z.object({
+      home: z.object({
+        greeting_message: z.string(),
+      }),
       blog: z.object({
         title: z.string(),
         back_to_top: z.string(),

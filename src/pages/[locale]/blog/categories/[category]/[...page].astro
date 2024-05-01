@@ -20,7 +20,8 @@ export const getStaticPaths = (async ({ paginate }) => {
       const displayEntries = entries.filter(
         (entry) =>
           entry.data.category === category &&
-          entry.slug.slice(0, entry.slug.indexOf('/')) === lang
+          entry.slug.slice(0, entry.slug.indexOf('/')) === lang &&
+          entry.data.draft === 'published'
       )
 
       return paginate(displayEntries, {

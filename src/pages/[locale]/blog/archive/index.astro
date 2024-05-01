@@ -13,8 +13,13 @@ export const getStaticPaths = (() => {
 type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
 const entries = await getCollection('blog')
+const publishedEntries = entries.filter(
+  (entry) => entry.data.draft === 'published'
+)
 const dates = [
-  ...new Set(entries.map((entry) => formatArchiveDate(entry.data.publishedAt))),
+  ...new Set(
+    publishedEntries.map((entry) => formatArchiveDate(entry.data.publishedAt))
+  ),
 ].sort((a, b) => Number(b) - Number(a))
 const { locale } = Astro.params
 const meta = await getEntry('meta', `${locale}/site-data`)

@@ -28,18 +28,9 @@ const t = await getEntry('i18n', `${locale}/translation`)
       alt={image ? image.alt : t.data.message.fallback_icon_alt}
       size={90}
     />
-    <!-- <Image
-      class="icon message-icon"
-      src={image ? image.src : ProfileImage}
-      alt={image ? image.alt : t.data.message.fallback_icon_alt}
-      width={90}
-      height={90}
-      format="avif"
-      quality={45}
-    /> -->
     <span>{image ? image.alt : t.data.message.fallback_icon_alt}</span>
   </div>
-  <div class:list={['balloon', `from-${direction}`]}>
+  <div class:list={['balloon', 'pixel-border', `from-${direction}`]}>
     <p>{content}</p>
   </div>
 </div>
@@ -74,12 +65,6 @@ const t = await getEntry('i18n', `${locale}/translation`)
       padding: 0.175rem 0.5rem;
       margin: 0.5rem 0.5rem 1.85rem 0.5rem;
       background-color: var(--bg);
-      border-image-source: url("data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8' ?><svg version='1.1' width='8' height='8' xmlns='http://www.w3.org/2000/svg'><path d='M3 1 h1 v1 h-1 z M4 1 h1 v1 h-1 z M2 2 h1 v1 h-1 z M5 2 h1 v1 h-1 z M1 3 h1 v1 h-1 z M6 3 h1 v1 h-1 z M1 4 h1 v1 h-1 z M6 4 h1 v1 h-1 z M2 5 h1 v1 h-1 z M5 5 h1 v1 h-1 z M3 6 h1 v1 h-1 z M4 6 h1 v1 h-1 z' fill='rgb(28, 27, 34)' /></svg>");
-      border: 4px solid var(--fg);
-      border-image-slice: 3;
-      border-image-width: 3;
-      border-image-repeat: repeat;
-      border-image-outset: 2;
       p {
         font-size: 1.05rem;
       }
@@ -152,20 +137,6 @@ const t = await getEntry('i18n', `${locale}/translation`)
     .message {
       .balloon {
         padding: 0.5rem 0.85rem;
-      }
-    }
-  }
-  :global(.dark) {
-    .message {
-      .balloon {
-        border-image-source: url("data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8' ?><svg version='1.1' width='8' height='8' xmlns='http://www.w3.org/2000/svg'><path d='M3 1 h1 v1 h-1 z M4 1 h1 v1 h-1 z M2 2 h1 v1 h-1 z M5 2 h1 v1 h-1 z M1 3 h1 v1 h-1 z M6 3 h1 v1 h-1 z M1 4 h1 v1 h-1 z M6 4 h1 v1 h-1 z M2 5 h1 v1 h-1 z M5 5 h1 v1 h-1 z M3 6 h1 v1 h-1 z M4 6 h1 v1 h-1 z' fill='rgb(246.59, 246.59, 246.59)' /></svg>");
-      }
-    }
-  }
-  @media (prefers-color-scheme: dark) {
-    .message {
-      .balloon {
-        border-image-source: url("data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8' ?><svg version='1.1' width='8' height='8' xmlns='http://www.w3.org/2000/svg'><path d='M3 1 h1 v1 h-1 z M4 1 h1 v1 h-1 z M2 2 h1 v1 h-1 z M5 2 h1 v1 h-1 z M1 3 h1 v1 h-1 z M6 3 h1 v1 h-1 z M1 4 h1 v1 h-1 z M6 4 h1 v1 h-1 z M2 5 h1 v1 h-1 z M5 5 h1 v1 h-1 z M3 6 h1 v1 h-1 z M4 6 h1 v1 h-1 z' fill='rgb(246.59, 246.59, 246.59)' /></svg>");
       }
     }
   }

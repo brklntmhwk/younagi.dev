@@ -5,4 +5,4 @@ export const NEWS_MAXIMUM_COUNT = 3
 export const DEFAULT_PHOTO_COUNT = 6
 export const ACCOUNT_ID = 'brklntmhwk'
 export const UNSPLASH_BASE_URL = 'https://unsplash.com'
-export const GITHUB_BASE_URL = 'https://unsplash.com'
+export const GITHUB_BASE_URL = 'https://github.com'

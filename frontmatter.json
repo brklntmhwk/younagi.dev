@@ -50,6 +50,7 @@
       "published"
     ]
   },
+  "frontMatter.taxonomy.seoTitleLength": 72,
   "frontMatter.taxonomy.contentTypes": [
     {
       "name": "blog",

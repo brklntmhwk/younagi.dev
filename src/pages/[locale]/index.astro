@@ -35,6 +35,7 @@ const latestNews = news.slice(0, NEWS_MAXIMUM_COUNT)
   <main data-pagefind-ignore="all">
     <BulletinBoard newsList={latestNews} />
     <Message direction="right" content={t.data.pages.home.greeting_message} />
+    <h2>{t.data.pages.home.photo_gallery_title}</h2>
     <PhotoGallery {photos} />
   </main>
 </BaseLayout>

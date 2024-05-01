@@ -37,6 +37,7 @@ svg:
 pages:
   home:
     greeting_message: Thank you for visiting my website! Here, I offer what I acquire, experience, or reflect on my daily lives, by posting news and articles every so often.
+    photo_gallery_title: Recently uploaded photos
   blog:
     title: *blog
     back_to_top: *back_to_top

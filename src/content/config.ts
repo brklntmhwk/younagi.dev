@@ -114,6 +114,7 @@ const i18n = defineCollection({
     pages: z.object({
       home: z.object({
         greeting_message: z.string(),
+        photo_gallery_title: z.string(),
       }),
       blog: z.object({
         title: z.string(),

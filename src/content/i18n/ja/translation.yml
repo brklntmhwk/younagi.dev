@@ -37,6 +37,7 @@ svg:
 pages:
   home:
     greeting_message: ご来訪ありがとうございます！ここでは私が日常の中で得たもの、経験したこと、また内省したことなどについてニュースとブログを通して発信しています。
+    photo_gallery_title: 最近の投稿写真
   blog:
     title: *blog
     back_to_top: *back_to_top

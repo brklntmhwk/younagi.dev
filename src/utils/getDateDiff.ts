@@ -9,7 +9,7 @@ export const getDateDiff = (date: Date, locale: keyof typeof languages) => {
   if (isWithinDay) {
     diffDate = Math.floor(diffMilliSec / 1000 / 60 / 60)
     displayDiff = new Intl.RelativeTimeFormat(locale, {
-      style: 'short',
+      style: 'long',
     }).format(diffDate, 'hour')
   } else {
     diffDate = Math.floor(diffMilliSec / 1000 / 60 / 60 / 24)

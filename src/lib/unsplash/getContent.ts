@@ -1,6 +1,6 @@
 import type { Basic } from 'unsplash-js/dist/methods/photos/types'
 import { unsplashApiClient } from '@/lib/unsplash/client'
-import { DEFAULT_PHOTO_COUNT } from '@/consts'
+import { DEFAULT_PHOTO_COUNT, ACCOUNT_ID } from '@/consts'
 
 export type UnsplashPhotoData =
   | {
@@ -12,7 +12,7 @@ export type UnsplashPhotoData =
 export const getPhotos = (pageNum?: number) =>
   unsplashApiClient.users
     .getPhotos({
-      username: 'brklntmhwk',
+      username: ACCOUNT_ID,
       page: 1,
       perPage: pageNum ?? DEFAULT_PHOTO_COUNT,
     })
@@ -32,16 +32,26 @@ export const getPhoto = async (photoId: string) => {
   return photo
 }
 
+export const getPhotographer = () =>
+  unsplashApiClient.users.get({ username: ACCOUNT_ID }).then((res) => {
+    if (res.errors) {
+      console.error('error occurred when trying to get my user data..')
+      throw new Error('error occurred when trying to get my user data..')
+    } else {
+      return res.response
+    }
+  })
+
 export const getRandomPhoto = () =>
   unsplashApiClient.photos.getRandom({
-    username: 'brklntmhwk',
+    username: ACCOUNT_ID,
     count: 1,
   })
 
 export const getCollections = () =>
   unsplashApiClient.users
     .getCollections({
-      username: 'brklntmhwk',
+      username: ACCOUNT_ID,
       page: 1,
       perPage: 5,
     })

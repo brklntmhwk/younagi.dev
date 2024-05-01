@@ -33,9 +33,9 @@ const { title, description, og } = Astro.props
     </div>
     <style>
       .base-wrapper {
-        min-height: 100vh;
+        min-height: 100dvh;
         margin: 0 auto;
-        padding-top: 3.75rem;
+        padding: 3.75rem 0 0 0;
         display: grid;
         grid-template-rows: 1fr auto;
         grid-template-columns: 100%;
@@ -50,7 +50,7 @@ const { title, description, og } = Astro.props
       }
       @media (min-width: 1024px) {
         .base-wrapper {
-          padding-top: 0;
+          padding: 0;
           margin: 0;
           grid-template-columns: 18rem 1fr;
           grid-auto-rows: minmax(100px, auto);

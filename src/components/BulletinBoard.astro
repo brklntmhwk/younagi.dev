@@ -35,7 +35,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
   .bulletin-board {
     position: relative;
     margin: 0 auto;
-    max-width: 60rem;
+    max-width: unset;
     width: 100%;
     box-sizing: border-box;
     overflow-x: hidden;
@@ -67,7 +67,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
         margin: 0 5rem 0 0;
         color: var(--bulletin-board-fg);
         font-size: 1.65rem;
-        letter-spacing: 0.175rem;
+        letter-spacing: 0.125rem;
         text-shadow: 0 0 4px;
         a {
           color: var(--bulletin-board-fg);
@@ -83,6 +83,11 @@ const t = await getEntry('i18n', `${locale}/translation`)
           font-size: 1.85rem;
         }
       }
+    }
+  }
+  @media (min-width: 1024px) {
+    .bulletin-board {
+      max-width: 80rem;
     }
   }
   @keyframes bulletinRoll {

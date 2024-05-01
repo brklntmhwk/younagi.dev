@@ -43,6 +43,8 @@ jobs:
         run: yarn install --immutable --immutable-cache --check-cache --inline-builds
       - name: Build project
         run: yarn run build
+        env:
+          UNSPLASH_API_ACCESS_KEY: ${{ secrets.UNSPLASH_API_ACCESS_KEY }}
       - name: Generate search index
         run: npx pagefind --site dist
       - name: Publish to Cloudflare Pages

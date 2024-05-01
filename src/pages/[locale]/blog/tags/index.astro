@@ -11,16 +11,18 @@ export const getStaticPaths = (() => {
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
+const { locale } = Astro.params
+const meta = await getEntry('meta', `${locale}/site-data`)
+const t = await getEntry('i18n', `${locale}/translation`)
 const entries = await getCollection('blog')
 const publishedEntries = entries.filter(
-  (entry) => entry.data.draft === 'published'
+  (entry) =>
+    entry.slug.slice(0, entry.slug.indexOf('/')) === locale &&
+    entry.data.draft === 'published'
 )
 const tags = [
   ...new Set(publishedEntries.flatMap((entry) => entry.data.tags ?? [])),
 ]
-const { locale } = Astro.params
-const meta = await getEntry('meta', `${locale}/site-data`)
-const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
 <BaseLayout

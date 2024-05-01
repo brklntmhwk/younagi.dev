@@ -6,6 +6,7 @@ import BlogList from '@/components/BlogList.astro'
 import Pager from '@/components/Pager.astro'
 import { LIMIT_PER_PAGE } from '@/consts'
 import { langList } from '@/i18n/data'
+import { slugify } from '@/utils/slugify'
 
 export const getStaticPaths = (async ({ paginate }) => {
   const entries = (await getCollection('blog')).sort(
@@ -23,10 +24,11 @@ export const getStaticPaths = (async ({ paginate }) => {
           entry.slug.slice(0, entry.slug.indexOf('/')) === lang &&
           entry.data.draft === 'published'
       )
+      const categorySlug = slugify(category)
 
       return paginate(displayEntries, {
         pageSize: LIMIT_PER_PAGE,
-        params: { locale: lang, category },
+        params: { locale: lang, category: categorySlug },
       })
     })
   })

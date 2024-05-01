@@ -1,5 +1,6 @@
 ---
 import { getLocaleFromUrl } from '@/i18n/utils'
+import { slugify } from '@/utils/slugify'
 
 type Props = {
   taxonomyList: string[]
@@ -8,6 +9,7 @@ type Props = {
 
 const locale = getLocaleFromUrl(Astro.url)
 const { taxonomyList, kind } = Astro.props
+const taxonomySlugList = taxonomyList.flatMap((taxonomy) => slugify(taxonomy))
 ---
 
 <ul
@@ -20,7 +22,7 @@ const { taxonomyList, kind } = Astro.props
   ]}
 >
   {
-    taxonomyList.flatMap((taxonomy) => (
+    taxonomySlugList.flatMap((taxonomy) => (
       <li>
         <a href={`/${locale}/blog/${kind}/${taxonomy}/`}>
           {kind === 'tags' ? `#${taxonomy}` : taxonomy}

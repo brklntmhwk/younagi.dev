@@ -32,6 +32,7 @@ pages:
     title: Blog
     back_to_top: Back to Top
     scroll_to_top: Scroll to Top
+    hero_image_label: The hero image of
     categories:
       title: Categories
       back_to_top: Back to Category List

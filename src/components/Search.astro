@@ -22,8 +22,8 @@ const { 'data-border-image-url': borderImageUrl } = Astro.props
   type="button"
   id="search-icon-button"
   title={t.data.search.button_label}
+  aria-label={t.data.search.button_label}
 >
-  <span class="sr-only">{t.data.search.button_label}</span>
   <Svg iconName="magnifier" width={32} height={32} />
 </button>
 <style define:vars={{ borderImageUrl }}>

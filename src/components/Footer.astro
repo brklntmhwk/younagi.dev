@@ -13,17 +13,23 @@ const year = new Date().getFullYear()
   &copy; {year}
   {t.data.blog_name}. All rights reserved.
   <div class="social-links">
-    <a href={`${GITHUB_BASE_URL}/${ACCOUNT_ID}`} title="Github" target="_blank">
+    <a
+      href={`${GITHUB_BASE_URL}/${ACCOUNT_ID}`}
+      title="Github"
+      target="_blank"
+      aria-label="Github"
+    >
       <Svg iconName="github" width={32} height={32} />
     </a>
     <a
       href={`${UNSPLASH_BASE_URL}/@${ACCOUNT_ID}`}
       title="Unsplash"
       target="_blank"
+      aria-label="Unsplash"
     >
       <Svg iconName="unsplash" width={32} height={32} />
     </a>
-    <a href={`/${locale}/rss.xml`} title="RSS">
+    <a href={`/${locale}/rss.xml`} title="RSS" aria-label="RSS">
       <Svg iconName="rss" width={32} height={32} />
     </a>
   </div>

@@ -29,11 +29,11 @@ const { 'data-border-image-url': borderImageUrl } = Astro.props
   </div>
 </div>
 <button
+  aria-label={t.data.locale_picker.button_label}
   type="button"
   id="lang-icon-button"
   title={t.data.locale_picker.button_label}
 >
-  <span class="sr-only">{t.data.locale_picker.button_label}</span>
   <Svg iconName="alphabet" width={32} height={32} />
 </button>
 <style define:vars={{ borderImageUrl }}>

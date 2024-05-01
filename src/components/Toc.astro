@@ -29,8 +29,11 @@ const { headings, 'data-border-image-url': borderImageUrl } = Astro.props
           </ul>
         </div>
       </div>
-      <button type="button" id="toc-icon-button">
-        <span class="sr-only">{t.data.locale_picker.button_label}</span>
+      <button
+        type="button"
+        id="toc-icon-button"
+        aria-label={t.data.locale_picker.button_label}
+      >
         <Svg iconName="toc" width={32} height={32} />
         <span>{t.data.toc.button_label}</span>
       </button>

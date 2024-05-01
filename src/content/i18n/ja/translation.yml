@@ -32,6 +32,7 @@ pages:
     title: ブログ
     back_to_top: トップに戻る
     scroll_to_top: ページ上部へ
+    hero_image_label: ヒーローイメージ：
     categories:
       title: カテゴリー
       back_to_top: カテゴリ一覧

@@ -49,7 +49,12 @@ const t = await getEntry('i18n', `${locale}/translation`)
         <div class="hero-image">
           {
             heroImage && (
-              <img width={1020} height={510} src={heroImage} alt="" />
+              <img
+                width={1020}
+                height={510}
+                src={heroImage}
+                alt={`${t.data.pages.blog.hero_image_label} ${title}`}
+              />
             )
           }
         </div>

@@ -55,14 +55,12 @@ const { photos } = Astro.props
     .photo-gallery {
       display: grid;
       align-items: flex-start;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(9.875rem, 1fr));
       grid-auto-flow: row dense;
       gap: 1.5rem;
-      /* columns: 2;
-      column-gap: 1.5rem; */
     }
   }
-  /* @media (min-width: 768px) {
+  @media (min-width: 768px) {
     .photo-gallery-wrapper {
       aside {
         p {
@@ -70,6 +68,7 @@ const { photos } = Astro.props
         }
       }
       .photo-gallery {
+        display: unset;
         columns: 3;
       }
     }
@@ -87,5 +86,5 @@ const { photos } = Astro.props
         columns: 3;
       }
     }
-  } */
+  }
 </style>

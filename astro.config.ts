@@ -2,6 +2,8 @@ import { defineConfig } from 'astro/config'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import purgecss from 'astro-purgecss'
+import browserslist from 'browserslist'
+import { Features, browserslistToTargets } from 'lightningcss'
 import { h } from 'hastscript'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
@@ -52,6 +54,8 @@ export default defineConfig({
         drafts: {
           customMedia: true,
         },
+        exclude: Features.VendorPrefixes,
+        targets: browserslistToTargets(browserslist('>= 0.1%')),
       },
     },
   },

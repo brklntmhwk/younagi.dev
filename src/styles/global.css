@@ -185,8 +185,7 @@ hr {
 }
 .glassmorphism {
   background: var(--glass-bg);
-  backdrop-filter: blur(6px);
-  /* -webkit-backdrop-filter: blur(6px); */
+  backdrop-filter: blur(6px) saturate(180%);
 }
 .sr-only {
   border: 0;

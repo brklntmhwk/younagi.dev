@@ -6,3 +6,4 @@ export const DEFAULT_PHOTO_COUNT = 6
 export const ACCOUNT_ID = 'brklntmhwk'
 export const UNSPLASH_BASE_URL = 'https://unsplash.com'
 export const GITHUB_BASE_URL = 'https://github.com'
+export const SHOW_DRAFT_PAGES_IN_DEV = true

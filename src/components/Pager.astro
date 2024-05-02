@@ -4,7 +4,7 @@ import { getEntry } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
 import Svg from '@/components/Svg/index.astro'
 import { DEFAULT_PAGINATION_WIDTH } from '@/consts'
-import { getLocaleFromUrl } from '@/i18n/utils'
+import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 
 type Props = {
   page?: Page<CollectionEntry<'blog' | 'news'>>

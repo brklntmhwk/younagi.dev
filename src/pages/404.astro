@@ -1,7 +1,7 @@
 ---
 import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import { getLocaleFromUrl } from '@/i18n/utils'
+import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 
 const locale = getLocaleFromUrl(Astro.url)
 const t = await getEntry('i18n', `${locale}/translation`)

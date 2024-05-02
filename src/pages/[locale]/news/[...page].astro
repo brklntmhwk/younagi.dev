@@ -6,18 +6,15 @@ import Pager from '@/components/Pager.astro'
 import FormattedDate from '@/components/FormattedDate.astro'
 import Svg from '@/components/Svg/index.astro'
 import { LIMIT_PER_PAGE } from '@/consts'
-import { langList } from '@/i18n/data'
+import { langList } from '@/utils/i18n/data'
+import { getPublishedSortedEntries } from '@/lib/content'
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const entries = (await getCollection('news')).sort(
-    (a, b) => a.data.publishedAt.valueOf() - b.data.publishedAt.valueOf()
-  )
+  const entries = getPublishedSortedEntries(await getCollection('news'))
 
   return langList.flatMap((lang) => {
     const displayEntries = entries.filter(
-      (entry) =>
-        entry.slug.slice(0, entry.slug.indexOf('/')) === lang &&
-        entry.data.draft === 'published'
+      (entry) => entry.slug.slice(0, entry.slug.indexOf('/')) === lang
     )
 
     return paginate(displayEntries, {

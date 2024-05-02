@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content'
 import { getEntry } from 'astro:content'
-import { getLocaleFromUrl } from '@/i18n/utils'
+import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 
 type Props = {
   newsList: CollectionEntry<'news'>[]

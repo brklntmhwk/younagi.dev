@@ -7,7 +7,8 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 import FormattedDate from '../components/FormattedDate.astro'
 import Toc from '@/components/Toc.astro'
 import Svg from '@/components/Svg/index.astro'
-import { getLocaleFromUrl } from '@/i18n/utils'
+import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+import { slugify } from '@/utils/slugify'
 
 type Props = {
   entry: CollectionEntry<'blog'>
@@ -74,7 +75,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
         </div>
         <h1 class="entry-title">{title}</h1>
         <section class="taxonomies">
-          <a href={`/${locale}/${collection}/categories/${category}/`}
+          <a href={`/${locale}/${collection}/categories/${slugify(category)}/`}
             >{category}</a
           >
           {
@@ -82,7 +83,9 @@ const t = await getEntry('i18n', `${locale}/translation`)
               <ul class="tag-list">
                 {tags.map((tag) => (
                   <li>
-                    <a href={`/${locale}/${collection}/tags/${tag}/`}>#{tag}</a>
+                    <a href={`/${locale}/${collection}/tags/${slugify(tag)}/`}>
+                      #{tag}
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -219,6 +222,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
         text-align: center;
         margin: 1.25rem 0;
         & :global(th, td) {
+          font-size: 1.025rem;
           border: 2px solid var(--line);
           padding: 0.5rem 0.65rem;
         }

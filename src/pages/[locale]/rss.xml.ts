@@ -1,8 +1,7 @@
 import rss from '@astrojs/rss'
 import type { APIContext } from 'astro'
-import { getCollection } from 'astro:content'
-import { getEntry } from 'astro:content'
-import { langList } from '@/i18n/data'
+import { getCollection, getEntry } from 'astro:content'
+import { langList } from '@/utils/i18n/data'
 
 export function getStaticPaths() {
   return langList.map((lang) => ({ params: { locale: lang } }))

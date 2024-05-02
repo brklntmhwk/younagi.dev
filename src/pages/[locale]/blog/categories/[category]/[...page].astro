@@ -5,13 +5,12 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 import BlogList from '@/components/BlogList.astro'
 import Pager from '@/components/Pager.astro'
 import { LIMIT_PER_PAGE } from '@/consts'
-import { langList } from '@/i18n/data'
+import { langList } from '@/utils/i18n/data'
 import { slugify } from '@/utils/slugify'
+import { getPublishedSortedEntries } from '@/lib/content'
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const entries = (await getCollection('blog')).sort(
-    (a, b) => a.data.publishedAt.valueOf() - b.data.publishedAt.valueOf()
-  )
+  const entries = getPublishedSortedEntries(await getCollection('blog'))
   const categories = [
     ...new Set(entries.flatMap((entry) => entry.data.category)),
   ]
@@ -21,8 +20,7 @@ export const getStaticPaths = (async ({ paginate }) => {
       const displayEntries = entries.filter(
         (entry) =>
           entry.data.category === category &&
-          entry.slug.slice(0, entry.slug.indexOf('/')) === lang &&
-          entry.data.draft === 'published'
+          entry.slug.slice(0, entry.slug.indexOf('/')) === lang
       )
       const categorySlug = slugify(category)
 

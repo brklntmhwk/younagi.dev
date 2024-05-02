@@ -2,7 +2,7 @@
 import type { MarkdownHeading } from 'astro'
 import { getEntry } from 'astro:content'
 import Svg from '@/components/Svg/index.astro'
-import { getLocaleFromUrl } from '@/i18n/utils'
+import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 import { TOC_MINIMUM_COUNT } from '@/consts'
 
 type Props = {
@@ -178,5 +178,4 @@ const { headings, 'data-border-image-url': borderImageUrl } = Astro.props
 
   document.addEventListener('DOMContentLoaded', init)
   document.addEventListener('astro:page-load', init)
-  // document.addEventListener('astro:after-swap', init)
 </script>

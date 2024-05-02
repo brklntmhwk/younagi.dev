@@ -6,12 +6,12 @@ import BlogList from '@/components/BlogList.astro'
 import Pager from '@/components/Pager.astro'
 import { LIMIT_PER_PAGE } from '@/consts'
 import { formatArchiveDate } from '@/utils/formatArchiveDate'
-import { langList } from '@/i18n/data'
+import { langList } from '@/utils/i18n/data'
+import { getPublishedSortedEntries } from '@/lib/content'
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const entries = (await getCollection('blog')).sort(
-    (a, b) => a.data.publishedAt.valueOf() - b.data.publishedAt.valueOf()
-  )
+  const entries = getPublishedSortedEntries(await getCollection('blog'))
+
   const dates = [
     ...new Set(
       entries.map((entry) => formatArchiveDate(entry.data.publishedAt))
@@ -23,8 +23,7 @@ export const getStaticPaths = (async ({ paginate }) => {
       const displayEntries = entries.filter(
         (entry) =>
           formatArchiveDate(entry.data.publishedAt) === date &&
-          entry.slug.slice(0, entry.slug.indexOf('/')) === lang &&
-          entry.data.draft === 'published'
+          entry.slug.slice(0, entry.slug.indexOf('/')) === lang
       )
 
       return paginate(displayEntries, {

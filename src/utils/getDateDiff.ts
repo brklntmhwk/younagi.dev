@@ -1,4 +1,4 @@
-import { languages } from '@/i18n/data'
+import { languages } from '@/utils/i18n/data'
 
 export const getDateDiff = (date: Date, locale: keyof typeof languages) => {
   let diffDate: number

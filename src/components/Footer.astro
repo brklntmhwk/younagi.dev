@@ -1,7 +1,7 @@
 ---
 import { getEntry } from 'astro:content'
 import Svg from '@/components/Svg/index.astro'
-import { getLocaleFromUrl } from '@/i18n/utils'
+import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 import { UNSPLASH_BASE_URL, GITHUB_BASE_URL, ACCOUNT_ID } from '@/consts'
 
 const locale = getLocaleFromUrl(Astro.url)

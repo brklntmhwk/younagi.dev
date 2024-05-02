@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets'
 import { getEntry } from 'astro:content'
 import type { Basic as Photo } from 'unsplash-js/dist/methods/photos/types'
-import { getLocaleFromUrl } from '@/i18n/utils'
+import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 import { toSnakeCase } from '@/utils/toSnakeCase'
 import { getDateDiff } from '@/utils/getDateDiff'
 import ProfileIcon from '@/components/ProfileIcon.astro'

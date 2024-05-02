@@ -2,7 +2,8 @@
 import type { CollectionEntry } from 'astro:content'
 import FormattedDate from '@/components/FormattedDate.astro'
 import Svg from '@/components/Svg/index.astro'
-import { getLocaleFromUrl } from '@/i18n/utils'
+import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+import { slugify } from '@/utils/slugify'
 
 type Props = {
   entries: CollectionEntry<'blog'>[]
@@ -39,13 +40,19 @@ const { entries, kind } = Astro.props
           <span>{entry.data.description}</span>
           {kind === 'blog' && (
             <section class="taxonomies">
-              <a href={`/${locale}/blog/categories/${entry.data.category}/`}>
+              <a
+                href={`/${locale}/${entry.collection}/categories/${slugify(entry.data.category)}/`}
+              >
                 {entry.data.category}
               </a>
               <ul class="tag-list">
                 {entry.data.tags?.map((tag) => (
                   <li>
-                    <a href={`/${locale}/blog/tags/${tag}/`}>#{tag}</a>
+                    <a
+                      href={`/${locale}/${entry.collection}/tags/${slugify(tag)}/`}
+                    >
+                      #{tag}
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -57,29 +64,13 @@ const { entries, kind } = Astro.props
   }
 </ul>
 <style>
-  a.blog-title {
-    color: var(--fg);
-    font-size: 1.5rem;
-    font-weight: 700;
-    line-height: 1.35;
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-      text-underline-offset: 6px;
-    }
-  }
-  @media (min-width: 768px) {
-    a.blog-title {
-      font-size: 1.85rem;
-    }
-  }
   ul.entry-list {
     display: grid;
     gap: 1.75rem;
     padding: 0;
     article {
       position: relative;
-      padding: 0 0.25rem 0 0.85rem;
+      padding: 1rem 0.25rem 0.5rem 0.85rem;
       border-top: 4px solid var(--pixel-border);
       border-right: 2px solid var(--pixel-border);
       border-bottom: 2px solid var(--pixel-border);
@@ -101,6 +92,17 @@ const { entries, kind } = Astro.props
         border-radius: 0.5rem;
         z-index: -1;
       }
+      a.blog-title {
+        color: var(--fg);
+        font-size: 1.5rem;
+        font-weight: 700;
+        line-height: 1.35;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+          text-underline-offset: 6px;
+        }
+      }
       section.date,
       span,
       section.taxonomies {
@@ -109,7 +111,6 @@ const { entries, kind } = Astro.props
       section.date {
         display: flex;
         gap: 0.85rem;
-        padding-top: 1rem;
         div {
           display: flex;
           align-items: center;
@@ -136,6 +137,15 @@ const { entries, kind } = Astro.props
           li {
             list-style: none;
           }
+        }
+      }
+    }
+  }
+  @media (min-width: 768px) {
+    ul.entry-list {
+      article {
+        a.blog-title {
+          font-size: 1.85rem;
         }
       }
     }

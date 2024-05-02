@@ -4,7 +4,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getCollection, getEntry } from 'astro:content'
 import TaxonomyList from '@/components/TaxonomyList.astro'
 import { formatArchiveDate } from '@/utils/formatArchiveDate'
-import { langList } from '@/i18n/data'
+import { langList } from '@/utils/i18n/data'
 
 export const getStaticPaths = (() => {
   return langList.map((lang) => ({ params: { locale: lang } }))

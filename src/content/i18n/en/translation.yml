@@ -1,6 +1,7 @@
 website: &website younagi.dev
 author: &author Nagi
 back_to_top: &back_to_top Back to Top
+scroll_to_top: &scroll_to_top Scroll to Top
 blog: &blog Blog
 news: &news News
 about: &about About
@@ -41,7 +42,7 @@ pages:
   blog:
     title: *blog
     back_to_top: *back_to_top
-    scroll_to_top: Scroll to Top
+    scroll_to_top: *scroll_to_top
     hero_image_label: The hero image of
     categories:
       title: Categories
@@ -55,11 +56,14 @@ pages:
   news:
     title: *news
     back_to_top: Back to News List
-    scroll_to_top: Scroll to Top
+    scroll_to_top: *scroll_to_top
   about:
     title: *about
     my_name: *author
     profile_img_alt: My profile image
+  page:
+    back_to_top: *back_to_top
+    scroll_to_top: *scroll_to_top
   not_found:
     message: Page Not Found
     back_to_top: *back_to_top

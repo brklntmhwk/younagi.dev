@@ -144,6 +144,10 @@ const i18n = defineCollection({
         my_name: z.string(),
         profile_img_alt: z.string(),
       }),
+      page: z.object({
+        back_to_top: z.string(),
+        scroll_to_top: z.string(),
+      }),
       not_found: z.object({
         message: z.string(),
         back_to_top: z.string(),

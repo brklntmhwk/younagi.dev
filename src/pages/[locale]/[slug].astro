@@ -2,7 +2,8 @@
 import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
 import { getCollection } from 'astro:content'
 import AboutLayout from '@/layouts/AboutLayout.astro'
-import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageLayout from '@/layouts/PageLayout.astro'
+import FormattedDate from '@/components/FormattedDate.astro'
 import Figure from '@/components/elements/Figure.astro'
 import Image from '@/components/elements/Image.astro'
 import Message from '@/components/Message.astro'
@@ -31,6 +32,7 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>
 export const components = {
   img: Image,
   figure: Figure,
+  FormattedDate,
   Message,
 }
 
@@ -44,14 +46,8 @@ const { Content } = await page.render()
       <Content components={components} />
     </AboutLayout>
   ) : (
-    <BaseLayout
-      title={page.data.title}
-      description={page.data.description ?? ''}
-      og={{ show: true }}
-    >
-      <main data-pagefind-ignore="all">
-        <Content components={components} />
-      </main>
-    </BaseLayout>
+    <PageLayout page={page}>
+      <Content components={components} />
+    </PageLayout>
   )
 }

@@ -1,3 +1,3 @@
-# Astro Blog
+# younagi.dev
 
 Personal website & blog

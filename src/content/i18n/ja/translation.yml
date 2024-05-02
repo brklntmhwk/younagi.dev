@@ -1,4 +1,4 @@
-website: &website 凪の小屋
+website: &website younagi.dev
 author: &author 凪
 back_to_top: &back_to_top トップに戻る
 blog: &blog ブログ

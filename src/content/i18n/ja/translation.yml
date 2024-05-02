@@ -1,6 +1,7 @@
 website: &website younagi.dev
 author: &author 凪
 back_to_top: &back_to_top トップに戻る
+scroll_to_top: &scroll_to_top ページ上部へ
 blog: &blog ブログ
 news: &news ニュース
 about: &about 運営者
@@ -41,7 +42,7 @@ pages:
   blog:
     title: *blog
     back_to_top: *back_to_top
-    scroll_to_top: ページ上部へ
+    scroll_to_top: *scroll_to_top
     hero_image_label: ヒーローイメージ：
     categories:
       title: カテゴリー
@@ -55,11 +56,14 @@ pages:
   news:
     title: *news
     back_to_top: ニュース一覧
-    scroll_to_top: ページ上部へ
+    scroll_to_top: *scroll_to_top
   about:
     title: *about
     my_name: *author
     profile_img_alt: プロフィール画像
+  page:
+    back_to_top: *back_to_top
+    scroll_to_top: *scroll_to_top
   not_found:
     message: ページが見つかりませんでした
     back_to_top: *back_to_top

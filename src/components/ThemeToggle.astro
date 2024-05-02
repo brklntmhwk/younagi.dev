@@ -70,6 +70,9 @@ const t = await getEntry('i18n', `${locale}/translation`)
     if (themeButton) themeButton.addEventListener('click', handleToggleClick)
   }
 
-  document.addEventListener('DOMContentLoaded', init)
-  document.addEventListener('astro:after-swap', init)
+  const eventsToBeAdded = ['DOMContentLoaded', 'astro:after-swap']
+
+  eventsToBeAdded.forEach((evName) => {
+    document.addEventListener(evName, init)
+  })
 </script>

@@ -127,6 +127,13 @@ const { 'data-border-image-url': borderImageUrl } = Astro.props
     }
   }
 
-  document.addEventListener('DOMContentLoaded', initPagefind)
-  document.addEventListener('astro:after-swap', initPagefind)
+  const eventsToBeAdded = [
+    'DOMContentLoaded',
+    'astro:after-swap',
+    'visibilitychange',
+  ]
+
+  eventsToBeAdded.forEach((evName) => {
+    document.addEventListener(evName, initPagefind)
+  })
 </script>

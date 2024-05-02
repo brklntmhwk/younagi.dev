@@ -43,8 +43,8 @@ export const { getStaticPaths, GET } = OGImageRoute({
         },
       },
       logo: {
-        path: './src/assets/images/hitokage.png',
-        size: [70, 70],
+        path: './src/assets/images/logo.png',
+        size: [90, 90],
       },
       fonts: ['./src/assets/fonts/PixelMplus10-Regular.woff2'],
     }

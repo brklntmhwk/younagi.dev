@@ -98,7 +98,12 @@ const t = await getEntry('i18n', `${locale}/translation`)
 
   const preferredTheme = isDarkPreferred ? 'dark' : 'light'
 
-  const eventsToBeAdded = ['DOMContentLoaded', 'astro:after-swap'] as const
+  const eventsToBeAdded = [
+    'DOMContentLoaded',
+    // 'astro:after-swap',
+    'astro:page-load',
+    'visibilitychange',
+  ] as const
 
   eventsToBeAdded.forEach((evName) => {
     document.addEventListener(evName, init)

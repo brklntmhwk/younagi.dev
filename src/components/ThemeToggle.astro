@@ -75,12 +75,12 @@ const t = await getEntry('i18n', `${locale}/translation`)
     }
 
     const handleMediaQuery = (e: MediaQueryListEvent | MediaQueryList) => {
-      localStorage.clear()
+      const element = document.documentElement
       if (e.matches) {
-        document.documentElement.classList.add('dark')
+        element.classList.add('dark')
         localStorage.setItem('theme', 'dark')
       } else {
-        document.documentElement.classList.remove('dark')
+        element.classList.remove('dark')
         localStorage.setItem('theme', 'light')
       }
     }
@@ -98,12 +98,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
 
   const preferredTheme = isDarkPreferred ? 'dark' : 'light'
 
-  const eventsToBeAdded = [
-    'DOMContentLoaded',
-    // 'astro:after-swap',
-    'astro:page-load',
-    'visibilitychange',
-  ] as const
+  const eventsToBeAdded = ['DOMContentLoaded', 'astro:after-swap'] as const
 
   eventsToBeAdded.forEach((evName) => {
     document.addEventListener(evName, init)

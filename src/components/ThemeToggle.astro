@@ -36,27 +36,35 @@ const t = await getEntry('i18n', `${locale}/translation`)
   }
 </style>
 <script>
+  type themeType = 'dark' | 'light' | null
+
   function init() {
-    const theme = (() => {
+    const theme = ((): themeType => {
       if (
         typeof localStorage !== 'undefined' &&
         localStorage.getItem('theme')
       ) {
-        return localStorage.getItem('theme')
+        return localStorage.getItem('theme') as themeType
+      } else {
+        return preferredTheme
       }
-      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        return 'dark'
-      }
-      return 'light'
     })()
 
-    if (theme === 'light') {
-      document.documentElement.classList.remove('dark')
-    } else {
-      document.documentElement.classList.add('dark')
+    switch (theme) {
+      case 'light':
+        document.documentElement.classList.remove('dark')
+        break
+      case 'dark':
+        document.documentElement.classList.add('dark')
+        break
+      default:
+        isDarkPreferred
+          ? document.documentElement.classList.add('dark')
+          : document.documentElement.classList.remove('dark')
+        break
     }
 
-    window.localStorage.setItem('theme', theme ?? 'light')
+    window.localStorage.setItem('theme', theme || preferredTheme)
 
     const handleToggleClick = () => {
       const element = document.documentElement
@@ -66,11 +74,28 @@ const t = await getEntry('i18n', `${locale}/translation`)
       localStorage.setItem('theme', isDark ? 'dark' : 'light')
     }
 
+    const handleMediaQuery = (e: MediaQueryListEvent | MediaQueryList) => {
+      if (e.matches) {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
+    }
+
     const themeButton = document.getElementById('theme-toggle-button')
     if (themeButton) themeButton.addEventListener('click', handleToggleClick)
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', handleMediaQuery)
   }
 
-  const eventsToBeAdded = ['DOMContentLoaded', 'astro:after-swap']
+  const isDarkPreferred = window.matchMedia(
+    '(prefers-color-scheme: dark)'
+  ).matches
+
+  const preferredTheme = isDarkPreferred ? 'dark' : 'light'
+
+  const eventsToBeAdded = ['DOMContentLoaded', 'astro:after-swap'] as const
 
   eventsToBeAdded.forEach((evName) => {
     document.addEventListener(evName, init)

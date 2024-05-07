@@ -2,6 +2,7 @@
 import 'katex/dist/katex.min.css'
 import type { MarkdownHeading } from 'astro'
 import type { CollectionEntry } from 'astro:content'
+import { Image } from 'astro:assets'
 import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import FormattedDate from '../components/FormattedDate.astro'
@@ -50,11 +51,12 @@ const t = await getEntry('i18n', `${locale}/translation`)
         <div class="hero-image">
           {
             heroImage && (
-              <img
-                width={1020}
-                height={510}
+              <Image
                 src={heroImage}
+                height={630}
+                width={1200}
                 alt={`${t.data.pages.blog.hero_image_label} ${title}`}
+                loading="eager"
               />
             )
           }

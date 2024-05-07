@@ -1,6 +1,6 @@
 ---
 title: Build a personal blog with Astro, Cloudflare Pages, and Front Matter CMS
-description: I explain how to build a website with Astro, Cloudflare Pages, and FrontMatter CMS. Along the way, some important points are mentioned.
+description: I describe some noteworthy features developed with Astro, Cloudflare Pages, and FrontMatter CMS.
 publishedAt: 2024-05-01T08:57:13.376Z
 modifiedAt: 2024-02-26T05:20:13.043Z
 tags:
@@ -8,37 +8,82 @@ tags:
   - TypeScript
   - JavaScript
 category: Learning
-draft: draft
+draft: published
 type: blog
 heroImage: /src/assets/images/blog-placeholder-1.jpg
 ---
 
 ## TL:DR
 
+- I created my website switching over from Next.js to Astro
+- My Astro website is equipped with some features like dark/light mode toggle, full-text search(Pagefind), internationalization(i18n) and more
+- Cloudflare offers a wide range of support from deployment and getting an own domain to custom email address for it.
+- Front Matter CMS enables you to write an article, tweak code, build and deploy your website in your VS Code editor
+
 ## Intro
+
+As to the topics not covered here, consult other helpful info sources.
+
+If you're interested in the code behind my website, see [my Github repo](https://github.com).
 
 ### What is not covered
 
 - How to launch your project with the Astro starter template
 - How to connect it to Git(Github)
 - How to deploy it on Cloudflare Pages
-- Basic knowledge about Astro
+- How to get an own domain on Cloudflare
+- Basic knowledge about Astro (by extension, JS and TS)
 
 ### What is covered
 
-- Some noteworthy features added with Astro
-- Where and how I obtained my own domain (Cloudflare)
-- Preparation and customization for Front Matter CMS
+- Some noteworthy features developed with Astro
+- Why I chose Cloudflare Pages for deployment
+- Preparation for and customization of Front Matter CMS
 
 ## Main
 
 ### Astro
 
+I avoid using other JS frameworks like React inside Astro and stick to vanilla JS as much as possible. With that in mind, I topped some features, whether necessary or not, on my website.
+
+#### Dark/light mode switch
+
+I was able to develop it thanks to [the official tutorial page](https://docs.astro.build/ja/tutorial/6-islands/2/). (some parts have been modified though)
+
+#### Full text search
+
+I decided to use [Pagefind](https://pagefind.app/), a Rust based static search library. It's lightweight, lightning fast, and easy to use!
+
+#### Internationalization (i18n)
+
+I was able to develop it thanks to [the official doc](https://docs.astro.build/ja/recipes/i18n/).
+
+#### OG Image (Open Graph)
+
+
+
+#### Styling inside articles
+
 ### Front Matter CMS
 
-Along with a choice of framework, what takes you ages to decide is that of CMS(Content Management System). I fell in love with Front Matter CMS.
+Along with a choice of framework, what takes you ages to decide is that of CMS(Content Management System). I fell in love with [Front Matter CMS](https://frontmatter.codes/) for the following reasons:
+
+- Writing and storing articles in local
+- Markdown/MDX file format
+
+It's unlike other headless CMS in that it's a VS Code extension and works in local, in your code editor! This centralizes all the editing work: code tweaks, blog writing, and deployment. I believe it'd especially be a huge advantage to developers.
 
 ### Cloudflare Pages
+
+#### Why Cloudflare?
+
+I decided to use Cloudflare Pages for deploying my website for the following reasons:
+
+- the generous free plan
+- Custom email addresses for your domain available
+- own domains available (paid)
+
+I suppose the free plan suffices for a small project like my website in most cases.
 
 ## Afterword
 
@@ -46,7 +91,7 @@ I spent a tremendous amount of time reading articles about how to create my pers
 
 Among them, I bumped into outstanding and brilliant one above all: Next.js, a framework for React. Since then, I started creating my personal website, simultaneously learning it. After 8 months or so, I successfully built a decent Next.js website.
 
-However, long story short, we broke up finally. How come? It is fascinating in providing a full range of features, handling the backend stuff on behalf of me, and so on, but therein lies the rub; as it upgrades and becomes equipped with a lot more features, it seems to be deviating from the JS standard. Plus, I've found it hard to catch up with those continuously upcoming features. (I barely stuck at it until the App Router...)
+However, long story short, we broke up finally. How come? It's fascinating in providing a full range of features, handling the backend stuff on behalf of me, and so on, but therein lies the rub; as it upgrades and becomes equipped with a lot more features, it seems to be deviating from the JS standard. Plus, I've found it hard to catch up with those continuously upcoming features. (I barely stuck at it until the App Router...)
 
 In the end, I encountered with Astro, a framework for JS frameworks, if you like. What I love most about it is its flexibility; it keeps its functionality to a bare minimum and leaves enough room for your customization. In my case, I avoid using such JS frameworks as React where possible and stick to using vanilla JS(More precisely, TypeScript).
 

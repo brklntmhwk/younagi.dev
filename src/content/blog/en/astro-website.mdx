@@ -86,7 +86,13 @@ import Svg from '@/components/Svg/index.astro'
 <!-- ... -->
 ```
 
+Simply put, it's supposed to:
 
+- check the user's system preference and set the theme accordingly
+  - every time it changes, the theme does so too accordingly
+- toggle the theme when clicked or tapped
+
+Once the `init` function is triggered, the local storage key `theme` is created and the current theme value is stored in it. At the same time, the `dark` class is applied to or removed from to make things coherent.
 
 ```astro title="ThemeToggle.astro"
 <!-- ... -->

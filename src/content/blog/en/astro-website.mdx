@@ -161,6 +161,19 @@ const t = await getEntry('i18n', `${locale}/translation`)
 </script>
 ```
 
+```css title="global.css"
+:root {
+  --fg: hsla(248.57, 11.48%, 11.96%, 1);
+  --bg: hsla(0, 0%, 96.7%, 1);
+  /* ... */
+}
+:root.dark {
+  --fg: hsla(0, 0%, 96.7%, 1);
+  --bg: hsla(248.57, 11.48%, 11.96%, 1);
+  /* ... */
+}
+```
+
 #### Full text search
 
 I decided to use [Pagefind](https://pagefind.app/), a Rust based static search library. It's lightweight, lightning fast, and easy to use!
@@ -282,7 +295,64 @@ Aside from the detailed styling of the blog body part, here I picked up that of 
 
 ##### KaTex
 
+$\KaTeX$ beautifully styles mathematical expressions on a web page. For instance, this turns into...
+
+```Markdown
+$$
+x = {-b \pm \sqrt{b^2-4ac} \over 2a}
+$$
+$$
+( \sum_{k=1}^{n} a_k b_k )^2 \leq ( \sum_{k=1}^{n} {a_k}^2 ) ( \sum_{k=1}^{n} {b_k}^2 )
+$$
+$$
+\int_{0}^{1} f(x) \ dx
+= \lim_{n \to \infty} \dfrac{1}{n} \sum_{k=0}^{n-1} f \left (\dfrac{k}{n} \right)
+$$
+```
+
+this! Very legible, isn't it?
+
+$$
+x = {-b \pm \sqrt{b^2-4ac} \over 2a}
+$$
+$$
+( \sum_{k=1}^{n} a_k b_k )^2 \leq ( \sum_{k=1}^{n} {a_k}^2 ) ( \sum_{k=1}^{n} {b_k}^2 )
+$$
+$$
+\int_{0}^{1} f(x) \ dx
+= \lim_{n \to \infty} \dfrac{1}{n} \sum_{k=0}^{n-1} f \left (\dfrac{k}{n} \right)
+$$
+
+To use $\KaTeX$, I added the `katex`, `rehype-katex`, `remark-math` and `@types/katex` libraries to my project, and then did the following code tweaks.
+
+```typescript title="astro.config.ts" {2,9,13}
+// ...
+import rehypeKatex from 'rehype-katex'
+// ...
+export default defineConfig({
+  // ...
+  markdown: {
+    // ...
+    remarkPlugins: [
+      remarkMath,
+      // ...
+    ],
+    rehypePlugins: [
+      rehypeKatex,
+      // ...
+    ],
+  },
+})
+
+```
+
 ##### Code block
+
+The
+
+```html title="index.html"
+<div>Index.html</div>
+```
 
 ##### Anchor headings
 

@@ -106,12 +106,6 @@
           "isModifiedDate": true
         },
         {
-          "title": "Content preview",
-          "name": "heroImage",
-          "type": "image",
-          "isPreviewImage": true
-        },
-        {
           "title": "type",
           "name": "type",
           "type": "string"

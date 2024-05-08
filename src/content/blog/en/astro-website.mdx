@@ -10,7 +10,6 @@ tags:
 category: Learning
 draft: published
 type: blog
-heroImage: /src/assets/images/blog-placeholder-1.jpg
 ---
 
 ## TL:DR
@@ -52,20 +51,19 @@ I avoid using other JS frameworks like React inside Astro and stick to vanilla J
 
 I was able to develop it thanks to [the official tutorial page](https://docs.astro.build/ja/tutorial/6-islands/2/). (some parts have been modified though)
 
+The points here are the `id` attribute of the `button` element and the `display` styles alternately applied to the `sun` and `moon` classes, both of which will later be used in the JS part.
+
 ```astro title="ThemeToggle.astro"
 ---
-import { getEntry } from 'astro:content'
-import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+// ...
 import Svg from '@/components/Svg/index.astro'
-
-const locale = getLocaleFromUrl(Astro.url)
-const t = await getEntry('i18n', `${locale}/translation`)
+// ...
 ---
 
 <button
   id="theme-toggle-button"
   type="button"
-  title={t.data.theme_toggle.button_label}
+  <!-- ... -->
 >
   <Svg class="sun" iconName="sun" width={32} height={32} />
   <Svg class="moon" iconName="moon" width={32} height={32} />
@@ -87,6 +85,8 @@ const t = await getEntry('i18n', `${locale}/translation`)
 </style>
 <!-- ... -->
 ```
+
+
 
 ```astro title="ThemeToggle.astro"
 <!-- ... -->
@@ -161,6 +161,8 @@ const t = await getEntry('i18n', `${locale}/translation`)
 </script>
 ```
 
+Finally, don't forget to add CSS variables (I'd say they are more of constants though) for both light and dark modes.
+
 ```css title="global.css"
 :root {
   --fg: hsla(248.57, 11.48%, 11.96%, 1);
@@ -183,12 +185,8 @@ After adding the `pagefind` and `@pagefind/default-ui` library to my project, I 
 ```astro title="Search.astro"
 ---
 import '@pagefind/default-ui/css/ui.css'
-import { getEntry } from 'astro:content'
-import Svg from '@/components/Svg/index.astro'
-import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 // ...
-const locale = getLocaleFromUrl(Astro.url)
-const t = await getEntry('i18n', `${locale}/translation`)
+import Svg from '@/components/Svg/index.astro'
 // ...
 ---
 <div id="search-modal" class="hidden">
@@ -199,8 +197,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
 <button
   type="button"
   id="search-icon-button"
-  title={t.data.search.button_label}
-  aria-label={t.data.search.button_label}
+  <!-- ... -->
 >
   <Svg iconName="magnifier" width={32} height={32} />
 </button>
@@ -214,7 +211,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
 <!-- ... -->
 ```
 
-Now, let's move on to the JS part. the `PagefindUI` instance takes the `element` prop that spots where to put the search window. Other than that, I specified the image option and excerpt length. For more info about the props, consult [the official doc](https://pagefind.app/docs/ui/).
+Now, let's move on to the JS part. the `PagefindUI` instance takes the `element` prop that spots where to put the search window. Other than that, I specified the image option and excerpt length as you can see. For more info about the props, consult [the official doc](https://pagefind.app/docs/ui/).
 
 Inside the `listenToModalEvents` is event registration code. For PC users, I added a shortcut key for searching and enabled the escape key to toggle it. (Hit `Ctrl + Shift + F` if you're on PC right now!)
 
@@ -279,6 +276,30 @@ Inside the `listenToModalEvents` is event registration code. For PC users, I add
     document.addEventListener(evName, initPagefind)
   })
 </script>
+```
+
+Finally, import it from and place it to where it's supposed to be. In my case, it should be in the navigation.
+
+```astro title="Navigation.astro" {4, 15}
+---
+// ...
+import NavMenuContainer from '@/components/NavMenuContainer.astro'
+import Search from '@/components/Search.astro'
+// ...
+---
+<nav class="glassmorphism" data-pagefind-ignore="all">
+  <!-- ... -->
+  <NavMenuContainer>
+    <div class="nav-links">
+     <!-- ... -->
+    </div>
+    <div class="icon-links">
+      <!-- ... -->
+      <Search data-border-image-url="url(/border-image.gif)" />
+    </div>
+  </NavMenuContainer>
+</nav>
+<!-- ... -->
 ```
 
 #### Internationalization (i18n)

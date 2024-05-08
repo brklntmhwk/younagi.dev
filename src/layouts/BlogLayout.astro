@@ -2,7 +2,6 @@
 import 'katex/dist/katex.min.css'
 import type { MarkdownHeading } from 'astro'
 import type { CollectionEntry } from 'astro:content'
-import { Image } from 'astro:assets'
 import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import FormattedDate from '../components/FormattedDate.astro'
@@ -19,15 +18,7 @@ type Props = {
 const locale = getLocaleFromUrl(Astro.url)
 const { entry, headings } = Astro.props
 const { data, collection, slug } = entry
-const {
-  title,
-  description,
-  category,
-  tags,
-  publishedAt,
-  modifiedAt,
-  heroImage,
-} = data
+const { title, description, category, tags, publishedAt, modifiedAt } = data
 const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
@@ -48,7 +39,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
   <main>
     <article>
       <section class="blog-metadata">
-        <div class="hero-image">
+        <!-- <div class="hero-image">
           {
             heroImage && (
               <Image
@@ -60,7 +51,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
               />
             )
           }
-        </div>
+        </div> -->
         <div class="date-meta">
           <div>
             <Svg iconName="upload" width={20} height={20} />

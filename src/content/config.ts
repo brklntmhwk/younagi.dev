@@ -9,7 +9,6 @@ const blog = defineCollection({
     modifiedAt: z.coerce.date().optional(),
     category: z.string(),
     tags: z.string().array().optional(),
-    heroImage: z.string().optional(),
     draft: z.enum(['draft', 'in progress', 'published']),
   }),
 })
@@ -120,7 +119,6 @@ const i18n = defineCollection({
         title: z.string(),
         back_to_top: z.string(),
         scroll_to_top: z.string(),
-        hero_image_label: z.string(),
         categories: z.object({
           title: z.string(),
           back_to_top: z.string(),

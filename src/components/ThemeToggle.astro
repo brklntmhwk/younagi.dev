@@ -39,6 +39,11 @@ const t = await getEntry('i18n', `${locale}/translation`)
   type themeType = 'dark' | 'light' | null
 
   function init() {
+    const element = document.documentElement
+    const isDarkPreferred = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches
+    const preferredTheme = isDarkPreferred ? 'dark' : 'light'
     const theme = ((): themeType => {
       if (
         typeof localStorage !== 'undefined' &&
@@ -52,22 +57,21 @@ const t = await getEntry('i18n', `${locale}/translation`)
 
     switch (theme) {
       case 'light':
-        document.documentElement.classList.remove('dark')
+        element.classList.remove('dark')
         break
       case 'dark':
-        document.documentElement.classList.add('dark')
+        element.classList.add('dark')
         break
       default:
         isDarkPreferred
-          ? document.documentElement.classList.add('dark')
-          : document.documentElement.classList.remove('dark')
+          ? element.classList.add('dark')
+          : element.classList.remove('dark')
         break
     }
 
     window.localStorage.setItem('theme', theme || preferredTheme)
 
     const handleToggleClick = () => {
-      const element = document.documentElement
       element.classList.toggle('dark')
 
       const isDark = element.classList.contains('dark')
@@ -75,7 +79,6 @@ const t = await getEntry('i18n', `${locale}/translation`)
     }
 
     const handleMediaQuery = (e: MediaQueryListEvent | MediaQueryList) => {
-      const element = document.documentElement
       if (e.matches) {
         element.classList.add('dark')
         localStorage.setItem('theme', 'dark')
@@ -91,12 +94,6 @@ const t = await getEntry('i18n', `${locale}/translation`)
       .matchMedia('(prefers-color-scheme: dark)')
       .addEventListener('change', handleMediaQuery)
   }
-
-  const isDarkPreferred = window.matchMedia(
-    '(prefers-color-scheme: dark)'
-  ).matches
-
-  const preferredTheme = isDarkPreferred ? 'dark' : 'light'
 
   const eventsToBeAdded = ['DOMContentLoaded', 'astro:after-swap'] as const
 

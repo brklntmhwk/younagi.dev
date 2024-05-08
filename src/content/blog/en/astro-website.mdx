@@ -100,6 +100,11 @@ Once the `init` function is triggered, the local storage key `theme` is created 
   type themeType = 'dark' | 'light' | null
 
   function init() {
+    const element = document.documentElement
+    const isDarkPreferred = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches
+    const preferredTheme = isDarkPreferred ? 'dark' : 'light'
     const theme = ((): themeType => {
       if (
         typeof localStorage !== 'undefined' &&
@@ -113,22 +118,21 @@ Once the `init` function is triggered, the local storage key `theme` is created 
 
     switch (theme) {
       case 'light':
-        document.documentElement.classList.remove('dark')
+        element.classList.remove('dark')
         break
       case 'dark':
-        document.documentElement.classList.add('dark')
+        element.classList.add('dark')
         break
       default:
         isDarkPreferred
-          ? document.documentElement.classList.add('dark')
-          : document.documentElement.classList.remove('dark')
+          ? element.classList.add('dark')
+          : element.classList.remove('dark')
         break
     }
 
     window.localStorage.setItem('theme', theme || preferredTheme)
 
     const handleToggleClick = () => {
-      const element = document.documentElement
       element.classList.toggle('dark')
 
       const isDark = element.classList.contains('dark')
@@ -136,7 +140,6 @@ Once the `init` function is triggered, the local storage key `theme` is created 
     }
 
     const handleMediaQuery = (e: MediaQueryListEvent | MediaQueryList) => {
-      const element = document.documentElement
       if (e.matches) {
         element.classList.add('dark')
         localStorage.setItem('theme', 'dark')
@@ -152,12 +155,6 @@ Once the `init` function is triggered, the local storage key `theme` is created 
       .matchMedia('(prefers-color-scheme: dark)')
       .addEventListener('change', handleMediaQuery)
   }
-
-  const isDarkPreferred = window.matchMedia(
-    '(prefers-color-scheme: dark)'
-  ).matches
-
-  const preferredTheme = isDarkPreferred ? 'dark' : 'light'
 
   const eventsToBeAdded = ['DOMContentLoaded', 'astro:after-swap'] as const
 
@@ -372,6 +369,16 @@ export default defineConfig({
 })
 ```
 
+I had the $\KaTeX$ stylesheet read only in the layout for blog because it's not supposed to be used in other pages.
+
+```astro title="BlogLayout.astro"
+---
+import 'katex/dist/katex.min.css'
+// ...
+---
+<!-- ... -->
+```
+
 ##### Code block
 
 Up here, I put a bunch of code blocks to explain how each code works. I customized the syntax highlighting, code highlighting, and so on behind the scenes.
@@ -403,6 +410,120 @@ export default defineConfig({
     ],
   },
 })
+```
+
+Next, I created two components for HTML elements shown below. As to this nested structure (and the better part of the code styling), where the code component is included in that of figure, I consulted the Github repo of [haxibami.net](https://www.haxibami.net/)
+
+```astro title="Figure.astro"
+---
+import AstroCode from './Code.astro'
+
+export type Props = {
+  'data-rehype-pretty-code-figure'?: ''
+}
+
+const props = Astro.props
+const isCodeFigure = Object.hasOwn(props, 'data-rehype-pretty-code-figure')
+---
+
+{
+  isCodeFigure ? (
+    <AstroCode {...props}>
+      <slot />
+    </AstroCode>
+  ) : (
+    <figure {...props}>
+      <slot />
+    </figure>
+  )
+}
+```
+
+```astro title="Code.astro"
+---
+const props = Astro.props
+---
+
+<figure {...props}>
+  <slot />
+</figure>
+<style>
+  figure {
+    margin: 1.75rem 0 1.5rem 0;
+    max-width: 86.5vw;
+    position: relative;
+    font-size: 0.85rem;
+    & :global(pre) {
+      border-radius: 0.25rem;
+      overflow-x: auto;
+    }
+    & :global(code) {
+      font-family: var(--code-font);
+      counter-reset: line;
+      display: grid;
+      & :global([data-line]) {
+        border-left: 4px solid transparent;
+        padding: 0 0.55rem;
+      }
+      & :global([data-line]::before) {
+        counter-increment: line;
+        content: counter(line);
+        display: inline-block;
+        width: 1rem;
+        margin-right: 1.05rem;
+        text-align: right;
+        color: var(--gray-light);
+      }
+      & :global([data-highlighted-line]) {
+        border-left-color: var(--code-highlight-border);
+        background-color: var(--code-highlight);
+        :global(span) {
+          background-color: unset;
+        }
+      }
+      & :global([data-highlighted-chars]) {
+        background-color: var(--gray-light);
+        padding: 0.25rem;
+        border-radius: 0.25rem;
+        & :global(span) {
+          background-color: unset;
+        }
+      }
+    }
+    & :global([data-rehype-pretty-code-title]) {
+      font-family: var(--code-font);
+      & + :global(pre) {
+        padding: 2.85rem 0 0.75rem 0;
+      }
+    }
+    & :global(pre:not([data-rehype-pretty-code-title] + pre)) {
+      padding: 0.75rem 0;
+    }
+    & :global([data-rehype-pretty-code-title]) {
+      max-width: 70vw;
+      position: absolute;
+      top: 0;
+      left: 0;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      padding: 0.25rem 0.75rem;
+      color: var(--gray-dark);
+      background: var(--gray);
+      border-radius: 0.15rem 0.15rem 0.15rem 0;
+    }
+  }
+  @media (min-width: 1024px) {
+    figure {
+      max-width: 59.5vw;
+    }
+  }
+  :global(pre[data-theme*=' ']),
+  :global(pre[data-theme*=' '] span) {
+    color: var(--shiki-light);
+    background: var(--shiki-light-bg);
+  }
+</style>
 ```
 
 ##### Anchor headings

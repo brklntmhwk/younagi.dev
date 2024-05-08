@@ -323,7 +323,7 @@ $$
 = \lim_{n \to \infty} \dfrac{1}{n} \sum_{k=0}^{n-1} f \left (\dfrac{k}{n} \right)
 $$
 
-To use $\KaTeX$, I added the `katex`, `rehype-katex`, `remark-math` and `@types/katex` libraries to my project, and then did the following code tweaks.
+To use $\KaTeX$, I added the `katex`, `rehype-katex`, `remark-math` and `@types/katex` libraries, and then did the following code tweaks.
 
 ```typescript title="astro.config.ts" {2,9,13}
 // ...
@@ -343,18 +343,75 @@ export default defineConfig({
     ],
   },
 })
-
 ```
 
 ##### Code block
 
-The
+Up here, I put a bunch of code blocks to explain how each code works. I customized the syntax highlighting, code highlighting, and so on behind the scenes.
 
-```html title="index.html"
-<div>Index.html</div>
+To that end, I added the `rehype-pretty-code` library and then tweaked the following parts.
+
+```typescript title="astro.config.ts" {2,7,11-20}
+// ...
+import rehypeKatex from 'rehype-katex'
+// ...
+export default defineConfig({
+  // ...
+  markdown: {
+    syntaxHighlight: false,
+    // ...
+    rehypePlugins: [
+      // ...
+      [
+        rehypePrettyCode,
+        {
+          theme: {
+            light: 'github-dark',
+            dark: 'github-dark',
+          },
+          grid: false,
+        },
+      ],
+      // ...
+    ],
+  },
+})
 ```
 
 ##### Anchor headings
+
+This article included, all my blog articles have headings with anchor links, which enables the table of content to spot and lead you to every one of them.
+
+To make it work, I added the `rehype-autolink-headings` library and tweaked the following parts.
+
+```typescript title="astro.config.ts" {2,10-22}
+// ...
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+// ...
+export default defineConfig({
+  // ...
+  markdown: {
+    // ...
+    rehypePlugins: [
+      // ...
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: 'prepend',
+          content: h(
+            'span.heading-anchor-icon',
+            {
+              title: 'Anchor link',
+            },
+            ['#']
+          ),
+        },
+      ],
+      // ...
+    ],
+  },
+})
+```
 
 ### Front Matter CMS
 

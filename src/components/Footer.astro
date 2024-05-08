@@ -10,6 +10,7 @@ const privacyPolicyPage = await getEntryBySlug(
   'page',
   `${locale}/privacy-policy`
 )
+const sitePolicyPage = await getEntryBySlug('page', `${locale}/site-policy`)
 const year = new Date().getFullYear()
 ---
 
@@ -18,13 +19,22 @@ const year = new Date().getFullYear()
     &copy; {year}
     {t.data.blog_name}. All rights reserved.
   </span>
-  {
-    privacyPolicyPage && (
-      <a href={`/${locale}/${privacyPolicyPage.slug.split('/').pop()}/`}>
-        {privacyPolicyPage.data.title}
-      </a>
-    )
-  }
+  <div class="policies">
+    {
+      privacyPolicyPage && (
+        <a href={`/${locale}/${privacyPolicyPage.slug.split('/').pop()}/`}>
+          {privacyPolicyPage.data.title}
+        </a>
+      )
+    }
+    {
+      sitePolicyPage && (
+        <a href={`/${locale}/${sitePolicyPage.slug.split('/').pop()}/`}>
+          {sitePolicyPage.data.title}
+        </a>
+      )
+    }
+  </div>
   <div class="social-links">
     <a
       href={`${GITHUB_BASE_URL}/${ACCOUNT_ID}`}
@@ -62,6 +72,11 @@ const year = new Date().getFullYear()
       &:hover {
         color: var(--accent-dark);
       }
+    }
+    .policies {
+      display: flex;
+      justify-content: center;
+      gap: 1.875rem;
     }
     .social-links {
       display: flex;

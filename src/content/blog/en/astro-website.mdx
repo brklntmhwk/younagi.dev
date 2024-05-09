@@ -378,60 +378,11 @@ const slug = rest.join('/')
 
 In terms of event registration, I did almost the same thing as the search component, so let's skip it.
 
-```astro title="LocalePicker.astro"
----
-// ...
----
-<!-- ... -->
-<script>
-  function init() {
-    const listenToModalEvents = (modalButton: Element, modal: Element) => {
-      modalButton.addEventListener('click', () => {
-        modal.classList.toggle('hidden')
-      })
-
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-          modal.classList.toggle('hidden')
-        }
-      })
-
-      window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-          modal.classList.add('hidden')
-        }
-        if (e.code === 'KeyL' && e.ctrlKey && e.shiftKey) {
-          e.preventDefault()
-          modal.classList.toggle('hidden')
-        }
-      })
-    }
-
-    const modalButton = document.querySelector('#lang-icon-button')
-    const modal = document.querySelector('#lang-modal')
-
-    if (modalButton && modal) {
-      listenToModalEvents(modalButton, modal)
-    }
-  }
-
-  const eventsToBeAdded = [
-    'DOMContentLoaded',
-    'astro:after-swap',
-    'visibilitychange',
-  ] as const
-
-  eventsToBeAdded.forEach((evName) => {
-    document.addEventListener(evName, init)
-  })
-</script>
-```
-
 Finally, I added it to the navigation as I did for the theme switch component.
 
 #### OG Image (Open Graph)
 
-OG Images are dynamically generated via the API endpoint functionality Astro provides. To make it simpler, I installed the `astro-og-canvas` library and used it like below. The workflow is as follows:
+OG Images are dynamically generated via [the API endpoint functionality](https://docs.astro.build/en/guides/endpoints/) Astro provides. To make it simpler, I installed the `astro-og-canvas` library and used it like below. The workflow is as follows:
 
 1. Get all content collections data for which you want to have OG images dynamically generated
 2. Process the data so that the `OGImageRoute` can take as its prop `pages`
@@ -494,6 +445,8 @@ export const { getStaticPaths, GET } = OGImageRoute({
   },
 })
 ```
+
+For more info about the options, consult [the astro-og-canvas doc](https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas).
 
 Now you can access the og endpoint. Let's see one example of it. I created the head component that is supposed to be embedded in the base layout of this website.
 
@@ -579,7 +532,7 @@ const { title, description, og } = Astro.props
 </html>
 ```
 
-This page included, every blog article is wrapped by the blog layout, which in turn is done so by the base layout. In the meantime, the `og` prop is passed onto the base layout like below.
+This page included, every blog article is wrapped by the blog layout, which in turn is done so by the base layout. In the meantime, the `og` prop is passed onto the base layout, and then the base head one after another.
 
 ```astro title="BlogLayout.astro" {24-33}
 ---

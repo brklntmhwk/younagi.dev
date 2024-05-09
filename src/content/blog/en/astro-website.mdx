@@ -431,7 +431,13 @@ Finally, I added it to the navigation as I did for the theme switch component.
 
 #### OG Image (Open Graph)
 
-OG Images are dynamically generated via the API endpoint functionality Astro provides. To make it simpler, I installed the `astro-og-canvas` library and used it like this.
+OG Images are dynamically generated via the API endpoint functionality Astro provides. To make it simpler, I installed the `astro-og-canvas` library and used it like below. The workflow is as follows:
+
+1. Get all content collections data for which you want to have OG images dynamically generated
+2. Process the data so that the `OGImageRoute` can take as its prop `pages`
+3. Pass it to the `OGImageRoute`
+
+In my case, things around paths are a bit messy because of the locale directories, so I had to do some processing of paths.
 
 ```typescript title="og/[...slug].ts"
 import { getCollection } from 'astro:content'
@@ -443,12 +449,13 @@ const articles = Object.fromEntries(
     const locale = slug.slice(0, slug.indexOf('/'))
     const rawSlug = slug.slice(slug.indexOf('/') + 1)
 
+    // e.g., "/en/blog/example1": { example1's data here }
     return [`${locale}/${collection}/${rawSlug}`, data]
   })
 )
 
 export const { getStaticPaths, GET } = OGImageRoute({
-  param: 'slug',
+  param: 'slug', // this must be consistent with the dynamic path name
   pages: articles,
   getImageOptions: (_path, page: (typeof articles)[number]) => {
     return {
@@ -486,6 +493,134 @@ export const { getStaticPaths, GET } = OGImageRoute({
     }
   },
 })
+```
+
+Now you can access the og endpoint. Let's see one example of it. I created the head component that is supposed to be embedded in the base layout of this website.
+
+```astro title="BaseHead.astro"
+---
+// ...
+import type { Props as BaseLayoutProps } from '@/layouts/BaseLayout.astro'
+
+type Props = BaseLayoutProps
+// ...
+const { title, description, og } = Astro.props
+---
+<!-- ... -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={Astro.url} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+{
+  og.show && (
+    <>
+      <meta
+        property="og:image"
+        content={og.image ?? new URL('/blog-placeholder-1.jpg', Astro.url)}
+      />
+      <meta
+        property="og:image:height"
+        content={(og.height ?? 720).toString()}
+      />
+      <meta property="og:image:width" content={(og.width ?? 720).toString()} />
+      <meta property="og:type" content={og.type ?? 'website'} />
+    </>
+  )
+}
+<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+{
+  og.show && (
+    <>
+      <meta
+        property="twitter:card"
+        content={og.type === 'article' ? 'summary_large_image' : 'summary'}
+      />
+      <meta
+        property="twitter:image"
+        content={og.image ?? new URL('/blog-placeholder-1.jpg', Astro.url)}
+      />
+    </>
+  )
+}
+<!-- ... -->
+```
+
+```astro title="BaseLayout.astro" {2, 24}
+---
+import BaseHead from '../components/BaseHead.astro'
+// ...
+
+// this is supposed to be imported from the BaseHead component
+export type Props = {
+  title: string
+  description?: string
+  og: {
+    show: boolean
+    image?: URL
+    height?: number
+    width?: number
+    type?: 'article' | 'website'
+  }
+}
+
+const { title, description, og } = Astro.props
+---
+
+<!doctype html>
+<html lang={/* ... */}>
+  <head>
+    <BaseHead {title} description={description ?? ''} {og} />
+  </head>
+  <body data-pagefind-body>
+    <!-- ... -->
+  </body>
+</html>
+```
+
+This page included, every blog article is wrapped by the blog layout, which in turn is done so by the base layout. In the meantime, the `og` prop is passed onto the base layout like below.
+
+```astro title="BlogLayout.astro" {24-33}
+---
+// ...
+import type { MarkdownHeading } from 'astro'
+import type { CollectionEntry } from 'astro:content'
+// ...
+import BaseLayout from '@/layouts/BaseLayout.astro'
+// ...
+
+type Props = {
+  entry: CollectionEntry<'blog'>
+  headings: MarkdownHeading[]
+}
+
+// ...
+const { entry, headings } = Astro.props
+const { data, collection, slug } = entry
+const { title, description, category, tags, publishedAt, modifiedAt } = data
+// ...
+---
+
+<BaseLayout
+  title={title}
+  description={description ?? ''}
+  og={{
+    show: true,
+    height: 630,
+    width: 1200,
+    image: new URL(
+      `/og/${locale}/${collection}/${slug.slice(slug.indexOf('/') + 1)}.png`,
+      Astro.url
+    ),
+    type: 'article',
+  }}
+>
+  <main>
+    <!-- ... -->
+  </main>
+</BaseLayout>
+<!-- ... -->
 ```
 
 #### Styling inside articles
@@ -558,7 +693,9 @@ import 'katex/dist/katex.min.css'
 
 Up here, I put a bunch of code blocks to explain how each code works. I customized the syntax highlighting, code highlighting, and so on behind the scenes.
 
-To that end, I added the `rehype-pretty-code` library and then tweaked the following parts.
+To that end, I added the `rehype-pretty-code` and `shiki` library and then tweaked the following parts.
+
+\* The `rehype-pretty-code` uses the `shiki` behind the scenes and therefore it's necessary.
 
 ```typescript title="astro.config.ts" {2,7,11-20}
 // ...
@@ -734,6 +871,46 @@ export default defineConfig({
     ],
   },
 })
+```
+
+And then I added the styling for anchor links in every content layouts. Below is the example of the blog layout.
+
+```astro title="BlogLayout.astro"
+---
+// ...
+---
+
+<BaseLayout
+  <!-- ... -->
+>
+  <main>
+    <article>
+      <!-- ... -->
+    </article>
+  </main>
+</BaseLayout>
+<style>
+  article {
+    /* ... */
+    .prose {
+      /* ... */
+      & :global(a):has(.heading-anchor-icon) {
+        text-decoration: none;
+        font-family: var(--base-font);
+        & :global(span.heading-anchor-icon) {
+          color: var(--fg);
+          margin-right: 0.5rem;
+        }
+        &:hover {
+          text-decoration: underline;
+          text-underline-offset: 4px;
+          text-decoration-color: var(--fg);
+        }
+        /* ... */
+      }
+    }
+  }
+</style>
 ```
 
 ### Front Matter CMS

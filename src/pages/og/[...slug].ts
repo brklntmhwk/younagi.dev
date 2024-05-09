@@ -23,8 +23,8 @@ export const { getStaticPaths, GET } = OGImageRoute({
       padding: 80,
       font: {
         title: {
-          size: 72,
-          lineHeight: 1.5,
+          size: 64,
+          lineHeight: 1.35,
           families: [
             'PixelMPlus10',
             'Arial',
@@ -44,7 +44,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
       },
       logo: {
         path: './src/assets/images/logo.png',
-        size: [90, 90],
+        size: [80, 80],
       },
       fonts: ['./src/assets/fonts/PixelMplus10-Regular.woff2'],
     }

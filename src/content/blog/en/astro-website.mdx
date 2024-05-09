@@ -614,6 +614,7 @@ To use $\KaTeX$, I added the `katex`, `rehype-katex`, `remark-math` and `@types/
 
 ```typescript title="astro.config.ts" {2,9,13}
 // ...
+import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
 // ...
 export default defineConfig({
@@ -652,7 +653,7 @@ To that end, I added the `rehype-pretty-code` and `shiki` library and then tweak
 
 ```typescript title="astro.config.ts" {2,7,11-20}
 // ...
-import rehypeKatex from 'rehype-katex'
+import rehypePrettyCode from 'rehype-pretty-code'
 // ...
 export default defineConfig({
   // ...
@@ -677,7 +678,7 @@ export default defineConfig({
 })
 ```
 
-Next, I created two components for HTML elements shown below. As to this nested structure (and the better part of the code styling), where the code component is included in that of figure, I consulted the Github repo of [haxibami.net](https://www.haxibami.net/)
+Next, I created two components for HTML elements shown below. As to this nested structure (and the better part of the code styling), where the code component is nested by that of figure, I consulted the Github repo of [haxibami.net](https://www.haxibami.net/)
 
 ```astro title="Figure.astro"
 ---
@@ -829,7 +830,7 @@ export default defineConfig({
 
 And then I added the styling for anchor links in every content layouts. Below is the example of the blog layout.
 
-```astro title="BlogLayout.astro"
+```astro title="BlogLayout.astro" {19-32}
 ---
 // ...
 ---
@@ -876,7 +877,7 @@ Along with a choice of framework, what takes you ages to decide is that of CMS(C
 
 It's unlike other headless CMS in that it's a VS Code extension and works in local, in your code editor! This centralizes all the editing work: code tweaks, blog writing, and deployment. I believe it'd especially be a huge advantage to developers.
 
-When it comes to the setup, consult [the Front Matter official doc](https://frontmatter.codes/docs/getting-started). During the procedure, it automatically detects Astro's content folder and creates content types in the `frontmatter.json` in the root of your project accordingly.
+When it comes to the setup, consult [the Front Matter official doc](https://frontmatter.codes/docs/getting-started). During the procedure, it automatically detects Astro's content folder and creates content types in the `frontmatter.json` accordingly.
 
 In the `frontmatter.json`, there are two notable points here:
 
@@ -1000,11 +1001,11 @@ My dashboard looks like this. It's fully comparable to other CMS, isn't it?
 
 ### Cloudflare Pages
 
-Here, I'm not going to address how to deploy a website to Cloudflare Pages since there are heaps of helpful info sources that have already done it.
+When I was into Next.js, my go-to hosting service was Vercel, but it felt like I needed to revisit it along with the transition to Astro. I came to a conclusion: Cloudflare Pages.
 
 #### Why Cloudflare?
 
-I decided to use Cloudflare Pages for hosting my website for the following reasons:
+I decided to use Cloudflare Pages to host my website for the following reasons:
 
 - The generous free plan
   - The unlimited maximum bandwidth per month is awesome (As of May 9, 2024)
@@ -1012,7 +1013,7 @@ I decided to use Cloudflare Pages for hosting my website for the following reaso
 - Custom email addresses for your domain available
 - Own domains available (paid)
 
-I suppose the free plan suffices for a small project like my website in most cases. That's the most appealing factor to me.
+I suppose the free plan suffices for a small project like my website. That's the most appealing factor to me.
 
 ## Afterword
 
@@ -1023,5 +1024,3 @@ Among them, I bumped into outstanding and brilliant one above all: Next.js, a fr
 However, long story short, we broke up finally. How come? It's fascinating in providing a full range of features, handling the backend stuff on behalf of me, and so on, but therein lies the rub; as it upgrades and becomes equipped with a lot more features, it seems to be deviating from the JS standard. Plus, I've found it hard to catch up with those continuously upcoming features. (I barely stuck at it until the App Router...)
 
 In the end, I encountered with Astro, a framework for JS frameworks, if you like. What I love most about it is its flexibility; it keeps its functionality to a bare minimum and leaves enough room for your customization. In my case, I avoid using such JS frameworks as React where possible and stick to using vanilla JS(TypeScript).
-
-## Reference

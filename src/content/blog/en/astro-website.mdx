@@ -92,7 +92,7 @@ Simply put, it's supposed to:
   - every time it changes, the theme does so too accordingly
 - toggle the theme when clicked or tapped
 
-Once the `init` function is triggered, the local storage key `theme` is created and the current theme value is stored in it. At the same time, the `dark` class is applied to or removed from to make things coherent.
+Once the `init` function is triggered, the local storage key `theme` is created and the current theme value (`"dark"` or `"light"`) is stored in it. At the same time, the `dark` class is applied to or removed from the html tag to make things coherent.
 
 ```astro title="ThemeToggle.astro"
 <!-- ... -->
@@ -164,7 +164,7 @@ Once the `init` function is triggered, the local storage key `theme` is created 
 </script>
 ```
 
-Finally, don't forget to add CSS variables (I'd say they are more of constants though) for both light and dark modes.
+Finally, don't forget to add CSS variables (I'd say they are more of constants though) for both light and dark modes, and import it from and place it to where it's supposed to be. In my case, it should be in the navigation.
 
 ```css title="global.css"
 :root {
@@ -177,6 +177,28 @@ Finally, don't forget to add CSS variables (I'd say they are more of constants t
   --bg: hsla(248.57, 11.48%, 11.96%, 1);
   /* ... */
 }
+```
+
+```astro title="Navigation.astro" {4, 15}
+---
+// ...
+import NavMenuContainer from '@/components/NavMenuContainer.astro'
+import ThemeToggle from '@/components/ThemeToggle.astro'
+// ...
+---
+<nav class="glassmorphism" data-pagefind-ignore="all">
+  <!-- ... -->
+  <NavMenuContainer>
+    <div class="nav-links">
+     <!-- ... -->
+    </div>
+    <div class="icon-links">
+      <!-- ... -->
+      <ThemeToggle />
+    </div>
+  </NavMenuContainer>
+</nav>
+<!-- ... -->
 ```
 
 #### Full text search
@@ -281,33 +303,131 @@ Inside the `listenToModalEvents` is event registration code. For PC users, I add
 </script>
 ```
 
-Finally, import it from and place it to where it's supposed to be. In my case, it should be in the navigation.
-
-```astro title="Navigation.astro" {4, 15}
----
-// ...
-import NavMenuContainer from '@/components/NavMenuContainer.astro'
-import Search from '@/components/Search.astro'
-// ...
----
-<nav class="glassmorphism" data-pagefind-ignore="all">
-  <!-- ... -->
-  <NavMenuContainer>
-    <div class="nav-links">
-     <!-- ... -->
-    </div>
-    <div class="icon-links">
-      <!-- ... -->
-      <Search data-border-image-url="url(/border-image.gif)" />
-    </div>
-  </NavMenuContainer>
-</nav>
-<!-- ... -->
-```
+Finally, I added it to the navigation as I did for the theme switch component.
 
 #### Internationalization (i18n)
 
-I was able to develop it thanks to [the official doc](https://docs.astro.build/ja/recipes/i18n/).
+I was able to develop it thanks to [the official doc](https://docs.astro.build/ja/recipes/i18n/). First, I followed the steps and created locale directories (`en` and `ja`, in my case. You've got to make as many files as the number of languages for the same content.
+
+Astro doesn't offer only Markdown/MDX file format, but also those of YAML and JSON. I chose YAML for storing translation strings because of its brevity.
+
+![content directory tree](../../../assets/images/content-dir.png)
+
+When it comes to the configuration, consult [the official doc for Content Collections](https://docs.astro.build/en/guides/content-collections/).
+
+Here are some important parts about i18n settings. Under the `utils` directory is that of `i18n`, which contains two files.
+
+```typescript title="data.ts"
+export const languages = {
+  en: 'English',
+  ja: '日本語',
+}
+export const langList = ['en', 'ja'] as const
+export const defaultLang = 'en'
+```
+
+```typescript title="getLocaleFromUrl.ts"
+import { defaultLang, languages } from './data'
+
+export const getLocaleFromUrl = (url: URL) => {
+  const [, lang] = url.pathname.split('/')
+  if (lang && lang in languages) return lang as keyof typeof languages
+
+  return defaultLang
+}
+```
+
+These are used like below. I created the locale picker component leveraging them.
+
+```astro title="LocalePicker.astro"
+---
+import { languages } from '@/utils/i18n/data'
+import Svg from '@/components/Svg/index.astro'
+import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+// ...
+const locale = getLocaleFromUrl(Astro.url)
+const t = await getEntry('i18n', `${locale}/translation`)
+const [_firstSlash, _prevLocale, ...rest] = Astro.url.pathname.split('/')
+const slug = rest.join('/')
+// ...
+---
+
+<div id="lang-modal" class="hidden">
+  <div id="lang-wrapper">
+    <ul class="lang-list">
+      {
+        Object.entries(languages).map(([lang, label]) => (
+          <li>
+            <a href={`/${lang}/${slug}`}>{label}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>
+<button
+  aria-label={t.data.locale_picker.button_label}
+  type="button"
+  id="lang-icon-button"
+  title={t.data.locale_picker.button_label}
+>
+  <Svg iconName="alphabet" width={32} height={32} />
+</button>
+<!-- ... -->
+```
+
+Inside the script tag, I did almost the same thing as done for the search component, so let's skip it.
+
+```astro title="LocalePicker.astro"
+---
+// ...
+---
+<!-- ... -->
+<script>
+  function init() {
+    const listenToModalEvents = (modalButton: Element, modal: Element) => {
+      modalButton.addEventListener('click', () => {
+        modal.classList.toggle('hidden')
+      })
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.classList.toggle('hidden')
+        }
+      })
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          modal.classList.add('hidden')
+        }
+        if (e.code === 'KeyL' && e.ctrlKey && e.shiftKey) {
+          e.preventDefault()
+          modal.classList.toggle('hidden')
+        }
+      })
+    }
+
+    const modalButton = document.querySelector('#lang-icon-button')
+    const modal = document.querySelector('#lang-modal')
+
+    if (modalButton && modal) {
+      listenToModalEvents(modalButton, modal)
+    }
+  }
+
+  const eventsToBeAdded = [
+    'DOMContentLoaded',
+    'astro:after-swap',
+    'visibilitychange',
+  ] as const
+
+  eventsToBeAdded.forEach((evName) => {
+    document.addEventListener(evName, init)
+  })
+</script>
+```
+
+Finally, I added it to the navigation as I did for the theme switch component.
 
 #### OG Image (Open Graph)
 

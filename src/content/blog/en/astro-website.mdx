@@ -337,7 +337,7 @@ export const getLocaleFromUrl = (url: URL) => {
 }
 ```
 
-These are used like below. I created the locale picker component leveraging them.
+These are used like shown below. I created the locale picker component leveraging them.
 
 ```astro title="LocalePicker.astro"
 ---
@@ -382,7 +382,7 @@ Finally, I added it to the navigation as I did for the theme switch component.
 
 #### OG Image (Open Graph)
 
-OG Images are dynamically generated via [the API endpoint functionality](https://docs.astro.build/en/guides/endpoints/) Astro provides. To make it simpler, I installed the `astro-og-canvas` library and used it like below. The workflow is as follows:
+OG Images are dynamically generated via [the API endpoint functionality](https://docs.astro.build/en/guides/endpoints/) Astro provides. To make it simpler, I installed the `astro-og-canvas` library and used it like shown below. The workflow is as follows:
 
 1. Get all content collections data for which you want to have OG images dynamically generated
 2. Process the data so that the `OGImageRoute` can take as its prop `pages`
@@ -1000,13 +1000,17 @@ My dashboard looks like this. It's fully comparable to other CMS, isn't it?
 
 ### Cloudflare Pages
 
+Here, I'm not going to address how to deploy a website to Cloudflare Pages since there are heaps of helpful info sources that have already done it.
+
 #### Why Cloudflare?
 
 I decided to use Cloudflare Pages for hosting my website for the following reasons:
 
-- the generous free plan
+- The generous free plan
+  - The unlimited maximum bandwidth per month is awesome (As of May 9, 2024)
+- Lightning fast deployment
 - Custom email addresses for your domain available
-- own domains available (paid)
+- Own domains available (paid)
 
 I suppose the free plan suffices for a small project like my website in most cases. That's the most appealing factor to me.
 

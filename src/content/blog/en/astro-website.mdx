@@ -15,7 +15,7 @@ type: blog
 ## TL:DR
 
 - I created my website switching over from Next.js to Astro
-- My Astro website is equipped with some features like dark/light mode toggle, full-text search(Pagefind), internationalization(i18n) and more
+- My Astro website is equipped with some features like full-text search(Pagefind), internationalization(i18n) and more
 - Cloudflare offers a wide range of support for, from hosting your website and getting your own domain, to creating your custom email address for it.
 - Front Matter CMS enables you to write an article, tweak code, build and deploy your website in your VS Code editor
 
@@ -46,160 +46,6 @@ If you're interested in the code behind my website, see [my Github repo](https:/
 ### Astro
 
 I avoid using other JS frameworks like React inside Astro and stick to vanilla JS as much as possible. With that in mind, I topped some features, whether necessary or not, on my website.
-
-#### Dark/light mode switch
-
-I was able to develop it thanks to [the official tutorial page](https://docs.astro.build/ja/tutorial/6-islands/2/). (some parts have been modified though)
-
-The points here are the `id` attribute of the `button` element and the `display` styles alternately applied to the `sun` and `moon` classes, both of which will later be used in the JS part.
-
-```astro title="src/components/ThemeToggle.astro"
----
-// ...
-import Svg from '@/components/Svg/index.astro'
-// ...
----
-
-<button
-  id="theme-toggle-button"
-  type="button"
-  <!-- ... -->
->
-  <Svg class="sun" iconName="sun" width={32} height={32} />
-  <Svg class="moon" iconName="moon" width={32} height={32} />
-</button>
-<style>
-  /* ... */
-  .sun {
-    display: inline-block;
-  }
-  .moon {
-    display: none;
-  }
-  :global(.dark) .sun {
-    display: none;
-  }
-  :global(.dark) .moon {
-    display: inline-block;
-  }
-</style>
-<!-- ... -->
-```
-
-Simply put, it's supposed to:
-
-- check the user's system preference and set the theme accordingly
-  - every time it changes, the theme does so too accordingly
-- toggle the theme when clicked or tapped
-
-Once the `init` function is triggered, the local storage key `theme` is created and the current theme value (`"dark"` or `"light"`) is stored in it. At the same time, the `dark` class is applied to or removed from the html tag to make things coherent.
-
-```astro title="src/components/ThemeToggle.astro"
-<!-- ... -->
-<script>
-  type themeType = 'dark' | 'light' | null
-
-  function init() {
-    const element = document.documentElement
-    const isDarkPreferred = window.matchMedia(
-      '(prefers-color-scheme: dark)'
-    ).matches
-    const preferredTheme = isDarkPreferred ? 'dark' : 'light'
-    const theme = ((): themeType => {
-      if (
-        typeof localStorage !== 'undefined' &&
-        localStorage.getItem('theme')
-      ) {
-        return localStorage.getItem('theme') as themeType
-      } else {
-        return preferredTheme
-      }
-    })()
-
-    switch (theme) {
-      case 'light':
-        element.classList.remove('dark')
-        break
-      case 'dark':
-        element.classList.add('dark')
-        break
-      default:
-        isDarkPreferred
-          ? element.classList.add('dark')
-          : element.classList.remove('dark')
-        break
-    }
-
-    window.localStorage.setItem('theme', theme || preferredTheme)
-
-    const handleToggleClick = () => {
-      element.classList.toggle('dark')
-
-      const isDark = element.classList.contains('dark')
-      localStorage.setItem('theme', isDark ? 'dark' : 'light')
-    }
-
-    const handleMediaQuery = (e: MediaQueryListEvent | MediaQueryList) => {
-      if (e.matches) {
-        element.classList.add('dark')
-        localStorage.setItem('theme', 'dark')
-      } else {
-        element.classList.remove('dark')
-        localStorage.setItem('theme', 'light')
-      }
-    }
-
-    const themeButton = document.getElementById('theme-toggle-button')
-    if (themeButton) themeButton.addEventListener('click', handleToggleClick)
-    window
-      .matchMedia('(prefers-color-scheme: dark)')
-      .addEventListener('change', handleMediaQuery)
-  }
-
-  const eventsToBeAdded = ['DOMContentLoaded', 'astro:after-swap'] as const
-
-  eventsToBeAdded.forEach((evName) => {
-    document.addEventListener(evName, init)
-  })
-</script>
-```
-
-Finally, don't forget to add CSS variables (I'd say they are more of constants though) for both light and dark modes, and import it from and place it to where it's supposed to be. In my case, it should be in the navigation.
-
-```css title="src/styles/global.css"
-:root {
-  --fg: hsla(248.57, 11.48%, 11.96%, 1);
-  --bg: hsla(0, 0%, 96.7%, 1);
-  /* ... */
-}
-:root.dark {
-  --fg: hsla(0, 0%, 96.7%, 1);
-  --bg: hsla(248.57, 11.48%, 11.96%, 1);
-  /* ... */
-}
-```
-
-```astro title="src/components/Navigation.astro" {4, 15}
----
-// ...
-import NavMenuContainer from '@/components/NavMenuContainer.astro'
-import ThemeToggle from '@/components/ThemeToggle.astro'
-// ...
----
-<nav class="glassmorphism" data-pagefind-ignore="all">
-  <!-- ... -->
-  <NavMenuContainer>
-    <div class="nav-links">
-     <!-- ... -->
-    </div>
-    <div class="icon-links">
-      <!-- ... -->
-      <ThemeToggle />
-    </div>
-  </NavMenuContainer>
-</nav>
-<!-- ... -->
-```
 
 #### Full text search
 
@@ -303,7 +149,29 @@ Inside the `listenToModalEvents` is event registration code. For PC users, I add
 </script>
 ```
 
-Finally, I added it to the navigation as I did for the theme switch component.
+Finally, I added it to the navigation component.
+
+```astro title="src/components/Navigation.astro" {4, 15}
+---
+// ...
+import NavMenuContainer from '@/components/NavMenuContainer.astro'
+import Search from '@/components/Search.astro'
+// ...
+---
+<nav class="glassmorphism" data-pagefind-ignore="all">
+  <!-- ... -->
+  <NavMenuContainer>
+    <div class="nav-links">
+     <!-- ... -->
+    </div>
+    <div class="icon-links">
+      <!-- ... -->
+      <Search data-border-image-url="url(/border-image.gif)" />
+    </div>
+  </NavMenuContainer>
+</nav>
+<!-- ... -->
+```
 
 #### Internationalization (i18n)
 
@@ -882,6 +750,8 @@ Along with a choice of framework, what takes you ages to decide is that of CMS(C
 It's unlike other headless CMS in that it's a VS Code extension and works in local, in your code editor! This centralizes all the editing work: code tweaks, blog writing, and deployment. I believe it'd especially be a huge advantage to developers.
 
 When it comes to the setup, consult [the Front Matter official doc](https://frontmatter.codes/docs/getting-started). During the procedure, it automatically detects Astro's content folder and creates content types in the `frontmatter.json` accordingly.
+
+#### Customization of Front Matter CMS
 
 In the `frontmatter.json`, there are two notable points here:
 

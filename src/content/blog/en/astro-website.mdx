@@ -246,7 +246,7 @@ const slug = rest.join('/')
 
 In terms of event registration, I did almost the same thing as the search component, so let's skip it.
 
-Finally, I added it to the navigation as I did for the theme switch component.
+Finally, I added it to the navigation as earlier.
 
 #### OG Image (Open Graph)
 
@@ -316,7 +316,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
 
 For more info about the options, consult [the astro-og-canvas doc](https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas).
 
-Now you can access the og endpoint. Let's see one example of it. I created the head component that is supposed to be embedded in the base layout of this website.
+Now you can access the og endpoint. Let's see one example of it. I created the head component that is supposed to be embedded in the base layout.
 
 ```astro title="src/components/BaseHead.astro"
 ---
@@ -546,7 +546,7 @@ export default defineConfig({
 })
 ```
 
-Next, I created two components for HTML elements shown below. As to this nested structure (and the better part of the code styling), where the code component is nested by that of figure, I consulted the Github repo of [haxibami.net](https://www.haxibami.net/)
+Next, I created two components for HTML elements shown below. As to this nested structure (and the better part of the code styling), where the code component is nested by the figure, I consulted the Github repo of [haxibami.net](https://www.haxibami.net/)
 
 ```astro title="src/components/elements/Figure.astro"
 ---
@@ -755,7 +755,7 @@ When it comes to the setup, consult [the Front Matter official doc](https://fron
 
 In the `frontmatter.json`, there are two notable points here:
 
-- `frontMatter.content.publicFolder`: it refers to the public folder by default. I wanted to use [the asset directory](https://docs.astro.build/ja/guides/images/) Astro offers for image optimization, so changed it
+- `frontMatter.content.publicFolder`: it refers to the public folder by default. I wanted to use [the asset directory](https://docs.astro.build/ja/guides/images/) Astro offers for image optimization, so changed it to `src/assets/images/`
 - `frontMatter.content.i18n`: Front Matter CMS also covers an i18n feature. With this setting, it can spot the association between locales and directories
 
 ```json title="frontmatter.json"
@@ -872,6 +872,8 @@ In the `frontmatter.json`, there are two notable points here:
 My dashboard looks like this. It's fully comparable to other CMS, isn't it?
 
 ![ My Front Matter CMS dashboard ](../../../assets/images/front-matter-cms-dashboard.png)
+
+![ My Front Matter CMS editing mode ](../../../assets/images/front-matter-cms-editing.png)
 
 ### Cloudflare Pages
 

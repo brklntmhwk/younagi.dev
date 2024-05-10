@@ -16,11 +16,9 @@
   --gray: hsla(60, 0.52%, 75.55%, 1);
   --gray-light: hsla(0, 0%, 86.71%, 1);
   --gray-dark: hsla(0, 1.27%, 30.98%, 1);
-  --base-font: 'PixelMplus10', Arial, 'Hiragino Kaku Gothic ProN',
-    'Hiragino Sans', Meiryo, Verdana, sans-serif;
+  --base-font: 'Inconsolata Variable', 'Yuji Syuku', Arial,
+    'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, Verdana, sans-serif;
   --code-font: 'DejaVuSansMono', Menlo, Consolas, monospace;
-  --prose-font: Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo,
-    sans-serif;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -39,22 +37,7 @@
     --code-highlight-border: hsla(213.49, 84.31%, 70%, 0.8);
   }
 }
-/* :root.dark {
-  --fg: hsla(0, 0%, 96.7%, 1);
-  --bg: hsla(248.57, 11.48%, 11.96%, 1);
-  --bg-gradient: to top,
-    hsla(248.57, 11.48%, 58.96%, 1) hsla(248.57, 11.48%, 11.96%, 1);
-  --accent: hsla(215.24, 100%, 52.63%, 1);
-  --accent-dark: hsla(220, 98.54%, 43.86%, 1);
-  --pixel-border: hsla(220, 100%, 98.22%, 1);
-  --mobile-nav-bg: hsla(248.57, 11.48%, 20.96%, 1);
-  --modal-bg: hsla(223, 8%, 8%, 0.8);
-  --glass-bg: rgba(0, 0, 0, 0.1);
-  --code: hsla(0, 0%, 90.98%, 1);
-  --code-highlight: hsla(213.49, 87.31%, 82%, 0.2);
-  --code-highlight-border: hsla(213.49, 84.31%, 70%, 0.8);
-} */
-@font-face {
+/* @font-face {
   font-family: 'PixelMplus10';
   src: url('/fonts/PixelMplus10-Regular.woff2') format('woff2');
   font-weight: 400;
@@ -69,7 +52,7 @@
   font-style: normal;
   font-display: swap;
   font-stretch: 200%;
-}
+} */
 @font-face {
   font-family: 'DejaVuSansMono';
   src: url('/fonts/DejaVuSansMono.woff2') format('woff2');
@@ -79,6 +62,7 @@
 }
 body {
   font-family: var(--base-font);
+  font-weight: 500;
   margin: 0;
   padding: 0;
   text-align: left;
@@ -114,27 +98,27 @@ h6 {
 }
 h1 {
   font-size: 2.25rem;
-  font-weight: 700;
+  font-weight: 800;
   margin: 0 0 0.85rem 0;
 }
 h2 {
   font-size: 1.875rem;
-  font-weight: 700;
+  font-weight: 800;
   margin: 0 0 0.75rem 0;
 }
 h3 {
   font-size: 1.5rem;
-  font-weight: 400;
+  font-weight: 700;
   margin: 0 0 0.65rem 0;
 }
 h4 {
   font-size: 1.25rem;
-  font-weight: 400;
+  font-weight: 600;
 }
 h5,
 h6 {
   font-size: 1.125rem;
-  font-weight: 400;
+  font-weight: 500;
 }
 @media (min-width: 768px) {
   h1 {
@@ -202,6 +186,22 @@ hr {
     border-image-source: url("data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8' ?><svg version='1.1' width='8' height='8' xmlns='http://www.w3.org/2000/svg'><path d='M3 1 h1 v1 h-1 z M4 1 h1 v1 h-1 z M2 2 h1 v1 h-1 z M5 2 h1 v1 h-1 z M1 3 h1 v1 h-1 z M6 3 h1 v1 h-1 z M1 4 h1 v1 h-1 z M6 4 h1 v1 h-1 z M2 5 h1 v1 h-1 z M5 5 h1 v1 h-1 z M3 6 h1 v1 h-1 z M4 6 h1 v1 h-1 z' fill='rgb(246.59, 246.59, 246.59)' /></svg>");
   }
 }
+
+/* :root.dark {
+  --fg: hsla(0, 0%, 96.7%, 1);
+  --bg: hsla(248.57, 11.48%, 11.96%, 1);
+  --bg-gradient: to top,
+    hsla(248.57, 11.48%, 58.96%, 1) hsla(248.57, 11.48%, 11.96%, 1);
+  --accent: hsla(215.24, 100%, 52.63%, 1);
+  --accent-dark: hsla(220, 98.54%, 43.86%, 1);
+  --pixel-border: hsla(220, 100%, 98.22%, 1);
+  --mobile-nav-bg: hsla(248.57, 11.48%, 20.96%, 1);
+  --modal-bg: hsla(223, 8%, 8%, 0.8);
+  --glass-bg: rgba(0, 0, 0, 0.1);
+  --code: hsla(0, 0%, 90.98%, 1);
+  --code-highlight: hsla(213.49, 87.31%, 82%, 0.2);
+  --code-highlight-border: hsla(213.49, 84.31%, 70%, 0.8);
+} */
 /* .dark {
   .pixel-border {
     border-image-source: url("data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8' ?><svg version='1.1' width='8' height='8' xmlns='http://www.w3.org/2000/svg'><path d='M3 1 h1 v1 h-1 z M4 1 h1 v1 h-1 z M2 2 h1 v1 h-1 z M5 2 h1 v1 h-1 z M1 3 h1 v1 h-1 z M6 3 h1 v1 h-1 z M1 4 h1 v1 h-1 z M6 4 h1 v1 h-1 z M2 5 h1 v1 h-1 z M5 5 h1 v1 h-1 z M3 6 h1 v1 h-1 z M4 6 h1 v1 h-1 z' fill='rgb(246.59, 246.59, 246.59)' /></svg>");

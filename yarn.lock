@@ -688,6 +688,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fontsource-variable/inconsolata@npm:^5.0.18":
+  version: 5.0.18
+  resolution: "@fontsource-variable/inconsolata@npm:5.0.18"
+  checksum: 10c0/411efbb563b11515b2699384b3b55ec8795aa2cac117061db02feea73f198ce46b64a0bf0d73860e00e9e2092482d91b957e1c63e8caddf97f7620d9ea2167d9
+  languageName: node
+  linkType: hard
+
+"@fontsource-variable/pixelify-sans@npm:^5.0.3":
+  version: 5.0.3
+  resolution: "@fontsource-variable/pixelify-sans@npm:5.0.3"
+  checksum: 10c0/63fed6175259f6fd2f4cddfd0137e1181009953562d7eacd8cc92e648e54602a0888f177f8ad6630f89b995580882b80ccf35a86b52b16afe6c9ba02662e87d6
+  languageName: node
+  linkType: hard
+
+"@fontsource/yuji-syuku@npm:^5.0.13":
+  version: 5.0.13
+  resolution: "@fontsource/yuji-syuku@npm:5.0.13"
+  checksum: 10c0/be04c9ebfe630ba92ba94f5fb4f876afec2bab373f90d2455b8d91cbb932098533a0f923db6901ec89f179ccd74fd98fd7cd9e7be7fd760412e0154123cc0b5f
+  languageName: node
+  linkType: hard
+
 "@humanwhocodes/config-array@npm:^0.11.14":
   version: 0.11.14
   resolution: "@humanwhocodes/config-array@npm:0.11.14"
@@ -5540,6 +5561,9 @@ __metadata:
     "@astrojs/mdx": "npm:^2.3.1"
     "@astrojs/rss": "npm:4.0.5"
     "@astrojs/sitemap": "npm:^3.1.4"
+    "@fontsource-variable/inconsolata": "npm:^5.0.18"
+    "@fontsource-variable/pixelify-sans": "npm:^5.0.3"
+    "@fontsource/yuji-syuku": "npm:^5.0.13"
     "@iconify-json/pixelarticons": "npm:1.1.10"
     "@pagefind/default-ui": "npm:^1.0.4"
     "@types/eslint": "npm:8.56.5"

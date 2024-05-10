@@ -53,7 +53,7 @@ I was able to develop it thanks to [the official tutorial page](https://docs.ast
 
 The points here are the `id` attribute of the `button` element and the `display` styles alternately applied to the `sun` and `moon` classes, both of which will later be used in the JS part.
 
-```astro title="ThemeToggle.astro"
+```astro title="src/components/ThemeToggle.astro"
 ---
 // ...
 import Svg from '@/components/Svg/index.astro'
@@ -94,7 +94,7 @@ Simply put, it's supposed to:
 
 Once the `init` function is triggered, the local storage key `theme` is created and the current theme value (`"dark"` or `"light"`) is stored in it. At the same time, the `dark` class is applied to or removed from the html tag to make things coherent.
 
-```astro title="ThemeToggle.astro"
+```astro title="src/components/ThemeToggle.astro"
 <!-- ... -->
 <script>
   type themeType = 'dark' | 'light' | null
@@ -166,7 +166,7 @@ Once the `init` function is triggered, the local storage key `theme` is created 
 
 Finally, don't forget to add CSS variables (I'd say they are more of constants though) for both light and dark modes, and import it from and place it to where it's supposed to be. In my case, it should be in the navigation.
 
-```css title="global.css"
+```css title="src/styles/global.css"
 :root {
   --fg: hsla(248.57, 11.48%, 11.96%, 1);
   --bg: hsla(0, 0%, 96.7%, 1);
@@ -179,7 +179,7 @@ Finally, don't forget to add CSS variables (I'd say they are more of constants t
 }
 ```
 
-```astro title="Navigation.astro" {4, 15}
+```astro title="src/components/Navigation.astro" {4, 15}
 ---
 // ...
 import NavMenuContainer from '@/components/NavMenuContainer.astro'
@@ -207,7 +207,7 @@ I decided to use [Pagefind](https://pagefind.app/), a Rust based static search l
 
 After adding the `pagefind` and `@pagefind/default-ui` library to my project, I created the search component like this. The point is the `search` id given to an empty `div` tag. Plus, the modal window toggles in response to the presence of the `hidden` class.
 
-```astro title="Search.astro"
+```astro title="src/components/Search.astro"
 ---
 import '@pagefind/default-ui/css/ui.css'
 // ...
@@ -240,7 +240,7 @@ Now, let's move on to the JS part. the `PagefindUI` instance takes the `element`
 
 Inside the `listenToModalEvents` is event registration code. For PC users, I added a shortcut key for searching and enabled the escape key to toggle it. (Hit `Ctrl + Shift + F` if you're on PC right now!)
 
-```astro title="Search.astro"
+```astro title="src/components/Search.astro"
 <!-- ... -->
 <script>
   import { PagefindUI } from '@pagefind/default-ui'
@@ -317,7 +317,7 @@ When it comes to the configuration, consult [the official doc for Content Collec
 
 Here are some important parts about i18n settings. Under the `utils` directory is that of `i18n`, which contains two files.
 
-```typescript title="data.ts"
+```typescript title="src/utils/i18n/data.ts"
 export const languages = {
   en: 'English',
   ja: '日本語',
@@ -326,7 +326,7 @@ export const langList = ['en', 'ja'] as const
 export const defaultLang = 'en'
 ```
 
-```typescript title="getLocaleFromUrl.ts"
+```typescript title="src/utils/i18n/getLocaleFromUrl.ts"
 import { defaultLang, languages } from './data'
 
 export const getLocaleFromUrl = (url: URL) => {
@@ -339,7 +339,7 @@ export const getLocaleFromUrl = (url: URL) => {
 
 These are used like shown below. I created the locale picker component leveraging them.
 
-```astro title="LocalePicker.astro"
+```astro title="src/components/LocalePicker.astro"
 ---
 import { languages } from '@/utils/i18n/data'
 import Svg from '@/components/Svg/index.astro'
@@ -390,7 +390,7 @@ OG Images are dynamically generated via [the API endpoint functionality](https:/
 
 In my case, things around paths are a bit messy because of the locale directories, so I had to do some processing of paths.
 
-```typescript title="og/[...slug].ts"
+```typescript title="src/pages/og/[...slug].ts"
 import { getCollection } from 'astro:content'
 import { OGImageRoute } from 'astro-og-canvas'
 
@@ -450,7 +450,7 @@ For more info about the options, consult [the astro-og-canvas doc](https://githu
 
 Now you can access the og endpoint. Let's see one example of it. I created the head component that is supposed to be embedded in the base layout of this website.
 
-```astro title="BaseHead.astro"
+```astro title="src/components/BaseHead.astro"
 ---
 // ...
 import type { Props as BaseLayoutProps } from '@/layouts/BaseLayout.astro'
@@ -500,7 +500,7 @@ const { title, description, og } = Astro.props
 <!-- ... -->
 ```
 
-```astro title="BaseLayout.astro" {2, 24}
+```astro title="src/layouts/BaseLayout.astro" {2, 24}
 ---
 import BaseHead from '../components/BaseHead.astro'
 // ...
@@ -534,7 +534,7 @@ const { title, description, og } = Astro.props
 
 This page included, every blog article is wrapped by the blog layout, which in turn is done so by the base layout. In the meantime, the `og` prop is passed onto the base layout, and then the base head one after another.
 
-```astro title="BlogLayout.astro" {24-33}
+```astro title="src/layouts/BlogLayout.astro" {24-33}
 ---
 // ...
 import type { MarkdownHeading } from 'astro'
@@ -635,7 +635,7 @@ export default defineConfig({
 
 I had the $\KaTeX$ stylesheet read only in the layout for blog because it's not supposed to be used in other pages.
 
-```astro title="BlogLayout.astro"
+```astro title="src/layouts/BlogLayout.astro"
 ---
 import 'katex/dist/katex.min.css'
 // ...
@@ -680,7 +680,7 @@ export default defineConfig({
 
 Next, I created two components for HTML elements shown below. As to this nested structure (and the better part of the code styling), where the code component is nested by that of figure, I consulted the Github repo of [haxibami.net](https://www.haxibami.net/)
 
-```astro title="Figure.astro"
+```astro title="src/components/elements/Figure.astro"
 ---
 import AstroCode from './Code.astro'
 
@@ -705,7 +705,7 @@ const isCodeFigure = Object.hasOwn(props, 'data-rehype-pretty-code-figure')
 }
 ```
 
-```astro title="Code.astro"
+```astro title="src/components/elements/Code.astro"
 ---
 const props = Astro.props
 ---
@@ -796,11 +796,14 @@ const props = Astro.props
 
 This article included, all my blog articles have headings with anchor links, which enables the table of content to spot and lead you to every one of them.
 
-To make it work, I added the `rehype-autolink-headings` and `hastscript` library and tweaked the following parts.
+To make it work, I added the `rehype-autolink-headings`, `rehype-slug`, and `hastscript` library and tweaked the following parts.
+
+\* `rehype-slug` adds `id` attributes to headings, and `hastscript` works in between the transformation of syntaxes manipulating ASTs (Abstract Syntax Trees).
 
 ```typescript title="astro.config.ts" {2,10-22}
 // ...
 import { h } from 'hastscript'
+import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 // ...
 export default defineConfig({
@@ -809,6 +812,7 @@ export default defineConfig({
     // ...
     rehypePlugins: [
       // ...
+      rehypeSlug,
       [
         rehypeAutolinkHeadings,
         {
@@ -830,7 +834,7 @@ export default defineConfig({
 
 And then I added the styling for anchor links in every content layouts. Below is the example of the blog layout.
 
-```astro title="BlogLayout.astro" {19-32}
+```astro title="src/components/BlogLayout.astro" {19-32}
 ---
 // ...
 ---

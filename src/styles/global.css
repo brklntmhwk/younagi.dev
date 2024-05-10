@@ -22,7 +22,24 @@
   --prose-font: Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo,
     sans-serif;
 }
-:root.dark {
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fg: hsla(0, 0%, 96.7%, 1);
+    --bg: hsla(248.57, 11.48%, 11.96%, 1);
+    --bg-gradient: to top,
+      hsla(248.57, 11.48%, 58.96%, 1) hsla(248.57, 11.48%, 11.96%, 1);
+    --accent: hsla(215.24, 100%, 52.63%, 1);
+    --accent-dark: hsla(220, 98.54%, 43.86%, 1);
+    --pixel-border: hsla(220, 100%, 98.22%, 1);
+    --mobile-nav-bg: hsla(248.57, 11.48%, 20.96%, 1);
+    --modal-bg: hsla(223, 8%, 8%, 0.8);
+    --glass-bg: rgba(0, 0, 0, 0.1);
+    --code: hsla(0, 0%, 90.98%, 1);
+    --code-highlight: hsla(213.49, 87.31%, 82%, 0.2);
+    --code-highlight-border: hsla(213.49, 84.31%, 70%, 0.8);
+  }
+}
+/* :root.dark {
   --fg: hsla(0, 0%, 96.7%, 1);
   --bg: hsla(248.57, 11.48%, 11.96%, 1);
   --bg-gradient: to top,
@@ -36,7 +53,7 @@
   --code: hsla(0, 0%, 90.98%, 1);
   --code-highlight: hsla(213.49, 87.31%, 82%, 0.2);
   --code-highlight-border: hsla(213.49, 84.31%, 70%, 0.8);
-}
+} */
 @font-face {
   font-family: 'PixelMplus10';
   src: url('/fonts/PixelMplus10-Regular.woff2') format('woff2');
@@ -96,44 +113,45 @@ h6 {
   line-height: 1.2;
 }
 h1 {
-  font-size: 2.375rem;
+  font-size: 2.25rem;
   font-weight: 700;
   margin: 0 0 0.85rem 0;
 }
 h2 {
-  font-size: 2.175rem;
-  font-weight: 400;
+  font-size: 1.875rem;
+  font-weight: 700;
   margin: 0 0 0.75rem 0;
 }
 h3 {
-  font-size: 1.85rem;
+  font-size: 1.5rem;
   font-weight: 400;
   margin: 0 0 0.65rem 0;
 }
 h4 {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 400;
 }
 h5,
 h6 {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-weight: 400;
 }
 @media (min-width: 768px) {
   h1 {
-    font-size: 3.05rem;
+    font-size: 3rem;
   }
   h2 {
-    font-size: 2.65rem;
-  }
-  h3 {
     font-size: 2.25rem;
   }
-  h4 {
-    font-size: 1.85rem;
+  h3 {
+    font-size: 1.875rem;
   }
-  h5 {
+  h4 {
     font-size: 1.5rem;
+  }
+  h5,
+  h6 {
+    font-size: 1.25rem;
   }
 }
 a.back-to-link {
@@ -179,8 +197,13 @@ hr {
   border-image-repeat: repeat;
   border-image-outset: 2;
 }
-.dark {
+@media (prefers-color-scheme: dark) {
   .pixel-border {
     border-image-source: url("data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8' ?><svg version='1.1' width='8' height='8' xmlns='http://www.w3.org/2000/svg'><path d='M3 1 h1 v1 h-1 z M4 1 h1 v1 h-1 z M2 2 h1 v1 h-1 z M5 2 h1 v1 h-1 z M1 3 h1 v1 h-1 z M6 3 h1 v1 h-1 z M1 4 h1 v1 h-1 z M6 4 h1 v1 h-1 z M2 5 h1 v1 h-1 z M5 5 h1 v1 h-1 z M3 6 h1 v1 h-1 z M4 6 h1 v1 h-1 z' fill='rgb(246.59, 246.59, 246.59)' /></svg>");
   }
 }
+/* .dark {
+  .pixel-border {
+    border-image-source: url("data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8' ?><svg version='1.1' width='8' height='8' xmlns='http://www.w3.org/2000/svg'><path d='M3 1 h1 v1 h-1 z M4 1 h1 v1 h-1 z M2 2 h1 v1 h-1 z M5 2 h1 v1 h-1 z M1 3 h1 v1 h-1 z M6 3 h1 v1 h-1 z M1 4 h1 v1 h-1 z M6 4 h1 v1 h-1 z M2 5 h1 v1 h-1 z M5 5 h1 v1 h-1 z M3 6 h1 v1 h-1 z M4 6 h1 v1 h-1 z' fill='rgb(246.59, 246.59, 246.59)' /></svg>");
+  }
+} */

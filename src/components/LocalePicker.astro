@@ -89,7 +89,7 @@ const { 'data-border-image-url': borderImageUrl } = Astro.props
       position: relative;
       border-bottom: 2px solid transparent;
       &:hover::before {
-        font-family: 'PixelMplus10';
+        font-family: var(--base-font);
         content: '▶';
         position: absolute;
         top: -0.25rem;

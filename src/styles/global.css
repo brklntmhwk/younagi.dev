@@ -16,8 +16,8 @@
   --gray: hsla(60, 0.52%, 75.55%, 1);
   --gray-light: hsla(0, 0%, 86.71%, 1);
   --gray-dark: hsla(0, 1.27%, 30.98%, 1);
-  --base-font: 'Inconsolata Variable', 'Yuji Syuku', Arial,
-    'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, Verdana, sans-serif;
+  --base-font: 'Inconsolata Variable', Arial, 'Hiragino Kaku Gothic ProN',
+    'Hiragino Sans', Meiryo, Verdana, sans-serif;
   --code-font: 'DejaVuSansMono', Menlo, Consolas, monospace;
 }
 @media (prefers-color-scheme: dark) {
@@ -167,6 +167,7 @@ blockquote {
 hr {
   border: none;
   border-top: 1px solid var(--line);
+  margin: 0.75rem 0;
 }
 .glassmorphism {
   background: var(--glass-bg);

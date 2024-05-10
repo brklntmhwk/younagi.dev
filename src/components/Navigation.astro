@@ -1,5 +1,4 @@
 ---
-import '@/styles/pixelmplus.css'
 import { getEntry } from 'astro:content'
 import NavLink from '@/components/NavLink.astro'
 import Search from '@/components/Search.astro'
@@ -46,9 +45,6 @@ const t = await getEntry('i18n', `${locale}/translation`)
     a {
       color: var(--fg);
       text-decoration: none;
-    }
-    a.blog-title {
-      font-family: 'PixelMplus10', system-ui;
     }
     a:not(.blog-title) {
       border-bottom: 2px solid transparent;

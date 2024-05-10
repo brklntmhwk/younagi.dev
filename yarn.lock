@@ -695,13 +695,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fontsource/dotgothic16@npm:^5.0.19":
-  version: 5.0.19
-  resolution: "@fontsource/dotgothic16@npm:5.0.19"
-  checksum: 10c0/2e1a52bc8086d36ea7afd92e5ea10541e98f6a2ec672eb3d51b649d820fec1bacbf9d3e4376e571cc1ce4f8f1efd9e910e6b2c8c1a56bb563948df5a8102312f
-  languageName: node
-  linkType: hard
-
 "@humanwhocodes/config-array@npm:^0.11.14":
   version: 0.11.14
   resolution: "@humanwhocodes/config-array@npm:0.11.14"
@@ -5562,7 +5555,6 @@ __metadata:
     "@astrojs/rss": "npm:4.0.5"
     "@astrojs/sitemap": "npm:^3.1.4"
     "@fontsource-variable/inconsolata": "npm:^5.0.18"
-    "@fontsource/dotgothic16": "npm:^5.0.19"
     "@iconify-json/pixelarticons": "npm:1.1.10"
     "@pagefind/default-ui": "npm:^1.0.4"
     "@types/eslint": "npm:8.56.5"

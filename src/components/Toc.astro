@@ -64,7 +64,7 @@ const { headings, 'data-border-image-url': borderImageUrl } = Astro.props
     width: 100%;
     max-width: 35rem;
     max-height: 85vh;
-    padding: 0.85rem;
+    padding: 1.85rem 0.85rem;
     border-style: solid;
     border-width: 8px;
     border-image-source: var(--borderImageUrl);
@@ -179,7 +179,7 @@ const { headings, 'data-border-image-url': borderImageUrl } = Astro.props
   const eventsToBeAdded = [
     'DOMContentLoaded',
     // 'astro:after-swap',
-    'astro:page-load',
+    // 'astro:page-load',
     'visibilitychange',
   ] as const
 

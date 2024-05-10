@@ -27,27 +27,27 @@ type: blog
 
 ### 何について話さないか
 
-- Launching your project with the Astro starter template
-- Connecting it to Git(Github)
-- Deploying it on Cloudflare Pages
-- Getting an own domain on Cloudflare
-- Creating a custom email address using Cloudflare Email Routing
-- Preparation for using Front Matter CMS
-- Basic knowledge about Astro (by extension, JS and TS)
+- Astro のスターターテンプレートでプロジェクトを始める手順
+- Git(Github)にプロジェクトを紐づける手順
+- Cloudflare Pages にデプロイするまでの手順
+- Cloudflare で独自ドメインを取得する方法
+- Cloudflare Email Routing でカスタムメールアドレスを取得する方法
+- Front Matter CMS を使い始めるまでの準備
+- Astro (延いては、JS や TS) についての基本的な知識
 
 ### 何について話すか
 
-- Some noteworthy features developed with Astro
-- Why I chose Cloudflare Pages for hosting my website
-- Customization of Front Matter CMS
+- Astroで実装した特筆すべき機能について
+- なぜホスティング先に Cloudflare Pages を選んだのか
+- Front Matter CMS のカスタマイズについて
 
-## Main
+## 本題
 
 ### Astro
 
 I avoid using other JS frameworks like React inside Astro and stick to vanilla JS as much as possible. With that in mind, I topped some features, whether necessary or not, on my website.
 
-#### Full text search
+#### 全文検索
 
 I decided to use [Pagefind](https://pagefind.app/), a Rust based static search library. It's lightweight, lightning fast, and easy to use!
 
@@ -173,7 +173,7 @@ import Search from '@/components/Search.astro'
 <!-- ... -->
 ```
 
-#### Internationalization (i18n)
+#### 多言語対応 (i18n)
 
 I was able to develop it thanks to [the official doc](https://docs.astro.build/ja/recipes/i18n/). First, I followed the steps and created locale directories (`en` and `ja`, in my case. You've got to make as many files as the number of languages for the same content.
 
@@ -248,7 +248,7 @@ In terms of event registration, I did almost the same thing as the search compon
 
 Finally, I added it to the navigation as earlier.
 
-#### OG Image (Open Graph)
+#### OG 画像 (Open Graph)
 
 OG Images are dynamically generated via [the API endpoint functionality](https://docs.astro.build/en/guides/endpoints/) Astro provides. To make it simpler, I installed the `astro-og-canvas` library and used it like shown below. The workflow is as follows:
 
@@ -444,7 +444,7 @@ const { title, description, category, tags, publishedAt, modifiedAt } = data
 <!-- ... -->
 ```
 
-#### Styling inside articles
+#### 記事内のCSSスタイリング
 
 Aside from the detailed styling of the blog body part, here I picked up that of some specific elements.
 
@@ -480,7 +480,7 @@ $$
 
 To use $\KaTeX$, I added the `katex`, `rehype-katex`, `remark-math` and `@types/katex` libraries, and then did the following code tweaks.
 
-```typescript title="astro.config.ts" {2,9,13}
+```typescript title="astro.config.ts" {2-3,10,14}
 // ...
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
@@ -511,11 +511,11 @@ import 'katex/dist/katex.min.css'
 <!-- ... -->
 ```
 
-##### Code block
+##### コードブロック
 
 Up here, I put a bunch of code blocks to explain how each code works. I customized the syntax highlighting, code highlighting, and so on behind the scenes.
 
-To that end, I added the `rehype-pretty-code` and `shiki` library and then tweaked the following parts.
+To that end, I added the `rehype-pretty-code` and `shiki` library and then tweaked the following parts. For it to supersede the Astro's default syntax highlight, I set the `syntaxHighlight` to false.
 
 \* The `rehype-pretty-code` uses the `shiki` behind the scenes and therefore it's necessary.
 
@@ -660,7 +660,7 @@ const props = Astro.props
 </style>
 ```
 
-##### Anchor headings
+##### アンカーリンク付き見出し
 
 This article included, all my blog articles have headings with anchor links, which enables the table of content to spot and lead you to every one of them.
 
@@ -668,7 +668,7 @@ To make it work, I added the `rehype-autolink-headings`, `rehype-slug`, and `has
 
 \* `rehype-slug` adds `id` attributes to headings, and `hastscript` works in between the transformation of syntaxes manipulating ASTs (Abstract Syntax Trees).
 
-```typescript title="astro.config.ts" {2,10-22}
+```typescript title="astro.config.ts" {2-4,10-22}
 // ...
 import { h } from 'hastscript'
 import rehypeSlug from 'rehype-slug'
@@ -751,7 +751,7 @@ It's unlike other headless CMS in that it's a VS Code extension and works in loc
 
 When it comes to the setup, consult [the Front Matter official doc](https://frontmatter.codes/docs/getting-started). During the procedure, it automatically detects Astro's content folder and creates content types in the `frontmatter.json` accordingly.
 
-#### Customization of Front Matter CMS
+#### Front Matter CMS のカスタマイズ
 
 In the `frontmatter.json`, there are two notable points here:
 
@@ -879,7 +879,7 @@ My dashboard looks like this. It's fully comparable to other CMS, isn't it?
 
 When I was into Next.js, my go-to hosting service was Vercel, but it felt like I needed to revisit it along with the transition to Astro. I came to a conclusion: [Cloudflare Pages](https://developers.cloudflare.com/pages/).
 
-#### Why Cloudflare?
+#### どうして Cloudflare?
 
 I decided to use Cloudflare Pages to host my website for the following reasons:
 
@@ -891,7 +891,7 @@ I decided to use Cloudflare Pages to host my website for the following reasons:
 
 I suppose the free plan suffices for a small project like my website. That's the most appealing factor to me.
 
-## Afterword
+## 後記
 
 I spent a tremendous amount of time reading articles about how to create my personal website, watching a bunch of tutorials for various JS frameworks on YouTube, and actually getting to work on it. As a novice, it felt as if I were stargazing when I was looking for a constellation of frameworks.
 

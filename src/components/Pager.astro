@@ -43,10 +43,10 @@ const { page } = Astro.props
     <nav data-pagefind-ignore="all">
       {page.url.prev ? (
         <a aria-label={t.data.pager.left_arrow_label} href={page.url.prev}>
-          <Svg iconName="chevron-left" width={25} height={25} />
+          <Svg iconName="left-arrow" width={25} height={25} />
         </a>
       ) : (
-        <Svg iconName="chevron-left" width={25} height={25} />
+        <Svg iconName="left-arrow" width={25} height={25} />
       )}
       <ul>
         {paginator(page.currentPage, page.lastPage).map((pg) => {
@@ -87,10 +87,10 @@ const { page } = Astro.props
       </ul>
       {page.url.next ? (
         <a aria-label={t.data.pager.right_arrow_label} href={page.url.next}>
-          <Svg iconName="chevron-right" width={25} height={25} />
+          <Svg iconName="right-arrow" width={25} height={25} />
         </a>
       ) : (
-        <Svg iconName="chevron-right" width={25} height={25} />
+        <Svg iconName="right-arrow" width={25} height={25} />
       )}
     </nav>
   )

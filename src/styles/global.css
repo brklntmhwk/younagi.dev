@@ -18,7 +18,7 @@
   --gray-dark: hsla(0, 1.27%, 30.98%, 1);
   --base-font: 'Inconsolata Variable', 'Helvetica Neue', 'Helvetica', Arial,
     'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, Verdana, sans-serif;
-  --code-font: 'DejaVuSansMono', Menlo, Consolas, monospace;
+  --code-font: Menlo, Consolas, monospace;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -36,13 +36,6 @@
     --code-highlight: hsla(213.49, 87.31%, 82%, 0.2);
     --code-highlight-border: hsla(213.49, 84.31%, 70%, 0.8);
   }
-}
-@font-face {
-  font-family: 'DejaVuSansMono';
-  src: url('/fonts/DejaVuSansMono.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
 }
 body {
   font-family: var(--base-font);

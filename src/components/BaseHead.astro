@@ -21,6 +21,20 @@ const { title, description, og } = Astro.props
 <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <meta name="generator" content={Astro.generator} />
+<link
+  rel="preload"
+  href="/fonts/PixelMplus10-Regular.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin
+/>
+<link
+  rel="preload"
+  href="/fonts/PixelMplus10-Bold.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin
+/>
 {
   langList.map((lang) => (
     <>

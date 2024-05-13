@@ -1,0 +1,68 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+import { parse } from 'node-html-parser'
+
+type Props = {
+  iconName: string
+} & HTMLAttributes<'svg'>
+
+const svgGetter = (iconName: string) => {
+  const filepath = `./icons/${iconName}.svg`
+  const files = import.meta.glob<string>('./icons/**/*.svg', {
+    as: 'raw',
+    eager: true,
+  })
+
+  if (!(filepath in files)) {
+    throw new Error(`${filepath} not found`)
+  }
+
+  const root = parse(files[filepath]!)
+
+  const svg = root.querySelector('svg')
+
+  if (!svg) {
+    throw new Error('Invalid svg file or svg tags missing')
+  }
+
+  const { attributes, innerHTML } = svg
+
+  return {
+    attributes,
+    innerHTML,
+  }
+}
+
+const { iconName, ...attributes } = Astro.props
+const { attributes: baseAttributes, innerHTML } = svgGetter(iconName)
+const svgAttributes = { ...baseAttributes, ...attributes }
+
+// import { Icon } from 'astro-icon/components'
+// import { Debug } from 'astro:components';
+
+// type svgGlobFile = Record<
+//   'default',
+//   {
+//     src: string
+//     width: number
+//     height: number
+//     format: 'svg'
+//   }
+// >
+
+// const icons = (await Astro.glob('../Svg/icons/*.svg')) as svgGlobFile[]
+
+// const iconNames = [
+//   ...icons.map((icon) =>
+//     icon.default.src.substring(icon.default.src.lastIndexOf('/') + 1)
+//   ),
+// ] as const
+
+// type Props = {
+//   iconName: (typeof iconNames)[number]
+// }
+
+// const { iconName } = Astro.props
+---
+
+<svg {...svgAttributes} set:html={innerHTML} />

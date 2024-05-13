@@ -16,3 +16,12 @@ yarn-error.log*
 
 # macOS-specific files
 .DS_Store
+
+# Front Matter CMS files
+.frontmatter/
+
+# Wrangler files
+.wrangler/
+
+# Yarn
+.yarn/

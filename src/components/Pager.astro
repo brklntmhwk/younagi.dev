@@ -1,0 +1,87 @@
+---
+import type { Page } from 'astro'
+import type { CollectionEntry } from 'astro:content'
+import Svg from '@/components/Svg/index.astro'
+
+type Props = {
+  page?: Page<CollectionEntry<'blog'>>
+}
+const { page } = Astro.props
+
+const paginator = (
+  curPageNum: number,
+  totalPageNum: number,
+  width: number = 2
+) => {
+  const prevEnd = curPageNum - width
+  const nextEnd = curPageNum + width
+  const ranges = []
+  for (let i = 1; i <= totalPageNum; i += 1) {
+    if (curPageNum === 1) {
+      if (i <= nextEnd) ranges.push(i)
+    } else if (curPageNum === totalPageNum) {
+      if (i >= prevEnd) ranges.push(i)
+    } else {
+      if (i >= prevEnd && i <= nextEnd) ranges.push(i)
+    }
+  }
+
+  return ranges
+}
+---
+
+{
+  page !== undefined ? (
+    <nav>
+      {page.url.prev ? (
+        <div>
+          <a href={page.url.prev}>
+            <Svg iconName="left-arrow" width={20} height={20} />
+          </a>
+        </div>
+      ) : (
+        <Svg iconName="left-arrow" width={20} height={20} />
+      )}
+      {paginator(page.currentPage, page.lastPage).map((pg) => {
+        if (pg === 1) {
+          return (
+            <li>
+              <a href="/blog">{pg}</a>
+            </li>
+          )
+        } else {
+          return (
+            <li>
+              <a href={`/blog/${pg}`}>{pg}</a>
+            </li>
+          )
+        }
+      })}
+      <p>
+        {page.currentPage}/{page.lastPage}
+      </p>
+      {page.url.next ? (
+        <div>
+          <a href={page.url.next}>
+            <Svg iconName="right-arrow" width={20} height={20} />
+          </a>
+        </div>
+      ) : (
+        <Svg iconName="right-arrow" width={20} height={20} />
+      )}
+    </nav>
+  ) : (
+    <></>
+  )
+}
+
+<style>
+  nav {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  li {
+    list-style-type: none;
+  }
+</style>

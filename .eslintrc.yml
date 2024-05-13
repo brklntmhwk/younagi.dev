@@ -1,0 +1,17 @@
+plugins:
+  - '@typescript-eslint'
+extends:
+  - eslint:recommended
+  - plugin:astro/recommended
+  - plugin:@typescript-eslint/recommended
+  - prettier
+ignorePatterns: ['*.d.ts']
+overrides:
+  - files:
+      - '*.astro'
+    parser: astro-eslint-parser
+    parserOptions:
+      parser: '@typescript-eslint/parser'
+      extraFileExtensions:
+        - '.astro'
+    rules: {}

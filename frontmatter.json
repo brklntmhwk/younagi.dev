@@ -6,22 +6,34 @@
   "frontMatter.content.pageFolders": [
     {
       "title": "blog",
-      "path": "[[workspace]]/src/content/blog"
+      "path": "[[workspace]]/src/content/blog",
+      "contentTypes": [
+        "blog"
+      ]
+    },
+    {
+      "title": "page",
+      "path": "[[workspace]]/src/content/page",
+      "contentTypes": [
+        "page"
+      ]
     }
   ],
   "frontMatter.taxonomy.contentTypes": [
     {
-      "name": "default",
+      "name": "blog",
       "pageBundle": false,
       "previewPath": "'blog'",
       "filePrefix": null,
       "clearEmpty": true,
+      "fileType": "mdx",
       "fields": [
         {
           "title": "Title",
           "name": "title",
           "type": "string",
-          "single": true
+          "single": true,
+          "required": true
         },
         {
           "title": "Description",
@@ -29,17 +41,69 @@
           "type": "string"
         },
         {
-          "title": "Publishing date",
-          "name": "pubDate",
+          "title": "Category",
+          "name": "category",
+          "type": "categories",
+          "required": true,
+          "taxonomyLimit": 1
+        },
+        {
+          "title": "Tags",
+          "name": "tags",
+          "type": "tags"
+        },
+        {
+          "title": "Is in draft",
+          "name": "draft",
+          "type": "draft",
+          "required": true
+        },
+        {
+          "title": "Published At",
+          "name": "publishedAt",
           "type": "datetime",
           "default": "{{now}}",
           "isPublishDate": true
+        },
+        {
+          "title": "Modified At",
+          "name": "modifiedAt",
+          "type": "datetime",
+          "isModifiedDate": true
         },
         {
           "title": "Content preview",
           "name": "heroImage",
           "type": "image",
           "isPreviewImage": true
+        }
+      ]
+    },
+    {
+      "name": "page",
+      "previewPath": "'page'",
+      "pageBundle": false,
+      "clearEmpty": true,
+      "filePrefix": null,
+      "fileType": "mdx",
+      "fields": [
+        {
+          "title": "Title",
+          "name": "title",
+          "type": "string",
+          "single": true,
+          "required": true
+        },
+        {
+          "title": "Description",
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "title": "Modified At",
+          "name": "modifiedAt",
+          "type": "datetime",
+          "isModifiedDate": true
         }
       ]
     }

@@ -1,12 +1,15 @@
 ---
 title: Astro, Cloudflare Pages, Front Matter CMS で個人ブログを作った
-description: Astro, Cloudflare Pages, Front Matter CMS の構成で個人ブログを開発・一般公開するまでの一連の流れを、重要なポイントを拾いつつ説明する
+description: Astro, Cloudflare Pages, Front Matter CMS の構成で開発した個人ブログについて、重要なポイントを拾いつつ説明する
 publishedAt: 2024-05-10T08:34:36.656Z
 modifiedAt: 2024-05-10T08:34:39.640Z
 tags:
+  - Astro
+  - Cloudflare
+  - Front Matter CMS
   - JavaScript
   - TypeScript
-  - Astro
+  - CSS
 category: Learning
 draft: published
 type: blog
@@ -175,13 +178,13 @@ import Search from '@/components/Search.astro'
 
 #### 多言語対応 (i18n)
 
-[公式のドキュメント](https://docs.astro.build/ja/recipes/i18n/)に記載されている手順通りにロケール用のディレクトリを作成しました。(私の場合は `en` と `ja` です。一つのファイルに対して、言語の数と同じだけ同名のファイルを作成する必要があります)
+[公式のドキュメント](https://docs.astro.build/ja/recipes/i18n/)に記載されている手順通りに、言語ごとのディレクトリを作成しました。(私の場合は `en` と `ja` です。一つのファイルに対して、言語の数と同じだけ同名のファイルを作成する必要があります)
 
-Astro の Content Collections は Markdown/MDX ファイルフォーマットだけでなく、YAML や JSON形式にも対応しています。私は記事以外の翻訳文字列群の保存にYAML形式を選びました。非常に簡潔で好きです。
+Astro の [Content Collections](https://docs.astro.build/ja/guides/content-collections/) は Markdown/MDX ファイルフォーマットだけでなく、YAML や JSON形式にも対応しています。私は記事以外の翻訳文字列群の保存にYAML形式を選びました。非常に簡潔で好きです。
 
-![content directory tree](../../../assets/images/content-dir.png)
+![content ディレクトリツリー](../../../assets/images/content-dir.png)
 
-Content Collectionsの詳しいカスタマイズについては、[公式ドキュメント](https://docs.astro.build/en/guides/content-collections/)をご覧あれ。
+Content Collectionsの詳しいカスタマイズについては、[Astro公式ドキュメント](https://docs.astro.build/ja/guides/content-collections/)をご覧あれ。
 
 i18n対応についての重要なポイントは以下の通りです。`utils` ディレクトリ下に `i18n` ディレクトリがあり、次の2つのファイルが入っています。
 
@@ -444,9 +447,13 @@ const { title, description, category, tags, publishedAt, modifiedAt } = data
 <!-- ... -->
 ```
 
-#### 記事内のCSSスタイリング
+結果、出来上がったOG画像はこのようになりました！
 
-ブログ本文のCSSについて、全体の詳しい説明はさておき、ここでは幾つか例を挙げます。
+![ 当ページのOG画像 ](../../../assets/images/og-image.png)
+
+#### 記事内要素のCSSスタイリング
+
+ブログ本文内のCSSについて、全体の詳細な説明はさておき、ここでは幾つか例を挙げます。
 
 ##### KaTex
 

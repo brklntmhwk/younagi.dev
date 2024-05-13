@@ -56,7 +56,7 @@ I avoid using other JS frameworks like React inside Astro and stick to vanilla J
 
 I decided to use [Pagefind](https://pagefind.app/), a Rust based static search library. It's lightweight, lightning fast, and easy to use!
 
-After adding the `pagefind` and `@pagefind/default-ui` library to my project, I created the search component like this. The point is the `search` id given to an empty `div` tag. Plus, the modal window toggles in response to the presence of the `hidden` class.
+After adding the `pagefind` and `@pagefind/default-ui` library to my project, I created the search component like this. The point is the `search` id given to an empty `div` tag, which will be used later to spot where to put the search component. Plus, the modal window toggles in response to the presence of the `hidden` class.
 
 ```astro title="src/components/Search.astro"
 ---
@@ -87,7 +87,7 @@ import Svg from '@/components/Svg/index.astro'
 <!-- ... -->
 ```
 
-Now, let's move on to the JS part. the `PagefindUI` instance takes the `element` prop that spots where to put the search window. Other than that, I specified the image option and excerpt length as you can see. For more info about the props, consult [the official doc](https://pagefind.app/docs/ui/).
+Now, let's move on to the JS part. the `PagefindUI` instance takes the `element` prop, to which the id attribute should be passed. Other than that, I specified the image option and excerpt length as you can see. For more info about the props, consult [the official doc](https://pagefind.app/docs/ui/).
 
 Inside the `listenToModalEvents` is event registration code. For PC users, I added a shortcut key for searching and enabled the escape key to toggle it. (Hit `Ctrl + Shift + F` if you're on PC right now!)
 
@@ -180,7 +180,7 @@ import Search from '@/components/Search.astro'
 
 #### Internationalization (i18n)
 
-I was able to develop it thanks to [the official doc](https://docs.astro.build/ja/recipes/i18n/). First, I followed the steps and created locale directories (`en` and `ja`, in my case. You've got to make as many files as the number of languages for the same content.
+I was able to develop it thanks to [the official doc](https://docs.astro.build/ja/recipes/i18n/). First, I followed the steps and created locale directories (`en` and `ja`, in my case.) You've got to make as many files as the number of languages for the same content.
 
 Astro doesn't offer only Markdown/MDX file format, but also those of YAML and JSON. I chose YAML for storing translation strings because of its brevity.
 
@@ -594,79 +594,16 @@ const props = Astro.props
 </figure>
 <style>
   figure {
-    margin: 1.75rem 0 1.5rem 0;
-    max-width: 86.5vw;
-    position: relative;
-    font-size: 0.85rem;
-    & :global(pre) {
-      border-radius: 0.25rem;
-      overflow-x: auto;
-    }
-    & :global(code) {
-      font-family: var(--code-font);
-      counter-reset: line;
-      display: grid;
-      & :global([data-line]) {
-        border-left: 4px solid transparent;
-        padding: 0 0.55rem;
-      }
-      & :global([data-line]::before) {
-        counter-increment: line;
-        content: counter(line);
-        display: inline-block;
-        width: 1rem;
-        margin-right: 1.05rem;
-        text-align: right;
-        color: var(--gray-light);
-      }
-      & :global([data-highlighted-line]) {
-        border-left-color: var(--code-highlight-border);
-        background-color: var(--code-highlight);
-        :global(span) {
-          background-color: unset;
-        }
-      }
-      & :global([data-highlighted-chars]) {
-        background-color: var(--gray-light);
-        padding: 0.25rem;
-        border-radius: 0.25rem;
-        & :global(span) {
-          background-color: unset;
-        }
-      }
-    }
-    & :global([data-rehype-pretty-code-title]) {
-      font-family: var(--code-font);
-      & + :global(pre) {
-        padding: 2.85rem 0 0.75rem 0;
-      }
-    }
-    & :global(pre:not([data-rehype-pretty-code-title] + pre)) {
-      padding: 0.75rem 0;
-    }
-    & :global([data-rehype-pretty-code-title]) {
-      max-width: 70vw;
-      position: absolute;
-      top: 0;
-      left: 0;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      padding: 0.25rem 0.75rem;
-      color: var(--gray-dark);
-      background: var(--gray);
-      border-radius: 0.15rem 0.15rem 0.15rem 0;
-    }
+    /* ... */
   }
   @media (min-width: 1024px) {
     figure {
-      max-width: 59.5vw;
+      /* ... */
     }
   }
   :global(pre[data-theme*=' ']),
   :global(pre[data-theme*=' '] span) {
-    color: var(--shiki-light);
-    background: var(--shiki-light-bg);
+    /* ... */
   }
 </style>
 ```
@@ -904,13 +841,13 @@ In the `frontmatter.json`, there are two notable points here:
 
 My dashboard looks like this. It's fully comparable to other CMS, isn't it?
 
-![ My Front Matter CMS dashboard ](../../../assets/images/front-matter-cms-dashboard.png)
+![ My Front Matter CMS dashboard (List appearance) ](../../../assets/images/front-matter-cms-dashboard.png)
 
 ![ My Front Matter CMS editing mode ](../../../assets/images/front-matter-cms-editing.png)
 
 ### Cloudflare Pages
 
-When I was into Next.js, my go-to hosting service was [Vercel](https://vercel.com/), but it felt like I needed to revisit it along with the transition to Astro. I came to a conclusion: [Cloudflare Pages](https://developers.cloudflare.com/pages/).
+When I was into [Next.js](https://nextjs.org/), my go-to hosting service was [Vercel](https://vercel.com/), but it felt like I needed to revisit it along with the transition to Astro. I came to a conclusion: [Cloudflare Pages](https://developers.cloudflare.com/pages/).
 
 #### Why Cloudflare Pages?
 

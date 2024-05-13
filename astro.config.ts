@@ -5,6 +5,7 @@ import purgecss from 'astro-purgecss'
 import browserslist from 'browserslist'
 import { Features, browserslistToTargets } from 'lightningcss'
 import { h } from 'hastscript'
+import remarkBreaks from 'remark-breaks'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
@@ -61,7 +62,7 @@ export default defineConfig({
   },
   markdown: {
     syntaxHighlight: false,
-    remarkPlugins: [remarkMath, remarkGfm],
+    remarkPlugins: [remarkBreaks, remarkMath, remarkGfm],
     rehypePlugins: [
       rehypeKatex,
       rehypeSlug,

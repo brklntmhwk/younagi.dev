@@ -56,7 +56,7 @@ ReactなどのJSライブラリはなるべく使わず、素のJS (TypeScript) 
 
 Rust製の静的検索ライブラリである[Pagefind](https://pagefind.app/)の力を借りることにしました。軽量、高速、そして非常に使いやすい！
 
-`pagefind` と `@pagefind/default-ui` をプロジェクトに追加して, 次のような検索用コンポーネントを作りました。要点は、空の `div` タグに割り振られた`search` IDです。また、モーダルウィンドウは `hidden` クラスの有無に応じて表示が切り替わります。
+`pagefind` と `@pagefind/default-ui` をプロジェクトに追加して, 次のような検索用コンポーネントを作りました。要点は、空の `div` タグに割り振られた`search` IDで、これが後々どこへ検索コンポーネントを設置するのかを特定する為に利用されます。また、モーダルウィンドウは `hidden` クラスの有無に応じて表示が切り替わります。
 
 ```astro title="src/components/Search.astro"
 ---
@@ -87,7 +87,7 @@ import Svg from '@/components/Svg/index.astro'
 <!-- ... -->
 ```
 
-次にJSの部分を見ていきましょう。`PagefindUI` インスタンスは `element` プロパティを取り、これによって検索ウィンドウをどこに置くかを判断します。他にも、私の場合は検索結果に記事の画像を表示するかどうかや、記事の説明文の表示文字数のオプションも設定しました。詳しい情報は[Pagefind公式ドキュメント](https://pagefind.app/docs/ui/)をご覧ください。
+次にJSの部分を見ていきましょう。`PagefindUI` インスタンスは `element` プロパティを取り、ここに先ほどのIDを渡します。他にも、私の場合は検索結果に記事の画像を表示するかどうかや、記事の説明文の表示文字数のオプションも設定しました。その他プロパティについて詳しい情報は[Pagefind公式ドキュメント](https://pagefind.app/docs/ui/)をご覧あれ。
 
 `listenToModalEvents` の中身はイベント登録に関するコードです。PCユーザの為にショートカットキーや `escape` キーでモーダルの表示を切り替えられるようにしてあります。(PCからであれば `Ctrl + Shift + F` をお試しあれ！)
 
@@ -594,79 +594,16 @@ const props = Astro.props
 </figure>
 <style>
   figure {
-    margin: 1.75rem 0 1.5rem 0;
-    max-width: 86.5vw;
-    position: relative;
-    font-size: 0.85rem;
-    & :global(pre) {
-      border-radius: 0.25rem;
-      overflow-x: auto;
-    }
-    & :global(code) {
-      font-family: var(--code-font);
-      counter-reset: line;
-      display: grid;
-      & :global([data-line]) {
-        border-left: 4px solid transparent;
-        padding: 0 0.55rem;
-      }
-      & :global([data-line]::before) {
-        counter-increment: line;
-        content: counter(line);
-        display: inline-block;
-        width: 1rem;
-        margin-right: 1.05rem;
-        text-align: right;
-        color: var(--gray-light);
-      }
-      & :global([data-highlighted-line]) {
-        border-left-color: var(--code-highlight-border);
-        background-color: var(--code-highlight);
-        :global(span) {
-          background-color: unset;
-        }
-      }
-      & :global([data-highlighted-chars]) {
-        background-color: var(--gray-light);
-        padding: 0.25rem;
-        border-radius: 0.25rem;
-        & :global(span) {
-          background-color: unset;
-        }
-      }
-    }
-    & :global([data-rehype-pretty-code-title]) {
-      font-family: var(--code-font);
-      & + :global(pre) {
-        padding: 2.85rem 0 0.75rem 0;
-      }
-    }
-    & :global(pre:not([data-rehype-pretty-code-title] + pre)) {
-      padding: 0.75rem 0;
-    }
-    & :global([data-rehype-pretty-code-title]) {
-      max-width: 70vw;
-      position: absolute;
-      top: 0;
-      left: 0;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      padding: 0.25rem 0.75rem;
-      color: var(--gray-dark);
-      background: var(--gray);
-      border-radius: 0.15rem 0.15rem 0.15rem 0;
-    }
+    /* ... */
   }
   @media (min-width: 1024px) {
     figure {
-      max-width: 59.5vw;
+      /* ... */
     }
   }
   :global(pre[data-theme*=' ']),
   :global(pre[data-theme*=' '] span) {
-    color: var(--shiki-light);
-    background: var(--shiki-light-bg);
+    /* ... */
   }
 </style>
 ```
@@ -753,7 +690,7 @@ export default defineConfig({
 
 ### Front Matter CMS
 
-フレームワーク選定の他には、CMS(Content Management System)選定もかなりの時間を要します。私は [Front Matter CMS](https://frontmatter.codes/) に惹かれました。理由は次の通りです。
+フレームワーク選定の他には、CMS(Content Management System)選定にもかなりの時間を要します。私は [Front Matter CMS](https://frontmatter.codes/) に惹かれました。理由は次の通りです。
 
 - ローカルで記事の執筆や保存ができる
 - マークダウン/MDX形式
@@ -882,13 +819,13 @@ VS Code の拡張機能であり、ローカルで動くという点で、他の
 
 私のダッシュボードはこのような感じです。他のCMSに匹敵する見栄えではないでしょうか。
 
-![ 私の Front Matter CMS ダッシュボード ](../../../assets/images/front-matter-cms-dashboard.png)
+![ 私の Front Matter CMS ダッシュボード (リスト表示) ](../../../assets/images/front-matter-cms-dashboard.png)
 
 ![ 私の Front Matter CMS 編集モード画面 ](../../../assets/images/front-matter-cms-editing.png)
 
 ### Cloudflare Pages
 
-Next.js に執心だった頃、 私のお気に入りのホスティングサービスは [Vercel](https://vercel.com/) でしたが、Astroへの移行に際して、見直す必要があると感じました。そしてたどり着きました。[Cloudflare Pages](https://developers.cloudflare.com/pages/)という結論に。
+[Next.js](https://nextjs.org/) に執心だった頃、 私のお気に入りのホスティングサービスは [Vercel](https://vercel.com/) でしたが、Astroへの移行に際して、見直す必要があると感じました。そしてたどり着きました。[Cloudflare Pages](https://developers.cloudflare.com/pages/)という結論に。
 
 #### どうして Cloudflare Pages?
 
@@ -904,10 +841,11 @@ Cloudflare Pagesをホスティング先に選んだのには次のような理�
 
 ## 後記
 
-私は個人サイトを作る為に莫大な時間を費やしました - 作り方を説明する記事を読み、YouTubeのJSフレームワークについてのチュートリアル動画を何本も視聴し、そして実際に手を動かして - 当時初心者だった私は、まるで星を眺めているかのような、そんな気分で星の数ほどのフレームワークを眺めていました。
+私は個人サイトを作る為に莫大な時間を費やしました。作り方を説明する膨大な量の記事を読み、YouTubeのJSフレームワークについてのチュートリアル動画を何本も視聴し、そして実際に手を動かして。当時初心者だった私は、まるで夜空に浮かぶ無数の星を眺めているかのような、そんな気分で星の数ほどのフレームワークを眺めていました。
 
 その中に、ひと際輝く星を見つけました。それがReactのフレームワーク、Next.jsとの最初の出会いでした。それからというもの、私はNext.jsを学びながら個人サイト開発に没頭しました。8ヶ月程経ち、なんとかそれなりにまともなNext.js製ウェブサイトを作ることができました。
 
-しかし、結論から言うと、Next.jsとはその後破局しました。あんなに(一方的に)愛していたのに、どうして？確かに、バックエンドを代わりに任せられたりと、機能提供の面で八面六臂の活躍をしてくれたことは魅力的でした。ところが、それこそが問題でした。アップグレードを重ね、より多くの機能を手に入れるにつれて、JS標準から徐々に逸脱してしまっていると感じたのです。加えて、そうした絶え間ないアップデートに、付き合いきれないと感じる自分がいました。私たちはいつの間にかすれ違っていたのです。(辛うじてApp Routerまでは頑張りました...)
+しかし、結論から言うと、Next.jsとはその後破局しました。あんなに(一方的に)愛していたのに、どうして？確かに、バックエンドを代わりに任せられたりと、機能提供の面で八面六臂の活躍をしてくれたことは魅力的でした。
+ところが、それこそが問題でした。アップグレードを重ね、より多くの機能を手に入れるにつれて、JS標準から徐々に逸脱してしまっていると感じたのです。加えて、そうした絶え間ないアップデートに、付き合いきれないと感じる自分がいました。私たちはいつの間にかすれ違っていたのです。(辛うじてApp Routerまでは頑張りました)
 
 そんな折、Astroとの出会いが訪れました。JSフレームワークの為のフレームワーク、とでも言いましょうか。個人的にAstroの好きなところは、柔軟性です。機能を最小限に抑えつつ、ユーザにカスタマイズの余地を十分に残してくれています。私の場合、ReactなどのJSフレームワークはできる限り使わずに、素のJS(TypeScript)で書きたかったのです。

@@ -1,0 +1,13 @@
+---
+type Props = {
+  title: string
+}
+
+const { title } = Astro.props
+---
+
+<div class="callout">
+  <div class="callout-title">{title}</div>
+  <div class="callout-content"><slot /></div>
+</div>
+<style></style>

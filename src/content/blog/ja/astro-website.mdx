@@ -210,7 +210,7 @@ export const getLocaleFromUrl = (url: URL) => {
 }
 ```
 
-これらは次のようにして使います。言語選択コンポーネントを作成しました。
+これらを、言語選択コンポーネントの中で次のようにインポートして使います。
 
 ```astro title="src/components/LocalePicker.astro" {2,4,6-7,16-22}
 ---
@@ -677,7 +677,7 @@ const props = Astro.props
 
 `rehype-autolink-headings`、`rehype-slug`、`hastscript` ライブラリを追加して、次の箇所を変更します。
 
-\* `rehype-slug` は `id` 属性を見出しに追加し、`hastscript` は構文が変化する際に抽象構文木(AST, Abstract Syntax Trees)を操作できます
+\* `rehype-slug` は `id` 属性を見出しに追加し、`hastscript` は、例えばマークダウン⇆HTMLのように構文が変化する中間地点において、抽象構文木(AST, Abstract Syntax Trees)を操作できるライブラリです
 
 ```typescript title="astro.config.ts" {2-4,10-22}
 // ...

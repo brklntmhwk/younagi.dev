@@ -182,7 +182,7 @@ import Search from '@/components/Search.astro'
 
 [公式のドキュメント](https://docs.astro.build/ja/recipes/i18n/)に記載されている手順通りに、言語ごとのディレクトリを作成しました。(私の場合は `en` と `ja` です。一つのファイルに対して、言語の数と同じだけ同名のファイルを作成する必要があります)
 
-Astro の [Content Collections](https://docs.astro.build/ja/guides/content-collections/) は Markdown/MDX ファイルフォーマットだけでなく、YAML や JSON形式にも対応しています。私は記事以外の翻訳文字列群の保存にYAML形式を選びました。非常に簡潔で好きです。
+Astro の [Content Collections](https://docs.astro.build/ja/guides/content-collections/) は Markdown/MDX 形式だけでなく、YAML や JSON形式にも対応しています。私は記事以外の翻訳文字列群の保存にYAML形式を選びました。非常に簡潔で好きです。
 
 ![content ディレクトリツリー](../../../assets/images/content-dir.png)
 
@@ -212,7 +212,7 @@ export const getLocaleFromUrl = (url: URL) => {
 
 これらは次のようにして使います。言語選択コンポーネントを作成しました。
 
-```astro title="src/components/LocalePicker.astro"
+```astro title="src/components/LocalePicker.astro" {2,4,6-7,16-22}
 ---
 import { languages } from '@/utils/i18n/data'
 import Svg from '@/components/Svg/index.astro'

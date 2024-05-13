@@ -212,7 +212,7 @@ export const getLocaleFromUrl = (url: URL) => {
 
 These are used like shown below. I created the locale picker component leveraging them.
 
-```astro title="src/components/LocalePicker.astro"
+```astro title="src/components/LocalePicker.astro" {2,4,6-7,16-22}
 ---
 import { languages } from '@/utils/i18n/data'
 import Svg from '@/components/Svg/index.astro'
@@ -407,7 +407,7 @@ const { title, description, og } = Astro.props
 </html>
 ```
 
-This page included, every blog article is wrapped by the blog layout, which in turn is done so by the base layout. In the meantime, the `og` prop is passed onto the base layout, and then the base head one after another.
+This page included, every blog article is wrapped by the blog layout, which in turn is by the base layout. In the meantime, the `og` prop is passed onto the base layout, and then the base head one after another.
 
 ```astro title="src/layouts/BlogLayout.astro" {24-33}
 ---

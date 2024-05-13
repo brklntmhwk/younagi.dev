@@ -747,16 +747,16 @@ export default defineConfig({
 - ローカルで記事の執筆や保存ができる
 - マークダウン/MDX形式
 
-It's unlike other headless CMS in that it's a VS Code extension and works in local, in your code editor! This centralizes all the editing work: code tweaks, blog writing, and deployment. I believe it'd especially be a huge advantage to developers.
+VS Code の拡張機能であり、ローカルで動くという点で、他のヘッドレスCMSとは一線を画しています。つまり、コードの修正や記事の執筆、サイトのデプロイなどの作業が一元化できます。 これは特に開発者にとって大きなメリットとなるのではないでしょうか。
 
-When it comes to the setup, consult [the Front Matter official doc](https://frontmatter.codes/docs/getting-started). During the procedure, it automatically detects Astro's content folder and creates content types in the `frontmatter.json` accordingly.
+初期セットアップについては[Front Matter 公式ドキュメント](https://frontmatter.codes/docs/getting-started)をご覧あれ。手順通りに進めれば、Astroの `content` フォルダを自動で検知し、その中身に応じて `frontmatter.json` にコンテンツの型定義などを書き込んでくれます。
 
 #### Front Matter CMS のカスタマイズ
 
-In the `frontmatter.json`, there are two notable points here:
+`frontmatter.json` では、カスタマイズについて2点重要なポイントがあります。
 
-- `frontMatter.content.publicFolder`: it refers to the public folder by default. I wanted to use [the asset directory](https://docs.astro.build/ja/guides/images/) Astro offers for image optimization, so changed it to `src/assets/images/`
-- `frontMatter.content.i18n`: Front Matter CMS also covers an i18n feature. With this setting, it can spot the association between locales and directories
+- `frontMatter.content.publicFolder`: デフォルトでは `public` フォルダを参照します。私の場合はAstroが画像最適化の為に提供する[Asset](https://docs.astro.build/ja/guides/images/)を使いたかったので、参照先を `src/assets/images/` に変更しました
+- `frontMatter.content.i18n`: Front Matter CMS は多言語化機能(i18n)も有しています。この設定では、言語ごとにディレクトリ名との紐づけを行えます
 
 ```json title="frontmatter.json"
 {
@@ -869,34 +869,34 @@ In the `frontmatter.json`, there are two notable points here:
 }
 ```
 
-My dashboard looks like this. It's fully comparable to other CMS, isn't it?
+私のダッシュボードはこのような感じです。他のCMSに匹敵する見栄えではないでしょうか。
 
-![ My Front Matter CMS dashboard ](../../../assets/images/front-matter-cms-dashboard.png)
+![ 私の Front Matter CMS ダッシュボード ](../../../assets/images/front-matter-cms-dashboard.png)
 
-![ My Front Matter CMS editing mode ](../../../assets/images/front-matter-cms-editing.png)
+![ 私の Front Matter CMS 編集モード画面 ](../../../assets/images/front-matter-cms-editing.png)
 
 ### Cloudflare Pages
 
-When I was into Next.js, my go-to hosting service was Vercel, but it felt like I needed to revisit it along with the transition to Astro. I came to a conclusion: [Cloudflare Pages](https://developers.cloudflare.com/pages/).
+Next.js に執心だった頃、 私のお気に入りのホスティングサービスは [Vercel](https://vercel.com/) でしたが、Astroへの移行に際して、見直す必要があると感じました。そしてたどり着きました。[Cloudflare Pages](https://developers.cloudflare.com/pages/)という結論に。
 
-#### どうして Cloudflare?
+#### どうして Cloudflare Pages?
 
-I decided to use Cloudflare Pages to host my website for the following reasons:
+Cloudflare Pagesをホスティング先に選んだのには次のような理由がありました。
 
-- The generous free plan
-  - The unlimited maximum bandwidth per month is awesome (As of May 9, 2024)
-- Lightning fast deployment
-- Custom email addresses for your domain available
-- Own domains available (paid)
+- 寛大なフリープラン
+  - 月あたりの帯域幅上限が無制限という素晴らしさ (2024年5月9日現在)
+- 非常に高速なデプロイ
+- ドメイン用のカスタムEメールアドレスが取得できる
+- 独自ドメイン取得可能 (有料)
 
-I suppose the free plan suffices for a small project like my website. That's the most appealing factor to me.
+フリープランでも当サイトのような小規模プロジェクトならば十分運用可能だと思います。この点が最も魅力的でした。
 
 ## 後記
 
-I spent a tremendous amount of time reading articles about how to create my personal website, watching a bunch of tutorials for various JS frameworks on YouTube, and actually getting to work on it. As a novice, it felt as if I were stargazing when I was looking for a constellation of frameworks.
+私は個人サイトを作る為に莫大な時間を費やしました - 作り方を説明する記事を読み、YouTubeのJSフレームワークについてのチュートリアル動画を何本も視聴し、そして実際に手を動かして - 初心者という立場もあってか、まるで星を眺めているかのような、そんな気分で星の数ほどのフレームワークを眺めていました。
 
-Among them, I bumped into outstanding and brilliant one above all: Next.js, a framework for React. Since then, I started creating my personal website, simultaneously learning it. After 8 months or so, I successfully built a decent Next.js website.
+その中に、ひと際輝く星を見つけました。それがReactのフレームワーク、Next.jsとの最初の出会いでした。それからというもの、私はNext.jsを学びながら個人サイト開発に没頭しました。8ヶ月程経ち、なんとかそれなりにまともなNext.js製ウェブサイトを作ることができました。
 
-However, long story short, we broke up finally. How come? It's fascinating in providing a full range of features, handling the backend stuff on behalf of me, and so on, but therein lies the rub; as it upgrades and becomes equipped with a lot more features, it seems to be deviating from the JS standard. Plus, I've found it hard to catch up with those continuously upcoming features. (I barely stuck at it until the App Router...)
+しかし、結論から言うと、Next.jsとはその後破局しました。あんなに愛し合っていたのに、どうして？確かに、バックエンドを代わりに任せられたりと、機能提供の面で八面六臂の活躍をしてくれたことは魅力的でした。ところが、それこそが問題でした。アップグレードを重ね、より多くの機能を手に入れるにつれて、JS標準から徐々に逸脱してしまっていると感じたのです。加えて、そうした絶え間ないアップデートに、付き合いきれないと感じる自分がいました。(辛うじてApp Routerまでは頑張りました...)
 
-In the end, I encountered with Astro, a framework for JS frameworks, if you like. What I love most about it is its flexibility; it keeps its functionality to a bare minimum and leaves enough room for your customization. In my case, I avoid using such JS frameworks as React where possible and stick to using vanilla JS(TypeScript).
+そんな折、Astroとの出会いが訪れました。JSフレームワークの為のフレームワーク、とでも言いましょうか。個人的にAstroの好きなところは、柔軟性です。機能を最小限に抑えつつ、ユーザにカスタマイズの余地を十分に残してくれています。私の場合、ReactなどのJSフレームワークはできる限り使わずに、素のJS(TypeScript)で書きたかったのです。

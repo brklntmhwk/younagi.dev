@@ -1,8 +1,8 @@
 ---
 title: Build a personal blog with Astro, Cloudflare Pages, and Front Matter CMS
 description: I describe some noteworthy features developed with Astro, Cloudflare Pages, and FrontMatter CMS.
-publishedAt: 2024-05-07T09:13:00.135Z
-modifiedAt: 2024-02-26T05:20:13.043Z
+publishedAt: 2024-05-13T04:50:45.589Z
+modifiedAt: 2024-05-13T04:50:46.402Z
 tags:
   - Astro
   - Cloudflare
@@ -28,7 +28,15 @@ As to the topics not covered here, consult other helpful info sources.
 
 If you're interested in the code behind my website, see [my Github repo](https://github.com).
 
+### What is covered
+
+- Some noteworthy features developed with Astro
+- Why I chose Cloudflare Pages for hosting my website
+- Customization of Front Matter CMS
+
 ### What is not covered
+
+For example:
 
 - Launching your project with the Astro starter template
 - Connecting it to Git(Github)
@@ -38,17 +46,11 @@ If you're interested in the code behind my website, see [my Github repo](https:/
 - Preparation for using Front Matter CMS
 - Basic knowledge about Astro (by extension, JS and TS)
 
-### What is covered
-
-- Some noteworthy features developed with Astro
-- Why I chose Cloudflare Pages for hosting my website
-- Customization of Front Matter CMS
-
 ## Main
 
 ### Astro
 
-I avoid using other JS frameworks like React inside Astro and stick to vanilla JS as much as possible. With that in mind, I topped some features, whether necessary or not, on my website.
+I avoid using other JS frameworks like React inside Astro and stick to vanilla JS (TypeScript) as much as possible. With that in mind, I topped up some features, whether necessary or not, on my website.
 
 #### Full text search
 
@@ -245,6 +247,9 @@ const slug = rest.join('/')
   <Svg iconName="language" width={32} height={32} />
 </button>
 <!-- ... -->
+<script>
+{/* ... */}
+</script>
 ```
 
 In terms of event registration, I did almost the same thing as the search component, so let's skip it.
@@ -664,6 +669,28 @@ const props = Astro.props
     background: var(--shiki-light-bg);
   }
 </style>
+```
+
+Finally, explicitly export and give it to
+
+```astro title="src/pages/[locale]/blog/[slug].astro" {4, 7-10, 16}
+---
+// ...
+import BlogLayout from '@/layouts/BlogLayout.astro'
+import Figure from '@/components/elements/Figure.astro'
+// ...
+
+export const components = {
+  figure: Figure,
+  // ...
+}
+
+// ...
+---
+
+<BlogLayout entry={/* ... */} headings={/* ... */}>
+  <Content components={components} />
+</BlogLayout>
 ```
 
 ##### Anchor headings

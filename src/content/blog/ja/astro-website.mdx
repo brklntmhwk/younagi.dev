@@ -1,8 +1,8 @@
 ---
 title: Astro, Cloudflare Pages, Front Matter CMS で個人ブログを作った
 description: Astro, Cloudflare Pages, Front Matter CMS の構成で開発した個人ブログについて、重要なポイントを拾いつつ説明する
-publishedAt: 2024-05-10T08:34:36.656Z
-modifiedAt: 2024-05-10T08:34:39.640Z
+publishedAt: 2024-05-13T04:50:36.513Z
+modifiedAt: 2024-05-13T04:50:40.350Z
 tags:
   - Astro
   - Cloudflare
@@ -28,7 +28,15 @@ type: blog
 
 当サイトのソースコードに興味のある方は, [当サイトの Github レポジトリ](https://github.com)をご覧ください.
 
+### 何について話すか
+
+- Astroで実装した特筆すべき機能について
+- なぜホスティング先に Cloudflare Pages を選んだのか
+- Front Matter CMS のカスタマイズについて
+
 ### 何について話さないか
+
+例えば、次のようなトピックには触れません。
 
 - Astro のスターターテンプレートでプロジェクトを始める手順
 - Git(Github)にプロジェクトを紐づける手順
@@ -38,17 +46,11 @@ type: blog
 - Front Matter CMS を使い始めるまでの準備
 - Astro (延いては、JS や TS) についての基本的な知識
 
-### 何について話すか
-
-- Astroで実装した特筆すべき機能について
-- なぜホスティング先に Cloudflare Pages を選んだのか
-- Front Matter CMS のカスタマイズについて
-
 ## 本題
 
 ### Astro
 
-ReactなどのJSライブラリはなるべく使わず、素のJSだけで実装するようにしました。これを踏まえて、要不要はさておき、幾つかの機能をトッピングしています。
+ReactなどのJSライブラリはなるべく使わず、素のJS (TypeScript) だけで実装するようにしました。これを踏まえて、要不要はさておき、幾つかの機能をトッピングしています。
 
 #### 全文検索
 
@@ -245,6 +247,9 @@ const slug = rest.join('/')
   <Svg iconName="language" width={32} height={32} />
 </button>
 <!-- ... -->
+<script>
+{/* ... */}
+</script>
 ```
 
 イベントの登録については、先ほど検索コンポーネントで紹介したのとほとんど同じです。飛ばして先へ進みましょう。

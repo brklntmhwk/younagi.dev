@@ -17,7 +17,7 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
 const { locale } = Astro.params
 const meta = await getEntry('meta', `${locale}/site-data`)
-const t = await getEntry('i18n', `${locale}/translation`)
+// const t = await getEntry('i18n', `${locale}/translation`)
 const news = await getCollection('news').then((entries) =>
   entries.filter(
     (entry) =>
@@ -37,7 +37,7 @@ const latestNews = news.slice(0, NEWS_MAXIMUM_COUNT)
   <main data-pagefind-ignore="all">
     <BulletinBoard newsList={latestNews} />
     <!-- <Message direction="right" content={t.data.pages.home.greeting_message} /> -->
-    <h2>{t.data.pages.home.photo_gallery_title}</h2>
+    <!-- <h2>{t.data.pages.home.photo_gallery_title}</h2> -->
     <PhotoGallery {photos} />
   </main>
 </BaseLayout>

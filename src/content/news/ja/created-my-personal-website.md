@@ -1,9 +1,10 @@
 ---
-title: Created my personal website!
+title: 個人ウェブサイトを立ち上げました！
 type: news
-publishedAt: 2024-04-25T08:55:53.318Z
-modifiedAt: 2024-04-25T08:55:53.921Z
+publishedAt: 2024-05-13T04:42:38.854Z
 draft: published
 ---
 
-Since Feb 22, 2024, I set about to develop my own website & blog.
+2024年2月22日から、個人サイトの開発に着手しました。そしてそれなりのレベルまでは完成しました。開発の中身についてもし興味があれば、こちらの記事をご覧あれ。
+
+## このサイトの存在意義

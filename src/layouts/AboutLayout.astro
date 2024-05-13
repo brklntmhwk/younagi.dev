@@ -1,0 +1,138 @@
+---
+import { getEntry } from 'astro:content'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+import ProfileIcon from '@/components/ProfileIcon.astro'
+import ProfileImage from '@/assets/images/profile.png'
+
+const locale = getLocaleFromUrl(Astro.url)
+const meta = await getEntry('meta', `${locale}/site-data`)
+const t = await getEntry('i18n', `${locale}/translation`)
+---
+
+<BaseLayout
+  title={meta.data.about.title}
+  description={meta.data.about.description}
+  og={{ show: true }}
+>
+  <main data-pagefind-ignore="all">
+    <article>
+      <h1>{t.data.pages.about.title}</h1>
+      <section class="profile">
+        <ProfileIcon
+          alt={t.data.pages.about.my_name}
+          src={ProfileImage}
+          size={150}
+        />
+        <span class="my-name">{t.data.pages.about.my_name}</span>
+      </section>
+      <hr />
+      <section class="about-content">
+        <slot />
+      </section>
+    </article>
+  </main>
+</BaseLayout>
+<style>
+  article {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    hr {
+      width: 100%;
+    }
+    & :global(a) {
+      color: var(--fg);
+      text-decoration: none;
+      & :global(span.heading-anchor-icon) {
+        color: var(--fg);
+        margin-right: 0.5rem;
+      }
+      &:hover {
+        text-decoration: underline;
+        text-underline-offset: 4px;
+        text-decoration-color: var(--fg);
+      }
+    }
+    .profile {
+      padding: 0.5rem 0;
+      display: grid;
+      justify-content: center;
+      place-items: center;
+      gap: 1.05rem;
+      .my-name {
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+    }
+    .about-content {
+      font-size: 1.125rem;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      line-height: 1.65;
+      & :global(p) {
+        color: var(--fg);
+        margin-bottom: 1.25rem;
+      }
+      & :global(ul) {
+        padding: 0.85rem 0 1.75rem 2.5rem;
+        & :global(li) {
+          list-style-type: square;
+        }
+      }
+      & :global(ol) {
+        padding: 0.85rem 0 1.75rem 2.5rem;
+        & :global(li) {
+          list-style-type: decimal;
+        }
+      }
+      & :global(a) {
+        color: var(--accent);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        &:hover {
+          color: var(--accent-dark);
+        }
+      }
+      & :global(a):has(.heading-anchor-icon) {
+        text-decoration: none;
+        font-family: var(--base-font);
+        & :global(span.heading-anchor-icon) {
+          color: var(--fg);
+          margin-right: 0.5rem;
+        }
+        &:hover {
+          text-decoration: underline;
+          text-underline-offset: 4px;
+          text-decoration-color: var(--fg);
+        }
+      }
+      & :global(code:not(figure[data-rehype-pretty-code-figure] code)) {
+        font-size: 0.95rem;
+        background-color: var(--gray);
+        padding: 0.1rem 0.25rem;
+        margin: 0 0.1rem;
+        border-radius: 0.25rem;
+      }
+    }
+  }
+  @media (min-width: 768px) {
+    article {
+      .profile {
+        padding: 1.55rem 0;
+        display: flex;
+        justify-content: center;
+        gap: 2.25rem;
+      }
+    }
+  }
+  @media (min-width: 1024px) {
+    article {
+      .profile {
+        padding: 2.25rem 0;
+        gap: 2.5rem;
+        justify-content: start;
+      }
+    }
+  }
+</style>

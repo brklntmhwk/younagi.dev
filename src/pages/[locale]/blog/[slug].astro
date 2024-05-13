@@ -1,0 +1,37 @@
+---
+import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
+import { getCollection } from 'astro:content'
+import BlogLayout from '@/layouts/BlogLayout.astro'
+import FormattedDate from '@/components/FormattedDate.astro'
+import Figure from '@/components/elements/Figure.astro'
+import Image from '@/components/elements/Image.astro'
+import Message from '@/components/Message.astro'
+import { getPublishedSortedEntries } from '@/lib/content'
+
+export const getStaticPaths = (async () => {
+  const entries = getPublishedSortedEntries(await getCollection('blog'))
+
+  return entries.map((entry) => {
+    const locale = entry.slug.slice(0, entry.slug.indexOf('/'))
+    const rawSlug = entry.slug.slice(entry.slug.indexOf('/') + 1)
+
+    return { params: { locale, slug: rawSlug }, props: { entry } }
+  })
+}) satisfies GetStaticPaths
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>
+
+export const components = {
+  img: Image,
+  figure: Figure,
+  FormattedDate,
+  Message,
+}
+
+const { entry } = Astro.props
+const { Content, headings } = await entry.render()
+---
+
+<BlogLayout entry={{ ...entry }} headings={headings}>
+  <Content components={components} />
+</BlogLayout>

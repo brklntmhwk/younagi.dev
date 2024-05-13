@@ -1,0 +1,68 @@
+website: &website younagi.dev
+author: &author 凪
+back_to_top: &back_to_top トップに戻る
+scroll_to_top: &scroll_to_top ページ上部へ
+blog: &blog ブログ
+news: &news ニュース
+about: &about 運営者
+
+blog_name: *website
+nav:
+  nav_links:
+    home: ホーム
+    blog: *blog
+    news: *news
+    about: *about
+pager:
+  left_arrow_label: 前のページ
+  right_arrow_label: 次のページ
+locale_picker:
+  button_label: 言語を選択する
+theme_toggle:
+  button_label: テーマを切り替える
+search:
+  button_label: コンテンツを検索する
+toc:
+  button_label: 目次
+bulleting_board:
+  no_news: 最新ニュースはありません。
+message:
+  fallback_icon_alt: *author
+photo_gallery:
+  credit_label: 写真提供元：
+photo_gallery_item:
+  photo_label: Unsplashに掲載した写真
+svg:
+  not_found_message: が見つかりませんでした
+  invalid_error_message: 無効なSVGファイルであるか、SVGタグがありません
+pages:
+  home:
+    greeting_message: ご来訪ありがとうございます！ここでは私が日常の中で得たもの、経験したこと、また内省したことなどについてニュースとブログを通して発信しています。
+    photo_gallery_title: 最近の投稿写真
+  blog:
+    title: *blog
+    back_to_top: *back_to_top
+    scroll_to_top: *scroll_to_top
+    categories:
+      title: カテゴリー
+      back_to_top: カテゴリ一覧
+    tags:
+      title: タグ
+      back_to_top: タグ一覧
+    archive:
+      title: アーカイブ
+      back_to_top: アーカイブ一覧
+  news:
+    title: *news
+    back_to_top: ニュース一覧
+    scroll_to_top: *scroll_to_top
+  about:
+    title: *about
+    my_name: *author
+    profile_img_alt: プロフィール画像
+  page:
+    back_to_top: *back_to_top
+    scroll_to_top: *scroll_to_top
+  not_found:
+    message: ページが見つかりませんでした
+    back_to_top: *back_to_top

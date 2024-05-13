@@ -1,0 +1,853 @@
+---
+title: Astro, Cloudflare Pages, Front Matter CMS で個人ブログを作った
+description: Astro, Cloudflare Pages, Front Matter CMS の構成で開発した個人ブログについて、重要なポイントを拾いつつ説明する
+publishedAt: 2024-05-13T04:50:36.513Z
+modifiedAt: 2024-05-13T04:50:40.350Z
+tags:
+  - Astro
+  - Cloudflare
+  - Front Matter CMS
+  - JavaScript
+  - TypeScript
+  - CSS
+category: Learning
+draft: published
+type: blog
+---
+
+## 概要
+
+- Next.js から Astro に乗り換えて個人サイトを作った
+- 全文検索機能(Pagefind)や多言語化対応などの機能が盛り込まれている
+- Cloudflare はサイトのホスティングのみならず、独自ドメインの取得やそれに基づいたカスタムメールアドレスの取得まで幅広いサービスを提供している
+- Front Matter CMS によってコードの修正、記事の執筆、サイトのデプロイがVS Code エディタ上に集約できる
+
+## 導入
+
+当ページで触れられていないトピックについては、他の有益な情報源をあたってみてください。
+
+当サイトのソースコードに興味のある方は, [当サイトの Github レポジトリ](https://github.com)をご覧ください.
+
+### 何について話すか
+
+- Astroで実装した特筆すべき機能について
+- なぜホスティング先に Cloudflare Pages を選んだのか
+- Front Matter CMS のカスタマイズについて
+
+### 何について話さないか
+
+例えば、次のようなトピックには触れません。
+
+- Astro のスターターテンプレートでプロジェクトを始める手順
+- Git(Github)にプロジェクトを紐づける手順
+- Cloudflare Pages にデプロイするまでの手順
+- Cloudflare で独自ドメインを取得する方法
+- Cloudflare Email Routing でカスタムメールアドレスを取得する方法
+- Front Matter CMS を使い始めるまでの準備
+- Astro (延いては、JS や TS) についての基本的な知識
+
+## 本題
+
+### Astro
+
+ReactなどのJSライブラリはなるべく使わず、素のJS (TypeScript) だけで実装するようにしました。これを踏まえて、要不要はさておき、幾つかの機能をトッピングしています。
+
+#### 全文検索
+
+Rust製の静的検索ライブラリである[Pagefind](https://pagefind.app/)の力を借りることにしました。軽量、高速、そして非常に使いやすい！
+
+`pagefind` と `@pagefind/default-ui` をプロジェクトに追加して, 次のような検索用コンポーネントを作りました。
+要点は、空の `div` タグに割り振られた`search` IDです。これが後々、Pagefindが提供する検索ウィンドウをどこに設置するのかを特定するために参照されます。また、モーダルウィンドウは `hidden` クラスの有無に応じて表示が切り替わります。
+
+```astro title="src/components/Search.astro"
+---
+import '@pagefind/default-ui/css/ui.css'
+// ...
+import Svg from '@/components/Svg/index.astro'
+// ...
+---
+<div id="search-modal" class="hidden">
+  <div id="search-wrapper">
+    <div id="search"></div>
+  </div>
+</div>
+<button
+  type="button"
+  id="search-icon-button"
+  <!-- ... -->
+>
+  <Svg iconName="magnifier" width={32} height={32} />
+</button>
+<style>
+  /* ... */
+  #search-modal.hidden {
+    display: none;
+  }
+  /* ... */
+</style>
+<!-- ... -->
+```
+
+次にJSの部分を見ていきましょう。`PagefindUI` インスタンスは `element` プロパティを取り、ここに先ほどのIDを渡します。他にも、私の場合は検索結果に記事の画像を表示するかどうかや、記事の説明文の表示文字数のオプションも設定しました。その他プロパティについて詳しい情報は[Pagefind公式ドキュメント](https://pagefind.app/docs/ui/)をご覧あれ。
+
+`listenToModalEvents` の中身はイベント登録に関するコードです。PCユーザの為にショートカットキーや `escape` キーでモーダルの表示を切り替えられるようにしてあります。(PCからであれば `Ctrl + Shift + F` をお試しあれ！)
+
+```astro title="src/components/Search.astro"
+<!-- ... -->
+<script>
+  import { PagefindUI } from '@pagefind/default-ui'
+
+  function initPagefind() {
+    new PagefindUI({
+      element: '#search',
+      showImages: false,
+      excerptLength: 20,
+    })
+
+    const listenToModalEvents = (
+      modalButton: Element,
+      modal: Element,
+      input: HTMLInputElement
+    ) => {
+      modalButton.addEventListener('click', () => {
+        modal.classList.toggle('hidden')
+        input.focus()
+      })
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.classList.toggle('hidden')
+        }
+      })
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          modal.classList.add('hidden')
+        }
+        if (e.code === 'KeyF' && e.ctrlKey && e.shiftKey) {
+          e.preventDefault()
+          modal.classList.toggle('hidden')
+          input.focus()
+        }
+      })
+    }
+
+    const modalButton = document.querySelector('#search-icon-button')
+    const modal = document.querySelector('#search-modal')
+    const input = document.querySelector(
+      '.pagefind-ui__search-input'
+    ) as HTMLInputElement | null
+
+    if (modalButton && modal && input) {
+      listenToModalEvents(modalButton, modal, input)
+    }
+  }
+
+  const eventsToBeAdded = [
+    'DOMContentLoaded',
+    'astro:after-swap',
+    'visibilitychange',
+  ] as const
+
+  eventsToBeAdded.forEach((evName) => {
+    document.addEventListener(evName, initPagefind)
+  })
+</script>
+```
+
+最後に、私の場合はこれをナビゲーション用コンポーネント内に追加しました。
+
+```astro title="src/components/Navigation.astro" {4, 15}
+---
+// ...
+import NavMenuContainer from '@/components/NavMenuContainer.astro'
+import Search from '@/components/Search.astro'
+// ...
+---
+<nav class="glassmorphism" data-pagefind-ignore="all">
+  <!-- ... -->
+  <NavMenuContainer>
+    <div class="nav-links">
+     <!-- ... -->
+    </div>
+    <div class="icon-links">
+      <!-- ... -->
+      <Search data-border-image-url="url(/border-image.gif)" />
+    </div>
+  </NavMenuContainer>
+</nav>
+<!-- ... -->
+```
+
+#### 多言語対応 (i18n)
+
+[公式のドキュメント](https://docs.astro.build/ja/recipes/i18n/)に記載されている手順通りに、言語ごとのディレクトリを作成しました。(私の場合は `en` と `ja` です。一つのファイルに対して、言語の数と同じだけ同名のファイルを作成する必要があります)
+
+Astro の [Content Collections](https://docs.astro.build/ja/guides/content-collections/) は Markdown/MDX 形式だけでなく、YAML や JSON形式にも対応しています。私は記事以外の翻訳文字列群の保存にYAML形式を選びました。非常に簡潔で好きです。
+
+![content ディレクトリツリー](../../../assets/images/content-dir.png)
+
+Content Collectionsの詳しいカスタマイズについては、[Astro公式ドキュメント](https://docs.astro.build/ja/guides/content-collections/)をご覧あれ。
+
+i18n対応についての重要なポイントは以下の通りです。`utils` ディレクトリ下に `i18n` ディレクトリがあり、次の2つのファイルが入っています。
+
+```typescript title="src/utils/i18n/data.ts"
+export const languages = {
+  en: 'English',
+  ja: '日本語',
+}
+export const langList = ['en', 'ja'] as const
+export const defaultLang = 'en'
+```
+
+```typescript title="src/utils/i18n/getLocaleFromUrl.ts"
+import { defaultLang, languages } from './data'
+
+export const getLocaleFromUrl = (url: URL) => {
+  const [, lang] = url.pathname.split('/')
+  if (lang && lang in languages) return lang as keyof typeof languages
+
+  return defaultLang
+}
+```
+
+これらを、言語選択コンポーネントの中で次のようにインポートして使います。
+
+```astro title="src/components/LocalePicker.astro" {2,4,6-7,16-22}
+---
+import { languages } from '@/utils/i18n/data'
+import Svg from '@/components/Svg/index.astro'
+import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+// ...
+const locale = getLocaleFromUrl(Astro.url)
+const t = await getEntry('i18n', `${locale}/translation`)
+const [_firstSlash, _prevLocale, ...rest] = Astro.url.pathname.split('/')
+const slug = rest.join('/')
+// ...
+---
+
+<div id="lang-modal" class="hidden">
+  <div id="lang-wrapper">
+    <ul class="lang-list">
+      {
+        Object.entries(languages).map(([lang, label]) => (
+          <li>
+            <a href={`/${lang}/${slug}`}>{label}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>
+<button
+  aria-label={t.data.locale_picker.button_label}
+  type="button"
+  id="lang-icon-button"
+  title={t.data.locale_picker.button_label}
+>
+  <Svg iconName="language" width={32} height={32} />
+</button>
+<!-- ... -->
+<script>
+{/* ... */}
+</script>
+```
+
+イベントの登録については、先ほど検索コンポーネントで紹介したのとほとんど同じです。飛ばして先へ進みましょう。
+
+最後にナビゲーションコンポーネントに追加するところも同じです。
+
+#### OG 画像 (Open Graph)
+
+OG画像はAstroが提供する[APIエンドポイント機能](https://docs.astro.build/en/guides/endpoints/)で動的に生成します。より簡潔に実装したかったので、`astro-og-canvas` ライブラリの力を借りました。以下コードの流れは次の通りです。
+
+1. OG画像を生成するコンテンツのデータを全取得する
+2. データを加工して `OGImageRoute` が `pages` プロパティとして受け取れるようにする
+3. データを `OGImageRoute` に渡す
+
+私の場合、ロケールディレクトリ導入の際にパスをいじっていた為、パスを少々加工しなければなりませんでした。
+
+```typescript title="src/pages/og/[...slug].ts"
+import { getCollection } from 'astro:content'
+import { OGImageRoute } from 'astro-og-canvas'
+
+const entries = await getCollection('blog')
+const articles = Object.fromEntries(
+  entries.map(({ slug, data, collection }) => {
+    const locale = slug.slice(0, slug.indexOf('/'))
+    const rawSlug = slug.slice(slug.indexOf('/') + 1)
+
+    // e.g., "/en/blog/example1": { example1's data here }
+    return [`${locale}/${collection}/${rawSlug}`, data]
+  })
+)
+
+export const { getStaticPaths, GET } = OGImageRoute({
+  param: 'slug', // this must be consistent with the dynamic path name
+  pages: articles,
+  getImageOptions: (_path, page: (typeof articles)[number]) => {
+    return {
+      title: page.title,
+      description: page.description ?? '',
+      bgGradient: [[26.99, 26.99, 30.99]],
+      padding: 80,
+      font: {
+        title: {
+          size: 64,
+          lineHeight: 1.35,
+          families: [
+            'PixelMPlus10',
+            'Arial',
+            'Hiragino Kaku Gothic ProN',
+            'Hiragino Sans',
+          ],
+          weight: 'Medium',
+          color: [255, 255, 255],
+        },
+        description: {
+          size: 36,
+          lineHeight: 1.2,
+          families: ['Arial', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans'],
+          weight: 'Normal',
+          color: [255, 255, 255],
+        },
+      },
+      logo: {
+        path: './src/assets/images/logo.png',
+        size: [80, 80],
+      },
+      fonts: ['./src/assets/fonts/PixelMplus10-Regular.woff2'],
+    }
+  },
+})
+```
+
+その他のオプションについては、[astro-og-canvas 公式ドキュメント](https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas)をご覧あれ。
+
+これでOG画像用エンドポイントへアクセスできるようになりました。一つ例を見てみましょう。headの記述を切り出した `BaseHead` コンポーネントを作成し、こちらをベースレイアウトの中に設置しています。
+
+```astro title="src/components/BaseHead.astro"
+---
+// ...
+import type { Props as BaseLayoutProps } from '@/layouts/BaseLayout.astro'
+
+type Props = BaseLayoutProps
+// ...
+const { title, description, og } = Astro.props
+---
+<!-- ... -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={Astro.url} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+{
+  og.show && (
+    <>
+      <meta
+        property="og:image"
+        content={og.image ?? new URL('/blog-placeholder-1.jpg', Astro.url)}
+      />
+      <meta
+        property="og:image:height"
+        content={(og.height ?? 720).toString()}
+      />
+      <meta property="og:image:width" content={(og.width ?? 720).toString()} />
+      <meta property="og:type" content={og.type ?? 'website'} />
+    </>
+  )
+}
+<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+{
+  og.show && (
+    <>
+      <meta
+        property="twitter:card"
+        content={og.type === 'article' ? 'summary_large_image' : 'summary'}
+      />
+      <meta
+        property="twitter:image"
+        content={og.image ?? new URL('/blog-placeholder-1.jpg', Astro.url)}
+      />
+    </>
+  )
+}
+<!-- ... -->
+```
+
+```astro title="src/layouts/BaseLayout.astro" {2, 24}
+---
+import BaseHead from '../components/BaseHead.astro'
+// ...
+
+// this is supposed to be imported from the BaseHead component
+export type Props = {
+  title: string
+  description?: string
+  og: {
+    show: boolean
+    image?: URL
+    height?: number
+    width?: number
+    type?: 'article' | 'website'
+  }
+}
+
+const { title, description, og } = Astro.props
+---
+
+<!doctype html>
+<html lang={/* ... */}>
+  <head>
+    <BaseHead {title} description={description ?? ''} {og} />
+  </head>
+  <body data-pagefind-body>
+    <!-- ... -->
+  </body>
+</html>
+```
+
+このページを含めて、当サイトの全てのブログ記事は次のレイアウトをテンプレートにしています。そしてそのブログレイアウトは、同様にベースレイアウトを踏襲しています。同時に、このマトリョシカのような構造の中で、`og` プロパティがベースレイアウトへ、そしてheadコンポーネントへ、と渡されていきます。
+
+```astro title="src/layouts/BlogLayout.astro" {24-33}
+---
+// ...
+import type { MarkdownHeading } from 'astro'
+import type { CollectionEntry } from 'astro:content'
+// ...
+import BaseLayout from '@/layouts/BaseLayout.astro'
+// ...
+
+type Props = {
+  entry: CollectionEntry<'blog'>
+  headings: MarkdownHeading[]
+}
+
+// ...
+const { entry, headings } = Astro.props
+const { data, collection, slug } = entry
+const { title, description, category, tags, publishedAt, modifiedAt } = data
+// ...
+---
+
+<BaseLayout
+  title={title}
+  description={description ?? ''}
+  og={{
+    show: true,
+    height: 630,
+    width: 1200,
+    image: new URL(
+      `/og/${locale}/${collection}/${slug.slice(slug.indexOf('/') + 1)}.png`,
+      Astro.url
+    ),
+    type: 'article',
+  }}
+>
+  <main>
+    <!-- ... -->
+  </main>
+</BaseLayout>
+<!-- ... -->
+```
+
+結果、出来上がったOG画像はこのようになりました！
+
+![ 当ページのOG画像 ](../../../assets/images/og-image.png)
+
+#### 記事内要素のCSSスタイリング
+
+ブログ本文内のCSSについて、全体の詳細な説明はさておき、ここでは幾つか例を挙げます。
+
+##### KaTex
+
+$\KaTeX$ はウェブページ上で数式などをきれいに表示してくれます。例えば、こちらの呪文が...
+
+```Markdown
+$$
+x = {-b \pm \sqrt{b^2-4ac} \over 2a}
+$$
+$$
+( \sum_{k=1}^{n} a_k b_k )^2 \leq ( \sum_{k=1}^{n} {a_k}^2 ) ( \sum_{k=1}^{n} {b_k}^2 )
+$$
+$$
+\int_{0}^{1} f(x) \ dx
+= \lim_{n \to \infty} \dfrac{1}{n} \sum_{k=0}^{n-1} f \left (\dfrac{k}{n} \right)
+$$
+```
+
+こんな風に！とても読みやすくて感動します。
+
+$$
+x = {-b \pm \sqrt{b^2-4ac} \over 2a}
+$$
+$$
+( \sum_{k=1}^{n} a_k b_k )^2 \leq ( \sum_{k=1}^{n} {a_k}^2 ) ( \sum_{k=1}^{n} {b_k}^2 )
+$$
+$$
+\int_{0}^{1} f(x) \ dx
+= \lim_{n \to \infty} \dfrac{1}{n} \sum_{k=0}^{n-1} f \left (\dfrac{k}{n} \right)
+$$
+
+$\KaTeX$ の利用に際して、`katex`、 `rehype-katex`、 `remark-math`、 `@types/katex` ライブラリを追加しました。そして次のようにコードを追加。
+
+```typescript title="astro.config.ts" {2-3,10,14}
+// ...
+import remarkMath from 'remark-math'
+import rehypeKatex from 'rehype-katex'
+// ...
+export default defineConfig({
+  // ...
+  markdown: {
+    // ...
+    remarkPlugins: [
+      remarkMath,
+      // ...
+    ],
+    rehypePlugins: [
+      rehypeKatex,
+      // ...
+    ],
+  },
+})
+```
+
+私の場合、$\KaTeX$ のスタイルシートはブログレイアウトでのみ読み込ませています。他のページでは使う予定がないからです。
+
+```astro title="src/layouts/BlogLayout.astro"
+---
+import 'katex/dist/katex.min.css'
+// ...
+---
+<!-- ... -->
+```
+
+##### コードブロック
+
+ここまでで、コードの説明に際してその都度コードブロックを使ってきましたが、シンタックスハイライトやコードの強調などのカスタマイズを裏で行っています。
+
+`rehype-pretty-code`、`shiki` ライブラリを追加し、次の箇所を変更しました。Astroではデフォルトでシンタックスハイライト機能がついているので、カスタマイズする際には `syntaxHighlight` の項目を明示的に `false` にする必要があります。
+
+\* `rehype-pretty-code` は内部で `shiki` を利用しているため、インストール必須です。
+
+```typescript title="astro.config.ts" {2,7,11-20}
+// ...
+import rehypePrettyCode from 'rehype-pretty-code'
+// ...
+export default defineConfig({
+  // ...
+  markdown: {
+    syntaxHighlight: false,
+    // ...
+    rehypePlugins: [
+      // ...
+      [
+        rehypePrettyCode,
+        {
+          theme: {
+            light: 'github-dark',
+            dark: 'github-dark',
+          },
+          grid: false,
+        },
+      ],
+      // ...
+    ],
+  },
+})
+```
+
+次に、以下2つのコンポーネントを作成しました。このネスト構造 (と大半のCSS) については、[haxibami.net](https://www.haxibami.net/)のGithubレポジトリを参考にしました。
+
+```astro title="src/components/elements/Figure.astro"
+---
+import AstroCode from './Code.astro'
+
+export type Props = {
+  'data-rehype-pretty-code-figure'?: ''
+}
+
+const props = Astro.props
+const isCodeFigure = Object.hasOwn(props, 'data-rehype-pretty-code-figure')
+---
+
+{
+  isCodeFigure ? (
+    <AstroCode {...props}>
+      <slot />
+    </AstroCode>
+  ) : (
+    <figure {...props}>
+      <slot />
+    </figure>
+  )
+}
+```
+
+```astro title="src/components/elements/Code.astro"
+---
+const props = Astro.props
+---
+
+<figure {...props}>
+  <slot />
+</figure>
+<style>
+  figure {
+    /* ... */
+  }
+  @media (min-width: 1024px) {
+    figure {
+      /* ... */
+    }
+  }
+  :global(pre[data-theme*=' ']),
+  :global(pre[data-theme*=' '] span) {
+    /* ... */
+  }
+</style>
+```
+
+##### アンカーリンク付き見出し
+
+この記事も含め、全てのブログ記事内の見出しにはアンカーリンクが付いています。このおかげで、目次が見出しを検知して、私たちをそれぞれの場所へ案内してくれます。
+
+`rehype-autolink-headings`、`rehype-slug`、`hastscript` ライブラリを追加して、次の箇所を変更します。
+
+\* `rehype-slug` は `id` 属性を見出しに追加し、`hastscript` は、例えばマークダウン⇆HTMLのように構文が変化する中間地点において、抽象構文木(AST, Abstract Syntax Trees)を操作できるライブラリです
+
+```typescript title="astro.config.ts" {2-4,10-22}
+// ...
+import { h } from 'hastscript'
+import rehypeSlug from 'rehype-slug'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+// ...
+export default defineConfig({
+  // ...
+  markdown: {
+    // ...
+    rehypePlugins: [
+      // ...
+      rehypeSlug,
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: 'prepend',
+          content: h(
+            'span.heading-anchor-icon',
+            {
+              title: 'Anchor link',
+            },
+            ['#']
+          ),
+        },
+      ],
+      // ...
+    ],
+  },
+})
+```
+
+それから、すべてのコンテンツ用レイアウトでアンカーリンクのCSSを追記しました。以下はブログレイアウトの例です。
+
+```astro title="src/components/BlogLayout.astro" {19-32}
+---
+// ...
+---
+
+<BaseLayout
+  <!-- ... -->
+>
+  <main>
+    <article>
+      <!-- ... -->
+    </article>
+  </main>
+</BaseLayout>
+<style>
+  article {
+    /* ... */
+    .prose {
+      /* ... */
+      & :global(a):has(.heading-anchor-icon) {
+        text-decoration: none;
+        font-family: var(--base-font);
+        & :global(span.heading-anchor-icon) {
+          color: var(--fg);
+          margin-right: 0.5rem;
+        }
+        &:hover {
+          text-decoration: underline;
+          text-underline-offset: 4px;
+          text-decoration-color: var(--fg);
+        }
+        /* ... */
+      }
+    }
+  }
+</style>
+```
+
+### Front Matter CMS
+
+フレームワーク選定の他には、CMS(Content Management System)選定にもかなりの時間を要します。私は [Front Matter CMS](https://frontmatter.codes/) に惹かれました。理由は次の通りです。
+
+- ローカルで記事の執筆や保存ができる
+- マークダウン/MDX形式
+
+VS Code の拡張機能であり、ローカルで動くという点で、他のヘッドレスCMSとは一線を画しています。つまり、コードの修正や記事の執筆、サイトのデプロイなどの作業が一元化できます。 これは特に開発者にとって大きなメリットとなるのではないでしょうか。
+
+初期セットアップについては[Front Matter 公式ドキュメント](https://frontmatter.codes/docs/getting-started)をご覧あれ。手順通りに進めれば、Astroの `content` フォルダを自動で検知し、その中身に応じて `frontmatter.json` にコンテンツの型定義などを書き込んでくれます。
+
+#### Front Matter CMS のカスタマイズ
+
+`frontmatter.json` では、カスタマイズについて2点重要なポイントがあります。
+
+- `frontMatter.content.publicFolder`: デフォルトでは `public` フォルダを参照します。私の場合はAstroが画像最適化の為に提供する[Asset](https://docs.astro.build/ja/guides/images/)を使いたかったので、参照先を `src/assets/images/` に変更しました
+- `frontMatter.content.i18n`: Front Matter CMS は多言語化機能(i18n)も有しています。この設定では、言語ごとにディレクトリ名との紐づけを行えます
+
+```json title="frontmatter.json"
+{
+  "$schema": "https://frontmatter.codes/frontmatter.schema.json",
+  "frontMatter.framework.id": "astro",
+  "frontMatter.preview.host": "http://localhost:4321",
+  "frontMatter.content.publicFolder": "./src/assets/images/",
+  "frontMatter.content.pageFolders": [
+    {
+      "title": "blog",
+      "path": "[[workspace]]/src/content/blog",
+      "contentTypes": [
+        "blog"
+      ],
+      "defaultLocale": "en"
+    },
+    // ...
+  ],
+  "frontMatter.content.i18n": [
+    {
+      "title": "English",
+      "locale": "en",
+      "path": "en"
+    },
+    {
+      "title": "Japanese",
+      "locale": "ja",
+      "path": "ja"
+    }
+  ],
+  "frontMatter.content.draftField": {
+    "name": "draft",
+    "type": "choice",
+    "choices": [
+      "draft",
+      "in progress",
+      "published"
+    ]
+  },
+  "frontMatter.taxonomy.seoTitleLength": 72,
+  "frontMatter.taxonomy.contentTypes": [
+    {
+      "name": "blog",
+      "pageBundle": false,
+      "previewPath": "'blog'",
+      "filePrefix": null,
+      "clearEmpty": true,
+      "fileType": "mdx",
+      "fields": [
+        {
+          "title": "Title",
+          "name": "title",
+          "type": "string",
+          "single": true,
+          "required": true
+        },
+        {
+          "title": "Description",
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "title": "Category",
+          "name": "category",
+          "type": "categories",
+          "required": true,
+          "taxonomyLimit": 1,
+          "singleValueAsString": true
+        },
+        {
+          "title": "Tags",
+          "name": "tags",
+          "type": "tags"
+        },
+        {
+          "title": "Draft status",
+          "name": "draft",
+          "type": "draft",
+          "required": true,
+          "default": "draft"
+        },
+        {
+          "title": "Published At",
+          "name": "publishedAt",
+          "type": "datetime",
+          "default": "{{now}}",
+          "isPublishDate": true
+        },
+        {
+          "title": "Modified At",
+          "name": "modifiedAt",
+          "type": "datetime",
+          "isModifiedDate": true
+        },
+        {
+          "title": "type",
+          "name": "type",
+          "type": "string"
+        },
+        {
+          "title": "draft",
+          "name": "draft",
+          "type": "draft"
+        }
+      ]
+    },
+    // ...
+  ],
+  // ...
+}
+```
+
+私のダッシュボードはこのような感じです。他のCMSに匹敵する見栄えではないでしょうか。
+
+![ 私の Front Matter CMS ダッシュボード (リスト表示) ](../../../assets/images/front-matter-cms-dashboard.png)
+
+![ 私の Front Matter CMS 編集モード画面 ](../../../assets/images/front-matter-cms-editing.png)
+
+### Cloudflare Pages
+
+[Next.js](https://nextjs.org/) に執心だった頃、 私のお気に入りのホスティングサービスは [Vercel](https://vercel.com/) でしたが、Astroへの移行に際して、見直す必要があると感じました。そしてたどり着きました。[Cloudflare Pages](https://developers.cloudflare.com/pages/)という結論に。
+
+#### どうして Cloudflare Pages?
+
+Cloudflare Pagesをホスティング先に選んだのには次のような理由がありました。
+
+- 寛大なフリープラン
+  - 月あたりの帯域幅上限が無制限という素晴らしさ (2024年5月9日現在)
+- 非常に高速なデプロイ
+- ドメイン用のカスタムEメールアドレスが取得できる
+- 独自ドメイン取得可能 (有料)
+
+フリープランでも当サイトのような小規模プロジェクトならば十分運用可能だと思います。この点が最も魅力的でした。
+
+## 後記
+
+私は個人サイトを作る為に莫大な時間を費やしました。作り方を説明する膨大な量の記事を読み、YouTubeのJSフレームワークについてのチュートリアル動画を何本も視聴し、そして実際に手を動かして。
+当時初心者だった私は、まるで夜空に浮かぶ無数の星を眺めているかのような、そんな気分で星の数ほどのフレームワークを眺めていました。
+
+その中に、ひと際輝く星を見つけました。それがReactのフレームワーク、Next.jsとの最初の出会いでした。それからというもの、私はNext.jsを学びながら個人サイト開発に没頭しました。8ヶ月程経ち、なんとかそれなりにまともなNext.js製ウェブサイトを作ることができました。
+
+しかし、結論から言うと、Next.jsとはその後破局しました。あんなに(一方的に)愛していたのに、どうして？確かに、バックエンドを代わりに任せられたりと、機能提供の面で八面六臂の活躍をしてくれたことは魅力的でした。
+ところが、それこそが問題でした。アップグレードを重ね、より多くの機能を手に入れるにつれて、JS標準から徐々に逸脱してしまっていると感じたのです。加えて、そうした絶え間ないアップデートに、付き合いきれないと感じる自分がいました。私たちはいつの間にかすれ違っていたのです。(辛うじてApp Routerまでは頑張りました)
+
+そんな折、Astroとの出会いが訪れました。JSフレームワークの為のフレームワーク、とでも言いましょうか。個人的にAstroの好きなところは、柔軟性です。機能を最小限に抑えつつ、ユーザにカスタマイズの余地を十分に残してくれています。私の場合、ReactなどのJSフレームワークはできる限り使わずに、素のJS(TypeScript)で書きたかったのです。

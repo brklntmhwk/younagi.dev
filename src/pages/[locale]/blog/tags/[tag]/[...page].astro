@@ -1,0 +1,65 @@
+---
+import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
+import { getCollection, getEntry } from 'astro:content'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import BlogList from '@/components/BlogList.astro'
+import Pager from '@/components/Pager.astro'
+import { LIMIT_PER_PAGE } from '@/consts'
+import { langList } from '@/utils/i18n/data'
+import { slugify } from '@/utils/slugify'
+import { getPublishedSortedEntries } from '@/lib/content'
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const entries = getPublishedSortedEntries(await getCollection('blog'))
+  const tags = [...new Set(entries.flatMap((entry) => entry.data.tags ?? []))]
+
+  return langList.flatMap((lang) => {
+    return tags.flatMap((tag) => {
+      const displayEntries = entries.filter(
+        (entry) =>
+          entry.data.tags?.includes(tag) &&
+          entry.slug.slice(0, entry.slug.indexOf('/')) === lang
+      )
+      const tagSlug = slugify(tag)
+
+      return paginate(displayEntries, {
+        pageSize: LIMIT_PER_PAGE,
+        params: { locale: lang, tag: tagSlug },
+        props: { rowTag: tag },
+      })
+    })
+  })
+}) satisfies GetStaticPaths
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>
+
+const { page, rowTag } = Astro.props
+const { tag, locale } = Astro.params
+const meta = await getEntry('meta', `${locale}/site-data`)
+const t = await getEntry('i18n', `${locale}/translation`)
+---
+
+<BaseLayout
+  title={`${meta.data.blog.title} - Tag: ${tag}`}
+  description={meta.data.blog.description}
+  og={{ show: true }}
+>
+  <main data-pagefind-ignore="all">
+    <section>
+      <h1>{rowTag}</h1>
+      <a class="back-to-link" href={`/${locale}/blog/tags/`}>
+        ◀ {t.data.pages.blog.tags.back_to_top}
+      </a>
+      <BlogList entries={page.data} kind="taxonomy" />
+    </section>
+    <Pager page={page} />
+  </main>
+</BaseLayout>
+<style>
+  main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 4rem;
+  }
+</style>

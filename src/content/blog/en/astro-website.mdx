@@ -1,0 +1,873 @@
+---
+title: Build a personal blog with Astro, Cloudflare Pages, and Front Matter CMS
+description: I describe some noteworthy features developed with Astro, Cloudflare Pages, and FrontMatter CMS.
+publishedAt: 2024-05-13T04:50:45.589Z
+modifiedAt: 2024-05-13T04:50:46.402Z
+tags:
+  - Astro
+  - Cloudflare
+  - Front Matter CMS
+  - JavaScript
+  - TypeScript
+  - CSS
+category: Learning
+draft: published
+type: blog
+---
+
+## TL:DR
+
+- I created my website switching over from Next.js to Astro
+- My Astro website is equipped with some features like full-text search(Pagefind), internationalization(i18n) and more
+- Cloudflare offers a wide range of support for, from hosting your website and getting your own domain, to creating your custom email address for it.
+- Front Matter CMS enables you to write an article, tweak code, build and deploy your website in your VS Code editor
+
+## Intro
+
+As to the topics not covered here, consult other helpful info sources.
+
+If you're interested in the code behind my website, see [my Github repo](https://github.com).
+
+### What is covered
+
+- Some noteworthy features developed with Astro
+- Why I chose Cloudflare Pages for hosting my website
+- Customization of Front Matter CMS
+
+### What is not covered
+
+For example:
+
+- Launching your project with the Astro starter template
+- Connecting it to Git(Github)
+- Deploying it on Cloudflare Pages
+- Getting an own domain on Cloudflare
+- Creating a custom email address using Cloudflare Email Routing
+- Preparation for using Front Matter CMS
+- Basic knowledge about Astro (by extension, JS and TS)
+
+## Main
+
+### Astro
+
+I avoid using other JS frameworks like React inside Astro and stick to vanilla JS (TypeScript) as much as possible. With that in mind, I topped up some features, whether necessary or not, on my website.
+
+#### Full text search
+
+I decided to use [Pagefind](https://pagefind.app/), a Rust based static search library. It's lightweight, lightning fast, and easy to use!
+
+After adding the `pagefind` and `@pagefind/default-ui` library to my project, I created the search component like this.
+The point is the `search` id given to an empty `div` tag, which will be used later to spot where to put the search component that Pagefind provides. Plus, the modal window toggles in response to the presence of the `hidden` class.
+
+```astro title="src/components/Search.astro"
+---
+import '@pagefind/default-ui/css/ui.css'
+// ...
+import Svg from '@/components/Svg/index.astro'
+// ...
+---
+<div id="search-modal" class="hidden">
+  <div id="search-wrapper">
+    <div id="search"></div>
+  </div>
+</div>
+<button
+  type="button"
+  id="search-icon-button"
+  <!-- ... -->
+>
+  <Svg iconName="magnifier" width={32} height={32} />
+</button>
+<style>
+  /* ... */
+  #search-modal.hidden {
+    display: none;
+  }
+  /* ... */
+</style>
+<!-- ... -->
+```
+
+Now, let's move on to the JS part. the `PagefindUI` instance takes the `element` prop, to which the id attribute should be passed. Other than that, I specified the image option and excerpt length as you can see. For more info about the props, consult [the official doc](https://pagefind.app/docs/ui/).
+
+Inside the `listenToModalEvents` is event registration code. For PC users, I added a shortcut key for searching and enabled the escape key to toggle it. (Hit `Ctrl + Shift + F` if you're on PC right now!)
+
+```astro title="src/components/Search.astro"
+<!-- ... -->
+<script>
+  import { PagefindUI } from '@pagefind/default-ui'
+
+  function initPagefind() {
+    new PagefindUI({
+      element: '#search',
+      showImages: false,
+      excerptLength: 20,
+    })
+
+    const listenToModalEvents = (
+      modalButton: Element,
+      modal: Element,
+      input: HTMLInputElement
+    ) => {
+      modalButton.addEventListener('click', () => {
+        modal.classList.toggle('hidden')
+        input.focus()
+      })
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.classList.toggle('hidden')
+        }
+      })
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          modal.classList.add('hidden')
+        }
+        if (e.code === 'KeyF' && e.ctrlKey && e.shiftKey) {
+          e.preventDefault()
+          modal.classList.toggle('hidden')
+          input.focus()
+        }
+      })
+    }
+
+    const modalButton = document.querySelector('#search-icon-button')
+    const modal = document.querySelector('#search-modal')
+    const input = document.querySelector(
+      '.pagefind-ui__search-input'
+    ) as HTMLInputElement | null
+
+    if (modalButton && modal && input) {
+      listenToModalEvents(modalButton, modal, input)
+    }
+  }
+
+  const eventsToBeAdded = [
+    'DOMContentLoaded',
+    'astro:after-swap',
+    'visibilitychange',
+  ] as const
+
+  eventsToBeAdded.forEach((evName) => {
+    document.addEventListener(evName, initPagefind)
+  })
+</script>
+```
+
+Finally, I added it to the navigation component.
+
+```astro title="src/components/Navigation.astro" {4, 15}
+---
+// ...
+import NavMenuContainer from '@/components/NavMenuContainer.astro'
+import Search from '@/components/Search.astro'
+// ...
+---
+<nav class="glassmorphism" data-pagefind-ignore="all">
+  <!-- ... -->
+  <NavMenuContainer>
+    <div class="nav-links">
+     <!-- ... -->
+    </div>
+    <div class="icon-links">
+      <!-- ... -->
+      <Search data-border-image-url="url(/border-image.gif)" />
+    </div>
+  </NavMenuContainer>
+</nav>
+<!-- ... -->
+```
+
+#### Internationalization (i18n)
+
+I was able to develop it thanks to [the official doc](https://docs.astro.build/ja/recipes/i18n/). First, I followed the steps and created locale directories (`en` and `ja`, in my case.) You've got to make as many files as the number of languages for the same content.
+
+Astro doesn't offer only Markdown/MDX file format, but also those of YAML and JSON. I chose YAML for storing translation strings because of its brevity.
+
+![content directory tree](../../../assets/images/content-dir.png)
+
+When it comes to the configuration, consult [the official doc for Content Collections](https://docs.astro.build/en/guides/content-collections/).
+
+Here are some important parts about i18n settings. Under the `utils` directory is that of `i18n`, which contains two files.
+
+```typescript title="src/utils/i18n/data.ts"
+export const languages = {
+  en: 'English',
+  ja: '日本語',
+}
+export const langList = ['en', 'ja'] as const
+export const defaultLang = 'en'
+```
+
+```typescript title="src/utils/i18n/getLocaleFromUrl.ts"
+import { defaultLang, languages } from './data'
+
+export const getLocaleFromUrl = (url: URL) => {
+  const [, lang] = url.pathname.split('/')
+  if (lang && lang in languages) return lang as keyof typeof languages
+
+  return defaultLang
+}
+```
+
+These are used like shown below. I created the locale picker component leveraging them.
+
+```astro title="src/components/LocalePicker.astro" {2,4,6-7,16-22}
+---
+import { languages } from '@/utils/i18n/data'
+import Svg from '@/components/Svg/index.astro'
+import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+// ...
+const locale = getLocaleFromUrl(Astro.url)
+const t = await getEntry('i18n', `${locale}/translation`)
+const [_firstSlash, _prevLocale, ...rest] = Astro.url.pathname.split('/')
+const slug = rest.join('/')
+// ...
+---
+
+<div id="lang-modal" class="hidden">
+  <div id="lang-wrapper">
+    <ul class="lang-list">
+      {
+        Object.entries(languages).map(([lang, label]) => (
+          <li>
+            <a href={`/${lang}/${slug}`}>{label}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>
+<button
+  aria-label={t.data.locale_picker.button_label}
+  type="button"
+  id="lang-icon-button"
+  title={t.data.locale_picker.button_label}
+>
+  <Svg iconName="language" width={32} height={32} />
+</button>
+<!-- ... -->
+<script>
+{/* ... */}
+</script>
+```
+
+In terms of event registration, I did almost the same thing as the search component, so let's skip it.
+
+Finally, I added it to the navigation as earlier.
+
+#### OG Image (Open Graph)
+
+OG Images are dynamically generated via [the API endpoint functionality](https://docs.astro.build/en/guides/endpoints/) Astro provides. To make it simpler, I installed the `astro-og-canvas` library and used it like shown below. The workflow is as follows:
+
+1. Get all content collections data for which you want to have OG images dynamically generated
+2. Process the data so that the `OGImageRoute` can take as its prop `pages`
+3. Pass it to the `OGImageRoute`
+
+In my case, things around paths are a bit messy because of the locale directories, so I had to do some processing of paths.
+
+```typescript title="src/pages/og/[...slug].ts"
+import { getCollection } from 'astro:content'
+import { OGImageRoute } from 'astro-og-canvas'
+
+const entries = await getCollection('blog')
+const articles = Object.fromEntries(
+  entries.map(({ slug, data, collection }) => {
+    const locale = slug.slice(0, slug.indexOf('/'))
+    const rawSlug = slug.slice(slug.indexOf('/') + 1)
+
+    // e.g., "/en/blog/example1": { example1's data here }
+    return [`${locale}/${collection}/${rawSlug}`, data]
+  })
+)
+
+export const { getStaticPaths, GET } = OGImageRoute({
+  param: 'slug', // this must be consistent with the dynamic path name
+  pages: articles,
+  getImageOptions: (_path, page: (typeof articles)[number]) => {
+    return {
+      title: page.title,
+      description: page.description ?? '',
+      bgGradient: [[26.99, 26.99, 30.99]],
+      padding: 80,
+      font: {
+        title: {
+          size: 64,
+          lineHeight: 1.35,
+          families: [
+            'PixelMPlus10',
+            'Arial',
+            'Hiragino Kaku Gothic ProN',
+            'Hiragino Sans',
+          ],
+          weight: 'Medium',
+          color: [255, 255, 255],
+        },
+        description: {
+          size: 36,
+          lineHeight: 1.2,
+          families: ['Arial', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans'],
+          weight: 'Normal',
+          color: [255, 255, 255],
+        },
+      },
+      logo: {
+        path: './src/assets/images/logo.png',
+        size: [80, 80],
+      },
+      fonts: ['./src/assets/fonts/PixelMplus10-Regular.woff2'],
+    }
+  },
+})
+```
+
+For more info about the options, consult [the astro-og-canvas doc](https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas).
+
+Now you can access the og endpoint. Let's see one example of it. I created the head component that is supposed to be embedded in the base layout.
+
+```astro title="src/components/BaseHead.astro"
+---
+// ...
+import type { Props as BaseLayoutProps } from '@/layouts/BaseLayout.astro'
+
+type Props = BaseLayoutProps
+// ...
+const { title, description, og } = Astro.props
+---
+<!-- ... -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={Astro.url} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+{
+  og.show && (
+    <>
+      <meta
+        property="og:image"
+        content={og.image ?? new URL('/blog-placeholder-1.jpg', Astro.url)}
+      />
+      <meta
+        property="og:image:height"
+        content={(og.height ?? 720).toString()}
+      />
+      <meta property="og:image:width" content={(og.width ?? 720).toString()} />
+      <meta property="og:type" content={og.type ?? 'website'} />
+    </>
+  )
+}
+<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+{
+  og.show && (
+    <>
+      <meta
+        property="twitter:card"
+        content={og.type === 'article' ? 'summary_large_image' : 'summary'}
+      />
+      <meta
+        property="twitter:image"
+        content={og.image ?? new URL('/blog-placeholder-1.jpg', Astro.url)}
+      />
+    </>
+  )
+}
+<!-- ... -->
+```
+
+```astro title="src/layouts/BaseLayout.astro" {2, 24}
+---
+import BaseHead from '../components/BaseHead.astro'
+// ...
+
+// this is supposed to be imported from the BaseHead component
+export type Props = {
+  title: string
+  description?: string
+  og: {
+    show: boolean
+    image?: URL
+    height?: number
+    width?: number
+    type?: 'article' | 'website'
+  }
+}
+
+const { title, description, og } = Astro.props
+---
+
+<!doctype html>
+<html lang={/* ... */}>
+  <head>
+    <BaseHead {title} description={description ?? ''} {og} />
+  </head>
+  <body data-pagefind-body>
+    <!-- ... -->
+  </body>
+</html>
+```
+
+This page included, every blog article is wrapped by the blog layout, which in turn is by the base layout. In the meantime, the `og` prop is passed onto the base layout, and then the base head one after another.
+
+```astro title="src/layouts/BlogLayout.astro" {24-33}
+---
+// ...
+import type { MarkdownHeading } from 'astro'
+import type { CollectionEntry } from 'astro:content'
+// ...
+import BaseLayout from '@/layouts/BaseLayout.astro'
+// ...
+
+type Props = {
+  entry: CollectionEntry<'blog'>
+  headings: MarkdownHeading[]
+}
+
+// ...
+const { entry, headings } = Astro.props
+const { data, collection, slug } = entry
+const { title, description, category, tags, publishedAt, modifiedAt } = data
+// ...
+---
+
+<BaseLayout
+  title={title}
+  description={description ?? ''}
+  og={{
+    show: true,
+    height: 630,
+    width: 1200,
+    image: new URL(
+      `/og/${locale}/${collection}/${slug.slice(slug.indexOf('/') + 1)}.png`,
+      Astro.url
+    ),
+    type: 'article',
+  }}
+>
+  <main>
+    <!-- ... -->
+  </main>
+</BaseLayout>
+<!-- ... -->
+```
+
+Finally, the OG image has successfully created like this!
+
+![ The OG image for this page ](../../../assets/images/og-image.png)
+
+#### Styling inside articles
+
+Aside from the detailed styling of the blog body part, here I picked up that of some specific elements.
+
+##### KaTex
+
+$\KaTeX$ beautifully styles mathematical expressions on a web page. For instance, this turns into...
+
+```Markdown
+$$
+x = {-b \pm \sqrt{b^2-4ac} \over 2a}
+$$
+$$
+( \sum_{k=1}^{n} a_k b_k )^2 \leq ( \sum_{k=1}^{n} {a_k}^2 ) ( \sum_{k=1}^{n} {b_k}^2 )
+$$
+$$
+\int_{0}^{1} f(x) \ dx
+= \lim_{n \to \infty} \dfrac{1}{n} \sum_{k=0}^{n-1} f \left (\dfrac{k}{n} \right)
+$$
+```
+
+this! Very legible, isn't it?
+
+$$
+x = {-b \pm \sqrt{b^2-4ac} \over 2a}
+$$
+$$
+( \sum_{k=1}^{n} a_k b_k )^2 \leq ( \sum_{k=1}^{n} {a_k}^2 ) ( \sum_{k=1}^{n} {b_k}^2 )
+$$
+$$
+\int_{0}^{1} f(x) \ dx
+= \lim_{n \to \infty} \dfrac{1}{n} \sum_{k=0}^{n-1} f \left (\dfrac{k}{n} \right)
+$$
+
+To use $\KaTeX$, I added the `katex`, `rehype-katex`, `remark-math` and `@types/katex` libraries, and then did the following code tweaks.
+
+```typescript title="astro.config.ts" {2-3,10,14}
+// ...
+import remarkMath from 'remark-math'
+import rehypeKatex from 'rehype-katex'
+// ...
+export default defineConfig({
+  // ...
+  markdown: {
+    // ...
+    remarkPlugins: [
+      remarkMath,
+      // ...
+    ],
+    rehypePlugins: [
+      rehypeKatex,
+      // ...
+    ],
+  },
+})
+```
+
+I had the $\KaTeX$ stylesheet read only in the blog layout because it's not supposed to be used in other pages.
+
+```astro title="src/layouts/BlogLayout.astro"
+---
+import 'katex/dist/katex.min.css'
+// ...
+---
+<!-- ... -->
+```
+
+##### Code block
+
+Up here, I put a bunch of code blocks to explain how each code works. I customized the syntax highlighting, code highlighting, and so on behind the scenes.
+
+To that end, I added the `rehype-pretty-code` and `shiki` library and then tweaked the following parts. For it to supersede the Astro's default syntax highlight, I set the `syntaxHighlight` to false.
+
+\* The `rehype-pretty-code` uses the `shiki` behind the scenes and therefore it's necessary.
+
+```typescript title="astro.config.ts" {2,7,11-20}
+// ...
+import rehypePrettyCode from 'rehype-pretty-code'
+// ...
+export default defineConfig({
+  // ...
+  markdown: {
+    syntaxHighlight: false,
+    // ...
+    rehypePlugins: [
+      // ...
+      [
+        rehypePrettyCode,
+        {
+          theme: {
+            light: 'github-dark',
+            dark: 'github-dark',
+          },
+          grid: false,
+        },
+      ],
+      // ...
+    ],
+  },
+})
+```
+
+Next, I created two components for HTML elements shown below. As to this nested structure (and the better part of the code styling), where the code component is nested by the figure, I consulted the Github repo of [haxibami.net](https://www.haxibami.net/)
+
+```astro title="src/components/elements/Figure.astro"
+---
+import AstroCode from './Code.astro'
+
+export type Props = {
+  'data-rehype-pretty-code-figure'?: ''
+}
+
+const props = Astro.props
+const isCodeFigure = Object.hasOwn(props, 'data-rehype-pretty-code-figure')
+---
+
+{
+  isCodeFigure ? (
+    <AstroCode {...props}>
+      <slot />
+    </AstroCode>
+  ) : (
+    <figure {...props}>
+      <slot />
+    </figure>
+  )
+}
+```
+
+```astro title="src/components/elements/Code.astro"
+---
+const props = Astro.props
+---
+
+<figure {...props}>
+  <slot />
+</figure>
+<style>
+  figure {
+    /* ... */
+  }
+  @media (min-width: 1024px) {
+    figure {
+      /* ... */
+    }
+  }
+  :global(pre[data-theme*=' ']),
+  :global(pre[data-theme*=' '] span) {
+    /* ... */
+  }
+</style>
+```
+
+Finally, explicitly export and give it to
+
+```astro title="src/pages/[locale]/blog/[slug].astro" {4, 7-10, 16}
+---
+// ...
+import BlogLayout from '@/layouts/BlogLayout.astro'
+import Figure from '@/components/elements/Figure.astro'
+// ...
+
+export const components = {
+  figure: Figure,
+  // ...
+}
+
+// ...
+---
+
+<BlogLayout entry={/* ... */} headings={/* ... */}>
+  <Content components={components} />
+</BlogLayout>
+```
+
+##### Anchor headings
+
+This article included, all my blog articles have headings with anchor links, which enables the table of content to spot and lead you to every one of them.
+
+To make it work, I added the `rehype-autolink-headings`, `rehype-slug`, and `hastscript` library and tweaked the following parts.
+
+\* `rehype-slug` adds `id` attributes to headings, and `hastscript` works in between the transformation of syntaxes like between Markdown and HTML, manipulating ASTs (Abstract Syntax Trees) in the middle.
+
+```typescript title="astro.config.ts" {2-4,10-22}
+// ...
+import { h } from 'hastscript'
+import rehypeSlug from 'rehype-slug'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+// ...
+export default defineConfig({
+  // ...
+  markdown: {
+    // ...
+    rehypePlugins: [
+      // ...
+      rehypeSlug,
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: 'prepend',
+          content: h(
+            'span.heading-anchor-icon',
+            {
+              title: 'Anchor link',
+            },
+            ['#']
+          ),
+        },
+      ],
+      // ...
+    ],
+  },
+})
+```
+
+And then I added the styling for anchor links in every content layouts. Below is the example of the blog layout.
+
+```astro title="src/components/BlogLayout.astro" {19-32}
+---
+// ...
+---
+
+<BaseLayout
+  <!-- ... -->
+>
+  <main>
+    <article>
+      <!-- ... -->
+    </article>
+  </main>
+</BaseLayout>
+<style>
+  article {
+    /* ... */
+    .prose {
+      /* ... */
+      & :global(a):has(.heading-anchor-icon) {
+        text-decoration: none;
+        font-family: var(--base-font);
+        & :global(span.heading-anchor-icon) {
+          color: var(--fg);
+          margin-right: 0.5rem;
+        }
+        &:hover {
+          text-decoration: underline;
+          text-underline-offset: 4px;
+          text-decoration-color: var(--fg);
+        }
+        /* ... */
+      }
+    }
+  }
+</style>
+```
+
+### Front Matter CMS
+
+Along with a choice of framework, what takes you ages to decide is that of CMS(Content Management System). I fell in love with [Front Matter CMS](https://frontmatter.codes/) for the following reasons:
+
+- Writing and storing articles in local
+- Markdown/MDX file format
+
+It's unlike other headless CMS in that it's a VS Code extension and works in local, in your code editor! This centralizes all the editing work: code tweaks, blog writing, and deployment. I believe it'd especially be a huge advantage to developers.
+
+When it comes to the setup, consult [the Front Matter official doc](https://frontmatter.codes/docs/getting-started). During the procedure, it automatically detects Astro's content folder and creates content types in the `frontmatter.json` accordingly.
+
+#### Customization of Front Matter CMS
+
+In the `frontmatter.json`, there are two notable points here:
+
+- `frontMatter.content.publicFolder`: it refers to the public folder by default. I wanted to use [the asset directory](https://docs.astro.build/ja/guides/images/) Astro offers for image optimization, so changed it to `src/assets/images/`
+- `frontMatter.content.i18n`: Front Matter CMS also covers an i18n feature. With this setting, it can spot the association between locales and directories
+
+```json title="frontmatter.json"
+{
+  "$schema": "https://frontmatter.codes/frontmatter.schema.json",
+  "frontMatter.framework.id": "astro",
+  "frontMatter.preview.host": "http://localhost:4321",
+  "frontMatter.content.publicFolder": "./src/assets/images/",
+  "frontMatter.content.pageFolders": [
+    {
+      "title": "blog",
+      "path": "[[workspace]]/src/content/blog",
+      "contentTypes": [
+        "blog"
+      ],
+      "defaultLocale": "en"
+    },
+    // ...
+  ],
+  "frontMatter.content.i18n": [
+    {
+      "title": "English",
+      "locale": "en",
+      "path": "en"
+    },
+    {
+      "title": "Japanese",
+      "locale": "ja",
+      "path": "ja"
+    }
+  ],
+  "frontMatter.content.draftField": {
+    "name": "draft",
+    "type": "choice",
+    "choices": [
+      "draft",
+      "in progress",
+      "published"
+    ]
+  },
+  "frontMatter.taxonomy.seoTitleLength": 72,
+  "frontMatter.taxonomy.contentTypes": [
+    {
+      "name": "blog",
+      "pageBundle": false,
+      "previewPath": "'blog'",
+      "filePrefix": null,
+      "clearEmpty": true,
+      "fileType": "mdx",
+      "fields": [
+        {
+          "title": "Title",
+          "name": "title",
+          "type": "string",
+          "single": true,
+          "required": true
+        },
+        {
+          "title": "Description",
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "title": "Category",
+          "name": "category",
+          "type": "categories",
+          "required": true,
+          "taxonomyLimit": 1,
+          "singleValueAsString": true
+        },
+        {
+          "title": "Tags",
+          "name": "tags",
+          "type": "tags"
+        },
+        {
+          "title": "Draft status",
+          "name": "draft",
+          "type": "draft",
+          "required": true,
+          "default": "draft"
+        },
+        {
+          "title": "Published At",
+          "name": "publishedAt",
+          "type": "datetime",
+          "default": "{{now}}",
+          "isPublishDate": true
+        },
+        {
+          "title": "Modified At",
+          "name": "modifiedAt",
+          "type": "datetime",
+          "isModifiedDate": true
+        },
+        {
+          "title": "type",
+          "name": "type",
+          "type": "string"
+        },
+        {
+          "title": "draft",
+          "name": "draft",
+          "type": "draft"
+        }
+      ]
+    },
+    // ...
+  ],
+  // ...
+}
+```
+
+My dashboard looks like this. It's fully comparable to other CMS, isn't it?
+
+![ My Front Matter CMS dashboard (List appearance) ](../../../assets/images/front-matter-cms-dashboard.png)
+
+![ My Front Matter CMS editing mode ](../../../assets/images/front-matter-cms-editing.png)
+
+### Cloudflare Pages
+
+When I was into [Next.js](https://nextjs.org/), my go-to hosting service was [Vercel](https://vercel.com/), but it felt like I needed to revisit it along with the transition to Astro. I came to a conclusion: [Cloudflare Pages](https://developers.cloudflare.com/pages/).
+
+#### Why Cloudflare Pages?
+
+I decided to use Cloudflare Pages to host my website for the following reasons:
+
+- The generous free plan
+  - The unlimited maximum bandwidth per month is awesome (As of May 9, 2024)
+- Lightning fast deployment
+- Custom email addresses for your domain available
+- Own domains available (paid)
+
+I suppose the free plan suffices for a small project like my website. That's the most appealing factor to me.
+
+## Afterword
+
+I spent a tremendous amount of time reading articles about how to create my personal website, watching a bunch of tutorials for various JS frameworks on YouTube, and actually getting to work on it. As a novice, it felt as if I were stargazing when I was looking for a constellation of frameworks.
+
+Among them, I bumped into outstanding and brilliant one above all: Next.js, a framework for React. Since then, I started creating my personal website, simultaneously learning it. After 8 months or so, I successfully built a decent Next.js website.
+
+However, long story short, we broke up finally. How come? It's fascinating in providing a full range of features, handling the backend stuff on behalf of me, and so on, but therein lies the rub; as it upgrades and becomes equipped with a lot more features, it seems to be deviating from the JS standard. Plus, I've found it hard to catch up with those continuously upcoming features. Yes, We were growing apart before I knew it. (I barely stuck at it until the App Router...)
+
+In the end, I encountered with Astro, a framework for JS frameworks, if you like. What I love most about it is its flexibility; it keeps its functionality to a bare minimum and leaves enough room for your customization. In my case, I avoid using such JS frameworks as React where possible and stick to using vanilla JS(TypeScript).

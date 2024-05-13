@@ -1,53 +1,71 @@
 :root {
-  --accent: #cd4b51;
-  --accent-dark: #000d8a;
-  --black: 15, 18, 25;
-  --gray: 96, 115, 159;
-  --gray-light: 229, 233, 240;
-  --gray-dark: 34, 41, 57;
-  --gray-gradient: rgba(var(--gray-light), 50%), #fff;
-  --box-shadow: 0 2px 6px rgba(var(--gray), 25%),
-    0 8px 24px rgba(var(--gray), 33%), 0 16px 32px rgba(var(--gray), 33%);
+  --fg: hsla(248.57, 11.48%, 11.96%, 1);
+  --bg: hsla(0, 0%, 96.7%, 1);
+  --bg-gradient: to top, hsla(0, 0%, 70.47%, 1), hsla(0, 0%, 96.7%, 1);
+  --line: hsla(260.87, 10.13%, 55.49%, 0.33);
+  --accent: hsla(240.24, 100%, 48.63%, 1);
+  --accent-dark: hsla(240, 98.54%, 26.86%, 1);
+  --pixel-border: hsla(240, 6.9%, 11.37%, 1);
+  --mobile-nav-bg: hsla(0, 0%, 91.71%, 1);
+  --modal-bg: hsla(223, 13%, 10%, 0.7);
+  --bulletin-board-fg: hsla(32.94, 100%, 50%, 1);
+  --bulletin-board-bg: hsla(30, 9.8%, 20%, 1);
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --code-highlight: hsla(60, 100%, 92.94%, 0.2);
+  --code-highlight-border: hsla(60, 94.78%, 77.45%, 0.8);
+  --gray: hsla(60, 0.52%, 75.55%, 1);
+  --gray-light: hsla(0, 0%, 86.71%, 1);
+  --gray-dark: hsla(0, 1.27%, 30.98%, 1);
+  --base-font: 'Inconsolata Variable', 'Helvetica Neue', 'Helvetica', Arial,
+    'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, Verdana, sans-serif;
+  --code-font: Menlo, Consolas, monospace;
 }
-/* @font-face {
-  font-family: "Atkinson";
-  src: url("/fonts/atkinson-regular.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Atkinson";
-  src: url("/fonts/atkinson-bold.woff") format("woff");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-} */
-@font-face {
-  font-family: "TiltNeon";
-  src: url("/fonts/TiltNeon-Regular.ttf") format("ttf");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fg: hsla(0, 0%, 96.7%, 1);
+    --bg: hsla(248.57, 11.48%, 11.96%, 1);
+    --bg-gradient: to top,
+      hsla(248.57, 11.48%, 58.96%, 1) hsla(248.57, 11.48%, 11.96%, 1);
+    --accent: hsla(215.24, 100%, 52.63%, 1);
+    --accent-dark: hsla(220, 98.54%, 43.86%, 1);
+    --pixel-border: hsla(220, 100%, 98.22%, 1);
+    --mobile-nav-bg: hsla(248.57, 11.48%, 20.96%, 1);
+    --modal-bg: hsla(223, 8%, 8%, 0.8);
+    --glass-bg: rgba(0, 0, 0, 0.1);
+    --code: hsla(0, 0%, 90.98%, 1);
+    --code-highlight: hsla(213.49, 87.31%, 82%, 0.2);
+    --code-highlight-border: hsla(213.49, 84.31%, 70%, 0.8);
+  }
 }
 body {
-  font-family: "Atkinson", sans-serif;
+  font-family: var(--base-font);
+  font-weight: 400;
   margin: 0;
   padding: 0;
   text-align: left;
-  background: linear-gradient(var(--gray-gradient)) no-repeat;
-  background-size: 100% 600px;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  color: rgb(var(--gray-dark));
-  font-size: 20px;
-  line-height: 1.7;
+  color: var(--fg);
+  background: var(--bg);
+  line-height: 1.35;
+  -webkit-text-size-adjust: 100%;
+  touch-action: manipulation;
 }
 main {
-  width: 720px;
-  max-width: calc(100% - 2em);
-  margin: auto;
-  padding: 3em 1em;
+  grid-area: main;
+  padding: 2.25rem 1.5rem;
+}
+@media (min-width: 768px) {
+  main {
+    padding: 2.25rem 2.75rem;
+  }
+}
+@media (min-width: 1024px) {
+  main {
+    grid-area: main;
+    padding: 3rem 4rem;
+    overflow-y: auto;
+  }
 }
 h1,
 h2,
@@ -55,101 +73,119 @@ h3,
 h4,
 h5,
 h6 {
-  margin: 0 0 0.5rem 0;
-  color: rgb(var(--black));
-  line-height: 1.2;
+  margin: 0 0 0.85rem 0;
 }
 h1 {
-  font-size: 3.052em;
+  font-size: 2.25rem;
+  font-weight: 800;
+  line-height: 1.5;
 }
 h2 {
-  font-size: 2.441em;
+  font-size: 1.875rem;
+  font-weight: 800;
+  line-height: 1.4;
 }
 h3 {
-  font-size: 1.953em;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.35;
 }
 h4 {
-  font-size: 1.563em;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.2;
 }
-h5 {
-  font-size: 1.25em;
+h5,
+h6 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.2;
 }
-strong,
-b {
-  font-weight: 700;
+@media (min-width: 768px) {
+  h1 {
+    font-size: 3rem;
+  }
+  h2 {
+    font-size: 2.25rem;
+  }
+  h3 {
+    font-size: 1.875rem;
+  }
+  h4 {
+    font-size: 1.5rem;
+  }
+  h5,
+  h6 {
+    font-size: 1.25rem;
+  }
 }
-a {
+a.back-to-link {
+  font-size: 1.15rem;
   color: var(--accent);
+  text-decoration: none;
+  &:hover {
+    color: var(--accent-dark);
+  }
 }
-a:hover {
-  color: var(--accent);
+ul,
+ol {
+  padding: 0;
 }
-p {
-  margin-bottom: 1em;
-}
-.prose p {
-  margin-bottom: 2em;
-}
-textarea {
-  width: 100%;
-  font-size: 16px;
-}
-input {
-  font-size: 16px;
-}
-table {
-  width: 100%;
+li {
+  list-style-type: none;
 }
 img {
   max-width: 100%;
   height: auto;
-  border-radius: 8px;
-}
-code {
-  padding: 2px 5px;
-  background-color: rgb(var(--gray-light));
-  border-radius: 2px;
-}
-pre {
-  padding: 1.5em;
-  border-radius: 8px;
-}
-pre > code {
-  all: unset;
+  border-radius: 0.15rem;
 }
 blockquote {
-  border-left: 4px solid var(--accent);
-  padding: 0 0 0 20px;
+  border-left: 4px solid var(--gray-dark);
+  padding: 0 0 0 1.5rem;
   margin: 0px;
-  font-size: 1.333em;
+  font-size: 1.05rem;
 }
 hr {
   border: none;
-  border-top: 1px solid rgb(var(--gray-light));
+  border-top: 1px solid var(--line);
+  margin: 0.75rem 0;
 }
-@media (max-width: 720px) {
-  body {
-    font-size: 18px;
-  }
-  main {
-    padding: 1em;
+.glassmorphism {
+  background: var(--glass-bg);
+  backdrop-filter: blur(6px) saturate(180%);
+  -webkit-backdrop-filter: blur(6px) saturate(180%);
+}
+.pixel-border {
+  border-image-source: url("data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8' ?><svg version='1.1' width='8' height='8' xmlns='http://www.w3.org/2000/svg'><path d='M3 1 h1 v1 h-1 z M4 1 h1 v1 h-1 z M2 2 h1 v1 h-1 z M5 2 h1 v1 h-1 z M1 3 h1 v1 h-1 z M6 3 h1 v1 h-1 z M1 4 h1 v1 h-1 z M6 4 h1 v1 h-1 z M2 5 h1 v1 h-1 z M5 5 h1 v1 h-1 z M3 6 h1 v1 h-1 z M4 6 h1 v1 h-1 z' fill='rgb(28, 27, 34)' /></svg>");
+  border: 4px solid var(--fg);
+  border-image-slice: 3;
+  border-image-width: 3;
+  border-image-repeat: repeat;
+  border-image-outset: 2;
+}
+@media (prefers-color-scheme: dark) {
+  .pixel-border {
+    border-image-source: url("data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8' ?><svg version='1.1' width='8' height='8' xmlns='http://www.w3.org/2000/svg'><path d='M3 1 h1 v1 h-1 z M4 1 h1 v1 h-1 z M2 2 h1 v1 h-1 z M5 2 h1 v1 h-1 z M1 3 h1 v1 h-1 z M6 3 h1 v1 h-1 z M1 4 h1 v1 h-1 z M6 4 h1 v1 h-1 z M2 5 h1 v1 h-1 z M5 5 h1 v1 h-1 z M3 6 h1 v1 h-1 z M4 6 h1 v1 h-1 z' fill='rgb(246.59, 246.59, 246.59)' /></svg>");
   }
 }
 
-.sr-only {
-  border: 0;
-  padding: 0;
-  margin: 0;
-  position: absolute !important;
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
-  /* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
-  clip: rect(1px 1px 1px 1px);
-  /* maybe deprecated but we need to support legacy browsers */
-  clip: rect(1px, 1px, 1px, 1px);
-  /* modern browsers, clip-path works inwards from each corner */
-  clip-path: inset(50%);
-  /* added line to stop words getting smushed together (as they go onto seperate lines and some screen readers do not understand line feeds as a space */
-  white-space: nowrap;
-}
+/* :root.dark {
+  --fg: hsla(0, 0%, 96.7%, 1);
+  --bg: hsla(248.57, 11.48%, 11.96%, 1);
+  --bg-gradient: to top,
+    hsla(248.57, 11.48%, 58.96%, 1) hsla(248.57, 11.48%, 11.96%, 1);
+  --accent: hsla(215.24, 100%, 52.63%, 1);
+  --accent-dark: hsla(220, 98.54%, 43.86%, 1);
+  --pixel-border: hsla(220, 100%, 98.22%, 1);
+  --mobile-nav-bg: hsla(248.57, 11.48%, 20.96%, 1);
+  --modal-bg: hsla(223, 8%, 8%, 0.8);
+  --glass-bg: rgba(0, 0, 0, 0.1);
+  --code: hsla(0, 0%, 90.98%, 1);
+  --code-highlight: hsla(213.49, 87.31%, 82%, 0.2);
+  --code-highlight-border: hsla(213.49, 84.31%, 70%, 0.8);
+} */
+/* .dark {
+  .pixel-border {
+    border-image-source: url("data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8' ?><svg version='1.1' width='8' height='8' xmlns='http://www.w3.org/2000/svg'><path d='M3 1 h1 v1 h-1 z M4 1 h1 v1 h-1 z M2 2 h1 v1 h-1 z M5 2 h1 v1 h-1 z M1 3 h1 v1 h-1 z M6 3 h1 v1 h-1 z M1 4 h1 v1 h-1 z M6 4 h1 v1 h-1 z M2 5 h1 v1 h-1 z M5 5 h1 v1 h-1 z M3 6 h1 v1 h-1 z M4 6 h1 v1 h-1 z' fill='rgb(246.59, 246.59, 246.59)' /></svg>");
+  }
+} */

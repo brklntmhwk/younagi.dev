@@ -1,0 +1,68 @@
+website: &website younagi.dev
+author: &author Nagi
+back_to_top: &back_to_top Back to Top
+scroll_to_top: &scroll_to_top Scroll to Top
+blog: &blog Blog
+news: &news News
+about: &about About
+
+blog_name: *website
+nav:
+  nav_links:
+    home: Home
+    blog: *blog
+    news: *news
+    about: *about
+pager:
+  left_arrow_label: Previous page
+  right_arrow_label: Next page
+locale_picker:
+  button_label: Select language
+theme_toggle:
+  button_label: Toggle theme
+search:
+  button_label: Search content
+toc:
+  button_label: Table of Content
+bulleting_board:
+  no_news: No latest news...
+message:
+  fallback_icon_alt: *author
+photo_gallery:
+  credit_label: Photos are provided by
+photo_gallery_item:
+  photo_label: From Unsplash, My photo No.
+svg:
+  not_found_message: not found
+  invalid_error_message: Invalid svg file or svg tags missing
+pages:
+  home:
+    greeting_message: Thank you for visiting my website! Here, I offer what I acquire, experience, or reflect on my daily lives, by posting news and articles every so often.
+    photo_gallery_title: Recently uploaded photos
+  blog:
+    title: *blog
+    back_to_top: *back_to_top
+    scroll_to_top: *scroll_to_top
+    categories:
+      title: Categories
+      back_to_top: Back to Category List
+    tags:
+      title: Tags
+      back_to_top: Back to Tag List
+    archive:
+      title: Archive
+      back_to_top: Back to Archive
+  news:
+    title: *news
+    back_to_top: Back to News List
+    scroll_to_top: *scroll_to_top
+  about:
+    title: *about
+    my_name: *author
+    profile_img_alt: My profile image
+  page:
+    back_to_top: *back_to_top
+    scroll_to_top: *scroll_to_top
+  not_found:
+    message: Page Not Found
+    back_to_top: *back_to_top

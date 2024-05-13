@@ -1,0 +1,21 @@
+site:
+  title: younagi.dev
+  description: A website where Nagi's thinking out loud
+blog:
+  title: Nagi's blog
+  description: Nagi's personal blog
+  categories:
+    title: Categories
+    description: Blog categories
+  tags:
+    title: Tags
+    description: Blog tags
+  archive:
+    title: Archive
+    description: Blog archive
+news:
+  title: Nagi's news
+  description: News of this website
+about:
+  title: About Me
+  description: Who is Nagi?

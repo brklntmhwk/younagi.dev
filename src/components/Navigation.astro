@@ -1,0 +1,161 @@
+---
+import { getEntry } from 'astro:content'
+import NavLink from '@/components/NavLink.astro'
+import Search from '@/components/Search.astro'
+import NavMenuContainer from '@/components/NavMenuContainer.astro'
+// import ThemeToggle from '@/components/ThemeToggle.astro'
+import LocalePicker from '@/components/LocalePicker.astro'
+import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+
+const locale = getLocaleFromUrl(Astro.url)
+const t = await getEntry('i18n', `${locale}/translation`)
+---
+
+<nav class="glassmorphism" data-pagefind-ignore="all">
+  <a class="blog-title" href={`/${locale}/`}>
+    {t.data.blog_name}
+  </a>
+  <NavMenuContainer>
+    <div class="nav-links">
+      <NavLink href={`/${locale}/`}>{t.data.nav.nav_links.home}</NavLink>
+      <NavLink href={`/${locale}/blog/`}>{t.data.nav.nav_links.blog}</NavLink>
+      <NavLink href={`/${locale}/news/`}>{t.data.nav.nav_links.news}</NavLink>
+      <NavLink href={`/${locale}/about/`}>{t.data.nav.nav_links.about}</NavLink>
+    </div>
+    <div class="icon-links">
+      <LocalePicker data-border-image-url="url(/border-image.gif)" />
+      <!-- <ThemeToggle /> -->
+      <Search data-border-image-url="url(/border-image.gif)" />
+    </div>
+  </NavMenuContainer>
+</nav>
+<style>
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    height: 4.25rem;
+    box-sizing: border-box;
+    padding: 0.5rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    a {
+      color: var(--fg);
+      text-decoration: none;
+    }
+    a:not(.blog-title) {
+      border-bottom: 2px solid transparent;
+    }
+    a.blog-title {
+      font-size: 1.125rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .nav-links {
+      display: grid;
+      gap: 1.5rem;
+      padding: 0.75rem 2.75rem;
+      margin-left: 1.25rem;
+      a {
+        position: relative;
+        font-size: 1.275rem;
+        &.active {
+          font-weight: 700;
+        }
+        &:hover::before {
+          font-family: var(--base-font);
+          content: '▶';
+          position: absolute;
+          top: 0;
+          left: -1.5rem;
+          font-size: 1.25rem;
+          align-self: center;
+        }
+      }
+    }
+    .icon-links {
+      display: flex;
+      justify-content: center;
+      gap: 2.25rem;
+      padding: 0.75rem 2.75rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    nav {
+      height: 5.25rem;
+      padding: 0.85rem 1.5rem;
+      .icon-links,
+      .nav-links {
+        display: flex;
+        padding: 0;
+      }
+      .nav-links {
+        gap: 3.25rem;
+        a {
+          font-size: 1.15rem;
+        }
+      }
+      .icon-links {
+        justify-content: unset;
+        gap: 2rem;
+      }
+    }
+  }
+  @media (min-width: 1024px) {
+    nav {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-rows: 1fr 9fr;
+      grid-template-columns: 1fr;
+      grid-area: navigation;
+      grid-template-areas:
+        'blog-title'
+        'nav-menu';
+      align-items: start;
+      position: sticky;
+      padding: 1.75rem 1.85rem;
+      margin: 0;
+      width: 18rem;
+      height: 100dvh;
+      border-right: 1px solid var(--line);
+      a.blog-title {
+        grid-area: blog-title;
+        place-self: center;
+      }
+      .nav-links {
+        grid-area: nav-links;
+        display: grid;
+        gap: 2rem;
+        align-self: start;
+        margin-left: 1.5rem;
+        padding: 0;
+        a {
+          font-size: 1.275rem;
+          position: relative;
+          &:hover::before {
+            font-family: var(--base-font);
+            content: '▶';
+            position: absolute;
+            top: 0;
+            left: -1.45rem;
+            font-size: 1.25rem;
+            align-self: center;
+          }
+        }
+      }
+      .icon-links {
+        padding: 0 0.5rem;
+        grid-area: icon-links;
+        display: flex;
+        justify-content: space-between;
+        gap: 1.75rem;
+        align-self: end;
+      }
+    }
+  }
+</style>

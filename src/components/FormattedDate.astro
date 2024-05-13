@@ -1,17 +1,20 @@
 ---
-interface Props {
+import { languages } from '@/utils/i18n/data'
+
+type Props = {
   date: Date
+  locale: keyof typeof languages
 }
 
-const { date } = Astro.props
+const { date, locale } = Astro.props
 ---
 
 <time datetime={date.toISOString()}>
   {
-    date.toLocaleDateString('en-us', {
+    new Intl.DateTimeFormat(locale, {
       year: 'numeric',
       month: 'short',
       day: 'numeric',
-    })
+    }).format(date)
   }
 </time>

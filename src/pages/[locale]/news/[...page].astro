@@ -1,0 +1,123 @@
+---
+import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
+import { getCollection, getEntry } from 'astro:content'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Pager from '@/components/Pager.astro'
+import FormattedDate from '@/components/FormattedDate.astro'
+import Svg from '@/components/Svg/index.astro'
+import { LIMIT_PER_PAGE } from '@/consts'
+import { langList } from '@/utils/i18n/data'
+import { getPublishedSortedEntries } from '@/lib/content'
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const entries = getPublishedSortedEntries(await getCollection('news'))
+
+  return langList.flatMap((lang) => {
+    const displayEntries = entries.filter(
+      (entry) => entry.slug.slice(0, entry.slug.indexOf('/')) === lang
+    )
+
+    return paginate(displayEntries, {
+      pageSize: LIMIT_PER_PAGE,
+      params: { locale: lang },
+    })
+  })
+}) satisfies GetStaticPaths
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>
+
+const { locale } = Astro.params
+const { page } = Astro.props
+const meta = await getEntry('meta', `${locale}/site-data`)
+const t = await getEntry('i18n', `${locale}/translation`)
+---
+
+<BaseLayout
+  title={meta.data.site.title}
+  description={meta.data.site.description}
+  og={{ show: true }}
+>
+  <main data-pagefind-ignore="all">
+    <section>
+      <h1>{t.data.pages.news.title}</h1>
+      <ul>
+        {
+          page.data.map((entry) => (
+            <li>
+              <article>
+                <section class="date">
+                  <div>
+                    <Svg iconName="publish" width={20} height={20} />
+                    <FormattedDate
+                      date={entry.data.publishedAt}
+                      locale={locale}
+                    />
+                  </div>
+                  {entry.data.modifiedAt && (
+                    <div>
+                      <Svg iconName="update" width={20} height={20} />
+                      <FormattedDate
+                        date={entry.data.modifiedAt}
+                        locale={locale}
+                      />
+                    </div>
+                  )}
+                </section>
+                <a
+                  href={`/${locale}/${entry.collection}/${entry.slug.split('/').pop()}/`}
+                  class="news-title"
+                >
+                  {entry.data.title}
+                </a>
+              </article>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+    <Pager page={page} />
+  </main>
+</BaseLayout>
+<style>
+  main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 4rem;
+    ul {
+      display: grid;
+      gap: 1.25rem;
+      padding: 0;
+      li:not(li:last-child) {
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 1.25rem;
+      }
+      article {
+        display: grid;
+        gap: 0.75rem;
+        section.date {
+          display: flex;
+          gap: 0.85rem;
+          padding-top: 1rem;
+          div {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+          }
+        }
+        a.news-title {
+          color: var(--fg);
+          font-size: 1.5rem;
+          font-weight: 700;
+          line-height: 1.35;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+  @media (min-width: 768px) {
+    a.news-title {
+      font-size: 1.85rem;
+    }
+  }
+</style>

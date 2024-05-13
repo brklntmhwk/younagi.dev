@@ -1,0 +1,56 @@
+---
+import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
+import { getCollection, getEntry } from 'astro:content'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { langList } from '@/utils/i18n/data'
+import BulletinBoard from '@/components/BulletinBoard.astro'
+// import Message from '@/components/Message.astro'
+import PhotoGallery from '@/components/PhotoGallery.astro'
+import { getPhotos } from '@/lib/unsplash/getContent'
+import { NEWS_MAXIMUM_COUNT } from '@/consts'
+
+export const getStaticPaths = (() => {
+  return langList.map((lang) => ({ params: { locale: lang } }))
+}) satisfies GetStaticPaths
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>
+
+const { locale } = Astro.params
+const meta = await getEntry('meta', `${locale}/site-data`)
+// const t = await getEntry('i18n', `${locale}/translation`)
+const news = await getCollection('news').then((entries) =>
+  entries.filter(
+    (entry) =>
+      entry.slug.slice(0, entry.slug.indexOf('/')) === locale &&
+      entry.data.draft === 'published'
+  )
+)
+const photos = await getPhotos()
+const latestNews = news.slice(0, NEWS_MAXIMUM_COUNT)
+---
+
+<BaseLayout
+  title={meta.data.site.title}
+  description={meta.data.site.description}
+  og={{ show: true }}
+>
+  <main data-pagefind-ignore="all">
+    <BulletinBoard newsList={latestNews} />
+    <!-- <Message direction="right" content={t.data.pages.home.greeting_message} /> -->
+    <!-- <h2>{t.data.pages.home.photo_gallery_title}</h2> -->
+    <PhotoGallery {photos} />
+  </main>
+</BaseLayout>
+<style>
+  main {
+    display: flex;
+    flex-direction: column;
+    place-items: start;
+    gap: 1.25rem;
+  }
+  @media (min-width: 1280px) {
+    main {
+      padding: 0 6.175rem;
+    }
+  }
+</style>

@@ -1,0 +1,152 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import FormattedDate from '@/components/FormattedDate.astro'
+import Svg from '@/components/Svg/index.astro'
+import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+import { slugify } from '@/utils/slugify'
+
+type Props = {
+  entries: CollectionEntry<'blog'>[]
+  kind: 'blog' | 'taxonomy'
+}
+
+const locale = getLocaleFromUrl(Astro.url)
+const { entries, kind } = Astro.props
+---
+
+<ul class="entry-list">
+  {
+    entries.map((entry) => (
+      <li>
+        <article>
+          <section class="date">
+            <div>
+              <Svg iconName="publish" width={20} height={20} />
+              <FormattedDate date={entry.data.publishedAt} locale={locale} />
+            </div>
+            {entry.data.modifiedAt && (
+              <div>
+                <Svg iconName="update" width={20} height={20} />
+                <FormattedDate date={entry.data.modifiedAt} locale={locale} />
+              </div>
+            )}
+          </section>
+          <a
+            class="blog-title"
+            href={`/${locale}/${entry.collection}/${entry.slug.split('/').pop()}/`}
+          >
+            {entry.data.title}
+          </a>
+          <span>{entry.data.description}</span>
+          {kind === 'blog' && (
+            <section class="taxonomies">
+              <a
+                href={`/${locale}/${entry.collection}/categories/${slugify(entry.data.category)}/`}
+              >
+                {entry.data.category}
+              </a>
+              <ul class="tag-list">
+                {entry.data.tags?.map((tag) => (
+                  <li>
+                    <a
+                      href={`/${locale}/${entry.collection}/tags/${slugify(tag)}/`}
+                    >
+                      #{tag}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+        </article>
+      </li>
+    ))
+  }
+</ul>
+<style>
+  ul.entry-list {
+    display: grid;
+    gap: 1.75rem;
+    padding: 1.125rem 0;
+    article {
+      position: relative;
+      padding: 1rem 0.5rem 0.5rem 0.85rem;
+      border-top: 4px solid var(--pixel-border);
+      border-right: 2px solid var(--pixel-border);
+      border-bottom: 2px solid var(--pixel-border);
+      border-left: 2px solid var(--pixel-border);
+      border-radius: 0.3rem;
+      display: grid;
+      gap: 0.75rem;
+      &::before {
+        content: '';
+        position: absolute;
+        top: -8px;
+        bottom: -8px;
+        left: -6px;
+        right: -6px;
+        border-top: 2px solid var(--pixel-border);
+        border-right: 2px solid var(--pixel-border);
+        border-bottom: 4px solid var(--pixel-border);
+        border-left: 2px solid var(--pixel-border);
+        border-radius: 0.5rem;
+        z-index: -1;
+      }
+      a.blog-title {
+        color: var(--fg);
+        font-size: 1.585rem;
+        font-weight: 700;
+        line-height: 1.35;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+          text-underline-offset: 6px;
+        }
+      }
+      section.date,
+      span,
+      section.taxonomies {
+        font-size: 1.15rem;
+      }
+      section.date {
+        display: flex;
+        gap: 0.85rem;
+        div {
+          display: flex;
+          align-items: center;
+          gap: 0.35rem;
+        }
+      }
+      section.taxonomies {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.95rem;
+        a {
+          color: var(--accent);
+          text-decoration: none;
+          &:hover {
+            color: var(--accent-dark);
+          }
+        }
+        .tag-list {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.4rem;
+          padding: 0;
+          li {
+            list-style: none;
+          }
+        }
+      }
+    }
+  }
+  @media (min-width: 768px) {
+    ul.entry-list {
+      article {
+        a.blog-title {
+          font-size: 1.85rem;
+        }
+      }
+    }
+  }
+</style>

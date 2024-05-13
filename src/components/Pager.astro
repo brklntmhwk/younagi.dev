@@ -1,21 +1,24 @@
 ---
 import type { Page } from 'astro'
+import { getEntry } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
 import Svg from '@/components/Svg/index.astro'
+import { DEFAULT_PAGINATION_WIDTH } from '@/consts'
+import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 
 type Props = {
-  page?: Page<CollectionEntry<'blog'>>
+  page?: Page<CollectionEntry<'blog' | 'news'>>
 }
-const { page } = Astro.props
 
 const paginator = (
   curPageNum: number,
   totalPageNum: number,
-  width: number = 2
+  width: number = DEFAULT_PAGINATION_WIDTH
 ) => {
   const prevEnd = curPageNum - width
   const nextEnd = curPageNum + width
   const ranges = []
+
   for (let i = 1; i <= totalPageNum; i += 1) {
     if (curPageNum === 1) {
       if (i <= nextEnd) ranges.push(i)
@@ -28,60 +31,96 @@ const paginator = (
 
   return ranges
 }
+
+const currentPath = Astro.url.pathname
+const locale = getLocaleFromUrl(Astro.url)
+const t = await getEntry('i18n', `${locale}/translation`)
+const { page } = Astro.props
 ---
 
 {
-  page !== undefined ? (
-    <nav>
+  page !== undefined && (
+    <nav data-pagefind-ignore="all">
       {page.url.prev ? (
-        <div>
-          <a href={page.url.prev}>
-            <Svg iconName="left-arrow" width={20} height={20} />
-          </a>
-        </div>
+        <a aria-label={t.data.pager.left_arrow_label} href={page.url.prev}>
+          <Svg iconName="left-arrow" width={25} height={25} />
+        </a>
       ) : (
-        <Svg iconName="left-arrow" width={20} height={20} />
+        <Svg iconName="left-arrow" width={25} height={25} />
       )}
-      {paginator(page.currentPage, page.lastPage).map((pg) => {
-        if (pg === 1) {
-          return (
-            <li>
-              <a href="/blog">{pg}</a>
-            </li>
-          )
-        } else {
-          return (
-            <li>
-              <a href={`/blog/${pg}`}>{pg}</a>
-            </li>
-          )
-        }
-      })}
-      <p>
-        {page.currentPage}/{page.lastPage}
-      </p>
+      <ul>
+        {paginator(page.currentPage, page.lastPage).map((pg) => {
+          if (pg === page.currentPage) {
+            return <li>{pg}</li>
+          } else {
+            if (pg === 1) {
+              return (
+                <li>
+                  <a
+                    href={`/${currentPath.split('/').slice(1, -2).join('/')}/`}
+                  >
+                    {pg}
+                  </a>
+                </li>
+              )
+            } else {
+              return (
+                <li>
+                  {page.currentPage === 1 ? (
+                    <a
+                      href={`/${currentPath.split('/').slice(1, -1).join('/')}/${pg}/`}
+                    >
+                      {pg}
+                    </a>
+                  ) : (
+                    <a
+                      href={`/${currentPath.split('/').slice(1, -2).join('/')}/${pg}/`}
+                    >
+                      {pg}
+                    </a>
+                  )}
+                </li>
+              )
+            }
+          }
+        })}
+      </ul>
       {page.url.next ? (
-        <div>
-          <a href={page.url.next}>
-            <Svg iconName="right-arrow" width={20} height={20} />
-          </a>
-        </div>
+        <a aria-label={t.data.pager.right_arrow_label} href={page.url.next}>
+          <Svg iconName="right-arrow" width={25} height={25} />
+        </a>
       ) : (
-        <Svg iconName="right-arrow" width={20} height={20} />
+        <Svg iconName="right-arrow" width={25} height={25} />
       )}
     </nav>
-  ) : (
-    <></>
   )
 }
-
 <style>
   nav {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
+    padding: 0 0.35rem;
   }
-  li {
+  nav ul {
+    display: flex;
+    gap: 1.8rem;
+  }
+  nav li {
     list-style-type: none;
+    font-size: 1.5rem;
+    &:not(a) {
+      color: var(--gray);
+    }
+  }
+  nav a {
+    text-decoration: none;
+    color: var(--accent);
+    &:hover {
+      color: var(--accent-dark);
+    }
+  }
+  :not(a > svg) {
+    color: var(--gray);
   }
 </style>

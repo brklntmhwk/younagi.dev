@@ -1,65 +1,63 @@
 ---
-import '@/styles/global.css'
-import '@fontsource-variable/roboto-condensed'
-import BaseHead from '../components/BaseHead.astro'
-import Header from '../components/Header.astro'
-import Footer from '../components/Footer.astro'
+import BaseHead from '@/components/BaseHead.astro'
+import Navigation from '@/components/Navigation.astro'
+import Footer from '@/components/Footer.astro'
+import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 
-type Props = {
+export type Props = {
   title: string
   description?: string
+  og: {
+    show: boolean
+    image?: URL
+    height?: number
+    width?: number
+    type?: 'article' | 'website'
+  }
 }
 
-const { title, description } = Astro.props
+const { title, description, og } = Astro.props
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={getLocaleFromUrl(Astro.url)}>
   <head>
-    <BaseHead title={title} description={description ?? ''} />
+    <BaseHead {title} description={description ?? ''} {og} />
+  </head>
+  <body data-pagefind-body>
+    <div class="base-wrapper">
+      <Navigation />
+      <slot />
+      <Footer />
+    </div>
     <style>
-      main {
-        width: calc(100% - 2em);
-        max-width: 100%;
-        margin: 0;
-      }
-      .hero-image {
-        width: 100%;
-      }
-      .hero-image img {
-        display: block;
+      .base-wrapper {
+        min-height: 100dvh;
         margin: 0 auto;
-        border-radius: 12px;
-        box-shadow: var(--box-shadow);
+        padding: 3.75rem 0 0 0;
+        display: grid;
+        grid-template-rows: 1fr auto;
+        grid-template-columns: 100%;
+        grid-template-areas:
+          'main'
+          'footer';
       }
-      .prose {
-        width: 720px;
-        max-width: calc(100% - 2em);
-        margin: auto;
-        padding: 1em;
-        color: rgb(var(--gray-dark));
+      @media (min-width: 768px) {
+        .base-wrapper {
+          padding-top: 5rem;
+        }
       }
-      .title {
-        margin-bottom: 1em;
-        padding: 1em 0;
-        text-align: center;
-        line-height: 1;
-      }
-      .title h1 {
-        margin: 0 0 0.5em 0;
-      }
-      .date {
-        margin-bottom: 0.5em;
-        color: rgb(var(--gray));
-      }
-      .last-updated-on {
-        font-style: italic;
+      @media (min-width: 1024px) {
+        .base-wrapper {
+          padding: 0;
+          margin: 0;
+          grid-template-columns: 18rem 1fr;
+          grid-auto-rows: minmax(100px, auto);
+          grid-template-areas:
+            'navigation main'
+            'navigation footer';
+        }
       }
     </style>
-  </head>
-  <body>
-    <Header />
-    <slot />
-    <Footer />
   </body>
 </html>

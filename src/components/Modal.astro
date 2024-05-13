@@ -1,0 +1,84 @@
+---
+import Svg from '@/components/Svg/index.astro'
+
+type Props = {
+  modalName: string
+  iconName: string
+  buttonLabel: string
+  'data-border-image-url'?: string
+}
+
+const {
+  modalName,
+  iconName,
+  buttonLabel,
+  'data-border-image-url': borderImageUrl,
+} = Astro.props
+---
+
+<div id=`${modalName}-modal` class="modal hidden">
+  <div id=`${modalName}-wrapper` class="modal-wrapper">
+    <slot />
+  </div>
+</div>
+<button
+  type="button"
+  id=`${modalName}-icon-button`
+  class="modal-button"
+  title={buttonLabel}
+  aria-label={buttonLabel}
+>
+  <Svg iconName={iconName} width={32} height={32} />
+</button>
+<style define:vars={{ borderImageUrl }}>
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    height: 100dvh;
+    padding-top: 2.25rem;
+    z-index: 90;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: var(--modal-bg);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+    --pagefind-ui-background: var(--bg);
+    --pagefind-ui-border: var(--line);
+    --pagefind-ui-text: var(--fg);
+    --pagefind-ui-primary: var(--fg);
+    --pagefind-ui-border-width: 1px;
+    --pagefind-ui-border-radius: 2px;
+    --pagefind-ui-font: initial;
+    --pagefind-ui-tag: color-mix(in srgb, var(--gray) 95%, var(--fg) 5%);
+  }
+  .modal.hidden {
+    display: none;
+  }
+  .modal-wrapper {
+    background-color: color-mix(in srgb, var(--bg) 97%, var(--fg) 3%);
+    width: 100%;
+    max-width: 38rem;
+    max-height: 85vh;
+    padding: 1.5rem 1rem;
+    border-image-source: var(--borderImageUrl);
+    border-image-slice: 12;
+    border-image-repeat: repeat;
+    border-image-outset: 0.2rem;
+    border-style: solid;
+    border-width: 8px;
+    image-rendering: pixelated;
+    margin: 0 1.5rem;
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+  .modal-button {
+    background-color: transparent;
+    color: var(--fg);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+</style>

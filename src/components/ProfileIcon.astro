@@ -1,0 +1,43 @@
+---
+import type { ImageMetadata } from 'astro'
+import type { HTMLAttributes } from 'astro/types'
+import { Image } from 'astro:assets'
+
+type Props = {
+  alt: string
+  src: string | ImageMetadata
+  size: number
+} & Omit<HTMLAttributes<'img'>, 'width' | 'height' | 'src' | 'alt'>
+
+const { src, size, alt, class: className, ...rest } = Astro.props
+---
+
+{
+  typeof src === 'string' ? (
+    <img
+      {alt}
+      {src}
+      class:list={['icon', className]}
+      width={size}
+      height={size}
+      {...rest}
+    />
+  ) : (
+    <Image
+      {alt}
+      {src}
+      class:list={['icon', className]}
+      width={size}
+      height={size}
+      loading="eager"
+      format="avif"
+      quality={75}
+    />
+  )
+}
+<style>
+  .icon {
+    border-radius: 9999px;
+    object-fit: cover;
+  }
+</style>

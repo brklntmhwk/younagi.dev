@@ -1,9 +1,0 @@
-site:
-  title: My Astro Website
-  description: My personal website
-blog:
-  title: My Astro Blog
-  description: My personal blog
-about:
-  title: About Me
-  description: Who am I?

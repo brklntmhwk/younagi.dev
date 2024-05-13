@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  YARN_HOME: /home/runner/.local/share/yarn
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -18,11 +21,13 @@ jobs:
       - name: Set up node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '20.x'
           cache: yarn
+      - name: Configure Yarn path
+        run: echo "${{ env.YARN_HOME }}" >> $GITHUB_PATH
       - name: Set up yarn with corepack
         run: |
-          corepack enable yarn
+          corepack enable
           corepack prepare yarn@1.22.11 --activate
           yarn --version
       # - name: Get yarn store path
@@ -35,26 +40,21 @@ jobs:
       #     key: ${{ runner.os }}-astro-${{ hashFiles('**/yarn-lock.yaml') }}
       #     restore-keys: ${{ runner.os }}-astro-
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable --immutable-cache --check-cache --inline-builds
       - name: Build project
         run: yarn run build
+        env:
+          UNSPLASH_API_ACCESS_KEY: ${{ secrets.UNSPLASH_API_ACCESS_KEY }}
+      - name: Generate search index
+        run: npx pagefind --site dist
       - name: Publish to Cloudflare Pages
         id: cloudflare_pages_deploy
         uses: cloudflare/pages-action@v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: my-astro-blog
+          projectName: younagi
           directory: dist
-          # Optional: Enable this if you want to have GitHub Deployments triggered
-          # gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          # Optional: Switch what branch you are publishing to.
-          # By default this will be the branch which triggered this workflow
-          # branch: main
-          # Optional: Change the working directory
-          # workingDirectory: my-site
-          # Optional: Change the Wrangler version, allows you to point to a specific version or a tag such as `beta`
-          # wranglerVersion: '3'
       - name: Add publish URL
         uses: actions/github-script@v6
         with:

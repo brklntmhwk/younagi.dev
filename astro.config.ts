@@ -2,52 +2,93 @@ import { defineConfig } from 'astro/config'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import purgecss from 'astro-purgecss'
-import cloudflare from '@astrojs/cloudflare'
+import browserslist from 'browserslist'
+import { Features, browserslistToTargets } from 'lightningcss'
+import { h } from 'hastscript'
+import remarkBreaks from 'remark-breaks'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeSlug from 'rehype-slug'
-// import rehypePrettyCode from "rehype-pretty-code";
-import rehypeCodeTitles from 'rehype-code-titles'
-import tailwind from '@astrojs/tailwind'
+import rehypePrettyCode from 'rehype-pretty-code'
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://my-astro-blog-4xp.pages.dev/',
   integrations: [
-    mdx(),
+    mdx({
+      optimize: true,
+    }),
     sitemap(),
     purgecss({
       fontFace: true,
-      keyframes: true,
     }),
-    tailwind(),
   ],
-  output: 'hybrid',
-  adapter: cloudflare(),
+  trailingSlash: 'always',
+  prefetch: {
+    defaultStrategy: 'viewport',
+    prefetchAll: true,
+  },
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'ja'],
+    routing: {
+      prefixDefaultLocale: true,
+    },
+  },
+  vite: {
+    build: {
+      cssMinify: 'lightningcss',
+      sourcemap: 'hidden',
+      minify: 'esbuild',
+    },
+    css: {
+      devSourcemap: true,
+      transformer: 'lightningcss',
+      // @ts-expect-error Object literals may only specify known properties ... probably because Vite or Astro haven't updated their config to reflect the actually existing analyzeDependencies option from LightningCSS yet.
+      analyzeDependencies: true,
+      lightningcss: {
+        cssModules: {
+          pattern: '[local]',
+        },
+        drafts: {
+          customMedia: true,
+        },
+        exclude: Features.VendorPrefixes,
+        targets: browserslistToTargets(browserslist('>= 0.1%')),
+      },
+    },
+  },
   markdown: {
     syntaxHighlight: false,
-    remarkPlugins: [remarkMath, remarkGfm],
+    remarkPlugins: [remarkBreaks, remarkMath, remarkGfm],
     rehypePlugins: [
+      rehypeKatex,
+      rehypeSlug,
       [
         rehypeAutolinkHeadings,
         {
-          behavior: 'append',
+          behavior: 'prepend',
+          content: h(
+            'span.heading-anchor-icon',
+            {
+              title: 'Anchor link',
+            },
+            ['#']
+          ),
         },
       ],
-      rehypeKatex,
-      rehypeSlug,
-      rehypeCodeTitles,
-      // [
-      //   rehypePrettyCode,
-      //   {
-      //     theme: {
-      //       light: "github-light",
-      //       dark: "github-dark",
-      //     },
-      //   },
-      // ],
+      [
+        rehypePrettyCode,
+        {
+          theme: {
+            light: 'github-dark',
+            dark: 'github-dark',
+          },
+          grid: false,
+        },
+      ],
     ],
   },
 })

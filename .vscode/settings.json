@@ -1,4 +1,9 @@
 {
+  "files.associations": {
+    "*.css": "css",
+    "css": "css",
+    "*.mdx": "markdown"
+  },
   "[markdown]": {
     "editor.fontSize": 14,
     "editor.lineHeight": 26,
@@ -15,13 +20,18 @@
   "cSpell.words": [
     "astro",
     "astrojs",
+    "automerge",
     "corepack",
     "datetime",
     "fontsource",
+    "glassmorphism",
+    "hastscript",
     "iconify",
     "katex",
+    "lightningcss",
     "pagefind",
     "pixelarticons",
+    "postbuild",
     "purgecss",
     "rehype",
     "roboto",

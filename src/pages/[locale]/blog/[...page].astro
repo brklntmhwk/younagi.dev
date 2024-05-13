@@ -1,0 +1,78 @@
+---
+import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
+import { getCollection, getEntry } from 'astro:content'
+import BlogList from '@/components/BlogList.astro'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Pager from '@/components/Pager.astro'
+import { LIMIT_PER_PAGE } from '@/consts'
+import { langList } from '@/utils/i18n/data'
+import { getPublishedSortedEntries } from '@/lib/content'
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const entries = getPublishedSortedEntries(await getCollection('blog'))
+
+  return langList.flatMap((lang) => {
+    const displayEntries = entries.filter(
+      (entry) => entry.slug.slice(0, entry.slug.indexOf('/')) === lang
+    )
+
+    return paginate(displayEntries, {
+      pageSize: LIMIT_PER_PAGE,
+      params: { locale: lang },
+    })
+  })
+}) satisfies GetStaticPaths
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>
+
+const { locale } = Astro.params
+const { page } = Astro.props
+const meta = await getEntry('meta', `${locale}/site-data`)
+const t = await getEntry('i18n', `${locale}/translation`)
+---
+
+<BaseLayout
+  title={meta.data.site.title}
+  description={meta.data.site.description}
+  og={{ show: true }}
+>
+  <main data-pagefind-ignore="all">
+    <section>
+      <h1>{t.data.pages.blog.title}</h1>
+      <div class="taxonomy-links">
+        <a href=`/${locale}/blog/categories/`>
+          {t.data.pages.blog.categories.title}
+        </a>
+        <a href=`/${locale}/blog/tags/`>
+          {t.data.pages.blog.tags.title}
+        </a>
+        <a href=`/${locale}/blog/archive/`>
+          {t.data.pages.blog.archive.title}
+        </a>
+      </div>
+      <BlogList entries={page.data} kind="blog" />
+    </section>
+    <Pager page={page} />
+  </main>
+</BaseLayout>
+<style>
+  main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 4rem;
+  }
+  .taxonomy-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    & a {
+      font-size: 1.15rem;
+      color: var(--accent);
+      text-decoration: none;
+      &:hover {
+        color: var(--accent-dark);
+      }
+    }
+  }
+</style>

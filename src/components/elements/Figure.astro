@@ -1,0 +1,22 @@
+---
+import AstroCode from './Code.astro'
+
+export type Props = {
+  'data-rehype-pretty-code-figure'?: ''
+}
+
+const props = Astro.props
+const isCodeFigure = Object.hasOwn(props, 'data-rehype-pretty-code-figure')
+---
+
+{
+  isCodeFigure ? (
+    <AstroCode {...props}>
+      <slot />
+    </AstroCode>
+  ) : (
+    <figure {...props}>
+      <slot />
+    </figure>
+  )
+}

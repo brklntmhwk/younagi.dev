@@ -1,0 +1,103 @@
+---
+import { getEntry } from 'astro:content'
+import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+import Svg from '@/components/Svg/index.astro'
+
+const locale = getLocaleFromUrl(Astro.url)
+const t = await getEntry('i18n', `${locale}/translation`)
+---
+
+<button
+  id="theme-toggle-button"
+  type="button"
+  title={t.data.theme_toggle.button_label}
+>
+  <Svg class="sun" iconName="sun" width={32} height={32} />
+  <Svg class="moon" iconName="moon" width={32} height={32} />
+</button>
+<style>
+  #theme-toggle-button {
+    color: var(--fg);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  .sun {
+    display: inline-block;
+  }
+  .moon {
+    display: none;
+  }
+  :global(.dark) .sun {
+    display: none;
+  }
+  :global(.dark) .moon {
+    display: inline-block;
+  }
+</style>
+<script>
+  type themeType = 'dark' | 'light' | null
+
+  function init() {
+    const element = document.documentElement
+    const isDarkPreferred = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches
+    const preferredTheme = isDarkPreferred ? 'dark' : 'light'
+    const theme = ((): themeType => {
+      if (
+        typeof localStorage !== 'undefined' &&
+        localStorage.getItem('theme')
+      ) {
+        return localStorage.getItem('theme') as themeType
+      } else {
+        return preferredTheme
+      }
+    })()
+
+    switch (theme) {
+      case 'light':
+        element.classList.remove('dark')
+        break
+      case 'dark':
+        element.classList.add('dark')
+        break
+      default:
+        isDarkPreferred
+          ? element.classList.add('dark')
+          : element.classList.remove('dark')
+        break
+    }
+
+    window.localStorage.setItem('theme', theme || preferredTheme)
+
+    const handleToggleClick = () => {
+      element.classList.toggle('dark')
+
+      const isDark = element.classList.contains('dark')
+      localStorage.setItem('theme', isDark ? 'dark' : 'light')
+    }
+
+    const handleMediaQuery = (e: MediaQueryListEvent | MediaQueryList) => {
+      if (e.matches) {
+        element.classList.add('dark')
+        localStorage.setItem('theme', 'dark')
+      } else {
+        element.classList.remove('dark')
+        localStorage.setItem('theme', 'light')
+      }
+    }
+
+    const themeButton = document.getElementById('theme-toggle-button')
+    if (themeButton) themeButton.addEventListener('click', handleToggleClick)
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', handleMediaQuery)
+  }
+
+  const eventsToBeAdded = ['DOMContentLoaded', 'astro:after-swap'] as const
+
+  eventsToBeAdded.forEach((evName) => {
+    document.addEventListener(evName, init)
+  })
+</script>

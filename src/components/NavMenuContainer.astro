@@ -1,0 +1,127 @@
+---
+
+---
+
+<input type="checkbox" id="menu-toggle-check" />
+<label for="menu-toggle-check" class="hamburger-icon-btn">
+  <span></span>
+</label>
+<div class="nav-menu-container">
+  <slot />
+</div>
+<style>
+  .nav-menu-container {
+    width: 100%;
+    height: 100dvh;
+    position: fixed;
+    top: 0;
+    left: 100%;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+    padding-top: 3rem;
+    margin-top: 4.25rem;
+    background-color: var(--mobile-nav-bg);
+    /* transform: translateX(100%);
+    transition: transform 0.4s ease-in-out; */
+    transition: left 0.4s ease-in-out;
+    will-change: left;
+  }
+  .hamburger-icon-btn {
+    display: flex;
+    place-self: center;
+    height: 2.5rem;
+    width: 2.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+  }
+  .hamburger-icon-btn span,
+  .hamburger-icon-btn span:before,
+  .hamburger-icon-btn span:after {
+    font-family: var(--base-font);
+    content: '';
+    display: block;
+    height: 3px;
+    width: 25px;
+    background-color: var(--fg);
+    position: absolute;
+  }
+  .hamburger-icon-btn span:before {
+    bottom: 8px;
+  }
+  .hamburger-icon-btn span:after {
+    top: 8px;
+  }
+  #menu-toggle-check:checked ~ .hamburger-icon-btn span {
+    background-color: transparent;
+  }
+  #menu-toggle-check:checked ~ .hamburger-icon-btn span::before {
+    bottom: 0;
+    transform: rotate(45deg);
+  }
+  #menu-toggle-check:checked ~ .hamburger-icon-btn span::after {
+    top: 0;
+    transform: rotate(-45deg);
+  }
+  #menu-toggle-check:checked ~ .nav-menu-container {
+    left: 0;
+    /* transform: translateX(-100%); */
+  }
+  #menu-toggle-check {
+    display: none;
+  }
+  @media (min-width: 768px) {
+    .nav-menu-container {
+      width: unset;
+      height: 100%;
+      position: static;
+      z-index: 0;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: unset;
+      align-items: center;
+      gap: 4rem;
+      padding-top: 0;
+      margin-top: 0;
+      background-color: transparent;
+      transition: unset;
+      transform: unset;
+    }
+    .hamburger-icon-btn {
+      display: none;
+    }
+    /* #menu-toggle-check:checked ~ .nav-menu-container {
+      transform: translateX(0);
+    } */
+  }
+  @media (min-width: 1024px) {
+    .nav-menu-container {
+      grid-area: nav-menu;
+      grid-template-rows: 7fr 1fr;
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'nav-links'
+        'icon-links';
+      height: 100%;
+      position: static;
+      z-index: 10;
+      display: grid;
+      gap: 0;
+      padding-top: 0;
+      margin-top: 0;
+      background-color: transparent;
+      transition: unset;
+      transform: unset;
+    }
+    .hamburger-icon-btn {
+      display: none;
+    }
+    /* #menu-toggle-check:checked ~ .nav-menu-container {
+      transform: translateX(0);
+    } */
+  }
+</style>

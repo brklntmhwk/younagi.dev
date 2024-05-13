@@ -2,23 +2,55 @@
   "$schema": "https://frontmatter.codes/frontmatter.schema.json",
   "frontMatter.framework.id": "astro",
   "frontMatter.preview.host": "http://localhost:4321",
-  "frontMatter.content.publicFolder": "public",
+  "frontMatter.content.publicFolder": "./src/assets/images/",
   "frontMatter.content.pageFolders": [
     {
       "title": "blog",
       "path": "[[workspace]]/src/content/blog",
       "contentTypes": [
         "blog"
-      ]
+      ],
+      "defaultLocale": "en"
+    },
+    {
+      "title": "news",
+      "path": "[[workspace]]/src/content/news",
+      "contentTypes": [
+        "news"
+      ],
+      "defaultLocale": "en"
     },
     {
       "title": "page",
       "path": "[[workspace]]/src/content/page",
       "contentTypes": [
         "page"
-      ]
+      ],
+      "defaultLocale": "en"
     }
   ],
+  "frontMatter.content.i18n": [
+    {
+      "title": "English",
+      "locale": "en",
+      "path": "en"
+    },
+    {
+      "title": "Japanese",
+      "locale": "ja",
+      "path": "ja"
+    }
+  ],
+  "frontMatter.content.draftField": {
+    "name": "draft",
+    "type": "choice",
+    "choices": [
+      "draft",
+      "in progress",
+      "published"
+    ]
+  },
+  "frontMatter.taxonomy.seoTitleLength": 72,
   "frontMatter.taxonomy.contentTypes": [
     {
       "name": "blog",
@@ -45,7 +77,8 @@
           "name": "category",
           "type": "categories",
           "required": true,
-          "taxonomyLimit": 1
+          "taxonomyLimit": 1,
+          "singleValueAsString": true
         },
         {
           "title": "Tags",
@@ -53,9 +86,50 @@
           "type": "tags"
         },
         {
-          "title": "Is in draft",
+          "title": "Draft status",
           "name": "draft",
           "type": "draft",
+          "required": true,
+          "default": "draft"
+        },
+        {
+          "title": "Published At",
+          "name": "publishedAt",
+          "type": "datetime",
+          "default": "{{now}}",
+          "isPublishDate": true
+        },
+        {
+          "title": "Modified At",
+          "name": "modifiedAt",
+          "type": "datetime",
+          "isModifiedDate": true
+        },
+        {
+          "title": "type",
+          "name": "type",
+          "type": "string"
+        },
+        {
+          "title": "draft",
+          "name": "draft",
+          "type": "draft"
+        }
+      ]
+    },
+    {
+      "name": "news",
+      "pageBundle": false,
+      "previewPath": "'news'",
+      "filePrefix": null,
+      "clearEmpty": true,
+      "fileType": "md",
+      "fields": [
+        {
+          "title": "Title",
+          "name": "title",
+          "type": "string",
+          "single": true,
           "required": true
         },
         {
@@ -72,10 +146,14 @@
           "isModifiedDate": true
         },
         {
-          "title": "Content preview",
-          "name": "heroImage",
-          "type": "image",
-          "isPreviewImage": true
+          "title": "type",
+          "name": "type",
+          "type": "string"
+        },
+        {
+          "title": "draft",
+          "name": "draft",
+          "type": "draft"
         }
       ]
     },
@@ -107,5 +185,53 @@
         }
       ]
     }
-  ]
+  ],
+  "frontMatter.snippets.wrapper.enabled": false,
+  "frontMatter.content.snippets": {
+    "Image with caption": {
+      "description": "Insert image with caption",
+      "body": "![ [[alt]] ](../../../assets/images/[[filename]])",
+      "isMediaSnippet": true
+    },
+    "Code block with specified language": {
+      "description": "Insert code block snippet",
+      "body": [
+        "```[[language]] title=\"[[filename]]\"",
+        "",
+        "```"
+      ],
+      "fields": [
+        {
+          "name": "language",
+          "title": "Language",
+          "type": "choice",
+          "choices": [
+            "html",
+            "css",
+            "javascript",
+            "typescript",
+            "rust",
+            "yml",
+            "astro",
+            "jsx",
+            "tsx",
+            "json",
+            "markdown",
+            "mdx",
+            "bash",
+            "txt"
+          ],
+          "single": true,
+          "default": "markdown"
+        },
+        {
+          "name": "filename",
+          "title": "filename",
+          "type": "string",
+          "single": true,
+          "default": ""
+        }
+      ]
+    }
+  }
 }

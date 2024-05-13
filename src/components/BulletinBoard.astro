@@ -1,0 +1,103 @@
+---
+import '@/styles/pixelmplus.css'
+import type { CollectionEntry } from 'astro:content'
+import { getEntry } from 'astro:content'
+import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+
+type Props = {
+  newsList: CollectionEntry<'news'>[]
+}
+
+const { newsList } = Astro.props
+const locale = getLocaleFromUrl(Astro.url)
+const t = await getEntry('i18n', `${locale}/translation`)
+---
+
+<div class="bulletin-board">
+  <ul>
+    {
+      newsList.length > 0 ? (
+        newsList.map((news) => (
+          <li>
+            <a
+              href={`/${locale}/${news.collection}/${news.slug.split('/').pop()}/`}
+            >
+              {news.data.title}
+            </a>
+          </li>
+        ))
+      ) : (
+        <li>{t.data.bulleting_board.no_news}</li>
+      )
+    }
+  </ul>
+</div>
+<style>
+  .bulletin-board {
+    position: relative;
+    margin: 0 auto;
+    max-width: unset;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    background-color: var(--bulletin-board-bg);
+    border: 2px solid var(--gray-dark);
+    border-radius: 0.15rem;
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: '';
+      height: 100%;
+      width: 100%;
+      background-image: radial-gradient(
+        transparent 0 1px,
+        rgba(0, 0, 0, 0.3) 1px
+      );
+      background-size: 3px 3px;
+    }
+    ul {
+      display: inline-block;
+      margin: 0;
+      padding-left: 100%;
+      white-space: nowrap;
+      animation: bulletinRoll 15s linear infinite;
+      li {
+        display: inline;
+        margin: 0 5rem 0 0;
+        color: var(--bulletin-board-fg);
+        font-family: 'PixelMplus10';
+        font-weight: 400;
+        font-size: 1.65rem;
+        letter-spacing: 0.125rem;
+        text-shadow: 0 0 4px;
+        a {
+          color: var(--bulletin-board-fg);
+          text-decoration: none;
+        }
+      }
+    }
+  }
+  @media (min-width: 768px) {
+    .bulletin-board {
+      ul {
+        li {
+          font-size: 1.85rem;
+        }
+      }
+    }
+  }
+  @media (min-width: 1024px) {
+    .bulletin-board {
+      max-width: 80rem;
+    }
+  }
+  @keyframes bulletinRoll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+</style>

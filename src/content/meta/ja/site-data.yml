@@ -1,0 +1,21 @@
+site:
+  title: younagi.dev
+  description: 凪が独り言ちるウェブサイト
+blog:
+  title: 凪のブログ
+  description: 凪の個人ブログ
+  categories:
+    title: カテゴリー
+    description: ブログのカテゴリー
+  tags:
+    title: タグ
+    description: ブログのタグ
+  archive:
+    title: アーカイブ
+    description: ブログのアーカイブ
+news:
+  title: 凪のニュース
+  description: このサイトのニュース
+about:
+  title: 自己紹介
+  description: 凪について

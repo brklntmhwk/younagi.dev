@@ -1,0 +1,144 @@
+---
+import { getEntry } from 'astro:content'
+import { languages } from '@/utils/i18n/data'
+import Svg from '@/components/Svg/index.astro'
+import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+
+type Props = {
+  'data-border-image-url'?: string
+}
+
+const locale = getLocaleFromUrl(Astro.url)
+const t = await getEntry('i18n', `${locale}/translation`)
+const [_firstSlash, _prevLocale, ...rest] = Astro.url.pathname.split('/')
+const slug = rest.join('/')
+const { 'data-border-image-url': borderImageUrl } = Astro.props
+---
+
+<div id="lang-modal" class="hidden">
+  <div id="lang-wrapper">
+    <ul class="lang-list">
+      {
+        Object.entries(languages).map(([lang, label]) => (
+          <li>
+            <a href={`/${lang}/${slug}`}>{label}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>
+<button
+  aria-label={t.data.locale_picker.button_label}
+  type="button"
+  id="lang-icon-button"
+  title={t.data.locale_picker.button_label}
+>
+  <Svg iconName="language" width={32} height={32} />
+</button>
+<style define:vars={{ borderImageUrl }}>
+  #lang-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    height: 100dvh;
+    padding-top: 2.25rem;
+    z-index: 90;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: var(--modal-bg);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+  }
+  #lang-modal.hidden {
+    display: none;
+  }
+  #lang-wrapper {
+    background-color: color-mix(in srgb, var(--bg) 97%, var(--fg) 3%);
+    width: 100%;
+    max-width: 20rem;
+    max-height: 85vh;
+    padding: 1.25rem;
+    border-style: solid;
+    border-width: 8px;
+    border-image-source: var(--borderImageUrl);
+    border-image-slice: 12;
+    border-image-repeat: repeat;
+    border-image-outset: 0.2rem;
+    image-rendering: pixelated;
+    margin: 0 1.5rem;
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+  #lang-icon-button {
+    background-color: transparent;
+    color: var(--fg);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  ul.lang-list {
+    display: grid;
+    gap: 1rem;
+    margin-left: 1.25rem;
+    a {
+      color: var(--fg);
+      text-decoration: none;
+      position: relative;
+      border-bottom: 2px solid transparent;
+      &:hover::before {
+        font-family: var(--base-font);
+        content: '▶';
+        position: absolute;
+        top: -0.25rem;
+        left: -1.5rem;
+        font-size: 1.2rem;
+        align-self: center;
+      }
+    }
+  }
+</style>
+<script>
+  function init() {
+    const listenToModalEvents = (modalButton: Element, modal: Element) => {
+      modalButton.addEventListener('click', () => {
+        modal.classList.toggle('hidden')
+      })
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.classList.toggle('hidden')
+        }
+      })
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          modal.classList.add('hidden')
+        }
+        if (e.code === 'KeyL' && e.ctrlKey && e.shiftKey) {
+          e.preventDefault()
+          modal.classList.toggle('hidden')
+        }
+      })
+    }
+
+    const modalButton = document.querySelector('#lang-icon-button')
+    const modal = document.querySelector('#lang-modal')
+
+    if (modalButton && modal) {
+      listenToModalEvents(modalButton, modal)
+    }
+  }
+
+  const eventsToBeAdded = [
+    'DOMContentLoaded',
+    'astro:after-swap',
+    'visibilitychange',
+  ] as const
+
+  eventsToBeAdded.forEach((evName) => {
+    document.addEventListener(evName, init)
+  })
+</script>

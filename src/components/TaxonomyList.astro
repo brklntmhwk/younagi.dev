@@ -1,0 +1,56 @@
+---
+import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+import { slugify } from '@/utils/slugify'
+
+type Props = {
+  taxonomyList: string[]
+  kind: 'categories' | 'tags' | 'archive'
+}
+
+const locale = getLocaleFromUrl(Astro.url)
+const { taxonomyList, kind } = Astro.props
+---
+
+<ul
+  class:list={[
+    'taxonomy-list',
+    {
+      horizontal: kind === 'categories' || kind === 'tags',
+      vertical: kind === 'archive',
+    },
+  ]}
+>
+  {
+    taxonomyList.flatMap((taxonomy) => (
+      <li>
+        <a href={`/${locale}/blog/${kind}/${slugify(taxonomy)}/`}>
+          {kind === 'tags' ? `#${taxonomy}` : taxonomy}
+        </a>
+      </li>
+    ))
+  }
+</ul>
+<style>
+  ul.taxonomy-list {
+    padding: 1.85rem 0;
+  }
+  li {
+    font-size: 1.15rem;
+  }
+  a {
+    color: var(--accent);
+    text-decoration: none;
+    &:hover {
+      color: var(--accent-dark);
+    }
+  }
+  .vertical {
+    display: grid;
+    gap: 0.75rem;
+  }
+  .horizontal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.35rem;
+  }
+</style>

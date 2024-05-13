@@ -1,0 +1,123 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import { getEntry } from 'astro:content'
+import FormattedDate from '../components/FormattedDate.astro'
+import Svg from '@/components/Svg/index.astro'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+
+type Props = {
+  page: CollectionEntry<'page'>
+}
+
+const locale = getLocaleFromUrl(Astro.url)
+const { page } = Astro.props
+const { data } = page
+const { title, description, modifiedAt } = data
+const t = await getEntry('i18n', `${locale}/translation`)
+---
+
+<BaseLayout title={title} description={description ?? ''} og={{ show: true }}>
+  <main data-pagefind-ignore="all">
+    <article>
+      <h1 class="page-title">{title}</h1>
+      <div class="date-meta">
+        {
+          modifiedAt && (
+            <div>
+              <Svg iconName="update" width={20} height={20} />
+              <FormattedDate date={modifiedAt} locale={locale} />
+            </div>
+          )
+        }
+      </div>
+      <hr />
+      <section class="page-content">
+        <slot />
+      </section>
+      <hr />
+      <section class="guides">
+        <a class="back-to-link" href={`/${locale}/`}
+          >◀ {t.data.pages.page.back_to_top}</a
+        >
+        <a class="back-to-link" href="#top"
+          >{t.data.pages.page.scroll_to_top} ▲</a
+        >
+      </section>
+    </article>
+  </main>
+</BaseLayout>
+<style>
+  article {
+    display: grid;
+    gap: 0.5rem;
+    hr {
+      width: 100%;
+    }
+    .page-title {
+      line-height: 1.175;
+    }
+    .date-meta {
+      font-size: 1.15rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      div {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+    }
+    .page-content {
+      font-size: 1.125rem;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      line-height: 1.65;
+      & :global(h2, h3, h4, h5, h6) {
+        font-family: var(--base-font);
+      }
+      & :global(p) {
+        color: var(--fg);
+        margin-bottom: 1.25rem;
+      }
+      & :global(ul) {
+        padding: 0.85rem 0 1.75rem 2.5rem;
+        & :global(li) {
+          list-style-type: square;
+        }
+      }
+      & :global(ol) {
+        padding: 0.85rem 0 1.75rem 2.5rem;
+        & :global(li) {
+          list-style-type: decimal;
+        }
+      }
+      & :global(a) {
+        color: var(--accent);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        &:hover {
+          color: var(--accent-dark);
+        }
+      }
+      & :global(a):has(.heading-anchor-icon) {
+        text-decoration: none;
+        font-family: var(--base-font);
+        & :global(span.heading-anchor-icon) {
+          color: var(--fg);
+          margin-right: 0.5rem;
+        }
+        &:hover {
+          text-decoration: underline;
+          text-underline-offset: 4px;
+          text-decoration-color: var(--fg);
+        }
+      }
+    }
+  }
+  .guides {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1.5rem;
+  }
+</style>

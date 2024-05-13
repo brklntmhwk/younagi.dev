@@ -45,13 +45,13 @@ type: blog
 
 ### Astro
 
-I avoid using other JS frameworks like React inside Astro and stick to vanilla JS as much as possible. With that in mind, I topped some features, whether necessary or not, on my website.
+ReactなどのJSライブラリはなるべく使わず、素のJSだけで実装するようにしました。これを踏まえて、要不要はさておき、幾つかの機能をトッピングしています。
 
 #### 全文検索
 
-I decided to use [Pagefind](https://pagefind.app/), a Rust based static search library. It's lightweight, lightning fast, and easy to use!
+Rust製の静的検索ライブラリである[Pagefind](https://pagefind.app/)の力を借りることにしました。軽量、高速、そして非常に使いやすい！
 
-After adding the `pagefind` and `@pagefind/default-ui` library to my project, I created the search component like this. The point is the `search` id given to an empty `div` tag. Plus, the modal window toggles in response to the presence of the `hidden` class.
+`pagefind` と `@pagefind/default-ui` をプロジェクトに追加して, 次のような検索用コンポーネントを作りました。要点は、空の `div` タグに割り振られた`search` IDです。また、モーダルウィンドウは `hidden` クラスの有無に応じて表示が切り替わります。
 
 ```astro title="src/components/Search.astro"
 ---
@@ -82,9 +82,9 @@ import Svg from '@/components/Svg/index.astro'
 <!-- ... -->
 ```
 
-Now, let's move on to the JS part. the `PagefindUI` instance takes the `element` prop that spots where to put the search window. Other than that, I specified the image option and excerpt length as you can see. For more info about the props, consult [the official doc](https://pagefind.app/docs/ui/).
+次にJSの部分を見ていきましょう。`PagefindUI` インスタンスは `element` プロップを取り、これによって検索ウィンドウをどこに置くかを判断します。他にも、私の場合は検索結果に記事の画像を表示するかどうかや、記事の説明文の表示文字数のオプションも設定しました。詳しい情報は[Pagefind公式ドキュメント](https://pagefind.app/docs/ui/)をご覧ください。
 
-Inside the `listenToModalEvents` is event registration code. For PC users, I added a shortcut key for searching and enabled the escape key to toggle it. (Hit `Ctrl + Shift + F` if you're on PC right now!)
+`listenToModalEvents` の中身はイベント登録に関するコードです。PCユーザの為にショートカットキーや `escape` キーでモーダルの表示を切り替えられるようにしてあります。(PCからであれば `Ctrl + Shift + F` をお試しあれ！)
 
 ```astro title="src/components/Search.astro"
 <!-- ... -->
@@ -149,7 +149,7 @@ Inside the `listenToModalEvents` is event registration code. For PC users, I add
 </script>
 ```
 
-Finally, I added it to the navigation component.
+最後に、私の場合はこれをナビゲーション用コンポーネント内に追加しました。
 
 ```astro title="src/components/Navigation.astro" {4, 15}
 ---
@@ -175,15 +175,15 @@ import Search from '@/components/Search.astro'
 
 #### 多言語対応 (i18n)
 
-I was able to develop it thanks to [the official doc](https://docs.astro.build/ja/recipes/i18n/). First, I followed the steps and created locale directories (`en` and `ja`, in my case. You've got to make as many files as the number of languages for the same content.
+[公式のドキュメント](https://docs.astro.build/ja/recipes/i18n/)に記載されている手順通りにロケール用のディレクトリを作成しました。(私の場合は `en` と `ja` です。一つのファイルに対して、言語の数と同じだけ同名のファイルを作成する必要があります)
 
-Astro doesn't offer only Markdown/MDX file format, but also those of YAML and JSON. I chose YAML for storing translation strings because of its brevity.
+Astro の Content Collections は Markdown/MDX ファイルフォーマットだけでなく、YAML や JSON形式にも対応しています。私は記事以外の翻訳文字列群の保存にYAML形式を選びました。非常に簡潔で好きです。
 
 ![content directory tree](../../../assets/images/content-dir.png)
 
-When it comes to the configuration, consult [the official doc for Content Collections](https://docs.astro.build/en/guides/content-collections/).
+Content Collectionsの詳しいカスタマイズについては、[公式ドキュメント](https://docs.astro.build/en/guides/content-collections/)をご覧あれ。
 
-Here are some important parts about i18n settings. Under the `utils` directory is that of `i18n`, which contains two files.
+i18n対応についての重要なポイントは以下の通りです。`utils` ディレクトリ下に `i18n` ディレクトリがあり、次の2つのファイルが入っています。
 
 ```typescript title="src/utils/i18n/data.ts"
 export const languages = {
@@ -205,7 +205,7 @@ export const getLocaleFromUrl = (url: URL) => {
 }
 ```
 
-These are used like shown below. I created the locale picker component leveraging them.
+これらは次のようにして使います。言語選択コンポーネントを作成しました。
 
 ```astro title="src/components/LocalePicker.astro"
 ---
@@ -244,19 +244,19 @@ const slug = rest.join('/')
 <!-- ... -->
 ```
 
-In terms of event registration, I did almost the same thing as the search component, so let's skip it.
+イベントの登録については、先ほど検索コンポーネントで紹介したのとほとんど同じです。飛ばして先へ進みましょう。
 
-Finally, I added it to the navigation as earlier.
+最後にナビゲーションコンポーネントに追加するところも同じです。
 
 #### OG 画像 (Open Graph)
 
-OG Images are dynamically generated via [the API endpoint functionality](https://docs.astro.build/en/guides/endpoints/) Astro provides. To make it simpler, I installed the `astro-og-canvas` library and used it like shown below. The workflow is as follows:
+OG画像はAstroが提供する[APIエンドポイント機能](https://docs.astro.build/en/guides/endpoints/)で動的に生成します。より簡潔に実装したかったので、`astro-og-canvas` ライブラリの力を借りました。以下コードの流れは次の通りです。
 
-1. Get all content collections data for which you want to have OG images dynamically generated
-2. Process the data so that the `OGImageRoute` can take as its prop `pages`
-3. Pass it to the `OGImageRoute`
+1. OG画像を生成するコンテンツのデータを全取得する
+2. データを加工して `OGImageRoute` が `pages` プロップとして受け取れるようにする
+3. データを `OGImageRoute` に渡す
 
-In my case, things around paths are a bit messy because of the locale directories, so I had to do some processing of paths.
+私の場合、ロケールディレクトリ導入の際にパスをいじっていた為、パスを少々加工しなければなりませんでした。
 
 ```typescript title="src/pages/og/[...slug].ts"
 import { getCollection } from 'astro:content'
@@ -314,9 +314,9 @@ export const { getStaticPaths, GET } = OGImageRoute({
 })
 ```
 
-For more info about the options, consult [the astro-og-canvas doc](https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas).
+その他のオプションについては、[astro-og-canvas 公式ドキュメント](https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas)をご覧あれ。
 
-Now you can access the og endpoint. Let's see one example of it. I created the head component that is supposed to be embedded in the base layout.
+これでOG画像用エンドポイントへアクセスできるようになりました。一つ例を見てみましょう。headの記述を切り出した `BaseHead` コンポーネントを作成し、こちらをベースレイアウトの中に設置しています。
 
 ```astro title="src/components/BaseHead.astro"
 ---
@@ -400,7 +400,7 @@ const { title, description, og } = Astro.props
 </html>
 ```
 
-This page included, every blog article is wrapped by the blog layout, which in turn is done so by the base layout. In the meantime, the `og` prop is passed onto the base layout, and then the base head one after another.
+このページを含めて、当サイトの全てのブログ記事は次のレイアウトをテンプレートにしています。そしてそのブログレイアウトは、同様にベースレイアウトを踏襲しています。同時に、このマトリョシカのような構造の中で、`og` プロップがベースレイアウトへ、そしてheadコンポーネントへ、と渡されていきます。
 
 ```astro title="src/layouts/BlogLayout.astro" {24-33}
 ---
@@ -446,11 +446,11 @@ const { title, description, category, tags, publishedAt, modifiedAt } = data
 
 #### 記事内のCSSスタイリング
 
-Aside from the detailed styling of the blog body part, here I picked up that of some specific elements.
+ブログ本文のCSSについて、全体の詳しい説明はさておき、ここでは幾つか例を挙げます。
 
 ##### KaTex
 
-$\KaTeX$ beautifully styles mathematical expressions on a web page. For instance, this turns into...
+$\KaTeX$ はウェブページ上で数式などをきれいに表示してくれます。例えば、こちらの呪文が...
 
 ```Markdown
 $$
@@ -465,7 +465,7 @@ $$
 $$
 ```
 
-this! Very legible, isn't it?
+こんな風に！とても読みやすくて感動します。
 
 $$
 x = {-b \pm \sqrt{b^2-4ac} \over 2a}
@@ -478,7 +478,7 @@ $$
 = \lim_{n \to \infty} \dfrac{1}{n} \sum_{k=0}^{n-1} f \left (\dfrac{k}{n} \right)
 $$
 
-To use $\KaTeX$, I added the `katex`, `rehype-katex`, `remark-math` and `@types/katex` libraries, and then did the following code tweaks.
+$\KaTeX$ の利用に際して、`katex`、 `rehype-katex`、 `remark-math`、 `@types/katex` ライブラリを追加しました。そして次のようにコードを追加。
 
 ```typescript title="astro.config.ts" {2-3,10,14}
 // ...
@@ -501,7 +501,7 @@ export default defineConfig({
 })
 ```
 
-I had the $\KaTeX$ stylesheet read only in the blog layout because it's not supposed to be used in other pages.
+私の場合、$\KaTeX$ のスタイルシートはブログレイアウトでのみ読み込ませています。他のページでは使う予定がないからです。
 
 ```astro title="src/layouts/BlogLayout.astro"
 ---
@@ -513,11 +513,11 @@ import 'katex/dist/katex.min.css'
 
 ##### コードブロック
 
-Up here, I put a bunch of code blocks to explain how each code works. I customized the syntax highlighting, code highlighting, and so on behind the scenes.
+ここまでで、コードの説明に際してその都度コードブロックを使ってきましたが、シンタックスハイライトやコードの強調などのカスタマイズを裏で行っています。
 
-To that end, I added the `rehype-pretty-code` and `shiki` library and then tweaked the following parts. For it to supersede the Astro's default syntax highlight, I set the `syntaxHighlight` to false.
+`rehype-pretty-code`、`shiki` ライブラリを追加し、次の箇所を変更しました。Astroではデフォルトでシンタックスハイライト機能がついているので、カスタマイズする際には `syntaxHighlight` の項目を明示的に `false` にする必要があります。
 
-\* The `rehype-pretty-code` uses the `shiki` behind the scenes and therefore it's necessary.
+\* `rehype-pretty-code` は内部で `shiki` を利用しているため、インストール必須です。
 
 ```typescript title="astro.config.ts" {2,7,11-20}
 // ...
@@ -546,7 +546,7 @@ export default defineConfig({
 })
 ```
 
-Next, I created two components for HTML elements shown below. As to this nested structure (and the better part of the code styling), where the code component is nested by the figure, I consulted the Github repo of [haxibami.net](https://www.haxibami.net/)
+次に、以下2つのコンポーネントを作成しました。このネスト構造 (と大半のCSS) については、[haxibami.net](https://www.haxibami.net/)のGithubレポジトリを参考にしました。
 
 ```astro title="src/components/elements/Figure.astro"
 ---
@@ -662,11 +662,11 @@ const props = Astro.props
 
 ##### アンカーリンク付き見出し
 
-This article included, all my blog articles have headings with anchor links, which enables the table of content to spot and lead you to every one of them.
+この記事も含め、全てのブログ記事内の見出しにはアンカーリンクが付いています。このおかげで、目次が見出しを検知して、私たちをそれぞれの場所へ案内してくれます。
 
-To make it work, I added the `rehype-autolink-headings`, `rehype-slug`, and `hastscript` library and tweaked the following parts.
+`rehype-autolink-headings`、`rehype-slug`、`hastscript` ライブラリを追加して、次の箇所を変更します。
 
-\* `rehype-slug` adds `id` attributes to headings, and `hastscript` works in between the transformation of syntaxes manipulating ASTs (Abstract Syntax Trees).
+\* `rehype-slug` は `id` 属性を見出しに追加し、`hastscript` は構文が変化する際に抽象構文木(AST, Abstract Syntax Trees)を操作できます
 
 ```typescript title="astro.config.ts" {2-4,10-22}
 // ...
@@ -700,7 +700,7 @@ export default defineConfig({
 })
 ```
 
-And then I added the styling for anchor links in every content layouts. Below is the example of the blog layout.
+それから、すべてのコンテンツ用レイアウトでアンカーリンクのCSSを追記しました。以下はブログレイアウトの例です。
 
 ```astro title="src/components/BlogLayout.astro" {19-32}
 ---
@@ -742,10 +742,10 @@ And then I added the styling for anchor links in every content layouts. Below is
 
 ### Front Matter CMS
 
-Along with a choice of framework, what takes you ages to decide is that of CMS(Content Management System). I fell in love with [Front Matter CMS](https://frontmatter.codes/) for the following reasons:
+フレームワーク選定の他には、CMS(Content Management System)選定もかなりの時間を要します。私は [Front Matter CMS](https://frontmatter.codes/) に惹かれました。理由は次の通りです。
 
-- Writing and storing articles in local
-- Markdown/MDX file format
+- ローカルで記事の執筆や保存ができる
+- マークダウン/MDX形式
 
 It's unlike other headless CMS in that it's a VS Code extension and works in local, in your code editor! This centralizes all the editing work: code tweaks, blog writing, and deployment. I believe it'd especially be a huge advantage to developers.
 

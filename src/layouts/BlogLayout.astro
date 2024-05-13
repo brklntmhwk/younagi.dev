@@ -30,7 +30,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
     height: 630,
     width: 1200,
     image: new URL(
-      `/og/${locale}/${collection}/${slug.slice(slug.indexOf('/') + 1)}.png`,
+      `/og/${locale}/${collection}/${slug.slice(slug.indexOf('/') + 1)}`,
       Astro.url
     ),
     type: 'article',

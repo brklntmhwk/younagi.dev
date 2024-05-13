@@ -56,7 +56,8 @@ ReactなどのJSライブラリはなるべく使わず、素のJS (TypeScript) 
 
 Rust製の静的検索ライブラリである[Pagefind](https://pagefind.app/)の力を借りることにしました。軽量、高速、そして非常に使いやすい！
 
-`pagefind` と `@pagefind/default-ui` をプロジェクトに追加して, 次のような検索用コンポーネントを作りました。要点は、空の `div` タグに割り振られた`search` IDで、これが後々どこへ検索コンポーネントを設置するのかを特定する為に利用されます。また、モーダルウィンドウは `hidden` クラスの有無に応じて表示が切り替わります。
+`pagefind` と `@pagefind/default-ui` をプロジェクトに追加して, 次のような検索用コンポーネントを作りました。
+要点は、空の `div` タグに割り振られた`search` IDです。これが後々、Pagefindが提供する検索ウィンドウをどこに設置するのかを特定するために参照されます。また、モーダルウィンドウは `hidden` クラスの有無に応じて表示が切り替わります。
 
 ```astro title="src/components/Search.astro"
 ---

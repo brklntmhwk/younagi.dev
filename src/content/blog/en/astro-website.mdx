@@ -56,7 +56,8 @@ I avoid using other JS frameworks like React inside Astro and stick to vanilla J
 
 I decided to use [Pagefind](https://pagefind.app/), a Rust based static search library. It's lightweight, lightning fast, and easy to use!
 
-After adding the `pagefind` and `@pagefind/default-ui` library to my project, I created the search component like this. The point is the `search` id given to an empty `div` tag, which will be used later to spot where to put the search component. Plus, the modal window toggles in response to the presence of the `hidden` class.
+After adding the `pagefind` and `@pagefind/default-ui` library to my project, I created the search component like this.
+The point is the `search` id given to an empty `div` tag, which will be used later to spot where to put the search component that Pagefind provides. Plus, the modal window toggles in response to the presence of the `hidden` class.
 
 ```astro title="src/components/Search.astro"
 ---

@@ -1,19 +1,41 @@
 ---
 import '@pagefind/default-ui/css/ui.css'
 import { getEntry } from 'astro:content'
-import Svg from '@/components/Svg/index.astro'
+// import Svg from '@/components/Svg/index.astro'
+import Modal from '@/components/Modal.astro'
 import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 
-type Props = {
-  'data-border-image-url'?: string
-}
+// type Props = {
+//   'data-border-image-url'?: string
+// }
 
 const locale = getLocaleFromUrl(Astro.url)
 const t = await getEntry('i18n', `${locale}/translation`)
-const { 'data-border-image-url': borderImageUrl } = Astro.props
+// const { 'data-border-image-url': borderImageUrl } = Astro.props
 ---
 
-<div id="search-modal" class="hidden">
+<Modal
+  modalName="search"
+  iconName="magnifier"
+  buttonLabel={t.data.search.button_label}
+  data-border-image-url="url(/border-image.gif)"
+  class="search-window"
+>
+  <div id="search"></div>
+</Modal>
+<style>
+  :global(.search-window) {
+    --pagefind-ui-background: var(--bg);
+    --pagefind-ui-border: var(--line);
+    --pagefind-ui-text: var(--fg);
+    --pagefind-ui-primary: var(--fg);
+    --pagefind-ui-border-width: 1px;
+    --pagefind-ui-border-radius: 2px;
+    --pagefind-ui-font: initial;
+    --pagefind-ui-tag: color-mix(in srgb, var(--gray) 95%, var(--fg) 5%);
+  }
+</style>
+<!-- <div id="search-modal" class="hidden">
   <div id="search-wrapper">
     <div id="search"></div>
   </div>
@@ -25,8 +47,8 @@ const { 'data-border-image-url': borderImageUrl } = Astro.props
   aria-label={t.data.search.button_label}
 >
   <Svg iconName="magnifier" width={32} height={32} />
-</button>
-<style define:vars={{ borderImageUrl }}>
+</button> -->
+<!-- <style define:vars={{ borderImageUrl }}>
   #search-modal {
     position: fixed;
     top: 0;
@@ -77,7 +99,7 @@ const { 'data-border-image-url': borderImageUrl } = Astro.props
     cursor: pointer;
     padding: 0;
   }
-</style>
+</style> -->
 <script>
   import { PagefindUI } from '@pagefind/default-ui'
 
@@ -85,7 +107,6 @@ const { 'data-border-image-url': borderImageUrl } = Astro.props
     new PagefindUI({
       element: '#search',
       showImages: false,
-      excerptLength: 20,
     })
 
     const listenToModalEvents = (

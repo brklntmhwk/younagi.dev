@@ -23,9 +23,11 @@ const t = await getEntry('i18n', `${locale}/translation`)
       <NavLink href={`/${locale}/about/`}>{t.data.nav.nav_links.about}</NavLink>
     </div>
     <div class="icon-links">
-      <LocalePicker data-border-image-url="url(/border-image.gif)" />
+      <LocalePicker />
+      <!-- <LocalePicker data-border-image-url="url(/border-image.gif)" /> -->
       <!-- <ThemeToggle /> -->
-      <Search data-border-image-url="url(/border-image.gif)" />
+      <Search />
+      <!-- <Search data-border-image-url="url(/border-image.gif)" /> -->
     </div>
   </NavMenuContainer>
 </nav>

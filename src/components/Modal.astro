@@ -1,4 +1,6 @@
 ---
+import type { HTMLAttributes } from 'astro/types'
+
 import Svg from '@/components/Svg/index.astro'
 
 type Props = {
@@ -6,17 +8,18 @@ type Props = {
   iconName: string
   buttonLabel: string
   'data-border-image-url'?: string
-}
+} & Pick<HTMLAttributes<'div'>, 'class'>
 
 const {
   modalName,
   iconName,
   buttonLabel,
   'data-border-image-url': borderImageUrl,
+  class: className,
 } = Astro.props
 ---
 
-<div id=`${modalName}-modal` class="modal hidden">
+<div id=`${modalName}-modal` class:list={['modal hidden', className]}>
   <div id=`${modalName}-wrapper` class="modal-wrapper">
     <slot />
   </div>
@@ -45,14 +48,6 @@ const {
     align-items: flex-start;
     background-color: var(--modal-bg);
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
-    --pagefind-ui-background: var(--bg);
-    --pagefind-ui-border: var(--line);
-    --pagefind-ui-text: var(--fg);
-    --pagefind-ui-primary: var(--fg);
-    --pagefind-ui-border-width: 1px;
-    --pagefind-ui-border-radius: 2px;
-    --pagefind-ui-font: initial;
-    --pagefind-ui-tag: color-mix(in srgb, var(--gray) 95%, var(--fg) 5%);
   }
   .modal.hidden {
     display: none;

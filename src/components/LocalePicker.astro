@@ -1,21 +1,62 @@
 ---
 import { getEntry } from 'astro:content'
 import { languages } from '@/utils/i18n/data'
-import Svg from '@/components/Svg/index.astro'
+// import Svg from '@/components/Svg/index.astro'
+import Modal from '@/components/Modal.astro'
 import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 
-type Props = {
-  'data-border-image-url'?: string
-}
+// type Props = {
+//   'data-border-image-url'?: string
+// }
 
 const locale = getLocaleFromUrl(Astro.url)
 const t = await getEntry('i18n', `${locale}/translation`)
 const [_firstSlash, _prevLocale, ...rest] = Astro.url.pathname.split('/')
 const slug = rest.join('/')
-const { 'data-border-image-url': borderImageUrl } = Astro.props
+// const { 'data-border-image-url': borderImageUrl } = Astro.props
 ---
 
-<div id="lang-modal" class="hidden">
+<Modal
+  modalName="lang"
+  iconName="language"
+  buttonLabel={t.data.locale_picker.button_label}
+  data-border-image-url="url(/border-image.gif)"
+  class="search-window"
+>
+  <ul class="lang-list">
+    {
+      Object.entries(languages).map(([lang, label]) => (
+        <li>
+          <a href={`/${lang}/${slug}`}>{label}</a>
+        </li>
+      ))
+    }
+  </ul>
+</Modal>
+<style>
+  ul.lang-list {
+    display: grid;
+    gap: 1rem;
+    margin-left: 1.25rem;
+    a {
+      color: var(--fg);
+      text-decoration: none;
+      position: relative;
+      border-bottom: 2px solid transparent;
+      &:hover::before {
+        font-family: var(--base-font);
+        content: '▶';
+        position: absolute;
+        top: -0.25rem;
+        left: -1.5rem;
+        font-size: 1.2rem;
+        align-self: center;
+      }
+    }
+  }
+</style>
+
+<!-- <div id="lang-modal" class="hidden">
   <div id="lang-wrapper">
     <ul class="lang-list">
       {
@@ -35,8 +76,8 @@ const { 'data-border-image-url': borderImageUrl } = Astro.props
   title={t.data.locale_picker.button_label}
 >
   <Svg iconName="language" width={32} height={32} />
-</button>
-<style define:vars={{ borderImageUrl }}>
+</button> -->
+<!-- <style define:vars={{ borderImageUrl }}>
   #lang-modal {
     position: fixed;
     top: 0;
@@ -99,7 +140,7 @@ const { 'data-border-image-url': borderImageUrl } = Astro.props
       }
     }
   }
-</style>
+</style> -->
 <script>
   function init() {
     const listenToModalEvents = (modalButton: Element, modal: Element) => {

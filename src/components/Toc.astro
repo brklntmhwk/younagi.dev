@@ -1,21 +1,87 @@
 ---
 import type { MarkdownHeading } from 'astro'
 import { getEntry } from 'astro:content'
-import Svg from '@/components/Svg/index.astro'
+// import Svg from '@/components/Svg/index.astro'
+import Modal from '@/components/Modal.astro'
 import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 import { TOC_MINIMUM_COUNT } from '@/consts'
 
 type Props = {
   headings: MarkdownHeading[]
-  'data-border-image-url'?: string
+  /* 'data-border-image-url'?: string */
 }
 
 const locale = getLocaleFromUrl(Astro.url)
 const t = await getEntry('i18n', `${locale}/translation`)
-const { headings, 'data-border-image-url': borderImageUrl } = Astro.props
+const { headings /* , 'data-border-image-url': borderImageUrl */ } = Astro.props
 ---
 
 {
+  headings.length >= TOC_MINIMUM_COUNT && (
+    <>
+      <Modal
+        modalName="toc"
+        iconName="toc"
+        iconText={t.data.toc.button_label}
+        buttonLabel={t.data.toc.button_label}
+        data-border-image-url="url(/border-image.gif)"
+      >
+        <ul class="toc-list">
+          {headings.map((heading) => (
+            <li class={`depth-${heading.depth}`}>
+              <a href={`#${heading.slug}`}>{heading.text.replace('#', '')}</a>
+            </li>
+          ))}
+        </ul>
+      </Modal>
+    </>
+  )
+}
+<style>
+  ul.toc-list {
+    display: grid;
+    gap: 1rem;
+    margin-left: 1.25rem;
+    li {
+      &.depth-2 {
+        margin-left: 0;
+        &::before {
+          content: '◆ ';
+        }
+      }
+      &.depth-3 {
+        margin-left: 1.25rem;
+        &::before {
+          content: '▶ ';
+        }
+      }
+      &.depth-4 {
+        margin-left: 2.5rem;
+        &::before {
+          content: '◇ ';
+        }
+      }
+      &.depth-5 {
+        margin-left: 3.75rem;
+        &::before {
+          content: '▷ ';
+        }
+      }
+      &.depth-6 {
+        margin-left: 5rem;
+        &::before {
+          content: '・ ';
+        }
+      }
+    }
+    a {
+      color: var(--black);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+    }
+  }
+</style>
+<!-- {
   headings.length >= TOC_MINIMUM_COUNT && (
     <>
       <div id="toc-modal" class="hidden">
@@ -39,8 +105,8 @@ const { headings, 'data-border-image-url': borderImageUrl } = Astro.props
       </button>
     </>
   )
-}
-<style define:vars={{ borderImageUrl }}>
+} -->
+<!-- <style define:vars={{ borderImageUrl }}>
   #toc-modal {
     position: fixed;
     top: 0;
@@ -132,7 +198,7 @@ const { headings, 'data-border-image-url': borderImageUrl } = Astro.props
       border-bottom: 2px solid transparent;
     }
   }
-</style>
+</style> -->
 <script>
   function init() {
     const listenToModalEvents = (

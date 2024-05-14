@@ -1,5 +1,5 @@
 website: &website younagi.dev
-author: &author 凪
+author: &author 凪/Nagi
 back_to_top: &back_to_top トップに戻る
 scroll_to_top: &scroll_to_top ページ上部へ
 blog: &blog ブログ

@@ -8,5 +8,5 @@ User-Agent: *
 Disallow: /*/news/
 Allow: /
 
-Host: https://my-astro-blog-4xp.pages.dev/
-Sitemap: https://my-astro-blog-4xp.pages.dev/sitemap.xml
+Host: https://younagi.dev/
+Sitemap: https://younagi.dev/sitemap.xml

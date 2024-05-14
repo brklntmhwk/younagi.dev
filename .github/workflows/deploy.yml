@@ -53,7 +53,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: younagi
+          projectName: younagi.dev
           directory: dist
       - name: Add publish URL
         uses: actions/github-script@v6

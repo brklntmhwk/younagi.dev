@@ -63,21 +63,19 @@ The point is the `search` id given to an empty `div` tag, which will be used lat
 ---
 import '@pagefind/default-ui/css/ui.css'
 // ...
-import Svg from '@/components/Svg/index.astro'
+import Modal from '@/components/Modal.astro'
 // ...
 ---
-<div id="search-modal" class="hidden">
-  <div id="search-wrapper">
-    <div id="search"></div>
-  </div>
-</div>
-<button
-  type="button"
-  id="search-icon-button"
-  <!-- ... -->
+
+<Modal
+  modalName="search"
+  iconName="magnifier"
+  buttonLabel={t.data.search.button_label}
+  data-border-image-url="url(/border-image.gif)"
+  class="search-window"
 >
-  <Svg iconName="magnifier" width={32} height={32} />
-</button>
+  <div id="search"></div>
+</Modal>
 <style>
   /* ... */
   #search-modal.hidden {
@@ -145,7 +143,6 @@ Inside the `listenToModalEvents` is event registration code. For PC users, I add
 
   const eventsToBeAdded = [
     'DOMContentLoaded',
-    'astro:after-swap',
     'visibilitychange',
   ] as const
 
@@ -172,7 +169,7 @@ import Search from '@/components/Search.astro'
     </div>
     <div class="icon-links">
       <!-- ... -->
-      <Search data-border-image-url="url(/border-image.gif)" />
+      <Search />
     </div>
   </NavMenuContainer>
 </nav>
@@ -213,10 +210,10 @@ export const getLocaleFromUrl = (url: URL) => {
 
 These are used like shown below. I created the locale picker component leveraging them.
 
-```astro title="src/components/LocalePicker.astro" {2,4,6-7,16-22}
+```astro title="src/components/LocalePicker.astro" {2,4,6-7,20-26}
 ---
 import { languages } from '@/utils/i18n/data'
-import Svg from '@/components/Svg/index.astro'
+import Modal from '@/components/Modal.astro'
 import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 // ...
 const locale = getLocaleFromUrl(Astro.url)
@@ -226,27 +223,22 @@ const slug = rest.join('/')
 // ...
 ---
 
-<div id="lang-modal" class="hidden">
-  <div id="lang-wrapper">
-    <ul class="lang-list">
-      {
-        Object.entries(languages).map(([lang, label]) => (
-          <li>
-            <a href={`/${lang}/${slug}`}>{label}</a>
-          </li>
-        ))
-      }
-    </ul>
-  </div>
-</div>
-<button
-  aria-label={t.data.locale_picker.button_label}
-  type="button"
-  id="lang-icon-button"
-  title={t.data.locale_picker.button_label}
+<Modal
+  modalName="lang"
+  iconName="language"
+  buttonLabel={t.data.locale_picker.button_label}
+  data-border-image-url="url(/border-image.gif)"
 >
-  <Svg iconName="language" width={32} height={32} />
-</button>
+  <ul class="lang-list">
+    {
+      Object.entries(languages).map(([lang, label]) => (
+        <li>
+          <a href={`/${lang}/${slug}`}>{label}</a>
+        </li>
+      ))
+    }
+  </ul>
+</Modal>
 <!-- ... -->
 <script>
 {/* ... */}
@@ -609,7 +601,7 @@ const props = Astro.props
 </style>
 ```
 
-Finally, explicitly export and give it to
+Finally, explicitly export and give it to the `Content`. (MDX requires this)
 
 ```astro title="src/pages/[locale]/blog/[slug].astro" {4, 7-10, 16}
 ---
@@ -720,7 +712,7 @@ Along with a choice of framework, what takes you ages to decide is that of CMS(C
 
 It's unlike other headless CMS in that it's a VS Code extension and works in local, in your code editor! This centralizes all the editing work: code tweaks, blog writing, and deployment. I believe it'd especially be a huge advantage to developers.
 
-When it comes to the setup, consult [the Front Matter official doc](https://frontmatter.codes/docs/getting-started). During the procedure, it automatically detects Astro's content folder and creates content types in the `frontmatter.json` accordingly.
+When it comes to the setup, consult [the Front Matter official doc](https://frontmatter.codes/docs/getting-started). During the procedure, it automatically detects Astro's content folder and creates each content's fields' definitions in the `frontmatter.json` accordingly.
 
 #### Customization of Front Matter CMS
 

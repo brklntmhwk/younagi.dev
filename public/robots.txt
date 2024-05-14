@@ -5,6 +5,7 @@ User-agent: GPTBot
 Disallow: /
 
 User-Agent: *
+Disallow: /*/news/
 Allow: /
 
 Host: https://my-astro-blog-4xp.pages.dev/

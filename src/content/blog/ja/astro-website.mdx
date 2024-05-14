@@ -26,7 +26,7 @@ type: blog
 
 当ページで触れられていないトピックについては、他の有益な情報源をあたってみてください。
 
-当サイトのソースコードに興味のある方は、[当サイトの Github レポジトリ](https://github.com)をご覧ください.
+当サイトのソースコードに興味のある方は、[当サイトの Github レポジトリ](https://github.com)をご覧ください。
 
 ### 何について話すか
 
@@ -63,21 +63,19 @@ Rust製の静的検索ライブラリである[Pagefind](https://pagefind.app/)�
 ---
 import '@pagefind/default-ui/css/ui.css'
 // ...
-import Svg from '@/components/Svg/index.astro'
+import Modal from '@/components/Modal.astro'
 // ...
 ---
-<div id="search-modal" class="hidden">
-  <div id="search-wrapper">
-    <div id="search"></div>
-  </div>
-</div>
-<button
-  type="button"
-  id="search-icon-button"
-  <!-- ... -->
+
+<Modal
+  modalName="search"
+  iconName="magnifier"
+  buttonLabel={t.data.search.button_label}
+  data-border-image-url="url(/border-image.gif)"
+  class="search-window"
 >
-  <Svg iconName="magnifier" width={32} height={32} />
-</button>
+  <div id="search"></div>
+</Modal>
 <style>
   /* ... */
   #search-modal.hidden {
@@ -145,7 +143,6 @@ import Svg from '@/components/Svg/index.astro'
 
   const eventsToBeAdded = [
     'DOMContentLoaded',
-    'astro:after-swap',
     'visibilitychange',
   ] as const
 
@@ -172,7 +169,7 @@ import Search from '@/components/Search.astro'
     </div>
     <div class="icon-links">
       <!-- ... -->
-      <Search data-border-image-url="url(/border-image.gif)" />
+      <Search />
     </div>
   </NavMenuContainer>
 </nav>
@@ -213,10 +210,10 @@ export const getLocaleFromUrl = (url: URL) => {
 
 これらを、言語選択コンポーネントの中で次のようにインポートして使います。
 
-```astro title="src/components/LocalePicker.astro" {2,4,6-7,16-22}
+```astro title="src/components/LocalePicker.astro" {2,4,6-7,20-26}
 ---
 import { languages } from '@/utils/i18n/data'
-import Svg from '@/components/Svg/index.astro'
+import Modal from '@/components/Modal.astro'
 import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 // ...
 const locale = getLocaleFromUrl(Astro.url)
@@ -226,27 +223,22 @@ const slug = rest.join('/')
 // ...
 ---
 
-<div id="lang-modal" class="hidden">
-  <div id="lang-wrapper">
-    <ul class="lang-list">
-      {
-        Object.entries(languages).map(([lang, label]) => (
-          <li>
-            <a href={`/${lang}/${slug}`}>{label}</a>
-          </li>
-        ))
-      }
-    </ul>
-  </div>
-</div>
-<button
-  aria-label={t.data.locale_picker.button_label}
-  type="button"
-  id="lang-icon-button"
-  title={t.data.locale_picker.button_label}
+<Modal
+  modalName="lang"
+  iconName="language"
+  buttonLabel={t.data.locale_picker.button_label}
+  data-border-image-url="url(/border-image.gif)"
 >
-  <Svg iconName="language" width={32} height={32} />
-</button>
+  <ul class="lang-list">
+    {
+      Object.entries(languages).map(([lang, label]) => (
+        <li>
+          <a href={`/${lang}/${slug}`}>{label}</a>
+        </li>
+      ))
+    }
+  </ul>
+</Modal>
 <!-- ... -->
 <script>
 {/* ... */}
@@ -609,6 +601,28 @@ const props = Astro.props
 </style>
 ```
 
+最後に、明示的にコンポーネントをエクスポートして、`Content` に渡します。(MDXの作法です)
+
+```astro title="src/pages/[locale]/blog/[slug].astro" {4, 7-10, 16}
+---
+// ...
+import BlogLayout from '@/layouts/BlogLayout.astro'
+import Figure from '@/components/elements/Figure.astro'
+// ...
+
+export const components = {
+  figure: Figure,
+  // ...
+}
+
+// ...
+---
+
+<BlogLayout entry={/* ... */} headings={/* ... */}>
+  <Content components={components} />
+</BlogLayout>
+```
+
 ##### アンカーリンク付き見出し
 
 この記事も含め、全てのブログ記事内の見出しにはアンカーリンクが付いています。このおかげで、目次が見出しを検知して、私たちをそれぞれの場所へ案内してくれます。
@@ -698,7 +712,7 @@ export default defineConfig({
 
 VS Code の拡張機能であり、ローカルで動くという点で、他のヘッドレスCMSとは一線を画しています。つまり、コードの修正や記事の執筆、サイトのデプロイなどの作業が一元化できます。 これは特に開発者にとって大きなメリットとなるのではないでしょうか。
 
-初期セットアップについては[Front Matter 公式ドキュメント](https://frontmatter.codes/docs/getting-started)をご覧あれ。手順通りに進めれば、Astroの `content` フォルダを自動で検知し、その中身に応じて `frontmatter.json` にコンテンツの型定義などを書き込んでくれます。
+初期セットアップについては[Front Matter 公式ドキュメント](https://frontmatter.codes/docs/getting-started)をご覧あれ。手順通りに進めれば、Astroの `content` フォルダを自動で検知し、その中身に応じて `frontmatter.json` に各コンテンツの項目の定義などを書き出してくれます。基本、Front Matter CMSの設定はプロジェクトルート直下に置かれたこのファイルで管理します。
 
 #### Front Matter CMS のカスタマイズ
 

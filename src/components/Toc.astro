@@ -1,40 +1,36 @@
 ---
 import type { MarkdownHeading } from 'astro'
 import { getEntry } from 'astro:content'
-// import Svg from '@/components/Svg/index.astro'
 import Modal from '@/components/Modal.astro'
 import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 import { TOC_MINIMUM_COUNT } from '@/consts'
 
 type Props = {
   headings: MarkdownHeading[]
-  /* 'data-border-image-url'?: string */
 }
 
 const locale = getLocaleFromUrl(Astro.url)
 const t = await getEntry('i18n', `${locale}/translation`)
-const { headings /* , 'data-border-image-url': borderImageUrl */ } = Astro.props
+const { headings } = Astro.props
 ---
 
 {
   headings.length >= TOC_MINIMUM_COUNT && (
-    <>
-      <Modal
-        modalName="toc"
-        iconName="toc"
-        iconText={t.data.toc.button_label}
-        buttonLabel={t.data.toc.button_label}
-        data-border-image-url="url(/border-image.gif)"
-      >
-        <ul class="toc-list">
-          {headings.map((heading) => (
-            <li class={`depth-${heading.depth}`}>
-              <a href={`#${heading.slug}`}>{heading.text.replace('#', '')}</a>
-            </li>
-          ))}
-        </ul>
-      </Modal>
-    </>
+    <Modal
+      modalName="toc"
+      iconName="toc"
+      iconText={t.data.toc.button_label}
+      buttonLabel={t.data.toc.button_label}
+      data-border-image-url="url(/border-image.gif)"
+    >
+      <ul class="toc-list">
+        {headings.map((heading) => (
+          <li class={`depth-${heading.depth}`}>
+            <a href={`#${heading.slug}`}>{heading.text.replace('#', '')}</a>
+          </li>
+        ))}
+      </ul>
+    </Modal>
   )
 }
 <style>
@@ -81,124 +77,6 @@ const { headings /* , 'data-border-image-url': borderImageUrl */ } = Astro.props
     }
   }
 </style>
-<!-- {
-  headings.length >= TOC_MINIMUM_COUNT && (
-    <>
-      <div id="toc-modal" class="hidden">
-        <div id="toc-wrapper">
-          <ul class="toc-list">
-            {headings.map((heading) => (
-              <li class={`depth-${heading.depth}`}>
-                <a href={`#${heading.slug}`}>{heading.text.replace('#', '')}</a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-      <button
-        type="button"
-        id="toc-icon-button"
-        aria-label={t.data.locale_picker.button_label}
-      >
-        <Svg iconName="toc" width={32} height={32} />
-        <span>{t.data.toc.button_label}</span>
-      </button>
-    </>
-  )
-} -->
-<!-- <style define:vars={{ borderImageUrl }}>
-  #toc-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100vw;
-    height: 100dvh;
-    padding-top: 2.25rem;
-    z-index: 90;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    background-color: var(--modal-bg);
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
-    &.hidden {
-      display: none;
-    }
-  }
-  #toc-wrapper {
-    background-color: color-mix(in srgb, var(--bg) 97%, var(--fg) 3%);
-    width: 100%;
-    max-width: 35rem;
-    max-height: 85vh;
-    padding: 1.85rem 0.85rem;
-    border-style: solid;
-    border-width: 8px;
-    border-image-source: var(--borderImageUrl);
-    border-image-slice: 12;
-    border-image-repeat: repeat;
-    border-image-outset: 0.2rem;
-    image-rendering: pixelated;
-    margin: 0 1.5rem;
-    overflow-y: auto;
-    box-sizing: border-box;
-  }
-  #toc-icon-button {
-    background-color: transparent;
-    color: var(--fg);
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-    span {
-      font-family: var(--base-font);
-      font-size: 1.0875rem;
-    }
-  }
-  ul.toc-list {
-    display: grid;
-    gap: 1rem;
-    margin-left: 1.25rem;
-    li {
-      &.depth-2 {
-        margin-left: 0;
-        &::before {
-          content: '◆ ';
-        }
-      }
-      &.depth-3 {
-        margin-left: 1.25rem;
-        &::before {
-          content: '▶ ';
-        }
-      }
-      &.depth-4 {
-        margin-left: 2.5rem;
-        &::before {
-          content: '◇ ';
-        }
-      }
-      &.depth-5 {
-        margin-left: 3.75rem;
-        &::before {
-          content: '▷ ';
-        }
-      }
-      &.depth-6 {
-        margin-left: 5rem;
-        &::before {
-          content: '・ ';
-        }
-      }
-    }
-    a {
-      color: var(--black);
-      text-decoration: none;
-      border-bottom: 2px solid transparent;
-    }
-  }
-</style> -->
 <script>
   function init() {
     const listenToModalEvents = (
@@ -242,12 +120,7 @@ const { headings /* , 'data-border-image-url': borderImageUrl */ } = Astro.props
     }
   }
 
-  const eventsToBeAdded = [
-    'DOMContentLoaded',
-    // 'astro:after-swap',
-    // 'astro:page-load',
-    'visibilitychange',
-  ] as const
+  const eventsToBeAdded = ['DOMContentLoaded', 'visibilitychange'] as const
 
   eventsToBeAdded.forEach((evName) => {
     document.addEventListener(evName, init)

@@ -50,26 +50,26 @@ const {
     align-items: flex-start;
     background-color: var(--modal-bg);
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
-  }
-  .modal.hidden {
-    display: none;
-  }
-  .modal-wrapper {
-    background-color: color-mix(in srgb, var(--bg) 97%, var(--fg) 3%);
-    width: 100%;
-    max-width: 38rem;
-    max-height: 85vh;
-    padding: 1.5rem 1rem;
-    border-image-source: var(--borderImageUrl);
-    border-image-slice: 12;
-    border-image-repeat: repeat;
-    border-image-outset: 0.2rem;
-    border-style: solid;
-    border-width: 8px;
-    image-rendering: pixelated;
-    margin: 0 1.5rem;
-    overflow-y: auto;
-    box-sizing: border-box;
+    &.hidden {
+      display: none;
+    }
+    .modal-wrapper {
+      background-color: color-mix(in srgb, var(--bg) 97%, var(--fg) 3%);
+      width: 100%;
+      max-width: 38rem;
+      max-height: 85vh;
+      padding: 1.5rem 1rem;
+      border-image-source: var(--borderImageUrl);
+      border-image-slice: 12;
+      border-image-repeat: repeat;
+      border-image-outset: 0.2rem;
+      border-style: solid;
+      border-width: 8px;
+      image-rendering: pixelated;
+      margin: 0 1.5rem;
+      overflow-y: auto;
+      box-sizing: border-box;
+    }
   }
   .modal-button {
     background-color: transparent;

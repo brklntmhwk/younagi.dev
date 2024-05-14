@@ -15,7 +15,7 @@ import rehypePrettyCode from 'rehype-pretty-code'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://my-astro-blog-4xp.pages.dev/',
+  site: 'https://younagi.dev/en/',
   integrations: [
     mdx({
       optimize: true,

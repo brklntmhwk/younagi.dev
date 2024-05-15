@@ -39,9 +39,12 @@ export default defineConfig({
       prefixDefaultLocale: true,
     },
   },
-  image: {
-    domains: ['unsplash.com'],
-  },
+  // image: {
+  //   domains: ['astro.build', 'unsplash.com'],
+  //   service: {
+  //     entrypoint: 'astro/assets/services/sharp',
+  //   },
+  // },
   vite: {
     build: {
       cssMinify: 'lightningcss',
@@ -63,6 +66,9 @@ export default defineConfig({
         exclude: Features.VendorPrefixes,
         targets: browserslistToTargets(browserslist('>= 0.1%')),
       },
+    },
+    optimizeDeps: {
+      exclude: ['sharp'],
     },
   },
   markdown: {

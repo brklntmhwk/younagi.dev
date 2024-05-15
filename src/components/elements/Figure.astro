@@ -1,12 +1,15 @@
 ---
 import AstroCode from './Code.astro'
+import AstroImage from './Image.astro'
 
 export type Props = {
+  'data-image-figure'?: ''
   'data-rehype-pretty-code-figure'?: ''
 }
 
 const props = Astro.props
 const isCodeFigure = Object.hasOwn(props, 'data-rehype-pretty-code-figure')
+const isImageFigure = Object.hasOwn(props, 'data-image-figure')
 ---
 
 {
@@ -14,6 +17,10 @@ const isCodeFigure = Object.hasOwn(props, 'data-rehype-pretty-code-figure')
     <AstroCode {...props}>
       <slot />
     </AstroCode>
+  ) : isImageFigure ? (
+    <AstroImage {...props}>
+      <slot />
+    </AstroImage>
   ) : (
     <figure {...props}>
       <slot />

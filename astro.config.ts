@@ -5,13 +5,15 @@ import purgecss from 'astro-purgecss'
 import browserslist from 'browserslist'
 import { Features, browserslistToTargets } from 'lightningcss'
 import { h } from 'hastscript'
-import remarkBreaks from 'remark-breaks'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeSlug from 'rehype-slug'
 import rehypePrettyCode from 'rehype-pretty-code'
+import rehypeMarkImageFigure from './src/plugins/rehype-image-figure'
+import remarkAstroImageAssets from './src/plugins/remark-astro-image-assets'
+import remarkLineBreaks from './src/plugins/remark-line-breaks'
 
 // https://astro.build/config
 export default defineConfig({
@@ -37,11 +39,17 @@ export default defineConfig({
       prefixDefaultLocale: true,
     },
   },
+  image: {
+    domains: ['unsplash.com'],
+  },
   vite: {
     build: {
       cssMinify: 'lightningcss',
       sourcemap: 'hidden',
       minify: 'esbuild',
+      // rollupOptions: {
+      //   external: ['sharp'],
+      // },
     },
     css: {
       devSourcemap: true,
@@ -62,10 +70,16 @@ export default defineConfig({
   },
   markdown: {
     syntaxHighlight: false,
-    remarkPlugins: [remarkBreaks, remarkMath, remarkGfm],
+    remarkPlugins: [
+      remarkMath,
+      remarkGfm,
+      remarkAstroImageAssets,
+      remarkLineBreaks,
+    ],
     rehypePlugins: [
       rehypeKatex,
       rehypeSlug,
+      rehypeMarkImageFigure,
       [
         rehypeAutolinkHeadings,
         {
@@ -83,7 +97,7 @@ export default defineConfig({
         rehypePrettyCode,
         {
           theme: {
-            light: 'github-dark',
+            light: 'vitesse-light',
             dark: 'github-dark',
           },
           grid: false,

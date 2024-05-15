@@ -47,9 +47,9 @@ export default defineConfig({
       cssMinify: 'lightningcss',
       sourcemap: 'hidden',
       minify: 'esbuild',
-      // rollupOptions: {
-      //   external: ['sharp'],
-      // },
+      rollupOptions: {
+        external: ['sharp'],
+      },
     },
     css: {
       devSourcemap: true,

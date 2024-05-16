@@ -141,10 +141,7 @@ import Modal from '@/components/Modal.astro'
     }
   }
 
-  const eventsToBeAdded = [
-    'DOMContentLoaded',
-    'visibilitychange',
-  ] as const
+  const eventsToBeAdded = ['DOMContentLoaded', 'visibilitychange'] as const
 
   eventsToBeAdded.forEach((evName) => {
     document.addEventListener(evName, initPagefind)
@@ -161,11 +158,12 @@ import NavMenuContainer from '@/components/NavMenuContainer.astro'
 import Search from '@/components/Search.astro'
 // ...
 ---
+
 <nav class="glassmorphism" data-pagefind-ignore="all">
   <!-- ... -->
   <NavMenuContainer>
     <div class="nav-links">
-     <!-- ... -->
+      <!-- ... -->
     </div>
     <div class="icon-links">
       <!-- ... -->
@@ -241,7 +239,9 @@ const slug = rest.join('/')
 </Modal>
 <!-- ... -->
 <script>
-{/* ... */}
+  {
+    /* ... */
+  }
 </script>
 ```
 
@@ -327,6 +327,7 @@ type Props = BaseLayoutProps
 // ...
 const { title, description, og } = Astro.props
 ---
+
 <!-- ... -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content={Astro.url} />
@@ -474,9 +475,11 @@ $$
 $$
 x = {-b \pm \sqrt{b^2-4ac} \over 2a}
 $$
+
 $$
 ( \sum_{k=1}^{n} a_k b_k )^2 \leq ( \sum_{k=1}^{n} {a_k}^2 ) ( \sum_{k=1}^{n} {b_k}^2 )
 $$
+
 $$
 \int_{0}^{1} f(x) \ dx
 = \lim_{n \to \infty} \dfrac{1}{n} \sum_{k=0}^{n-1} f \left (\dfrac{k}{n} \right)
@@ -512,6 +515,7 @@ export default defineConfig({
 import 'katex/dist/katex.min.css'
 // ...
 ---
+
 <!-- ... -->
 ```
 
@@ -553,6 +557,7 @@ export default defineConfig({
 次に、以下2つのコンポーネントを作成しました。このネスト構造 (と大半のCSS) については、[haxibami.net](https://www.haxibami.net/)のGithubレポジトリを参考にしました。
 
 ```astro title="src/components/elements/Figure.astro"
+---
 import AstroCode from './Code.astro'
 import AstroImage from './Image.astro'
 
@@ -676,9 +681,8 @@ export default defineConfig({
 // ...
 ---
 
-<BaseLayout
-  <!-- ... -->
->
+<BaseLayout <!-- ... -->
+  >
   <main>
     <article>
       <!-- ... -->
@@ -737,11 +741,9 @@ VS Code の拡張機能であり、ローカルで動くという点で、他の
     {
       "title": "blog",
       "path": "[[workspace]]/src/content/blog",
-      "contentTypes": [
-        "blog"
-      ],
+      "contentTypes": ["blog"],
       "defaultLocale": "en"
-    },
+    }
     // ...
   ],
   "frontMatter.content.i18n": [
@@ -759,11 +761,7 @@ VS Code の拡張機能であり、ローカルで動くという点で、他の
   "frontMatter.content.draftField": {
     "name": "draft",
     "type": "choice",
-    "choices": [
-      "draft",
-      "in progress",
-      "published"
-    ]
+    "choices": ["draft", "in progress", "published"]
   },
   "frontMatter.taxonomy.seoTitleLength": 72,
   "frontMatter.taxonomy.contentTypes": [
@@ -831,9 +829,9 @@ VS Code の拡張機能であり、ローカルで動くという点で、他の
           "type": "draft"
         }
       ]
-    },
+    }
     // ...
-  ],
+  ]
   // ...
 }
 ```

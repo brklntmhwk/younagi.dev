@@ -19,9 +19,10 @@ import remarkLineBreaks from './src/plugins/remark-line-breaks'
 export default defineConfig({
   site: 'https://younagi.dev/en/',
   integrations: [
-    mdx({
-      optimize: true,
-    }),
+    mdx(),
+    // mdx({
+    //   optimize: true,
+    // }),
     sitemap(),
     purgecss({
       fontFace: true,

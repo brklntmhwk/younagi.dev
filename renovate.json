@@ -17,11 +17,11 @@
       "automerge": true
     },
     {
-      "groupName": "Package manager (yarn, non-major update)",
-      "matchPackagePatterns": ["^yarn$"],
+      "groupName": "Package manager (pnpm, non-major update)",
+      "matchPackagePatterns": ["^pnpm$"],
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "automerge": true
     }
   ],
-  "enabledManagers": ["github-actions", "yarn"]
+  "enabledManagers": ["github-actions", "pnpm"]
 }

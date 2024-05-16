@@ -2,10 +2,12 @@
   "$schema": "https://json.schemastore.org/package.json",
   "name": "younagi.dev",
   "type": "module",
+  "private": true,
   "version": "0.0.1",
-  "author": "brklntmhwk",
+  "author": "Nagi",
   "license": "MIT",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
@@ -13,7 +15,7 @@
     "preview": "astro preview",
     "sync": "astro sync",
     "astro": "npx astro",
-    "format": "prettier --write './src/**/*.{js,ts,mjs,json,astro}'",
+    "format": "prettier --write './src/**/*.{js,ts,json,astro}'",
     "prepare": "husky"
   },
   "dependencies": {
@@ -34,6 +36,7 @@
     "@types/eslint": "8.56.5",
     "@types/hast": "^3.0.4",
     "@types/katex": "0.16.7",
+    "@types/mdast": "^4.0.4",
     "@types/node": "^20.12.12",
     "@types/unist": "^3.0.2",
     "@typescript-eslint/eslint-plugin": "7.1.1",
@@ -49,6 +52,7 @@
     "katex": "0.16.9",
     "lightningcss": "^1.24.1",
     "lint-staged": "15.2.2",
+    "mdast": "^3.0.0",
     "mdast-util-newline-to-break": "^2.0.0",
     "mdast-util-to-hast": "^13.1.0",
     "node-html-parser": "6.1.12",
@@ -67,7 +71,7 @@
     "unist-util-visit": "^5.0.0",
     "unsplash-js": "^7.0.19"
   },
-  "packageManager": "yarn@1.22.15",
+  "packageManager": "pnpm@9.1.0",
   "engines": {
     "node": ">=18.16.0"
   }

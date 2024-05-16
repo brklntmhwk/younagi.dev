@@ -15,11 +15,14 @@ const year = new Date().getFullYear()
 ---
 
 <footer data-pagefind-ignore="all">
-  <a href=`https://www.buymeacoffee.com/${ACCOUNT_ID}` target="_blank">
+  <a
+    class="buy-me-a-coffee"
+    href=`https://www.buymeacoffee.com/${ACCOUNT_ID}`
+    target="_blank"
+  >
     <img
       src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png"
       alt="Buy Me A Coffee"
-      style="height: 55px !important;width: 215px !important;"
     />
   </a>
   <span>
@@ -74,6 +77,13 @@ const year = new Date().getFullYear()
     padding: 2.25rem 1rem 3.75rem 1rem;
     color: var(--fg);
     text-align: center;
+    .buy-me-a-coffee {
+      padding-bottom: 0.75rem;
+      img {
+        height: 55px;
+        width: 215px;
+      }
+    }
     a {
       color: var(--accent);
       &:hover {

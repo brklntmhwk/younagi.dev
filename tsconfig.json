@@ -5,13 +5,8 @@
     "allowJs": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     }
   },
-  "exclude": [
-    "./dist/",
-    "./node_modules",
-  ]
+  "exclude": ["./dist", "./node_modules"]
 }

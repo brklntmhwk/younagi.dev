@@ -4,6 +4,7 @@ import type { MarkdownHeading } from 'astro'
 import type { CollectionEntry } from 'astro:content'
 import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import BuyMeACoffee from '@/components/BuyMeACoffee.astro'
 import FormattedDate from '../components/FormattedDate.astro'
 import Toc from '@/components/Toc.astro'
 import Svg from '@/components/Svg/index.astro'
@@ -82,6 +83,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
         <slot />
       </section>
       <hr />
+      <BuyMeACoffee />
       <section class="guides">
         <a class="back-to-link" href={`/${locale}/blog/`}
           >◀ {t.data.pages.blog.back_to_top}</a

@@ -1,0 +1,32 @@
+---
+import Svg from './Svg/index.astro'
+import { ACCOUNT_ID } from '@/consts'
+---
+
+<a
+  class="bmc-button"
+  href=`https://www.buymeacoffee.com/${ACCOUNT_ID}`
+  target="_blank"
+>
+  <Svg iconName="bmc" height={32} width={32} />
+  <span>Buy Me a Coffee</span>
+</a>
+<style>
+  .bmc-button {
+    background-color: hsla(228, 95%, 68%, 1);
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    place-self: center;
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.85rem;
+    span {
+      color: var(--gray-light);
+      font-size: 1.125rem;
+      font-weight: 700;
+    }
+    &:hover {
+      background-color: hsla(228, 95%, 68%, 0.9);
+    }
+  }
+</style>

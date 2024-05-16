@@ -97,7 +97,7 @@ export default defineConfig({
         rehypePrettyCode,
         {
           theme: {
-            light: 'vitesse-light',
+            light: 'catppuccin-latte',
             dark: 'github-dark',
           },
           grid: false,

@@ -30,7 +30,7 @@ const props = Astro.props
         width: 1rem;
         margin-right: 1.05rem;
         text-align: right;
-        color: var(--gray-light);
+        color: var(--gray);
       }
       & :global([data-highlighted-line]) {
         border-left-color: var(--code-highlight-border);
@@ -67,7 +67,7 @@ const props = Astro.props
       overflow: hidden;
       padding: 0.25rem 0.75rem;
       color: var(--gray-dark);
-      background: var(--gray);
+      background: var(--code-title-bg);
       border-radius: 0.15rem 0.15rem 0.15rem 0;
     }
   }
@@ -80,5 +80,12 @@ const props = Astro.props
   :global(pre[data-theme*=' '] span) {
     color: var(--shiki-light);
     background: var(--shiki-light-bg);
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(pre[data-theme*=' ']),
+    :global(pre[data-theme*=' '] span) {
+      color: var(--shiki-dark);
+      background: var(--shiki-dark-bg);
+    }
   }
 </style>

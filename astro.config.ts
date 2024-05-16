@@ -3,7 +3,7 @@ import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import purgecss from 'astro-purgecss'
 import browserslist from 'browserslist'
-import { Features, browserslistToTargets } from 'lightningcss'
+import { /* Features, */ browserslistToTargets } from 'lightningcss'
 import { h } from 'hastscript'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
@@ -57,19 +57,19 @@ export default defineConfig({
       // @ts-expect-error Object literals may only specify known properties ... probably because Vite or Astro haven't updated their config to reflect the actually existing analyzeDependencies option from LightningCSS yet.
       analyzeDependencies: true,
       lightningcss: {
-        cssModules: {
-          pattern: '[local]',
-        },
+        // cssModules: {
+        //   pattern: '[local]',
+        // },
         drafts: {
           customMedia: true,
         },
-        exclude: Features.VendorPrefixes,
+        // exclude: Features.VendorPrefixes,
         targets: browserslistToTargets(browserslist('>= 0.1%')),
       },
     },
-    optimizeDeps: {
-      exclude: !import.meta.env.DEV ? ['sharp'] : [],
-    },
+    // optimizeDeps: {
+    //   exclude: !import.meta.env.DEV ? ['sharp'] : [],
+    // },
   },
   markdown: {
     syntaxHighlight: false,

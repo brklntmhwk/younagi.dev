@@ -23,5 +23,5 @@
       "automerge": true
     }
   ],
-  "enabledManagers": ["github-actions", "pnpm"]
+  "enabledManagers": ["github-actions"]
 }

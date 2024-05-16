@@ -22,7 +22,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: pnpm
       - name: Configure pnpm path
         run: echo "${{ env.PNPM_HOME }}" >> $GITHUB_PATH
       - name: Set up pnpm with corepack

@@ -32,7 +32,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
 <script>
   import { PagefindUI } from '@pagefind/default-ui'
 
-  function initPagefind() {
+  function init() {
     new PagefindUI({
       element: '#search',
       showImages: false,
@@ -80,6 +80,6 @@ const t = await getEntry('i18n', `${locale}/translation`)
   const eventsToBeAdded = ['DOMContentLoaded', 'visibilitychange'] as const
 
   eventsToBeAdded.forEach((evName) => {
-    document.addEventListener(evName, initPagefind)
+    document.addEventListener(evName, init)
   })
 </script>

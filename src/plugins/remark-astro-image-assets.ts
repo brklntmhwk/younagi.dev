@@ -7,31 +7,10 @@ import sharp from 'sharp'
 import { visit } from 'unist-util-visit'
 
 type RemarkAstroImageAssetsOptions = {
-  /**
-   * The directory where the images are stored, relative to `src` directory.
-   * @default "./assets/images"
-   * */
   imgDir: string
-  /**
-   * The size of the placeholder image.
-   * @default 8
-   * */
   size: number
-  /**
-   * The format of the placeholder image.
-   * @default "webp"
-   * */
   blurFormat: keyof sharp.FormatEnum
-  /**
-   * The widths of the placeholder image.
-   * @default: [240, 540, 720] (+ original width)
-   * */
   widths: number[]
-  /**
-   * The sizes of the placeholder image.
-   * See {@link https://developer.mozilla.org/docs/Web/HTML/Element/img#sizes}
-   * @default: "(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px" (+, original width)
-   * */
   sizes: string
 }
 
@@ -98,7 +77,6 @@ const remarkAstroImageAssets: Plugin<[RemarkAstroImageAssetsOptions?], Root> = (
           base64Promise,
         ])
 
-        // data attributes for <img> (automatically passed to <Image> component)
         node.data = {
           ...node.data,
           hProperties: {
@@ -108,8 +86,6 @@ const remarkAstroImageAssets: Plugin<[RemarkAstroImageAssetsOptions?], Root> = (
           },
         }
 
-        // data attributes added to image's parent <p>, which will later be transformed to <figure>
-        // in rehype-image-figure
         parent.data = {
           ...parent.data,
           hProperties: {

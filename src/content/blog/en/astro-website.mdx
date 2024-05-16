@@ -95,7 +95,7 @@ Inside the `listenToModalEvents` is event registration code. For PC users, I add
 <script>
   import { PagefindUI } from '@pagefind/default-ui'
 
-  function initPagefind() {
+  function init() {
     new PagefindUI({
       element: '#search',
       showImages: false,
@@ -141,13 +141,10 @@ Inside the `listenToModalEvents` is event registration code. For PC users, I add
     }
   }
 
-  const eventsToBeAdded = [
-    'DOMContentLoaded',
-    'visibilitychange',
-  ] as const
+  const eventsToBeAdded = ['DOMContentLoaded', 'visibilitychange'] as const
 
   eventsToBeAdded.forEach((evName) => {
-    document.addEventListener(evName, initPagefind)
+    document.addEventListener(evName, init)
   })
 </script>
 ```
@@ -161,11 +158,12 @@ import NavMenuContainer from '@/components/NavMenuContainer.astro'
 import Search from '@/components/Search.astro'
 // ...
 ---
+
 <nav class="glassmorphism" data-pagefind-ignore="all">
   <!-- ... -->
   <NavMenuContainer>
     <div class="nav-links">
-     <!-- ... -->
+      <!-- ... -->
     </div>
     <div class="icon-links">
       <!-- ... -->
@@ -180,7 +178,7 @@ import Search from '@/components/Search.astro'
 
 I was able to develop it thanks to [the official doc](https://docs.astro.build/ja/recipes/i18n/). First, I followed the steps and created locale directories (`en` and `ja`, in my case.) You've got to make as many files as the number of languages for the same content.
 
-Astro doesn't offer only Markdown/MDX file format, but also those of YAML and JSON. I chose YAML for storing translation strings because of its brevity.
+Not only does Astro offer Markdown/MDX file format, but also those of YAML and JSON. I chose YAML for storing translation strings because of its brevity.
 
 ![content directory tree](../../../assets/images/content-dir.png)
 
@@ -241,7 +239,9 @@ const slug = rest.join('/')
 </Modal>
 <!-- ... -->
 <script>
-{/* ... */}
+  {
+    /* ... */
+  }
 </script>
 ```
 
@@ -327,6 +327,7 @@ type Props = BaseLayoutProps
 // ...
 const { title, description, og } = Astro.props
 ---
+
 <!-- ... -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content={Astro.url} />
@@ -444,13 +445,13 @@ const { title, description, category, tags, publishedAt, modifiedAt } = data
 <!-- ... -->
 ```
 
-Finally, the OG image has successfully created like this!
+Finally, the OG image has successfully been created like this!
 
 ![ The OG image for this page ](../../../assets/images/og-image.png)
 
 #### Styling inside articles
 
-Aside from the detailed styling of the blog body part, here I picked up that of some specific elements.
+Aside from the detailed styling of the blog body part, here I picked up some specific elements.
 
 ##### KaTex
 
@@ -469,14 +470,16 @@ $$
 $$
 ```
 
-this! Very legible, isn't it?
+This! Very legible, isn't it?
 
 $$
 x = {-b \pm \sqrt{b^2-4ac} \over 2a}
 $$
+
 $$
 ( \sum_{k=1}^{n} a_k b_k )^2 \leq ( \sum_{k=1}^{n} {a_k}^2 ) ( \sum_{k=1}^{n} {b_k}^2 )
 $$
+
 $$
 \int_{0}^{1} f(x) \ dx
 = \lim_{n \to \infty} \dfrac{1}{n} \sum_{k=0}^{n-1} f \left (\dfrac{k}{n} \right)
@@ -512,14 +515,17 @@ I had the $\KaTeX$ stylesheet read only in the blog layout because it's not supp
 import 'katex/dist/katex.min.css'
 // ...
 ---
+
 <!-- ... -->
 ```
 
 ##### Code block
 
-Up here, I put a bunch of code blocks to explain how each code works. I customized the syntax highlighting, code highlighting, and so on behind the scenes.
+Up here, I put a bunch of code blocks to explain how each code works. I customized the syntax highlighting, code line highlighting, and so on behind the scenes.
 
 To that end, I added the `rehype-pretty-code` and `shiki` library and then tweaked the following parts. For it to supersede the Astro's default syntax highlight, I set the `syntaxHighlight` to false.
+
+You can see all the themes Shiki offers and the previews of them in [the Shiki official page](https://shiki.style/themes).
 
 \* The `rehype-pretty-code` uses the `shiki` behind the scenes and therefore it's necessary.
 
@@ -550,7 +556,9 @@ export default defineConfig({
 })
 ```
 
-Next, I created two components for HTML elements shown below. As to this nested structure (and the better part of the code styling), where the code component is nested by the figure, I consulted the Github repo of [haxibami.net](https://www.haxibami.net/)
+Next, I created two components for HTML elements shown below. As to this nested structure (and the better part of the code styling) I consulted the Github repo of [haxibami.net](https://www.haxibami.net/)
+
+The data attribute `data-rehype-pretty-code-figure` is added by the `rehype-pretty-code` plugin, so it'd be nice to use it as a sign that there are the `code` tags inside the `figure` tags.
 
 ```astro title="src/components/elements/Figure.astro"
 ---
@@ -583,6 +591,8 @@ const isImageFigure = Object.hasOwn(props, 'data-image-figure')
   )
 }
 ```
+
+By the way, images embedded in a Markdown file are simply surrounded by `p` tags and appear bizarre. It's quite natural to think that they should be surrounded by `figure` tags in terms of semantics, so I did it by making a `rehype` plugin on my own. (As to `remark` `rehype` plugins, I consulted [haxibami.net](https://www.haxibami.net/) and other helpful sites very often)
 
 ```astro title="src/components/elements/Code.astro"
 ---
@@ -677,9 +687,8 @@ And then I added the styling for anchor links in every content layouts. Below is
 // ...
 ---
 
-<BaseLayout
-  <!-- ... -->
->
+<BaseLayout <!-- ... -->
+  >
   <main>
     <article>
       <!-- ... -->
@@ -738,11 +747,9 @@ In the `frontmatter.json`, there are two notable points here:
     {
       "title": "blog",
       "path": "[[workspace]]/src/content/blog",
-      "contentTypes": [
-        "blog"
-      ],
+      "contentTypes": ["blog"],
       "defaultLocale": "en"
-    },
+    }
     // ...
   ],
   "frontMatter.content.i18n": [
@@ -760,11 +767,7 @@ In the `frontmatter.json`, there are two notable points here:
   "frontMatter.content.draftField": {
     "name": "draft",
     "type": "choice",
-    "choices": [
-      "draft",
-      "in progress",
-      "published"
-    ]
+    "choices": ["draft", "in progress", "published"]
   },
   "frontMatter.taxonomy.seoTitleLength": 72,
   "frontMatter.taxonomy.contentTypes": [
@@ -832,9 +835,9 @@ In the `frontmatter.json`, there are two notable points here:
           "type": "draft"
         }
       ]
-    },
+    }
     // ...
-  ],
+  ]
   // ...
 }
 ```

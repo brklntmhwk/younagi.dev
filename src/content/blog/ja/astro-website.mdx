@@ -54,7 +54,7 @@ ReactなどのJSライブラリはなるべく使わず、素のJS (TypeScript) 
 
 #### 全文検索
 
-Rust製の静的検索ライブラリである[Pagefind](https://pagefind.app/)の力を借りることにしました。軽量、高速、そして非常に使いやすい！
+Rust製の静的検索ライブラリである[Pagefind](https://pagefind.app/)の力を借りることにしました。軽量、高速、そして導入が簡単！
 
 `pagefind` と `@pagefind/default-ui` をプロジェクトに追加して, 次のような検索用コンポーネントを作りました。
 要点は、空の `div` タグに割り振られた`search` IDです。これが後々、Pagefindが提供する検索ウィンドウをどこに設置するのかを特定するために参照されます。また、モーダルウィンドウは `hidden` クラスの有無に応じて表示が切り替わります。
@@ -95,7 +95,7 @@ import Modal from '@/components/Modal.astro'
 <script>
   import { PagefindUI } from '@pagefind/default-ui'
 
-  function initPagefind() {
+  function init() {
     new PagefindUI({
       element: '#search',
       showImages: false,
@@ -144,7 +144,7 @@ import Modal from '@/components/Modal.astro'
   const eventsToBeAdded = ['DOMContentLoaded', 'visibilitychange'] as const
 
   eventsToBeAdded.forEach((evName) => {
-    document.addEventListener(evName, initPagefind)
+    document.addEventListener(evName, init)
   })
 </script>
 ```
@@ -251,13 +251,13 @@ const slug = rest.join('/')
 
 #### OG 画像 (Open Graph)
 
-OG画像はAstroが提供する[APIエンドポイント機能](https://docs.astro.build/en/guides/endpoints/)で動的に生成します。より簡潔に実装したかったので、`astro-og-canvas` ライブラリの力を借りました。以下コードの流れは次の通りです。
+OG画像はAstroが提供する[APIエンドポイント機能](https://docs.astro.build/en/guides/endpoints/)で動的に生成します。より簡潔に実装したかったので、`astro-og-canvas` ライブラリの力を借りました。大まかなコードの流れは、
 
 1. OG画像を生成するコンテンツのデータを全取得する
 2. データを加工して `OGImageRoute` が `pages` プロパティとして受け取れるようにする
 3. データを `OGImageRoute` に渡す
 
-私の場合、ロケールディレクトリ導入の際にパスをいじっていた為、パスを少々加工しなければなりませんでした。
+このような感じです。私の場合、多言語化で `locale` ディレクトリを導入した時にパスを改造しており、ここでも整合性を保つためにパスを加工しなければなりませんでした。
 
 ```typescript title="src/pages/og/[...slug].ts"
 import { getCollection } from 'astro:content'
@@ -316,7 +316,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
 
 その他のオプションについては、[astro-og-canvas 公式ドキュメント](https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas)をご覧あれ。
 
-これでOG画像用エンドポイントへアクセスできるようになりました。一つ例を見てみましょう。headの記述を切り出した `BaseHead` コンポーネントを作成し、こちらをベースレイアウトの中に設置しています。
+これでOG画像用エンドポイントへアクセスできるようになりました。一つ例を見てみましょう。headの記述を切り出した `BaseHead` コンポーネントを作成し、ベースレイアウトの中に設置しています。
 
 ```astro title="src/components/BaseHead.astro"
 ---
@@ -525,6 +525,8 @@ import 'katex/dist/katex.min.css'
 
 `rehype-pretty-code`、`shiki` ライブラリを追加し、次の箇所を変更しました。Astroではデフォルトでシンタックスハイライト機能がついているので、カスタマイズする際には `syntaxHighlight` の項目を明示的に `false` にする必要があります。
 
+Shiki が提供する全テーマとそのプレビューは、[Shiki 公式ページ](https://shiki.style/themes)で確認できます。
+
 \* `rehype-pretty-code` は内部で `shiki` を利用しているため、インストール必須です。
 
 ```typescript title="astro.config.ts" {2,7,11-20}
@@ -555,6 +557,8 @@ export default defineConfig({
 ```
 
 次に、以下2つのコンポーネントを作成しました。このネスト構造 (と大半のCSS) については、[haxibami.net](https://www.haxibami.net/)のGithubレポジトリを参考にしました。
+
+データ属性 `data-rehype-pretty-code-figure` は `rehype-pretty-code` が自動で追加してくれるもので、これを `figure` タグの中に `code` があるのかを判定するために活用できます。
 
 ```astro title="src/components/elements/Figure.astro"
 ---
@@ -587,6 +591,9 @@ const isImageFigure = Object.hasOwn(props, 'data-image-figure')
   )
 }
 ```
+
+本旨からは逸れますが、マークダウンで埋め込まれた画像は `p` タグに囲まれているだけの奇妙な構造になってしまい、相当変態です。ここは意味論的にも `figure` タグで囲うのが妥当と思い、`rehype` プラグインを自作してカスタマイズしています。(`remark` `rehype` プラグインについては[haxibami.net](https://www.haxibami.net/)などの有益なサイトをかなり参考にさせていただきました)
+上記の `data-image-figure` のデータ属性は `figure` タグが画像を囲うためのものなのか、条件分岐する為に使われています。
 
 ```astro title="src/components/elements/Code.astro"
 ---
@@ -868,4 +875,4 @@ Cloudflare Pagesをホスティング先に選んだのには次のような理�
 しかし、結論から言うと、Next.jsとはその後破局しました。あんなに(一方的に)愛していたのに、どうして？確かに、バックエンドを代わりに任せられたりと、機能提供の面で八面六臂の活躍をしてくれたことは魅力的でした。
 ところが、それこそが問題でした。アップグレードを重ね、より多くの機能を手に入れるにつれて、JS標準から徐々に逸脱してしまっていると感じたのです。加えて、そうした絶え間ないアップデートに、付き合いきれないと感じる自分がいました。私たちはいつの間にかすれ違っていたのです。(辛うじてApp Routerまでは頑張りました)
 
-そんな折、Astroとの出会いが訪れました。JSフレームワークの為のフレームワーク、とでも言いましょうか。個人的にAstroの好きなところは、柔軟性です。機能を最小限に抑えつつ、ユーザにカスタマイズの余地を十分に残してくれています。私の場合、ReactなどのJSフレームワークはできる限り使わずに、素のJS(TypeScript)で書きたかったのです。
+そんな折、Astroとの出会いが訪れました。JSフレームワークのフレームワーク、とでも言いましょうか。個人的にAstroの好きなところは、柔軟性です。機能を最小限に抑えつつ、ユーザにカスタマイズの余地を十分に残してくれています。私の場合、ReactなどのJSフレームワークはできる限り使わずに、素のJS(TypeScript)で書きたかったのです。

@@ -49,7 +49,7 @@ export default defineConfig({
     build: {
       cssMinify: 'lightningcss',
       sourcemap: 'hidden',
-      minify: 'esbuild',
+      // minify: 'esbuild',
     },
     css: {
       devSourcemap: true,

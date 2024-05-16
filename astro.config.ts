@@ -12,7 +12,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeSlug from 'rehype-slug'
 import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeMarkImageFigure from './src/plugins/rehype-image-figure'
-import remarkAstroImageAssets from './src/plugins/remark-astro-image-assets'
+// import remarkAstroImageAssets from './src/plugins/remark-astro-image-assets'
 import remarkLineBreaks from './src/plugins/remark-line-breaks'
 
 // https://astro.build/config
@@ -68,7 +68,7 @@ export default defineConfig({
       },
     },
     optimizeDeps: {
-      exclude: ['sharp'],
+      exclude: !import.meta.env.DEV ? ['sharp'] : [],
     },
   },
   markdown: {
@@ -76,7 +76,7 @@ export default defineConfig({
     remarkPlugins: [
       remarkMath,
       remarkGfm,
-      remarkAstroImageAssets,
+      // remarkAstroImageAssets,
       remarkLineBreaks,
     ],
     rehypePlugins: [

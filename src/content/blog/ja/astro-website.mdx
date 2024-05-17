@@ -141,7 +141,7 @@ import Modal from '@/components/Modal.astro'
     }
   }
 
-  const eventsToBeAdded = ['DOMContentLoaded', 'visibilitychange'] as const
+  const eventsToBeAdded = ['DOMContentLoaded'] as const
 
   eventsToBeAdded.forEach((evName) => {
     document.addEventListener(evName, init)
@@ -149,7 +149,7 @@ import Modal from '@/components/Modal.astro'
 </script>
 ```
 
-最後に、私の場合はこれをナビゲーション用コンポーネント内に追加しました。
+最後に、私の場合はこれをナビゲーションに追加しました。
 
 ```astro title="src/components/Navigation.astro" {4, 15}
 ---

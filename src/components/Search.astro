@@ -77,7 +77,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
     }
   }
 
-  const eventsToBeAdded = ['DOMContentLoaded', 'visibilitychange'] as const
+  const eventsToBeAdded = ['DOMContentLoaded'] as const
 
   eventsToBeAdded.forEach((evName) => {
     document.addEventListener(evName, init)

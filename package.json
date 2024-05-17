@@ -55,6 +55,7 @@
     "mdast": "^3.0.0",
     "mdast-util-newline-to-break": "^2.0.0",
     "mdast-util-to-hast": "^13.1.0",
+    "mdast-util-to-string": "^4.0.0",
     "node-html-parser": "6.1.12",
     "pagefind": "1.0.4",
     "prettier": "3.2.5",

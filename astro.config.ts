@@ -14,6 +14,7 @@ import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeMarkImageFigure from './src/plugins/rehype-image-figure'
 import remarkAstroImageAssets from './src/plugins/remark-astro-image-assets'
 import remarkLineBreaks from './src/plugins/remark-line-breaks'
+import remarkCallout from './src/plugins/remark-callout'
 
 // https://astro.build/config
 export default defineConfig({
@@ -74,6 +75,7 @@ export default defineConfig({
       remarkMath,
       remarkGfm,
       remarkAstroImageAssets,
+      remarkCallout,
       remarkLineBreaks,
     ],
     rehypePlugins: [

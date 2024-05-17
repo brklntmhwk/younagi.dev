@@ -151,11 +151,6 @@ hr {
   border-top: 1px solid var(--line);
   margin: 0.75rem 0;
 }
-@supports not (backdrop-filter: blur(6px) saturate(180%)) {
-  .glassmorphism {
-    background-color: var(--glass-bg);
-  }
-}
 @supports (backdrop-filter: blur(6px) saturate(180%)) {
   @supports not (-webkit-backdrop-filter: blur(6px) saturate(180%)) {
     .glassmorphism {

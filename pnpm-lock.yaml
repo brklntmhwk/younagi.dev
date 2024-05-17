@@ -111,6 +111,9 @@ importers:
       mdast-util-to-hast:
         specifier: ^13.1.0
         version: 13.1.0
+      mdast-util-to-string:
+        specifier: ^4.0.0
+        version: 4.0.0
       node-html-parser:
         specifier: 6.1.12
         version: 6.1.12

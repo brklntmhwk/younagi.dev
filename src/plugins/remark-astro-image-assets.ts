@@ -31,9 +31,9 @@ const remarkAstroImageAssets: Plugin<[RemarkAstroImageAssetsOptions?], Root> = (
         parent?.type !== 'paragraph' ||
         index !== 0 ||
         node.url.startsWith('http')
-      ) {
+      )
         return
-      }
+
       imgAndParentPairs.push({ node, parent })
     })
 
@@ -80,6 +80,7 @@ const remarkAstroImageAssets: Plugin<[RemarkAstroImageAssetsOptions?], Root> = (
         node.data = {
           ...node.data,
           hProperties: {
+            ...((node.data && node.data.hProperties) || {}),
             widths: [...widths, width],
             sizes: `${sizes}, ${width}px`,
             format: 'avif',
@@ -89,6 +90,7 @@ const remarkAstroImageAssets: Plugin<[RemarkAstroImageAssetsOptions?], Root> = (
         parent.data = {
           ...parent.data,
           hProperties: {
+            ...((parent.data && parent.data.hProperties) || {}),
             dataImageFigure: true,
             dataImageAlt: node.alt,
             dataImageAspectRatio: aspectRatio,

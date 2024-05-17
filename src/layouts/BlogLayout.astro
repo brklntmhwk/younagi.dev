@@ -210,6 +210,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
       }
       & :global(blockquote) {
         padding: 0.75rem 0.85rem;
+        margin-bottom: 1.375rem;
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
@@ -224,18 +225,62 @@ const t = await getEntry('i18n', `${locale}/translation`)
           }
         }
         & :global(.callout-content) {
+          color: hsla(248.57, 11.48%, 11.96%, 1);
           font-size: 1.025rem;
+        }
+      }
+      & :global(blockquote[data-callout='info']),
+      & :global(blockquote[data-callout='tip']),
+      & :global(blockquote[data-callout='hint']) {
+        background-color: var(--callout-info-bg);
+        & :global(.callout-title-text) {
+          color: var(--callout-info-fg);
+        }
+        & :global(.callout-title-icon > svg) {
+          stroke: var(--callout-info-fg);
         }
       }
       & :global(blockquote[data-callout='caution']),
       & :global(blockquote[data-callout='attention']),
       & :global(blockquote[data-callout='warning']) {
-        background-color: hsla(0, 100%, 93%, 1);
+        background-color: var(--callout-caution-bg);
         & :global(.callout-title-text) {
-          color: hsla(0, 95%, 65%, 1);
+          color: var(--callout-caution-fg);
         }
         & :global(.callout-title-icon > svg) {
-          stroke: hsla(0, 95%, 65%, 1);
+          stroke: var(--callout-caution-fg);
+        }
+      }
+      & :global(blockquote[data-callout='question']),
+      & :global(blockquote[data-callout='faq']),
+      & :global(blockquote[data-callout='help']) {
+        background-color: var(--callout-question-bg);
+        & :global(.callout-title-text) {
+          color: var(--callout-question-fg);
+        }
+        & :global(.callout-title-icon > svg) {
+          stroke: var(--callout-question-fg);
+        }
+      }
+      & :global(blockquote[data-callout='check']),
+      & :global(blockquote[data-callout='success']),
+      & :global(blockquote[data-callout='done']) {
+        background-color: var(--callout-check-bg);
+        & :global(.callout-title-text) {
+          color: var(--callout-check-fg);
+        }
+        & :global(.callout-title-icon > svg) {
+          stroke: var(--callout-check-fg);
+        }
+      }
+      & :global(blockquote[data-callout='quote']),
+      & :global(blockquote[data-callout='cite']) {
+        background-color: var(--callout-quote-bg);
+        & :global(.callout-title-text) {
+          color: var(--callout-quote-fg);
+        }
+        & :global(.callout-title-icon > svg) {
+          stroke: var(--callout-quote-fg);
         }
       }
       & :global(.katex-display) {

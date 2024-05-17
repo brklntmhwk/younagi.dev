@@ -5,7 +5,6 @@ import { visit } from 'unist-util-visit'
 import { toString } from 'mdast-util-to-string'
 import {
   zapIcon,
-  listIcon,
   quoteIcon,
   bugIcon,
   infoIcon,
@@ -14,7 +13,6 @@ import {
   alertTriangleIcon,
   pencilIcon,
   clipboardListIcon,
-  checkCircleIcon,
   checkIcon,
 } from '../consts'
 
@@ -29,33 +27,32 @@ const regex = /^\[!(\w+)\]([+-]?)/
 const containsKey = (obj: Callout, str: string) =>
   Object.keys(obj).includes(str)
 const callouts: Callout = {
-  note: pencilIcon,
-  abstract: clipboardListIcon,
-  summary: clipboardListIcon,
-  tldr: clipboardListIcon,
+  question: helpCircleIcon,
+  help: helpCircleIcon,
+  faq: helpCircleIcon,
   info: infoIcon,
-  todo: checkCircleIcon,
   tip: infoIcon,
   hint: infoIcon,
+  warning: alertTriangleIcon,
+  attention: alertTriangleIcon,
+  caution: alertTriangleIcon,
+  quote: quoteIcon,
+  cite: quoteIcon,
   important: checkIcon,
   success: checkIcon,
   check: checkIcon,
   done: checkIcon,
-  question: helpCircleIcon,
-  help: helpCircleIcon,
-  faq: helpCircleIcon,
-  warning: alertTriangleIcon,
-  attention: alertTriangleIcon,
-  caution: alertTriangleIcon,
+
+  note: pencilIcon,
+  abstract: clipboardListIcon,
+  summary: clipboardListIcon,
+  tldr: clipboardListIcon,
   failure: xIcon,
   missing: xIcon,
   fail: xIcon,
   danger: zapIcon,
   error: zapIcon,
   bug: bugIcon,
-  example: listIcon,
-  quote: quoteIcon,
-  cite: quoteIcon,
 }
 
 const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {

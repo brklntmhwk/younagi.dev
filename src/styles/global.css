@@ -17,6 +17,16 @@
   --gray: hsla(60, 0.52%, 75.55%, 1);
   --gray-light: hsla(0, 0%, 86.71%, 1);
   --gray-dark: hsla(0, 1.27%, 30.98%, 1);
+  --callout-caution-fg: hsla(0, 95%, 65%, 1);
+  --callout-caution-bg: hsla(0, 100%, 93%, 1);
+  --callout-info-fg: hsla(211, 100%, 70%, 1);
+  --callout-info-bg: hsla(211, 100%, 90%, 1);
+  --callout-quote-fg: hsla(212, 16%, 55%, 1);
+  --callout-quote-bg: hsla(212, 16%, 82%, 1);
+  --callout-question-fg: hsla(263, 56%, 65%, 1);
+  --callout-question-bg: hsla(263, 56%, 85%, 1);
+  --callout-check-fg: hsla(117, 64%, 52%, 1);
+  --callout-check-bg: hsla(117, 64%, 90%, 1);
   --base-font: 'Inconsolata Variable', 'Helvetica Neue', 'Helvetica', Arial,
     'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, Verdana, sans-serif;
   --code-font: Menlo, Consolas, monospace;

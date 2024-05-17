@@ -8,7 +8,7 @@ const props = Astro.props
 <style>
   .code-figure {
     margin: 1.75rem 0 1.5rem 0;
-    max-width: 86.5vw;
+    /* max-width: 86.5vw; */
     position: relative;
     font-size: 0.85rem;
     & :global(pre) {
@@ -58,7 +58,8 @@ const props = Astro.props
       padding: 0.75rem 0;
     }
     & :global([data-rehype-pretty-code-title]) {
-      max-width: 70vw;
+      /* max-width: 70vw; */
+      width: 100%;
       position: absolute;
       top: 0;
       left: 0;
@@ -72,9 +73,9 @@ const props = Astro.props
     }
   }
   @media (min-width: 1024px) {
-    figure {
+    /* figure {
       max-width: 59.5vw;
-    }
+    } */
   }
   :global(pre[data-theme*=' ']),
   :global(pre[data-theme*=' '] span) {

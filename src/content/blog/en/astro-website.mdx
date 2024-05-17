@@ -556,7 +556,7 @@ To that end, I added the `rehype-pretty-code` and `shiki` library and then tweak
 
 You can see all the themes Shiki offers and the previews of them in [the Shiki official page](https://shiki.style/themes).
 
-> [!caution]
+> [!caution]- Note
 > The `rehype-pretty-code` uses the `shiki` behind the scenes and therefore it's necessary.
 
 ```typescript title="astro.config.ts" {2,7,11-20}
@@ -676,8 +676,7 @@ This article included, all my blog articles have headings with anchor links, whi
 
 To make it work, I added the `rehype-autolink-headings`, `rehype-slug`, and `hastscript` library and tweaked the following parts.
 
-> [!caution]
->
+> [!attention]+ Note
 > `rehype-slug` adds `id` attributes to headings, and `hastscript` works in between the transformation of syntaxes like between Markdown and HTML, manipulating ASTs (Abstract Syntax Trees) in the middle.
 
 ```typescript title="astro.config.ts" {2-4,10-22}

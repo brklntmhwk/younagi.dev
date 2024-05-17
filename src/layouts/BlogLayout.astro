@@ -209,19 +209,33 @@ const t = await getEntry('i18n', `${locale}/translation`)
         }
       }
       & :global(blockquote) {
+        padding: 0.75rem 0.85rem;
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
+        border-radius: 0.25rem;
         & :global(.callout-title) {
           display: flex;
-          gap: 0.75rem;
+          gap: 0.6rem;
           align-items: center;
           & :global(.callout-title-text) {
             font-size: 1.15rem;
+            font-weight: 600;
           }
         }
         & :global(.callout-content) {
-          font-size: 1rem;
+          font-size: 1.025rem;
+        }
+      }
+      & :global(blockquote[data-callout='caution']),
+      & :global(blockquote[data-callout='attention']),
+      & :global(blockquote[data-callout='warning']) {
+        background-color: hsla(0, 100%, 93%, 1);
+        & :global(.callout-title-text) {
+          color: hsla(0, 95%, 65%, 1);
+        }
+        & :global(.callout-title-icon > svg) {
+          stroke: hsla(0, 95%, 65%, 1);
         }
       }
       & :global(.katex-display) {

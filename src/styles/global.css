@@ -151,18 +151,22 @@ hr {
   border-top: 1px solid var(--line);
   margin: 0.75rem 0;
 }
-/* .glassmorphism {
-  background-color: var(--glass-bg);
-} */
-@supports (backdrop-filter: blur(6px) saturate(180%)) {
+@supports not (backdrop-filter: blur(6px) saturate(180%)) {
   .glassmorphism {
-    backdrop-filter: blur(6px) saturate(180%);
+    background-color: var(--glass-bg);
   }
 }
-@supports (-webkit-backdrop-filter: blur(6px) saturate(180%)) {
-  .glassmorphism {
-    backdrop-filter: blur(6px) saturate(180%);
-    -webkit-backdrop-filter: blur(6px) saturate(180%);
+@supports (backdrop-filter: blur(6px) saturate(180%)) {
+  @supports not (-webkit-backdrop-filter: blur(6px) saturate(180%)) {
+    .glassmorphism {
+      backdrop-filter: blur(6px) saturate(180%);
+    }
+  }
+  @supports (-webkit-backdrop-filter: blur(6px) saturate(180%)) {
+    .glassmorphism {
+      backdrop-filter: blur(6px) saturate(180%);
+      -webkit-backdrop-filter: blur(6px) saturate(180%);
+    }
   }
 }
 .pixel-border {

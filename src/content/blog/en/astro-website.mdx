@@ -247,6 +247,35 @@ const slug = rest.join('/')
 
 In terms of event registration, I did almost the same thing as the search component, so let's skip it.
 
+Another important thing is locale metadata. In terms of SEO, I added as many `link` tags as the number of locales to the head component.
+
+```astro title="BaseHead.astro" {3-4,10-24}
+---
+// ...
+import { getAbsoluteLocaleUrl } from 'astro:i18n'
+import { langList } from '@/utils/i18n/data'
+// ...
+---
+
+<!-- ... -->{
+  langList.map((lang) => (
+    <>
+      <link
+        rel="alternate"
+        href={getAbsoluteLocaleUrl(lang, slug)}
+        hreflang={lang}
+      />
+      <link
+        rel="alternate"
+        type="application/rss+xml"
+        href={getAbsoluteLocaleUrl(lang, 'rss.xml')}
+      />
+    </>
+  ))
+}
+<!-- ... -->
+```
+
 Finally, I added it to the navigation as earlier.
 
 #### OG Image (Open Graph)
@@ -316,7 +345,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
 
 For more info about the options, consult [the astro-og-canvas doc](https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas).
 
-Now you can access the og endpoint. Let's see one example of it. I created the head component that is supposed to be embedded in the base layout.
+Now you can access the og endpoint. Let's see one example of it. The above-mentioned head component is in the base layout.
 
 ```astro title="src/components/BaseHead.astro"
 ---

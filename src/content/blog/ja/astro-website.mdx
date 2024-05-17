@@ -247,7 +247,36 @@ const slug = rest.join('/')
 
 イベントの登録については、先ほど検索コンポーネントで紹介したものとほとんど同じです。飛ばして先へ進みましょう。
 
-最後にナビゲーションコンポーネントに追加するところも同じです。
+その他大事なポイントは言語のメタデータです。SEOの観点から、head コンポーネントに言語の数だけ `link` タグを追加しました。
+
+```astro title="BaseHead.astro" {3-4,10-24}
+---
+// ...
+import { getAbsoluteLocaleUrl } from 'astro:i18n'
+import { langList } from '@/utils/i18n/data'
+// ...
+---
+
+<!-- ... -->{
+  langList.map((lang) => (
+    <>
+      <link
+        rel="alternate"
+        href={getAbsoluteLocaleUrl(lang, slug)}
+        hreflang={lang}
+      />
+      <link
+        rel="alternate"
+        type="application/rss+xml"
+        href={getAbsoluteLocaleUrl(lang, 'rss.xml')}
+      />
+    </>
+  ))
+}
+<!-- ... -->
+```
+
+最後にナビゲーションに追加するところは検索コンポーネントの時と同じです。
 
 #### OG 画像 (Open Graph)
 
@@ -316,7 +345,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
 
 その他のオプションについては、[astro-og-canvas 公式ドキュメント](https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas)をご覧あれ。
 
-これでOG画像用エンドポイントへアクセスできるようになりました。一つ例を見てみましょう。headの記述を切り出した `BaseHead` コンポーネントを作成し、ベースレイアウトの中に設置しています。
+これでOG画像用エンドポイントへアクセスできるようになりました。一つ例を見てみましょう。先述の head コンポーネントは `BaseLayout` の中に設置しています。
 
 ```astro title="src/components/BaseHead.astro"
 ---

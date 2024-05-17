@@ -17,8 +17,10 @@
   --gray: hsla(60, 0.52%, 75.55%, 1);
   --gray-light: hsla(0, 0%, 86.71%, 1);
   --gray-dark: hsla(0, 1.27%, 30.98%, 1);
-  --callout-caution-fg: hsla(0, 95%, 65%, 1);
-  --callout-caution-bg: hsla(0, 100%, 93%, 1);
+  --callout-caution-fg: hsla(29, 96%, 46%, 1);
+  --callout-caution-bg: hsla(29, 96%, 86%, 1);
+  --callout-failure-fg: hsla(0, 95%, 65%, 1);
+  --callout-failure-bg: hsla(0, 100%, 93%, 1);
   --callout-info-fg: hsla(211, 100%, 70%, 1);
   --callout-info-bg: hsla(211, 100%, 90%, 1);
   --callout-quote-fg: hsla(212, 16%, 55%, 1);
@@ -27,6 +29,8 @@
   --callout-question-bg: hsla(263, 56%, 85%, 1);
   --callout-check-fg: hsla(117, 64%, 52%, 1);
   --callout-check-bg: hsla(117, 64%, 90%, 1);
+  --callout-note-fg: hsla(22, 74%, 58%, 1);
+  --callout-note-bg: hsla(22, 74%, 85%, 1);
   --base-font: 'Inconsolata Variable', 'Helvetica Neue', 'Helvetica', Arial,
     'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, Verdana, sans-serif;
   --code-font: Menlo, Consolas, monospace;

@@ -4,15 +4,12 @@ import type { Node, Root, Parent, Data } from 'mdast'
 import { visit } from 'unist-util-visit'
 import { toString } from 'mdast-util-to-string'
 import {
-  zapIcon,
   quoteIcon,
-  bugIcon,
   infoIcon,
   xIcon,
   helpCircleIcon,
   alertTriangleIcon,
   pencilIcon,
-  clipboardListIcon,
   checkIcon,
 } from '../consts'
 
@@ -38,21 +35,11 @@ const callouts: Callout = {
   caution: alertTriangleIcon,
   quote: quoteIcon,
   cite: quoteIcon,
-  important: checkIcon,
   success: checkIcon,
   check: checkIcon,
   done: checkIcon,
-
   note: pencilIcon,
-  abstract: clipboardListIcon,
-  summary: clipboardListIcon,
-  tldr: clipboardListIcon,
   failure: xIcon,
-  missing: xIcon,
-  fail: xIcon,
-  danger: zapIcon,
-  error: zapIcon,
-  bug: bugIcon,
 }
 
 const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {

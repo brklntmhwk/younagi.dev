@@ -251,6 +251,15 @@ const t = await getEntry('i18n', `${locale}/translation`)
           stroke: var(--callout-caution-fg);
         }
       }
+      & :global(blockquote[data-callout='failure']) {
+        background-color: var(--callout-failure-bg);
+        & :global(.callout-title-text) {
+          color: var(--callout-failure-fg);
+        }
+        & :global(.callout-title-icon > svg) {
+          stroke: var(--callout-failure-fg);
+        }
+      }
       & :global(blockquote[data-callout='question']),
       & :global(blockquote[data-callout='faq']),
       & :global(blockquote[data-callout='help']) {
@@ -281,6 +290,15 @@ const t = await getEntry('i18n', `${locale}/translation`)
         }
         & :global(.callout-title-icon > svg) {
           stroke: var(--callout-quote-fg);
+        }
+      }
+      & :global(blockquote[data-callout='note']) {
+        background-color: var(--callout-note-bg);
+        & :global(.callout-title-text) {
+          color: var(--callout-note-fg);
+        }
+        & :global(.callout-title-icon > svg) {
+          stroke: var(--callout-note-fg);
         }
       }
       & :global(.katex-display) {

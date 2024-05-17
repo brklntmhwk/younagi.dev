@@ -208,6 +208,22 @@ const t = await getEntry('i18n', `${locale}/translation`)
           padding: 0.5rem 0.65rem;
         }
       }
+      & :global(blockquote) {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        & :global(.callout-title) {
+          display: flex;
+          gap: 0.75rem;
+          align-items: center;
+          & :global(.callout-title-text) {
+            font-size: 1.15rem;
+          }
+        }
+        & :global(.callout-content) {
+          font-size: 1rem;
+        }
+      }
       & :global(.katex-display) {
         margin: 1.875rem 0;
       }

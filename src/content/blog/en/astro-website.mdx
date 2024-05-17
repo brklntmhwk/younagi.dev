@@ -676,7 +676,9 @@ This article included, all my blog articles have headings with anchor links, whi
 
 To make it work, I added the `rehype-autolink-headings`, `rehype-slug`, and `hastscript` library and tweaked the following parts.
 
-> [!caution] > `rehype-slug` adds `id` attributes to headings, and `hastscript` works in between the transformation of syntaxes like between Markdown and HTML, manipulating ASTs (Abstract Syntax Trees) in the middle.
+> [!caution]
+>
+> `rehype-slug` adds `id` attributes to headings, and `hastscript` works in between the transformation of syntaxes like between Markdown and HTML, manipulating ASTs (Abstract Syntax Trees) in the middle.
 
 ```typescript title="astro.config.ts" {2-4,10-22}
 // ...

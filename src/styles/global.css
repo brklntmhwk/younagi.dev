@@ -152,11 +152,11 @@ hr {
   margin: 0.75rem 0;
 }
 @supports (backdrop-filter: blur(6px) saturate(180%)) {
-  @supports not (-webkit-backdrop-filter: blur(6px) saturate(180%)) {
-    .glassmorphism {
-      backdrop-filter: blur(6px) saturate(180%);
-    }
+  /* @supports not (-webkit-backdrop-filter: blur(6px) saturate(180%)) { */
+  .glassmorphism {
+    backdrop-filter: blur(6px) saturate(180%);
   }
+  /* } */
   @supports (-webkit-backdrop-filter: blur(6px) saturate(180%)) {
     .glassmorphism {
       backdrop-filter: blur(6px) saturate(180%);

@@ -556,8 +556,7 @@ import 'katex/dist/katex.min.css'
 
 Shiki が提供する全テーマとそのプレビューは、[Shiki 公式ページ](https://shiki.style/themes)で確認できます。
 
-> [!caution]
->
+> [!caution] 注意
 > `rehype-pretty-code` は内部で `shiki` を利用しているため、インストール必須です。
 
 ```typescript title="astro.config.ts" {2,7,11-20}
@@ -678,7 +677,8 @@ export const components = {
 
 `rehype-autolink-headings`、`rehype-slug`、`hastscript` ライブラリを追加して、次の箇所を変更します。
 
-> [!caution] > `rehype-slug` は `id` 属性を見出しに追加し、`hastscript` は、例えばマークダウン⇆HTMLのように構文が変化する中間地点において、抽象構文木(AST, Abstract Syntax Trees)を操作できるライブラリです
+> [!caution] 注意
+> `rehype-slug` は `id` 属性を見出しに追加し、`hastscript` は、例えばマークダウン⇆HTMLのように構文が変化する中間地点において、抽象構文木(AST, Abstract Syntax Trees)を操作できるライブラリです
 
 ```typescript title="astro.config.ts" {2-4,10-22}
 // ...

@@ -4,7 +4,6 @@ import { getCollection, getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { langList } from '@/utils/i18n/data'
 import BulletinBoard from '@/components/BulletinBoard.astro'
-// import Message from '@/components/Message.astro'
 import PhotoGallery from '@/components/PhotoGallery.astro'
 import { getPhotos } from '@/lib/unsplash/getContent'
 import { NEWS_MAXIMUM_COUNT } from '@/consts'
@@ -36,8 +35,6 @@ const latestNews = news.slice(0, NEWS_MAXIMUM_COUNT)
 >
   <main data-pagefind-ignore="all">
     <BulletinBoard newsList={latestNews} />
-    <!-- <Message direction="right" content={t.data.pages.home.greeting_message} /> -->
-    <!-- <h2>{t.data.pages.home.photo_gallery_title}</h2> -->
     <PhotoGallery {photos} />
   </main>
 </BaseLayout>
@@ -50,7 +47,7 @@ const latestNews = news.slice(0, NEWS_MAXIMUM_COUNT)
   }
   @media (min-width: 1280px) {
     main {
-      padding: 0 6.175rem;
+      padding: 2.85rem 6.175rem 0 6.175rem;
     }
   }
 </style>

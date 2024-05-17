@@ -35,6 +35,8 @@ photo_gallery_item:
 svg:
   not_found_message: が見つかりませんでした
   invalid_error_message: 無効なSVGファイルであるか、SVGタグがありません
+bmc:
+  greeting_message: コーヒーのない人生なんて想像できません
 pages:
   home:
     greeting_message: ご来訪ありがとうございます！ここでは私が日常の中で得たもの、経験したこと、また内省したことなどについてニュースとブログを通して発信しています。

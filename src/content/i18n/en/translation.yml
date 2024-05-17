@@ -35,6 +35,8 @@ photo_gallery_item:
 svg:
   not_found_message: not found
   invalid_error_message: Invalid svg file or svg tags missing
+bmc:
+  greeting_message: I can't imagine my life without coffee.
 pages:
   home:
     greeting_message: Thank you for visiting my website! Here, I offer what I acquire, experience, or reflect on my daily lives, by posting news and articles every so often.

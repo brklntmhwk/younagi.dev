@@ -110,6 +110,9 @@ const i18n = defineCollection({
       not_found_message: z.string(),
       invalid_error_message: z.string(),
     }),
+    bmc: z.object({
+      greeting_message: z.string(),
+    }),
     pages: z.object({
       home: z.object({
         greeting_message: z.string(),

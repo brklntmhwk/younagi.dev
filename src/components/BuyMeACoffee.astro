@@ -1,32 +1,105 @@
 ---
+import { getEntry } from 'astro:content'
+import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 import Svg from './Svg/index.astro'
 import { ACCOUNT_ID } from '@/consts'
+
+const locale = getLocaleFromUrl(Astro.url)
+const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
-<a
-  class="bmc-button"
-  href=`https://www.buymeacoffee.com/${ACCOUNT_ID}`
-  target="_blank"
->
-  <Svg iconName="bmc" height={32} width={32} />
-  <span>Buy Me a Coffee</span>
-</a>
+<div class="bmc">
+  <a
+    class="bmc-button"
+    href=`https://www.buymeacoffee.com/${ACCOUNT_ID}`
+    target="_blank"
+  >
+    <Svg iconName="bmc" height={32} width={32} />
+    <span>Buy Me a Coffee</span>
+  </a>
+  <div class="bmc-greeting">
+    <p>{t.data.bmc.greeting_message}</p>
+    <span class="ornament"></span>
+  </div>
+</div>
 <style>
-  .bmc-button {
-    background-color: hsla(228, 95%, 68%, 1);
+  .bmc {
     display: flex;
+    flex-wrap: wrap;
     gap: 0.5rem;
     align-items: center;
     place-self: center;
-    border-radius: 0.5rem;
-    padding: 0.5rem 0.85rem;
-    span {
-      color: hsla(0, 0%, 96%, 1);
-      font-size: 1.125rem;
-      font-weight: 700;
+    .bmc-button {
+      background-color: hsla(228, 95%, 68%, 1);
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      border-radius: 0.5rem;
+      padding: 0.5rem 0.85rem;
+      span {
+        color: hsla(0, 0%, 96%, 1);
+        font-size: 1.125rem;
+        font-weight: 700;
+      }
+      &:hover {
+        background-color: hsla(228, 95%, 68%, 0.9);
+      }
     }
-    &:hover {
-      background-color: hsla(228, 95%, 68%, 0.9);
+    .bmc-greeting {
+      position: relative;
+      padding: 0.2rem 0 0.2rem 1.75rem;
+      margin: 1.25rem 0;
+    }
+    .bmc-greeting::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 0;
+      width: 20px;
+      height: 0.5px;
+      transform: rotate(-38deg);
+      box-sizing: border-box;
+      background-color: var(--gray);
+    }
+    .bmc-greeting::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 20px;
+      height: 0.5px;
+      transform: rotate(38deg);
+      box-sizing: border-box;
+      background-color: var(--gray);
+    }
+    .bmc-greeting > .ornament {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .bmc-greeting > .ornament::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 0;
+      width: 28px;
+      height: 0.5px;
+      transform: rotate(-25deg);
+      box-sizing: border-box;
+      background-color: var(--gray);
+    }
+    .bmc-greeting > .ornament::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 28px;
+      height: 0.5px;
+      transform: rotate(25deg);
+      box-sizing: border-box;
+      background-color: var(--gray);
     }
   }
 </style>

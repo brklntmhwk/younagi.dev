@@ -208,98 +208,11 @@ const t = await getEntry('i18n', `${locale}/translation`)
           padding: 0.5rem 0.65rem;
         }
       }
-      & :global(blockquote) {
-        padding: 0.75rem 0.85rem;
-        margin-bottom: 1.375rem;
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-        border-radius: 0.25rem;
-        & :global(.callout-title) {
-          display: flex;
-          gap: 0.6rem;
-          align-items: center;
-          & :global(.callout-title-text) {
-            font-size: 1.15rem;
-            font-weight: 600;
-          }
-        }
-        & :global(.callout-content) {
-          color: hsla(248.57, 11.48%, 11.96%, 1);
-          font-size: 1.025rem;
-        }
-      }
-      & :global(blockquote[data-callout='info']),
-      & :global(blockquote[data-callout='tip']),
-      & :global(blockquote[data-callout='hint']) {
-        background-color: var(--callout-info-bg);
-        & :global(.callout-title-text) {
-          color: var(--callout-info-fg);
-        }
-        & :global(.callout-title-icon > svg) {
-          stroke: var(--callout-info-fg);
-        }
-      }
-      & :global(blockquote[data-callout='caution']),
-      & :global(blockquote[data-callout='attention']),
-      & :global(blockquote[data-callout='warning']) {
-        background-color: var(--callout-caution-bg);
-        & :global(.callout-title-text) {
-          color: var(--callout-caution-fg);
-        }
-        & :global(.callout-title-icon > svg) {
-          stroke: var(--callout-caution-fg);
-        }
-      }
-      & :global(blockquote[data-callout='failure']) {
-        background-color: var(--callout-failure-bg);
-        & :global(.callout-title-text) {
-          color: var(--callout-failure-fg);
-        }
-        & :global(.callout-title-icon > svg) {
-          stroke: var(--callout-failure-fg);
-        }
-      }
-      & :global(blockquote[data-callout='question']),
-      & :global(blockquote[data-callout='faq']),
-      & :global(blockquote[data-callout='help']) {
-        background-color: var(--callout-question-bg);
-        & :global(.callout-title-text) {
-          color: var(--callout-question-fg);
-        }
-        & :global(.callout-title-icon > svg) {
-          stroke: var(--callout-question-fg);
-        }
-      }
-      & :global(blockquote[data-callout='check']),
-      & :global(blockquote[data-callout='success']),
-      & :global(blockquote[data-callout='done']) {
-        background-color: var(--callout-check-bg);
-        & :global(.callout-title-text) {
-          color: var(--callout-check-fg);
-        }
-        & :global(.callout-title-icon > svg) {
-          stroke: var(--callout-check-fg);
-        }
-      }
-      & :global(blockquote[data-callout='quote']),
-      & :global(blockquote[data-callout='cite']) {
-        background-color: var(--callout-quote-bg);
-        & :global(.callout-title-text) {
-          color: var(--callout-quote-fg);
-        }
-        & :global(.callout-title-icon > svg) {
-          stroke: var(--callout-quote-fg);
-        }
-      }
-      & :global(blockquote[data-callout='note']) {
-        background-color: var(--callout-note-bg);
-        & :global(.callout-title-text) {
-          color: var(--callout-note-fg);
-        }
-        & :global(.callout-title-icon > svg) {
-          stroke: var(--callout-note-fg);
-        }
+      & :global(blockquote:not(.callout-blockquote)) {
+        border-left: 4px solid var(--gray-dark);
+        padding: 0 0 0 1.5rem;
+        margin: 0px;
+        font-size: 1.05rem;
       }
       & :global(.katex-display) {
         margin: 1.875rem 0;

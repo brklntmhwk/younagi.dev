@@ -1,6 +1,6 @@
 import type { RemarkPlugin } from '@astrojs/markdown-remark'
 import type { Plugin } from 'unified'
-import type { Node, Root, Parent, Data } from 'mdast'
+import type { Node, Root, Parent, Data, Blockquote, RootContent } from 'mdast'
 import { visit } from 'unist-util-visit'
 import { toString } from 'mdast-util-to-string'
 import {
@@ -44,11 +44,25 @@ const callouts: Callout = {
 
 const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
   return (tree) => {
-    visit(tree, 'blockquote', (node: Node) => {
+    const blockquoteChildrenTriples: {
+      node: Blockquote
+      firstChild: RootContent
+      children: RootContent[]
+    }[] = []
+
+    visit(tree, 'blockquote', (node) => {
       if (!('children' in node) || (node as Parent).children.length === 0)
         return
 
-      const firstChild = (node as Parent).children[0]!
+      blockquoteChildrenTriples.push({
+        node,
+        firstChild: (node as Parent).children[0]!,
+        children: (node as Parent).children,
+      })
+    })
+
+    blockquoteChildrenTriples.map(({ node, firstChild, children }) => {
+      // const firstChild = (node as Parent).children[0]!
 
       if (firstChild.type === 'paragraph') {
         const value = toString(firstChild)
@@ -76,7 +90,8 @@ const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
               `,
             }
 
-            ;(node as Parent).children.splice(0, 1, titleHtmlNode)
+            children.splice(0, 1, titleHtmlNode)
+            // ;(node as Parent).children.splice(0, 1, titleHtmlNode)
 
             const dataExpandable = Boolean(expandCollapseSign)
             const dataExpanded = expandCollapseSign === '+'
@@ -85,15 +100,17 @@ const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
               hProperties: {
                 ...((node.data && node.data.hProperties) || {}),
                 className: `callout-${calloutType}`,
-                'data-callout': calloutType,
-                'data-expandable': String(dataExpandable),
-                'data-expanded': String(dataExpanded),
+                dataCalloutBlockquote: true,
+                dataCallout: calloutType,
+                dataExpandable: String(dataExpandable),
+                dataExpanded: String(dataExpanded),
               },
             }
           }
         }
       }
     })
+    // })
   }
 }
 

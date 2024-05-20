@@ -154,12 +154,6 @@ img {
   height: auto;
   border-radius: 0.15rem;
 }
-/* blockquote {
-  border-left: 4px solid var(--gray-dark);
-  padding: 0 0 0 1.5rem;
-  margin: 0px;
-  font-size: 1.05rem;
-} */
 hr {
   border: none;
   border-top: 1px solid var(--line);

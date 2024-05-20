@@ -151,7 +151,7 @@ import Modal from '@/components/Modal.astro'
 
 最後に、私の場合はこれをナビゲーションに追加しました。
 
-```astro title="src/components/Navigation.astro" {4, 15}
+```astro title="src/components/Navigation.astro" {4, 16}
 ---
 // ...
 import NavMenuContainer from '@/components/NavMenuContainer.astro'
@@ -249,7 +249,7 @@ const slug = rest.join('/')
 
 その他大事なポイントは言語のメタデータです。SEOの観点から、head コンポーネントに言語の数だけ `link` タグを追加しました。
 
-```astro title="BaseHead.astro" {3-4,9-24}
+```astro title="BaseHead.astro" {3-4,10-25}
 ---
 // ...
 import { getAbsoluteLocaleUrl } from 'astro:i18n'
@@ -273,6 +273,7 @@ import { langList } from '@/utils/i18n/data'
     </>
   ))
 }
+
 <!-- ... -->
 ```
 
@@ -714,7 +715,7 @@ export default defineConfig({
 
 それから、すべてのコンテンツ用レイアウトでアンカーリンクのCSSを追記しました。以下はブログレイアウトの例です。
 
-```astro title="src/components/BlogLayout.astro" {19-32}
+```astro title="src/components/BlogLayout.astro" {18-31}
 ---
 // ...
 ---

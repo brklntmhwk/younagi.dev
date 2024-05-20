@@ -151,7 +151,7 @@ Inside the `listenToModalEvents` is event registration code. For PC users, I add
 
 Finally, I added it to the navigation component.
 
-```astro title="src/components/Navigation.astro" {4, 15}
+```astro title="src/components/Navigation.astro" {4, 16}
 ---
 // ...
 import NavMenuContainer from '@/components/NavMenuContainer.astro'
@@ -249,7 +249,7 @@ In terms of event registration, I did almost the same thing as the search compon
 
 Another important thing is locale metadata. In terms of SEO, I added as many `link` tags as the number of locales to the head component.
 
-```astro title="BaseHead.astro" {3-4,9-24}
+```astro title="BaseHead.astro" {3-4,10-25}
 ---
 // ...
 import { getAbsoluteLocaleUrl } from 'astro:i18n'
@@ -273,6 +273,7 @@ import { langList } from '@/utils/i18n/data'
     </>
   ))
 }
+
 <!-- ... -->
 ```
 
@@ -711,9 +712,9 @@ export default defineConfig({
 })
 ```
 
-And then I added the styling for anchor links in every content layouts. Below is the example of the blog layout.
+And then I added the styling for anchor links in every content layout. Below is the example of the blog layout.
 
-```astro title="src/components/BlogLayout.astro" {19-32}
+```astro title="src/components/BlogLayout.astro" {18-31}
 ---
 // ...
 ---

@@ -1,7 +1,17 @@
 ---
-const props = Astro.props
+export type Props = {
+  'data-expandable': boolean
+  'data-expanded': boolean
+}
+
+const {
+  'data-expandable': isExpandable,
+  'data-expanded': isExpanded,
+  ...props
+} = Astro.props
 ---
 
+<!-- Same as the hamburger. Use the checkbox element to toggle the callout content -->
 <blockquote class="callout-blockquote" {...props}>
   <slot />
 </blockquote>
@@ -13,6 +23,9 @@ const props = Astro.props
     flex-direction: column;
     gap: 0.5rem;
     border-radius: 0.25rem;
+    & :global(#callout-toggle-check) {
+      display: none;
+    }
     & :global(.callout-title) {
       display: flex;
       gap: 0.6rem;

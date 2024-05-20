@@ -51,7 +51,11 @@ const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
     }[] = []
 
     visit(tree, 'blockquote', (node) => {
-      if (!('children' in node) || (node as Parent).children.length === 0)
+      if (
+        !('children' in node) ||
+        (node as Parent).children.length === 0 ||
+        (node as Parent).children[0]?.type !== 'paragraph'
+      )
         return
 
       blockquoteChildrenTriples.push({
@@ -64,51 +68,52 @@ const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
     blockquoteChildrenTriples.map(({ node, firstChild, children }) => {
       // const firstChild = (node as Parent).children[0]!
 
-      if (firstChild.type === 'paragraph') {
-        const value = toString(firstChild)
-        const [firstLine, ...rest] = value.split('\n')
-        const restContent = rest.join('\n')
-        const matched = firstLine?.match(regex)
+      // if (firstChild.type === 'paragraph') {
+      const value = toString(firstChild)
+      const [firstLine, ...rest] = value.split('\n')
+      const restContent = rest.join('\n')
+      const matched = firstLine?.match(regex)
 
-        if (matched) {
-          const array = regex.exec(firstLine!)
-          const calloutType = array?.at(1)
-          const expandCollapseSign = array?.at(2)
+      if (matched) {
+        const array = regex.exec(firstLine!)
+        const calloutType = array?.at(1)
+        const expandCollapseSign = array?.at(2) as '+' | '-' | undefined
 
-          if (array && calloutType && containsKey(callouts, calloutType)) {
-            const title = array.input.slice(matched[0].length).trim()
+        if (array && calloutType && containsKey(callouts, calloutType)) {
+          const title = array.input.slice(matched[0].length).trim()
+          const dataExpandable = Boolean(expandCollapseSign)
+          const dataExpanded = expandCollapseSign === '+'
 
-            const titleHtmlNode: HtmlNode = {
-              type: 'html',
-              data: {},
-              value: `
+          const calloutHtmlNode: HtmlNode = {
+            type: 'html',
+            data: {},
+            value: `
               <div class="callout-title">
                 <div class="callout-title-icon">${callouts[calloutType]}</div>
                 <div class="callout-title-text">${title}</div>
               </div>
               <div class="callout-content">${restContent}</div>
               `,
-            }
+          }
 
-            children.splice(0, 1, titleHtmlNode)
-            // ;(node as Parent).children.splice(0, 1, titleHtmlNode)
+          children.splice(0, 1, calloutHtmlNode)
+          // ;(node as Parent).children.splice(0, 1, calloutHtmlNode)
 
-            const dataExpandable = Boolean(expandCollapseSign)
-            const dataExpanded = expandCollapseSign === '+'
-
-            node.data = {
-              hProperties: {
-                ...((node.data && node.data.hProperties) || {}),
-                className: `callout-${calloutType}`,
-                dataCalloutBlockquote: true,
-                dataCallout: calloutType,
-                dataExpandable: String(dataExpandable),
-                dataExpanded: String(dataExpanded),
-              },
-            }
+          node.data = {
+            hProperties: {
+              ...((node.data && node.data.hProperties) || {}),
+              className: `callout-${calloutType}`,
+              dataCalloutBlockquote: true,
+              dataCallout: calloutType,
+              dataExpandable,
+              dataExpanded,
+              // dataExpandable: String(dataExpandable),
+              // dataExpanded: String(dataExpanded),
+            },
           }
         }
       }
+      // }
     })
     // })
   }

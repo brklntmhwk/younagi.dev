@@ -367,7 +367,7 @@ const { title, description, og } = Astro.props
     <>
       <meta
         property="og:image"
-        content={og.image ?? new URL('/blog-placeholder-1.jpg', Astro.url)}
+        content={og.image ?? new URL('/placeholder.jpg', Astro.url)}
       />
       <meta
         property="og:image:height"
@@ -390,7 +390,7 @@ const { title, description, og } = Astro.props
       />
       <meta
         property="twitter:image"
-        content={og.image ?? new URL('/blog-placeholder-1.jpg', Astro.url)}
+        content={og.image ?? new URL('/placeholder.jpg', Astro.url)}
       />
     </>
   )

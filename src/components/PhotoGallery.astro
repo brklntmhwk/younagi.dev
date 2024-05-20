@@ -77,22 +77,21 @@ const username = await getPhotographer()
         }
       }
       .photo-gallery {
-        display: unset;
-        columns: 3;
+        grid-template-columns: repeat(3, 1fr);
       }
     }
   }
   @media (min-width: 1024px) {
     .photo-gallery-wrapper {
       .photo-gallery {
-        columns: 2;
+        grid-template-columns: repeat(2, 1fr);
       }
     }
   }
   @media (min-width: 1280px) {
     .photo-gallery-wrapper {
       .photo-gallery {
-        columns: 3;
+        grid-template-columns: repeat(3, 1fr);
       }
     }
   }

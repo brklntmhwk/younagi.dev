@@ -715,13 +715,12 @@ export default defineConfig({
 
 それから、すべてのコンテンツ用レイアウトでアンカーリンクのCSSを追記しました。以下はブログレイアウトの例です。
 
-```astro title="src/components/BlogLayout.astro" {18-31}
+```astro title="src/components/BlogLayout.astro" {17-30}
 ---
 // ...
 ---
 
-<BaseLayout <!-- ... -->
-  >
+<BaseLayout {/* ... */}>
   <main>
     <article>
       <!-- ... -->

@@ -1,4 +1,4 @@
-export const formatArchiveDate = (date: Date) => {
+export const ArchiveSlugify = (date: Date) => {
   return new Date(date)
     .toLocaleDateString('sv-SE')
     .replaceAll('-', '')

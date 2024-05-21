@@ -1,5 +1,5 @@
 import type { CollectionEntry } from 'astro:content'
-import { formatArchiveDate } from './formatArchiveDate'
+import { ArchiveSlugify } from './ArchiveSlugify'
 
 export type ArchiveYearMonthPairs = Record<
   string,
@@ -27,9 +27,7 @@ export const groupArchiveByYear = (entries: CollectionEntry<'blog'>[]) => {
     }
 
     if (
-      acc[year]?.some(
-        ({ mStr }) => year + mStr === formatArchiveDate(publishedAt)
-      )
+      acc[year]?.some(({ mStr }) => year + mStr === ArchiveSlugify(publishedAt))
     )
       return acc
 

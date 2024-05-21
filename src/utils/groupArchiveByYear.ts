@@ -1,21 +1,22 @@
 import type { CollectionEntry } from 'astro:content'
+import { formatArchiveDate } from './formatArchiveDate'
 
 export type ArchiveYearMonthPairs = Record<
   string,
   { mStr: string; mDate: Date }[]
 >
 
-const formatDate = (date: Date) => {
+const getYearMonthPairFromDate = (date: Date) => {
   const year = date.getFullYear().toString()
   const month = (date.getMonth() + 1).toString().padStart(2, '0')
 
   return { year, month }
 }
 
-export const groupEntriesByYearMonth = (entries: CollectionEntry<'blog'>[]) => {
+export const groupArchiveByYear = (entries: CollectionEntry<'blog'>[]) => {
   const grouped = entries.reduce((acc, entry) => {
     const { publishedAt } = entry.data
-    const { year, month } = formatDate(publishedAt)
+    const { year, month } = getYearMonthPairFromDate(publishedAt)
     const monthRec = {
       mStr: month,
       mDate: publishedAt,
@@ -24,6 +25,14 @@ export const groupEntriesByYearMonth = (entries: CollectionEntry<'blog'>[]) => {
     if (!acc[year]) {
       acc[year] = []
     }
+
+    if (
+      acc[year]?.some(
+        ({ mStr }) => year + mStr === formatArchiveDate(publishedAt)
+      )
+    )
+      return acc
+
     acc[year]?.push(monthRec)
 
     return acc

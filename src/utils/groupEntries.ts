@@ -1,8 +1,11 @@
 import type { CollectionEntry } from 'astro:content'
 
-export type ArchiveYearMonthPairs = Record<string, unknown[]>
+export type ArchiveYearMonthPairs = Record<
+  string,
+  { mStr: string; mDate: Date }[]
+>
 
-function formatDate(date: Date) {
+const formatDate = (date: Date) => {
   const year = date.getFullYear().toString()
   const month = (date.getMonth() + 1).toString().padStart(2, '0')
 
@@ -13,11 +16,15 @@ export const groupEntriesByYearMonth = (entries: CollectionEntry<'blog'>[]) => {
   const grouped = entries.reduce((acc, entry) => {
     const { publishedAt } = entry.data
     const { year, month } = formatDate(publishedAt)
+    const monthRec = {
+      mStr: month,
+      mDate: publishedAt,
+    }
 
     if (!acc[year]) {
       acc[year] = []
     }
-    acc[year]?.push(month)
+    acc[year]?.push(monthRec)
 
     return acc
   }, {} as ArchiveYearMonthPairs)

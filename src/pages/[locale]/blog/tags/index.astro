@@ -4,6 +4,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getCollection, getEntry } from 'astro:content'
 import TaxonomyList from '@/components/TaxonomyList.astro'
 import { langList } from '@/utils/i18n/data'
+import { getPublishedSortedEntries } from '@/lib/content'
 
 export const getStaticPaths = (() => {
   return langList.map((lang) => ({ params: { locale: lang } }))
@@ -14,15 +15,10 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>
 const { locale } = Astro.params
 const meta = await getEntry('meta', `${locale}/site-data`)
 const t = await getEntry('i18n', `${locale}/translation`)
-const entries = await getCollection('blog')
-const publishedEntries = entries.filter(
-  (entry) =>
-    entry.slug.slice(0, entry.slug.indexOf('/')) === locale &&
-    entry.data.draft === 'published'
+const entries = getPublishedSortedEntries(await getCollection('blog')).filter(
+  (entry) => entry.slug.slice(0, entry.slug.indexOf('/')) === locale
 )
-const tags = [
-  ...new Set(publishedEntries.flatMap((entry) => entry.data.tags ?? [])),
-]
+const tags = [...new Set(entries.flatMap((entry) => entry.data.tags ?? []))]
 ---
 
 <BaseLayout

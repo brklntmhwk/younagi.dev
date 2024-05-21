@@ -4,17 +4,28 @@ import { languages } from '@/utils/i18n/data'
 type Props = {
   date: Date
   locale: keyof typeof languages
+  show?: {
+    year: boolean
+    month: boolean
+    day: boolean
+  }
 }
 
-const { date, locale } = Astro.props
+const { date, locale, show } = Astro.props
 ---
 
 <time datetime={date.toISOString()}>
   {
-    new Intl.DateTimeFormat(locale, {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-    }).format(date)
+    !show
+      ? new Intl.DateTimeFormat(locale, {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+        }).format(date)
+      : new Intl.DateTimeFormat(locale, {
+          year: show.year ? 'numeric' : undefined,
+          month: show.month ? 'short' : undefined,
+          day: show.day ? 'numeric' : undefined,
+        }).format(date)
   }
 </time>

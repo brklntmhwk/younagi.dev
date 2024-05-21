@@ -1,5 +1,6 @@
 ---
 import type { HTMLAttributes } from 'astro/types'
+import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 
 type Props = Omit<HTMLAttributes<'a'>, 'href'> & {
   href: URL | string
@@ -8,8 +9,11 @@ type Props = Omit<HTMLAttributes<'a'>, 'href'> & {
 const { href, class: className, ...props } = Astro.props
 
 const { pathname } = Astro.url
-const subpath = pathname.match(/[^\/]+/g)
-const isActive = href === pathname || href === '/' + subpath?.[1]
+const locale = getLocaleFromUrl(Astro.url)
+const isActive =
+  href === `/${locale}/`
+    ? pathname === `/${locale}/`
+    : pathname.startsWith(href.toString())
 ---
 
 <a href={href} class:list={[className, { active: isActive }]} {...props}>

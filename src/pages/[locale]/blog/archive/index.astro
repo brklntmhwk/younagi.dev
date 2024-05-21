@@ -2,9 +2,10 @@
 import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getCollection, getEntry } from 'astro:content'
-import TaxonomyList from '@/components/TaxonomyList.astro'
-import { formatArchiveDate } from '@/utils/formatArchiveDate'
+// import TaxonomyList from '@/components/TaxonomyList.astro'
+// import { formatArchiveDate } from '@/utils/formatArchiveDate'
 import { langList } from '@/utils/i18n/data'
+import { groupEntriesByYearMonth } from '@/utils/groupEntries'
 
 export const getStaticPaths = (() => {
   return langList.map((lang) => ({ params: { locale: lang } }))
@@ -21,11 +22,12 @@ const publishedEntries = entries.filter(
     entry.slug.slice(0, entry.slug.indexOf('/')) === locale &&
     entry.data.draft === 'published'
 )
-const dates = [
-  ...new Set(
-    publishedEntries.map((entry) => formatArchiveDate(entry.data.publishedAt))
-  ),
-].sort((a, b) => Number(b) - Number(a))
+const groupedEntries = groupEntriesByYearMonth(publishedEntries)
+// const dates = [
+//   ...new Set(
+//     publishedEntries.map((entry) => formatArchiveDate(entry.data.publishedAt))
+//   ),
+// ].sort((a, b) => Number(b) - Number(a))
 ---
 
 <BaseLayout
@@ -39,6 +41,46 @@ const dates = [
       ◀ {t.data.pages.blog.back_to_top}
     </a>
     <hr />
-    <TaxonomyList kind="archive" taxonomyList={dates} />
+    <ul class="year-list">
+      {
+        Object.keys(groupedEntries).map((year) => (
+          <li>
+            <span class="year">{year}</span>
+            <ul class="month-list">
+              {groupedEntries[year]?.map((month) => (
+                <li>
+                  <a
+                    href={`/${locale}/blog/archive/${year}${month}/`}
+                    class="month"
+                  >
+                    {month}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))
+      }
+    </ul>
+    <!-- <TaxonomyList kind="archive" taxonomyList={dates} /> -->
   </main>
 </BaseLayout>
+<style>
+  .year-list {
+    .year {
+      font-size: 1.75rem;
+      font-weight: 700;
+    }
+    .month-list {
+      padding-left: 1.5rem;
+      .month {
+        font-size: 1.5rem;
+        color: var(--accent);
+        text-decoration: none;
+        &:hover {
+          color: var(--accent-dark);
+        }
+      }
+    }
+  }
+</style>

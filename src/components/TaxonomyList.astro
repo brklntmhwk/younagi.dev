@@ -4,22 +4,14 @@ import { slugify } from '@/utils/slugify'
 
 type Props = {
   taxonomyList: string[]
-  kind: 'categories' | 'tags' | 'archive'
+  kind: 'categories' | 'tags'
 }
 
 const locale = getLocaleFromUrl(Astro.url)
 const { taxonomyList, kind } = Astro.props
 ---
 
-<ul
-  class:list={[
-    'taxonomy-list',
-    {
-      horizontal: kind === 'categories' || kind === 'tags',
-      vertical: kind === 'archive',
-    },
-  ]}
->
+<ul class:list={['taxonomy-list', kind]}>
   {
     taxonomyList.flatMap((taxonomy) => (
       <li>
@@ -44,11 +36,8 @@ const { taxonomyList, kind } = Astro.props
       color: var(--accent-dark);
     }
   }
-  .vertical {
-    display: grid;
-    gap: 0.75rem;
-  }
-  .horizontal {
+  .categories,
+  .tags {
     display: flex;
     flex-wrap: wrap;
     gap: 1.35rem;

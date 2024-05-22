@@ -249,7 +249,7 @@ const slug = rest.join('/')
 
 その他大事なポイントは言語のメタデータです。SEOの観点から、head コンポーネントに言語の数だけ `link` タグを追加しました。
 
-```astro title="BaseHead.astro" {3-4,10-25}
+```astro title="BaseHead.astro" {3-4,9-24}
 ---
 // ...
 import { getAbsoluteLocaleUrl } from 'astro:i18n'
@@ -281,9 +281,9 @@ import { langList } from '@/utils/i18n/data'
 
 #### OG 画像 (Open Graph)
 
-OG画像はAstroが提供する[APIエンドポイント機能](https://docs.astro.build/en/guides/endpoints/)で動的に生成します。より簡潔に実装したかったので、`astro-og-canvas` ライブラリの力を借りました。大まかなコードの流れは、
+OG画像はAstroが提供する[静的ファイルAPIエンドポイント機能](https://docs.astro.build/en/guides/endpoints/)で動的に生成します。より簡潔に実装したかったので、`astro-og-canvas` ライブラリの力を借りました。大まかなコードの流れは、
 
-1. OG画像を生成するコンテンツのデータを全取得する
+1. OG画像を生成したいコンテンツのデータを全取得する
 2. データを加工して `OGImageRoute` が `pages` プロパティとして受け取れるようにする
 3. データを `OGImageRoute` に渡す
 

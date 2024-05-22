@@ -1,5 +1,6 @@
 ---
 import { languages } from '@/utils/i18n/data'
+import { formatDate } from '@/utils/formatDate'
 
 type Props = {
   date: Date
@@ -12,20 +13,7 @@ type Props = {
 }
 
 const { date, locale, show } = Astro.props
+const displayDate = formatDate(date, locale, show)
 ---
 
-<time datetime={date.toISOString()}>
-  {
-    !show
-      ? new Intl.DateTimeFormat(locale, {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric',
-        }).format(date)
-      : new Intl.DateTimeFormat(locale, {
-          year: show.year ? 'numeric' : undefined,
-          month: show.month ? 'short' : undefined,
-          day: show.day ? 'numeric' : undefined,
-        }).format(date)
-  }
-</time>
+<time datetime={date.toISOString()}>{displayDate}</time>

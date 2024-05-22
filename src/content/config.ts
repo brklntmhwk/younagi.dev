@@ -77,6 +77,7 @@ const i18n = defineCollection({
         news: z.string(),
         about: z.string(),
       }),
+      hamburger_label: z.string(),
     }),
     pager: z.object({
       left_arrow_label: z.string(),

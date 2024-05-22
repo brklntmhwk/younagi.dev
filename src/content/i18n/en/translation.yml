@@ -13,6 +13,7 @@ nav:
     blog: *blog
     news: *news
     about: *about
+  hamburger_label: Hamburger menu toggle
 pager:
   left_arrow_label: Previous page
   right_arrow_label: Next page

@@ -1,8 +1,16 @@
 ---
+import { getEntry } from 'astro:content'
+import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 
+const locale = getLocaleFromUrl(Astro.url)
+const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
-<input type="checkbox" id="menu-toggle-check" />
+<input
+  type="checkbox"
+  id="menu-toggle-check"
+  placeholder={t.data.nav.hamburger_label}
+/>
 <label for="menu-toggle-check" class="hamburger-icon-btn">
   <span></span>
 </label>

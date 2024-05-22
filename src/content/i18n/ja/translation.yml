@@ -13,6 +13,7 @@ nav:
     blog: *blog
     news: *news
     about: *about
+  hamburger_label: ハンバーガーメニュー開閉
 pager:
   left_arrow_label: 前のページ
   right_arrow_label: 次のページ

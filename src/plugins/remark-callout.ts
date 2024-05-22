@@ -3,6 +3,7 @@ import type { Plugin } from 'unified'
 import type { Node, Root, Parent, Data, Blockquote, RootContent } from 'mdast'
 import { visit } from 'unist-util-visit'
 import { toString } from 'mdast-util-to-string'
+import { optimize } from 'svgo'
 import {
   quoteIcon,
   infoIcon,
@@ -13,7 +14,7 @@ import {
   checkIcon,
 } from '../consts'
 
-type Callout = Record<string, unknown>
+type Callout = Map<string, string>
 type HtmlNode = Node & {
   type: 'html'
   data: Data
@@ -21,26 +22,36 @@ type HtmlNode = Node & {
 }
 
 const regex = /^\[!(\w+)\]([+-]?)/
-const containsKey = (obj: Callout, str: string) =>
-  Object.keys(obj).includes(str)
-const callouts: Callout = {
-  question: helpCircleIcon,
-  help: helpCircleIcon,
-  faq: helpCircleIcon,
-  info: infoIcon,
-  tip: infoIcon,
-  hint: infoIcon,
-  warning: alertTriangleIcon,
-  attention: alertTriangleIcon,
-  caution: alertTriangleIcon,
-  quote: quoteIcon,
-  cite: quoteIcon,
-  success: checkIcon,
-  check: checkIcon,
-  done: checkIcon,
-  note: pencilIcon,
-  failure: xIcon,
+const containsKey = (mapObj: Callout, str: string) => mapObj.has(str)
+const optimizeSvgIcons = (callouts: Callout) => {
+  for (const [key, svg] of callouts.entries()) {
+    callouts.set(
+      key,
+      optimize(svg, {
+        multipass: true,
+        js2svg: { pretty: true },
+      }).data
+    )
+  }
 }
+const callouts: Callout = new Map([
+  ['question', helpCircleIcon],
+  ['help', helpCircleIcon],
+  ['faq', helpCircleIcon],
+  ['info', infoIcon],
+  ['tip', infoIcon],
+  ['hint', infoIcon],
+  ['warning', alertTriangleIcon],
+  ['attention', alertTriangleIcon],
+  ['caution', alertTriangleIcon],
+  ['quote', quoteIcon],
+  ['cite', quoteIcon],
+  ['success', checkIcon],
+  ['check', checkIcon],
+  ['done', checkIcon],
+  ['note', pencilIcon],
+  ['failure', xIcon],
+])
 
 const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
   return (tree) => {
@@ -66,9 +77,6 @@ const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
     })
 
     blockquoteChildrenTriples.map(({ node, firstChild, children }) => {
-      // const firstChild = (node as Parent).children[0]!
-
-      // if (firstChild.type === 'paragraph') {
       const value = toString(firstChild)
       const [firstLine, ...rest] = value.split('\n')
       const restContent = rest.join('\n')
@@ -84,20 +92,21 @@ const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
           const dataExpandable = Boolean(expandCollapseSign)
           const dataExpanded = expandCollapseSign === '+'
 
+          optimizeSvgIcons(callouts)
+
           const calloutHtmlNode: HtmlNode = {
             type: 'html',
             data: {},
             value: `
               <div class="callout-title">
-                <div class="callout-title-icon">${callouts[calloutType]}</div>
-                <div class="callout-title-text">${title}</div>
+                <div class="callout-title-icon">${callouts.get(calloutType)}</div>
+                <span class="callout-title-text">${title}</span>
               </div>
               <div class="callout-content">${restContent}</div>
               `,
           }
 
           children.splice(0, 1, calloutHtmlNode)
-          // ;(node as Parent).children.splice(0, 1, calloutHtmlNode)
 
           node.data = {
             hProperties: {
@@ -113,9 +122,7 @@ const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
           }
         }
       }
-      // }
     })
-    // })
   }
 }
 

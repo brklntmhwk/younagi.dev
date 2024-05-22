@@ -18,8 +18,8 @@ type: blog
 ## 概要
 
 - Next.js から Astro に乗り換えて個人サイトを作った
-- 全文検索機能(Pagefind)や多言語化対応などの機能が盛り込まれている
-- Cloudflare はサイトのホスティングのみならず、独自ドメインの取得やそれに基づいたカスタムメールアドレスの取得まで幅広いサービスを提供している
+- サイトには全文検索機能(Pagefind)や多言語化対応などの機能が盛り込まれている。それらのうち幾つかについて実装コードを載せつつ言及した
+- Cloudflare はサイトのホスティングのみならず、独自ドメインの取得やそれに基づいたカスタムメールアドレスの取得まで幅広いサービスを提供している。取り分け、無料プランでも月あたりの帯域幅上限が無制限なのが素晴らしい
 - Front Matter CMS によってコードの修正、記事の執筆、サイトのデプロイがVS Code エディタ上に集約できる
 
 ## 導入
@@ -44,20 +44,20 @@ type: blog
 - Cloudflare で独自ドメインを取得する方法
 - Cloudflare Email Routing でカスタムメールアドレスを取得する方法
 - Front Matter CMS を使い始めるまでの準備
-- Astro (延いては、JS や TS) についての基本的な知識
+- Astro (延いては、JavaScript や TypeScript) についての基本的な知識
 
 ## 本題
 
 ### Astro
 
-ReactなどのJSライブラリはなるべく使わず、素のJS (TypeScript) だけで実装するようにしました。これを踏まえて、要不要はさておき、幾つかの機能をトッピングしています。
+ReactなどのJavaScriptライブラリはなるべく使わず、素のJavaScript (TypeScript) だけで実装するようにしました。そのうえで、幾つかの機能をトッピングしています。
 
 #### 全文検索
 
 Rust製の静的検索ライブラリである[Pagefind](https://pagefind.app/)の力を借りることにしました。軽量、高速、そして導入が簡単！
 
 `pagefind` と `@pagefind/default-ui` をプロジェクトに追加して, 次のような検索用コンポーネントを作りました。
-要点は、空の `div` タグに割り振られた`search` IDです。これが後々、Pagefindが提供する検索ウィンドウをどこに設置するのかを特定するために参照されます。また、モーダルウィンドウは `hidden` クラスの有無に応じて表示が切り替わります。
+要点は、空の `div` タグに割り振られた`search` IDです。このIDが割り振られたタグ内に、Pagefindが提供する検索ウィンドウが設置されます。また、モーダルウィンドウは `hidden` クラスの有無に応じて表示が切り替わります。
 
 ```astro title="src/components/Search.astro"
 ---
@@ -249,7 +249,7 @@ const slug = rest.join('/')
 
 その他大事なポイントは言語のメタデータです。SEOの観点から、head コンポーネントに言語の数だけ `link` タグを追加しました。
 
-```astro title="BaseHead.astro" {3-4,9-24}
+```astro title="BaseHead.astro" {3-4,8-23}
 ---
 // ...
 import { getAbsoluteLocaleUrl } from 'astro:i18n'
@@ -257,7 +257,7 @@ import { langList } from '@/utils/i18n/data'
 // ...
 ---
 
-<!-- ... -->{
+{
   langList.map((lang) => (
     <>
       <link
@@ -431,7 +431,8 @@ const { title, description, og } = Astro.props
 </html>
 ```
 
-このページを含めて、当サイトの全てのブログ記事は次のレイアウトをテンプレートにしています。そしてそのブログレイアウトは、同様にベースレイアウトを踏襲しています。同時に、このマトリョシカのような構造の中で、`og` プロパティがベースレイアウトへ、そしてheadコンポーネントへ、と渡されていきます。
+このページを含めて、当サイトの全てのブログ記事は `BlogLayout` をテンプレートにしています。そして `BlogLayout` のベースとなるのは `BaseLayout` です。
+このマトリョシカのような入れ子構造の中で、`og` プロパティが `BaseLayout` --> `BaseHead` へ、と渡されていきます。
 
 ```astro title="src/layouts/BlogLayout.astro" {24-33}
 ---
@@ -475,13 +476,13 @@ const { title, description, category, tags, publishedAt, modifiedAt } = data
 <!-- ... -->
 ```
 
-結果、出来上がったOG画像はこのようになりました！
+結果、出来上がったOG画像はこちらです。
 
 ![ 当ページのOG画像 ](../../../assets/images/og-image.png)
 
 #### 記事内要素のCSSスタイリング
 
-ブログ本文内のCSSについて、全体の詳細な説明はさておき、ここでは幾つか例を挙げます。
+ブログ本文内のスタイルについて、ここでは幾つか特筆すべき(したい)例を挙げます。
 
 ##### KaTex
 
@@ -500,7 +501,7 @@ $$
 $$
 ```
 
-こんな風に！とても読みやすくて感動します。
+こんな風に！読みやすくて感動します。
 
 $$
 x = {-b \pm \sqrt{b^2-4ac} \over 2a}
@@ -538,7 +539,7 @@ export default defineConfig({
 })
 ```
 
-私の場合、$\KaTeX$ のスタイルシートはブログレイアウトでのみ読み込ませています。他のページでは使う予定がないからです。
+私の場合、$\KaTeX$ のスタイルシートは `BlogLayout` でのみ読み込ませています。他のページでは使う予定がないからです。
 
 ```astro title="src/layouts/BlogLayout.astro"
 ---
@@ -551,7 +552,7 @@ import 'katex/dist/katex.min.css'
 
 ##### コードブロック
 
-ここまでで、コードの説明に際してその都度コードブロックを使ってきましたが、シンタックスハイライトやコードの強調などのカスタマイズを裏で行っています。
+ここまでで、コードの説明に際してその都度コードブロックを使ってきましたが、シンタックスハイライトやコードの強調などの見た目の部分は自分で設定しています。
 
 `rehype-pretty-code`、`shiki` ライブラリを追加し、次の箇所を変更しました。Astroではデフォルトでシンタックスハイライト機能がついているので、カスタマイズする際には `syntaxHighlight` の項目を明示的に `false` にする必要があります。
 
@@ -589,7 +590,8 @@ export default defineConfig({
 
 次に、以下2つのコンポーネントを作成しました。このネスト構造 (と大半のCSS) については、[haxibami.net](https://www.haxibami.net/)のGithubレポジトリを参考にしました。
 
-データ属性 `data-rehype-pretty-code-figure` は `rehype-pretty-code` が自動で追加してくれるもので、これを `figure` タグの中に `code` があるのかを判定するために活用できます。
+データ属性 `data-rehype-pretty-code-figure` は `rehype-pretty-code` が自動で追加してくれるものです。これはコードブロックに対して追加される仕組みになっているので、`figure` タグの中に `code` タグがあるのかを判断する材料になります。
+下記コードでは、`figure` タグに含めるものとして、`img` or `code` で条件分岐をしています。
 
 ```astro title="src/components/elements/Figure.astro"
 ---

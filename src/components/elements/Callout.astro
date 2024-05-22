@@ -11,7 +11,6 @@ const {
 } = Astro.props
 ---
 
-<!-- Same as the hamburger. Use the checkbox element to toggle the callout content -->
 <blockquote class="callout-blockquote" {...props}>
   <slot />
 </blockquote>
@@ -36,7 +35,6 @@ const {
       }
     }
     & :global(.callout-content) {
-      color: hsla(248.57, 11.48%, 11.96%, 1);
       font-size: 1.025rem;
     }
   }

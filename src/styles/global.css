@@ -21,8 +21,8 @@
   --callout-caution-bg: hsla(29, 96%, 86%, 1);
   --callout-failure-fg: hsla(0, 95%, 65%, 1);
   --callout-failure-bg: hsla(0, 100%, 93%, 1);
-  --callout-info-fg: hsla(211, 100%, 70%, 1);
-  --callout-info-bg: hsla(211, 100%, 90%, 1);
+  --callout-info-fg: hsla(211, 100%, 72%, 1);
+  --callout-info-bg: hsla(211, 100%, 95%, 1);
   --callout-quote-fg: hsla(212, 16%, 55%, 1);
   --callout-quote-bg: hsla(212, 16%, 82%, 1);
   --callout-question-fg: hsla(263, 56%, 65%, 1);
@@ -50,6 +50,20 @@
     --code-title-bg: hsla(60, 0.52%, 65.55%, 1);
     --code-highlight: hsla(213.49, 87.31%, 82%, 0.2);
     --code-highlight-border: hsla(213.49, 84.31%, 70%, 0.8);
+    --callout-caution-fg: hsla(29, 96%, 56%, 1);
+    --callout-caution-bg: hsla(29, 96%, 25%, 0.5);
+    --callout-failure-fg: hsla(0, 95%, 85%, 1);
+    --callout-failure-bg: hsla(0, 100%, 75%, 0.5);
+    --callout-info-fg: hsla(211, 100%, 70%, 1);
+    --callout-info-bg: hsla(211, 100%, 25%, 0.5);
+    --callout-quote-fg: hsla(212, 16%, 75%, 1);
+    --callout-quote-bg: hsla(212, 16%, 82%, 0.5);
+    --callout-question-fg: hsla(263, 56%, 80%, 1);
+    --callout-question-bg: hsla(263, 56%, 80%, 0.5);
+    --callout-check-fg: hsla(117, 64%, 72%, 1);
+    --callout-check-bg: hsla(117, 64%, 75%, 0.5);
+    --callout-note-fg: hsla(22, 74%, 65%, 1);
+    --callout-note-bg: hsla(22, 74%, 70%, 0.5);
   }
 }
 body {

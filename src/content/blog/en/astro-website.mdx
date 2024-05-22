@@ -18,8 +18,8 @@ type: blog
 ## TL:DR
 
 - I created my website switching over from Next.js to Astro
-- My Astro website is equipped with some features like full-text search(Pagefind), internationalization(i18n) and more
-- Cloudflare offers a wide range of support for, from hosting your website and getting your own domain, to creating your custom email address for it.
+- My Astro website is equipped with some features like full-text search(Pagefind), internationalization(i18n) and more, Some of which are mentioned with some code
+- Cloudflare offers a wide range of support for, from hosting your website and getting your own domain, to creating your custom email address for it. Above all, its unlimited maximum bandwidth use for free is a great advantage to small-to-medium services
 - Front Matter CMS enables you to write an article, tweak code, build and deploy your website in your VS Code editor
 
 ## Intro
@@ -57,7 +57,7 @@ I avoid using other JS frameworks like React inside Astro and stick to vanilla J
 I decided to use [Pagefind](https://pagefind.app/), a Rust based static search library. It's lightweight, lightning fast, and easy to use!
 
 After adding the `pagefind` and `@pagefind/default-ui` library to my project, I created the search component like this.
-The point is the `search` id given to an empty `div` tag, which will be used later to spot where to put the search component that Pagefind provides. Plus, the modal window toggles in response to the presence of the `hidden` class.
+The point is the `search` id given to an empty `div` tag. Inside the tags with this id will be the search component that Pagefind provides. Plus, the modal window toggles in response to the presence of the `hidden` class.
 
 ```astro title="src/components/Search.astro"
 ---
@@ -249,7 +249,7 @@ In terms of event registration, I did almost the same thing as the search compon
 
 Another important thing is locale metadata. In terms of SEO, I added as many `link` tags as the number of locales to the head component.
 
-```astro title="BaseHead.astro" {3-4,9-24}
+```astro title="BaseHead.astro" {3-4,8-23}
 ---
 // ...
 import { getAbsoluteLocaleUrl } from 'astro:i18n'
@@ -257,7 +257,7 @@ import { langList } from '@/utils/i18n/data'
 // ...
 ---
 
-<!-- ... -->{
+{
   langList.map((lang) => (
     <>
       <link
@@ -589,7 +589,8 @@ export default defineConfig({
 
 Next, I created two components for HTML elements shown below. As to this nested structure (and the better part of the code styling) I consulted the Github repo of [haxibami.net](https://www.haxibami.net/)
 
-The data attribute `data-rehype-pretty-code-figure` is added by the `rehype-pretty-code` plugin, so it'd be nice to use it as a sign that there are the `code` tags inside the `figure` tags.
+The data attribute `data-rehype-pretty-code-figure` is added by the `rehype-pretty-code` plugin, and it's programmed to be added to code blocks. This means, you can use it as a flag to confirm if there are `code` tags inside the `figure` tags.
+Below is the code that branches conditions of what's inside the `figure`. (`img` or `code`)
 
 ```astro title="src/components/elements/Figure.astro"
 ---

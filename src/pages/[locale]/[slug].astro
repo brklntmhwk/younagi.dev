@@ -3,6 +3,7 @@ import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
 import { getCollection } from 'astro:content'
 import AboutLayout from '@/layouts/AboutLayout.astro'
 import PageLayout from '@/layouts/PageLayout.astro'
+import Blockquote from '@/components/elements/Blockquote.astro'
 import FormattedDate from '@/components/FormattedDate.astro'
 import Figure from '@/components/elements/Figure.astro'
 import Message from '@/components/Message.astro'
@@ -29,6 +30,7 @@ export const getStaticPaths = (async () => {
 type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
 export const components = {
+  blockquote: Blockquote,
   figure: Figure,
   FormattedDate,
   Message,

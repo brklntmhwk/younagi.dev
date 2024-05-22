@@ -85,7 +85,7 @@ const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
       if (matched) {
         const array = regex.exec(firstLine!)
         const calloutType = array?.at(1)
-        const expandCollapseSign = array?.at(2)
+        const expandCollapseSign = array?.at(2) as '+' | '-' | undefined
 
         if (array && calloutType && containsKey(callouts, calloutType)) {
           const title = array.input.slice(matched[0].length).trim()

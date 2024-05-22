@@ -14,7 +14,7 @@ const props = Astro.props
     gap: 0.5rem;
     border-radius: 0.25rem;
     & :global(input[id^='callout-toggle-check']) {
-      appearance: none;
+      display: none;
     }
     & :global(.callout-title) {
       display: flex;
@@ -24,12 +24,6 @@ const props = Astro.props
       & :global(.callout-title-text) {
         font-size: 1.15rem;
         font-weight: 600;
-      }
-      &::after {
-        content: '>';
-        display: inline-block;
-        font-size: 1.5rem;
-        transition: transform 0.3s ease;
       }
     }
     & :global(.callout-content) {
@@ -51,76 +45,108 @@ const props = Astro.props
       display: none;
     }
   }
+  .callout-blockquote[data-expandable='true'] {
+    & :global(.callout-title) {
+      &::after {
+        content: '>';
+        color: inherit;
+        display: inline-block;
+        font-size: 1.5rem;
+        transition: transform 0.3s ease;
+      }
+    }
+  }
   .callout-blockquote[data-callout='info'],
   .callout-blockquote[data-callout='tip'],
   .callout-blockquote[data-callout='hint'] {
     background-color: var(--callout-info-bg);
-    & :global(.callout-title-text) {
+    & :global(.callout-title) {
       color: var(--callout-info-fg);
-    }
-    & :global(.callout-title-icon > svg) {
-      stroke: var(--callout-info-fg);
+      & :global(.callout-title-text) {
+        color: var(--callout-info-fg);
+      }
+      & :global(.callout-title-icon > svg) {
+        stroke: var(--callout-info-fg);
+      }
     }
   }
   .callout-blockquote[data-callout='caution'],
   .callout-blockquote[data-callout='attention'],
   .callout-blockquote[data-callout='warning'] {
     background-color: var(--callout-caution-bg);
-    & :global(.callout-title-text) {
+    & :global(.callout-title) {
       color: var(--callout-caution-fg);
-    }
-    & :global(.callout-title-icon > svg) {
-      stroke: var(--callout-caution-fg);
+      & :global(.callout-title-text) {
+        color: var(--callout-caution-fg);
+      }
+      & :global(.callout-title-icon > svg) {
+        stroke: var(--callout-caution-fg);
+      }
     }
   }
   .callout-blockquote[data-callout='failure'] {
     background-color: var(--callout-failure-bg);
-    & :global(.callout-title-text) {
+    & :global(.callout-title) {
       color: var(--callout-failure-fg);
-    }
-    & :global(.callout-title-icon > svg) {
-      stroke: var(--callout-failure-fg);
+      & :global(.callout-title-text) {
+        color: var(--callout-failure-fg);
+      }
+      & :global(.callout-title-icon > svg) {
+        stroke: var(--callout-failure-fg);
+      }
     }
   }
   .callout-blockquote[data-callout='question'],
   .callout-blockquote[data-callout='faq'],
   .callout-blockquote[data-callout='help'] {
     background-color: var(--callout-question-bg);
-    & :global(.callout-title-text) {
+    & :global(.callout-title) {
       color: var(--callout-question-fg);
-    }
-    & :global(.callout-title-icon > svg) {
-      stroke: var(--callout-question-fg);
+      & :global(.callout-title-text) {
+        color: var(--callout-question-fg);
+      }
+      & :global(.callout-title-icon > svg) {
+        stroke: var(--callout-question-fg);
+      }
     }
   }
   .callout-blockquote[data-callout='check'],
   .callout-blockquote[data-callout='success'],
   .callout-blockquote[data-callout='done'] {
     background-color: var(--callout-check-bg);
-    & :global(.callout-title-text) {
+    & :global(.callout-title) {
       color: var(--callout-check-fg);
-    }
-    & :global(.callout-title-icon > svg) {
-      stroke: var(--callout-check-fg);
+      & :global(.callout-title-text) {
+        color: var(--callout-check-fg);
+      }
+      & :global(.callout-title-icon > svg) {
+        stroke: var(--callout-check-fg);
+      }
     }
   }
   .callout-blockquote[data-callout='quote'],
   .callout-blockquote[data-callout='cite'] {
     background-color: var(--callout-quote-bg);
-    & :global(.callout-title-text) {
+    & :global(.callout-title) {
       color: var(--callout-quote-fg);
-    }
-    & :global(.callout-title-icon > svg) {
-      stroke: var(--callout-quote-fg);
+      & :global(.callout-title-text) {
+        color: var(--callout-quote-fg);
+      }
+      & :global(.callout-title-icon > svg) {
+        stroke: var(--callout-quote-fg);
+      }
     }
   }
   .callout-blockquote[data-callout='note'] {
     background-color: var(--callout-note-bg);
-    & :global(.callout-title-text) {
+    & :global(.callout-title) {
       color: var(--callout-note-fg);
-    }
-    & :global(.callout-title-icon > svg) {
-      stroke: var(--callout-note-fg);
+      & :global(.callout-title-text) {
+        color: var(--callout-note-fg);
+      }
+      & :global(.callout-title-icon > svg) {
+        stroke: var(--callout-note-fg);
+      }
     }
   }
 </style>

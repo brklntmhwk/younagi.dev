@@ -76,7 +76,7 @@ const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
       })
     })
 
-    blockquoteChildrenTriples.map(({ node, firstChild, children }) => {
+    blockquoteChildrenTriples.map(({ node, firstChild, children }, index) => {
       const value = toString(firstChild)
       const [firstLine, ...rest] = value.split('\n')
       const restContent = rest.join('\n')
@@ -85,7 +85,7 @@ const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
       if (matched) {
         const array = regex.exec(firstLine!)
         const calloutType = array?.at(1)
-        const expandCollapseSign = array?.at(2) as '+' | '-' | undefined
+        const expandCollapseSign = array?.at(2)
 
         if (array && calloutType && containsKey(callouts, calloutType)) {
           const title = array.input.slice(matched[0].length).trim()
@@ -97,7 +97,16 @@ const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
           const calloutHtmlNode: HtmlNode = {
             type: 'html',
             data: {},
-            value: `
+            value: dataExpandable
+              ? `
+              <input type="checkbox" id="callout-toggle-check-${calloutType}-${index}" ${dataExpanded === true ? 'checked' : ''} />
+              <label for="callout-toggle-check-${calloutType}-${index}" class="callout-title">
+                <div class="callout-title-icon">${callouts.get(calloutType)}</div>
+                <span class="callout-title-text">${title}</span>
+              </label>
+              <div class="callout-content">${restContent}</div>
+              `
+              : `
               <div class="callout-title">
                 <div class="callout-title-icon">${callouts.get(calloutType)}</div>
                 <span class="callout-title-text">${title}</span>
@@ -114,10 +123,10 @@ const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
               className: `callout-${calloutType}`,
               dataCalloutBlockquote: true,
               dataCallout: calloutType,
-              dataExpandable,
-              dataExpanded,
-              // dataExpandable: String(dataExpandable),
-              // dataExpanded: String(dataExpanded),
+              dataExpandable: String(dataExpandable),
+              dataExpanded: String(dataExpanded),
+              // dataExpandable,
+              // dataExpanded,
             },
           }
         }

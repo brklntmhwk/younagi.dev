@@ -73,7 +73,12 @@ const t = await getEntry('i18n', `${locale}/translation`)
       overflow-wrap: break-word;
       word-wrap: break-word;
       line-height: 1.65;
-      & :global(h2, h3, h4, h5, h6) {
+      & :global(h1),
+      & :global(h2),
+      & :global(h3),
+      & :global(h4),
+      & :global(h5),
+      & :global(h6) {
         margin-bottom: 1.85rem;
       }
       & :global(p) {

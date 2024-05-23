@@ -20,7 +20,12 @@ const slug = rest.join('/')
     {
       Object.entries(languages).map(([lang, label]) => (
         <li>
-          <a href={`/${lang}/${slug}`}>{label}</a>
+          <a
+            class:list={[{ active: lang === locale }]}
+            href={`/${lang}/${slug}`}
+          >
+            {label}
+          </a>
         </li>
       ))
     }
@@ -45,6 +50,9 @@ const slug = rest.join('/')
         left: -1.5rem;
         font-size: 1.25rem;
         align-self: center;
+      }
+      &.active {
+        font-weight: 700;
       }
     }
   }

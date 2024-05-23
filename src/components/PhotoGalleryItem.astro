@@ -4,7 +4,7 @@ import { getEntry } from 'astro:content'
 import type { Basic as Photo } from 'unsplash-js/dist/methods/photos/types'
 import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 import { toSnakeCase } from '@/utils/toSnakeCase'
-import { getDateDiff } from '@/utils/getDateDiff'
+import { getTimeDiff } from '@/utils/getTimeDiff'
 import ProfileIcon from '@/components/ProfileIcon.astro'
 
 type Props = {
@@ -27,7 +27,7 @@ const {
   width,
 } = photo
 const createdAt = new Date(created_at)
-const dateDiff = getDateDiff(createdAt, locale)
+const dateDiff = getTimeDiff(createdAt, locale)
 ---
 
 <div class="photo-gallery-item pixel-border">

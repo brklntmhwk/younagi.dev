@@ -18,8 +18,8 @@ export const getPhotos = (pageNum?: number) =>
     })
     .then((res) => {
       if (res.errors) {
-        console.error('error occurred when trying to get my photos..')
-        throw new Error('error occurred when trying to get my photos..')
+        console.error('error occurred when trying to get photos..')
+        throw new Error('error occurred when trying to get photos..')
       } else {
         return res.response
       }

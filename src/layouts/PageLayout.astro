@@ -73,6 +73,9 @@ const t = await getEntry('i18n', `${locale}/translation`)
       overflow-wrap: break-word;
       word-wrap: break-word;
       line-height: 1.65;
+      & :global(h1, h2, h3, h4, h5, h6) {
+        margin-bottom: 1.85rem;
+      }
       & :global(h2, h3, h4, h5, h6) {
         font-family: var(--base-font);
       }
@@ -81,13 +84,15 @@ const t = await getEntry('i18n', `${locale}/translation`)
         margin-bottom: 1.25rem;
       }
       & :global(ul) {
-        padding: 0.85rem 0 1.75rem 2.5rem;
+        margin: 1.75rem 0;
+        padding-inline-start: 2.5rem;
         & :global(li) {
           list-style-type: square;
         }
       }
       & :global(ol) {
-        padding: 0.85rem 0 1.75rem 2.5rem;
+        margin: 1.75rem 0;
+        padding-inline-start: 2.5rem;
         & :global(li) {
           list-style-type: decimal;
         }

@@ -630,8 +630,9 @@ const isImageFigure = Object.hasOwn(props, 'data-image-figure')
 }
 ```
 
-本旨からは逸れますが、マークダウンで埋め込まれた画像は `p` タグに囲まれているだけの奇妙な構造になってしまい、相当変態です。ここは意味論的にも `figure` タグで囲うのが妥当と思い、`rehype` プラグインを自作してカスタマイズしています。(`remark` `rehype` プラグインについては[haxibami.net](https://www.haxibami.net/)などの有益なサイトをかなり参考にさせていただきました)
-上記の `data-image-figure` のデータ属性は `figure` タグが画像を囲うためのものなのか、条件分岐する為に使われています。
+本旨からは逸れますが、マークダウンで埋め込まれた画像は `p` タグに囲まれているだけの簡素な構造になってしまい、相当変態です。
+ここは意味論的にも `figure` タグで囲うのが妥当と思い、`rehype` プラグインを自作してカスタマイズしています。([haxibami.net](https://www.haxibami.net/)のGithub レポジトリ等を参考にしました)
+上記の `data-image-figure` のデータ属性は `figure` タグの中身が画像なのかを判別する為に使われています。
 
 ```astro title="src/components/elements/Code.astro"
 ---
@@ -679,9 +680,348 @@ export const components = {
 </BlogLayout>
 ```
 
+##### コールアウト
+
+数年間 [Obsidian](https://obsidian.md/) をナレッジベースとして愛用していて、マークダウン記法で書ける[コールアウト](https://help.obsidian.md/Editing+and+formatting/Callouts)が好きでした。このブログでも使いたくなり、実装しました。
+
+以下がその例です。
+
+```Markdown title="Info callout"
+> [!info]+Info
+> Info callout example. (Expanded by default)
+```
+
+> [!info]+Info
+> Info callout example. (Expanded by default)
+
+---
+
+```Markdown title="Caution callout"
+> [!caution]-Caution
+> Caution callout example. (Folded by default)
+```
+
+> [!caution]-Caution
+> Caution callout example. (Folded by default)
+
+---
+
+```Markdown title="Check callout"
+> [!check] Check
+> Check callout example. (No expansion/fold)
+```
+
+> [!check] Check
+> Check callout example. (No expansion/fold)
+
+---
+
+コードブロックと同様、`remark` プラグインを自作して機能を追加しています。([remark-obsidian-callout の Github レポジトリ](https://github.com/escwxyz/remark-obsidian-callout)などを参考にしました)
+
+山括弧の閉じ括弧(">")はHTMLの `blockquote` タグに変身するので、マークダウン/MDXファイル内のそれら全てを `visit` し、下記のように処理しています。
+
+```typescript title="src/plugins/remark-callout.ts"
+import type { RemarkPlugin } from '@astrojs/markdown-remark'
+import type { Plugin } from 'unified'
+import type { Node, Root, Parent, Data, Blockquote, RootContent } from 'mdast'
+import { visit } from 'unist-util-visit'
+import { toString } from 'mdast-util-to-string'
+import { optimize } from 'svgo'
+import {
+  quoteIcon,
+  infoIcon,
+  xIcon,
+  helpCircleIcon,
+  alertTriangleIcon,
+  pencilIcon,
+  checkIcon,
+} from '../consts'
+
+type Callout = Map<string, string>
+type HtmlNode = Node & {
+  type: 'html'
+  data: Data
+  value: string
+}
+
+const regex = /^\[!(\w+)\]([+-]?)/
+const containsKey = (mapObj: Callout, str: string) => mapObj.has(str)
+const optimizeSvgIcons = (callouts: Callout) => {
+  for (const [key, svg] of callouts.entries()) {
+    callouts.set(
+      key,
+      optimize(svg, {
+        multipass: true,
+        js2svg: { pretty: true },
+      }).data
+    )
+  }
+}
+const callouts: Callout = new Map([
+  ['question', helpCircleIcon],
+  ['help', helpCircleIcon],
+  ['faq', helpCircleIcon],
+  ['info', infoIcon],
+  ['tip', infoIcon],
+  ['hint', infoIcon],
+  ['warning', alertTriangleIcon],
+  ['attention', alertTriangleIcon],
+  ['caution', alertTriangleIcon],
+  ['quote', quoteIcon],
+  ['cite', quoteIcon],
+  ['success', checkIcon],
+  ['check', checkIcon],
+  ['done', checkIcon],
+  ['note', pencilIcon],
+  ['failure', xIcon],
+])
+
+const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
+  return (tree) => {
+    const blockquoteChildrenTriples: {
+      node: Blockquote
+      firstChild: RootContent
+      children: RootContent[]
+    }[] = []
+
+    visit(tree, 'blockquote', (node) => {
+      if (
+        !('children' in node) ||
+        (node as Parent).children.length === 0 ||
+        (node as Parent).children[0]?.type !== 'paragraph'
+      )
+        return
+
+      blockquoteChildrenTriples.push({
+        node,
+        firstChild: (node as Parent).children[0]!,
+        children: (node as Parent).children,
+      })
+    })
+
+    blockquoteChildrenTriples.map(({ node, firstChild, children }, index) => {
+      const value = toString(firstChild)
+      const [firstLine, ...rest] = value.split('\n')
+      const restContent = rest.join('\n')
+      const matched = firstLine?.match(regex)
+
+      if (matched) {
+        const array = regex.exec(firstLine!)
+        const calloutType = array?.at(1)
+        const expandCollapseSign = array?.at(2) as '+' | '-' | undefined
+
+        if (array && calloutType && containsKey(callouts, calloutType)) {
+          const title = array.input.slice(matched[0].length).trim()
+          const isExpandable = Boolean(expandCollapseSign)
+          const isExpanded = expandCollapseSign === '+'
+
+          optimizeSvgIcons(callouts)
+
+          const calloutHtmlNode: HtmlNode = {
+            type: 'html',
+            data: {},
+            value: isExpandable
+              ? `
+              <input type="checkbox" id="callout-toggle-check-${calloutType}-${index}" ${isExpanded === true ? 'checked' : ''} />
+              <label for="callout-toggle-check-${calloutType}-${index}" class="callout-title">
+                <div class="callout-title-icon">${callouts.get(calloutType)}</div>
+                <span class="callout-title-text">${title}</span>
+              </label>
+              <div class="callout-content">${restContent}</div>
+              `
+              : `
+              <div class="callout-title">
+                <div class="callout-title-icon">${callouts.get(calloutType)}</div>
+                <span class="callout-title-text">${title}</span>
+              </div>
+              <div class="callout-content">${restContent}</div>
+              `,
+          }
+
+          children.splice(0, 1, calloutHtmlNode)
+
+          node.data = {
+            hProperties: {
+              ...((node.data && node.data.hProperties) || {}),
+              className: `callout-${calloutType}`,
+              dataCalloutBlockquote: true,
+              dataCallout: calloutType,
+              dataExpandable: String(isExpandable),
+              dataExpanded: String(isExpanded),
+            },
+          }
+        }
+      }
+    })
+  }
+}
+
+export default remarkCallout
+```
+
+上記コードのポイントをいくつか紹介します。
+
+- **開閉可能なコールアウトのコンテンツ:** "+" か "-" の記号がコールアウトの種類の記述の直後に加わると、クリックによって中身が開閉可能になります
+  - データ属性である `data-expandable` と `data-expanded` はコールアウトコンポーネント側で開閉の判断材料になります
+- **`svgo` によるSVGアイコンの最適化:** `optimizeSvgIcons` 関数にSVGタグの文字列定数渡され、最適化されます
+- **多種のデータ属性**: 上述の2つ以外にもデータ属性が渡されていますが、これらは後ほどコールアウト各種のスタイリングに使われます
+
+そして[前章コードブロックのところ](#コードブロック)で `figure` と `code` にしたのと同様に、`blockquote` と コールアウトコンポーネントも入れ子構造にしました。
+
+```astro title="src/components/elements/Blockquote.astro"
+---
+import Callout from './Callout.astro'
+
+export type Props = {
+  'data-callout-blockquote'?: ''
+}
+
+const props = Astro.props
+const isCallout = Object.hasOwn(props, 'data-callout-blockquote')
+---
+
+{
+  isCallout ? (
+    <Callout {...props}>
+      <slot />
+    </Callout>
+  ) : (
+    <blockquote {...props}>
+      <slot />
+    </blockquote>
+  )
+}
+```
+
+```astro title="src/components/elements/Callout.astro"
+---
+const props = Astro.props
+---
+
+<blockquote class="callout-blockquote" {...props}>
+  <slot />
+</blockquote>
+<style>
+  .callout-blockquote {
+    /* ... */
+    & :global(input[id^='callout-toggle-check']) {
+      display: none;
+    }
+    & :global(.callout-title) {
+      /* ... */
+      & :global(.callout-title-text) {
+        /* ... */
+      }
+      & :global(.callout-title-icon > svg) {
+        /* ... */
+      }
+    }
+    & :global(.callout-content) {
+      /* ... */
+    }
+    &
+      :global(input[id^='callout-toggle-check']):checked
+      ~ :global(.callout-title)::after {
+      transform: rotate(90deg);
+    }
+    &
+      :global(input[id^='callout-toggle-check']):checked
+      ~ :global(.callout-content) {
+      display: inline-block;
+    }
+    &
+      :global(input[id^='callout-toggle-check']):not(:checked)
+      ~ :global(.callout-content) {
+      display: none;
+    }
+  }
+  .callout-blockquote[data-expandable='true'] {
+    & :global(.callout-title) {
+      &::after {
+        content: '›';
+        color: inherit;
+        display: inline-block;
+        font-size: 1.35rem;
+        transition: transform 0.3s ease;
+      }
+    }
+  }
+  .callout-blockquote[data-callout='info'],
+  .callout-blockquote[data-callout='tip'],
+  .callout-blockquote[data-callout='hint'] {
+    background-color: var(--callout-info-bg);
+    & :global(.callout-title) {
+      color: var(--callout-info-fg);
+      & :global(.callout-title-text) {
+        color: var(--callout-info-fg);
+      }
+      & :global(.callout-title-icon > svg) {
+        stroke: var(--callout-info-fg);
+      }
+    }
+  }
+  .callout-blockquote[data-callout='caution'],
+  .callout-blockquote[data-callout='attention'],
+  .callout-blockquote[data-callout='warning'] {
+    background-color: var(--callout-caution-bg);
+    & :global(.callout-title) {
+      color: var(--callout-caution-fg);
+      & :global(.callout-title-text) {
+        color: var(--callout-caution-fg);
+      }
+      & :global(.callout-title-icon > svg) {
+        stroke: var(--callout-caution-fg);
+      }
+    }
+  }
+</style>
+```
+
+先述の通り、コールアウトのスタイルと開閉の部分では、受け取ったデータ属性を利用しています。
+
+最後に、`astro.config.ts` ファイルにプラグインの追加と、`Blockquote` カスタムコンポーネントの明示的なエクスポートをお忘れなく。
+
+```astro title="src/pages/[locale]/blog/[slug].astro" {4, 7-10, 16}
+---
+// ...
+import BlogLayout from '@/layouts/BlogLayout.astro'
+import Blockquote from '@/components/elements/Blockquote.astro'
+// ...
+
+export const components = {
+  blockquote: Blockquote,
+  // ...
+}
+
+// ...
+---
+
+<BlogLayout entry={/* ... */} headings={/* ... */}>
+  <Content components={components} />
+</BlogLayout>
+```
+
+```typescript title="astro.config.ts" {3, 11}
+import { defineConfig } from 'astro/config'
+// ...
+import remarkCallout from './src/plugins/remark-callout'
+
+export default defineConfig({
+  // ...
+  markdown: {
+    // ...
+    remarkPlugins: [
+      // ...
+      remarkCallout,
+    ],
+    // ...
+  },
+})
+```
+
 ##### アンカーリンク付き見出し
 
-この記事も含め、全てのブログ記事内の見出しにはアンカーリンクが付いています。このおかげで、目次が見出しを検知して、私たちをそれぞれの場所へ案内してくれます。
+この記事も含め、全てのブログ記事内の見出しにはアンカーリンクが付いています。このおかげで、目次が見出しを検知して、各見出しへのリンクすることができます。
 
 `rehype-autolink-headings`、`rehype-slug`、`hastscript` ライブラリを追加して、次の箇所を変更します。
 
@@ -722,7 +1062,7 @@ export default defineConfig({
 
 それから、すべてのコンテンツ用レイアウトでアンカーリンクのCSSを追記しました。以下はブログレイアウトの例です。
 
-```astro title="src/components/BlogLayout.astro" {17-30}
+```astro title="src/components/BlogLayout.astro" {17-26}
 ---
 // ...
 ---
@@ -740,16 +1080,12 @@ export default defineConfig({
     .prose {
       /* ... */
       & :global(a):has(.heading-anchor-icon) {
-        text-decoration: none;
-        font-family: var(--base-font);
+        /* ... */
         & :global(span.heading-anchor-icon) {
-          color: var(--fg);
-          margin-right: 0.5rem;
+          /* ... */
         }
         &:hover {
-          text-decoration: underline;
-          text-underline-offset: 4px;
-          text-decoration-color: var(--fg);
+          /* ... */
         }
         /* ... */
       }

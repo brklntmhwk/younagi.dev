@@ -992,6 +992,10 @@ export const components = {
 
 // ...
 ---
+
+<BlogLayout entry={/* ... */} headings={/* ... */}>
+  <Content components={components} />
+</BlogLayout>
 ```
 
 ```typescript title="astro.config.ts" {3, 11}
@@ -1055,7 +1059,7 @@ export default defineConfig({
 
 And then I added the styling for anchor links in every content layout. Below is the example of the blog layout.
 
-```astro title="src/components/BlogLayout.astro" {17-30}
+```astro title="src/components/BlogLayout.astro" {17-26}
 ---
 // ...
 ---
@@ -1073,16 +1077,12 @@ And then I added the styling for anchor links in every content layout. Below is 
     .prose {
       /* ... */
       & :global(a):has(.heading-anchor-icon) {
-        text-decoration: none;
-        font-family: var(--base-font);
+        /* ... */
         & :global(span.heading-anchor-icon) {
-          color: var(--fg);
-          margin-right: 0.5rem;
+          /* ... */
         }
         &:hover {
-          text-decoration: underline;
-          text-underline-offset: 4px;
-          text-decoration-color: var(--fg);
+          /* ... */
         }
         /* ... */
       }

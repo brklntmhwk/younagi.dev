@@ -7,12 +7,14 @@ const props = Astro.props
 </figure>
 <style>
   .code-figure {
-    margin: 1.75rem 0 1.5rem 0;
+    margin: 3.75rem 0 1.75rem 0;
     position: relative;
     font-size: 0.85rem;
     & :global(pre) {
+      max-height: 30rem;
       border-radius: 0.25rem;
       overflow-x: auto;
+      overflow-y: auto;
     }
     & :global(code) {
       font-family: var(--code-font);
@@ -50,7 +52,8 @@ const props = Astro.props
     & :global([data-rehype-pretty-code-title]) {
       font-family: var(--code-font);
       & + :global(pre) {
-        padding: 2.85rem 0 0.75rem 0;
+        margin-top: 2.85rem;
+        padding: 0.85rem 0;
       }
     }
     & :global(pre:not([data-rehype-pretty-code-title] + pre)) {
@@ -59,7 +62,7 @@ const props = Astro.props
     & :global([data-rehype-pretty-code-title]) {
       width: 100%;
       position: absolute;
-      top: 0;
+      top: -30px;
       left: 0;
       white-space: nowrap;
       text-overflow: ellipsis;

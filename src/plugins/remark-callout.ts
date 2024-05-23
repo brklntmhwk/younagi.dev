@@ -89,17 +89,17 @@ const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
 
         if (array && calloutType && containsKey(callouts, calloutType)) {
           const title = array.input.slice(matched[0].length).trim()
-          const dataExpandable = Boolean(expandCollapseSign)
-          const dataExpanded = expandCollapseSign === '+'
+          const isExpandable = Boolean(expandCollapseSign)
+          const isExpanded = expandCollapseSign === '+'
 
           optimizeSvgIcons(callouts)
 
           const calloutHtmlNode: HtmlNode = {
             type: 'html',
             data: {},
-            value: dataExpandable
+            value: isExpandable
               ? `
-              <input type="checkbox" id="callout-toggle-check-${calloutType}-${index}" ${dataExpanded === true ? 'checked' : ''} />
+              <input type="checkbox" id="callout-toggle-check-${calloutType}-${index}" ${isExpanded === true ? 'checked' : ''} />
               <label for="callout-toggle-check-${calloutType}-${index}" class="callout-title">
                 <div class="callout-title-icon">${callouts.get(calloutType)}</div>
                 <span class="callout-title-text">${title}</span>
@@ -123,10 +123,8 @@ const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
               className: `callout-${calloutType}`,
               dataCalloutBlockquote: true,
               dataCallout: calloutType,
-              dataExpandable: String(dataExpandable),
-              dataExpanded: String(dataExpanded),
-              // dataExpandable,
-              // dataExpanded,
+              dataExpandable: String(isExpandable),
+              dataExpanded: String(isExpanded),
             },
           }
         }

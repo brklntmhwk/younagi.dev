@@ -208,7 +208,7 @@ export const getLocaleFromUrl = (url: URL) => {
 
 これらを、言語選択コンポーネントの中で次のようにインポートして使います。
 
-```astro title="src/components/LocalePicker.astro" {2,4,6-7,20-26}
+```astro title="src/components/LocalePicker.astro" {2,4,6-7,20-31}
 ---
 import { languages } from '@/utils/i18n/data'
 import Modal from '@/components/Modal.astro'
@@ -231,7 +231,12 @@ const slug = rest.join('/')
     {
       Object.entries(languages).map(([lang, label]) => (
         <li>
-          <a href={`/${lang}/${slug}`}>{label}</a>
+          <a
+            class:list={[{ active: lang === locale }]}
+            href={`/${lang}/${slug}`}
+          >
+            {label}
+          </a>
         </li>
       ))
     }

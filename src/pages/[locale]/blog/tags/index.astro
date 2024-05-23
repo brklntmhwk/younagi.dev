@@ -35,3 +35,10 @@ const tags = [...new Set(entries.flatMap((entry) => entry.data.tags ?? []))]
     <TaxonomyList kind="tags" taxonomyList={tags} />
   </main>
 </BaseLayout>
+<style>
+  main {
+    h1 {
+      margin-bottom: 1.25rem;
+    }
+  }
+</style>

@@ -63,30 +63,35 @@ const YearMonthPairs = groupArchiveByYear(entries)
   </main>
 </BaseLayout>
 <style>
-  .year-list {
-    padding: 1.85rem 0;
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    li {
+  main {
+    h1 {
+      margin-bottom: 1.25rem;
+    }
+    .year-list {
+      padding: 1.85rem 0;
       display: flex;
       flex-direction: column;
-      gap: 0.875rem;
-      .year {
-        font-size: 1.875rem;
-        font-weight: 700;
-      }
-      .month-list {
-        padding-left: 1.5rem;
+      gap: 1.25rem;
+      li {
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
         gap: 0.875rem;
-        .month {
-          font-size: 1.25rem;
-          color: var(--accent);
-          text-decoration: none;
-          &:hover {
-            color: var(--accent-dark);
+        .year {
+          font-size: 1.875rem;
+          font-weight: 700;
+        }
+        .month-list {
+          padding-left: 1.5rem;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.875rem;
+          .month {
+            font-size: 1.25rem;
+            color: var(--accent);
+            text-decoration: none;
+            &:hover {
+              color: var(--accent-dark);
+            }
           }
         }
       }

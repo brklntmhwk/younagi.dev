@@ -35,3 +35,10 @@ const categories = [...new Set(entries.flatMap((entry) => entry.data.category))]
     <TaxonomyList kind="categories" taxonomyList={categories} />
   </main>
 </BaseLayout>
+<style>
+  main {
+    h1 {
+      margin-bottom: 1.25rem;
+    }
+  }
+</style>

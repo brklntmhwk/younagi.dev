@@ -76,6 +76,7 @@ const i18n = defineCollection({
         blog: z.string(),
         news: z.string(),
         about: z.string(),
+        contact: z.string(),
       }),
       hamburger_label: z.string(),
     }),
@@ -114,9 +115,15 @@ const i18n = defineCollection({
     bmc: z.object({
       greeting_message: z.string(),
     }),
+    contact: z.object({
+      yourName: z.string(),
+      email: z.string(),
+      messageBody: z.string(),
+      confirmationLabel: z.string(),
+      sendLabel: z.string(),
+    }),
     pages: z.object({
       home: z.object({
-        greeting_message: z.string(),
         photo_gallery_title: z.string(),
       }),
       blog: z.object({

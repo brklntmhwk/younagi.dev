@@ -13,6 +13,7 @@ nav:
     blog: *blog
     news: *news
     about: *about
+    contact: Contact
   hamburger_label: Hamburger menu toggle
 pager:
   left_arrow_label: Previous page
@@ -38,9 +39,14 @@ svg:
   invalid_error_message: Invalid svg file or svg tags missing
 bmc:
   greeting_message: I can't imagine my life without coffee.
+contact:
+  yourName: Name
+  email: Email
+  messageBody: Message Content
+  confirmationLabel: Confirm the above content as accurate
+  sendLabel: Send
 pages:
   home:
-    greeting_message: Thank you for visiting my website! Here, I offer what I acquire, experience, or reflect on my daily lives, by posting news and articles every so often.
     photo_gallery_title: Recently uploaded photos
   blog:
     title: *blog

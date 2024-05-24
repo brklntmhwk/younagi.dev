@@ -13,6 +13,7 @@ nav:
     blog: *blog
     news: *news
     about: *about
+    contact: お問い合わせ
   hamburger_label: ハンバーガーメニュー開閉
 pager:
   left_arrow_label: 前のページ
@@ -38,9 +39,14 @@ svg:
   invalid_error_message: 無効なSVGファイルであるか、SVGタグがありません
 bmc:
   greeting_message: コーヒーのない人生は想像できません
+contact:
+  yourName: 氏名
+  email: メールアドレス
+  messageBody: メッセージ
+  confirmationLabel: 上記の内容で送信する
+  sendLabel: 送信する
 pages:
   home:
-    greeting_message: ご来訪ありがとうございます！ここでは私が日常の中で得たもの、経験したこと、また内省したことなどについてニュースとブログを通して発信しています。
     photo_gallery_title: 最近の投稿写真
   blog:
     title: *blog

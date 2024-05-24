@@ -1,0 +1,90 @@
+---
+import { getEntry } from 'astro:content'
+import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+import {
+  SSGFORM_URL,
+  FORM_TEXTAREA_ROWS,
+  FORM_TEXTAREA_MINLENGTH,
+} from '@/consts'
+
+const locale = getLocaleFromUrl(Astro.url)
+const t = await getEntry('i18n', `${locale}/translation`)
+---
+
+<form action={SSGFORM_URL} method="post">
+  <label for={t.data.contact.yourName}>{t.data.contact.yourName}</label>
+  <div class="pokemon-border">
+    <input
+      type="text"
+      id={t.data.contact.yourName}
+      name={t.data.contact.yourName}
+      autocomplete="off"
+      required
+    />
+  </div>
+  <label for={t.data.contact.email}>{t.data.contact.email}</label>
+  <div class="pokemon-border">
+    <input
+      type="email"
+      id={t.data.contact.email}
+      name={t.data.contact.email}
+      required
+    />
+  </div>
+  <label for={t.data.contact.messageBody}>{t.data.contact.messageBody}</label>
+  <div class="pokemon-border">
+    <textarea
+      id={t.data.contact.messageBody}
+      name={t.data.contact.messageBody}
+      rows={FORM_TEXTAREA_ROWS}
+      minlength={FORM_TEXTAREA_MINLENGTH}
+      autocomplete="off"
+      required></textarea>
+  </div>
+  <section class="checkbox-area">
+    <input
+      type="checkbox"
+      id={t.data.contact.confirmationLabel}
+      name={t.data.contact.confirmationLabel}
+      required
+    />
+    <label for={t.data.contact.confirmationLabel}
+      >{t.data.contact.confirmationLabel}</label
+    >
+  </section>
+  <button class="pokemon-border" type="submit"
+    >{t.data.contact.sendLabel}</button
+  >
+</form>
+<style>
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+    label {
+      user-select: none;
+    }
+    div {
+      display: flex;
+      flex-direction: column;
+      input[type='text'],
+      input[type='email'],
+      textarea {
+        padding: 0.5rem;
+        outline: none;
+      }
+    }
+    .checkbox-area {
+      margin-top: 1.25rem;
+      input[type='checkbox'] {
+        align-self: flex-start;
+      }
+    }
+    button {
+      font-weight: 600;
+      margin-top: 1.25rem;
+      padding: 0.25rem 1.85rem;
+      align-self: center;
+    }
+  }
+</style>

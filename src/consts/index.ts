@@ -3,9 +3,12 @@ export const DEFAULT_PAGINATION_WIDTH = 2
 export const TOC_MINIMUM_COUNT = 3
 export const NEWS_MAXIMUM_COUNT = 3
 export const DEFAULT_PHOTO_COUNT = 6
+export const FORM_TEXTAREA_ROWS = 5
+export const FORM_TEXTAREA_MINLENGTH = 25
 export const ACCOUNT_ID = 'brklntmhwk'
 export const UNSPLASH_BASE_URL = 'https://unsplash.com'
 export const GITHUB_BASE_URL = 'https://github.com'
+export const SSGFORM_URL = 'https://ssgform.com/s/kc69Q9YOLbxz'
 export const SHOW_DRAFT_PAGES_IN_DEV = true
 
 export const infoIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>`

@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content'
 import AboutLayout from '@/layouts/AboutLayout.astro'
 import PageLayout from '@/layouts/PageLayout.astro'
 import Blockquote from '@/components/elements/Blockquote.astro'
+import Contact from '@/components/Contact.astro'
 import FormattedDate from '@/components/FormattedDate.astro'
 import Figure from '@/components/elements/Figure.astro'
 import Message from '@/components/Message.astro'
@@ -32,6 +33,7 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>
 export const components = {
   blockquote: Blockquote,
   figure: Figure,
+  Contact,
   FormattedDate,
   Message,
 }

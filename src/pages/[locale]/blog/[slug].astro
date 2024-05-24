@@ -32,6 +32,6 @@ const { entry } = Astro.props
 const { Content, headings } = await entry.render()
 ---
 
-<BlogLayout entry={{ ...entry }} headings={headings}>
+<BlogLayout entry={{ ...entry }} {headings}>
   <Content components={components} />
 </BlogLayout>

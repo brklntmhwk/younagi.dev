@@ -42,7 +42,7 @@ bmc:
 contact:
   yourName: Name
   email: Email
-  messageBody: Message Content
+  messageBody: Message
   confirmationLabel: Confirm the above content as accurate
   sendLabel: Send
 pages:

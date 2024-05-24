@@ -39,12 +39,12 @@ export const components = {
 }
 
 const { page } = Astro.props
-const { Content } = await page.render()
+const { Content, headings } = await page.render()
 ---
 
 {
   page.slug.includes('about') ? (
-    <AboutLayout>
+    <AboutLayout {headings}>
       <Content components={components} />
     </AboutLayout>
   ) : (

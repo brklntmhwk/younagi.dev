@@ -37,13 +37,12 @@ const dateDiff = getTimeDiff(createdAt, locale)
   >
     <figure class="photo">
       <Image
-        src={`${urls.raw}&w=1080`}
+        src={`${urls.raw}&auto=format&w=640&q=70`}
         alt={alt_description || description || ''}
         width={width}
         height={height}
         format="avif"
         loading="eager"
-        quality={45}
       />
       <figcaption>{alt_description || description}</figcaption>
     </figure>

@@ -82,18 +82,19 @@ const t = await getEntry('i18n', `${locale}/translation`)
         color: var(--fg);
         margin-bottom: 1.25rem;
       }
-      & :global(ul) {
+      & :global(ul),
+      & :global(ol) {
         margin: 1.75rem 0;
         padding-inline-start: 2.5rem;
         & :global(li) {
           list-style-type: square;
         }
       }
-      & :global(ol) {
-        margin: 1.75rem 0;
-        padding-inline-start: 2.5rem;
-        & :global(li) {
-          list-style-type: decimal;
+      & :global(li:has(ul)),
+      & :global(li:has(ol)) {
+        & :global(ul),
+        & :global(ol) {
+          margin: 0.5rem 0;
         }
       }
       & :global(a) {
@@ -123,6 +124,12 @@ const t = await getEntry('i18n', `${locale}/translation`)
         padding: 0.1rem 0.25rem;
         margin: 0 0.1rem;
         border-radius: 0.25rem;
+      }
+      & :global(blockquote:not(.callout-blockquote)) {
+        border-left: 4px solid var(--gray-dark);
+        padding: 0 0 0 1.5rem;
+        margin: 0px;
+        font-size: 1.05rem;
       }
     }
   }

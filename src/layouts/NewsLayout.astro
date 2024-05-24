@@ -104,18 +104,19 @@ const t = await getEntry('i18n', `${locale}/translation`)
         color: var(--fg);
         margin-bottom: 1.25rem;
       }
-      & :global(ul) {
+      & :global(ul),
+      & :global(ol) {
         margin: 1.75rem 0;
         padding-inline-start: 2.5rem;
         & :global(li) {
           list-style-type: square;
         }
       }
-      & :global(ol) {
-        margin: 1.75rem 0;
-        padding-inline-start: 2.5rem;
-        & :global(li) {
-          list-style-type: decimal;
+      & :global(li:has(ul)),
+      & :global(li:has(ol)) {
+        & :global(ul),
+        & :global(ol) {
+          margin: 0.5rem 0;
         }
       }
       & :global(a) {

@@ -18,7 +18,7 @@ const { entries, kind } = Astro.props
   {
     entries.map((entry) => (
       <li>
-        <article>
+        <article class="pokemon-border">
           <section class="date">
             <div>
               <Svg iconName="publish" width={20} height={20} />
@@ -69,29 +69,9 @@ const { entries, kind } = Astro.props
     gap: 1.75rem;
     padding: 1.125rem 0;
     article {
-      position: relative;
       padding: 1rem 0.5rem 0.5rem 0.85rem;
-      border-top: 4px solid var(--pixel-border);
-      border-right: 2px solid var(--pixel-border);
-      border-bottom: 2px solid var(--pixel-border);
-      border-left: 2px solid var(--pixel-border);
-      border-radius: 0.3rem;
       display: grid;
       gap: 0.75rem;
-      &::before {
-        content: '';
-        position: absolute;
-        top: -8px;
-        bottom: -8px;
-        left: -6px;
-        right: -6px;
-        border-top: 2px solid var(--pixel-border);
-        border-right: 2px solid var(--pixel-border);
-        border-bottom: 4px solid var(--pixel-border);
-        border-left: 2px solid var(--pixel-border);
-        border-radius: 0.5rem;
-        z-index: -1;
-      }
       a.blog-title {
         color: var(--fg);
         font-size: 1.585rem;

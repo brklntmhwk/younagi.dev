@@ -4,7 +4,7 @@
     "strictNullChecks": true,
     "allowJs": true,
     "target": "ES5",
-    "module": "ESNext",
+    "module": "CommonJS",
     "moduleResolution": "Node",
     "lib": ["ESNext", "WebWorker", "DOM.Iterable"],
     "esModuleInterop": true,

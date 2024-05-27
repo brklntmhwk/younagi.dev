@@ -10,7 +10,6 @@ dir = "./dist"
 # format = "service-worker"
 # main = "submitForm.js"
 
-[[routes]]
-pattern = "https://younagi.dev/api/submit-form"
-zone_name = ""
-script = "younagi-worker"
+routes = [
+  { pattern = "https://younagi.dev/api/submit-form", zone_name = "", script = "younagi-worker" },
+]

@@ -3,12 +3,12 @@
   "compilerOptions": {
     "strictNullChecks": true,
     "allowJs": true,
-    "target": "ES2021",
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "lib": ["ES2021", "WebWorker", "DOM.Iterable"],
+    // "target": "ES2021",
+    // "module": "ESNext",
+    // "moduleResolution": "Node",
+    "lib": [/* "ES2021", */ "WebWorker", "DOM.Iterable"],
     "esModuleInterop": true,
-    "skipLibCheck": true,
+    // "skipLibCheck": true,
     "types": ["@cloudflare/workers-types"],
     "baseUrl": ".",
     "paths": {

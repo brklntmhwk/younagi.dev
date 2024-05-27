@@ -52,6 +52,15 @@ const t = await getEntry('i18n', `${locale}/translation`)
       >{t.data.contact.confirmationLabel}</label
     >
   </section>
+  {
+    import.meta.env.PROD && (
+      <div
+        class="cf-turnstile"
+        data-sitekey={import.meta.env.TURNSTILE_SECRET_KEY}
+        data-language={locale}
+      />
+    )
+  }
   <button class="pokemon-border" type="submit"
     >{t.data.contact.sendLabel}</button
   >
@@ -81,6 +90,9 @@ const t = await getEntry('i18n', `${locale}/translation`)
         align-self: flex-start;
       }
     }
+    .cf-turnstile {
+      margin: 0 auto;
+    }
     button {
       font-weight: 600;
       margin-top: 1.25rem;
@@ -89,3 +101,8 @@ const t = await getEntry('i18n', `${locale}/translation`)
     }
   }
 </style>
+<script
+  is:inline
+  src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+  async
+  defer></script>

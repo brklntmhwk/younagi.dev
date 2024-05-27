@@ -66,13 +66,7 @@ export default defineConfig({
       },
     },
     ssr: {
-      external: [
-        'node:fs/promises',
-        'node:path',
-        'node:crypto',
-        'node:module',
-        'canvaskit-wasm',
-      ],
+      external: ['astro-og-canvas', 'canvaskit-wasm'],
     },
   },
   markdown: {

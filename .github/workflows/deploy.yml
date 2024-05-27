@@ -44,8 +44,8 @@ jobs:
         run: pnpm run build
         env:
           UNSPLASH_API_ACCESS_KEY: ${{ secrets.UNSPLASH_API_ACCESS_KEY }}
-      - name: Build TypeScript Worker
-        run: pnpm run build:worker
+      # - name: Build TypeScript Worker
+      #   run: pnpm run build:worker
       # - name: Generate search index
       #   run: npx pagefind --site dist
       - name: Publish to Cloudflare Pages
@@ -84,7 +84,7 @@ jobs:
               sha,
               target_url: "${{ steps.cloudflare_pages_deploy.outputs.url }}",
             });
-      - name: Publish Cloudflare Worker
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        run: npx wrangler publish
+      # - name: Publish Cloudflare Worker
+      #   env:
+      #     CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      #   run: npx wrangler publish

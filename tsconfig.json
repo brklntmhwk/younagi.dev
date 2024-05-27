@@ -3,7 +3,7 @@
   "compilerOptions": {
     "strictNullChecks": true,
     "allowJs": true,
-    "target": "es2019",
+    "target": "ES5",
     "module": "ESNext",
     "moduleResolution": "Node",
     "lib": ["ESNext", "WebWorker", "DOM.Iterable"],

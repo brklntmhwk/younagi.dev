@@ -115,17 +115,14 @@ const t = await getEntry('i18n', `${locale}/translation`)
   formElement.addEventListener('submit', async (event) => {
     event.preventDefault()
 
-    // Get the Turnstile token
     const turnstileResponse = document.querySelector(
       '.cf-turnstile [name="cf-turnstile-response"]'
     )!.innerHTML
 
-    // Gather form data
     const formData = new FormData(formElement)
     const formObject = Object.fromEntries(formData.entries())
     formObject['cf-turnstile-response'] = turnstileResponse
 
-    // Send form data to the Cloudflare Worker
     const response = await fetch('/api/submit-form', {
       method: 'POST',
       headers: {

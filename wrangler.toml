@@ -1,0 +1,15 @@
+name = "younagi-worker"
+type = "javascript"
+workers_dev = true
+
+[build]
+command = "pnpm run build:worker"
+
+[[build.upload]]
+format = "service-worker"
+dir = "./dist"
+main = "submitForm.js"
+
+[[routes]]
+pattern = "https://your-domain.com/api/submit-form"
+script = "astro-site-worker"

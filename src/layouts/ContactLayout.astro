@@ -4,8 +4,6 @@ import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 
-export const prerender = false
-
 type Props = {
   page: CollectionEntry<'page'>
 }
@@ -22,7 +20,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
     <article>
       <h1 class="page-title">{title}</h1>
       <hr />
-      <section class="contact-form">
+      <section class="contact">
         <slot />
       </section>
       <hr />
@@ -47,7 +45,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
     .page-title {
       line-height: 1.175;
     }
-    .contact-form {
+    .contact {
       font-size: 1.125rem;
       overflow-wrap: break-word;
       word-wrap: break-word;

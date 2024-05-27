@@ -2,7 +2,7 @@
 import { getEntry } from 'astro:content'
 import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 import {
-  SSGFORM_URL,
+  /* SSGFORM_URL, */
   FORM_TEXTAREA_ROWS,
   FORM_TEXTAREA_MINLENGTH,
 } from '@/consts'
@@ -11,7 +11,8 @@ const locale = getLocaleFromUrl(Astro.url)
 const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
-<form action={SSGFORM_URL} method="post">
+<!-- <form id="contact-form" action={SSGFORM_URL} method="post"> -->
+<form id="contact-form">
   <label for={t.data.contact.yourName}>{t.data.contact.yourName}</label>
   <div class="pokemon-border">
     <input
@@ -106,3 +107,37 @@ const t = await getEntry('i18n', `${locale}/translation`)
   src="https://challenges.cloudflare.com/turnstile/v0/api.js"
   async
   defer></script>
+<script>
+  const formElement = document.getElementById(
+    'contact-form'
+  )! as HTMLFormElement
+
+  formElement.addEventListener('submit', async (event) => {
+    event.preventDefault()
+
+    // Get the Turnstile token
+    const turnstileResponse = document.querySelector(
+      '.cf-turnstile [name="cf-turnstile-response"]'
+    )!.innerHTML
+
+    // Gather form data
+    const formData = new FormData(formElement)
+    const formObject = Object.fromEntries(formData.entries())
+    formObject['cf-turnstile-response'] = turnstileResponse
+
+    // Send form data to the Cloudflare Worker
+    const response = await fetch('/api/submit-form', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formObject),
+    })
+
+    if (response.ok) {
+      alert('Form submitted successfully!')
+    } else {
+      alert('Error submitting form. Please try again.')
+    }
+  })
+</script>

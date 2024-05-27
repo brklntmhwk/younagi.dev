@@ -44,6 +44,8 @@ jobs:
         run: pnpm run build
         env:
           UNSPLASH_API_ACCESS_KEY: ${{ secrets.UNSPLASH_API_ACCESS_KEY }}
+      - name: Build TypeScript Worker
+        run: pnpm run build:worker
       # - name: Generate search index
       #   run: npx pagefind --site dist
       - name: Publish to Cloudflare Pages
@@ -53,7 +55,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: younagidev
-          directory: dist
+          directory: ./dist
       - name: Add publish URL
         uses: actions/github-script@v6
         with:
@@ -68,3 +70,21 @@ jobs:
               sha,
               target_url: "${{ steps.cloudflare_pages_deploy.outputs.url }}",
             });
+      - name: Add publish URL
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const sha = context.payload.pull_request?.head.sha ?? context.sha;
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              context: 'Cloudflare Pages',
+              description: 'Cloudflare Pages deployment',
+              state: 'success',
+              sha,
+              target_url: "${{ steps.cloudflare_pages_deploy.outputs.url }}",
+            });
+      - name: Publish Cloudflare Worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: npx wrangler publish

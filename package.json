@@ -11,6 +11,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
+    "build:worker": "esbuild functions/submitForm.ts --bundle --sourcemap --outfile=dist/submitForm.js",
     "postbuild": "pagefind --site dist",
     "preview": "astro preview",
     "sync": "astro sync",
@@ -20,7 +21,6 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.5.10",
-    "@astrojs/cloudflare": "^10.2.6",
     "@astrojs/markdown-remark": "^5.1.0",
     "@astrojs/mdx": "^3.0.0",
     "@astrojs/rss": "4.0.5",
@@ -32,6 +32,7 @@
     "purgecss": "5.0.0"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240512.0",
     "@pagefind/default-ui": "^1.0.4",
     "@types/eslint": "8.56.5",
     "@types/hast": "^3.0.4",
@@ -44,6 +45,7 @@
     "astro-og-canvas": "^0.4.2",
     "browserslist": "^4.23.0",
     "canvaskit-wasm": "^0.39.1",
+    "esbuild": "^0.21.4",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-astro": "0.31.4",
@@ -73,7 +75,8 @@
     "typescript": "5.4.5",
     "unified": "^11.0.4",
     "unist-util-visit": "^5.0.0",
-    "unsplash-js": "^7.0.19"
+    "unsplash-js": "^7.0.19",
+    "wrangler": "^3.57.1"
   },
   "engines": {
     "node": ">=18.16.0"

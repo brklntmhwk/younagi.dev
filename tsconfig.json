@@ -3,9 +3,9 @@
   "compilerOptions": {
     "strictNullChecks": true,
     "allowJs": true,
-    "target": "ES5",
-    "module": "CommonJS",
-    "moduleResolution": "Node",
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "lib": ["ESNext", "WebWorker", "DOM.Iterable"],
     "esModuleInterop": true,
     "skipLibCheck": true,

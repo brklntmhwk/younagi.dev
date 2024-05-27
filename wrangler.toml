@@ -1,16 +1,15 @@
 name = "younagi-worker"
 workers_dev = true
-main = "submitForm.js"
+main = "./dist/api/submitForm.js"
 # type = "javascript"
+
+routes = [
+  { pattern = "younagi.dev/*", zone_name = "younagi.dev", script = "younagi-worker" },
+]
 
 [build]
 command = "pnpm run build:worker"
 
-[[build.upload]]
-dir = "./dist"
+# dir = "./dist"
 # format = "service-worker"
 # main = "submitForm.js"
-
-routes = [
-  { pattern = "younagi.dev/api/submit-form", zone_name = "", script = "younagi-worker" },
-]

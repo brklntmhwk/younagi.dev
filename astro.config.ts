@@ -66,7 +66,7 @@ export default defineConfig({
       },
     },
     ssr: {
-      external: ['node:fs/promises'],
+      external: ['node:fs/promises', 'node:path'],
     },
   },
   markdown: {

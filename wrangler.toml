@@ -1,5 +1,6 @@
 name = "younagi-worker"
 workers_dev = true
+main = "submitForm.js"
 # type = "javascript"
 
 [build]

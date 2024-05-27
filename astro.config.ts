@@ -66,7 +66,13 @@ export default defineConfig({
       },
     },
     ssr: {
-      external: ['node:fs/promises', 'node:path', 'node:crypto', 'node:module'],
+      external: [
+        'node:fs/promises',
+        'node:path',
+        'node:crypto',
+        'node:module',
+        'canvaskit-wasm',
+      ],
     },
   },
   markdown: {

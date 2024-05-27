@@ -56,7 +56,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
     import.meta.env.PROD && (
       <div
         class="cf-turnstile"
-        data-sitekey={import.meta.env.TURNSTILE_SECRET_KEY}
+        data-sitekey={import.meta.env.TURNSTILE_SITE_KEY}
         data-language={locale}
       />
     )

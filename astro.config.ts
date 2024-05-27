@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config'
+import cloudflare from '@astrojs/cloudflare'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import purgecss from 'astro-purgecss'
@@ -19,6 +20,7 @@ import remarkCallout from './src/plugins/remark-callout'
 // https://astro.build/config
 export default defineConfig({
   site: 'https://younagi.dev/en/',
+  adapter: cloudflare(),
   output: 'hybrid',
   integrations: [
     mdx(),

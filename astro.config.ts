@@ -1,5 +1,5 @@
 import { defineConfig } from 'astro/config'
-import cloudflare from '@astrojs/cloudflare'
+// import cloudflare from '@astrojs/cloudflare'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import purgecss from 'astro-purgecss'
@@ -20,8 +20,8 @@ import remarkCallout from './src/plugins/remark-callout'
 // https://astro.build/config
 export default defineConfig({
   site: 'https://younagi.dev/en/',
-  adapter: cloudflare(),
-  output: 'hybrid',
+  // adapter: cloudflare(),
+  // output: 'hybrid',
   integrations: [
     mdx(),
     // mdx({
@@ -65,9 +65,9 @@ export default defineConfig({
         targets: browserslistToTargets(browserslist('>= 0.1%')),
       },
     },
-    ssr: {
-      external: ['astro-og-canvas', 'canvaskit-wasm'],
-    },
+    // ssr: {
+    //   external: ['astro-og-canvas', 'canvaskit-wasm'],
+    // },
   },
   markdown: {
     syntaxHighlight: false,

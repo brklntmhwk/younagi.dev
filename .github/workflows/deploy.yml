@@ -54,6 +54,11 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: younagidev
           directory: ./dist
+      - name: Publish Cloudflare Worker
+        env:
+          CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: npx wrangler deploy
       - name: Add publish URL
         uses: actions/github-script@v6
         with:
@@ -68,8 +73,3 @@ jobs:
               sha,
               target_url: "${{ steps.cloudflare_pages_deploy.outputs.url }}",
             });
-      - name: Publish Cloudflare Worker
-        env:
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        run: npx wrangler deploy

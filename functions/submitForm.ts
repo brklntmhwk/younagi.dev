@@ -54,7 +54,7 @@ export default {
       }
     } catch (error) {
       return new Response(
-        JSON.stringify({ message: 'Internal server error' }),
+        JSON.stringify({ message: 'Internal server error', error: error }),
         {
           status: 500,
         }

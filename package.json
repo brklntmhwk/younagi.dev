@@ -11,7 +11,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
-    "build:worker": "esbuild functions/submitForm.ts --bundle --sourcemap --minify --outfile=dist/submitForm.js",
+    "build:worker": "esbuild functions/submitForm.ts --bundle --sourcemap --minify --outfile=dist/api/submitForm.js",
     "postbuild": "pagefind --site dist",
     "preview": "astro preview",
     "sync": "astro sync",

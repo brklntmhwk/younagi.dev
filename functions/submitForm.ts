@@ -1,10 +1,39 @@
+type FormDataWithTurnstileRes = {
+  'cf-turnstile-response': string
+  [key: string]: FormDataEntryValue
+}
+
+type ErrorWithMessage = {
+  message: string
+}
+
+function isErrorWithMessage(error: unknown): error is ErrorWithMessage {
+  return (
+    typeof error === 'object' &&
+    error !== null &&
+    'message' in error &&
+    typeof (error as Record<string, unknown>).message === 'string'
+  )
+}
+
+function toErrorWithMessage(maybeError: unknown): ErrorWithMessage {
+  if (isErrorWithMessage(maybeError)) return maybeError
+
+  try {
+    return new Error(JSON.stringify(maybeError))
+  } catch {
+    return new Error(String(maybeError))
+  }
+}
+
+function getErrorMessage(error: unknown) {
+  return toErrorWithMessage(error).message
+}
+
 export default {
   async fetch(req: Request) {
     try {
-      const json = await req.json<{
-        'cf-turnstile-response': string
-        [key: string]: unknown
-      }>()
+      const json = await req.json<FormDataWithTurnstileRes>()
       const { 'cf-turnstile-response': token, ...formData } = json
 
       if (!token) {
@@ -84,33 +113,6 @@ export default {
       )
     }
   },
-}
-
-type ErrorWithMessage = {
-  message: string
-}
-
-function isErrorWithMessage(error: unknown): error is ErrorWithMessage {
-  return (
-    typeof error === 'object' &&
-    error !== null &&
-    'message' in error &&
-    typeof (error as Record<string, unknown>).message === 'string'
-  )
-}
-
-function toErrorWithMessage(maybeError: unknown): ErrorWithMessage {
-  if (isErrorWithMessage(maybeError)) return maybeError
-
-  try {
-    return new Error(JSON.stringify(maybeError))
-  } catch {
-    return new Error(String(maybeError))
-  }
-}
-
-function getErrorMessage(error: unknown) {
-  return toErrorWithMessage(error).message
 }
 
 // export const handleRequest = async (event: FetchEvent): Promise<Response> => {

@@ -62,6 +62,12 @@ const t = await getEntry('i18n', `${locale}/translation`)
       />
     )
   }
+  <div
+    class="cf-turnstile"
+    data-sitekey={import.meta.env.TURNSTILE_SITE_KEY}
+    data-language={locale}
+  >
+  </div>
   <button class="pokemon-border" type="submit"
     >{t.data.contact.sendLabel}</button
   >
@@ -115,9 +121,9 @@ const t = await getEntry('i18n', `${locale}/translation`)
   formElement.addEventListener('submit', async (event) => {
     event.preventDefault()
 
-    const turnstileResponse = document.querySelector(
+    const turnstileResponse = document.querySelector<HTMLInputElement>(
       '.cf-turnstile [name="cf-turnstile-response"]'
-    )!.innerHTML
+    )!.value
 
     const formData = new FormData(formElement)
     const formObject = Object.fromEntries(formData.entries())

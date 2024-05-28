@@ -18,25 +18,20 @@ const t = await getEntry('i18n', `${locale}/translation`)
     <input
       type="text"
       id={t.data.contact.yourName}
-      name={t.data.contact.yourName}
+      name="name"
       autocomplete="off"
       required
     />
   </div>
   <label for={t.data.contact.email}>{t.data.contact.email}</label>
   <div class="pokemon-border">
-    <input
-      type="email"
-      id={t.data.contact.email}
-      name={t.data.contact.email}
-      required
-    />
+    <input type="email" id={t.data.contact.email} name="email" required />
   </div>
   <label for={t.data.contact.messageBody}>{t.data.contact.messageBody}</label>
   <div class="pokemon-border">
     <textarea
       id={t.data.contact.messageBody}
-      name={t.data.contact.messageBody}
+      name="message"
       rows={FORM_TEXTAREA_ROWS}
       minlength={FORM_TEXTAREA_MINLENGTH}
       autocomplete="off"
@@ -46,7 +41,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
     <input
       type="checkbox"
       id={t.data.contact.confirmationLabel}
-      name={t.data.contact.confirmationLabel}
+      name="confirmCheck"
       required
     />
     <label for={t.data.contact.confirmationLabel}
@@ -62,6 +57,12 @@ const t = await getEntry('i18n', `${locale}/translation`)
       />
     )
   }
+  <div
+    class="cf-turnstile"
+    data-sitekey={import.meta.env.TURNSTILE_SITE_KEY}
+    data-language={locale}
+  >
+  </div>
   <button class="pokemon-border" type="submit"
     >{t.data.contact.sendLabel}</button
   >
@@ -115,30 +116,33 @@ const t = await getEntry('i18n', `${locale}/translation`)
   formElement.addEventListener('submit', async (event) => {
     event.preventDefault()
 
-    const turnstileResponse = document.querySelector<HTMLInputElement>(
-      '.cf-turnstile [name="cf-turnstile-response"]'
-    )?.value
+    // const turnstileResponse = document.querySelector<HTMLInputElement>(
+    //   '.cf-turnstile [name="cf-turnstile-response"]'
+    // )?.value
 
     const formData = new FormData(formElement)
     const formObject = Object.fromEntries(formData.entries())
+
     // formObject['cf-turnstile-response'] = turnstileResponse
-    const formObjWithTurnstile = {
-      'cf-turnstile-response': turnstileResponse,
-      ...formObject,
-    }
+    // const formObjWithTurnstile: FormObjectWithTurnstile = {
+    //   'cf-turnstile-response': turnstileResponse ?? '',
+    //   ...formObject,
+    // }
 
     const response = await fetch('/api/submitForm', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formObjWithTurnstile),
+      body: JSON.stringify(formObject),
     })
 
     if (response.ok) {
       alert('Form submitted successfully!')
     } else {
       alert('Error submitting form. Please try again.')
+      alert(JSON.stringify(response.statusText))
+      alert(JSON.stringify(response.body))
     }
   })
 </script>

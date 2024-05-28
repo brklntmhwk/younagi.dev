@@ -36,7 +36,7 @@ export default {
       const url = new URL(req.url)
       if (url.pathname !== '/api/submitForm') {
         return new Response(
-          JSON.stringify({ message: 'Incorrect API route' }),
+          JSON.stringify({ message: `Incorrect API route: ${url.pathname}` }),
           { status: 400 }
         )
       }

@@ -2,7 +2,7 @@
 import { getEntry } from 'astro:content'
 import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 import {
-  SSGFORM_URL,
+  /* SSGFORM_URL, */
   FORM_TEXTAREA_ROWS,
   FORM_TEXTAREA_MINLENGTH,
 } from '@/consts'
@@ -11,8 +11,8 @@ const locale = getLocaleFromUrl(Astro.url)
 const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
-<!-- <form id="contact-form"> -->
-<form id="contact-form" action={SSGFORM_URL} method="post">
+<form id="contact-form">
+  <!-- <form id="contact-form" action={SSGFORM_URL} method="post"> -->
   <label for={t.data.contact.yourName}>{t.data.contact.yourName}</label>
   <div class="pokemon-border">
     <input
@@ -48,7 +48,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
       >{t.data.contact.confirmationLabel}</label
     >
   </section>
-  <!-- {
+  {
     import.meta.env.PROD && (
       <div
         class="cf-turnstile"
@@ -56,7 +56,13 @@ const t = await getEntry('i18n', `${locale}/translation`)
         data-language={locale}
       />
     )
-  } -->
+  }
+  <div
+    class="cf-turnstile"
+    data-sitekey={import.meta.env.TURNSTILE_SITE_KEY}
+    data-language={locale}
+  >
+  </div>
   <button class="pokemon-border" type="submit"
     >{t.data.contact.sendLabel}</button
   >
@@ -97,7 +103,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
     }
   }
 </style>
-<!-- <script
+<script
   is:inline
   src="https://challenges.cloudflare.com/turnstile/v0/api.js"
   async
@@ -133,4 +139,4 @@ const t = await getEntry('i18n', `${locale}/translation`)
       alert(JSON.stringify(response.body))
     }
   })
-</script> -->
+</script>

@@ -17,4 +17,4 @@ node_modules/
 .frontmatter/
 
 functions/
-wrangler.toml
+# wrangler.toml

@@ -33,6 +33,13 @@ function getErrorMessage(error: unknown) {
 export default {
   async fetch(req: Request) {
     try {
+      const url = new URL(req.url)
+      if (url.pathname !== '/api/submitForm') {
+        return new Response(
+          JSON.stringify({ message: 'Incorrect API route' }),
+          { status: 400 }
+        )
+      }
       const json = await req.json<FormDataWithTurnstileRes>()
       const { 'cf-turnstile-response': token, ...formData } = json
 

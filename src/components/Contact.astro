@@ -62,12 +62,6 @@ const t = await getEntry('i18n', `${locale}/translation`)
       />
     )
   }
-  <div
-    class="cf-turnstile"
-    data-sitekey={import.meta.env.TURNSTILE_SITE_KEY}
-    data-language={locale}
-  >
-  </div>
   <button class="pokemon-border" type="submit"
     >{t.data.contact.sendLabel}</button
   >

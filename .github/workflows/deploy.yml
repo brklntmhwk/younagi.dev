@@ -58,7 +58,7 @@ jobs:
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        run: npx wrangler deploy
+        run: npx wrangler deploy ./functions/submitForm.ts --outdir dist
       - name: Add publish URL
         uses: actions/github-script@v6
         with:

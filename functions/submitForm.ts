@@ -30,99 +30,96 @@
 //   return toErrorWithMessage(error).message
 // }
 
-export default {
-  async fetch(req: Request) {
-    const res = await fetch(req)
-    const data = await res.json()
-    return new Response(JSON.stringify({ message: data }), { status: 200 })
-    // try {
-    //   const url = new URL(req.url)
-    //   if (!url.pathname.includes('contact')) {
-    //     return new Response(JSON.stringify({ message: 'Not found' }), {
-    //       status: 404,
-    //     })
-    //   }
-    //   const json = await req.json<FormDataWithTurnstileRes>()
-    //   const { 'cf-turnstile-response': token, ...formData } = json
+// export default {
+//   async fetch(req: Request) {
+// try {
+//   const url = new URL(req.url)
+//   if (!url.pathname.includes('contact')) {
+//     return new Response(JSON.stringify({ message: 'Not found' }), {
+//       status: 404,
+//     })
+//   }
+//   const json = await req.json<FormDataWithTurnstileRes>()
+//   const { 'cf-turnstile-response': token, ...formData } = json
 
-    //   if (!token) {
-    //     return new Response(
-    //       JSON.stringify({ message: 'Missing CAPTCHA token' }),
-    //       { status: 400 }
-    //     )
-    //   }
+//   if (!token) {
+//     return new Response(
+//       JSON.stringify({ message: 'Missing CAPTCHA token' }),
+//       { status: 400 }
+//     )
+//   }
 
-    //   const secretKey = import.meta.env.TURNSTILE_SECRET_KEY
+//   const secretKey = import.meta.env.TURNSTILE_SECRET_KEY
 
-    //   if (!secretKey) {
-    //     return new Response(JSON.stringify({ message: 'Missing secret key' }), {
-    //       status: 500,
-    //     })
-    //   }
+//   if (!secretKey) {
+//     return new Response(JSON.stringify({ message: 'Missing secret key' }), {
+//       status: 500,
+//     })
+//   }
 
-    //   const formActionUrl = 'https://ssgform.com/s/kc69Q9YOLbxz'
+//   const formActionUrl = 'https://ssgform.com/s/kc69Q9YOLbxz'
 
-    //   const verificationResponse = await fetch(
-    //     'https://challenges.cloudflare.com/turnstile/v0/siteverify',
-    //     {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/x-www-form-urlencoded',
-    //       },
-    //       body: new URLSearchParams({
-    //         secret: secretKey,
-    //         response: token,
-    //       }),
-    //     }
-    //   )
+//   const verificationResponse = await fetch(
+//     'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+//     {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/x-www-form-urlencoded',
+//       },
+//       body: new URLSearchParams({
+//         secret: secretKey,
+//         response: token,
+//       }),
+//     }
+//   )
 
-    //   if (!verificationResponse.ok) {
-    //     return new Response(
-    //       JSON.stringify({ message: 'CAPTCHA verification request failed' }),
-    //       { status: 500 }
-    //     )
-    //   }
+//   if (!verificationResponse.ok) {
+//     return new Response(
+//       JSON.stringify({ message: 'CAPTCHA verification request failed' }),
+//       { status: 500 }
+//     )
+//   }
 
-    //   const verificationResult = await verificationResponse.json<{
-    //     success: boolean
-    //     messages: string[]
-    //   }>()
+//   const verificationResult = await verificationResponse.json<{
+//     success: boolean
+//     messages: string[]
+//   }>()
 
-    //   if (verificationResult.success) {
-    //     const forwardRes = await fetch(formActionUrl, {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //       body: JSON.stringify(formData),
-    //     })
+//   if (verificationResult.success) {
+//     const forwardRes = await fetch(formActionUrl, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify(formData),
+//     })
 
-    //     if (forwardRes.ok) {
-    //       return new Response(
-    //         JSON.stringify({ message: 'Form submitted successfully' }),
-    //         { status: 200 }
-    //       )
-    //     } else {
-    //       return new Response(
-    //         JSON.stringify({ message: 'Form submission failed' }),
-    //         { status: 400 }
-    //       )
-    //     }
-    //   } else {
-    //     return new Response(
-    //       JSON.stringify({ message: 'CAPTCHA verification failed' }),
-    //       { status: 400 }
-    //     )
-    //   }
-    // } catch (error) {
-    //   return new Response(
-    //     JSON.stringify({
-    //       message: getErrorMessage(error),
-    //     })
-    //   )
-    // }
-  },
-}
+//     if (forwardRes.ok) {
+//       return new Response(
+//         JSON.stringify({ message: 'Form submitted successfully' }),
+//         { status: 200 }
+//       )
+//     } else {
+//       return new Response(
+//         JSON.stringify({ message: 'Form submission failed' }),
+//         { status: 400 }
+//       )
+//     }
+//   } else {
+//     return new Response(
+//       JSON.stringify({ message: 'CAPTCHA verification failed' }),
+//       { status: 400 }
+//     )
+//   }
+// } catch (error) {
+//   return new Response(
+//     JSON.stringify({
+//       message: getErrorMessage(error),
+//     })
+//   )
+// }
+//   },
+// }
 
 // export const handleRequest = async (event: FetchEvent): Promise<Response> => {
 //   try {

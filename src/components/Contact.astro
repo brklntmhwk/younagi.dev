@@ -123,12 +123,6 @@ const t = await getEntry('i18n', `${locale}/translation`)
     const formData = new FormData(formElement)
     const formObject = Object.fromEntries(formData.entries())
 
-    // formObject['cf-turnstile-response'] = turnstileResponse
-    // const formObjWithTurnstile: FormObjectWithTurnstile = {
-    //   'cf-turnstile-response': turnstileResponse ?? '',
-    //   ...formObject,
-    // }
-
     const response = await fetch('/api/submitForm', {
       method: 'POST',
       headers: {

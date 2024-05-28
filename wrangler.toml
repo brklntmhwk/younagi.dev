@@ -1,14 +1,8 @@
 name = "younagi-worker"
 workers_dev = true
 main = "dist/submitForm.js"
-# ↑ ここが間違ってエラー。パスの設定方法、整合性要チェック
-# type = "javascript"
 
 routes = [{ pattern = "younagi.dev/*", zone_name = "younagi.dev" }]
 
 [build]
 command = "pnpm run build:worker"
-
-# dir = "./dist"
-# format = "service-worker"
-# main = "submitForm.js"

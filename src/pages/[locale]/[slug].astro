@@ -48,7 +48,7 @@ const { Content, headings } = await page.render()
     <AboutLayout {headings}>
       <Content components={components} />
     </AboutLayout>
-  ) : page.slug.slice(page.slug.indexOf('/') + 1) === 'about' ? (
+  ) : page.slug.slice(page.slug.indexOf('/') + 1) === 'contact' ? (
     <ContactLayout page={page}>
       <Content components={components} />
     </ContactLayout>

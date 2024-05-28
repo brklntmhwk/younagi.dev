@@ -1,6 +1,7 @@
 name = "younagi-worker"
 workers_dev = true
 main = "dist/submitForm.js"
+compatibility_date = "2024-05-28"
 
 routes = [{ pattern = "younagi.dev/*", zone_name = "younagi.dev" }]
 

@@ -1,12 +1,27 @@
 export default {
   async fetch(req: Request) {
     try {
-      const { 'cf-turnstile-response': token, ...formData } =
-        (await req.json()) as {
-          'cf-turnstile-response': string
-          [key: string]: unknown
-        }
+      const json = await req.json<{
+        'cf-turnstile-response': string
+        [key: string]: unknown
+      }>()
+      const { 'cf-turnstile-response': token, ...formData } = json
+
+      if (!token) {
+        return new Response(
+          JSON.stringify({ message: 'Missing CAPTCHA token' }),
+          { status: 400 }
+        )
+      }
+
       const secretKey = import.meta.env.TURNSTILE_SECRET_KEY
+
+      if (!secretKey) {
+        return new Response(JSON.stringify({ message: 'Missing secret key' }), {
+          status: 500,
+        })
+      }
+
       const formActionUrl = 'https://ssgform.com/s/kc69Q9YOLbxz'
 
       const verificationResponse = await fetch(
@@ -23,11 +38,20 @@ export default {
         }
       )
 
-      const verificationResult: { success: boolean } =
-        await verificationResponse.json()
+      if (!verificationResponse.ok) {
+        return new Response(
+          JSON.stringify({ message: 'CAPTCHA verification request failed' }),
+          { status: 500 }
+        )
+      }
+
+      const verificationResult = await verificationResponse.json<{
+        success: boolean
+        messages: string[]
+      }>()
 
       if (verificationResult.success) {
-        const forwardResponse = await fetch(formActionUrl, {
+        const forwardRes = await fetch(formActionUrl, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -35,14 +59,14 @@ export default {
           body: JSON.stringify(formData),
         })
 
-        if (forwardResponse.ok) {
+        if (forwardRes.ok) {
           return new Response(
             JSON.stringify({ message: 'Form submitted successfully' }),
             { status: 200 }
           )
         } else {
           return new Response(
-            JSON.stringify({ message: 'CAPTCHA verification failed' }),
+            JSON.stringify({ message: 'Form submission failed' }),
             { status: 400 }
           )
         }
@@ -54,7 +78,9 @@ export default {
       }
     } catch (error) {
       return new Response(
-        JSON.stringify({ message: 'Internal server error', error: error }),
+        JSON.stringify({
+          message: 'Internal server error',
+        }),
         {
           status: 500,
         }

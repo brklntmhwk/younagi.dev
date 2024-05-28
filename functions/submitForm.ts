@@ -32,7 +32,8 @@
 
 export default {
   async fetch(req: Request) {
-    return new Response(await req.text(), { status: 200 })
+    const reqText = await req.text()
+    return new Response(JSON.stringify({ message: reqText }), { status: 200 })
     // try {
     //   const url = new URL(req.url)
     //   if (!url.pathname.includes('contact')) {

@@ -62,9 +62,6 @@ export default defineConfig({
         targets: browserslistToTargets(browserslist('>= 0.1%')),
       },
     },
-    // ssr: {
-    //   external: ['astro-og-canvas', 'canvaskit-wasm'],
-    // },
   },
   markdown: {
     syntaxHighlight: false,

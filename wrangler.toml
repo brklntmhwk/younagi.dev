@@ -1,6 +1,7 @@
 name = "younagi-worker"
 workers_dev = true
 main = "dist/submitForm.js"
+account_id = "e76d48479123d407160ad0239a053749"
 
 routes = [{ pattern = "younagi.dev/*", zone_name = "younagi.dev" }]
 

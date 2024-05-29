@@ -4,11 +4,11 @@ import sharp from 'sharp'
 
 const OgImage = async (text: string) => {
   const fontPixelMPlus10 = readFileSync(
-    './src/assets/fonts/PixelMplus10-Regular.woff2'
+    './src/assets/fonts/PixelMplus10-Regular.woff'
   )
-  const fontInconsolata = readFileSync(
-    './node_modules/@fontsource-variable/inconsolata/files/inconsolata-latin-ext-wdth-normal.woff2'
-  )
+  // const fontInconsolata = readFileSync(
+  //   './node_modules/@fontsource-variable/inconsolata/files/inconsolata-latin-ext-wdth-normal.woff2'
+  // )
   const logoBuffer = readFileSync('./src/assets/images/logo.png')
   const icon = btoa(
     new Uint8Array(logoBuffer).reduce(
@@ -20,7 +20,7 @@ const OgImage = async (text: string) => {
   const svg = await satori(
     <div
       style={{
-        'font-family': 'PixelMPlus10, Inconsolata,sans-serif',
+        'font-family': 'PixelMPlus10, sans-serif',
         'background-color': '#120e12',
         color: '#f2f0e6',
         display: 'flex',
@@ -121,7 +121,6 @@ const OgImage = async (text: string) => {
       </div>
     </div>,
     {
-      // debug: true,
       width: 1200,
       height: 630,
       fonts: [
@@ -131,12 +130,12 @@ const OgImage = async (text: string) => {
           weight: 400,
           style: 'normal',
         },
-        {
-          name: 'Inconsolata',
-          data: fontInconsolata,
-          weight: 600,
-          style: 'normal',
-        },
+        // {
+        //   name: 'Inconsolata',
+        //   data: fontInconsolata,
+        //   weight: 600,
+        //   style: 'normal',
+        // },
       ],
     }
   )

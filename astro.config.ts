@@ -26,7 +26,7 @@ export default defineConfig({
     //   optimize: true,
     // }),
     sitemap(),
-    solid(),
+    solid({ exclude: '**/OgImage/**' }),
     purgecss({
       fontFace: true,
     }),

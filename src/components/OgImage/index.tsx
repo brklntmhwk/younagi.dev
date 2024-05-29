@@ -1,3 +1,6 @@
+/** @jsxImportSource react */
+/** @jsxRuntime automatic */
+
 import { readFileSync } from 'fs'
 import satori from 'satori'
 import sharp from 'sharp'
@@ -20,39 +23,39 @@ const OgImage = async (text: string) => {
   const svg = await satori(
     <div
       style={{
-        'font-family': 'PixelMPlus10, sans-serif',
-        'background-color': '#120e12',
+        fontFamily: 'PixelMPlus10, sans-serif',
+        backgroundColor: '#120e12',
         color: '#f2f0e6',
         display: 'flex',
-        'flex-direction': 'row',
+        flexDirection: 'row',
         height: '100%',
         width: '100%',
       }}
     >
       <div
         style={{
-          'background-color': 'white',
+          backgroundColor: 'white',
           color: '#120e12',
           display: 'flex',
-          'flex-direction': 'column',
+          flexDirection: 'column',
           width: '30%',
           padding: '2.5rem',
-          'justify-content': 'center',
+          justifyContent: 'center',
         }}
       >
         <div
           style={{
             display: 'flex',
-            'flex-direction': 'column',
+            flexDirection: 'column',
             gap: '1rem',
           }}
         >
           <h2
             style={{
-              'font-size': '17rem',
+              fontSize: '17rem',
               display: 'flex',
-              'align-items': 'center',
-              'justify-content': 'center',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
             sssss
@@ -62,22 +65,22 @@ const OgImage = async (text: string) => {
       <div
         style={{
           display: 'flex',
-          'flex-direction': 'column',
+          flexDirection: 'column',
           width: '70%',
-          'max-height': '100%',
+          maxHeight: '100%',
           padding: '3rem',
         }}
       >
         <h1
           style={{
-            'margin-top': 0,
-            'font-size': '4rem',
+            marginTop: 0,
+            fontSize: '4rem',
             width: '100%',
-            'flex-grow': 1,
+            flexGrow: 1,
             display: 'flex',
-            'align-items': 'center',
-            'justify-content': 'center',
-            'line-height': '1.2',
+            alignItems: 'center',
+            justifyContent: 'center',
+            lineHeight: '1.2',
           }}
         >
           {text}
@@ -85,16 +88,16 @@ const OgImage = async (text: string) => {
         <div
           style={{
             display: 'flex',
-            'flex-direction': 'row',
+            flexDirection: 'row',
             width: '100%',
-            'justify-content': 'space-between',
-            'align-items': 'center',
+            justifyContent: 'space-between',
+            alignItems: 'center',
           }}
         >
           <div
             style={{
               display: 'flex',
-              'align-items': 'center',
+              alignItems: 'center',
             }}
           >
             <img
@@ -103,15 +106,15 @@ const OgImage = async (text: string) => {
               width={80}
               height={80}
               style={{
-                'border-radius': '9999px',
-                'margin-right': '1.25rem',
+                borderRadius: '9999px',
+                marginRight: '1.25rem',
               }}
             />
             <h2
               style={{
-                'margin-right': '1.25rem',
-                'font-family': 'PixelMPlus10',
-                'font-size': '2.5rem',
+                marginRight: '1.25rem',
+                fontFamily: 'PixelMPlus10',
+                fontSize: '2.5rem',
               }}
             >
               {'Nagi (凪)'}

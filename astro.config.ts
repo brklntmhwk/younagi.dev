@@ -19,7 +19,7 @@ import remarkCallout from './src/plugins/remark-callout'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://younagi.dev/en/',
+  site: 'https://younagi.dev/',
   integrations: [
     mdx(),
     // mdx({

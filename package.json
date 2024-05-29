@@ -40,7 +40,6 @@
     "@types/katex": "0.16.7",
     "@types/mdast": "^4.0.4",
     "@types/node": "^20.12.12",
-    "@types/react": "^18.3.3",
     "@types/unist": "^3.0.2",
     "@typescript-eslint/eslint-plugin": "7.1.1",
     "@typescript-eslint/parser": "7.1.1",

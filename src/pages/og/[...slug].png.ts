@@ -1,6 +1,6 @@
 import type { APIRoute, APIContext, GetStaticPaths } from 'astro'
 import { getCollection } from 'astro:content'
-import getOgImage from '@/components/OGImage'
+import getOgImage from '@/components/OgImage'
 
 const entries = await getCollection('blog')
 const pages = await getCollection('page')

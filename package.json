@@ -32,6 +32,7 @@
     "purgecss": "5.0.0"
   },
   "devDependencies": {
+    "@cloudflare/pages-plugin-static-forms": "^1.0.3",
     "@cloudflare/workers-types": "^4.20240512.0",
     "@pagefind/default-ui": "^1.0.4",
     "@types/eslint": "8.56.5",

@@ -11,8 +11,7 @@ const locale = getLocaleFromUrl(Astro.url)
 const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
-<form id="contact-form">
-  <!-- <form id="contact-form" action={SSGFORM_URL} method="post"> -->
+<form id="contact-form" method="post" data-static-form-name="contact">
   <label for={t.data.contact.yourName}>{t.data.contact.yourName}</label>
   <div class="pokemon-border">
     <input
@@ -108,7 +107,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
   src="https://challenges.cloudflare.com/turnstile/v0/api.js"
   async
   defer></script>
-<script>
+<!-- <script>
   const formElement = document.getElementById(
     'contact-form'
   )! as HTMLFormElement
@@ -139,4 +138,4 @@ const t = await getEntry('i18n', `${locale}/translation`)
       alert(JSON.stringify(response.body))
     }
   })
-</script>
+</script> -->

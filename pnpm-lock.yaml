@@ -39,6 +39,9 @@ importers:
         specifier: 5.0.0
         version: 5.0.0
     devDependencies:
+      '@cloudflare/pages-plugin-static-forms':
+        specifier: ^1.0.3
+        version: 1.0.3
       '@cloudflare/workers-types':
         specifier: ^4.20240512.0
         version: 4.20240512.0
@@ -341,6 +344,9 @@ packages:
   '@cloudflare/kv-asset-handler@0.3.2':
     resolution: {integrity: sha512-EeEjMobfuJrwoctj7FA1y1KEbM0+Q1xSjobIEyie9k4haVEBB7vkDvsasw1pM3rO39mL2akxIAzLMUAtrMHZhA==}
     engines: {node: '>=16.13'}
+
+  '@cloudflare/pages-plugin-static-forms@1.0.3':
+    resolution: {integrity: sha512-plt4ZalqAyG01B4PeznTOgrUTKeDmEzq7Tub2Hj7r2ynaAhZhkKUTQS9Ye+hIe7mv+jSIvaabAH7HkTqS/n0PA==}
 
   '@cloudflare/workerd-darwin-64@1.20240512.0':
     resolution: {integrity: sha512-VMp+CsSHFALQiBzPdQ5dDI4T1qwLu0mQ0aeKVNDosXjueN0f3zj/lf+mFil5/9jBbG3t4mG0y+6MMnalP9Lobw==}
@@ -3771,6 +3777,8 @@ snapshots:
   '@cloudflare/kv-asset-handler@0.3.2':
     dependencies:
       mime: 3.0.0
+
+  '@cloudflare/pages-plugin-static-forms@1.0.3': {}
 
   '@cloudflare/workerd-darwin-64@1.20240512.0':
     optional: true

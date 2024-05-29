@@ -15,6 +15,3 @@ node_modules/
 
 # Front Matter CMS files
 .frontmatter/
-
-# functions/
-# wrangler.toml

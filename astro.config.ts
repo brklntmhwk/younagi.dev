@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
+import solid from '@astrojs/solid-js'
 import purgecss from 'astro-purgecss'
 import browserslist from 'browserslist'
 import { browserslistToTargets } from 'lightningcss'
@@ -25,6 +26,7 @@ export default defineConfig({
     //   optimize: true,
     // }),
     sitemap(),
+    solid(),
     purgecss({
       fontFace: true,
     }),

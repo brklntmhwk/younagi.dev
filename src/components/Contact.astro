@@ -1,17 +1,13 @@
 ---
 import { getEntry } from 'astro:content'
 import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
-import {
-  /* SSGFORM_URL, */
-  FORM_TEXTAREA_ROWS,
-  FORM_TEXTAREA_MINLENGTH,
-} from '@/consts'
+import { FORM_TEXTAREA_ROWS, FORM_TEXTAREA_MINLENGTH } from '@/consts'
 
 const locale = getLocaleFromUrl(Astro.url)
 const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
-<form id="contact-form" method="post" data-static-form-name="contact">
+<form id="contact-form" action={import.meta.env.SSGFORM_URL} method="post">
   <label for={t.data.contact.yourName}>{t.data.contact.yourName}</label>
   <div class="pokemon-border">
     <input
@@ -56,12 +52,6 @@ const t = await getEntry('i18n', `${locale}/translation`)
       />
     )
   }
-  <div
-    class="cf-turnstile"
-    data-sitekey={import.meta.env.TURNSTILE_SITE_KEY}
-    data-language={locale}
-  >
-  </div>
   <button class="pokemon-border" type="submit"
     >{t.data.contact.sendLabel}</button
   >

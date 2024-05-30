@@ -32,6 +32,7 @@ const OgImage = async (text: string) => {
         backgroundSize: '1200px 630px',
         width: 1200,
         height: 630,
+        display: 'flex',
       }}
     >
       <div

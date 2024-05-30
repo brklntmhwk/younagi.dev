@@ -11,16 +11,16 @@ const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
 <nav class="glassmorphism" data-pagefind-ignore="all">
-  <a class="blog-title" href={`/${locale}/`}>
+  <a class="blog-title" href={`/${locale}`}>
     {t.data.blog_name}
   </a>
   <NavMenuContainer>
     <div class="nav-links">
-      <NavLink href={`/${locale}/`}>{t.data.nav.nav_links.home}</NavLink>
-      <NavLink href={`/${locale}/blog/`}>{t.data.nav.nav_links.blog}</NavLink>
-      <NavLink href={`/${locale}/news/`}>{t.data.nav.nav_links.news}</NavLink>
-      <NavLink href={`/${locale}/about/`}>{t.data.nav.nav_links.about}</NavLink>
-      <NavLink href={`/${locale}/contact/`}
+      <NavLink href={`/${locale}`}>{t.data.nav.nav_links.home}</NavLink>
+      <NavLink href={`/${locale}/blog`}>{t.data.nav.nav_links.blog}</NavLink>
+      <NavLink href={`/${locale}/news`}>{t.data.nav.nav_links.news}</NavLink>
+      <NavLink href={`/${locale}/about`}>{t.data.nav.nav_links.about}</NavLink>
+      <NavLink href={`/${locale}/contact`}
         >{t.data.nav.nav_links.contact}</NavLink
       >
     </div>

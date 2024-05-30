@@ -4,6 +4,8 @@ import satori from 'satori'
 // import { html } from 'satori-html'
 import sharp from 'sharp'
 
+// 仕方ない、npx astro add react してみるしかないか。。。
+
 const OgImage = async (text: string) => {
   const fontPixelMPlus10 = readFileSync(
     './src/assets/fonts/PixelMplus10-Regular.woff'

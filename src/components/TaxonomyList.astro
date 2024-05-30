@@ -15,7 +15,7 @@ const { taxonomyList, kind } = Astro.props
   {
     taxonomyList.flatMap((taxonomy) => (
       <li>
-        <a href={`/${locale}/blog/${kind}/${slugify(taxonomy)}/`}>
+        <a href={`/${locale}/blog/${kind}/${slugify(taxonomy)}`}>
           {kind === 'tags' ? `#${taxonomy}` : taxonomy}
         </a>
       </li>

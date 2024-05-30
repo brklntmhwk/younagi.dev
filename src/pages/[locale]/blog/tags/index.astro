@@ -28,7 +28,7 @@ const tags = [...new Set(entries.flatMap((entry) => entry.data.tags ?? []))]
 >
   <main data-pagefind-ignore="all">
     <h1>{t.data.pages.blog.tags.title}</h1>
-    <a class="back-to-link" href={`/${locale}/blog/`}>
+    <a class="back-to-link" href={`/${locale}/blog`}>
       ◀ {t.data.pages.blog.back_to_top}
     </a>
     <hr />

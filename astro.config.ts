@@ -31,7 +31,7 @@ export default defineConfig({
       fontFace: true,
     }),
   ],
-  trailingSlash: 'always',
+  // trailingSlash: 'always',
   prefetch: {
     defaultStrategy: 'viewport',
     prefetchAll: true,

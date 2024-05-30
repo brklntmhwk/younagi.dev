@@ -89,11 +89,22 @@ const t = await getEntry('i18n', `${locale}/translation`)
     }
   }
 </style>
-<script
+<!-- <script
   is:inline
   src="https://challenges.cloudflare.com/turnstile/v0/api.js"
   async
-  defer></script>
+  defer></script> -->
+<script>
+  import { onMount } from 'solid-js'
+
+  onMount(() => {
+    const script = document.createElement('script')
+    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js'
+    script.async = true
+    script.defer = true
+    document.body.appendChild(script)
+  })
+</script>
 <!-- <script>
   const formElement = document.getElementById(
     'contact-form'

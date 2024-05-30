@@ -3,8 +3,11 @@ import satori from 'satori'
 import sharp from 'sharp'
 
 const OgImage = async (text: string) => {
-  const fontPixelMPlus10 = readFileSync(
+  const fontPixelMPlus10Regular = readFileSync(
     './src/assets/fonts/PixelMplus10-Regular.woff'
+  )
+  const fontPixelMPlus10Bold = readFileSync(
+    './src/assets/fonts/PixelMplus10-Bold.woff'
   )
   // const fontInconsolata = readFileSync(
   //   './node_modules/@fontsource-variable/inconsolata/files/inconsolata-latin-ext-wdth-normal.woff2'
@@ -29,16 +32,14 @@ const OgImage = async (text: string) => {
         backgroundSize: '1200px 630px',
         width: 1200,
         height: 630,
-        display: 'flex',
-        justifyContent: 'center',
       }}
     >
       <div
         style={{
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'space-between',
-          padding: '1.85rem',
+          gap: '1.5rem',
+          padding: '2.25rem',
         }}
       >
         <h2
@@ -60,8 +61,8 @@ const OgImage = async (text: string) => {
             src={`data:image/png;base64,${logo}`}
             alt="younagi.dev site logo"
             style={{ borderRadius: '9999px' }}
-            width="80"
-            height="80"
+            width="70"
+            height="70"
           />
           <span style={{ fontSize: '2rem' }}>younagi.dev</span>
         </div>
@@ -73,8 +74,14 @@ const OgImage = async (text: string) => {
       fonts: [
         {
           name: 'PixelMPlus10',
-          data: fontPixelMPlus10,
+          data: fontPixelMPlus10Regular,
           weight: 400,
+          style: 'normal',
+        },
+        {
+          name: 'PixelMPlus10',
+          data: fontPixelMPlus10Bold,
+          weight: 700,
           style: 'normal',
         },
       ],

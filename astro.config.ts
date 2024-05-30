@@ -74,7 +74,7 @@ export default defineConfig({
       },
     },
     ssr: {
-      noExternal: ['node:fs'],
+      external: ['node:fs'],
     },
   },
   markdown: {

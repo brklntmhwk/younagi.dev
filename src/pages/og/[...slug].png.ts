@@ -1,10 +1,12 @@
 import type { APIRoute, APIContext, GetStaticPaths } from 'astro'
 import { getCollection } from 'astro:content'
 import getOgImage from '@/components/OgImage'
+import { getPublishedSortedEntries } from '@/lib/content'
 
-const entries = await getCollection('blog')
+const blogEntries = getPublishedSortedEntries(await getCollection('blog'))
+const newsEntries = getPublishedSortedEntries(await getCollection('news'))
 const pages = await getCollection('page')
-const articles = [...entries, ...pages]
+const articles = [...blogEntries, ...newsEntries, ...pages]
 
 export const GET: APIRoute = async ({ params }: APIContext) => {
   const { slug } = params

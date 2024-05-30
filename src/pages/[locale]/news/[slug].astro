@@ -2,9 +2,10 @@
 import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
 import { getCollection } from 'astro:content'
 import NewsLayout from '@/layouts/NewsLayout.astro'
+import { getPublishedSortedEntries } from '@/lib/content'
 
 export const getStaticPaths = (async () => {
-  const entries = await getCollection('news')
+  const entries = getPublishedSortedEntries(await getCollection('news'))
 
   return entries.map((entry) => {
     const locale = entry.slug.slice(0, entry.slug.indexOf('/'))

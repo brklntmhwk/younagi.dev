@@ -38,7 +38,7 @@ const OgImage = async (text: string) => {
     >
       <h2
         style={{
-          fontSize: '1.5rem',
+          fontSize: '2.5rem',
           fontWeight: '700',
         }}
       >
@@ -58,7 +58,7 @@ const OgImage = async (text: string) => {
           width="90"
           height="90"
         />
-        <span style={{ fontSize: '1.25rem' }}>younagi.dev</span>
+        <span style={{ fontSize: '1.85rem' }}>younagi.dev</span>
       </div>
     </div>,
     {

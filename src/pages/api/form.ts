@@ -62,7 +62,9 @@ export const POST: APIRoute = async ({
 
   if (!response.ok) {
     return new Response(
-      JSON.stringify({ message: `Form submission failed: ${response.text()}` }),
+      JSON.stringify({
+        message: `Form submission failed: ${response.status} ${response.statusText} ${response.body}`,
+      }),
       { status: 500 }
     )
   }

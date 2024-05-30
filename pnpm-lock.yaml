@@ -189,6 +189,9 @@ importers:
       unsplash-js:
         specifier: ^7.0.19
         version: 7.0.19
+      wrangler:
+        specifier: ^3.57.2
+        version: 3.57.2(@cloudflare/workers-types@4.20240524.0)
 
 packages:
 

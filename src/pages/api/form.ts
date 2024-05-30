@@ -8,12 +8,20 @@ type TurnstileResponse = {
   'error-codes': string[]
   challenge_ts: string
   hostname: string
+  action: string
+  cdata: string
 }
 
-export const POST: APIRoute = async ({ request, redirect }: APIContext) => {
+export const POST: APIRoute = async ({
+  request,
+  redirect,
+  locals,
+}: APIContext) => {
   const data = await request.formData()
   const turnstileToken = data.get('cf-turnstile-response')! as string
-  const turnstileSecretKey = import.meta.env.TURNSTILE_SECRET_KEY
+  const { TURNSTILE_SECRET_KEY, SSGFORM_URL } = locals.runtime.env
+  const turnstileSecretKey = locals
+  // const turnstileSecretKey = import.meta.env.TURNSTILE_SECRET_KEY
 
   const turnstileResult = await fetch(TURNSTILE_SITE_VERIFICATION_URL, {
     method: 'POST',
@@ -21,7 +29,7 @@ export const POST: APIRoute = async ({ request, redirect }: APIContext) => {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: new URLSearchParams({
-      secret: turnstileSecretKey,
+      secret: TURNSTILE_SECRET_KEY,
       response: turnstileToken,
     }),
   })
@@ -37,10 +45,15 @@ export const POST: APIRoute = async ({ request, redirect }: APIContext) => {
     )
   }
 
-  const response = await fetch(import.meta.env.SSGFORM_URL, {
+  const response = await fetch(SSGFORM_URL, {
     method: 'POST',
     body: data,
   })
+
+  // const response = await fetch(import.meta.env.SSGFORM_URL, {
+  //   method: 'POST',
+  //   body: data,
+  // })
 
   if (!response.ok) {
     return new Response(

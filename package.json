@@ -81,7 +81,8 @@
     "typescript": "5.4.5",
     "unified": "^11.0.4",
     "unist-util-visit": "^5.0.0",
-    "unsplash-js": "^7.0.19"
+    "unsplash-js": "^7.0.19",
+    "wrangler": "^3.57.2"
   },
   "engines": {
     "node": ">=18.16.0"

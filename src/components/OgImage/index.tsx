@@ -45,7 +45,7 @@ const OgImage = async (text: string) => {
       >
         <h2
           style={{
-            fontSize: '2.85rem',
+            fontSize: '2.875rem',
             fontWeight: '700',
           }}
         >
@@ -62,10 +62,10 @@ const OgImage = async (text: string) => {
             src={`data:image/png;base64,${logo}`}
             alt="younagi.dev site logo"
             style={{ borderRadius: '9999px' }}
-            width="70"
-            height="70"
+            width="60"
+            height="60"
           />
-          <span style={{ fontSize: '2rem' }}>younagi.dev</span>
+          <span style={{ fontSize: '2.25rem' }}>younagi.dev</span>
         </div>
       </div>
     </div>,

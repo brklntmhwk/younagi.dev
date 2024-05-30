@@ -7,7 +7,7 @@ const locale = getLocaleFromUrl(Astro.url)
 const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
-<form id="contact-form" action={import.meta.env.SSGFORM_URL} method="post">
+<form id="contact-form" action="/api/form" method="post">
   <label for={t.data.contact.yourName}>{t.data.contact.yourName}</label>
   <div class="pokemon-border">
     <input
@@ -43,15 +43,12 @@ const t = await getEntry('i18n', `${locale}/translation`)
       >{t.data.contact.confirmationLabel}</label
     >
   </section>
-  {
-    import.meta.env.PROD && (
-      <div
-        class="cf-turnstile"
-        data-sitekey={import.meta.env.TURNSTILE_SITE_KEY}
-        data-language={locale}
-      />
-    )
-  }
+  <div
+    class="cf-turnstile"
+    data-sitekey={import.meta.env.TURNSTILE_SITE_KEY}
+    data-language={locale}
+  >
+  </div>
   <button class="pokemon-border" type="submit"
     >{t.data.contact.sendLabel}</button
   >
@@ -105,19 +102,16 @@ const t = await getEntry('i18n', `${locale}/translation`)
   formElement.addEventListener('submit', async (event) => {
     event.preventDefault()
 
-    // const turnstileResponse = document.querySelector<HTMLInputElement>(
-    //   '.cf-turnstile [name="cf-turnstile-response"]'
-    // )?.value
-
     const formData = new FormData(formElement)
     const formObject = Object.fromEntries(formData.entries())
 
-    const response = await fetch('/api/submitForm', {
+    const response = await fetch(formElement.action, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
       body: JSON.stringify(formObject),
+      // headers: {
+      //   'Content-Type': 'application/json',
+      // },
+      // body: JSON.stringify(formObject),
     })
 
     if (response.ok) {

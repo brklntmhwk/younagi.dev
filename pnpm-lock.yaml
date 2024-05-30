@@ -165,9 +165,6 @@ importers:
       satori:
         specifier: ^0.10.13
         version: 0.10.13
-      satori-html:
-        specifier: ^0.3.2
-        version: 0.3.2
       sharp:
         specifier: ^0.33.3
         version: 0.33.3
@@ -2810,9 +2807,6 @@ packages:
 
   sass-formatter@0.7.9:
     resolution: {integrity: sha512-CWZ8XiSim+fJVG0cFLStwDvft1VI7uvXdCNJYXhDvowiv+DsbD1nXLiQ4zrE5UBvj5DWZJ93cwN0NX5PMsr1Pw==}
-
-  satori-html@0.3.2:
-    resolution: {integrity: sha512-wjTh14iqADFKDK80e51/98MplTGfxz2RmIzh0GqShlf4a67+BooLywF17TvJPD6phO0Hxm7Mf1N5LtRYvdkYRA==}
 
   satori@0.10.13:
     resolution: {integrity: sha512-klCwkVYMQ/ZN5inJLHzrUmGwoRfsdP7idB5hfpJ1jfiJk1ErDitK8Hkc6Kll1+Ox2WtqEuGecSZLnmup3CGzvQ==}
@@ -6560,10 +6554,6 @@ snapshots:
   sass-formatter@0.7.9:
     dependencies:
       suf-log: 2.5.3
-
-  satori-html@0.3.2:
-    dependencies:
-      ultrahtml: 1.5.3
 
   satori@0.10.13:
     dependencies:

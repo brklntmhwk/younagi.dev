@@ -1,6 +1,5 @@
 import { readFileSync } from 'node:fs'
 import satori from 'satori'
-// import { html } from 'satori-html'
 import sharp from 'sharp'
 
 const OgImage = async (text: string) => {
@@ -10,7 +9,9 @@ const OgImage = async (text: string) => {
   // const fontInconsolata = readFileSync(
   //   './node_modules/@fontsource-variable/inconsolata/files/inconsolata-latin-ext-wdth-normal.woff2'
   // )
-  const backgroundImage = readFileSync('./src/assets/images/og-bg.jpg')
+  const backgroundImage = readFileSync(
+    './src/assets/images/og-bg.jpg'
+  ).toString('base64')
   const logoBuffer = readFileSync('./src/assets/images/logo.png')
   const logo = btoa(
     new Uint8Array(logoBuffer).reduce(
@@ -18,24 +19,6 @@ const OgImage = async (text: string) => {
       ''
     )
   )
-
-  //   const markup = html(`
-  //   <div
-  //   style="font-family: PixelMPlus10, sans-serif; color: #1c1b22; display: flex; flex-direction: column; gap: 1.5rem; justify-content: space-between; padding: 1.85rem;"
-  // >
-  //   <h2 style="font-size: 1.5rem; font-weight: 700;">${text}</h2>
-  //   <div style="display: flex; align-items: center; gap: 1.5rem;">
-  //     <img
-  //       src="data:image/png;base64,${logo}"
-  //       alt="younagi.dev site logo"
-  //       style="border-radius: 9999px;"
-  //       width="80"
-  //       height="80"
-  //     />
-  //     <span style="font-size: 1.25rem;">younagi.dev</span>
-  //   </div>
-  // </div>
-  //   `)
 
   const svg = await satori(
     <div
@@ -106,7 +89,8 @@ const OgImage = async (text: string) => {
   //     props: {
   //       style: {
   //         fontFamily: 'PixelMPlus10, sans-serif',
-  //         // backgroundImage: `url(data:image/png;base64,${backgroundImage})`,
+  //         backgroundImage: `url(data:image/png;base64,${backgroundImage})`,
+  //         backgroundSize: "1200px 630px",
   //         color: '#1c1b22',
   //         display: 'flex',
   //         flexDirection: 'column',

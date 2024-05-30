@@ -20,7 +20,7 @@ import remarkCallout from './src/plugins/remark-callout'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://younagi.dev/en',
+  site: 'https://younagi.dev',
   integrations: [
     mdx(),
     // mdx({
@@ -37,7 +37,7 @@ export default defineConfig({
     }),
     sitemap(),
   ],
-  // trailingSlash: 'always',
+  trailingSlash: 'never',
   prefetch: {
     defaultStrategy: 'viewport',
     prefetchAll: true,

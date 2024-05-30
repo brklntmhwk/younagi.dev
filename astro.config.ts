@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
+import react from '@astrojs/react'
 import solid from '@astrojs/solid-js'
 import purgecss from 'astro-purgecss'
 import browserslist from 'browserslist'
@@ -19,17 +20,22 @@ import remarkCallout from './src/plugins/remark-callout'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://younagi.dev/',
+  site: 'https://younagi.dev/en',
   integrations: [
     mdx(),
     // mdx({
     //   optimize: true,
     // }),
-    sitemap(),
-    solid({ exclude: '**/OgImage/**' }),
+    react({
+      include: '**/OgImage/*',
+    }),
+    solid({
+      exclude: '**/OgImage/*',
+    }),
     purgecss({
       fontFace: true,
     }),
+    sitemap(),
   ],
   // trailingSlash: 'always',
   prefetch: {

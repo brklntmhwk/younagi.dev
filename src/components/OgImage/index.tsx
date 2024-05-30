@@ -11,7 +11,7 @@ const OgImage = async (text: string) => {
   // const fontInconsolata = readFileSync(
   //   './node_modules/@fontsource-variable/inconsolata/files/inconsolata-latin-ext-wdth-normal.woff2'
   // )
-  const backgroundImage = readFileSync('./src/assets/images/og-bg.jpg')
+  // const backgroundImage = readFileSync('./src/assets/images/og-bg.jpg')
   const logoBuffer = readFileSync('./src/assets/images/logo.png')
   const logo = btoa(
     new Uint8Array(logoBuffer).reduce(
@@ -44,7 +44,7 @@ const OgImage = async (text: string) => {
       props: {
         style: {
           fontFamily: 'PixelMPlus10, sans-serif',
-          backgroundImage: `url(data:image/png;base64,${backgroundImage})`,
+          // backgroundImage: `url(data:image/png;base64,${backgroundImage})`,
           color: '#1c1b22',
           display: 'flex',
           flexDirection: 'column',

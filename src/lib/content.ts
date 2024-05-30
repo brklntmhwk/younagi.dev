@@ -12,7 +12,7 @@ export const getPublishedSortedEntries = <
         return entry.data.draft === 'published' ? true : false
       }
 
-      return SHOW_DRAFT_PAGES_IN_DEV ? true : false
+      return SHOW_DRAFT_PAGES_IN_DEV
     })
     .sort((a, b) => a.data.publishedAt.valueOf() - b.data.publishedAt.valueOf())
 }

@@ -13,31 +13,25 @@ type TurnstileResponse = {
 export const POST: APIRoute = async ({ request, redirect }: APIContext) => {
   const data = await request.formData()
   const turnstileToken = data.get('cf-turnstile-response')! as string
-
-  data.append('secret', import.meta.env.TURNSTILE_SECRET_KEY)
-  data.append('response', turnstileToken)
+  const turnstileSecretKey = import.meta.env.TURNSTILE_SECRET_KEY
 
   const turnstileResult = await fetch(TURNSTILE_SITE_VERIFICATION_URL, {
     method: 'POST',
-    body: data,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams({
+      secret: turnstileSecretKey,
+      response: turnstileToken,
+    }),
   })
-  // const turnstileResult = await fetch(TURNSTILE_SITE_VERIFICATION_URL, {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/x-www-form-urlencoded',
-  //   },
-  //   body: new URLSearchParams({
-  //     secret: import.meta.env.TURNSTILE_SECRET_KEY,
-  //     response: turnstileToken,
-  //   }),
-  // })
 
   const outcome = (await turnstileResult.json()) as TurnstileResponse
 
   if (!outcome.success) {
     return new Response(
       JSON.stringify({
-        message: `Turnstile verification failed: ${outcome['error-codes']}`,
+        message: `Turnstile verification failed: ${outcome['error-codes']} & secretKey: ${turnstileSecretKey}`,
       }),
       { status: 500 }
     )

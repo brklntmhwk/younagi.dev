@@ -33,7 +33,7 @@ const { entries, kind } = Astro.props
           </section>
           <a
             class="blog-title"
-            href={`/${locale}/${entry.collection}/${entry.slug.split('/').pop()}/`}
+            href={`/${locale}/${entry.collection}/${entry.slug.split('/').pop()}`}
           >
             {entry.data.title}
           </a>
@@ -41,7 +41,7 @@ const { entries, kind } = Astro.props
           {kind === 'blog' && (
             <section class="taxonomies">
               <a
-                href={`/${locale}/${entry.collection}/categories/${slugify(entry.data.category)}/`}
+                href={`/${locale}/${entry.collection}/categories/${slugify(entry.data.category)}`}
               >
                 {entry.data.category}
               </a>
@@ -49,7 +49,7 @@ const { entries, kind } = Astro.props
                 {entry.data.tags?.map((tag) => (
                   <li>
                     <a
-                      href={`/${locale}/${entry.collection}/tags/${slugify(tag)}/`}
+                      href={`/${locale}/${entry.collection}/tags/${slugify(tag)}`}
                     >
                       #{tag}
                     </a>

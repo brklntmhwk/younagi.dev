@@ -22,14 +22,14 @@ const year = new Date().getFullYear()
   <div class="policies">
     {
       privacyPolicyPage && (
-        <a href={`/${locale}/${privacyPolicyPage.slug.split('/').pop()}/`}>
+        <a href={`/${locale}/${privacyPolicyPage.slug.split('/').pop()}`}>
           {privacyPolicyPage.data.title}
         </a>
       )
     }
     {
       sitePolicyPage && (
-        <a href={`/${locale}/${sitePolicyPage.slug.split('/').pop()}/`}>
+        <a href={`/${locale}/${sitePolicyPage.slug.split('/').pop()}`}>
           {sitePolicyPage.data.title}
         </a>
       )

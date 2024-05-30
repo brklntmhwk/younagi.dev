@@ -12,12 +12,25 @@ type Props = {
 
 const locale = getLocaleFromUrl(Astro.url)
 const { page } = Astro.props
-const { data } = page
+const { data, collection, slug } = page
 const { title, description, modifiedAt } = data
 const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
-<BaseLayout title={title} description={description ?? ''} og={{ show: true }}>
+<BaseLayout
+  title={title}
+  description={description ?? ''}
+  og={{
+    show: true,
+    height: 630,
+    width: 1200,
+    image: new URL(
+      `/og/${locale}/${collection}/${slug.slice(slug.indexOf('/') + 1)}.png`,
+      Astro.url
+    ),
+    type: 'article',
+  }}
+>
   <main data-pagefind-ignore="all">
     <article>
       <h1 class="page-title">{title}</h1>

@@ -11,8 +11,8 @@ const { href, class: className, ...props } = Astro.props
 const { pathname } = Astro.url
 const locale = getLocaleFromUrl(Astro.url)
 const isActive =
-  href === `/${locale}/`
-    ? pathname === `/${locale}/`
+  href === `/${locale}`
+    ? pathname === `/${locale}`
     : pathname.startsWith(href.toString())
 ---
 

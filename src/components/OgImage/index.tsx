@@ -24,41 +24,47 @@ const OgImage = async (text: string) => {
     <div
       style={{
         fontFamily: 'PixelMPlus10, sans-serif',
-        backgroundImage: `url(data:image/png;base64,${backgroundImage}`,
+        color: '#1c1b22',
+        backgroundImage: `url(data:image/jpeg;base64,${backgroundImage}`,
         backgroundSize: '1200px 630px',
         width: 1200,
         height: 630,
-        color: '#1c1b22',
         display: 'flex',
-        flexDirection: 'column',
-        gap: '1.5rem',
-        justifyContent: 'space-between',
-        padding: '1.85rem',
+        justifyContent: 'center',
       }}
     >
-      <h2
-        style={{
-          fontSize: '2.5rem',
-          fontWeight: '700',
-        }}
-      >
-        {text}
-      </h2>
       <div
         style={{
           display: 'flex',
-          alignItems: 'center',
-          gap: '1.5rem',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          padding: '1.85rem',
         }}
       >
-        <img
-          src={`data:image/png;base64,${logo}`}
-          alt="younagi.dev site logo"
-          style={{ borderRadius: '9999px' }}
-          width="90"
-          height="90"
-        />
-        <span style={{ fontSize: '1.85rem' }}>younagi.dev</span>
+        <h2
+          style={{
+            fontSize: '2.85rem',
+            fontWeight: '700',
+          }}
+        >
+          {text}
+        </h2>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '1.5rem',
+          }}
+        >
+          <img
+            src={`data:image/png;base64,${logo}`}
+            alt="younagi.dev site logo"
+            style={{ borderRadius: '9999px' }}
+            width="80"
+            height="80"
+          />
+          <span style={{ fontSize: '2rem' }}>younagi.dev</span>
+        </div>
       </div>
     </div>,
     {

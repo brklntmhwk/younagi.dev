@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs'
+import { readFileSync } from 'fs'
 import satori from 'satori'
 import sharp from 'sharp'
 

@@ -19,8 +19,6 @@ export const POST: APIRoute = async ({
 }: APIContext) => {
   const data = await request.formData()
   const turnstileToken = data.get('cf-turnstile-response')! as string
-  const { TURNSTILE_SECRET_KEY, SSGFORM_URL } = locals.runtime.env
-  const turnstileSecretKey = locals
   // const turnstileSecretKey = import.meta.env.TURNSTILE_SECRET_KEY
 
   const turnstileResult = await fetch(TURNSTILE_SITE_VERIFICATION_URL, {
@@ -29,7 +27,9 @@ export const POST: APIRoute = async ({
       'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: new URLSearchParams({
-      secret: TURNSTILE_SECRET_KEY,
+      secret: import.meta.env.PROD
+        ? locals.runtime.env.TURNSTILE_SECRET_KEY
+        : import.meta.env.TURNSTILE_SECRET_KEY,
       response: turnstileToken,
     }),
   })
@@ -39,16 +39,21 @@ export const POST: APIRoute = async ({
   if (!outcome.success) {
     return new Response(
       JSON.stringify({
-        message: `Turnstile verification failed: ${outcome['error-codes']} & secretKey: ${turnstileSecretKey}`,
+        message: `Turnstile verification failed: ${outcome['error-codes']}`,
       }),
       { status: 500 }
     )
   }
 
-  const response = await fetch(SSGFORM_URL, {
-    method: 'POST',
-    body: data,
-  })
+  const response = await fetch(
+    import.meta.env.PROD
+      ? locals.runtime.env.SSGFORM_URL
+      : import.meta.env.SSGFORM_URL,
+    {
+      method: 'POST',
+      body: data,
+    }
+  )
 
   // const response = await fetch(import.meta.env.SSGFORM_URL, {
   //   method: 'POST',
@@ -57,7 +62,7 @@ export const POST: APIRoute = async ({
 
   if (!response.ok) {
     return new Response(
-      JSON.stringify({ message: 'Form submission failed.' }),
+      JSON.stringify({ message: `Form submission failed: ${response.text()}` }),
       { status: 500 }
     )
   }

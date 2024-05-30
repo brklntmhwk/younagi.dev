@@ -24,7 +24,6 @@ const OgImage = async (text: string) => {
     <div
       style={{
         fontFamily: 'PixelMPlus10, sans-serif',
-        color: '#1c1b22',
         backgroundImage: `url(data:image/jpeg;base64,${backgroundImage}`,
         backgroundSize: '1200px 630px',
         width: 1200,
@@ -42,6 +41,7 @@ const OgImage = async (text: string) => {
       >
         <h2
           style={{
+            color: '#f7f7f7',
             fontSize: '2.875rem',
             fontWeight: '700',
           }}
@@ -62,7 +62,9 @@ const OgImage = async (text: string) => {
             width="60"
             height="60"
           />
-          <span style={{ fontSize: '2.25rem' }}>younagi.dev</span>
+          <span style={{ fontSize: '2.25rem', color: '#1c1b22' }}>
+            younagi.dev
+          </span>
         </div>
       </div>
     </div>,

@@ -42,6 +42,9 @@ const OgImage = async (text: string) => {
       style={{
         fontFamily: 'PixelMPlus10, sans-serif',
         backgroundImage: `url(data:image/png;base64,${backgroundImage}`,
+        backgroundSize: '1200px 630px',
+        width: 1200,
+        height: 630,
         color: '#1c1b22',
         display: 'flex',
         flexDirection: 'column',

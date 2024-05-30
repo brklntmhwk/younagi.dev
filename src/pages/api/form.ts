@@ -10,14 +10,9 @@ type TurnstileResponse = {
   hostname: string
 }
 
-export const POST: APIRoute = async ({
-  request /* , redirect */,
-}: APIContext) => {
+export const POST: APIRoute = async ({ request, redirect }: APIContext) => {
   const data = await request.formData()
   const turnstileToken = data.get('cf-turnstile-response')! as string
-
-  // data.append('secret', import.meta.env.TURNSTILE_SECRET_KEY)
-  // data.append('response', turnstileToken)
 
   const turnstileResult = await fetch(TURNSTILE_SITE_VERIFICATION_URL, {
     method: 'POST',
@@ -33,7 +28,9 @@ export const POST: APIRoute = async ({
 
   if (!outcome.success) {
     return new Response(
-      JSON.stringify({ message: 'Turnstile verification failed.' }),
+      JSON.stringify({
+        message: `Turnstile verification failed: ${outcome['error-codes']}`,
+      }),
       { status: 500 }
     )
   }
@@ -50,8 +47,5 @@ export const POST: APIRoute = async ({
     )
   }
 
-  return new Response(
-    JSON.stringify({ message: 'Form successfully submitted!' }),
-    { status: 200 }
-  )
+  return redirect('/', 302)
 }

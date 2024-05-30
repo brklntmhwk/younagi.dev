@@ -73,6 +73,9 @@ export default defineConfig({
         targets: browserslistToTargets(browserslist('>= 0.1%')),
       },
     },
+    ssr: {
+      noExternal: ['node:fs'],
+    },
   },
   markdown: {
     syntaxHighlight: false,

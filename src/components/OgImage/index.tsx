@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs'
+import { readFileSync } from 'node:fs'
 import satori from 'satori'
 import sharp from 'sharp'
 
@@ -9,9 +9,6 @@ const OgImage = async (text: string) => {
   const fontPixelMPlus10Bold = readFileSync(
     './src/assets/fonts/PixelMplus10-Bold.woff'
   )
-  // const fontInconsolata = readFileSync(
-  //   './node_modules/@fontsource-variable/inconsolata/files/inconsolata-latin-ext-wdth-normal.woff2'
-  // )
   const backgroundImage = readFileSync(
     './src/assets/images/og-bg.jpg'
   ).toString('base64')

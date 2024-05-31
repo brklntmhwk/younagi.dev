@@ -72,7 +72,7 @@ export const POST: APIRoute = async ({
     ? locals.runtime.env.MY_CUSTOM_EMAIL_ADDRESS
     : import.meta.env.MY_CUSTOM_EMAIL_ADDRESS
   const mailContent = {
-    sender: { email: myEmail, name: 'younagi.dev Contact Form' },
+    sender: { email: myEmail, name: 'younagi.dev Contact Form!!!' },
     to: [
       {
         email: myEmail,

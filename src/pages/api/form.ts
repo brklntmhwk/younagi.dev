@@ -1,7 +1,11 @@
 export const prerender = false
 
 import type { APIRoute, APIContext } from 'astro'
-import { TURNSTILE_SITE_VERIFICATION_URL, BREVO_FORM_URL } from '@/consts'
+import {
+  TURNSTILE_SITE_VERIFICATION_URL,
+  BREVO_FORM_URL,
+  CONTACT_NOTIFICATION_SUBJECT,
+} from '@/consts'
 
 type TurnstileErrorCode =
   | 'missing-input-secret'
@@ -79,8 +83,12 @@ export const POST: APIRoute = async ({
         name: 'Nagi (凪)',
       },
     ],
-    subject: 'Message sent from younagi.dev contact form.',
-    textContent: `Name: ${inputName} \n Email: ${inputEmail} \n Message: ${inputMessage}`,
+    subject: CONTACT_NOTIFICATION_SUBJECT,
+    textContent: `お問い合わせ内容 \n --- \n 名前: ${inputName} \n メールアドレス: ${inputEmail} \n メッセージ: ${inputMessage} \n ---`,
+    replyTo: {
+      email: inputEmail,
+      name: inputName,
+    },
   }
   const brevoApiKey = import.meta.env.PROD
     ? locals.runtime.env.BREVO_API_KEY
@@ -99,7 +107,7 @@ export const POST: APIRoute = async ({
   if (!response.ok) {
     return new Response(
       JSON.stringify({
-        message: `Form submission failed: ${response.status} ${response.statusText} ${response.type}`,
+        message: `Form submission failed: ${response.status} ${response.statusText}`,
       }),
       { status: 500 }
     )

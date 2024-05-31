@@ -20,7 +20,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
         newsList.map((news) => (
           <li>
             <a
-              href={`/${locale}/${news.collection}/${news.slug.split('/').pop()}/`}
+              href={`/${locale}/${news.collection}/${news.slug.split('/').pop()}`}
             >
               {news.data.title}
             </a>

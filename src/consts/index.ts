@@ -8,6 +8,7 @@ export const FORM_TEXTAREA_MINLENGTH = 25
 export const ACCOUNT_ID = 'brklntmhwk'
 export const UNSPLASH_BASE_URL = 'https://unsplash.com'
 export const GITHUB_BASE_URL = 'https://github.com'
+export const BREVO_FORM_URL = 'https://api.brevo.com/v3/smtp/email'
 export const TURNSTILE_SITE_VERIFICATION_URL =
   'https://challenges.cloudflare.com/turnstile/v0/siteverify'
 export const SHOW_DRAFT_PAGES_IN_DEV = true

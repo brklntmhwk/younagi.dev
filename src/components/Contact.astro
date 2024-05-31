@@ -7,7 +7,7 @@ const locale = getLocaleFromUrl(Astro.url)
 const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
-<form id="contact-form" action="/api/form" method="post">
+<form id="contact-form" action=`/${locale}/api/form` method="post">
   <label for={t.data.contact.yourName}>{t.data.contact.yourName}</label>
   <div class="pokemon-border">
     <input

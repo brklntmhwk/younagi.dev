@@ -34,9 +34,21 @@ type TurnstileResponse =
 
 export const POST: APIRoute = async ({
   request,
-  /* redirect, */
+  redirect,
   locals,
+  params,
 }: APIContext) => {
+  const { locale } = params
+
+  if (!locale) {
+    return new Response(
+      JSON.stringify({
+        message: `Locale not found. It must be specified.`,
+      }),
+      { status: 404 }
+    )
+  }
+
   const data = await request.formData()
   const turnstileToken = data.get('cf-turnstile-response')! as string
   const secretKey = import.meta.env.PROD
@@ -76,7 +88,7 @@ export const POST: APIRoute = async ({
     ? locals.runtime.env.MY_CUSTOM_EMAIL_ADDRESS
     : import.meta.env.MY_CUSTOM_EMAIL_ADDRESS
   const mailContent = {
-    sender: { email: myEmail, name: 'younagi.dev Contact Form!!!' },
+    sender: { email: myEmail, name: 'younagi.dev' },
     to: [
       {
         email: myEmail,
@@ -113,12 +125,5 @@ export const POST: APIRoute = async ({
     )
   }
 
-  return new Response(
-    JSON.stringify({
-      message: `Form successfully submitted!: ${response.status} ${response.statusText}`,
-    }),
-    { status: 200 }
-  )
-
-  // return redirect('/', 302)
+  return redirect(`/${locale}/thanks-page`, 302)
 }

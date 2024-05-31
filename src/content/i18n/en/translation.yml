@@ -43,8 +43,8 @@ contact:
   yourName: Name
   email: Email
   messageBody: Message
-  confirmationLabel: Confirm the above content as accurate
-  sendLabel: Send
+  confirmationLabel: I confirm that the above information is correct.
+  sendLabel: Submit
 pages:
   home:
     photo_gallery_title: Recently uploaded photos

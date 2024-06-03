@@ -9,11 +9,15 @@ import Contact from '@/components/Contact.astro'
 import FormattedDate from '@/components/FormattedDate.astro'
 import Figure from '@/components/elements/Figure.astro'
 import Message from '@/components/Message.astro'
+import { defaultLang } from '@/utils/i18n/data'
 
 export const getStaticPaths = (async () => {
   const pages = await getCollection('page')
+  const LocalePages = pages.filter(
+    (page) => page.slug.slice(0, page.slug.indexOf('/')) !== defaultLang
+  )
 
-  return pages.map((page) => {
+  return LocalePages.map((page) => {
     const locale = page.slug.slice(0, page.slug.indexOf('/'))
     const rawSlug = page.slug.slice(page.slug.indexOf('/') + 1)
 

@@ -7,11 +7,15 @@ import Blockquote from '@/components/elements/Blockquote.astro'
 import Figure from '@/components/elements/Figure.astro'
 import Message from '@/components/Message.astro'
 import { getPublishedSortedEntries } from '@/lib/content'
+import { defaultLang } from '@/utils/i18n/data'
 
 export const getStaticPaths = (async () => {
   const entries = getPublishedSortedEntries(await getCollection('blog'))
+  const LocaleEntries = entries.filter(
+    (entry) => entry.slug.slice(0, entry.slug.indexOf('/')) !== defaultLang
+  )
 
-  return entries.map((entry) => {
+  return LocaleEntries.map((entry) => {
     const locale = entry.slug.slice(0, entry.slug.indexOf('/'))
     const rawSlug = entry.slug.slice(entry.slug.indexOf('/') + 1)
 

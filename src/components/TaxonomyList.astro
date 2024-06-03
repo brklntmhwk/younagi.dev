@@ -1,5 +1,6 @@
 ---
 import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+import { useTranslatedPath } from '@/utils/i18n/useTranslatedPath'
 import { slugify } from '@/utils/slugify'
 
 type Props = {
@@ -8,6 +9,7 @@ type Props = {
 }
 
 const locale = getLocaleFromUrl(Astro.url)
+const translatePath = useTranslatedPath(locale)
 const { taxonomyList, kind } = Astro.props
 ---
 
@@ -15,7 +17,7 @@ const { taxonomyList, kind } = Astro.props
   {
     taxonomyList.flatMap((taxonomy) => (
       <li>
-        <a href={`/${locale}/blog/${kind}/${slugify(taxonomy)}`}>
+        <a href={translatePath(`/blog/${kind}/${slugify(taxonomy)}`)}>
           {kind === 'tags' ? `#${taxonomy}` : taxonomy}
         </a>
       </li>

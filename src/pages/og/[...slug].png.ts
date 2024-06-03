@@ -2,6 +2,8 @@ import type { APIRoute, APIContext, GetStaticPaths } from 'astro'
 import { getCollection } from 'astro:content'
 import getOgImage from '@/components/OgImage'
 import { getPublishedSortedEntries } from '@/lib/content'
+import { languages } from '@/utils/i18n/data'
+import { useTranslatedPath } from '@/utils/i18n/useTranslatedPath'
 
 const blogEntries = getPublishedSortedEntries(await getCollection('blog'))
 const newsEntries = getPublishedSortedEntries(await getCollection('news'))
@@ -29,11 +31,15 @@ export const GET: APIRoute = async ({ params }: APIContext) => {
 export const getStaticPaths = (async () => {
   const ogArticlePaths = [
     ...articles.map((article) => {
-      const locale = article.slug.slice(0, article.slug.indexOf('/'))
+      const locale = article.slug.slice(
+        0,
+        article.slug.indexOf('/')
+      ) as keyof typeof languages
       const collection = article.collection
       const rawSlug = article.slug.slice(article.slug.indexOf('/') + 1)
+      const translatePath = useTranslatedPath(locale)
 
-      return { params: { slug: `${locale}/${collection}/${rawSlug}` } }
+      return { params: { slug: translatePath(`${collection}/${rawSlug}`) } }
     }),
   ]
 

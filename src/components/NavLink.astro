@@ -1,6 +1,7 @@
 ---
 import type { HTMLAttributes } from 'astro/types'
 import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+import { useTranslatedPath } from '@/utils/i18n/useTranslatedPath'
 
 type Props = Omit<HTMLAttributes<'a'>, 'href'> & {
   href: URL | string
@@ -10,9 +11,10 @@ const { href, class: className, ...props } = Astro.props
 
 const { pathname } = Astro.url
 const locale = getLocaleFromUrl(Astro.url)
+const translatePath = useTranslatedPath(locale)
 const isActive =
-  href === `/${locale}`
-    ? pathname === `/${locale}`
+  href === translatePath('/')
+    ? pathname === translatePath('/')
     : pathname.startsWith(href.toString())
 ---
 

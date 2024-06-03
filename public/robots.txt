@@ -8,5 +8,5 @@ User-Agent: *
 Disallow: /*/news/
 Allow: /
 
-Host: https://younagi.dev/
+Host: https://younagi.dev
 Sitemap: https://younagi.dev/sitemap.xml

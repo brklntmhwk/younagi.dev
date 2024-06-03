@@ -26,9 +26,6 @@ export default defineConfig({
   adapter: cloudflare(),
   integrations: [
     mdx(),
-    // mdx({
-    //   optimize: true,
-    // }),
     react({
       include: '**/OgImage/*',
     }),

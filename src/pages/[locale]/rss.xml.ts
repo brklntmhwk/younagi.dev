@@ -29,7 +29,7 @@ export async function GET(context: APIContext) {
     items: localeEntries.map((entry) => ({
       ...entry.data,
       pubDate: entry.data.publishedAt,
-      link: `/${entry.collection}/${entry.slug}/`,
+      link: `/${entry.collection}/${entry.slug}`,
     })),
     customData: `<language>${locale}</language>`,
   })

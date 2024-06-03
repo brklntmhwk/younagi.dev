@@ -287,67 +287,56 @@ import { langList } from '@/utils/i18n/data'
 
 #### OG 画像 (Open Graph)
 
-OG画像はAstroが提供する[静的ファイルAPIエンドポイント機能](https://docs.astro.build/en/guides/endpoints/)で動的に生成します。より簡潔に実装したかったので、`astro-og-canvas` ライブラリの力を借りました。大まかなコードの流れは、
+OG画像はAstroが提供する[静的ファイルAPIエンドポイント機能](https://docs.astro.build/en/guides/endpoints/)でビルド時に予め生成します。大まかなコードの流れは、
 
 1. OG画像を生成したいコンテンツのデータを全取得する
-2. データを加工して `OGImageRoute` が `pages` プロパティとして受け取れるようにする
+2. `getStaticPaths` 関数内でデータを回して各コンテンツのOG画像パスを生成
 3. データを `OGImageRoute` に渡す
 
 このような感じです。私の場合、多言語化で `locale` ディレクトリを導入した時にパスを改造しており、ここでも整合性を保つためにパスを加工しなければなりませんでした。
 
-```typescript title="src/pages/og/[...slug].ts"
+```typescript title="src/pages/og/[...slug].png.ts"
+import type { APIRoute, APIContext, GetStaticPaths } from 'astro'
 import { getCollection } from 'astro:content'
-import { OGImageRoute } from 'astro-og-canvas'
+import getOgImage from '@/components/OgImage'
+import { getPublishedSortedEntries } from '@/lib/content'
 
-const entries = await getCollection('blog')
-const articles = Object.fromEntries(
-  entries.map(({ slug, data, collection }) => {
-    const locale = slug.slice(0, slug.indexOf('/'))
-    const rawSlug = slug.slice(slug.indexOf('/') + 1)
+const blogEntries = getPublishedSortedEntries(await getCollection('blog'))
+const newsEntries = getPublishedSortedEntries(await getCollection('news'))
+const pages = await getCollection('page')
+const articles = [...blogEntries, ...newsEntries, ...pages]
 
-    // e.g., "/en/blog/example1": { example1's data here }
-    return [`${locale}/${collection}/${rawSlug}`, data]
+export const GET: APIRoute = async ({ params }: APIContext) => {
+  const { slug } = params
+  const article = articles.find((article) => {
+    const locale = article.slug.slice(0, article.slug.indexOf('/'))
+    const collection = article.collection
+    const rawSlug = article.slug.slice(article.slug.indexOf('/') + 1)
+
+    return `${locale}/${collection}/${rawSlug}` === slug
   })
-)
 
-export const { getStaticPaths, GET } = OGImageRoute({
-  param: 'slug', // this must be consistent with the dynamic path name
-  pages: articles,
-  getImageOptions: (_path, page: (typeof articles)[number]) => {
-    return {
-      title: page.title,
-      description: page.description ?? '',
-      bgGradient: [[26.99, 26.99, 30.99]],
-      padding: 80,
-      font: {
-        title: {
-          size: 64,
-          lineHeight: 1.35,
-          families: [
-            'PixelMPlus10',
-            'Arial',
-            'Hiragino Kaku Gothic ProN',
-            'Hiragino Sans',
-          ],
-          weight: 'Medium',
-          color: [255, 255, 255],
-        },
-        description: {
-          size: 36,
-          lineHeight: 1.2,
-          families: ['Arial', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans'],
-          weight: 'Normal',
-          color: [255, 255, 255],
-        },
-      },
-      logo: {
-        path: './src/assets/images/logo.png',
-        size: [80, 80],
-      },
-      fonts: ['./src/assets/fonts/PixelMplus10-Regular.woff2'],
-    }
-  },
-})
+  if (!article) {
+    return new Response('Article Not Found', { status: 404 })
+  }
+  const ogImg = await getOgImage(article.data.title)
+
+  return new Response(ogImg)
+}
+
+export const getStaticPaths = (async () => {
+  const ogArticlePaths = [
+    ...articles.map((article) => {
+      const locale = article.slug.slice(0, article.slug.indexOf('/'))
+      const collection = article.collection
+      const rawSlug = article.slug.slice(article.slug.indexOf('/') + 1)
+
+      return { params: { slug: `${locale}/${collection}/${rawSlug}` } }
+    }),
+  ]
+
+  return ogArticlePaths
+}) satisfies GetStaticPaths
 ```
 
 その他のオプションについては、[astro-og-canvas 公式ドキュメント](https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas)をご覧あれ。

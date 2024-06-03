@@ -1,8 +1,20 @@
 ---
-import { getEntry } from 'astro:content'
+import { getCollection, getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import BulletinBoard from '@/components/BulletinBoard.astro'
+import PhotoGallery from '@/components/PhotoGallery.astro'
+import { getPhotos } from '@/lib/unsplash/getContent'
+import { getPublishedSortedEntries } from '@/lib/content'
+import { NEWS_MAXIMUM_COUNT } from '@/consts'
+import { defaultLang } from '@/utils/i18n/data'
 
-const meta = await getEntry('meta', 'en/site-data')
+const meta = await getEntry('meta', `${defaultLang}/site-data`)
+const newsList = getPublishedSortedEntries(await getCollection('news'))
+const localeNewsList = newsList.filter(
+  (news) => news.slug.slice(0, news.slug.indexOf('/')) === defaultLang
+)
+const photos = await getPhotos()
+const latestNews = localeNewsList.slice(0, NEWS_MAXIMUM_COUNT)
 ---
 
 <BaseLayout
@@ -10,17 +22,22 @@ const meta = await getEntry('meta', 'en/site-data')
   description={meta.data.site.description}
   og={{ show: true }}
 >
-  <main data-pagefind-ignore="all"></main>
+  <main data-pagefind-ignore="all">
+    <BulletinBoard newsList={latestNews} />
+    <PhotoGallery {photos} />
+  </main>
 </BaseLayout>
 <style>
   main {
-    margin-top: 2.5rem;
-    box-sizing: border-box;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    place-items: start;
+    gap: 1.25rem;
   }
-  @media (min-width: 1024px) {
+  @media (min-width: 1280px) {
     main {
-      margin-top: 0;
+      padding: 2.85rem 6.175rem 0 6.175rem;
+      gap: 2.25rem;
     }
   }
 </style>

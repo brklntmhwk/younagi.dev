@@ -42,12 +42,6 @@ export const getPhotographer = () =>
     }
   })
 
-export const getRandomPhoto = () =>
-  unsplashApiClient.photos.getRandom({
-    username: ACCOUNT_ID,
-    count: 1,
-  })
-
 export const getCollections = () =>
   unsplashApiClient.users
     .getCollections({

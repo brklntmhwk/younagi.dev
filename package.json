@@ -17,7 +17,8 @@
     "sync": "astro sync",
     "astro": "npx astro",
     "format": "prettier --write './src/**/*.{js,ts,json,astro}'",
-    "prepare": "husky"
+    "prepare": "husky",
+    "typegen": "npx wrangler types"
   },
   "dependencies": {
     "@astrojs/check": "^0.5.10",

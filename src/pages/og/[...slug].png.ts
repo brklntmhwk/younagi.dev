@@ -13,11 +13,15 @@ const articles = [...blogEntries, ...newsEntries, ...pages]
 export const GET: APIRoute = async ({ params }: APIContext) => {
   const { slug } = params
   const article = articles.find((article) => {
-    const locale = article.slug.slice(0, article.slug.indexOf('/'))
+    const locale = article.slug.slice(
+      0,
+      article.slug.indexOf('/')
+    ) as keyof typeof languages
     const collection = article.collection
     const rawSlug = article.slug.slice(article.slug.indexOf('/') + 1)
+    const translatePath = useTranslatedPath(locale)
 
-    return `${locale}/${collection}/${rawSlug}` === slug
+    return translatePath(`/${collection}/${rawSlug}`) === slug
   })
 
   if (!article) {

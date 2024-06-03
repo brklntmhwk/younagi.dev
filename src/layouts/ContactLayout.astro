@@ -3,12 +3,14 @@ import type { CollectionEntry } from 'astro:content'
 import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+import { useTranslatedPath } from '@/utils/i18n/useTranslatedPath'
 
 type Props = {
   page: CollectionEntry<'page'>
 }
 
 const locale = getLocaleFromUrl(Astro.url)
+const translatePath = useTranslatedPath(locale)
 const { page } = Astro.props
 const { data } = page
 const { title, description } = data
@@ -25,7 +27,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
       </section>
       <hr />
       <section class="guides">
-        <a class="back-to-link" href={`/${locale}`}
+        <a class="back-to-link" href={translatePath('/')}
           >◀ {t.data.pages.page.back_to_top}</a
         >
         <a class="back-to-link" href="#top"

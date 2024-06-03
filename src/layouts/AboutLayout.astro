@@ -6,6 +6,7 @@ import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 import Toc from '@/components/Toc.astro'
 import ProfileIcon from '@/components/ProfileIcon.astro'
 import ProfileImage from '@/assets/images/profile.png'
+import { useTranslatedPath } from '@/utils/i18n/useTranslatedPath'
 
 type Props = {
   headings: MarkdownHeading[]
@@ -13,6 +14,7 @@ type Props = {
 
 const { headings } = Astro.props
 const locale = getLocaleFromUrl(Astro.url)
+const translatePath = useTranslatedPath(locale)
 const meta = await getEntry('meta', `${locale}/site-data`)
 const t = await getEntry('i18n', `${locale}/translation`)
 ---
@@ -38,6 +40,15 @@ const t = await getEntry('i18n', `${locale}/translation`)
       <section class="about-content">
         <slot />
       </section>
+      <hr />
+      <section class="guides">
+        <a class="back-to-link" href={translatePath('/')}
+          >◀ {t.data.pages.page.back_to_top}</a
+        >
+        <a class="back-to-link" href="#top"
+          >{t.data.pages.page.scroll_to_top} ▲</a
+        >
+      </section>
     </article>
   </main>
 </BaseLayout>
@@ -48,19 +59,6 @@ const t = await getEntry('i18n', `${locale}/translation`)
     gap: 0.5rem;
     hr {
       width: 100%;
-    }
-    & :global(a) {
-      color: var(--fg);
-      text-decoration: none;
-      & :global(span.heading-anchor-icon) {
-        color: var(--fg);
-        margin-right: 0.5rem;
-      }
-      &:hover {
-        text-decoration: underline;
-        text-underline-offset: 4px;
-        text-decoration-color: var(--fg);
-      }
     }
     .profile {
       padding: 0.5rem 0;
@@ -159,5 +157,10 @@ const t = await getEntry('i18n', `${locale}/translation`)
         justify-content: start;
       }
     }
+  }
+  .guides {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1.5rem;
   }
 </style>

@@ -4,6 +4,7 @@ import FormattedDate from '@/components/FormattedDate.astro'
 import Svg from '@/components/Svg/index.astro'
 import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 import { slugify } from '@/utils/slugify'
+import { useTranslatedPath } from '@/utils/i18n/useTranslatedPath'
 
 type Props = {
   entries: CollectionEntry<'blog'>[]
@@ -11,6 +12,7 @@ type Props = {
 }
 
 const locale = getLocaleFromUrl(Astro.url)
+const translatePath = useTranslatedPath(locale)
 const { entries, kind } = Astro.props
 ---
 
@@ -33,7 +35,9 @@ const { entries, kind } = Astro.props
           </section>
           <a
             class="blog-title"
-            href={`/${locale}/${entry.collection}/${entry.slug.split('/').pop()}`}
+            href={translatePath(
+              `/${entry.collection}/${entry.slug.split('/').pop()}`
+            )}
           >
             {entry.data.title}
           </a>
@@ -41,7 +45,9 @@ const { entries, kind } = Astro.props
           {kind === 'blog' && (
             <section class="taxonomies">
               <a
-                href={`/${locale}/${entry.collection}/categories/${slugify(entry.data.category)}`}
+                href={translatePath(
+                  `/${entry.collection}/categories/${slugify(entry.data.category)}`
+                )}
               >
                 {entry.data.category}
               </a>
@@ -49,7 +55,9 @@ const { entries, kind } = Astro.props
                 {entry.data.tags?.map((tag) => (
                   <li>
                     <a
-                      href={`/${locale}/${entry.collection}/tags/${slugify(tag)}`}
+                      href={translatePath(
+                        `/${entry.collection}/tags/${slugify(tag)}`
+                      )}
                     >
                       #{tag}
                     </a>

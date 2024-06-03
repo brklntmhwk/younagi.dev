@@ -10,6 +10,7 @@ import Toc from '@/components/Toc.astro'
 import Svg from '@/components/Svg/index.astro'
 import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 import { slugify } from '@/utils/slugify'
+import { useTranslatedPath } from '@/utils/i18n/useTranslatedPath'
 
 type Props = {
   entry: CollectionEntry<'blog'>
@@ -17,6 +18,7 @@ type Props = {
 }
 
 const locale = getLocaleFromUrl(Astro.url)
+const translatePath = useTranslatedPath(locale)
 const { entry, headings } = Astro.props
 const { data, collection, slug } = entry
 const { title, description, category, tags, publishedAt, modifiedAt } = data
@@ -56,15 +58,21 @@ const t = await getEntry('i18n', `${locale}/translation`)
         </div>
         <h1 class="entry-title">{title}</h1>
         <section class="taxonomies">
-          <a href={`/${locale}/${collection}/categories/${slugify(category)}`}
-            >{category}</a
+          <a
+            href={translatePath(
+              `/${collection}/categories/${slugify(category)}`
+            )}>{category}</a
           >
           {
             tags && (
               <ul class="tag-list">
                 {tags.map((tag) => (
                   <li>
-                    <a href={`/${locale}/${collection}/tags/${slugify(tag)}`}>
+                    <a
+                      href={translatePath(
+                        `/${collection}/tags/${slugify(tag)}`
+                      )}
+                    >
                       #{tag}
                     </a>
                   </li>
@@ -82,7 +90,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
       <hr />
       <BuyMeACoffee />
       <section class="guides">
-        <a class="back-to-link" href={`/${locale}/blog`}
+        <a class="back-to-link" href={translatePath('/blog')}
           >◀ {t.data.pages.blog.back_to_top}</a
         >
         <a class="back-to-link" href="#top"

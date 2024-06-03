@@ -5,12 +5,14 @@ import FormattedDate from '../components/FormattedDate.astro'
 import Svg from '@/components/Svg/index.astro'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+import { useTranslatedPath } from '@/utils/i18n/useTranslatedPath'
 
 type Props = {
   entry: CollectionEntry<'news'>
 }
 
 const locale = getLocaleFromUrl(Astro.url)
+const translatePath = useTranslatedPath(locale)
 const { entry } = Astro.props
 const { data, collection, slug } = entry
 const { title, publishedAt, modifiedAt } = data
@@ -54,7 +56,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
       </section>
       <hr />
       <section class="guides">
-        <a class="back-to-link" href={`/${locale}/news`}
+        <a class="back-to-link" href={translatePath('/news')}
           >◀ {t.data.pages.news.back_to_top}</a
         >
         <a class="back-to-link" href="#top"

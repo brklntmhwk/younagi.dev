@@ -39,7 +39,7 @@ export const getStaticPaths = (async () => {
       const rawSlug = article.slug.slice(article.slug.indexOf('/') + 1)
       const translatePath = useTranslatedPath(locale)
 
-      return { params: { slug: translatePath(`${collection}/${rawSlug}`) } }
+      return { params: { slug: translatePath(`/${collection}/${rawSlug}`) } }
     }),
   ]
 

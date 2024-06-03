@@ -37,7 +37,7 @@ export default defineConfig({
     }),
     sitemap(),
   ],
-  trailingSlash: 'never',
+  // trailingSlash: 'never',
   prefetch: {
     defaultStrategy: 'viewport',
     prefetchAll: true,
@@ -45,9 +45,9 @@ export default defineConfig({
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'ja'],
-    routing: {
-      prefixDefaultLocale: true,
-    },
+    // routing: {
+    //   prefixDefaultLocale: true,
+    // },
   },
   vite: {
     build: {

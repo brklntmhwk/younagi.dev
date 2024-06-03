@@ -1,13 +1,13 @@
 ---
 import { getEntry } from 'astro:content'
-import { languages } from '@/utils/i18n/data'
+import { defaultLang, languages } from '@/utils/i18n/data'
 import Modal from '@/components/Modal.astro'
 import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+import { getTargetLocaleSlug } from '@/utils/i18n/getTargetLocalSlug'
 
-const locale = getLocaleFromUrl(Astro.url)
+const curUrl = Astro.url
+const locale = getLocaleFromUrl(curUrl)
 const t = await getEntry('i18n', `${locale}/translation`)
-const [_firstSlash, _prevLocale, ...rest] = Astro.url.pathname.split('/')
-const slug = rest.join('/')
 ---
 
 <Modal
@@ -22,7 +22,11 @@ const slug = rest.join('/')
         <li>
           <a
             class:list={[{ active: lang === locale }]}
-            href={`/${lang}/${slug}`}
+            href={
+              lang === defaultLang
+                ? `/${getTargetLocaleSlug(locale, curUrl)}`
+                : `/${lang}/${getTargetLocaleSlug(locale, curUrl)}`
+            }
           >
             {label}
           </a>

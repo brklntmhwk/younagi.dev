@@ -1,0 +1,89 @@
+---
+import { getCollection, getEntry } from 'astro:content'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import FormattedDate from '@/components/FormattedDate.astro'
+import { groupArchiveByYear } from '@/utils/groupArchiveByYear'
+import { getPublishedSortedEntries } from '@/lib/content'
+import { defaultLang } from '@/utils/i18n/data'
+
+const meta = await getEntry('meta', `${defaultLang}/site-data`)
+const t = await getEntry('i18n', `${defaultLang}/translation`)
+const entries = getPublishedSortedEntries(await getCollection('blog')).filter(
+  (entry) => entry.slug.slice(0, entry.slug.indexOf('/')) === defaultLang
+)
+const YearMonthPairs = groupArchiveByYear(entries)
+---
+
+<BaseLayout
+  title={meta.data.blog.archive.title}
+  description={meta.data.blog.archive.description}
+  og={{ show: true }}
+>
+  <main data-pagefind-ignore="all">
+    <h1>{t.data.pages.blog.archive.title}</h1>
+    <a class="back-to-link" href={'/blog'}>
+      ◀ {t.data.pages.blog.back_to_top}
+    </a>
+    <hr />
+    <ul class="year-list">
+      {
+        Object.keys(YearMonthPairs).map((year) => (
+          <li>
+            <span class="year">{year}</span>
+            <ul class="month-list">
+              {YearMonthPairs[year]?.map(({ mStr, mDate }) => {
+                return (
+                  <li>
+                    <a href={`/blog/archive/${year}${mStr}`} class="month">
+                      <FormattedDate
+                        date={mDate}
+                        locale={defaultLang}
+                        show={{ year: true, month: true, day: false }}
+                      />
+                    </a>
+                  </li>
+                )
+              })}
+            </ul>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</BaseLayout>
+<style>
+  main {
+    h1 {
+      margin-bottom: 1.25rem;
+    }
+    .year-list {
+      padding: 1.85rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      li {
+        display: flex;
+        flex-direction: column;
+        gap: 0.875rem;
+        .year {
+          font-size: 1.875rem;
+          font-weight: 700;
+        }
+        .month-list {
+          padding-left: 1.5rem;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.875rem;
+          .month {
+            font-size: 1.25rem;
+            color: var(--accent);
+            text-decoration: none;
+            &:hover {
+              color: var(--accent-dark);
+            }
+          }
+        }
+      }
+    }
+  }
+</style>

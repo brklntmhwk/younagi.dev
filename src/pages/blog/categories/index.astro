@@ -1,0 +1,35 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { getCollection, getEntry } from 'astro:content'
+import TaxonomyList from '@/components/TaxonomyList.astro'
+import { getPublishedSortedEntries } from '@/lib/content'
+import { defaultLang } from '@/utils/i18n/data'
+
+const meta = await getEntry('meta', `${defaultLang}/site-data`)
+const t = await getEntry('i18n', `${defaultLang}/translation`)
+const entries = getPublishedSortedEntries(await getCollection('blog')).filter(
+  (entry) => entry.slug.slice(0, entry.slug.indexOf('/')) === defaultLang
+)
+const categories = [...new Set(entries.flatMap((entry) => entry.data.category))]
+---
+
+<BaseLayout
+  title={meta.data.blog.categories.title}
+  description={meta.data.blog.categories.description}
+  og={{ show: true }}
+>
+  <main data-pagefind-ignore="all">
+    <h1>{t.data.pages.blog.categories.title}</h1>
+    <a class="back-to-link" href={'/blog'}>◀ {t.data.pages.blog.back_to_top}</a
+    >
+    <hr />
+    <TaxonomyList kind="categories" taxonomyList={categories} />
+  </main>
+</BaseLayout>
+<style>
+  main {
+    h1 {
+      margin-bottom: 1.25rem;
+    }
+  }
+</style>

@@ -3,6 +3,7 @@ import '@/styles/pixelmplus.css'
 import type { CollectionEntry } from 'astro:content'
 import { getEntry } from 'astro:content'
 import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+import { useTranslatedPath } from '@/utils/i18n/useTranslatedPath'
 
 type Props = {
   newsList: CollectionEntry<'news'>[]
@@ -10,6 +11,7 @@ type Props = {
 
 const { newsList } = Astro.props
 const locale = getLocaleFromUrl(Astro.url)
+const translatePath = useTranslatedPath(locale)
 const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
@@ -20,7 +22,9 @@ const t = await getEntry('i18n', `${locale}/translation`)
         newsList.map((news) => (
           <li>
             <a
-              href={`/${locale}/${news.collection}/${news.slug.split('/').pop()}`}
+              href={translatePath(
+                `/${news.collection}/${news.slug.split('/').pop()}`
+              )}
             >
               {news.data.title}
             </a>

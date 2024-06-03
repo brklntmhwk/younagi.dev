@@ -1,0 +1,29 @@
+---
+import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
+import { getCollection } from 'astro:content'
+import NewsLayout from '@/layouts/NewsLayout.astro'
+import { getPublishedSortedEntries } from '@/lib/content'
+import { defaultLang } from '@/utils/i18n/data'
+
+export const getStaticPaths = (async () => {
+  const entries = getPublishedSortedEntries(await getCollection('news'))
+  const defaultLocaleEntries = entries.filter(
+    (entry) => entry.slug.slice(0, entry.slug.indexOf('/')) === defaultLang
+  )
+
+  return defaultLocaleEntries.map((entry) => {
+    const rawSlug = entry.slug.slice(entry.slug.indexOf('/') + 1)
+
+    return { params: { slug: rawSlug }, props: { entry } }
+  })
+}) satisfies GetStaticPaths
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>
+
+const { entry } = Astro.props
+const { Content } = await entry.render()
+---
+
+<NewsLayout entry={{ ...entry }}>
+  <Content />
+</NewsLayout>

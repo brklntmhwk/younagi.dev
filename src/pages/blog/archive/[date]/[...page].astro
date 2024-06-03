@@ -1,0 +1,76 @@
+---
+import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
+import { getCollection, getEntry } from 'astro:content'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import BlogList from '@/components/BlogList.astro'
+import Pager from '@/components/Pager.astro'
+import { LIMIT_PER_PAGE } from '@/consts'
+import { ArchiveSlugify } from '@/utils/ArchiveSlugify'
+import { defaultLang } from '@/utils/i18n/data'
+import { formatDate } from '@/utils/formatDate'
+import { convertDateStr } from '@/utils/convertDateStr'
+import { getPublishedSortedEntries } from '@/lib/content'
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const entries = getPublishedSortedEntries(await getCollection('blog'))
+  const dates = [
+    ...new Set(entries.map((entry) => ArchiveSlugify(entry.data.publishedAt))),
+  ]
+
+  return dates.flatMap((date) => {
+    const displayEntries = entries.filter(
+      (entry) =>
+        ArchiveSlugify(entry.data.publishedAt) === date &&
+        entry.slug.slice(0, entry.slug.indexOf('/')) === defaultLang
+    )
+
+    return paginate(displayEntries, {
+      pageSize: LIMIT_PER_PAGE,
+      params: { date },
+    })
+  })
+}) satisfies GetStaticPaths
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>
+
+const { page } = Astro.props
+const { date } = Astro.params
+const meta = await getEntry('meta', `${defaultLang}/site-data`)
+const t = await getEntry('i18n', `${defaultLang}/translation`)
+const convertedDate = convertDateStr(date)
+const displayDate = formatDate(convertedDate, defaultLang, {
+  year: true,
+  month: true,
+  day: false,
+})
+---
+
+<BaseLayout
+  title={`${meta.data.blog.title} - Archive: ${date}`}
+  description={meta.data.blog.description}
+  og={{ show: true }}
+>
+  <main data-pagefind-ignore="all">
+    <section>
+      <h1>{displayDate}</h1>
+      <a class="back-to-link" href={'/blog/archive'}>
+        ◀ {t.data.pages.blog.archive.back_to_top}
+      </a>
+      <BlogList entries={page.data} kind="taxonomy" />
+    </section>
+    <Pager page={page} />
+  </main>
+</BaseLayout>
+<style>
+  main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 4rem;
+    section {
+      h1 {
+        margin-bottom: 1.25rem;
+      }
+    }
+  }
+</style>

@@ -13,7 +13,7 @@ export const TURNSTILE_SITE_VERIFICATION_URL =
   'https://challenges.cloudflare.com/turnstile/v0/siteverify'
 export const SHOW_DRAFT_PAGES_IN_DEV = true
 export const CONTACT_NOTIFICATION_SUBJECT =
-  'younagi.devコンタクトフォームからお問い合わせがありました'
+  'younagi.dev からお問い合わせがありました'
 
 export const infoIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>`
 export const pencilIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="2" x2="22" y2="6"></line><path d="M7.5 20.5 19 9l-4-4L3.5 16.5 2 22z"></path></svg>`

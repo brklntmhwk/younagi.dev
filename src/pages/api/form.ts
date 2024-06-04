@@ -80,7 +80,7 @@ export const POST: APIRoute = async ({
     to: [
       {
         email: myEmail,
-        name: 'Nagi (凪)',
+        name: 'Nagi/ 凪',
       },
     ],
     subject: CONTACT_NOTIFICATION_SUBJECT,

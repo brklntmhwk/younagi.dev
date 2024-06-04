@@ -1,7 +1,11 @@
 /// <reference path="../.astro/types.d.ts" />
 /// <reference types="astro/client" />
 
-type Runtime = import('@astrojs/cloudflare').Runtime<Env>
+type D1Database = import('@cloudflare/workers-types').D1Database
+type ExtendedEnv = Env & {
+  DB: D1Database
+}
+type Runtime = import('@astrojs/cloudflare').Runtime<ExtendedEnv>
 
 declare namespace App {
   interface Locals extends Runtime {}

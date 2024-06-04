@@ -10,12 +10,15 @@ const t = await getEntry('i18n', `${locale}/translation`)
 
 <div id="bmc-payment-modal" class="bmc-payment-modal hidden">
   <iframe
+    id="bmc-frame"
+    title="Buy Me A Coffee"
     allow="payment"
-    src={`https://buymeacoffee.com/widget/page/${ACCOUNT_ID}`}
-    title="Buy Me A Coffee"></iframe>
+    src={`https://buymeacoffee.com/widget/page/${ACCOUNT_ID}?description=支援してして`}
+    fetchpriority="low"
+    loading="lazy"></iframe>
 </div>
 <div class="bmc">
-  <button id="bmc-button" data-id={ACCOUNT_ID} class="bmc-button">
+  <button id="bmc-button" class="bmc-button">
     <Svg iconName="bmc" height={32} width={32} />
     <span>Buy Me a Coffee</span>
   </button>
@@ -111,7 +114,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
     right: 0;
     width: 100vw;
     height: 100dvh;
-    padding-top: 2.25rem;
+    padding-top: 6.25rem;
     z-index: 90;
     display: flex;
     justify-content: center;
@@ -121,14 +124,13 @@ const t = await getEntry('i18n', `${locale}/translation`)
     &.hidden {
       display: none;
     }
-    iframe {
+    & #bmc-frame {
       background-color: color-mix(in srgb, var(--bg) 97%, var(--fg) 3%);
       width: 100%;
       height: 100%;
       max-width: 38rem;
-      max-height: 70vh;
+      max-height: 60vh;
       margin: 0 1.5rem;
-      overflow-y: auto;
       box-sizing: border-box;
       border-radius: 0.25rem;
     }

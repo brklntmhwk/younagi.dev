@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config'
+import { defineConfig, passthroughImageService } from 'astro/config'
 import cloudflare from '@astrojs/cloudflare'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
@@ -24,6 +24,9 @@ export default defineConfig({
   site: 'https://younagi.dev',
   output: 'hybrid',
   adapter: cloudflare(),
+  image: {
+    service: passthroughImageService(),
+  },
   integrations: [
     mdx(),
     react({

@@ -39,6 +39,7 @@
     "solid-js": "^1.8.17"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240603.0",
     "@pagefind/default-ui": "^1.0.4",
     "@types/eslint": "8.56.5",
     "@types/hast": "^3.0.4",

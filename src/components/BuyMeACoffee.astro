@@ -8,15 +8,17 @@ const locale = getLocaleFromUrl(Astro.url)
 const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
+<div id="bmc-payment-modal" class="bmc-payment-modal hidden">
+  <iframe
+    allow="payment"
+    src={`https://buymeacoffee.com/widget/page/${ACCOUNT_ID}`}
+    title="Buy Me A Coffee"></iframe>
+</div>
 <div class="bmc">
-  <a
-    class="bmc-button"
-    href=`https://www.buymeacoffee.com/${ACCOUNT_ID}`
-    target="_blank"
-  >
+  <button id="bmc-button" data-id={ACCOUNT_ID} class="bmc-button">
     <Svg iconName="bmc" height={32} width={32} />
     <span>Buy Me a Coffee</span>
-  </a>
+  </button>
   <div class="bmc-greeting">
     <p>{t.data.bmc.greeting_message}</p>
     <span class="ornament"></span>
@@ -102,4 +104,61 @@ const t = await getEntry('i18n', `${locale}/translation`)
       background-color: var(--gray);
     }
   }
+  .bmc-payment-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    height: 100dvh;
+    padding-top: 2.25rem;
+    z-index: 90;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: var(--modal-bg);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+    &.hidden {
+      display: none;
+    }
+    iframe {
+      background-color: color-mix(in srgb, var(--bg) 97%, var(--fg) 3%);
+      width: 100%;
+      height: 100%;
+      max-width: 38rem;
+      max-height: 70vh;
+      margin: 0 1.5rem;
+      overflow-y: auto;
+      box-sizing: border-box;
+      border-radius: 0.25rem;
+    }
+  }
 </style>
+<script>
+  function init() {
+    const listenToModalEvents = (modalButton: Element, modal: Element) => {
+      modalButton.addEventListener('click', () => {
+        modal.classList.toggle('hidden')
+      })
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.classList.toggle('hidden')
+        }
+      })
+    }
+
+    const modalButton = document.querySelector('#bmc-button')
+    const modal = document.querySelector('#bmc-payment-modal')
+
+    if (modalButton && modal) {
+      listenToModalEvents(modalButton, modal)
+    }
+  }
+
+  const eventsToBeAdded = ['DOMContentLoaded'] as const
+
+  eventsToBeAdded.forEach((evName) => {
+    document.addEventListener(evName, init)
+  })
+</script>

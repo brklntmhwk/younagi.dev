@@ -41,3 +41,45 @@ const latestNews = localeNewsList.slice(0, NEWS_MAXIMUM_COUNT)
     }
   }
 </style>
+<!-- <script
+  data-name="BMC-Widget"
+  data-cfasync="false"
+  src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+  data-id="brklntmhwk"
+  data-description="Support me on Buy me a coffee!"
+  data-message="Thank you for your time and support."
+  data-color="#5F7FFF"
+  data-position="Right"
+  data-x_margin="18"
+  data-y_margin="18"></script> -->
+<!-- <script>
+  function init() {
+    const elementsToBeAnimated = new Set([
+      ...document.querySelectorAll('main > *:not(.bulletin-board > *)'),
+    ])
+    elementsToBeAnimated.forEach((elem) => elem.classList.add('fade-in'))
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.3,
+    } as IntersectionObserverInit
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('loaded')
+          observer.unobserve(entry.target)
+        }
+      })
+    }, observerOptions)
+
+    elementsToBeAnimated.forEach((elem) => observer.observe(elem))
+  }
+
+  const eventsToBeAdded = ['DOMContentLoaded'] as const
+
+  eventsToBeAdded.forEach((evName) => {
+    document.addEventListener(evName, init)
+  })
+</script> -->

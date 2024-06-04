@@ -35,9 +35,6 @@ importers:
       '@fontsource-variable/inconsolata':
         specifier: ^5.0.18
         version: 5.0.18
-      '@types/react-dom':
-        specifier: ^18.3.0
-        version: 18.3.0
       '@unocss/reset':
         specifier: ^0.60.0
         version: 0.60.2

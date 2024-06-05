@@ -116,10 +116,24 @@ const i18n = defineCollection({
       greeting_message: z.string(),
     }),
     contact: z.object({
-      yourName: z.string(),
-      email: z.string(),
-      messageBody: z.string(),
-      confirmationLabel: z.string(),
+      name: z.object({
+        label: z.string(),
+        required: z.string(),
+      }),
+      email: z.object({
+        label: z.string(),
+        required: z.string(),
+        invalid: z.string(),
+      }),
+      message: z.object({
+        label: z.string(),
+        required: z.string(),
+        minlength: z.string(),
+      }),
+      confirmation: z.object({
+        label: z.string(),
+        required: z.string(),
+      }),
       sendLabel: z.string(),
     }),
     pages: z.object({

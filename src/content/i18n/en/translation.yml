@@ -40,10 +40,20 @@ svg:
 bmc:
   greeting_message: I can't imagine my life without coffee.
 contact:
-  yourName: Name
-  email: Email
-  messageBody: Message
-  confirmationLabel: I confirm that the above information is correct.
+  name:
+    label: Name
+    required: Name is required.
+  email:
+    label: Email
+    required: Email is required.
+    invalid: Email address is not valid.
+  message:
+    label: Message
+    required: Message is required.
+    minlength: Message is too short.
+  confirmation:
+    label: I confirm that the above information is correct.
+    required: Please tick the checkbox before submission
   sendLabel: Submit
 pages:
   home:

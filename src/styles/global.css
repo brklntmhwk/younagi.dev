@@ -163,7 +163,7 @@ img {
 hr {
   border: none;
   border-top: 1px solid var(--line);
-  margin: 0.75rem 0;
+  margin: 1.75rem 0;
 }
 @supports (backdrop-filter: blur(6px) saturate(180%)) {
   .glassmorphism {

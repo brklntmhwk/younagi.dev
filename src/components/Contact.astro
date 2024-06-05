@@ -1,48 +1,60 @@
 ---
 import { getEntry } from 'astro:content'
 import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+import { useTranslatedPath } from '@/utils/i18n/useTranslatedPath'
 import { FORM_TEXTAREA_ROWS, FORM_TEXTAREA_MINLENGTH } from '@/consts'
 
 const locale = getLocaleFromUrl(Astro.url)
+const translatePath = useTranslatedPath(locale)
 const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
-<form id="contact-form" action=`/${locale}/api/form` method="post">
-  <label for={t.data.contact.yourName}>{t.data.contact.yourName}</label>
+<form
+  id="contact-form"
+  action={translatePath('/api/form')}
+  method="post"
+  novalidate
+>
+  <label for="name">{t.data.contact.name.label}</label>
   <div class="pokemon-border">
-    <input
-      type="text"
-      id={t.data.contact.yourName}
-      name="name"
-      autocomplete="off"
-      required
-    />
+    <input type="text" id="name" name="name" autocomplete="off" required />
   </div>
-  <label for={t.data.contact.email}>{t.data.contact.email}</label>
+  <div id="name-required" class="error hidden">
+    {t.data.contact.name.required}
+  </div>
+  <label for="email">{t.data.contact.email.label}</label>
   <div class="pokemon-border">
-    <input type="email" id={t.data.contact.email} name="email" required />
+    <input type="email" id="email" name="email" required />
   </div>
-  <label for={t.data.contact.messageBody}>{t.data.contact.messageBody}</label>
+  <div id="email-required" class="error hidden">
+    {t.data.contact.email.required}
+  </div>
+  <div id="email-invalid" class="error hidden">
+    {t.data.contact.email.invalid}
+  </div>
+  <label for="message">{t.data.contact.message.label}</label>
   <div class="pokemon-border">
     <textarea
-      id={t.data.contact.messageBody}
+      id="message"
       name="message"
       rows={FORM_TEXTAREA_ROWS}
       minlength={FORM_TEXTAREA_MINLENGTH}
       autocomplete="off"
       required></textarea>
   </div>
+  <div id="message-required" class="error hidden">
+    {t.data.contact.message.required}
+  </div>
+  <div id="message-minlength" class="error hidden">
+    {t.data.contact.message.minlength}
+  </div>
   <section class="checkbox-area">
-    <input
-      type="checkbox"
-      id={t.data.contact.confirmationLabel}
-      name="confirmCheck"
-      required
-    />
-    <label for={t.data.contact.confirmationLabel}
-      >{t.data.contact.confirmationLabel}</label
-    >
+    <input type="checkbox" id="confirmCheck" name="confirmCheck" required />
+    <label for="confirmCheck">{t.data.contact.confirmation.label}</label>
   </section>
+  <div id="confirm-required" class="error hidden">
+    {t.data.contact.confirmation.required}
+  </div>
   <div
     class="cf-turnstile"
     data-sitekey={import.meta.env.TURNSTILE_SITE_KEY}
@@ -73,7 +85,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
       }
     }
     .checkbox-area {
-      margin-top: 1.25rem;
+      margin-top: 1.5rem;
       input[type='checkbox'] {
         align-self: flex-start;
       }
@@ -87,13 +99,17 @@ const t = await getEntry('i18n', `${locale}/translation`)
       padding: 0.25rem 1.85rem;
       align-self: center;
     }
+    .error {
+      color: var(--callout-failure-fg);
+      background-color: var(--callout-failure-bg);
+      padding: 0.5rem;
+      border-radius: 0.25rem;
+      &.hidden {
+        display: none;
+      }
+    }
   }
 </style>
-<!-- <script
-  is:inline
-  src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-  async
-  defer></script> -->
 <script>
   import { onMount } from 'solid-js'
 
@@ -104,33 +120,121 @@ const t = await getEntry('i18n', `${locale}/translation`)
     script.defer = true
     document.body.appendChild(script)
   })
-</script>
-<!-- <script>
-  const formElement = document.getElementById(
-    'contact-form'
-  )! as HTMLFormElement
 
-  formElement.addEventListener('submit', async (event) => {
-    event.preventDefault()
+  function init() {
+    const formElement = document.getElementById(
+      'contact-form'
+    ) as HTMLFormElement
 
-    const formData = new FormData(formElement)
-    const formObject = Object.fromEntries(formData.entries())
+    let isValid = true
 
-    const response = await fetch(formElement.action, {
-      method: 'POST',
-      body: JSON.stringify(formObject),
-      // headers: {
-      //   'Content-Type': 'application/json',
-      // },
-      // body: JSON.stringify(formObject),
+    const nameRequiredError = document.getElementById(
+      'name-required'
+    ) as HTMLDivElement
+    const emailRequiredError = document.getElementById(
+      'email-required'
+    ) as HTMLDivElement
+    const emailInvalidError = document.getElementById(
+      'email-invalid'
+    ) as HTMLDivElement
+    const messageRequiredError = document.getElementById(
+      'message-required'
+    ) as HTMLDivElement
+    const messageMinlengthError = document.getElementById(
+      'message-minlength'
+    ) as HTMLDivElement
+    const confirmCheckRequiredError = document.getElementById(
+      'confirm-required'
+    ) as HTMLDivElement
+
+    const inputElements = document.querySelectorAll<
+      HTMLInputElement | HTMLTextAreaElement
+    >("input:not([type='hidden']), textarea")
+
+    inputElements.forEach((elem) => {
+      elem.addEventListener('blur', () => {
+        validate(elem)
+      })
     })
 
-    if (response.ok) {
-      alert('Form submitted successfully!')
-    } else {
-      alert('Error submitting form. Please try again.')
-      alert(JSON.stringify(response.statusText))
-      alert(JSON.stringify(response.body))
+    formElement.addEventListener('submit', async (event) => {
+      event.preventDefault()
+
+      for (const elem of inputElements.values()) {
+        validate(elem)
+      }
+
+      if (isValid) {
+        const formData = new FormData(formElement)
+        const response = await fetch(formElement.action, {
+          method: 'POST',
+          body: formData,
+        })
+
+        if (response.ok && response.redirected) {
+          window.location.replace(response.url)
+        } else {
+          formElement.reset()
+          alert('Error submitting form. Please try again.')
+        }
+      }
+    })
+
+    const validate = (elem: HTMLInputElement | HTMLTextAreaElement) => {
+      const elemName = elem.getAttribute('name')!
+      const validityState = elem.validity
+      switch (elemName) {
+        case 'name':
+          if (validityState.valueMissing) {
+            nameRequiredError.classList.remove('hidden')
+            isValid = false
+          } else {
+            nameRequiredError.classList.add('hidden')
+          }
+          break
+        case 'email':
+          if (validityState.valueMissing) {
+            emailRequiredError.classList.remove('hidden')
+            emailInvalidError.classList.add('hidden')
+            isValid = false
+          } else if (validityState.typeMismatch) {
+            emailRequiredError.classList.add('hidden')
+            emailInvalidError.classList.remove('hidden')
+            isValid = false
+          } else {
+            emailRequiredError.classList.add('hidden')
+            emailInvalidError.classList.add('hidden')
+          }
+          break
+        case 'message':
+          if (validityState.valueMissing) {
+            messageRequiredError.classList.remove('hidden')
+            messageMinlengthError.classList.add('hidden')
+            isValid = false
+          } else if (validityState.tooShort) {
+            messageRequiredError.classList.add('hidden')
+            messageMinlengthError.classList.remove('hidden')
+            isValid = false
+          } else {
+            messageRequiredError.classList.add('hidden')
+            messageMinlengthError.classList.add('hidden')
+          }
+          break
+        case 'confirmCheck':
+          if (validityState.valueMissing) {
+            confirmCheckRequiredError.classList.remove('hidden')
+            isValid = false
+          } else {
+            confirmCheckRequiredError.classList.add('hidden')
+          }
+          break
+      }
     }
+  }
+
+  const eventsToBeAdded = ['DOMContentLoaded'] as const
+
+  eventsToBeAdded.forEach((evName) => {
+    document.addEventListener(evName, init)
   })
-</script> -->
+</script>

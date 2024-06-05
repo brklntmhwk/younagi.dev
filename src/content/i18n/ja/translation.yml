@@ -40,10 +40,20 @@ svg:
 bmc:
   greeting_message: コーヒーのない人生は想像できません
 contact:
-  yourName: 氏名
-  email: メールアドレス
-  messageBody: メッセージ
-  confirmationLabel: 上記の内容で送信する
+  name:
+    label: 氏名
+    required: 氏名は必須です
+  email:
+    label: メールアドレス
+    required: メールアドレスは必須です
+    invalid: メールアドレスが有効ではありません
+  message:
+    label: メッセージ
+    required: メッセージは必須です
+    minlength: メッセージが短すぎます
+  confirmation:
+    label: 上記の内容で送信する
+    required: 送信前にチェックをしてください
   sendLabel: 送信する
 pages:
   home:

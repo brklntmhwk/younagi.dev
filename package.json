@@ -51,6 +51,8 @@
     "@typescript-eslint/eslint-plugin": "7.1.1",
     "@typescript-eslint/parser": "7.1.1",
     "browserslist": "^4.23.0",
+    "drizzle-kit": "^0.22.2",
+    "drizzle-orm": "^0.31.1",
     "esbuild": "^0.21.4",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",

@@ -126,8 +126,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
       'contact-form'
     ) as HTMLFormElement
 
-    // let isValid = true
-    const [isValid, setIsValid] = createSignal(true)
+    const [isValid, setIsValid] = createSignal(false)
 
     const inputElements = document.querySelectorAll<
       HTMLInputElement | HTMLTextAreaElement
@@ -150,10 +149,14 @@ const t = await getEntry('i18n', `${locale}/translation`)
 
     formElement.addEventListener('submit', async (event) => {
       event.preventDefault()
+      console.log(`before validate: ${isValid()}`)
 
       for (const elem of inputElements.values()) {
         validate(elem)
       }
+      setIsValid(formElement.checkValidity())
+
+      console.log(`after validate: ${isValid()}`)
 
       if (isValid()) {
         const formData = new FormData(formElement)
@@ -182,8 +185,6 @@ const t = await getEntry('i18n', `${locale}/translation`)
         case 'name':
           if (validityState.valueMissing) {
             requiredError.classList.remove('hidden')
-            // isValid = false
-            setIsValid(false)
           } else {
             requiredError.classList.add('hidden')
           }
@@ -195,13 +196,9 @@ const t = await getEntry('i18n', `${locale}/translation`)
           if (validityState.valueMissing) {
             requiredError.classList.remove('hidden')
             invalidError.classList.add('hidden')
-            // isValid = false
-            setIsValid(false)
           } else if (validityState.typeMismatch) {
             requiredError.classList.add('hidden')
             invalidError.classList.remove('hidden')
-            // isValid = false
-            setIsValid(false)
           } else {
             requiredError.classList.add('hidden')
             invalidError.classList.add('hidden')
@@ -214,13 +211,9 @@ const t = await getEntry('i18n', `${locale}/translation`)
           if (validityState.valueMissing) {
             requiredError.classList.remove('hidden')
             minlengthError.classList.add('hidden')
-            // isValid = false
-            setIsValid(false)
           } else if (validityState.tooShort) {
             requiredError.classList.add('hidden')
             minlengthError.classList.remove('hidden')
-            // isValid = false
-            setIsValid(false)
           } else {
             requiredError.classList.add('hidden')
             minlengthError.classList.add('hidden')
@@ -229,8 +222,6 @@ const t = await getEntry('i18n', `${locale}/translation`)
         case 'confirmCheck':
           if (validityState.valueMissing) {
             requiredError.classList.remove('hidden')
-            // isValid = false
-            setIsValid(false)
           } else {
             requiredError.classList.add('hidden')
           }
@@ -239,7 +230,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
     }
   }
 
-  const eventsToBeAdded = ['DOMContentLoaded', 'pageshow'] as const
+  const eventsToBeAdded = ['DOMContentLoaded'] as const
 
   eventsToBeAdded.forEach((evName) => {
     document.addEventListener(evName, init)

@@ -80,9 +80,9 @@ export const POST: APIRoute = async ({
   data.delete('cf-turnstile-response')
   data.delete('confirmCheck')
 
-  const inputName = data.get('name')! as string
-  const inputEmail = data.get('email')! as string
-  const inputMessage = data.get('message')! as string
+  const inputName = data.get('name') as string
+  const inputEmail = data.get('email') as string
+  const inputMessage = data.get('message') as string
 
   const myEmail = import.meta.env.PROD
     ? locals.runtime.env.MY_CUSTOM_EMAIL_ADDRESS
@@ -92,7 +92,7 @@ export const POST: APIRoute = async ({
     to: [
       {
         email: myEmail,
-        name: 'Nagi (凪)',
+        name: 'Nagi/ 凪',
       },
     ],
     subject: CONTACT_NOTIFICATION_SUBJECT,

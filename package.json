@@ -7,7 +7,7 @@
   "author": "Nagi",
   "license": "MIT",
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
+    "preinstall": "only-allow pnpm",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
@@ -15,10 +15,11 @@
     "postbuild": "pagefind --site dist",
     "preview": "astro preview",
     "sync": "astro sync",
-    "astro": "npx astro",
+    "astro": "astro",
     "format": "prettier --write './src/**/*.{js,ts,json,astro}'",
     "prepare": "husky",
-    "typegen": "npx wrangler types"
+    "typegen": "wrangler types",
+    "db:generate": "drizzle-kit generate"
   },
   "dependencies": {
     "@astrojs/check": "^0.5.10",
@@ -50,6 +51,7 @@
     "@types/unist": "^3.0.2",
     "@typescript-eslint/eslint-plugin": "7.1.1",
     "@typescript-eslint/parser": "7.1.1",
+    "better-sqlite3": "^11.0.0",
     "browserslist": "^4.23.0",
     "drizzle-kit": "^0.22.2",
     "drizzle-orm": "^0.31.1",

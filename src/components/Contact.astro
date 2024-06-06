@@ -166,6 +166,10 @@ const t = await getEntry('i18n', `${locale}/translation`)
 
       if (isValid) {
         const formData = new FormData(formElement)
+        const submitButton = document.querySelector(
+          "button[type='submit']"
+        ) as HTMLButtonElement
+        submitButton.setAttribute('disabled', 'true')
         const response = await fetch(formElement.action, {
           method: 'POST',
           body: formData,
@@ -232,7 +236,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
     }
   }
 
-  const eventsToBeAdded = ['DOMContentLoaded'] as const
+  const eventsToBeAdded = ['DOMContentLoaded', 'pageshow'] as const
 
   eventsToBeAdded.forEach((evName) => {
     document.addEventListener(evName, init)

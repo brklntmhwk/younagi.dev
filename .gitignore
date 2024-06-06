@@ -16,3 +16,10 @@ node_modules/
 
 # Front Matter CMS files
 .frontmatter/
+
+# Wrangler
+.wrangler/
+wrangler.toml
+
+# VS Code
+.vscode

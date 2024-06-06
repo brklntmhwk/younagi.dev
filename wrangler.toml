@@ -1,7 +1,0 @@
-[vars]
-
-[[d1_databases]]
-binding = "DB"
-database_name = "younagi_dev_db"
-database_id = "500cb3d8-68a9-41e1-bf09-1ce81c89e51f"
-migrations_dir = "./src/db/migrations"

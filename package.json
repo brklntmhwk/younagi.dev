@@ -7,7 +7,7 @@
   "author": "Nagi",
   "license": "MIT",
   "scripts": {
-    "preinstall": "only-allow pnpm",
+    "preinstall": "npx only-allow pnpm",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",

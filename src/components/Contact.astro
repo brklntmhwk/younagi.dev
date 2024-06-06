@@ -149,14 +149,11 @@ const t = await getEntry('i18n', `${locale}/translation`)
 
     formElement.addEventListener('submit', async (event) => {
       event.preventDefault()
-      console.log(`before validate: ${isValid()}`)
 
       for (const elem of inputElements.values()) {
         validate(elem)
       }
       setIsValid(formElement.checkValidity())
-
-      console.log(`after validate: ${isValid()}`)
 
       if (isValid()) {
         const formData = new FormData(formElement)

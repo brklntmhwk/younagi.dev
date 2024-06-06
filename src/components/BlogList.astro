@@ -51,19 +51,21 @@ const { entries, kind } = Astro.props
               >
                 {entry.data.category}
               </a>
-              <ul class="tag-list">
-                {entry.data.tags?.map((tag) => (
-                  <li>
-                    <a
-                      href={translatePath(
-                        `/${entry.collection}/tags/${slugify(tag)}`
-                      )}
-                    >
-                      #{tag}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              {entry.data.tags && (
+                <ul class="tag-list">
+                  {entry.data.tags.map((tag) => (
+                    <li>
+                      <a
+                        href={translatePath(
+                          `/${entry.collection}/tags/${slugify(tag)}`
+                        )}
+                      >
+                        #{tag}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </section>
           )}
         </article>

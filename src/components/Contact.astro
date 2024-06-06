@@ -52,7 +52,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
     <input type="checkbox" id="confirmCheck" name="confirmCheck" required />
     <label for="confirmCheck">{t.data.contact.confirmation.label}</label>
   </section>
-  <div id="confirm-required" class="error hidden">
+  <div id="confirmCheck-required" class="error hidden">
     {t.data.contact.confirmation.required}
   </div>
   <div
@@ -111,7 +111,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
   }
 </style>
 <script>
-  import { onMount } from 'solid-js'
+  import { createSignal, onMount } from 'solid-js'
 
   onMount(() => {
     const script = document.createElement('script')
@@ -126,35 +126,26 @@ const t = await getEntry('i18n', `${locale}/translation`)
       'contact-form'
     ) as HTMLFormElement
 
-    let isValid = true
-
-    const nameRequiredError = document.getElementById(
-      'name-required'
-    ) as HTMLDivElement
-    const emailRequiredError = document.getElementById(
-      'email-required'
-    ) as HTMLDivElement
-    const emailInvalidError = document.getElementById(
-      'email-invalid'
-    ) as HTMLDivElement
-    const messageRequiredError = document.getElementById(
-      'message-required'
-    ) as HTMLDivElement
-    const messageMinlengthError = document.getElementById(
-      'message-minlength'
-    ) as HTMLDivElement
-    const confirmCheckRequiredError = document.getElementById(
-      'confirm-required'
-    ) as HTMLDivElement
+    // let isValid = true
+    const [isValid, setIsValid] = createSignal(true)
 
     const inputElements = document.querySelectorAll<
       HTMLInputElement | HTMLTextAreaElement
     >("input:not([type='hidden']), textarea")
 
     inputElements.forEach((elem) => {
-      elem.addEventListener('blur', () => {
-        validate(elem)
-      })
+      if (
+        elem.tagName === 'INPUT' &&
+        elem.getAttribute('type') === 'checkbox'
+      ) {
+        elem.addEventListener('change', () => {
+          validate(elem)
+        })
+      } else {
+        elem.addEventListener('blur', () => {
+          validate(elem)
+        })
+      }
     })
 
     formElement.addEventListener('submit', async (event) => {
@@ -164,12 +155,8 @@ const t = await getEntry('i18n', `${locale}/translation`)
         validate(elem)
       }
 
-      if (isValid) {
+      if (isValid()) {
         const formData = new FormData(formElement)
-        const submitButton = document.querySelector(
-          "button[type='submit']"
-        ) as HTMLButtonElement
-        submitButton.setAttribute('disabled', 'true')
         const response = await fetch(formElement.action, {
           method: 'POST',
           body: formData,
@@ -187,49 +174,65 @@ const t = await getEntry('i18n', `${locale}/translation`)
     const validate = (elem: HTMLInputElement | HTMLTextAreaElement) => {
       const elemName = elem.getAttribute('name')!
       const validityState = elem.validity
+      const requiredError = document.getElementById(
+        elemName + '-required'
+      ) as HTMLDivElement
+
       switch (elemName) {
         case 'name':
           if (validityState.valueMissing) {
-            nameRequiredError.classList.remove('hidden')
-            isValid = false
+            requiredError.classList.remove('hidden')
+            // isValid = false
+            setIsValid(false)
           } else {
-            nameRequiredError.classList.add('hidden')
+            requiredError.classList.add('hidden')
           }
           break
         case 'email':
+          const invalidError = document.getElementById(
+            elemName + '-invalid'
+          ) as HTMLDivElement
           if (validityState.valueMissing) {
-            emailRequiredError.classList.remove('hidden')
-            emailInvalidError.classList.add('hidden')
-            isValid = false
+            requiredError.classList.remove('hidden')
+            invalidError.classList.add('hidden')
+            // isValid = false
+            setIsValid(false)
           } else if (validityState.typeMismatch) {
-            emailRequiredError.classList.add('hidden')
-            emailInvalidError.classList.remove('hidden')
-            isValid = false
+            requiredError.classList.add('hidden')
+            invalidError.classList.remove('hidden')
+            // isValid = false
+            setIsValid(false)
           } else {
-            emailRequiredError.classList.add('hidden')
-            emailInvalidError.classList.add('hidden')
+            requiredError.classList.add('hidden')
+            invalidError.classList.add('hidden')
           }
           break
         case 'message':
+          const minlengthError = document.getElementById(
+            elemName + '-minlength'
+          ) as HTMLDivElement
           if (validityState.valueMissing) {
-            messageRequiredError.classList.remove('hidden')
-            messageMinlengthError.classList.add('hidden')
-            isValid = false
+            requiredError.classList.remove('hidden')
+            minlengthError.classList.add('hidden')
+            // isValid = false
+            setIsValid(false)
           } else if (validityState.tooShort) {
-            messageRequiredError.classList.add('hidden')
-            messageMinlengthError.classList.remove('hidden')
-            isValid = false
+            requiredError.classList.add('hidden')
+            minlengthError.classList.remove('hidden')
+            // isValid = false
+            setIsValid(false)
           } else {
-            messageRequiredError.classList.add('hidden')
-            messageMinlengthError.classList.add('hidden')
+            requiredError.classList.add('hidden')
+            minlengthError.classList.add('hidden')
           }
           break
         case 'confirmCheck':
           if (validityState.valueMissing) {
-            confirmCheckRequiredError.classList.remove('hidden')
-            isValid = false
+            requiredError.classList.remove('hidden')
+            // isValid = false
+            setIsValid(false)
           } else {
-            confirmCheckRequiredError.classList.add('hidden')
+            requiredError.classList.add('hidden')
           }
           break
       }

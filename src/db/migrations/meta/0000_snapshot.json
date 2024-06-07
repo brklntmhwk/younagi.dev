@@ -1,46 +1,50 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "90d615fd-93ed-4e6f-ab93-3500e6c55050",
+  "id": "7a77d85e-1f4b-4895-b80b-5412de7ea962",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "likes": {
       "name": "likes",
       "columns": {
-        "id": {
-          "name": "id",
-          "type": "integer",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": true
+        "session_id": {
+          "name": "session_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "collection": {
+          "name": "collection",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
         },
         "slug": {
           "name": "slug",
           "type": "text",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false
         },
         "created_at": {
           "name": "created_at",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": "(strftime('%s', 'now'))"
-        },
-        "count": {
-          "name": "count",
-          "type": "integer",
-          "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": 0
+          "default": "0"
         }
       },
       "indexes": {},
       "foreignKeys": {},
-      "compositePrimaryKeys": {},
+      "compositePrimaryKeys": {
+        "likes_session_id_collection_slug_pk": {
+          "columns": ["collection", "session_id", "slug"],
+          "name": "likes_session_id_collection_slug_pk"
+        }
+      },
       "uniqueConstraints": {}
     }
   },

@@ -4,8 +4,8 @@
     "strictNullChecks": true,
     "allowJs": true,
     "esModuleInterop": true,
-    "jsx": "react-jsx",
-    "jsxImportSource": "react",
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]

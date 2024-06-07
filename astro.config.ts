@@ -23,17 +23,24 @@ import remarkCallout from './src/plugins/remark-callout'
 export default defineConfig({
   site: 'https://younagi.dev',
   output: 'hybrid',
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    platformProxy: {
+      enabled: true,
+      persist: true,
+    },
+  }),
   image: {
     service: passthroughImageService(),
   },
   integrations: [
     mdx(),
     react({
+      exclude: '**/islands/*',
       include: '**/OgImage/*',
     }),
     solid({
       exclude: '**/OgImage/*',
+      include: '**/islands/*',
     }),
     purgecss({
       fontFace: true,

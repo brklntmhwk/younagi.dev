@@ -1,13 +1,21 @@
 import { sql } from 'drizzle-orm'
-import { sqliteTable, integer, text } from 'drizzle-orm/sqlite-core'
+import { sqliteTable, integer, text, primaryKey } from 'drizzle-orm/sqlite-core'
 
-export const likes = sqliteTable('likes', {
-  id: integer('id', { mode: 'number' })
-    .primaryKey({ autoIncrement: true })
-    .notNull(),
-  slug: text('slug').notNull(),
-  createdAt: integer('created_at', { mode: 'timestamp' }).default(
-    sql`(strftime('%s', 'now'))`
-  ),
-  count: integer('count').notNull().default(0),
-})
+export const likes = sqliteTable(
+  'likes',
+  {
+    sessionId: text('session_id'),
+    collection: text('collection'),
+    slug: text('slug'),
+    createdAt: integer('created_at', { mode: 'timestamp' })
+      .notNull()
+      .default(sql`0`),
+  },
+  (likes) => {
+    return {
+      pk: primaryKey({
+        columns: [likes.sessionId, likes.collection, likes.slug],
+      }),
+    }
+  }
+)

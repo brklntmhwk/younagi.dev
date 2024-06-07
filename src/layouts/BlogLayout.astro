@@ -4,6 +4,7 @@ import type { MarkdownHeading } from 'astro'
 import type { CollectionEntry } from 'astro:content'
 import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import Likes from '@/components/islands/Likes'
 import BuyMeACoffee from '@/components/BuyMeACoffee.astro'
 import FormattedDate from '../components/FormattedDate.astro'
 import Toc from '@/components/Toc.astro'
@@ -18,11 +19,12 @@ type Props = {
 }
 
 const locale = getLocaleFromUrl(Astro.url)
+const t = await getEntry('i18n', `${locale}/translation`)
 const translatePath = useTranslatedPath(locale)
 const { entry, headings } = Astro.props
 const { data, collection, slug } = entry
 const { title, description, category, tags, publishedAt, modifiedAt } = data
-const t = await getEntry('i18n', `${locale}/translation`)
+const rawSlug = slug.slice(slug.indexOf('/') + 1)
 ---
 
 <BaseLayout
@@ -33,10 +35,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
     height: 630,
     width: 1200,
     image: new URL(
-      '/api/og' +
-        translatePath(
-          `/${collection}/${slug.slice(slug.indexOf('/') + 1)}.png`
-        ),
+      '/api/og' + translatePath(`/${collection}/${rawSlug}.png`),
       Astro.url
     ),
     type: 'article',
@@ -91,7 +90,15 @@ const t = await getEntry('i18n', `${locale}/translation`)
         <slot />
       </section>
       <hr />
-      <BuyMeACoffee />
+      <section class="cta">
+        <Likes
+          client:load
+          client:only="solid-js"
+          collection={collection}
+          slug={rawSlug}
+        />
+        <BuyMeACoffee />
+      </section>
       <section class="guides">
         <a class="back-to-link" href={translatePath('/blog')}
           >◀ {t.data.pages.blog.back_to_top}</a
@@ -236,6 +243,11 @@ const t = await getEntry('i18n', `${locale}/translation`)
       & :global(.katex-display) {
         margin: 1.875rem 0;
       }
+    }
+    .cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
     }
     .guides {
       display: flex;

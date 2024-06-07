@@ -44,6 +44,9 @@ importers:
       astro-purgecss:
         specifier: 4.1.0
         version: 4.1.0(astro@4.8.4(@types/node@20.12.12)(lightningcss@1.24.1)(typescript@5.4.5))(purgecss@5.0.0)
+      drizzle-orm:
+        specifier: ^0.31.1
+        version: 0.31.1(@cloudflare/workers-types@4.20240603.0)(@types/better-sqlite3@7.6.10)(@types/react@18.3.3)(better-sqlite3@11.0.0)(react@18.3.1)
       purgecss:
         specifier: 5.0.0
         version: 5.0.0
@@ -56,6 +59,9 @@ importers:
       solid-js:
         specifier: ^1.8.17
         version: 1.8.17
+      typescript:
+        specifier: 5.4.5
+        version: 5.4.5
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20240603.0
@@ -63,6 +69,9 @@ importers:
       '@pagefind/default-ui':
         specifier: ^1.0.4
         version: 1.1.0
+      '@types/better-sqlite3':
+        specifier: ^7.6.10
+        version: 7.6.10
       '@types/eslint':
         specifier: 8.56.5
         version: 8.56.5
@@ -96,12 +105,12 @@ importers:
       browserslist:
         specifier: ^4.23.0
         version: 4.23.0
+      cross-env:
+        specifier: ^7.0.3
+        version: 7.0.3
       drizzle-kit:
         specifier: ^0.22.2
         version: 0.22.2
-      drizzle-orm:
-        specifier: ^0.31.1
-        version: 0.31.1(@cloudflare/workers-types@4.20240603.0)(@types/react@18.3.3)(better-sqlite3@11.0.0)(react@18.3.1)
       esbuild:
         specifier: ^0.21.4
         version: 0.21.4
@@ -186,9 +195,6 @@ importers:
       svgo:
         specifier: ^3.3.2
         version: 3.3.2
-      typescript:
-        specifier: 5.4.5
-        version: 5.4.5
       unified:
         specifier: ^11.0.4
         version: 11.0.4
@@ -1501,6 +1507,9 @@ packages:
   '@types/babel__traverse@7.20.5':
     resolution: {integrity: sha512-WXCyOcRtH37HAUkpXhUduaxdm82b4GSlyTqajXviN4EfiuPgNYR109xMCKvpl6zPIpua0DGlMEDCq+g8EdoheQ==}
 
+  '@types/better-sqlite3@7.6.10':
+    resolution: {integrity: sha512-TZBjD+yOsyrUJGmcUj6OS3JADk3+UZcNv3NOBqGkM09bZdi28fNZw8ODqbMOLfKCu7RYCO62/ldq1iHbzxqoPw==}
+
   '@types/cookie@0.6.0':
     resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
 
@@ -1992,6 +2001,11 @@ packages:
   cookie@0.6.0:
     resolution: {integrity: sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw==}
     engines: {node: '>= 0.6'}
+
+  cross-env@7.0.3:
+    resolution: {integrity: sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw==}
+    engines: {node: '>=10.14', npm: '>=6', yarn: '>=1'}
+    hasBin: true
 
   cross-spawn@7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
@@ -5243,6 +5257,10 @@ snapshots:
     dependencies:
       '@babel/types': 7.24.5
 
+  '@types/better-sqlite3@7.6.10':
+    dependencies:
+      '@types/node': 20.12.12
+
   '@types/cookie@0.6.0': {}
 
   '@types/debug@4.1.12':
@@ -5860,6 +5878,10 @@ snapshots:
 
   cookie@0.6.0: {}
 
+  cross-env@7.0.3:
+    dependencies:
+      cross-spawn: 7.0.3
+
   cross-spawn@7.0.3:
     dependencies:
       path-key: 3.1.1
@@ -5978,9 +6000,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.31.1(@cloudflare/workers-types@4.20240603.0)(@types/react@18.3.3)(better-sqlite3@11.0.0)(react@18.3.1):
+  drizzle-orm@0.31.1(@cloudflare/workers-types@4.20240603.0)(@types/better-sqlite3@7.6.10)(@types/react@18.3.3)(better-sqlite3@11.0.0)(react@18.3.1):
     optionalDependencies:
       '@cloudflare/workers-types': 4.20240603.0
+      '@types/better-sqlite3': 7.6.10
       '@types/react': 18.3.3
       better-sqlite3: 11.0.0
       react: 18.3.1

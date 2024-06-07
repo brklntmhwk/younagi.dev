@@ -27,10 +27,12 @@ const Likes: Component<LikesProps> = ({ slug, collection }) => {
   return (
     <div
       style={{
+        'background-color': 'hsla(0, 100%, 93%, 1)',
         display: 'flex',
         'align-items': 'center',
         gap: '0.75rem',
-        padding: '0.85rem',
+        padding: '0.5rem 0.85rem',
+        'border-radius': '0.5rem',
       }}
     >
       <button
@@ -58,7 +60,16 @@ const Likes: Component<LikesProps> = ({ slug, collection }) => {
           <Svg iconName="hand-heart" width={20} height={20} />
         )} */}
       </button>
-      <span>{likes()?.likes ?? 0}</span>
+      <span
+        style={{
+          color: 'var(--fg)',
+          'font-size': '1.25rem',
+          'border-left': '1px solid var(--line)',
+          'padding-left': '0.875rem',
+        }}
+      >
+        {likes()?.likes ?? 0}
+      </span>
     </div>
   )
 }

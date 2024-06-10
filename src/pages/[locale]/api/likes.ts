@@ -6,7 +6,7 @@ import { drizzle } from 'drizzle-orm/d1'
 import { likes } from '@/db/schema'
 
 export const GET: APIRoute = async ({ locals, url, cookies }: APIContext) => {
-  const d1 = import.meta.env.PROD ? import.meta.env.DB : locals.runtime.env.DB
+  const d1 = locals.runtime.env.DB
   const db = drizzle(d1, { schema: { likes } })
 
   const slug = url.searchParams.get('slug') ?? ''
@@ -43,7 +43,7 @@ export const POST: APIRoute = async ({
   request,
   cookies,
 }: APIContext) => {
-  const d1 = import.meta.env.PROD ? import.meta.env.DB : locals.runtime.env.DB
+  const d1 = locals.runtime.env.DB
   const db = drizzle(d1, { schema: { likes } })
 
   const { slug = '', collection = '' } = (await request.json()) as {

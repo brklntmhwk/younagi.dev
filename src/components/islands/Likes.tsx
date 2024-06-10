@@ -1,6 +1,9 @@
-export const prerender = false
-
-import { type Component, createSignal, createResource, onMount } from 'solid-js'
+import {
+  type Component,
+  createEffect,
+  createSignal,
+  createResource,
+} from 'solid-js'
 import { type CollectionEntry, getEntry } from 'astro:content'
 import { languages } from '@/utils/i18n/data'
 import { useTranslatedPath } from '@/utils/i18n/useTranslatedPath'
@@ -29,7 +32,7 @@ const Likes: Component<Props> = ({ slug, collection, locale }) => {
     fetchLikes
   )
 
-  onMount(async () => {
+  createEffect(async () => {
     const translations = await getEntry('i18n', `${locale}/translation`)
     setT(translations)
   })
@@ -68,6 +71,7 @@ const Likes: Component<Props> = ({ slug, collection, locale }) => {
           {likes()?.liked
             ? t()?.data.likes.button_label
             : t()?.data.likes.button_label}
+          {locale}
         </span>
       </button>
       <span

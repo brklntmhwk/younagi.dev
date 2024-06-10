@@ -39,6 +39,8 @@ svg:
   invalid_error_message: 無効なSVGファイルであるか、SVGタグがありません
 bmc:
   greeting_message: コーヒーのない人生は想像できません
+likes:
+  button_label: 良きかな👍
 contact:
   name:
     label: 氏名

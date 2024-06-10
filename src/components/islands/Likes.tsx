@@ -1,33 +1,46 @@
-import { type Component, createResource } from 'solid-js'
-import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+import {
+  type Component,
+  createEffect,
+  createSignal,
+  createResource,
+} from 'solid-js'
+import { type CollectionEntry, getEntry } from 'astro:content'
+import { languages } from '@/utils/i18n/data'
 import { useTranslatedPath } from '@/utils/i18n/useTranslatedPath'
 
-interface LikesProps {
+type Props = {
   slug: string
   collection: string
+  locale: keyof typeof languages
 }
 
-const locale = getLocaleFromUrl(new URL(import.meta.url))
-const translatePath = useTranslatedPath(locale)
-
-const fetchLikes = async ({ slug, collection }: LikesProps) => {
+const fetchLikes = async ({ slug, collection, locale }: Props) => {
+  const translatePath = useTranslatedPath(locale)
   const res = await fetch(
     translatePath(`/api/likes?slug=${slug}&collection=${collection}`)
   )
   const data = (await res.json()) as { likes: number; liked: boolean }
+
   return data
 }
 
-const Likes: Component<LikesProps> = ({ slug, collection }) => {
+const Likes: Component<Props> = ({ slug, collection, locale }) => {
+  const translatePath = useTranslatedPath(locale)
+  const [t, setT] = createSignal<CollectionEntry<'i18n'>>()
   const [likes, { refetch, mutate }] = createResource(
-    () => ({ slug, collection }),
+    () => ({ slug, collection, locale }),
     fetchLikes
   )
+
+  createEffect(async () => {
+    const translations = await getEntry('i18n', `${locale}/translation`)
+    setT(translations)
+  })
 
   return (
     <div
       style={{
-        'background-color': 'hsla(0, 100%, 93%, 1)',
+        'background-color': 'hsla(0, 100%, 84%, 1)',
         display: 'flex',
         'align-items': 'center',
         gap: '0.75rem',
@@ -37,7 +50,6 @@ const Likes: Component<LikesProps> = ({ slug, collection }) => {
     >
       <button
         type="button"
-        style={{}}
         onClick={async () => {
           await fetch(translatePath('/api/likes'), {
             method: 'POST',
@@ -53,17 +65,18 @@ const Likes: Component<LikesProps> = ({ slug, collection }) => {
           refetch()
         }}
       >
-        💓
-        {/* {likes()?.liked ? (
-          <Svg iconName="hand-heart-filled" width={20} height={20} />
-        ) : (
-          <Svg iconName="hand-heart" width={20} height={20} />
-        )} */}
+        <span
+          style={{ color: 'hsla(0, 0%, 96%, 1)', 'font-size': ' 1.125rem' }}
+        >
+          {likes()?.liked
+            ? t()?.data.likes.button_label
+            : t()?.data.likes.button_label}
+        </span>
       </button>
       <span
         style={{
-          color: 'var(--fg)',
-          'font-size': '1.25rem',
+          color: 'hsla(0, 0%, 96%, 1)',
+          'font-size': '1.125rem',
           'border-left': '1px solid var(--line)',
           'padding-left': '0.875rem',
         }}

@@ -39,6 +39,8 @@ svg:
   invalid_error_message: Invalid svg file or svg tags missing
 bmc:
   greeting_message: I can't imagine my life without coffee.
+likes:
+  button_label: Nice👍
 contact:
   name:
     label: Name

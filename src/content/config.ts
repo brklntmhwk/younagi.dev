@@ -115,6 +115,9 @@ const i18n = defineCollection({
     bmc: z.object({
       greeting_message: z.string(),
     }),
+    likes: z.object({
+      button_label: z.string(),
+    }),
     contact: z.object({
       name: z.object({
         label: z.string(),

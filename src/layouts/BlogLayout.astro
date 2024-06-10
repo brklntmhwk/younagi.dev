@@ -5,6 +5,7 @@ import type { CollectionEntry } from 'astro:content'
 import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import Likes from '@/components/islands/Likes'
+// import Favorite from '@/components/islands/Favorite/Favorite'
 import BuyMeACoffee from '@/components/BuyMeACoffee.astro'
 import FormattedDate from '../components/FormattedDate.astro'
 import Toc from '@/components/Toc.astro'
@@ -91,13 +92,8 @@ const rawSlug = slug.slice(slug.indexOf('/') + 1)
       </section>
       <hr />
       <section class="cta">
-        <Likes
-          client:load
-          client:only="solid-js"
-          slug={rawSlug}
-          {collection}
-          {locale}
-        />
+        <Likes client:only="solid-js" slug={rawSlug} {collection} {locale} />
+        <!-- <Favorite client:only="solid-js" slug={rawSlug} {collection} {locale} /> -->
         <BuyMeACoffee />
       </section>
       <section class="guides">

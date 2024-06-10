@@ -71,7 +71,6 @@ const Likes: Component<Props> = ({ slug, collection, locale }) => {
           {likes()?.liked
             ? t()?.data.likes.button_label
             : t()?.data.likes.button_label}
-          {locale}
         </span>
       </button>
       <span

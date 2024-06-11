@@ -7,6 +7,7 @@ import solid from '@astrojs/solid-js'
 import purgecss from 'astro-purgecss'
 import browserslist from 'browserslist'
 import { browserslistToTargets } from 'lightningcss'
+import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin'
 import { h } from 'hastscript'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
@@ -68,7 +69,7 @@ export default defineConfig({
       analyzeDependencies: true,
       lightningcss: {
         cssModules: {
-          pattern: '[local]',
+          pattern: '[hash]-[local]',
         },
         drafts: {
           customMedia: true,
@@ -76,6 +77,7 @@ export default defineConfig({
         targets: browserslistToTargets(browserslist('>= 0.1%')),
       },
     },
+    plugins: [vanillaExtractPlugin()],
     ssr: {
       external: ['node:fs'],
     },

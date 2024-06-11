@@ -7,6 +7,7 @@ import {
 import { type CollectionEntry, getEntry } from 'astro:content'
 import { languages } from '@/utils/i18n/data'
 import { useTranslatedPath } from '@/utils/i18n/useTranslatedPath'
+import { likesClass } from '@/styles/styles.css'
 
 type Props = {
   slug: string
@@ -38,16 +39,7 @@ const Likes: Component<Props> = ({ slug, collection, locale }) => {
   })
 
   return (
-    <div
-      style={{
-        'background-color': 'hsla(0, 100%, 84%, 1)',
-        display: 'flex',
-        'align-items': 'center',
-        gap: '0.75rem',
-        padding: '0.5rem 0.85rem',
-        'border-radius': '0.5rem',
-      }}
-    >
+    <div class={likesClass}>
       <button
         type="button"
         onClick={async () => {
@@ -65,24 +57,13 @@ const Likes: Component<Props> = ({ slug, collection, locale }) => {
           refetch()
         }}
       >
-        <span
-          style={{ color: 'hsla(0, 0%, 96%, 1)', 'font-size': ' 1.125rem' }}
-        >
+        <span>
           {likes()?.liked
             ? t()?.data.likes.button_label
             : t()?.data.likes.button_label}
         </span>
+        <span>{likes()?.likes ?? 0}</span>
       </button>
-      <span
-        style={{
-          color: 'hsla(0, 0%, 96%, 1)',
-          'font-size': '1.125rem',
-          'border-left': '1px solid var(--line)',
-          'padding-left': '0.875rem',
-        }}
-      >
-        {likes()?.likes ?? 0}
-      </span>
     </div>
   )
 }

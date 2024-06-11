@@ -38,9 +38,6 @@ importers:
       '@unocss/reset':
         specifier: ^0.60.0
         version: 0.60.2
-      '@vanilla-extract/css':
-        specifier: ^1.15.2
-        version: 1.15.2
       astro:
         specifier: ^4.7.0
         version: 4.8.4(@types/node@20.12.12)(lightningcss@1.24.1)(typescript@5.4.5)
@@ -102,6 +99,9 @@ importers:
       '@typescript-eslint/parser':
         specifier: 7.1.1
         version: 7.1.1(eslint@8.57.0)(typescript@5.4.5)
+      '@vanilla-extract/css':
+        specifier: ^1.15.2
+        version: 1.15.2
       '@vanilla-extract/vite-plugin':
         specifier: ^4.0.10
         version: 4.0.10(@types/node@20.12.12)(lightningcss@1.24.1)(vite@5.2.11(@types/node@20.12.12)(lightningcss@1.24.1))

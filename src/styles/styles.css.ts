@@ -8,11 +8,11 @@ export const likesClass = style({
   padding: '0.5rem 0.85rem',
   borderRadius: '0.5rem',
   selectors: {
-    span: {
+    'span > &': {
       color: 'hsla(0, 0%, 96%, 1)',
       fontSize: '1.125rem',
     },
-    'span:nth-child(2)': {
+    'span:nth-child(2) > &': {
       borderLeft: '1px solid var(--line)',
       paddingLeft: '0.875rem',
     },

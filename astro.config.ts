@@ -36,11 +36,12 @@ export default defineConfig({
   },
   integrations: [
     mdx(),
+    solid({
+      include: ['**/*'],
+      exclude: ['**/OgImage/*'],
+    }),
     react({
       include: ['**/OgImage/*'],
-    }),
-    solid({
-      include: ['**/islands/*'],
     }),
     purgecss({
       fontFace: true,

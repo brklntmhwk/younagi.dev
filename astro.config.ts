@@ -2,6 +2,7 @@ import { defineConfig, passthroughImageService } from 'astro/config'
 import cloudflare from '@astrojs/cloudflare'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
+import react from '@astrojs/react'
 import solid from '@astrojs/solid-js'
 import purgecss from 'astro-purgecss'
 import browserslist from 'browserslist'
@@ -35,6 +36,10 @@ export default defineConfig({
   },
   integrations: [
     mdx(),
+    react({
+      exclude: '**/islands/*',
+      include: '**/OgImage/*',
+    }),
     solid({
       exclude: '**/OgImage/*',
       include: '**/islands/*',

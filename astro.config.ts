@@ -2,12 +2,12 @@ import { defineConfig, passthroughImageService } from 'astro/config'
 import cloudflare from '@astrojs/cloudflare'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
-import react from '@astrojs/react'
 import solid from '@astrojs/solid-js'
 import purgecss from 'astro-purgecss'
 import browserslist from 'browserslist'
 import { browserslistToTargets } from 'lightningcss'
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin'
+import solidPlugin from 'vite-plugin-solid'
 import { h } from 'hastscript'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
@@ -35,10 +35,6 @@ export default defineConfig({
   },
   integrations: [
     mdx(),
-    react({
-      exclude: '**/islands/*',
-      include: '**/OgImage/*',
-    }),
     solid({
       exclude: '**/OgImage/*',
       include: '**/islands/*',
@@ -77,7 +73,7 @@ export default defineConfig({
         targets: browserslistToTargets(browserslist('>= 0.1%')),
       },
     },
-    plugins: [vanillaExtractPlugin()],
+    plugins: [vanillaExtractPlugin(), solidPlugin()],
     ssr: {
       external: ['node:fs'],
     },

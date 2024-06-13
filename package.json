@@ -37,17 +37,18 @@
     "@astrojs/solid-js": "^4.2.0",
     "@fontsource-variable/inconsolata": "^5.0.18",
     "@modular-forms/solid": "^0.21.0",
+    "@solidjs/router": "^0.13.5",
     "@unocss/reset": "^0.60.0",
     "astro": "^4.7.0",
     "astro-purgecss": "4.1.0",
     "drizzle-orm": "^0.31.1",
     "purgecss": "5.0.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "solid-js": "^1.8.17"
+    "solid-js": "^1.8.17",
+    "valibot": "^0.31.1"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240603.0",
+    "@nanostores/solid": "^0.4.2",
     "@pagefind/default-ui": "^1.0.4",
     "@types/better-sqlite3": "^7.6.10",
     "@types/eslint": "8.56.5",
@@ -79,6 +80,7 @@
     "mdast-util-newline-to-break": "^2.0.0",
     "mdast-util-to-hast": "^13.1.0",
     "mdast-util-to-string": "^4.0.0",
+    "nanostores": "^0.10.3",
     "node-html-parser": "6.1.12",
     "pagefind": "1.0.4",
     "prettier": "3.2.5",
@@ -97,6 +99,7 @@
     "unified": "^11.0.4",
     "unist-util-visit": "^5.0.0",
     "unsplash-js": "^7.0.19",
+    "vite-plugin-solid": "^2.10.2",
     "wrangler": "^3.57.2"
   },
   "engines": {

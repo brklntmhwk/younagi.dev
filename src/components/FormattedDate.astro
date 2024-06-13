@@ -1,10 +1,10 @@
 ---
-import { languages } from '@/utils/i18n/data'
+import { type Languages } from '@/utils/i18n/data'
 import { formatDate } from '@/utils/formatDate'
 
 type Props = {
   date: Date
-  locale: keyof typeof languages
+  locale: Languages
   show?: {
     year: boolean
     month: boolean

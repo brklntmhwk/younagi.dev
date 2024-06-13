@@ -51,9 +51,7 @@ export const POST: APIRoute = async ({
 
   const data = await request.formData()
   const turnstileToken = data.get('cf-turnstile-response')! as string
-  const secretKey = import.meta.env.PROD
-    ? locals.runtime.env.TURNSTILE_SECRET_KEY
-    : import.meta.env.TURNSTILE_SECRET_KEY
+  const secretKey = locals.runtime.env.TURNSTILE_SECRET_KEY
 
   const turnstileResult = await fetch(TURNSTILE_SITE_VERIFICATION_URL, {
     method: 'POST',
@@ -84,9 +82,7 @@ export const POST: APIRoute = async ({
   const inputEmail = data.get('email') as string
   const inputMessage = data.get('message') as string
 
-  const myEmail = import.meta.env.PROD
-    ? locals.runtime.env.MY_CUSTOM_EMAIL_ADDRESS
-    : import.meta.env.MY_CUSTOM_EMAIL_ADDRESS
+  const myEmail = locals.runtime.env.MY_CUSTOM_EMAIL_ADDRESS
   const mailContent = {
     sender: { email: myEmail, name: 'younagi.dev' },
     to: [
@@ -102,9 +98,7 @@ export const POST: APIRoute = async ({
       name: inputName,
     },
   }
-  const brevoApiKey = import.meta.env.PROD
-    ? locals.runtime.env.BREVO_API_KEY
-    : import.meta.env.BREVO_API_KEY
+  const brevoApiKey = locals.runtime.env.BREVO_API_KEY
 
   const response = await fetch(BREVO_FORM_URL, {
     method: 'POST',

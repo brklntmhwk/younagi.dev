@@ -5,7 +5,7 @@ export const likesWrapper = style({
   padding: '0.65rem 0.95rem',
   borderRadius: '0.5rem',
   ':hover': {
-    backgroundColor: 'hsla(0, 100%, 85%, 1)',
+    backgroundColor: 'hsla(0, 100%, 84%, 0.8)',
   },
 })
 

@@ -1,21 +1,24 @@
-import {
-  type Component,
-  createEffect,
-  createSignal,
-  createResource,
-} from 'solid-js'
-import { type CollectionEntry, getEntry } from 'astro:content'
-import { languages } from '@/utils/i18n/data'
+import { type Component, createResource } from 'solid-js'
+import type { CollectionEntry } from 'astro:content'
+// import { getEntry } from 'astro:content'
+import { useStore } from '@nanostores/solid'
+import { type Languages } from '@/utils/i18n/data'
 import { useTranslatedPath } from '@/utils/i18n/useTranslatedPath'
+import { locale } from '@/stores/localeStore'
 import { likesButton, likesSpan, likesWrapper } from '@/styles/styles.css'
 
 type Props = {
   slug: string
   collection: string
-  locale: keyof typeof languages
+  t: CollectionEntry<'i18n'>
+  // locale: Languages
 }
+type Fetcher = Omit<Props, 't'> & { locale: Languages }
 
-const fetchLikes = async ({ slug, collection, locale }: Props) => {
+// const $locale = useStore(locale)
+// const t = await getEntry('i18n', `${$locale()}/translation`)
+
+const fetchLikes = async ({ slug, collection, locale }: Fetcher) => {
   const translatePath = useTranslatedPath(locale)
   const res = await fetch(
     translatePath(`/api/likes?slug=${slug}&collection=${collection}`)
@@ -25,18 +28,13 @@ const fetchLikes = async ({ slug, collection, locale }: Props) => {
   return data
 }
 
-const Likes: Component<Props> = ({ slug, collection, locale }) => {
-  const translatePath = useTranslatedPath(locale)
-  const [t, setT] = createSignal<CollectionEntry<'i18n'>>()
+const Likes: Component<Props> = ({ slug, collection, t /* locale */ }) => {
+  const $locale = useStore(locale)
+  const translatePath = useTranslatedPath($locale())
   const [likes, { refetch, mutate }] = createResource(
-    () => ({ slug, collection, locale }),
+    () => ({ slug, collection, locale: $locale() }),
     fetchLikes
   )
-
-  createEffect(async () => {
-    const translations = await getEntry('i18n', `${locale}/translation`)
-    setT(translations)
-  })
 
   return (
     <div class={likesWrapper}>
@@ -60,8 +58,8 @@ const Likes: Component<Props> = ({ slug, collection, locale }) => {
       >
         <span class={likesSpan}>
           {likes()?.liked
-            ? t()?.data.likes.button_label
-            : t()?.data.likes.button_label}
+            ? t.data.likes.button_label
+            : t.data.likes.button_label}
         </span>
         <span class={likesSpan}>{likes()?.likes ?? 0}</span>
       </button>

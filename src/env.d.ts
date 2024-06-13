@@ -11,6 +11,46 @@ declare namespace App {
   interface Locals extends Runtime {}
 }
 
+type Languages = import('./utils/i18n/data').Languages
+
+type TurnstileRenderParameters = {
+  sitekey: string
+  actions?: string
+  cData?: string
+  callback?: (token: string) => void
+  'error-callback'?: (e: any) => void
+  execution?: 'render' | 'execute'
+  'expired-callback'?: () => void
+  'before-interactive-callback'?: () => void
+  'after-interactive-callback'?: () => void
+  'unsupported-callback'?: () => void
+  theme?: 'light' | 'dark' | 'auto'
+  language?: Languages | 'auto'
+  tabindex?: number
+  'timeout-callback'?: () => void
+  'response-field'?: boolean
+  'response-field-name'?: string
+  size?: 'normal' | 'compact'
+  retry?: 'auto' | 'never'
+  'retry-interval'?: number
+  'refresh-expired'?: 'auto' | 'manual' | 'never'
+  'refresh-timeout'?: 'auto' | 'manual' | 'never'
+  appearance?: 'always' | 'execute' | 'interaction-only'
+}
+
+interface Window {
+  onloadTurnstileCallback?: (() => void) | undefined
+  turnstile: {
+    render: (
+      container: string | HTMLElement,
+      params: TurnstileRenderParameters
+    ) => string
+    reset: (container?: string | HTMLElement) => void
+    getResponse: (container?: string | HTMLElement) => string | undefined
+    remove: (container?: string | HTMLElement) => void
+  }
+}
+
 declare module '@pagefind/default-ui' {
   declare class PagefindUI {
     constructor(opts: {

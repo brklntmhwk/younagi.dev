@@ -1,37 +1,55 @@
-import { type CollectionEntry, getEntry } from 'astro:content'
-import { createEffect, createSignal, onMount } from 'solid-js'
-import { createForm, validate, type SubmitHandler } from '@modular-forms/solid'
-import { languages } from '@/utils/i18n/data'
+import { type CollectionEntry } from 'astro:content'
+import { type Component } from 'solid-js'
+import {
+  type InferInput,
+  check,
+  object,
+  pipe,
+  string,
+  nonEmpty,
+  minLength,
+  email,
+  boolean,
+} from 'valibot'
+import { createForm, valiForm, type SubmitHandler } from '@modular-forms/solid'
+import { useStore } from '@nanostores/solid'
+import Turnstile from './Turnstile'
 import { useTranslatedPath } from '@/utils/i18n/useTranslatedPath'
 import { FORM_TEXTAREA_ROWS, FORM_TEXTAREA_MINLENGTH } from '@/consts'
-
-type FormFields = {
-  name: string
-  email: string
-  message: string
-  confirmation: boolean
-}
+import { locale } from '@/stores/localeStore'
 
 type Props = {
-  locale: keyof typeof languages
+  t: CollectionEntry<'i18n'>
 }
 
-const Contact = ({ locale }: Props) => {
-  const translatePath = useTranslatedPath(locale)
-  const [t, setT] = createSignal<CollectionEntry<'i18n'>>()
-  const [contactForm, { Form, Field }] = createForm<FormFields>()
+const Contact2: Component<Props> = ({ t }) => {
+  const $locale = useStore(locale)
+  const translatePath = useTranslatedPath($locale())
 
-  onMount(() => {
-    const script = document.createElement('script')
-    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js'
-    script.async = true
-    script.defer = true
-    document.body.appendChild(script)
+  const formSchema = object({
+    name: pipe(string(), nonEmpty(t.data.contact.name.required)),
+    email: pipe(
+      string(),
+      nonEmpty(t.data.contact.email.required),
+      email(t.data.contact.email.invalid)
+    ),
+    message: pipe(
+      string(),
+      nonEmpty(t.data.contact.message.required),
+      minLength(FORM_TEXTAREA_MINLENGTH, t.data.contact.message.minlength)
+    ),
+    confirmation: pipe(
+      boolean(),
+      check((input) => input === true, t.data.contact.confirmation.required)
+    ),
   })
 
-  createEffect(async () => {
-    const translations = await getEntry('i18n', `${locale}/translation`)
-    setT(translations)
+  type FormFields = InferInput<typeof formSchema>
+
+  const [, { Form, Field }] = createForm<FormFields>({
+    validateOn: 'submit',
+    revalidateOn: 'blur',
+    validate: valiForm(formSchema),
   })
 
   const handleError = (e: unknown, message: string) => {
@@ -44,9 +62,6 @@ const Contact = ({ locale }: Props) => {
 
   const handleSubmit: SubmitHandler<FormFields> = async (values) => {
     try {
-      const isValid = await validate(contactForm)
-      if (!isValid) return
-
       const response = await fetch(translatePath('/api/form'), {
         method: 'POST',
         headers: {
@@ -57,6 +72,8 @@ const Contact = ({ locale }: Props) => {
       if (!response.ok) {
         throw new Error('Failed to submit form data')
       }
+
+      // navigate(response.url)
     } catch (err) {
       handleError(err, 'Failed to submit form data')
     }
@@ -66,46 +83,76 @@ const Contact = ({ locale }: Props) => {
     <Form onSubmit={handleSubmit}>
       <Field name="name">
         {(field, props) => (
-          <input {...props} type="text" value={field.value || ''} required />
+          <>
+            <label for="name2">{t.data.contact.name.label}</label>
+            <div class="pokemon-border">
+              <input
+                {...props}
+                id="name2"
+                type="text"
+                value={field.value || ''}
+              />
+            </div>
+            {field.error && <div class="error">{field.error}</div>}
+          </>
         )}
       </Field>
       <Field name="email">
         {(field, props) => (
-          <input {...props} type="email" value={field.value || ''} required />
+          <>
+            <label for="email2">{t.data.contact.email.label}</label>
+            <div class="pokemon-border">
+              <input
+                {...props}
+                id="email2"
+                type="email"
+                value={field.value || ''}
+              />
+            </div>
+            {field.error && <div class="error">{field.error}</div>}
+          </>
         )}
       </Field>
       <Field name="message">
         {(field, props) => (
-          <textarea
-            {...props}
-            value={field.value || ''}
-            rows={FORM_TEXTAREA_ROWS}
-            minlength={FORM_TEXTAREA_MINLENGTH}
-            autocomplete="off"
-            required
-          />
+          <>
+            <label for="message2">{t.data.contact.message.label}</label>
+            <div class="pokemon-border">
+              <textarea
+                {...props}
+                id="message2"
+                value={field.value || ''}
+                rows={FORM_TEXTAREA_ROWS}
+                autocomplete="off"
+              />
+            </div>
+            {field.error && <div class="error">{field.error}</div>}
+          </>
         )}
       </Field>
       <Field name="confirmation" type="boolean">
         {(field, props) => (
-          <input
-            {...props}
-            type="checkbox"
-            checked={field.value ?? false}
-            required
-          />
+          <>
+            <input
+              {...props}
+              id="confirmation"
+              type="checkbox"
+              checked={field.value ?? false}
+            />
+            <label for="confirmation">
+              {t.data.contact.confirmation.label}
+              {field.active}
+            </label>
+            {field.error && <div class="error">{field.error}</div>}
+          </>
         )}
       </Field>
-      <div
-        class="cf-turnstile"
-        data-sitekey={import.meta.env.TURNSTILE_SITE_KEY}
-        data-language={locale}
-      ></div>
+      <Turnstile size="compact" locale={$locale()} />
       <button class="pokemon-border" type="submit">
-        {t()?.data.contact.sendLabel}
+        {t.data.contact.sendLabel}
       </button>
     </Form>
   )
 }
 
-export default Contact
+export default Contact2

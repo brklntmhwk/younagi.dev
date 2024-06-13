@@ -91,7 +91,7 @@ const rawSlug = slug.slice(slug.indexOf('/') + 1)
       </section>
       <hr />
       <section class="cta">
-        <Likes client:only="solid-js" slug={rawSlug} {collection} {locale} />
+        <Likes client:only="solid-js" slug={rawSlug} {collection} {t} />
         <BuyMeACoffee />
       </section>
       <section class="guides">

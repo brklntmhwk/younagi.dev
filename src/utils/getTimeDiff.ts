@@ -1,6 +1,6 @@
-import { languages } from '@/utils/i18n/data'
+import { type Languages } from '@/utils/i18n/data'
 
-export const getTimeDiff = (fromDate: Date, locale: keyof typeof languages) => {
+export const getTimeDiff = (fromDate: Date, locale: Languages) => {
   const diffInMilliSeconds = new Date().getTime() - fromDate.getTime()
   const diffInSeconds = Math.floor(diffInMilliSeconds / 1000)
   const diffInMinutes = Math.floor(diffInSeconds / 60)

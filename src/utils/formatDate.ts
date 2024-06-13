@@ -1,8 +1,8 @@
-import { languages } from '@/utils/i18n/data'
+import { type Languages } from '@/utils/i18n/data'
 
 export const formatDate = (
   date: Date,
-  locale: keyof typeof languages,
+  locale: Languages,
   show?: {
     year: boolean
     month: boolean

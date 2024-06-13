@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { defaultLang, languages } from './data'
+import { defaultLang, type Languages } from './data'
 
 export const getTargetLocaleSlug = (
-  curLocale: keyof typeof languages | string,
+  curLocale: Languages | string,
   curUrl: URL
 ) => {
   let slug: string

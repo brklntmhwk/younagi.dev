@@ -1,4 +1,5 @@
 /** @jsxImportSource react */
+/** @jsx jsx **/
 
 import { readFileSync } from 'node:fs'
 import satori from 'satori'

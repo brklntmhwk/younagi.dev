@@ -37,12 +37,10 @@ export default defineConfig({
   integrations: [
     mdx(),
     react({
-      exclude: '**/islands/*',
-      include: '**/OgImage/*',
+      include: ['**/OgImage/*'],
     }),
     solid({
-      exclude: '**/OgImage/*',
-      include: '**/islands/*',
+      include: ['**/islands/*'],
     }),
     purgecss({
       fontFace: true,

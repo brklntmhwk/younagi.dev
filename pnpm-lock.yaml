@@ -56,12 +56,6 @@ importers:
       purgecss:
         specifier: 5.0.0
         version: 5.0.0
-      react:
-        specifier: ^18.3.1
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.3.1
-        version: 18.3.1(react@18.3.1)
       solid-js:
         specifier: ^1.8.17
         version: 1.8.17

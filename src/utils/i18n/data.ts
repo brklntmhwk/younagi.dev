@@ -5,4 +5,4 @@ export const languages = {
   ja: '日本語',
 }
 export const langList = ['ja'] as const
-export const defaultLang = 'en'
+export const defaultLang = 'en' as const

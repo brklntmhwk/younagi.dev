@@ -1,19 +1,21 @@
 website: &website younagi.dev
-author: &author 凪/Nagi
+author: &author 凪
 back_to_top: &back_to_top トップに戻る
 scroll_to_top: &scroll_to_top ページ上部へ
 blog: &blog ブログ
 news: &news ニュース
 about: &about 運営者
+contact: &contact お問い合わせ
 
 blog_name: *website
+author_name: *author
 nav:
   nav_links:
     home: ホーム
     blog: *blog
     news: *news
     about: *about
-    contact: お問い合わせ
+    contact: *contact
   hamburger_label: ハンバーガーメニュー開閉
 pager:
   left_arrow_label: 前のページ
@@ -41,7 +43,7 @@ bmc:
   greeting_message: コーヒーのない人生は想像できません
 likes:
   button_label: 良きかな👍
-contact:
+contact_form:
   name:
     label: 氏名
     required: 氏名は必須です
@@ -57,6 +59,10 @@ contact:
     label: 上記の内容で送信する
     required: 送信前にチェックをしてください
   sendLabel: 送信する
+  submitting: 送信中...
+og_image:
+  site_name: *website
+  logo_alt: サイトのロゴ
 pages:
   home:
     photo_gallery_title: 最近の投稿写真
@@ -81,6 +87,10 @@ pages:
     title: *about
     my_name: *author
     profile_img_alt: プロフィール画像
+  contact:
+    title: *contact
+    back_to_top: *back_to_top
+    scroll_to_top: *scroll_to_top
   page:
     back_to_top: *back_to_top
     scroll_to_top: *scroll_to_top

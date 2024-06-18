@@ -5,8 +5,8 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 import { langList } from '@/utils/i18n/data'
 import BulletinBoard from '@/components/BulletinBoard.astro'
 import PhotoGallery from '@/components/PhotoGallery.astro'
-import { getPhotos } from '@/lib/unsplash/getContent'
-import { getPublishedSortedEntries } from '@/lib/content'
+import { getPhotos } from '@/lib/unsplash/contents'
+import { getPublishedSortedEntries } from '@/lib/collections/contents'
 import { NEWS_MAXIMUM_COUNT } from '@/consts'
 
 export const getStaticPaths = (() => {

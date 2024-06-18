@@ -70,6 +70,7 @@ const i18n = defineCollection({
   type: 'data',
   schema: z.object({
     blog_name: z.string(),
+    author_name: z.string(),
     nav: z.object({
       nav_links: z.object({
         home: z.string(),
@@ -118,7 +119,7 @@ const i18n = defineCollection({
     likes: z.object({
       button_label: z.string(),
     }),
-    contact: z.object({
+    contact_form: z.object({
       name: z.object({
         label: z.string(),
         required: z.string(),
@@ -138,6 +139,11 @@ const i18n = defineCollection({
         required: z.string(),
       }),
       sendLabel: z.string(),
+      submitting: z.string(),
+    }),
+    og_image: z.object({
+      site_name: z.string(),
+      logo_alt: z.string(),
     }),
     pages: z.object({
       home: z.object({
@@ -169,6 +175,11 @@ const i18n = defineCollection({
         title: z.string(),
         my_name: z.string(),
         profile_img_alt: z.string(),
+      }),
+      contact: z.object({
+        title: z.string(),
+        back_to_top: z.string(),
+        scroll_to_top: z.string(),
       }),
       page: z.object({
         back_to_top: z.string(),

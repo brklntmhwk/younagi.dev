@@ -3,8 +3,8 @@ import { getCollection, getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import BulletinBoard from '@/components/BulletinBoard.astro'
 import PhotoGallery from '@/components/PhotoGallery.astro'
-import { getPhotos } from '@/lib/unsplash/getContent'
-import { getPublishedSortedEntries } from '@/lib/content'
+import { getPhotos } from '@/lib/unsplash/contents'
+import { getPublishedSortedEntries } from '@/lib/collections/contents'
 import { NEWS_MAXIMUM_COUNT } from '@/consts'
 import { defaultLang } from '@/utils/i18n/data'
 
@@ -41,34 +41,3 @@ const latestNews = localeNewsList.slice(0, NEWS_MAXIMUM_COUNT)
     }
   }
 </style>
-<!-- <script>
-  function init() {
-    const elementsToBeAnimated = new Set([
-      ...document.querySelectorAll('main > *:not(.bulletin-board > *)'),
-    ])
-    elementsToBeAnimated.forEach((elem) => elem.classList.add('fade-in'))
-
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.3,
-    } as IntersectionObserverInit
-
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('loaded')
-          observer.unobserve(entry.target)
-        }
-      })
-    }, observerOptions)
-
-    elementsToBeAnimated.forEach((elem) => observer.observe(elem))
-  }
-
-  const eventsToBeAdded = ['DOMContentLoaded'] as const
-
-  eventsToBeAdded.forEach((evName) => {
-    document.addEventListener(evName, init)
-  })
-</script> -->

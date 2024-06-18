@@ -6,30 +6,32 @@ import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 import { getTargetLocaleSlug } from '@/utils/i18n/getTargetLocalSlug'
 
 const curUrl = Astro.url
-const locale = getLocaleFromUrl(curUrl)
-const t = await getEntry('i18n', `${locale}/translation`)
+const curLocale = getLocaleFromUrl(curUrl)
+const t = await getEntry('i18n', `${curLocale}/translation`)
 ---
 
 <Modal
   modalName="lang"
   iconName="language"
   buttonLabel={t.data.locale_picker.button_label}
-  data-border-image-url="url(/border-image.gif)"
 >
   <ul class="lang-list">
     {
       Object.entries(languages).map(([lang, label]) => (
         <li>
-          <a
-            class:list={[{ active: lang === locale }]}
-            href={
-              lang === defaultLang
-                ? `/${getTargetLocaleSlug(locale, curUrl)}`
-                : `/${lang}/${getTargetLocaleSlug(locale, curUrl)}`
-            }
-          >
-            {label}
-          </a>
+          {lang === curLocale ? (
+            <span>{label}</span>
+          ) : (
+            <a
+              href={
+                lang === defaultLang
+                  ? `/${getTargetLocaleSlug(curLocale, curUrl)}`
+                  : `/${lang}/${getTargetLocaleSlug(curLocale, curUrl)}`
+              }
+            >
+              {label}
+            </a>
+          )}
         </li>
       ))
     }
@@ -40,23 +42,25 @@ const t = await getEntry('i18n', `${locale}/translation`)
     display: grid;
     gap: 1.5rem;
     margin-left: 1.25rem;
-    a {
-      color: var(--fg);
-      font-size: 1.15rem;
-      text-decoration: none;
-      position: relative;
-      border-bottom: 2px solid transparent;
-      &:hover::before {
-        font-family: var(--base-font);
-        content: '▶';
-        position: absolute;
-        top: -0.275rem;
-        left: -1.5rem;
-        font-size: 1.25rem;
-        align-self: center;
-      }
-      &.active {
+    li {
+      span {
         font-weight: 700;
+      }
+      a {
+        color: var(--fg);
+        font-size: 1.15rem;
+        text-decoration: none;
+        position: relative;
+        border-bottom: 2px solid transparent;
+        &:hover::before {
+          font-family: var(--base-font);
+          content: '▶';
+          position: absolute;
+          top: -0.275rem;
+          left: -1.5rem;
+          font-size: 1.25rem;
+          align-self: center;
+        }
       }
     }
   }

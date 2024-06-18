@@ -5,7 +5,7 @@ import BlogList from '@/components/BlogList.astro'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import Pager from '@/components/Pager.astro'
 import { LIMIT_PER_PAGE } from '@/consts'
-import { getPublishedSortedEntries } from '@/lib/content'
+import { getPublishedSortedEntries } from '@/lib/collections/contents'
 import { defaultLang } from '@/utils/i18n/data'
 
 export const getStaticPaths = (async ({ paginate }) => {

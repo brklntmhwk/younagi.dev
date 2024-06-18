@@ -1,7 +1,7 @@
 import type { Config } from 'drizzle-kit'
 
 const { CLOUDFLARE_ACCOUNT_ID, D1_DB_ID, D1_DB_API_TOKEN, LOCAL_DB_PATH } =
-  process.env
+  import.meta.env
 
 export default LOCAL_DB_PATH
   ? ({

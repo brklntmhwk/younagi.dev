@@ -1,19 +1,21 @@
 website: &website younagi.dev
-author: &author Nagi/凪
+author: &author Nagi
 back_to_top: &back_to_top Back to Top
 scroll_to_top: &scroll_to_top Scroll to Top
 blog: &blog Blog
 news: &news News
 about: &about About
+contact: &contact Contact
 
 blog_name: *website
+author_name: *author
 nav:
   nav_links:
     home: Home
     blog: *blog
     news: *news
     about: *about
-    contact: Contact
+    contact: *contact
   hamburger_label: Hamburger menu toggle
 pager:
   left_arrow_label: Previous page
@@ -41,7 +43,7 @@ bmc:
   greeting_message: I can't imagine my life without coffee.
 likes:
   button_label: Nice👍
-contact:
+contact_form:
   name:
     label: Name
     required: Name is required.
@@ -57,6 +59,10 @@ contact:
     label: I confirm that the above information is correct.
     required: Please tick the checkbox before submission
   sendLabel: Submit
+  submitting: Submitting...
+og_image:
+  site_name: *website
+  logo_alt: Site logo
 pages:
   home:
     photo_gallery_title: Recently uploaded photos
@@ -81,6 +87,10 @@ pages:
     title: *about
     my_name: *author
     profile_img_alt: My profile image
+  contact:
+    title: *contact
+    back_to_top: *back_to_top
+    scroll_to_top: *scroll_to_top
   page:
     back_to_top: *back_to_top
     scroll_to_top: *scroll_to_top

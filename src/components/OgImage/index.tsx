@@ -1,8 +1,9 @@
 import { readFileSync } from 'node:fs'
 import satori from 'satori'
 import sharp from 'sharp'
+import type { I18nData } from '@/lib/collections/types'
 
-const OgImage = async (text: string) => {
+const OgImage = async (text: string, t: I18nData<'og_image'>) => {
   const fontPixelMPlus10Regular = readFileSync(
     './src/assets/fonts/PixelMplus10-Regular.woff'
   )
@@ -50,6 +51,7 @@ const OgImage = async (text: string) => {
                       color: '#f7f7f7',
                       fontSize: '2.875rem',
                       fontWeight: '700',
+                      lineHeight: '1.25',
                     },
                     children: `${text}`,
                   },
@@ -68,7 +70,7 @@ const OgImage = async (text: string) => {
                         type: 'img',
                         props: {
                           src: `data:image/png;base64,${logo}`,
-                          alt: 'younagi.dev site logo',
+                          alt: t.logo_alt,
                           width: '60',
                           height: '60',
                           style: {
@@ -84,7 +86,7 @@ const OgImage = async (text: string) => {
                             fontSize: '2.25rem',
                             color: '#1c1b22',
                           },
-                          children: 'younagi.dev',
+                          children: t.site_name,
                         },
                         key: 'Site name',
                       },
@@ -130,53 +132,3 @@ const OgImage = async (text: string) => {
 }
 
 export default OgImage
-
-{
-  /* <div
-      style={{
-        fontFamily: 'PixelMPlus10, sans-serif',
-        backgroundImage: `url(data:image/jpeg;base64,${backgroundImage}`,
-        backgroundSize: '1200px 630px',
-        width: 1200,
-        height: 630,
-        display: 'flex',
-      }}
-    >
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '1.5rem',
-          padding: '2.25rem',
-        }}
-      >
-        <h2
-          style={{
-            color: '#f7f7f7',
-            fontSize: '2.875rem',
-            fontWeight: '700',
-          }}
-        >
-          {text}
-        </h2>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '1.5rem',
-          }}
-        >
-          <img
-            src={`data:image/png;base64,${logo}`}
-            alt="younagi.dev site logo"
-            style={{ borderRadius: '9999px' }}
-            width="60"
-            height="60"
-          />
-          <span style={{ fontSize: '2.25rem', color: '#1c1b22' }}>
-            younagi.dev
-          </span>
-        </div>
-      </div>
-    </div> */
-}

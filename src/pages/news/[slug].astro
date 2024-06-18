@@ -2,7 +2,7 @@
 import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
 import { getCollection } from 'astro:content'
 import NewsLayout from '@/layouts/NewsLayout.astro'
-import { getPublishedSortedEntries } from '@/lib/content'
+import { getPublishedSortedEntries } from '@/lib/collections/contents'
 import { defaultLang } from '@/utils/i18n/data'
 
 export const getStaticPaths = (async () => {

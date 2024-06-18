@@ -1,10 +1,25 @@
 export const prerender = false
 
 import type { APIRoute, APIContext } from 'astro'
+import { getEntry } from 'astro:content'
+import {
+  type InferOutput,
+  check,
+  object,
+  pipe,
+  string,
+  nonEmpty,
+  minLength,
+  email,
+  boolean,
+  safeParse,
+} from 'valibot'
+import { defaultLang } from '@/utils/i18n/data'
 import {
   TURNSTILE_SITE_VERIFICATION_URL,
   BREVO_FORM_URL,
   CONTACT_NOTIFICATION_SUBJECT,
+  FORM_TEXTAREA_MINLENGTH,
 } from '@/consts'
 
 type TurnstileErrorCode =
@@ -37,8 +52,43 @@ export const POST: APIRoute = async ({
   redirect,
   locals,
 }: APIContext) => {
-  const data = await request.formData()
-  const turnstileToken = data.get('cf-turnstile-response')! as string
+  const t = await getEntry('i18n', `${defaultLang}/translation`)
+  const meta = await getEntry('meta', `${defaultLang}/site-data`)
+
+  const formSchema = object({
+    name: pipe(string(), nonEmpty(t.data.contact_form.name.required)),
+    email: pipe(
+      string(),
+      nonEmpty(t.data.contact_form.email.required),
+      email(t.data.contact_form.email.invalid)
+    ),
+    message: pipe(
+      string(),
+      nonEmpty(t.data.contact_form.message.required),
+      minLength(FORM_TEXTAREA_MINLENGTH, t.data.contact_form.message.minlength)
+    ),
+    confirmation: pipe(
+      boolean(),
+      check(
+        (input) => input === true,
+        t.data.contact_form.confirmation.required
+      )
+    ),
+    'cf-turnstile-response': string(),
+  })
+
+  const data = (await request.json()) as InferOutput<typeof formSchema>
+
+  const vResult = safeParse(formSchema, data)
+  if (!vResult.success) {
+    return new Response(
+      JSON.stringify({
+        message: `Missing or invalid field input(s): ${vResult.issues.map((issue) => `${issue}\n`)}`,
+      })
+    )
+  }
+
+  const turnstileToken = data['cf-turnstile-response']
   const secretKey = locals.runtime.env.TURNSTILE_SECRET_KEY
 
   const turnstileResult = await fetch(TURNSTILE_SITE_VERIFICATION_URL, {
@@ -51,9 +101,7 @@ export const POST: APIRoute = async ({
       response: turnstileToken,
     }),
   })
-
   const outcome = (await turnstileResult.json()) as TurnstileResponse
-
   if (!outcome.success) {
     return new Response(
       JSON.stringify({
@@ -63,28 +111,21 @@ export const POST: APIRoute = async ({
     )
   }
 
-  data.delete('cf-turnstile-response')
-  data.delete('confirmCheck')
-
-  const inputName = data.get('name')! as string
-  const inputEmail = data.get('email')! as string
-  const inputMessage = data.get('message')! as string
-
   const myEmail = locals.runtime.env.MY_CUSTOM_EMAIL_ADDRESS
 
   const mailContent = {
-    sender: { email: myEmail, name: 'younagi.dev' },
+    sender: { email: myEmail, name: meta.data.site.title },
     to: [
       {
         email: myEmail,
-        name: 'Nagi/ 凪',
+        name: t.data.author_name,
       },
     ],
     subject: CONTACT_NOTIFICATION_SUBJECT,
-    textContent: `お問い合わせ内容 \n --- \n 名前: ${inputName} \n メールアドレス: ${inputEmail} \n メッセージ: ${inputMessage} \n ---`,
+    textContent: `お問い合わせ内容 \n --- \n 名前: ${data.name} \n メールアドレス: ${data.email} \n メッセージ: ${data.message} \n ---`,
     replyTo: {
-      email: inputEmail,
-      name: inputName,
+      email: data.email,
+      name: data.name,
     },
   }
   const brevoApiKey = locals.runtime.env.BREVO_API_KEY
@@ -98,7 +139,6 @@ export const POST: APIRoute = async ({
     },
     body: JSON.stringify(mailContent),
   })
-
   if (!response.ok) {
     return new Response(
       JSON.stringify({

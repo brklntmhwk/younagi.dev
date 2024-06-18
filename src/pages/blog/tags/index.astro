@@ -2,7 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getCollection, getEntry } from 'astro:content'
 import TaxonomyList from '@/components/TaxonomyList.astro'
-import { getPublishedSortedEntries } from '@/lib/content'
+import { getPublishedSortedEntries } from '@/lib/collections/contents'
 import { defaultLang } from '@/utils/i18n/data'
 
 const meta = await getEntry('meta', `${defaultLang}/site-data`)

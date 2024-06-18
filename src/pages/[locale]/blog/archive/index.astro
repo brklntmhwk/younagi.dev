@@ -5,7 +5,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 import FormattedDate from '@/components/FormattedDate.astro'
 import { langList } from '@/utils/i18n/data'
 import { groupArchiveByYear } from '@/utils/groupArchiveByYear'
-import { getPublishedSortedEntries } from '@/lib/content'
+import { getPublishedSortedEntries } from '@/lib/collections/contents'
 
 export const getStaticPaths = (() => {
   return langList.map((lang) => ({ params: { locale: lang } }))

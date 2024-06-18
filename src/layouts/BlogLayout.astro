@@ -83,7 +83,7 @@ const rawSlug = slug.slice(slug.indexOf('/') + 1)
             )
           }
         </section>
-        <Toc {headings} data-border-image-url="url(/border-image.gif)" />
+        <Toc {headings} />
       </section>
       <hr />
       <section class="prose">
@@ -91,7 +91,12 @@ const rawSlug = slug.slice(slug.indexOf('/') + 1)
       </section>
       <hr />
       <section class="cta">
-        <Likes client:only="solid-js" slug={rawSlug} {collection} {t} />
+        <Likes
+          client:only="solid-js"
+          slug={rawSlug}
+          {collection}
+          t={t.data.likes}
+        />
         <BuyMeACoffee />
       </section>
       <section class="guides">

@@ -3,7 +3,7 @@ import { getCollection, getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import FormattedDate from '@/components/FormattedDate.astro'
 import { groupArchiveByYear } from '@/utils/groupArchiveByYear'
-import { getPublishedSortedEntries } from '@/lib/content'
+import { getPublishedSortedEntries } from '@/lib/collections/contents'
 import { defaultLang } from '@/utils/i18n/data'
 
 const meta = await getEntry('meta', `${defaultLang}/site-data`)

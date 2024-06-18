@@ -1,7 +1,7 @@
 ---
-import type { CollectionEntry } from 'astro:content'
-import { getEntry } from 'astro:content'
+import { type CollectionEntry, getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import ContactForm from '@/components/islands/ContactForm'
 import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 import { useTranslatedPath } from '@/utils/i18n/useTranslatedPath'
 
@@ -24,6 +24,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
       <hr />
       <section class="contact">
         <slot />
+        <ContactForm client:only="solid-js" t={t.data.contact_form} />
       </section>
       <hr />
       <section class="guides">

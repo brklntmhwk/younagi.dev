@@ -1,4 +1,4 @@
 import { atom } from 'nanostores'
-import { type Languages } from '@/utils/i18n/data'
+import { type Languages, defaultLang } from '@/utils/i18n/data'
 
-export const locale = atom<Languages>('en')
+export const locale = atom<Languages>(defaultLang)

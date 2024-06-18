@@ -15,24 +15,24 @@ const t = await getEntry('i18n', `${locale}/translation`)
   method="post"
   novalidate
 >
-  <label for="name">{t.data.contact.name.label}</label>
+  <label for="name">{t.data.contact_form.name.label}</label>
   <div class="pokemon-border">
     <input type="text" id="name" name="name" autocomplete="off" required />
   </div>
   <div id="name-required" class="error hidden">
-    {t.data.contact.name.required}
+    {t.data.contact_form.name.required}
   </div>
-  <label for="email">{t.data.contact.email.label}</label>
+  <label for="email">{t.data.contact_form.email.label}</label>
   <div class="pokemon-border">
     <input type="email" id="email" name="email" required />
   </div>
   <div id="email-required" class="error hidden">
-    {t.data.contact.email.required}
+    {t.data.contact_form.email.required}
   </div>
   <div id="email-invalid" class="error hidden">
-    {t.data.contact.email.invalid}
+    {t.data.contact_form.email.invalid}
   </div>
-  <label for="message">{t.data.contact.message.label}</label>
+  <label for="message">{t.data.contact_form.message.label}</label>
   <div class="pokemon-border">
     <textarea
       id="message"
@@ -43,17 +43,17 @@ const t = await getEntry('i18n', `${locale}/translation`)
       required></textarea>
   </div>
   <div id="message-required" class="error hidden">
-    {t.data.contact.message.required}
+    {t.data.contact_form.message.required}
   </div>
   <div id="message-minlength" class="error hidden">
-    {t.data.contact.message.minlength}
+    {t.data.contact_form.message.minlength}
   </div>
   <section class="checkbox-area">
-    <input type="checkbox" id="confirmCheck" name="confirmCheck" required />
-    <label for="confirmCheck">{t.data.contact.confirmation.label}</label>
+    <input type="checkbox" id="confirmation" name="confirmation" required />
+    <label for="confirmation">{t.data.contact_form.confirmation.label}</label>
   </section>
-  <div id="confirmCheck-required" class="error hidden">
-    {t.data.contact.confirmation.required}
+  <div id="confirmation-required" class="error hidden">
+    {t.data.contact_form.confirmation.required}
   </div>
   <div
     class="cf-turnstile"
@@ -61,8 +61,8 @@ const t = await getEntry('i18n', `${locale}/translation`)
     data-language={locale}
   >
   </div>
-  <button class="pokemon-border" type="submit"
-    >{t.data.contact.sendLabel}</button
+  <button id="submit-button" class="pokemon-border" type="submit"
+    >{t.data.contact_form.sendLabel}</button
   >
 </form>
 <style>
@@ -112,8 +112,10 @@ const t = await getEntry('i18n', `${locale}/translation`)
 </style>
 <script>
   import { createSignal, onMount } from 'solid-js'
+  import { submitting } from '../stores/submissionStore'
 
   onMount(() => {
+    init()
     const script = document.createElement('script')
     script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js'
     script.async = true
@@ -128,11 +130,20 @@ const t = await getEntry('i18n', `${locale}/translation`)
 
     const [isValid, setIsValid] = createSignal(false)
 
-    const inputElements = document.querySelectorAll<
-      HTMLInputElement | HTMLTextAreaElement
-    >("input:not([type='hidden']), textarea")
+    const inputElements = formElement.getElementsByTagName('input')
+    const textAreaElements = formElement.getElementsByTagName('textarea')
+    const submitButton = document.getElementById(
+      'submit-button'
+    ) as HTMLButtonElement
+    const fieldElements = [...inputElements, ...textAreaElements]
 
-    inputElements.forEach((elem) => {
+    submitting.listen((value) => {
+      if (value) {
+        submitButton.innerText = 'Submitting...'
+      }
+    })
+
+    fieldElements.forEach((elem) => {
       if (
         elem.tagName === 'INPUT' &&
         elem.getAttribute('type') === 'checkbox'
@@ -150,23 +161,35 @@ const t = await getEntry('i18n', `${locale}/translation`)
     formElement.addEventListener('submit', async (event) => {
       event.preventDefault()
 
-      for (const elem of inputElements.values()) {
+      for (const elem of fieldElements) {
         validate(elem)
       }
       setIsValid(formElement.checkValidity())
 
       if (isValid()) {
+        submitting.set(true)
         const formData = new FormData(formElement)
-        const response = await fetch(formElement.action, {
-          method: 'POST',
-          body: formData,
-        })
+        try {
+          const response = await fetch(formElement.action, {
+            method: 'POST',
+            body: formData,
+          })
 
-        if (response.ok && response.redirected) {
-          window.location.replace(response.url)
-        } else {
-          formElement.reset()
-          alert('Error submitting form. Please try again.')
+          if (response.ok && response.redirected) {
+            window.location.replace(response.url)
+          } else {
+            formElement.reset()
+            alert('Error submitting form. Please try again.')
+            throw new Error()
+          }
+        } catch (err) {
+          if (err instanceof Error) {
+            console.error(`Failed to submit form data: ${err.message}`)
+          } else {
+            console.trace(err)
+          }
+        } finally {
+          submitting.set(false)
         }
       }
     })
@@ -216,20 +239,16 @@ const t = await getEntry('i18n', `${locale}/translation`)
             minlengthError.classList.add('hidden')
           }
           break
-        case 'confirmCheck':
+        case 'confirmation':
           if (validityState.valueMissing) {
             requiredError.classList.remove('hidden')
           } else {
             requiredError.classList.add('hidden')
           }
           break
+        default:
+          break
       }
     }
   }
-
-  const eventsToBeAdded = ['DOMContentLoaded'] as const
-
-  eventsToBeAdded.forEach((evName) => {
-    document.addEventListener(evName, init)
-  })
 </script>

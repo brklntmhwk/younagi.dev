@@ -9,7 +9,7 @@ import { ArchiveSlugify } from '@/utils/ArchiveSlugify'
 import { defaultLang } from '@/utils/i18n/data'
 import { formatDate } from '@/utils/formatDate'
 import { convertDateStr } from '@/utils/convertDateStr'
-import { getPublishedSortedEntries } from '@/lib/content'
+import { getPublishedSortedEntries } from '@/lib/collections/contents'
 
 export const getStaticPaths = (async ({ paginate }) => {
   const entries = getPublishedSortedEntries(await getCollection('blog'))

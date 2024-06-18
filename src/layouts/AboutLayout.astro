@@ -35,7 +35,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
         />
         <span class="my-name">{t.data.pages.about.my_name}</span>
       </section>
-      <Toc {headings} data-border-image-url="url(/border-image.gif)" />
+      <Toc {headings} />
       <hr />
       <section class="about-content">
         <slot />

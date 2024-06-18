@@ -1,14 +1,14 @@
 ---
 import { Image } from 'astro:assets'
 import { getEntry } from 'astro:content'
-import type { Basic as Photo } from 'unsplash-js/dist/methods/photos/types'
+import type { UnsplashPhoto } from '@/lib/unsplash/types'
 import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 import { toSnakeCase } from '@/utils/toSnakeCase'
 import { getTimeDiff } from '@/utils/getTimeDiff'
 import ProfileIcon from '@/components/ProfileIcon.astro'
 
 type Props = {
-  photo: Photo
+  photo: UnsplashPhoto
   order: number
 }
 

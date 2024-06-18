@@ -1,7 +1,7 @@
 ---
 import { getEntry } from 'astro:content'
-import type { UnsplashPhotoData } from '@/lib/unsplash/getContent'
-import { getPhotographer } from '@/lib/unsplash/getContent'
+import type { UnsplashPhotoData } from '@/lib/unsplash/types'
+import { getPhotographer } from '@/lib/unsplash/contents'
 import PhotoGalleryItem from './PhotoGalleryItem.astro'
 import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 import { ACCOUNT_ID, UNSPLASH_BASE_URL } from '@/consts'

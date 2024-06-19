@@ -5,6 +5,7 @@ export const NEWS_MAXIMUM_COUNT = 3
 export const DEFAULT_PHOTO_COUNT = 6
 export const FORM_TEXTAREA_ROWS = 5
 export const FORM_TEXTAREA_MINLENGTH = 25
+export const TURNSTILE_RETRY_INTERVAL = 15000
 export const ACCOUNT_ID = 'brklntmhwk'
 export const UNSPLASH_BASE_URL = 'https://unsplash.com'
 export const GITHUB_BASE_URL = 'https://github.com'

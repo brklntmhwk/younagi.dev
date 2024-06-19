@@ -12,7 +12,8 @@ type Props = {
   siteKey: string
   size?: 'normal' | 'compact'
   locale?: Languages
-  onVerify: (token: string) => void
+  'retry-interval'?: number
+  onVerify?: (token: string) => void
 } & Omit<JSX.HTMLAttributes<HTMLDivElement>, 'class'>
 
 const Turnstile: Component<Props> = (props) => {
@@ -32,7 +33,7 @@ const Turnstile: Component<Props> = (props) => {
       sitekey: local.siteKey,
       size: local.size ?? 'normal',
       language: local.locale ?? 'auto',
-      callback: local.onVerify,
+      callback: local.onVerify ?? (() => {}),
     })
   }
 
@@ -48,11 +49,11 @@ const Turnstile: Component<Props> = (props) => {
     script.async = true
     script.defer = true
     document.body.appendChild(script)
+  })
 
-    onCleanup(() => {
-      window.onloadTurnstileCallback = undefined
-      if (widgetId) window.turnstile.remove(widgetId)
-    })
+  onCleanup(() => {
+    window.onloadTurnstileCallback = undefined
+    if (widgetId) window.turnstile.remove(widgetId)
   })
 
   return (

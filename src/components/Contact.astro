@@ -2,7 +2,11 @@
 import { getEntry } from 'astro:content'
 import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 import { useTranslatedPath } from '@/utils/i18n/useTranslatedPath'
-import { FORM_TEXTAREA_ROWS, FORM_TEXTAREA_MINLENGTH } from '@/consts'
+import {
+  FORM_TEXTAREA_ROWS,
+  FORM_TEXTAREA_MINLENGTH,
+  TURNSTILE_RETRY_INTERVAL,
+} from '@/consts'
 
 const locale = getLocaleFromUrl(Astro.url)
 const translatePath = useTranslatedPath(locale)
@@ -59,6 +63,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
     class="cf-turnstile"
     data-sitekey={import.meta.env.TURNSTILE_SITE_KEY}
     data-language={locale}
+    data-retry-interval={TURNSTILE_RETRY_INTERVAL}
   >
   </div>
   <button id="submit-button" class="pokemon-border" type="submit"
@@ -94,10 +99,15 @@ const t = await getEntry('i18n', `${locale}/translation`)
       margin: 0 auto;
     }
     button {
+      min-width: 8rem;
+      min-height: 2.75rem;
       font-weight: 600;
       margin-top: 1.25rem;
       padding: 0.25rem 1.85rem;
       align-self: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .error {
       color: var(--callout-failure-fg);
@@ -139,7 +149,23 @@ const t = await getEntry('i18n', `${locale}/translation`)
 
     submitting.listen((value) => {
       if (value) {
-        submitButton.innerText = 'Submitting...'
+        const svgPaperPlane = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'svg'
+        )
+        svgPaperPlane.setAttribute('viewBox', '0 0 24 24')
+        svgPaperPlane.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
+        svgPaperPlane.setAttribute('width', '24')
+        svgPaperPlane.setAttribute('height', '24')
+        const path = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'path'
+        )
+        path.setAttributeNS(null, 'fill', 'currentColor')
+        path.setAttributeNS(null, 'd', 'M3 20v-6l8-2l-8-2V4l19 8z')
+        svgPaperPlane.appendChild(path)
+        submitButton.innerText = ''
+        submitButton.appendChild(svgPaperPlane)
       }
     })
 

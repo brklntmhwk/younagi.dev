@@ -10,7 +10,7 @@ export const fillColor = createVar()
 export const likesWrapper = style({
   vars: {
     [bgColor]: 'hsla(180, 58%, 42%, 1)',
-    [hoverBgColor]: 'hsla(180, 58%, 42%, 0.8)',
+    [hoverBgColor]: 'hsla(180, 58%, 42%, 0.9)',
   },
   '@media': {
     '(prefers-color-scheme: dark)': {
@@ -29,12 +29,6 @@ export const likesWrapper = style({
 })
 
 export const likesButton = style({
-  display: 'flex',
-  alignItems: 'center',
-  gap: '0.875rem',
-})
-
-export const likesLabelWrapper = style({
   vars: {
     [fgColor]: 'hsla(0, 0%, 96%, 1)',
     [fillColor]: 'hsla(84, 82%, 79%, 1)',
@@ -49,15 +43,16 @@ export const likesLabelWrapper = style({
     },
   },
   display: 'flex',
+  alignItems: 'center',
   gap: '0.5rem',
 })
 
 export const likesSpan = style({
   color: fgColor,
-  fontSize: '1.175rem',
+  fontSize: '1.15rem',
   fontWeight: 600,
   selectors: {
-    [`${likesLabelWrapper} &:last-child`]: {
+    [`${likesButton} &:last-child`]: {
       borderLeft: `1px solid ${lineColor}`,
       paddingLeft: '0.875rem',
     },

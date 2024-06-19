@@ -2,11 +2,7 @@
 import { getEntry } from 'astro:content'
 import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 import { useTranslatedPath } from '@/utils/i18n/useTranslatedPath'
-import {
-  FORM_TEXTAREA_ROWS,
-  FORM_TEXTAREA_MINLENGTH,
-  TURNSTILE_RETRY_INTERVAL,
-} from '@/consts'
+import { FORM_TEXTAREA_ROWS, FORM_TEXTAREA_MINLENGTH } from '@/consts'
 
 const locale = getLocaleFromUrl(Astro.url)
 const translatePath = useTranslatedPath(locale)
@@ -63,7 +59,6 @@ const t = await getEntry('i18n', `${locale}/translation`)
     class="cf-turnstile"
     data-sitekey={import.meta.env.TURNSTILE_SITE_KEY}
     data-language={locale}
-    data-retry-interval={TURNSTILE_RETRY_INTERVAL}
   >
   </div>
   <button id="submit-button" class="pokemon-border" type="submit"

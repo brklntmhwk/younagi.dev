@@ -1,5 +1,6 @@
 import { createVar, style } from '@vanilla-extract/css'
 
+export const textColor = createVar()
 export const bgColor = createVar()
 export const hoverBgColor = createVar()
 export const fillColor = createVar()
@@ -8,6 +9,14 @@ export const likesWrapper = style({
   vars: {
     [bgColor]: 'hsla(180, 58%, 42%, 1)',
     [hoverBgColor]: 'hsla(180, 58%, 42%, 0.8)',
+  },
+  '@media': {
+    '(prefers-color-scheme: dark)': {
+      vars: {
+        [bgColor]: 'hsla(180, 58%, 32%, 1)',
+        [hoverBgColor]: 'hsla(180, 58%, 32%, 0.8)',
+      },
+    },
   },
   backgroundColor: bgColor,
   padding: '0.65rem 0.95rem',
@@ -27,12 +36,29 @@ export const likesLabelWrapper = style({
   vars: {
     [fillColor]: 'hsla(84, 82%, 79%, 1)',
   },
+  '@media': {
+    '(prefers-color-scheme: dark)': {
+      vars: {
+        [textColor]: 'hsla(84, 90%, 79%, 0.8)',
+      },
+    },
+  },
   display: 'flex',
   gap: '0.5rem',
 })
 
 export const likesSpan = style({
-  color: 'hsla(0, 0%, 96%, 1)',
+  vars: {
+    [textColor]: 'hsla(0, 0%, 96%, 1)',
+  },
+  '@media': {
+    '(prefers-color-scheme: dark)': {
+      vars: {
+        [textColor]: 'hsla(0, 0%, 96%, 1)',
+      },
+    },
+  },
+  color: textColor,
   fontSize: '1.175rem',
   fontWeight: 500,
   selectors: {
@@ -79,8 +105,20 @@ export const contactLabel = style({
 })
 
 export const contactFormError = style({
-  color: 'var(--callout-failure-fg)',
-  backgroundColor: 'var(--callout-failure-bg)',
+  vars: {
+    [textColor]: 'hsla(0, 95%, 65%, 1)',
+    [bgColor]: 'hsla(0, 100%, 93%, 1)',
+  },
+  '@media': {
+    '(prefers-color-scheme: dark)': {
+      vars: {
+        [textColor]: 'hsla(0, 95%, 85%, 1)',
+        [bgColor]: 'hsla(0, 100%, 75%, 0.5)',
+      },
+    },
+  },
+  color: textColor,
+  backgroundColor: bgColor,
   padding: '0.5rem',
   borderRadius: '0.25rem',
 })

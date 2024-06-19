@@ -40,7 +40,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
 <BaseLayout
-  title={`${meta.data.blog.title} - Tag: ${tag}`}
+  title={`${meta.data.blog.title} - ${meta.data.blog.tags.title}: ${tag}`}
   description={meta.data.blog.description}
   og={{ show: true }}
 >

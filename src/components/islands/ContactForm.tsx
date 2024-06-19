@@ -1,4 +1,4 @@
-import { type Component } from 'solid-js'
+import { type Component, Suspense } from 'solid-js'
 import {
   type SubmitHandler,
   createForm,
@@ -101,103 +101,105 @@ const ContactForm: Component<Props> = ({ t }) => {
   }
 
   return (
-    <Form class={ContactFormStyle} onSubmit={handleSubmit}>
-      <Field name="name">
-        {(field, props) => (
-          <>
-            <label for="name" class={contactLabel}>
-              {t.name.label}
-            </label>
-            <div class="pokemon-border">
-              <input
-                {...props}
-                id="name"
-                class={contactField}
-                type="text"
-                value={field.value || ''}
-              />
-            </div>
-            {field.error && <div class={contactFormError}>{field.error}</div>}
-          </>
-        )}
-      </Field>
-      <Field name="email">
-        {(field, props) => (
-          <>
-            <label for="email" class={contactLabel}>
-              {t.email.label}
-            </label>
-            <div class="pokemon-border">
-              <input
-                {...props}
-                id="email"
-                class={contactField}
-                type="email"
-                value={field.value || ''}
-              />
-            </div>
-            {field.error && <div class={contactFormError}>{field.error}</div>}
-          </>
-        )}
-      </Field>
-      <Field name="message">
-        {(field, props) => (
-          <>
-            <label for="message" class={contactLabel}>
-              {t.message.label}
-            </label>
-            <div class="pokemon-border">
-              <textarea
-                {...props}
-                id="message"
-                class={contactField}
-                value={field.value || ''}
-                rows={FORM_TEXTAREA_ROWS}
-                autocomplete="off"
-              />
-            </div>
-            {field.error && <div class={contactFormError}>{field.error}</div>}
-          </>
-        )}
-      </Field>
-      <Field name="confirmation" type="boolean">
-        {(field, props) => (
-          <>
-            <div class={contactCheckboxArea}>
-              <input
-                {...props}
-                id="confirmation"
-                type="checkbox"
-                checked={field.value ?? false}
-              />
-              <label for="confirmation" class={contactLabel}>
-                {t.confirmation.label}
+    <Suspense fallback={<div>Loading...</div>}>
+      <Form class={ContactFormStyle} onSubmit={handleSubmit}>
+        <Field name="name">
+          {(field, props) => (
+            <>
+              <label for="name" class={contactLabel}>
+                {t.name.label}
               </label>
-            </div>
-            {field.error && <div class={contactFormError}>{field.error}</div>}
-          </>
+              <div class="pokemon-border">
+                <input
+                  {...props}
+                  id="name"
+                  class={contactField}
+                  type="text"
+                  value={field.value || ''}
+                />
+              </div>
+              {field.error && <div class={contactFormError}>{field.error}</div>}
+            </>
+          )}
+        </Field>
+        <Field name="email">
+          {(field, props) => (
+            <>
+              <label for="email" class={contactLabel}>
+                {t.email.label}
+              </label>
+              <div class="pokemon-border">
+                <input
+                  {...props}
+                  id="email"
+                  class={contactField}
+                  type="email"
+                  value={field.value || ''}
+                />
+              </div>
+              {field.error && <div class={contactFormError}>{field.error}</div>}
+            </>
+          )}
+        </Field>
+        <Field name="message">
+          {(field, props) => (
+            <>
+              <label for="message" class={contactLabel}>
+                {t.message.label}
+              </label>
+              <div class="pokemon-border">
+                <textarea
+                  {...props}
+                  id="message"
+                  class={contactField}
+                  value={field.value || ''}
+                  rows={FORM_TEXTAREA_ROWS}
+                  autocomplete="off"
+                />
+              </div>
+              {field.error && <div class={contactFormError}>{field.error}</div>}
+            </>
+          )}
+        </Field>
+        <Field name="confirmation" type="boolean">
+          {(field, props) => (
+            <>
+              <div class={contactCheckboxArea}>
+                <input
+                  {...props}
+                  id="confirmation"
+                  type="checkbox"
+                  checked={field.value ?? false}
+                />
+                <label for="confirmation" class={contactLabel}>
+                  {t.confirmation.label}
+                </label>
+              </div>
+              {field.error && <div class={contactFormError}>{field.error}</div>}
+            </>
+          )}
+        </Field>
+        <Field name="cf-turnstile-response">
+          {(field, props) => (
+            <>
+              <Turnstile
+                siteKey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY}
+                size="normal"
+                locale={$locale()}
+                onVerify={handleVerify}
+              />
+              <input {...props} type="hidden" value={field.value || ''} />
+            </>
+          )}
+        </Field>
+        <button class={`pokemon-border ${contactButton}`} type="submit">
+          {contactForm.submitting ? t.submitting : t.sendLabel}
+        </button>
+        {contactForm.response.message && (
+          <div>{contactForm.response.message}</div>
         )}
-      </Field>
-      <Field name="cf-turnstile-response">
-        {(field, props) => (
-          <>
-            <Turnstile
-              siteKey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY}
-              size="normal"
-              locale={$locale()}
-              onVerify={handleVerify}
-            />
-            <input {...props} type="hidden" value={field.value || ''} />
-          </>
-        )}
-      </Field>
-      <button class={`pokemon-border ${contactButton}`} type="submit">
-        {contactForm.submitting ? t.submitting : t.sendLabel}
-      </button>
-      {contactForm.response.message && (
-        <div>{contactForm.response.message}</div>
-      )}
-    </Form>
+      </Form>
+    </Suspense>
   )
 }
 

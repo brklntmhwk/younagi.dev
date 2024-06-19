@@ -11,7 +11,7 @@ import {
   nonEmpty,
   minLength,
   email,
-  boolean,
+  // boolean,
   safeParse,
 } from 'valibot'
 import { defaultLang } from '@/utils/i18n/data'
@@ -68,11 +68,16 @@ export const POST: APIRoute = async ({
       minLength(FORM_TEXTAREA_MINLENGTH, t.data.contact_form.message.minlength)
     ),
     confirmation: pipe(
-      boolean(),
+      // boolean(),
+      string(),
       check(
-        (input) => input === true,
+        (input) => input === 'on',
         t.data.contact_form.confirmation.required
       )
+      // check(
+      //   (input) => input === true,
+      //   t.data.contact_form.confirmation.required
+      // )
     ),
     'cf-turnstile-response': string(),
   })

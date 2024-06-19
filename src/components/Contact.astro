@@ -169,18 +169,23 @@ const t = await getEntry('i18n', `${locale}/translation`)
       if (isValid()) {
         submitting.set(true)
         const formData = new FormData(formElement)
+        const data = Object.fromEntries(formData)
         try {
           const response = await fetch(formElement.action, {
             method: 'POST',
-            body: formData,
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
           })
 
           if (response.ok && response.redirected) {
             window.location.replace(response.url)
           } else {
             formElement.reset()
+            submitting.set(false)
             alert('Error submitting form. Please try again.')
-            throw new Error()
+            throw new Error(`Status code: ${response.status}`)
           }
         } catch (err) {
           if (err instanceof Error) {

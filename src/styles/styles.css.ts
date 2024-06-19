@@ -1,11 +1,19 @@
-import { style } from '@vanilla-extract/css'
+import { createVar, style } from '@vanilla-extract/css'
+
+export const bgColor = createVar()
+export const hoverBgColor = createVar()
+export const fillColor = createVar()
 
 export const likesWrapper = style({
-  backgroundColor: 'hsla(0, 100%, 84%, 1)',
+  vars: {
+    [bgColor]: 'hsla(180, 58%, 42%, 1)',
+    [hoverBgColor]: 'hsla(180, 58%, 42%, 0.8)',
+  },
+  backgroundColor: bgColor,
   padding: '0.65rem 0.95rem',
   borderRadius: '0.5rem',
   ':hover': {
-    backgroundColor: 'hsla(0, 100%, 84%, 0.8)',
+    backgroundColor: hoverBgColor,
   },
 })
 
@@ -15,14 +23,22 @@ export const likesButton = style({
   gap: '0.875rem',
 })
 
+export const likesLabelWrapper = style({
+  vars: {
+    [fillColor]: 'hsla(84, 82%, 79%, 1)',
+  },
+  display: 'flex',
+  gap: '0.5rem',
+})
+
 export const likesSpan = style({
   color: 'hsla(0, 0%, 96%, 1)',
-  fontSize: '1.15rem',
+  fontSize: '1.175rem',
   fontWeight: 500,
   selectors: {
-    [`${likesButton} &:last-child`]: {
-      borderLeft: '1px solid var(--line)',
-      paddingLeft: '0.875rem',
+    [`${likesLabelWrapper} &:last-child`]: {
+      borderRight: '1px solid var(--line)',
+      paddingRight: '0.875rem',
     },
   },
 })
@@ -31,10 +47,6 @@ export const contactForm = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '0.875rem',
-})
-
-export const contactLabel = style({
-  userSelect: 'none',
 })
 
 export const contactButton = style({
@@ -55,8 +67,15 @@ export const contactField = style({
 
 export const contactCheckboxArea = style({
   marginTop: '1.5rem',
-  display: 'flex',
-  gap: '0.65rem',
+})
+
+export const contactLabel = style({
+  userSelect: 'none',
+  selectors: {
+    [`${contactCheckboxArea} &`]: {
+      paddingLeft: '0.65rem',
+    },
+  },
 })
 
 export const contactFormError = style({

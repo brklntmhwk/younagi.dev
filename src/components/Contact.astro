@@ -209,7 +209,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
             requiredError.classList.add('hidden')
           }
           break
-        case 'email':
+        case 'email': {
           const invalidError = document.getElementById(
             elemName + '-invalid'
           ) as HTMLDivElement
@@ -224,7 +224,8 @@ const t = await getEntry('i18n', `${locale}/translation`)
             invalidError.classList.add('hidden')
           }
           break
-        case 'message':
+        }
+        case 'message': {
           const minlengthError = document.getElementById(
             elemName + '-minlength'
           ) as HTMLDivElement
@@ -239,6 +240,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
             minlengthError.classList.add('hidden')
           }
           break
+        }
         case 'confirmation':
           if (validityState.valueMissing) {
             requiredError.classList.remove('hidden')

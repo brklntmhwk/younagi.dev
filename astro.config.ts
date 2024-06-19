@@ -35,7 +35,7 @@ export default defineConfig({
   },
   integrations: [
     mdx(),
-    solid({}),
+    solid(),
     purgecss({
       fontFace: true,
     }),

@@ -42,7 +42,7 @@ svg:
 bmc:
   greeting_message: I can't imagine my life without coffee.
 likes:
-  button_label: Nice👍
+  button_label: Favorite
 contact_form:
   name:
     label: Name

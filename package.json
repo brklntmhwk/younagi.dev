@@ -42,6 +42,7 @@
     "drizzle-orm": "^0.31.1",
     "purgecss": "5.0.0",
     "solid-js": "^1.8.17",
+    "solid-motionone": "^1.0.0",
     "valibot": "^0.31.1",
     "wretch": "^2.9.0"
   },

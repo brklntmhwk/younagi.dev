@@ -42,7 +42,7 @@ svg:
 bmc:
   greeting_message: コーヒーのない人生は想像できません
 likes:
-  button_label: 良きかな👍
+  button_label: 推せる
 contact_form:
   name:
     label: 氏名

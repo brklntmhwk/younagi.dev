@@ -9,6 +9,7 @@ import {
   likesSpan,
   likesWrapper,
   likesLabelWrapper,
+  fgColor,
   fillColor,
 } from '@/styles/styles.css'
 import type { I18nData } from '@/lib/collections/types'
@@ -65,7 +66,7 @@ const Likes: Component<Props> = ({ slug, collection, t }) => {
             height={24}
             viewBox="0 0 24 24"
             stroke="none"
-            fill="hsla(0, 0%, 96%, 1)"
+            fill={fgColor}
           >
             <defs>
               <clipPath id="clip-path">
@@ -90,8 +91,8 @@ const Likes: Component<Props> = ({ slug, collection, t }) => {
           <span class={likesSpan}>
             {likes()?.liked ? t.button_label : t.button_label}
           </span>
+          <span class={likesSpan}>{likes()?.likes ?? 0}</span>
         </div>
-        <span class={likesSpan}>{likes()?.likes ?? 0}</span>
       </button>
     </div>
   )

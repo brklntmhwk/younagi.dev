@@ -1,8 +1,10 @@
 import { createVar, style } from '@vanilla-extract/css'
 
-export const textColor = createVar()
+export const fgColor = createVar()
 export const bgColor = createVar()
+export const lineColor = createVar()
 export const hoverBgColor = createVar()
+export const defaultFillColor = createVar()
 export const fillColor = createVar()
 
 export const likesWrapper = style({
@@ -34,12 +36,15 @@ export const likesButton = style({
 
 export const likesLabelWrapper = style({
   vars: {
+    [fgColor]: 'hsla(0, 0%, 96%, 1)',
     [fillColor]: 'hsla(84, 82%, 79%, 1)',
+    [lineColor]: 'hsla(260.87, 10.13%, 88.49%, 0.33)',
   },
   '@media': {
     '(prefers-color-scheme: dark)': {
       vars: {
-        [textColor]: 'hsla(84, 90%, 79%, 0.8)',
+        [fgColor]: 'hsla(0, 0%, 96%, 1)',
+        [fillColor]: 'hsla(84, 82%, 79%, 1)',
       },
     },
   },
@@ -48,23 +53,13 @@ export const likesLabelWrapper = style({
 })
 
 export const likesSpan = style({
-  vars: {
-    [textColor]: 'hsla(0, 0%, 96%, 1)',
-  },
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      vars: {
-        [textColor]: 'hsla(0, 0%, 96%, 1)',
-      },
-    },
-  },
-  color: textColor,
+  color: fgColor,
   fontSize: '1.175rem',
-  fontWeight: 500,
+  fontWeight: 600,
   selectors: {
     [`${likesLabelWrapper} &:last-child`]: {
-      borderRight: '1px solid var(--line)',
-      paddingRight: '0.875rem',
+      borderLeft: `1px solid ${lineColor}`,
+      paddingLeft: '0.875rem',
     },
   },
 })
@@ -106,18 +101,18 @@ export const contactLabel = style({
 
 export const contactFormError = style({
   vars: {
-    [textColor]: 'hsla(0, 95%, 65%, 1)',
+    [fgColor]: 'hsla(0, 95%, 65%, 1)',
     [bgColor]: 'hsla(0, 100%, 93%, 1)',
   },
   '@media': {
     '(prefers-color-scheme: dark)': {
       vars: {
-        [textColor]: 'hsla(0, 95%, 85%, 1)',
+        [fgColor]: 'hsla(0, 95%, 85%, 1)',
         [bgColor]: 'hsla(0, 100%, 75%, 0.5)',
       },
     },
   },
-  color: textColor,
+  color: fgColor,
   backgroundColor: bgColor,
   padding: '0.5rem',
   borderRadius: '0.25rem',

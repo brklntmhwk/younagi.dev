@@ -67,7 +67,10 @@ const t = await getEntry('i18n', `${curLocale}/translation`)
 </style>
 <script>
   function init() {
-    const listenToModalEvents = (modalButton: Element, modal: Element) => {
+    const listenToModalEvents = (
+      modalButton: HTMLButtonElement,
+      modal: HTMLDivElement
+    ) => {
       modalButton.addEventListener('click', () => {
         modal.classList.toggle('hidden')
       })
@@ -89,8 +92,10 @@ const t = await getEntry('i18n', `${curLocale}/translation`)
       })
     }
 
-    const modalButton = document.querySelector('#lang-icon-button')
-    const modal = document.querySelector('#lang-modal')
+    const modalButton = document.getElementById(
+      'lang-icon-button'
+    ) as HTMLButtonElement | null
+    const modal = document.getElementById('lang-modal') as HTMLDivElement | null
 
     if (modalButton && modal) {
       listenToModalEvents(modalButton, modal)

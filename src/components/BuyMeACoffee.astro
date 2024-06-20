@@ -138,7 +138,10 @@ const t = await getEntry('i18n', `${locale}/translation`)
 </style>
 <script>
   function init() {
-    const listenToModalEvents = (modalButton: Element, modal: Element) => {
+    const listenToModalEvents = (
+      modalButton: HTMLButtonElement,
+      modal: HTMLDivElement
+    ) => {
       modalButton.addEventListener('click', () => {
         modal.classList.toggle('hidden')
       })
@@ -150,8 +153,12 @@ const t = await getEntry('i18n', `${locale}/translation`)
       })
     }
 
-    const modalButton = document.querySelector('#bmc-button')
-    const modal = document.querySelector('#bmc-payment-modal')
+    const modalButton = document.getElementById(
+      'bmc-button'
+    ) as HTMLButtonElement | null
+    const modal = document.getElementById(
+      'bmc-payment-modal'
+    ) as HTMLDivElement | null
 
     if (modalButton && modal) {
       listenToModalEvents(modalButton, modal)

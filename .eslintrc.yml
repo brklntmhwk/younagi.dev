@@ -6,6 +6,8 @@ extends:
   - plugin:@typescript-eslint/recommended
   - prettier
 ignorePatterns: ['*.d.ts']
+globals:
+  'NodeListOf': false
 overrides:
   - files:
       - '*.astro'

@@ -1,5 +1,5 @@
 ---
-import { getEntryBySlug, getEntry } from 'astro:content'
+import { getEntry } from 'astro:content'
 import Svg from '@/components/Svg/index.astro'
 import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
 import { UNSPLASH_BASE_URL, GITHUB_BASE_URL, ACCOUNT_ID } from '@/consts'
@@ -8,11 +8,8 @@ import { useTranslatedPath } from '@/utils/i18n/useTranslatedPath'
 const locale = getLocaleFromUrl(Astro.url)
 const translatePath = useTranslatedPath(locale)
 const t = await getEntry('i18n', `${locale}/translation`)
-const privacyPolicyPage = await getEntryBySlug(
-  'page',
-  `${locale}/privacy-policy`
-)
-const sitePolicyPage = await getEntryBySlug('page', `${locale}/site-policy`)
+const privacyPolicyPage = await getEntry('page', `${locale}/privacy-policy`)
+const sitePolicyPage = await getEntry('page', `${locale}/site-policy`)
 const year = new Date().getFullYear()
 ---
 

@@ -38,8 +38,8 @@ const t = await getEntry('i18n', `${locale}/translation`)
     })
 
     const listenToModalEvents = (
-      modalButton: Element,
-      modal: Element,
+      modalButton: HTMLButtonElement,
+      modal: HTMLDivElement,
       input: HTMLInputElement
     ) => {
       modalButton.addEventListener('click', () => {
@@ -65,8 +65,12 @@ const t = await getEntry('i18n', `${locale}/translation`)
       })
     }
 
-    const modalButton = document.querySelector('#search-icon-button')
-    const modal = document.querySelector('#search-modal')
+    const modalButton = document.getElementById(
+      'search-icon-button'
+    ) as HTMLButtonElement | null
+    const modal = document.getElementById(
+      'search-modal'
+    ) as HTMLDivElement | null
     const input = document.querySelector(
       '.pagefind-ui__search-input'
     ) as HTMLInputElement | null

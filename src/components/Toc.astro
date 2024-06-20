@@ -22,7 +22,7 @@ const { headings } = Astro.props
       iconText={t.data.toc.button_label}
       buttonLabel={t.data.toc.button_label}
     >
-      <ul class="toc-list">
+      <ul id="toc-list">
         {headings.map((heading) => (
           <li class={`depth-${heading.depth}`}>
             <a href={`#${heading.slug}`}>{heading.text.replace('#', '')}</a>
@@ -33,7 +33,7 @@ const { headings } = Astro.props
   )
 }
 <style>
-  ul.toc-list {
+  ul#toc-list {
     display: grid;
     gap: 1rem;
     margin-left: 1.25rem;
@@ -79,9 +79,9 @@ const { headings } = Astro.props
 <script>
   function init() {
     const listenToModalEvents = (
-      modalButton: Element,
-      modal: Element,
-      anchorLinks: NodeListOf<Element>
+      modalButton: HTMLButtonElement,
+      modal: HTMLDivElement,
+      anchorLinks: NodeListOf<HTMLLIElement>
     ) => {
       modalButton.addEventListener('click', () => {
         modal.classList.toggle('hidden')
@@ -110,9 +110,13 @@ const { headings } = Astro.props
       })
     }
 
-    const modalButton = document.querySelector('#toc-icon-button')
-    const modal = document.querySelector('#toc-modal')
-    const anchorLinks = document.querySelectorAll('ul.toc-list > li')
+    const modalButton = document.getElementById(
+      'toc-icon-button'
+    ) as HTMLButtonElement | null
+    const modal = document.getElementById('toc-modal') as HTMLDivElement | null
+    const anchorLinks = document.querySelectorAll(
+      'ul#toc-list > li'
+    ) as NodeListOf<HTMLLIElement>
 
     if (modalButton && modal) {
       listenToModalEvents(modalButton, modal, anchorLinks)

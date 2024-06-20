@@ -12,7 +12,6 @@ type Props = {
   siteKey: string
   size?: 'normal' | 'compact'
   locale?: Languages
-  'retry-interval'?: number
   onVerify?: (token: string) => void
 } & Omit<JSX.HTMLAttributes<HTMLDivElement>, 'class'>
 
@@ -21,7 +20,6 @@ const Turnstile: Component<Props> = (props) => {
     'siteKey',
     'size',
     'locale',
-    'retry-interval',
     'onVerify',
   ])
   let element: HTMLDivElement
@@ -34,7 +32,6 @@ const Turnstile: Component<Props> = (props) => {
       sitekey: local.siteKey,
       size: local.size ?? 'normal',
       language: local.locale ?? 'auto',
-      'retry-interval': local['retry-interval'] ?? 8000,
       callback: local.onVerify ?? (() => {}),
     })
   }

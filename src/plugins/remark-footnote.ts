@@ -25,8 +25,9 @@ const remarkFootnote: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
       if (!footnotes.get(node.identifier)) return
 
       node.data = {
+        ...node.data,
         hProperties: {
-          ...((node.data && node.data.hProperties) || {}),
+          // ...((node.data && node.data.hProperties) || {}),
           title: footnotes.get(node.identifier)!,
         },
       }

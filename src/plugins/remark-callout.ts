@@ -118,8 +118,9 @@ const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
           children.splice(0, 1, calloutHtmlNode)
 
           node.data = {
+            ...node.data,
             hProperties: {
-              ...((node.data && node.data.hProperties) || {}),
+              // ...((node.data && node.data.hProperties) || {}),
               className: `callout-${calloutType}`,
               dataCalloutBlockquote: true,
               dataCallout: calloutType,

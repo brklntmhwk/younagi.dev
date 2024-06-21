@@ -31,14 +31,14 @@ export const likesWrapper = style({
 export const likesButton = style({
   vars: {
     [fgColor]: 'hsla(0, 0%, 96%, 1)',
-    [fillColor]: 'hsla(84, 82%, 79%, 1)',
+    [fillColor]: 'hsla(50, 100%, 72%, 1)',
     [lineColor]: 'hsla(260.87, 10.13%, 88.49%, 0.33)',
   },
   '@media': {
     '(prefers-color-scheme: dark)': {
       vars: {
         [fgColor]: 'hsla(0, 0%, 96%, 1)',
-        [fillColor]: 'hsla(84, 82%, 79%, 1)',
+        [fillColor]: 'hsla(50, 100%, 49%, 1)',
       },
     },
   },

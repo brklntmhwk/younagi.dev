@@ -3,7 +3,7 @@ import { useStore } from '@nanostores/solid'
 import { Motion } from 'solid-motionone'
 import { type Languages } from '@/utils/i18n/data'
 import { useTranslatedPath } from '@/utils/i18n/useTranslatedPath'
-import { locale } from '@/stores/localeStore'
+import { locale } from '@/stores/locale-store'
 import {
   likesSpan,
   likesWrapper,

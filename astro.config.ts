@@ -15,6 +15,7 @@ import rehypeKatex from 'rehype-katex'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeSlug from 'rehype-slug'
 import rehypePrettyCode from 'rehype-pretty-code'
+import remarkFootnote from './src/plugins/remark-footnote'
 import rehypeMarkImageFigure from './src/plugins/rehype-image-figure'
 import remarkAstroImageAssets from './src/plugins/remark-astro-image-assets'
 import remarkLineBreaks from './src/plugins/remark-line-breaks'
@@ -77,11 +78,17 @@ export default defineConfig({
   },
   markdown: {
     syntaxHighlight: false,
+    remarkRehype: {
+      footnoteLabel: ' ',
+      footnoteLabelProperties: { className: [''] },
+      footnoteLabelTagName: 'hr',
+    },
     remarkPlugins: [
       remarkMath,
       remarkGfm,
       remarkAstroImageAssets,
       remarkCallout,
+      remarkFootnote,
       remarkLineBreaks,
     ],
     rehypePlugins: [

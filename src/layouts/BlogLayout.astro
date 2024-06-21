@@ -180,8 +180,15 @@ const rawSlug = slug.slice(slug.indexOf('/') + 1)
       & :global(ol) {
         margin: 1.75rem 0;
         padding-inline-start: 2.5rem;
+      }
+      & :global(ul) {
         & :global(li) {
           list-style-type: square;
+        }
+      }
+      & :global(ol) {
+        & :global(li) {
+          list-style-type: decimal;
         }
       }
       & :global(li:has(ul)),

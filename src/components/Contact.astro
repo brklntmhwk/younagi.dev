@@ -122,24 +122,18 @@ const t = await getEntry('i18n', `${locale}/translation`)
   }
 </style>
 <script>
-  import { createSignal, onMount } from 'solid-js'
-  import { submitting } from '../stores/submissionStore'
+  import { valid, submitting } from '../stores/contactFormStore'
 
-  onMount(() => {
-    init()
+  function init() {
     const script = document.createElement('script')
     script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js'
     script.async = true
     script.defer = true
     document.body.appendChild(script)
-  })
 
-  function init() {
     const formElement = document.getElementById(
       'contact-form'
     ) as HTMLFormElement
-
-    const [isValid, setIsValid] = createSignal(false)
 
     const inputElements = formElement.getElementsByTagName('input')
     const textAreaElements = formElement.getElementsByTagName('textarea')
@@ -185,45 +179,47 @@ const t = await getEntry('i18n', `${locale}/translation`)
       }
     })
 
-    formElement.addEventListener('submit', async (event) => {
+    formElement.addEventListener('submit', (event) => {
       event.preventDefault()
 
       for (const elem of fieldElements) {
         validate(elem)
       }
-      setIsValid(formElement.checkValidity())
+      valid.set(formElement.checkValidity())
 
-      if (isValid()) {
-        submitting.set(true)
-        const formData = new FormData(formElement)
-        const data = Object.fromEntries(formData)
-        try {
-          const response = await fetch(formElement.action, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-          })
+      valid.listen(async (value) => {
+        if (value) {
+          submitting.set(true)
+          const formData = new FormData(formElement)
+          const data = Object.fromEntries(formData)
+          try {
+            const response = await fetch(formElement.action, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(data),
+            })
 
-          if (response.ok && response.redirected) {
-            window.location.replace(response.url)
-          } else {
-            formElement.reset()
+            if (response.ok && response.redirected) {
+              window.location.replace(response.url)
+            } else {
+              formElement.reset()
+              submitting.set(false)
+              alert('Error submitting form. Please try again.')
+              throw new Error(`Status code: ${response.status}`)
+            }
+          } catch (err) {
+            if (err instanceof Error) {
+              console.error(`Failed to submit form data: ${err.message}`)
+            } else {
+              console.trace(err)
+            }
+          } finally {
             submitting.set(false)
-            alert('Error submitting form. Please try again.')
-            throw new Error(`Status code: ${response.status}`)
           }
-        } catch (err) {
-          if (err instanceof Error) {
-            console.error(`Failed to submit form data: ${err.message}`)
-          } else {
-            console.trace(err)
-          }
-        } finally {
-          submitting.set(false)
         }
-      }
+      })
     })
 
     const validate = (elem: HTMLInputElement | HTMLTextAreaElement) => {
@@ -285,4 +281,10 @@ const t = await getEntry('i18n', `${locale}/translation`)
       }
     }
   }
+
+  const eventsToBeAdded = ['DOMContentLoaded'] as const
+
+  eventsToBeAdded.forEach((evName) => {
+    document.addEventListener(evName, init)
+  })
 </script>

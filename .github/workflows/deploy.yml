@@ -47,7 +47,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy ./dist --project-name=younagidev --commit-dirty=true
+          command: bunx wrangler pages deploy ./dist --project-name=younagidev --commit-dirty=true
       - name: Add publish URL
         uses: actions/github-script@v6
         with:

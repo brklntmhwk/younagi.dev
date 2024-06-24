@@ -58,7 +58,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
   </div>
   <Turnstile
     client:only="solid-js"
-    siteKey={import.meta.env.TURNSTILE_SITE_KEY}
+    siteKey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY}
     locale={locale}
   />
   <!-- <div

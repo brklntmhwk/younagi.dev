@@ -2,13 +2,14 @@
 import type { HTMLAttributes } from 'astro/types'
 import { getEntry } from 'astro:content'
 import { parse } from 'node-html-parser'
-import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+import { getLocaleFromUrl } from '@/utils/i18n/get-locale-from-url'
+import type { IconName } from './types'
 
 type Props = {
-  iconName: string
+  iconName: IconName
 } & HTMLAttributes<'svg'>
 
-const svgGetter = (iconName: string) => {
+const iconGetter = (iconName: IconName) => {
   const filepath = `./icons/${iconName}.svg`
   const files = import.meta.glob<string>('./icons/**/*.svg', {
     query: '?raw',
@@ -33,7 +34,7 @@ const svgGetter = (iconName: string) => {
 }
 
 const { iconName, ...attributes } = Astro.props
-const { attributes: baseAttributes, innerHTML } = svgGetter(iconName)
+const { attributes: baseAttributes, innerHTML } = iconGetter(iconName)
 const svgAttributes = { ...baseAttributes, ...attributes }
 const locale = getLocaleFromUrl(Astro.url)
 const t = await getEntry('i18n', `${locale}/translation`)

@@ -1,9 +1,9 @@
 ---
 import { getEntry } from 'astro:content'
-import Svg from '@/components/Svg/index.astro'
-import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+import { Icon } from './Icon'
+import { getLocaleFromUrl } from '@/utils/i18n/get-locale-from-url'
 import { UNSPLASH_BASE_URL, GITHUB_BASE_URL, ACCOUNT_ID } from '@/consts'
-import { useTranslatedPath } from '@/utils/i18n/useTranslatedPath'
+import { useTranslatedPath } from '@/utils/i18n/use-translated-path'
 
 const locale = getLocaleFromUrl(Astro.url)
 const translatePath = useTranslatedPath(locale)
@@ -41,7 +41,7 @@ const year = new Date().getFullYear()
       target="_blank"
       aria-label="Github"
     >
-      <Svg iconName="github" width={32} height={32} />
+      <Icon iconName="github" width={32} height={32} />
     </a>
     <a
       href={`${UNSPLASH_BASE_URL}/@${ACCOUNT_ID}`}
@@ -49,10 +49,10 @@ const year = new Date().getFullYear()
       target="_blank"
       aria-label="Unsplash"
     >
-      <Svg iconName="unsplash" width={32} height={32} />
+      <Icon iconName="unsplash" width={32} height={32} />
     </a>
     <a href={translatePath('/rss.xml')} title="RSS" aria-label="RSS">
-      <Svg iconName="rss" width={32} height={32} />
+      <Icon iconName="rss" width={32} height={32} />
     </a>
   </div>
 </footer>

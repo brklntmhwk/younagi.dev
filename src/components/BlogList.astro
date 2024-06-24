@@ -1,10 +1,10 @@
 ---
 import type { CollectionEntry } from 'astro:content'
 import FormattedDate from '@/components/FormattedDate.astro'
-import Svg from '@/components/Svg/index.astro'
-import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+import { Icon } from './Icon'
+import { getLocaleFromUrl } from '@/utils/i18n/get-locale-from-url'
 import { slugify } from '@/utils/slugify'
-import { useTranslatedPath } from '@/utils/i18n/useTranslatedPath'
+import { useTranslatedPath } from '@/utils/i18n/use-translated-path'
 
 type Props = {
   entries: CollectionEntry<'blog'>[]
@@ -23,12 +23,12 @@ const { entries, kind } = Astro.props
         <article class="pokemon-border">
           <section class="date">
             <div>
-              <Svg iconName="publish" width={20} height={20} />
+              <Icon iconName="publish" width={20} height={20} />
               <FormattedDate date={entry.data.publishedAt} locale={locale} />
             </div>
             {entry.data.modifiedAt && (
               <div>
-                <Svg iconName="update" width={20} height={20} />
+                <Icon iconName="update" width={20} height={20} />
                 <FormattedDate date={entry.data.modifiedAt} locale={locale} />
               </div>
             )}

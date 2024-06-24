@@ -3,7 +3,7 @@ import { getCollection, getEntry } from 'astro:content'
 import getOgImage from '@/components/OgImage'
 import { getPublishedSortedEntries } from '@/lib/collections/contents'
 import { type Languages, defaultLang } from '@/utils/i18n/data'
-import { useTranslatedPath } from '@/utils/i18n/useTranslatedPath'
+import { useTranslatedPath } from '@/utils/i18n/use-translated-path'
 
 const blogEntries = getPublishedSortedEntries(await getCollection('blog'))
 const newsEntries = getPublishedSortedEntries(await getCollection('news'))

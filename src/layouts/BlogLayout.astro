@@ -8,10 +8,10 @@ import Likes from '@/components/islands/Likes'
 import BuyMeACoffee from '@/components/BuyMeACoffee.astro'
 import FormattedDate from '../components/FormattedDate.astro'
 import Toc from '@/components/Toc.astro'
-import Svg from '@/components/Svg/index.astro'
-import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+import { Icon } from '@/components/Icon'
+import { getLocaleFromUrl } from '@/utils/i18n/get-locale-from-url'
 import { slugify } from '@/utils/slugify'
-import { useTranslatedPath } from '@/utils/i18n/useTranslatedPath'
+import { useTranslatedPath } from '@/utils/i18n/use-translated-path'
 
 type Props = {
   entry: CollectionEntry<'blog'>
@@ -46,13 +46,13 @@ const rawSlug = slug.slice(slug.indexOf('/') + 1)
       <section class="blog-metadata">
         <div class="date-meta">
           <div>
-            <Svg iconName="publish" width={20} height={20} />
+            <Icon iconName="publish" width={20} height={20} />
             <FormattedDate date={publishedAt} locale={locale} />
           </div>
           {
             modifiedAt && (
               <div>
-                <Svg iconName="update" width={20} height={20} />
+                <Icon iconName="update" width={20} height={20} />
                 <FormattedDate date={modifiedAt} locale={locale} />
               </div>
             )

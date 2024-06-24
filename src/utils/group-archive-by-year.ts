@@ -1,5 +1,5 @@
 import type { CollectionEntry } from 'astro:content'
-import { ArchiveSlugify } from './ArchiveSlugify'
+import { ArchiveSlugify } from './archive-slugify'
 
 export type ArchiveYearMonthPairs = Record<
   string,

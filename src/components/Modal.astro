@@ -1,10 +1,10 @@
 ---
 import type { HTMLAttributes } from 'astro/types'
-import Svg from '@/components/Svg/index.astro'
+import { type IconName, Icon } from './Icon'
 
 type Props = {
   modalName: string
-  iconName: string
+  iconName: IconName
   iconText?: string
   buttonLabel: string
   'data-border-image-url'?: string
@@ -31,7 +31,7 @@ const {
   title={buttonLabel}
   aria-label={buttonLabel}
 >
-  <Svg iconName={iconName} width={32} height={32} />
+  <Icon iconName={iconName} width={32} height={32} />
   {iconText && <span>{iconText}</span>}
 </button>
 <style>

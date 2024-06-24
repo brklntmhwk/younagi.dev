@@ -2,7 +2,7 @@
 import '@pagefind/default-ui/css/ui.css'
 import { getEntry } from 'astro:content'
 import Modal from '@/components/Modal.astro'
-import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+import { getLocaleFromUrl } from '@/utils/i18n/get-locale-from-url'
 
 const locale = getLocaleFromUrl(Astro.url)
 const t = await getEntry('i18n', `${locale}/translation`)

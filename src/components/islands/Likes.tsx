@@ -2,7 +2,7 @@ import { type Component, createResource } from 'solid-js'
 import { useStore } from '@nanostores/solid'
 import { Motion } from 'solid-motionone'
 import { type Languages } from '@/utils/i18n/data'
-import { useTranslatedPath } from '@/utils/i18n/useTranslatedPath'
+import { useTranslatedPath } from '@/utils/i18n/use-translated-path'
 import { locale } from '@/stores/locale-store'
 import {
   likesSpan,

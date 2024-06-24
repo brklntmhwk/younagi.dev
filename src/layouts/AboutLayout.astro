@@ -2,11 +2,11 @@
 import type { MarkdownHeading } from 'astro'
 import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
+import { getLocaleFromUrl } from '@/utils/i18n/get-locale-from-url'
 import Toc from '@/components/Toc.astro'
 import ProfileIcon from '@/components/ProfileIcon.astro'
 import ProfileImage from '@/assets/images/profile.png'
-import { useTranslatedPath } from '@/utils/i18n/useTranslatedPath'
+import { useTranslatedPath } from '@/utils/i18n/use-translated-path'
 
 type Props = {
   headings: MarkdownHeading[]

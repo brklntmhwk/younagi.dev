@@ -1,7 +1,7 @@
 ---
 import { getEntry } from 'astro:content'
-import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
-import Svg from './Svg/index.astro'
+import { getLocaleFromUrl } from '@/utils/i18n/get-locale-from-url'
+import { Icon } from './Icon'
 import { ACCOUNT_ID } from '@/consts'
 
 const locale = getLocaleFromUrl(Astro.url)
@@ -19,7 +19,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
 </div>
 <div class="bmc">
   <button id="bmc-button" class="bmc-button">
-    <Svg iconName="bmc" height={30} width={30} />
+    <Icon iconName="bmc" height={30} width={30} />
     <span>Buy Me a Coffee</span>
   </button>
   <div class="bmc-greeting">

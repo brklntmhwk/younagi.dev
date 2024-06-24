@@ -1,137 +1,148 @@
 import type { RemarkPlugin } from '@astrojs/markdown-remark'
 import type { Plugin } from 'unified'
-import type { Node, Root, Parent, Data, Blockquote, RootContent } from 'mdast'
+import type {
+  Root,
+  Parent,
+  BlockContent,
+  DefinitionContent,
+  Paragraph,
+} from 'mdast'
 import { visit } from 'unist-util-visit'
-import { toString } from 'mdast-util-to-string'
-import { optimize } from 'svgo'
-import {
-  quoteIcon,
-  infoIcon,
-  xIcon,
-  helpCircleIcon,
-  alertTriangleIcon,
-  pencilIcon,
-  checkIcon,
-} from '../consts'
 
-type Callout = Map<string, string>
-type HtmlNode = Node & {
-  type: 'html'
-  data: Data
-  value: string
+type Callout = {
+  type: string
+  title: string | undefined
+  expandable: boolean
+  expanded: boolean
 }
 
-const regex = /^\[!(\w+)\]([+-]?)/
-const containsKey = (mapObj: Callout, str: string) => mapObj.has(str)
-const optimizeSvgIcons = (callouts: Callout) => {
-  for (const [key, svg] of callouts.entries()) {
-    callouts.set(
-      key,
-      optimize(svg, {
-        multipass: true,
-        js2svg: { pretty: true },
-      }).data
-    )
+const parseCallout = (text: string | undefined): Callout | undefined => {
+  if (text === undefined || text === '') return
+
+  const matched = text.match(
+    /^\[!(?<type>.+?)\](?<expandable>[+-])?\s?(?<title>.+)?$/
+  )
+
+  if (matched?.groups?.type === undefined) return undefined
+
+  const calloutType = matched.groups.type
+  const calloutTitle = matched.groups.title
+  const expansionMark = matched.groups.expandable
+  const expandable = Boolean(expansionMark)
+  const expanded = expansionMark === '+'
+
+  return {
+    type: calloutType,
+    title: calloutTitle,
+    expandable,
+    expanded,
   }
 }
-const callouts: Callout = new Map([
-  ['question', helpCircleIcon],
-  ['help', helpCircleIcon],
-  ['faq', helpCircleIcon],
-  ['info', infoIcon],
-  ['tip', infoIcon],
-  ['hint', infoIcon],
-  ['warning', alertTriangleIcon],
-  ['attention', alertTriangleIcon],
-  ['caution', alertTriangleIcon],
-  ['quote', quoteIcon],
-  ['cite', quoteIcon],
-  ['success', checkIcon],
-  ['check', checkIcon],
-  ['done', checkIcon],
-  ['note', pencilIcon],
-  ['failure', xIcon],
-])
 
-const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
+const remarkCallout2: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
   return (tree) => {
-    const blockquoteChildrenTriples: {
-      node: Blockquote
-      firstChild: RootContent
-      children: RootContent[]
-    }[] = []
-
     visit(tree, 'blockquote', (node) => {
+      if (!('children' in node) || (node as Parent).children.length === 0)
+        return
+
+      const paragraphNode = node.children[0]!
+      if (paragraphNode.type !== 'paragraph') return
+
       if (
-        !('children' in node) ||
-        (node as Parent).children.length === 0 ||
-        (node as Parent).children[0]?.type !== 'paragraph'
+        !('children' in paragraphNode) ||
+        (paragraphNode as Parent).children.length === 0
       )
         return
 
-      blockquoteChildrenTriples.push({
-        node,
-        firstChild: (node as Parent).children[0]!,
-        children: (node as Parent).children,
-      })
-    })
+      const calloutNode = paragraphNode.children[0]!
+      if (calloutNode?.type !== 'text') return
 
-    blockquoteChildrenTriples.map(({ node, firstChild, children }, index) => {
-      const value = toString(firstChild)
-      const [firstLine, ...rest] = value.split('\n')
-      const restContent = rest.join('\n')
-      const matched = firstLine?.match(regex)
+      const [calloutTypeTitle, ...calloutContent] =
+        calloutNode.value.split('\n')
+      const calloutData = parseCallout(calloutTypeTitle)
+      if (calloutData === undefined) return
 
-      if (matched) {
-        const array = regex.exec(firstLine!)
-        const calloutType = array?.at(1)
-        const expandCollapseSign = array?.at(2) as '+' | '-' | undefined
-
-        if (array && calloutType && containsKey(callouts, calloutType)) {
-          const title = array.input.slice(matched[0].length).trim()
-          const isExpandable = Boolean(expandCollapseSign)
-          const isExpanded = expandCollapseSign === '+'
-
-          optimizeSvgIcons(callouts)
-
-          const calloutHtmlNode: HtmlNode = {
-            type: 'html',
-            data: {},
-            value: isExpandable
-              ? `
-              <input type="checkbox" id="callout-toggle-check-${calloutType}-${index}" ${isExpanded === true ? 'checked' : ''} />
-              <label for="callout-toggle-check-${calloutType}-${index}" class="callout-title">
-                <div class="callout-title-icon">${callouts.get(calloutType)}</div>
-                <span class="callout-title-text">${title}</span>
-              </label>
-              <div class="callout-content">${restContent}</div>
-              `
-              : `
-              <div class="callout-title">
-                <div class="callout-title-icon">${callouts.get(calloutType)}</div>
-                <span class="callout-title-text">${title}</span>
-              </div>
-              <div class="callout-content">${restContent}</div>
-              `,
-          }
-
-          children.splice(0, 1, calloutHtmlNode)
-
-          node.data = {
-            ...node.data,
-            hProperties: {
-              // ...((node.data && node.data.hProperties) || {}),
-              className: `callout-${calloutType}`,
-              dataCalloutBlockquote: true,
-              dataCallout: calloutType,
-              dataExpandable: String(isExpandable),
-              dataExpanded: String(isExpanded),
-            },
-          }
-        }
+      node.data = {
+        ...node.data,
+        hName: 'callout',
+        hProperties: {
+          dataCalloutType: calloutData.type,
+          dataExpandable: String(calloutData.expandable),
+          dataExpanded: String(calloutData.expanded),
+        },
       }
+
+      const contentNode: (BlockContent | DefinitionContent)[] = [
+        {
+          type: 'paragraph',
+          data: {
+            hName: 'div',
+            hProperties: {
+              className: 'callout-content',
+            },
+          },
+          children: [],
+        },
+        ...node.children.splice(1),
+      ]
+      if (contentNode[0]?.type !== 'paragraph') return
+      if (calloutContent.length > 0) {
+        contentNode[0].children.push({
+          type: 'text',
+          value: calloutContent.join('\n'),
+        })
+      }
+
+      const titleNode: Paragraph = {
+        type: 'paragraph',
+        data: {
+          hName: 'callout-title',
+          hProperties: {
+            dataCalloutType: calloutData.type,
+            dataExpandable: String(calloutData.expandable),
+            dataExpanded: String(calloutData.expanded),
+          },
+        },
+        children: [],
+      }
+      if (calloutData.title !== undefined) {
+        titleNode.children.push({
+          type: 'text',
+          value: calloutData.title,
+        })
+      }
+
+      if (calloutContent.length <= 0) {
+        for (const [i, child] of paragraphNode.children.slice(1).entries()) {
+          if (child.type !== 'text') {
+            titleNode.children.push(child)
+            continue
+          }
+
+          const [titleText, ...contentLines] = child.value.split('\n')
+          if (titleText) {
+            titleNode.children.push({
+              type: 'text',
+              value: titleText,
+            })
+          }
+          if (contentLines.length > 0) {
+            if (contentNode[0]?.type !== 'paragraph') return
+            contentNode[0].children.push({
+              type: 'text',
+              value: contentLines.join('\n'),
+            })
+          }
+          contentNode[0].children.push(...paragraphNode.children.slice(i + 2))
+          break
+        }
+      } else {
+        contentNode[0].children.push(...paragraphNode.children.slice(1))
+      }
+
+      node.children = [titleNode, ...contentNode]
     })
   }
 }
 
-export default remarkCallout
+export default remarkCallout2

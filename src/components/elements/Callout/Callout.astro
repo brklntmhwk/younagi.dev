@@ -1,12 +1,21 @@
 ---
-const props = Astro.props
+import { getCalloutType } from './callouts'
+
+export type Props = {
+  'data-callout-type': string
+  'data-expanded': string
+  'data-expandable': string
+}
+
+const { 'data-callout-type': calloutType, ...restProps } = Astro.props
+const validCalloutType = getCalloutType(calloutType)
 ---
 
-<blockquote class="callout-blockquote" {...props}>
+<div class="callout" data-callout-type={validCalloutType} {...restProps}>
   <slot />
-</blockquote>
+</div>
 <style>
-  .callout-blockquote {
+  .callout {
     padding: 0.75rem 0.85rem;
     margin: 1.5rem 0;
     display: flex;
@@ -49,7 +58,7 @@ const props = Astro.props
       display: none;
     }
   }
-  .callout-blockquote[data-expandable='true'] {
+  .callout[data-expandable='true'] {
     & :global(.callout-title) {
       &::after {
         content: '›';
@@ -60,9 +69,7 @@ const props = Astro.props
       }
     }
   }
-  .callout-blockquote[data-callout='info'],
-  .callout-blockquote[data-callout='tip'],
-  .callout-blockquote[data-callout='hint'] {
+  .callout[data-callout-type='info'] {
     background-color: var(--callout-info-bg);
     & :global(.callout-title) {
       color: var(--callout-info-fg);
@@ -74,9 +81,7 @@ const props = Astro.props
       }
     }
   }
-  .callout-blockquote[data-callout='caution'],
-  .callout-blockquote[data-callout='attention'],
-  .callout-blockquote[data-callout='warning'] {
+  .callout[data-callout-type='warning'] {
     background-color: var(--callout-caution-bg);
     & :global(.callout-title) {
       color: var(--callout-caution-fg);
@@ -88,7 +93,7 @@ const props = Astro.props
       }
     }
   }
-  .callout-blockquote[data-callout='failure'] {
+  .callout[data-callout-type='failure'] {
     background-color: var(--callout-failure-bg);
     & :global(.callout-title) {
       color: var(--callout-failure-fg);
@@ -100,9 +105,7 @@ const props = Astro.props
       }
     }
   }
-  .callout-blockquote[data-callout='question'],
-  .callout-blockquote[data-callout='faq'],
-  .callout-blockquote[data-callout='help'] {
+  .callout[data-callout-type='question'] {
     background-color: var(--callout-question-bg);
     & :global(.callout-title) {
       color: var(--callout-question-fg);
@@ -114,9 +117,7 @@ const props = Astro.props
       }
     }
   }
-  .callout-blockquote[data-callout='check'],
-  .callout-blockquote[data-callout='success'],
-  .callout-blockquote[data-callout='done'] {
+  .callout[data-callout-type='check'] {
     background-color: var(--callout-check-bg);
     & :global(.callout-title) {
       color: var(--callout-check-fg);
@@ -128,8 +129,7 @@ const props = Astro.props
       }
     }
   }
-  .callout-blockquote[data-callout='quote'],
-  .callout-blockquote[data-callout='cite'] {
+  .callout[data-callout-type='quote'] {
     background-color: var(--callout-quote-bg);
     & :global(.callout-title) {
       color: var(--callout-quote-fg);
@@ -141,7 +141,7 @@ const props = Astro.props
       }
     }
   }
-  .callout-blockquote[data-callout='note'] {
+  .callout[data-callout-type='note'] {
     background-color: var(--callout-note-bg);
     & :global(.callout-title) {
       color: var(--callout-note-fg);

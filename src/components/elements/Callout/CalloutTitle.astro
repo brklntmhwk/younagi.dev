@@ -1,0 +1,55 @@
+---
+import { Icon } from '@/components/Icon'
+import { generateUniqueId } from '@/utils/generate-unique-id'
+import { toBoolean } from '@/utils/to-boolean'
+import { getCallout } from './callouts'
+
+type Props = {
+  'data-callout-type': string
+  'data-expanded': string
+  'data-expandable': string
+}
+
+const {
+  'data-callout-type': dataCalloutType,
+  'data-expanded': dataExpanded,
+  'data-expandable': dataExpandable,
+} = Astro.props
+const uniqueId = generateUniqueId()
+const isExpandable = toBoolean(dataExpandable)
+const isExpanded = toBoolean(dataExpanded)
+const callout = getCallout(dataCalloutType)
+const calloutTitle: string | undefined = await Astro.slots.render('default')
+---
+
+{
+  isExpandable ? (
+    <>
+      <input
+        type="checkbox"
+        id={`callout-toggle-check-${dataCalloutType}-${uniqueId}`}
+        checked={isExpanded === true ?? false}
+      />
+      <label
+        for={`callout-toggle-check-${dataCalloutType}-${uniqueId}`}
+        class="callout-title"
+      >
+        <div class="callout-title-icon">
+          <Icon iconName={callout.icon} width={20} height={20} />
+        </div>
+        <span class="callout-title-text">
+          {calloutTitle ? <Fragment set:html={calloutTitle} /> : callout.label}
+        </span>
+      </label>
+    </>
+  ) : (
+    <div class="callout-title">
+      <div class="callout-title-icon">
+        <Icon iconName={callout.icon} width={20} height={20} />
+      </div>
+      <span class="callout-title-text">
+        {calloutTitle ? <Fragment set:html={calloutTitle} /> : callout.label}
+      </span>
+    </div>
+  )
+}

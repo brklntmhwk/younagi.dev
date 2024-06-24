@@ -2,11 +2,8 @@
 import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
 import { getCollection } from 'astro:content'
 import BlogLayout from '@/layouts/BlogLayout.astro'
-import FormattedDate from '@/components/FormattedDate.astro'
-import Blockquote from '@/components/elements/Blockquote.astro'
-import Figure from '@/components/elements/Figure.astro'
-import Message from '@/components/Message.astro'
 import { getPublishedSortedEntries } from '@/lib/collections/contents'
+import { mdxComponents } from '@/lib/mdx-components'
 import { defaultLang } from '@/utils/i18n/data'
 
 export const getStaticPaths = (async () => {
@@ -24,17 +21,10 @@ export const getStaticPaths = (async () => {
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
-export const components = {
-  blockquote: Blockquote,
-  figure: Figure,
-  FormattedDate,
-  Message,
-}
-
 const { entry } = Astro.props
 const { Content, headings } = await entry.render()
 ---
 
 <BlogLayout entry={{ ...entry }} {headings}>
-  <Content components={components} />
+  <Content components={mdxComponents} />
 </BlogLayout>

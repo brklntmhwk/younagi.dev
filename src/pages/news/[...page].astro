@@ -4,7 +4,7 @@ import { getCollection, getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import Pager from '@/components/Pager.astro'
 import FormattedDate from '@/components/FormattedDate.astro'
-import Svg from '@/components/Svg/index.astro'
+import { Icon } from '@/components/Icon'
 import { LIMIT_PER_PAGE } from '@/consts'
 import { defaultLang } from '@/utils/i18n/data'
 import { getPublishedSortedEntries } from '@/lib/collections/contents'
@@ -43,7 +43,7 @@ const t = await getEntry('i18n', `${defaultLang}/translation`)
               <article>
                 <section class="date">
                   <div>
-                    <Svg iconName="publish" width={20} height={20} />
+                    <Icon iconName="publish" width={20} height={20} />
                     <FormattedDate
                       date={entry.data.publishedAt}
                       locale={defaultLang}
@@ -51,7 +51,7 @@ const t = await getEntry('i18n', `${defaultLang}/translation`)
                   </div>
                   {entry.data.modifiedAt && (
                     <div>
-                      <Svg iconName="update" width={20} height={20} />
+                      <Icon iconName="update" width={20} height={20} />
                       <FormattedDate
                         date={entry.data.modifiedAt}
                         locale={defaultLang}

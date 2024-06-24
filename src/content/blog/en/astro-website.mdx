@@ -681,7 +681,7 @@ export const components = {
 ---
 
 <BlogLayout entry={/* ... */} headings={/* ... */}>
-  <Content components={components} />
+  <Content components={mdxComponents} />
 </BlogLayout>
 ```
 
@@ -702,11 +702,11 @@ Below are some examples of it.
 ---
 
 ```Markdown title="Caution callout"
-> [!caution]-Caution
+> [!warning]-warning
 > Caution callout example. (Folded by default)
 ```
 
-> [!caution]-Caution
+> [!warning]-Caution
 > Caution callout example. (Folded by default)
 
 ---
@@ -716,7 +716,7 @@ Below are some examples of it.
 > Check callout example. (No expansion/fold)
 ```
 
-> [!check] Check
+> [!idontknow] Check
 > Check callout example. (No expansion/fold)
 
 ---
@@ -1002,7 +1002,7 @@ export const components = {
 ---
 
 <BlogLayout entry={/* ... */} headings={/* ... */}>
-  <Content components={components} />
+  <Content components={mdxComponents} />
 </BlogLayout>
 ```
 

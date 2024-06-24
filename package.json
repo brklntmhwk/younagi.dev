@@ -8,14 +8,14 @@
   "license": "MIT",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
+    "astro": "astro",
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build",
-    "build:worker": "esbuild functions/submitForm.ts --bundle --sourcemap --minify --outfile=dist/api/submitForm.js",
-    "postbuild": "pagefind --site dist",
     "preview": "astro preview",
+    "build": "astro check && astro build",
     "sync": "astro sync",
-    "astro": "astro",
+    "prebuild": "bun ./src/scripts/generate-icon-types.ts",
+    "postbuild": "pagefind --site dist",
     "format": "prettier --write './src/**/*.{js,ts,json,astro}'",
     "prepare": "husky",
     "typegen": "wrangler types",
@@ -103,7 +103,7 @@
     "wrangler": "^3.57.2"
   },
   "engines": {
-    "node": ">=18.16.0"
+    "bun": "^1.0.0"
   },
   "packageManager": "pnpm@9.1.0"
 }

@@ -24,7 +24,9 @@ export const getStaticPaths = (async ({ paginate }) => {
       const displayEntries = getLocaleContentEntries<'blog'>(
         entries,
         lang
-      ).filter((entry) => entry.data.tags?.includes(tag))
+      ).filter((entry) =>
+        entry.data.tags?.some((blogTag) => blogTag.id === tag.id)
+      )
       const tagSlug = slugify(getRawSlug(tag.id))
 
       return paginate(displayEntries, {

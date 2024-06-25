@@ -18,7 +18,7 @@ export const getStaticPaths = (async ({ paginate }) => {
 
   return tags.flatMap((tag) => {
     const displayEntries = entries.filter((entry) =>
-      entry.data.tags?.includes(tag)
+      entry.data.tags?.some((blogTag) => blogTag.id === tag.id)
     )
     const tagSlug = slugify(getRawSlug(tag.id))
 

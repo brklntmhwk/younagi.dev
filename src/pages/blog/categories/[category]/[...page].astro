@@ -20,7 +20,7 @@ export const getStaticPaths = (async ({ paginate }) => {
 
   return categories.flatMap((category) => {
     const displayEntries = entries.filter(
-      (entry) => entry.data.category === category
+      (entry) => entry.data.category.id === category.id
     )
     const categorySlug = slugify(getRawSlug(category.id))
 

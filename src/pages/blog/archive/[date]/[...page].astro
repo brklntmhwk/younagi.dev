@@ -1,6 +1,6 @@
 ---
 import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
-import { getCollection, getEntry } from 'astro:content'
+import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import BlogList from '@/components/BlogList.astro'
 import Pager from '@/components/Pager.astro'
@@ -9,19 +9,17 @@ import { ArchiveSlugify } from '@/utils/archive-slugify'
 import { defaultLang } from '@/utils/i18n/data'
 import { formatDate } from '@/utils/format-date'
 import { convertDateStr } from '@/utils/convert-date-str'
-import { getPublishedSortedEntries } from '@/lib/collections/contents'
+import { getSortedContentEntries } from '@/lib/collections/contents'
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const entries = getPublishedSortedEntries(await getCollection('blog'))
+  const entries = await getSortedContentEntries('blog', defaultLang)
   const dates = [
     ...new Set(entries.map((entry) => ArchiveSlugify(entry.data.publishedAt))),
   ]
 
   return dates.flatMap((date) => {
     const displayEntries = entries.filter(
-      (entry) =>
-        ArchiveSlugify(entry.data.publishedAt) === date &&
-        entry.slug.slice(0, entry.slug.indexOf('/')) === defaultLang
+      (entry) => ArchiveSlugify(entry.data.publishedAt) === date
     )
 
     return paginate(displayEntries, {

@@ -4,13 +4,10 @@ description: Astro, Cloudflare Pages, Front Matter CMS の構成で開発した�
 publishedAt: 2024-05-13T04:50:36.513Z
 modifiedAt: 2024-05-13T04:50:40.350Z
 tags:
-  - Astro
-  - Cloudflare
-  - Front Matter CMS
-  - JavaScript
-  - TypeScript
-  - CSS
-category: Learning
+  - ja/astro
+  - ja/cloudflare
+  - ja/typescript
+category: ja/learning
 draft: published
 type: blog
 ---
@@ -297,10 +294,10 @@ OG画像はAstroが提供する[静的ファイルAPIエンドポイント機能
 import type { APIRoute, APIContext, GetStaticPaths } from 'astro'
 import { getCollection } from 'astro:content'
 import getOgImage from '@/components/OgImage'
-import { getPublishedSortedEntries } from '@/lib/content'
+import { getSortedContentEntries } from '@/lib/content'
 
-const blogEntries = getPublishedSortedEntries(await getCollection('blog'))
-const newsEntries = getPublishedSortedEntries(await getCollection('news'))
+const blogEntries = getSortedContentEntries(await getCollection('blog'))
+const newsEntries = const newsList = await getSortedContentEntries('news')
 const pages = await getCollection('page')
 const articles = [...blogEntries, ...newsEntries, ...pages]
 

@@ -1,12 +1,12 @@
 ---
 import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
-import { getCollection, getEntry } from 'astro:content'
+import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { langList } from '@/utils/i18n/data'
 import BulletinBoard from '@/components/BulletinBoard.astro'
 import PhotoGallery from '@/components/PhotoGallery.astro'
 import { getPhotos } from '@/lib/unsplash/contents'
-import { getPublishedSortedEntries } from '@/lib/collections/contents'
+import { getSortedContentEntries } from '@/lib/collections/contents'
 import { NEWS_MAXIMUM_COUNT } from '@/consts'
 
 export const getStaticPaths = (() => {
@@ -17,7 +17,7 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
 const { locale } = Astro.params
 const meta = await getEntry('meta', `${locale}/site-data`)
-const newsList = getPublishedSortedEntries(await getCollection('news'))
+const newsList = await getSortedContentEntries('news', locale)
 const localeNewsList = newsList.filter(
   (news) => news.slug.slice(0, news.slug.indexOf('/')) === locale
 )

@@ -1,12 +1,12 @@
 import type { APIRoute, APIContext, GetStaticPaths } from 'astro'
 import { getCollection, getEntry } from 'astro:content'
 import getOgImage from '@/components/OgImage'
-import { getPublishedSortedEntries } from '@/lib/collections/contents'
+import { getSortedContentEntries } from '@/lib/collections/contents'
 import { type Languages, defaultLang } from '@/utils/i18n/data'
 import { useTranslatedPath } from '@/utils/i18n/use-translated-path'
 
-const blogEntries = getPublishedSortedEntries(await getCollection('blog'))
-const newsEntries = getPublishedSortedEntries(await getCollection('news'))
+const blogEntries = await getSortedContentEntries('blog')
+const newsEntries = await getSortedContentEntries('news')
 const pages = await getCollection('page')
 const articles = [...blogEntries, ...newsEntries, ...pages]
 

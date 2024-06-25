@@ -10,8 +10,10 @@ import FormattedDate from '../components/FormattedDate.astro'
 import Toc from '@/components/Toc.astro'
 import { Icon } from '@/components/Icon'
 import { getLocaleFromUrl } from '@/utils/i18n/get-locale-from-url'
-import { slugify } from '@/utils/slugify'
 import { useTranslatedPath } from '@/utils/i18n/use-translated-path'
+import { slugify } from '@/utils/slugify'
+import { getRawSlug } from '@/utils/get-raw-slug'
+import { getCategory, getBlogTags } from '@/lib/collections/data'
 
 type Props = {
   entry: CollectionEntry<'blog'>
@@ -23,8 +25,18 @@ const t = await getEntry('i18n', `${locale}/translation`)
 const translatePath = useTranslatedPath(locale)
 const { entry, headings } = Astro.props
 const { data, collection, slug } = entry
-const { title, description, category, tags, publishedAt, modifiedAt } = data
-const rawSlug = slug.slice(slug.indexOf('/') + 1)
+const {
+  title,
+  description,
+  category: blogCategory,
+  tags: blogTags,
+  publishedAt,
+  modifiedAt,
+} = data
+const rawSlug = getRawSlug(slug)
+const rawCategorySlug = getRawSlug(blogCategory.id)
+const category = await getCategory(blogCategory.id)
+const tags = await getBlogTags(blogTags, locale)
 ---
 
 <BaseLayout
@@ -62,20 +74,20 @@ const rawSlug = slug.slice(slug.indexOf('/') + 1)
         <section class="taxonomies">
           <a
             href={translatePath(
-              `/${collection}/categories/${slugify(category)}`
-            )}>{category}</a
+              `/${collection}/${category.collection}/${slugify(rawCategorySlug)}`
+            )}>{category.data.title}</a
           >
           {
-            tags && (
+            tags.length !== 0 && (
               <ul class="tag-list">
                 {tags.map((tag) => (
                   <li>
                     <a
                       href={translatePath(
-                        `/${collection}/tags/${slugify(tag)}`
+                        `/${collection}/${tag.collection}/${slugify(getRawSlug(tag.id))}`
                       )}
                     >
-                      #{tag}
+                      #{tag.data.title}
                     </a>
                   </li>
                 ))}

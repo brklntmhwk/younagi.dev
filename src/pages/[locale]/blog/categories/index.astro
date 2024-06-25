@@ -1,10 +1,11 @@
 ---
 import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import { getCollection, getEntry } from 'astro:content'
+import { getEntry } from 'astro:content'
 import TaxonomyList from '@/components/TaxonomyList.astro'
 import { langList } from '@/utils/i18n/data'
-import { getPublishedSortedEntries } from '@/lib/collections/contents'
+// import { getSortedContentEntries } from '@/lib/collections/contents'
+import { getCategories } from '@/lib/collections/data'
 
 export const getStaticPaths = (() => {
   return langList.map((lang) => ({ params: { locale: lang } }))
@@ -15,10 +16,9 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>
 const { locale } = Astro.params
 const meta = await getEntry('meta', `${locale}/site-data`)
 const t = await getEntry('i18n', `${locale}/translation`)
-const entries = getPublishedSortedEntries(await getCollection('blog')).filter(
-  (entry) => entry.slug.slice(0, entry.slug.indexOf('/')) === locale
-)
-const categories = [...new Set(entries.flatMap((entry) => entry.data.category))]
+// const entries = await getSortedContentEntries('blog', locale)
+const categories = await getCategories(locale)
+// const categories = [...new Set(entries.flatMap((entry) => entry.data.category))]
 ---
 
 <BaseLayout
@@ -32,7 +32,7 @@ const categories = [...new Set(entries.flatMap((entry) => entry.data.category))]
       >◀ {t.data.pages.blog.back_to_top}</a
     >
     <hr />
-    <TaxonomyList kind="categories" taxonomyList={categories} />
+    <TaxonomyList taxonomyList={categories} />
   </main>
 </BaseLayout>
 <style>

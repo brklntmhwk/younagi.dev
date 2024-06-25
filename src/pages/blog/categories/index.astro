@@ -1,16 +1,16 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import { getCollection, getEntry } from 'astro:content'
+import { getEntry } from 'astro:content'
 import TaxonomyList from '@/components/TaxonomyList.astro'
-import { getPublishedSortedEntries } from '@/lib/collections/contents'
+// import { getSortedContentEntries } from '@/lib/collections/contents'
 import { defaultLang } from '@/utils/i18n/data'
+import { getCategories } from '@/lib/collections/data'
 
 const meta = await getEntry('meta', `${defaultLang}/site-data`)
 const t = await getEntry('i18n', `${defaultLang}/translation`)
-const entries = getPublishedSortedEntries(await getCollection('blog')).filter(
-  (entry) => entry.slug.slice(0, entry.slug.indexOf('/')) === defaultLang
-)
-const categories = [...new Set(entries.flatMap((entry) => entry.data.category))]
+// const entries = await getSortedContentEntries('blog', defaultLang)
+const categories = await getCategories(defaultLang)
+// const categories = [...new Set(entries.flatMap((entry) => entry.data.category))]
 ---
 
 <BaseLayout
@@ -23,7 +23,7 @@ const categories = [...new Set(entries.flatMap((entry) => entry.data.category))]
     <a class="back-to-link" href={'/blog'}>◀ {t.data.pages.blog.back_to_top}</a
     >
     <hr />
-    <TaxonomyList kind="categories" taxonomyList={categories} />
+    <TaxonomyList taxonomyList={categories} />
   </main>
 </BaseLayout>
 <style>

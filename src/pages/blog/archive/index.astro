@@ -1,16 +1,14 @@
 ---
-import { getCollection, getEntry } from 'astro:content'
+import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import FormattedDate from '@/components/FormattedDate.astro'
 import { groupArchiveByYear } from '@/utils/group-archive-by-year'
-import { getPublishedSortedEntries } from '@/lib/collections/contents'
+import { getSortedContentEntries } from '@/lib/collections/contents'
 import { defaultLang } from '@/utils/i18n/data'
 
 const meta = await getEntry('meta', `${defaultLang}/site-data`)
 const t = await getEntry('i18n', `${defaultLang}/translation`)
-const entries = getPublishedSortedEntries(await getCollection('blog')).filter(
-  (entry) => entry.slug.slice(0, entry.slug.indexOf('/')) === defaultLang
-)
+const entries = await getSortedContentEntries('blog', defaultLang)
 const YearMonthPairs = groupArchiveByYear(entries)
 ---
 

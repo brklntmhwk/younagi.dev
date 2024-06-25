@@ -1,24 +1,31 @@
 ---
+import type { TaxonomyList } from '@/lib/collections/types'
 import { getLocaleFromUrl } from '@/utils/i18n/get-locale-from-url'
 import { useTranslatedPath } from '@/utils/i18n/use-translated-path'
 import { slugify } from '@/utils/slugify'
+import { getRawSlug } from '@/utils/get-raw-slug'
 
 type Props = {
-  taxonomyList: string[]
-  kind: 'categories' | 'tags'
+  taxonomyList: TaxonomyList
 }
 
 const locale = getLocaleFromUrl(Astro.url)
 const translatePath = useTranslatedPath(locale)
-const { taxonomyList, kind } = Astro.props
+const { taxonomyList } = Astro.props
 ---
 
-<ul class:list={['taxonomy-list', kind]}>
+<ul class:list={['taxonomy-list', taxonomyList[0]?.collection]}>
   {
     taxonomyList.flatMap((taxonomy) => (
       <li>
-        <a href={translatePath(`/blog/${kind}/${slugify(taxonomy)}`)}>
-          {kind === 'tags' ? `#${taxonomy}` : taxonomy}
+        <a
+          href={translatePath(
+            `/blog/${taxonomy.collection}/${slugify(getRawSlug(taxonomy.id))}`
+          )}
+        >
+          {taxonomy.collection === 'tags'
+            ? `#${taxonomy.data.title}`
+            : taxonomy.data.title}
         </a>
       </li>
     ))

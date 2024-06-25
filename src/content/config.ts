@@ -1,4 +1,4 @@
-import { defineCollection, z } from 'astro:content'
+import { defineCollection, reference, z } from 'astro:content'
 
 const blog = defineCollection({
   type: 'content',
@@ -7,10 +7,24 @@ const blog = defineCollection({
     description: z.string().optional(),
     publishedAt: z.coerce.date(),
     modifiedAt: z.coerce.date().optional(),
-    category: z.string(),
-    tags: z.string().array().optional(),
+    category: reference('categories'),
+    tags: z.array(reference('tags')).optional(),
     draft: z.enum(['draft', 'in progress', 'published']),
   }),
+})
+
+const taxonomySchema = z.object({
+  title: z.string(),
+})
+
+const categories = defineCollection({
+  type: 'data',
+  schema: taxonomySchema,
+})
+
+const tags = defineCollection({
+  type: 'data',
+  schema: taxonomySchema,
 })
 
 const news = defineCollection({
@@ -193,4 +207,4 @@ const i18n = defineCollection({
   }),
 })
 
-export const collections = { blog, news, page, meta, i18n }
+export const collections = { blog, categories, tags, news, page, meta, i18n }

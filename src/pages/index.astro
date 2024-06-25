@@ -1,20 +1,17 @@
 ---
-import { getCollection, getEntry } from 'astro:content'
+import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import BulletinBoard from '@/components/BulletinBoard.astro'
 import PhotoGallery from '@/components/PhotoGallery.astro'
 import { getPhotos } from '@/lib/unsplash/contents'
-import { getPublishedSortedEntries } from '@/lib/collections/contents'
+import { getSortedContentEntries } from '@/lib/collections/contents'
 import { NEWS_MAXIMUM_COUNT } from '@/consts'
 import { defaultLang } from '@/utils/i18n/data'
 
 const meta = await getEntry('meta', `${defaultLang}/site-data`)
-const newsList = getPublishedSortedEntries(await getCollection('news'))
-const localeNewsList = newsList.filter(
-  (news) => news.slug.slice(0, news.slug.indexOf('/')) === defaultLang
-)
+const newsList = await getSortedContentEntries('news', defaultLang)
 const photos = await getPhotos()
-const latestNews = localeNewsList.slice(0, NEWS_MAXIMUM_COUNT)
+const latestNews = newsList.slice(0, NEWS_MAXIMUM_COUNT)
 ---
 
 <BaseLayout

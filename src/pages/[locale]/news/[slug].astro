@@ -1,12 +1,11 @@
 ---
 import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
-import { getCollection } from 'astro:content'
 import NewsLayout from '@/layouts/NewsLayout.astro'
-import { getPublishedSortedEntries } from '@/lib/collections/contents'
+import { getSortedContentEntries } from '@/lib/collections/contents'
 import { defaultLang } from '@/utils/i18n/data'
 
 export const getStaticPaths = (async () => {
-  const entries = getPublishedSortedEntries(await getCollection('news'))
+  const entries = await getSortedContentEntries('news')
   const LocaleEntries = entries.filter(
     (entry) => entry.slug.slice(0, entry.slug.indexOf('/')) !== defaultLang
   )

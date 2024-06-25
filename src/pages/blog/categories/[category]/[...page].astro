@@ -1,27 +1,28 @@
 ---
 import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
-import { getCollection, getEntry } from 'astro:content'
+import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import BlogList from '@/components/BlogList.astro'
 import Pager from '@/components/Pager.astro'
 import { LIMIT_PER_PAGE } from '@/consts'
 import { defaultLang } from '@/utils/i18n/data'
 import { slugify } from '@/utils/slugify'
-import { getPublishedSortedEntries } from '@/lib/collections/contents'
+import { getRawSlug } from '@/utils/get-raw-slug'
+import { getSortedContentEntries } from '@/lib/collections/contents'
+import { getCategories } from '@/lib/collections/data'
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const entries = getPublishedSortedEntries(await getCollection('blog'))
-  const categories = [
-    ...new Set(entries.flatMap((entry) => entry.data.category)),
-  ]
+  const entries = await getSortedContentEntries('blog', defaultLang)
+  const categories = await getCategories(defaultLang)
+  // const categories = [
+  //   ...new Set(entries.flatMap((entry) => entry.data.category)),
+  // ]
 
   return categories.flatMap((category) => {
     const displayEntries = entries.filter(
-      (entry) =>
-        entry.data.category === category &&
-        entry.slug.slice(0, entry.slug.indexOf('/')) === defaultLang
+      (entry) => entry.data.category === category
     )
-    const categorySlug = slugify(category)
+    const categorySlug = slugify(getRawSlug(category.id))
 
     return paginate(displayEntries, {
       pageSize: LIMIT_PER_PAGE,
@@ -46,7 +47,7 @@ const t = await getEntry('i18n', `${defaultLang}/translation`)
 >
   <main data-pagefind-ignore="all">
     <section>
-      <h1>{rawCategory}</h1>
+      <h1>{rawCategory.data.title}</h1>
       <a class="back-to-link" href={'/blog/categories'}>
         ◀ {t.data.pages.blog.categories.back_to_top}
       </a>

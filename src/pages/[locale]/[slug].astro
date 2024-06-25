@@ -1,14 +1,14 @@
 ---
 import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
-import { getCollection } from 'astro:content'
 import AboutLayout from '@/layouts/AboutLayout.astro'
 import ContactLayout from '@/layouts/ContactLayout.astro'
 import PageLayout from '@/layouts/PageLayout.astro'
+import { getSortedContentEntries } from '@/lib/collections/contents'
 import { mdxComponents } from '@/lib/mdx-components'
 import { defaultLang } from '@/utils/i18n/data'
 
 export const getStaticPaths = (async () => {
-  const pages = await getCollection('page')
+  const pages = await getSortedContentEntries('page')
   const LocalePages = pages.filter(
     (page) => page.slug.slice(0, page.slug.indexOf('/')) !== defaultLang
   )

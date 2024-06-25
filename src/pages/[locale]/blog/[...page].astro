@@ -1,20 +1,21 @@
 ---
 import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
-import { getCollection, getEntry } from 'astro:content'
+import { getEntry } from 'astro:content'
 import BlogList from '@/components/BlogList.astro'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import Pager from '@/components/Pager.astro'
 import { LIMIT_PER_PAGE } from '@/consts'
 import { langList } from '@/utils/i18n/data'
-import { getPublishedSortedEntries } from '@/lib/collections/contents'
+import {
+  getLocaleContentEntries,
+  getSortedContentEntries,
+} from '@/lib/collections/contents'
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const entries = getPublishedSortedEntries(await getCollection('blog'))
+  const entries = await getSortedContentEntries('blog')
 
   return langList.flatMap((lang) => {
-    const displayEntries = entries.filter(
-      (entry) => entry.slug.slice(0, entry.slug.indexOf('/')) === lang
-    )
+    const displayEntries = getLocaleContentEntries<'blog'>(entries, lang)
 
     return paginate(displayEntries, {
       pageSize: LIMIT_PER_PAGE,

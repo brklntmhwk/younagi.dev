@@ -1,37 +1,38 @@
 ---
 import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
-import { getCollection, getEntry } from 'astro:content'
+import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import BlogList from '@/components/BlogList.astro'
 import Pager from '@/components/Pager.astro'
 import { LIMIT_PER_PAGE } from '@/consts'
 import { defaultLang } from '@/utils/i18n/data'
 import { slugify } from '@/utils/slugify'
-import { getPublishedSortedEntries } from '@/lib/collections/contents'
+import { getRawSlug } from '@/utils/get-raw-slug'
+import { getSortedContentEntries } from '@/lib/collections/contents'
+import { getTags } from '@/lib/collections/data'
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const entries = getPublishedSortedEntries(await getCollection('blog'))
-  const tags = [...new Set(entries.flatMap((entry) => entry.data.tags ?? []))]
+  const entries = await getSortedContentEntries('blog', defaultLang)
+  const tags = await getTags(defaultLang)
+  // const tags = [...new Set(entries.flatMap((entry) => entry.data.tags ?? []))]
 
   return tags.flatMap((tag) => {
-    const displayEntries = entries.filter(
-      (entry) =>
-        entry.data.tags?.includes(tag) &&
-        entry.slug.slice(0, entry.slug.indexOf('/')) === defaultLang
+    const displayEntries = entries.filter((entry) =>
+      entry.data.tags?.includes(tag)
     )
-    const tagSlug = slugify(tag)
+    const tagSlug = slugify(getRawSlug(tag.id))
 
     return paginate(displayEntries, {
       pageSize: LIMIT_PER_PAGE,
       params: { tag: tagSlug },
-      props: { rowTag: tag },
+      props: { rawTag: tag },
     })
   })
 }) satisfies GetStaticPaths
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
-const { page, rowTag } = Astro.props
+const { page, rawTag } = Astro.props
 const { tag } = Astro.params
 const meta = await getEntry('meta', `${defaultLang}/site-data`)
 const t = await getEntry('i18n', `${defaultLang}/translation`)
@@ -44,7 +45,7 @@ const t = await getEntry('i18n', `${defaultLang}/translation`)
 >
   <main data-pagefind-ignore="all">
     <section>
-      <h1>{rowTag}</h1>
+      <h1>{rawTag.data.title}</h1>
       <a class="back-to-link" href={'/blog/tags'}>
         ◀ {t.data.pages.blog.tags.back_to_top}
       </a>

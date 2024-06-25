@@ -5,6 +5,8 @@ import { Icon } from './Icon'
 import { getLocaleFromUrl } from '@/utils/i18n/get-locale-from-url'
 import { slugify } from '@/utils/slugify'
 import { useTranslatedPath } from '@/utils/i18n/use-translated-path'
+import { getRawSlug } from '@/utils/get-raw-slug'
+import { getCategory, getBlogTags } from '@/lib/collections/data'
 
 type Props = {
   entries: CollectionEntry<'blog'>[]
@@ -18,59 +20,72 @@ const { entries, kind } = Astro.props
 
 <ul class="entry-list">
   {
-    entries.map((entry) => (
-      <li>
-        <article class="pokemon-border">
-          <section class="date">
-            <div>
-              <Icon iconName="publish" width={20} height={20} />
-              <FormattedDate date={entry.data.publishedAt} locale={locale} />
-            </div>
-            {entry.data.modifiedAt && (
+    entries.map(async (entry) => {
+      const {
+        title,
+        description,
+        category: blogCategory,
+        tags: blogTags,
+        publishedAt,
+        modifiedAt,
+      } = entry.data
+      const category = await getCategory(blogCategory.id)
+      const tags = await getBlogTags(blogTags, locale)
+
+      return (
+        <li>
+          <article class="pokemon-border">
+            <section class="date">
               <div>
-                <Icon iconName="update" width={20} height={20} />
-                <FormattedDate date={entry.data.modifiedAt} locale={locale} />
+                <Icon iconName="publish" width={20} height={20} />
+                <FormattedDate date={publishedAt} locale={locale} />
               </div>
-            )}
-          </section>
-          <a
-            class="blog-title"
-            href={translatePath(
-              `/${entry.collection}/${entry.slug.split('/').pop()}`
-            )}
-          >
-            {entry.data.title}
-          </a>
-          <span>{entry.data.description}</span>
-          {kind === 'blog' && (
-            <section class="taxonomies">
-              <a
-                href={translatePath(
-                  `/${entry.collection}/categories/${slugify(entry.data.category)}`
-                )}
-              >
-                {entry.data.category}
-              </a>
-              {entry.data.tags && (
-                <ul class="tag-list">
-                  {entry.data.tags.map((tag) => (
-                    <li>
-                      <a
-                        href={translatePath(
-                          `/${entry.collection}/tags/${slugify(tag)}`
-                        )}
-                      >
-                        #{tag}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+              {modifiedAt && (
+                <div>
+                  <Icon iconName="update" width={20} height={20} />
+                  <FormattedDate date={modifiedAt} locale={locale} />
+                </div>
               )}
             </section>
-          )}
-        </article>
-      </li>
-    ))
+            <a
+              class="blog-title"
+              href={translatePath(
+                `/${entry.collection}/${entry.slug.split('/').pop()}`
+              )}
+            >
+              {title}
+            </a>
+            <span>{description}</span>
+            {kind === 'blog' && (
+              <section class="taxonomies">
+                <a
+                  href={translatePath(
+                    `/${entry.collection}/${category.collection}/${slugify(getRawSlug(category.id))}`
+                  )}
+                >
+                  {category.data.title}
+                </a>
+                {tags && (
+                  <ul class="tag-list">
+                    {tags.map((tag) => (
+                      <li>
+                        <a
+                          href={translatePath(
+                            `/${entry.collection}/${tag.collection}/${slugify(getRawSlug(tag.id))}`
+                          )}
+                        >
+                          #{tag.data.title}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </section>
+            )}
+          </article>
+        </li>
+      )
+    })
   }
 </ul>
 <style>

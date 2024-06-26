@@ -1,6 +1,6 @@
 import type { APIRoute, APIContext, GetStaticPaths } from 'astro'
 import { getCollection, getEntry } from 'astro:content'
-import getOgImage from '@/components/OgImage'
+import { getOgImage } from '@/components/OgImage'
 import { getSortedContentEntries } from '@/lib/collections/contents'
 import { type Languages, defaultLang } from '@/utils/i18n/data'
 import { useTranslatedPath } from '@/utils/i18n/use-translated-path'

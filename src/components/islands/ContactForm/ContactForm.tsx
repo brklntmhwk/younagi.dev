@@ -21,8 +21,8 @@ import { useStore } from '@nanostores/solid'
 // import wretch from 'wretch'
 import { useTranslatedPath } from '@/utils/i18n/use-translated-path'
 import { FORM_TEXTAREA_ROWS, FORM_TEXTAREA_MINLENGTH } from '@/consts'
-import { locale } from '@/stores/locale-store'
-import Turnstile from './Turnstile'
+import { locale } from '@/components/islands/LocaleStore/locale-store'
+import { Turnstile } from './Turnstile'
 import type { I18nData } from '@/lib/collections/types'
 import {
   contactForm as ContactFormStyle,
@@ -31,13 +31,13 @@ import {
   contactButton,
   contactFormError,
   contactLabel,
-} from '@/styles/styles.css'
+} from './contact-form.css'
 
 type Props = {
   t: I18nData<'contact_form'>
 }
 
-const ContactForm: Component<Props> = ({ t }) => {
+export const ContactForm: Component<Props> = ({ t }) => {
   const formSchema = object({
     name: pipe(string(), nonEmpty(t.name.required)),
     email: pipe(string(), nonEmpty(t.email.required), email(t.email.invalid)),
@@ -197,5 +197,3 @@ const ContactForm: Component<Props> = ({ t }) => {
     </Form>
   )
 }
-
-export default ContactForm

@@ -6,7 +6,7 @@ import {
   onCleanup,
 } from 'solid-js'
 import { type Languages } from '@/utils/i18n/data'
-import { cfTurnstile } from '@/styles/styles.css'
+import { cfTurnstile } from './contact-form.css'
 
 type Props = {
   siteKey: string
@@ -15,7 +15,7 @@ type Props = {
   onVerify?: (token: string) => void
 } & Omit<JSX.HTMLAttributes<HTMLDivElement>, 'class'>
 
-const Turnstile: Component<Props> = (props) => {
+export const Turnstile: Component<Props> = (props) => {
   const [local, others] = splitProps(props, [
     'siteKey',
     'size',
@@ -59,5 +59,3 @@ const Turnstile: Component<Props> = (props) => {
     <div {...others} class={cfTurnstile} ref={(el) => void (element = el)} />
   )
 }
-
-export default Turnstile

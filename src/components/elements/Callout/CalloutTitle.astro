@@ -3,12 +3,9 @@ import { Icon } from '@/components/Icon'
 import { generateUniqueId } from '@/utils/generate-unique-id'
 import { toBoolean } from '@/utils/to-boolean'
 import { getCallout } from './callouts'
+import type { Props as CalloutProps } from './Callout.astro'
 
-type Props = {
-  'data-callout-type': string
-  'data-expanded': string
-  'data-expandable': string
-}
+type Props = CalloutProps
 
 const {
   'data-callout-type': dataCalloutType,

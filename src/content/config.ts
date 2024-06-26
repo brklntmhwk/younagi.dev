@@ -1,4 +1,9 @@
 import { defineCollection, reference, z } from 'astro:content'
+import {
+  type TaxonomyColor,
+  type TaxonomyColorEnum,
+  taxonomyColors,
+} from '@/components/Taxonomy'
 
 const blog = defineCollection({
   type: 'content',
@@ -15,6 +20,9 @@ const blog = defineCollection({
 
 const taxonomySchema = z.object({
   title: z.string(),
+  color: z.enum<TaxonomyColor, TaxonomyColorEnum>(
+    taxonomyColors as TaxonomyColorEnum
+  ),
 })
 
 const categories = defineCollection({

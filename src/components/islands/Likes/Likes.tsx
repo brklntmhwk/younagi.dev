@@ -3,14 +3,14 @@ import { useStore } from '@nanostores/solid'
 import { Motion } from 'solid-motionone'
 import { type Languages } from '@/utils/i18n/data'
 import { useTranslatedPath } from '@/utils/i18n/use-translated-path'
-import { locale } from '@/stores/locale-store'
+import { locale } from '@/components/islands/LocaleStore/locale-store'
 import {
   likesSpan,
   likesWrapper,
   likesButton,
-  fgColor,
-  fillColor,
-} from '@/styles/styles.css'
+  likesFgColor,
+  likesFillColor,
+} from './likes.css'
 import type { I18nData } from '@/lib/collections/types'
 
 type Props = {
@@ -30,7 +30,7 @@ const fetchLikes = async ({ slug, collection, locale }: FetcherProps) => {
   return data
 }
 
-const Likes: Component<Props> = ({ slug, collection, t }) => {
+export const Likes: Component<Props> = ({ slug, collection, t }) => {
   const $locale = useStore(locale)
   const translatePath = useTranslatedPath($locale())
   const [likes, { refetch, mutate }] = createResource(
@@ -64,7 +64,7 @@ const Likes: Component<Props> = ({ slug, collection, t }) => {
           height={24}
           viewBox="0 0 24 24"
           stroke="none"
-          fill={fgColor}
+          fill={likesFgColor}
         >
           <defs>
             <clipPath id="clip-path">
@@ -78,7 +78,7 @@ const Likes: Component<Props> = ({ slug, collection, t }) => {
               y={0}
               width={48}
               height={48}
-              fill={fillColor}
+              fill={likesFillColor}
               initial={{ y: '100%' }}
               animate={{
                 y: likes()?.liked ? '0' : '100%',
@@ -94,5 +94,3 @@ const Likes: Component<Props> = ({ slug, collection, t }) => {
     </div>
   )
 }
-
-export default Likes

@@ -39,21 +39,23 @@ const t = await getEntry('i18n', `${locale}/translation`)
 >
   <main>
     <article>
-      <h1 class="news-title">{title}</h1>
-      <div class="date-meta">
-        <div>
-          <Icon iconName="publish" width={20} height={20} />
-          <FormattedDate date={publishedAt} locale={locale} />
+      <section class="news-metadata">
+        <h1 class="news-title">{title}</h1>
+        <div class="date-meta">
+          <div>
+            <Icon iconName="publish" width={20} height={20} />
+            <FormattedDate date={publishedAt} locale={locale} />
+          </div>
+          {
+            modifiedAt && (
+              <div>
+                <Icon iconName="update" width={20} height={20} />
+                <FormattedDate date={modifiedAt} locale={locale} />
+              </div>
+            )
+          }
         </div>
-        {
-          modifiedAt && (
-            <div>
-              <Icon iconName="update" width={20} height={20} />
-              <FormattedDate date={modifiedAt} locale={locale} />
-            </div>
-          )
-        }
-      </div>
+      </section>
       <hr />
       <section class="news-content">
         <slot />
@@ -80,18 +82,23 @@ const t = await getEntry('i18n', `${locale}/translation`)
     hr {
       width: 100%;
     }
-    .news-title {
-      line-height: 1.175;
-    }
-    .date-meta {
-      font-size: 1.15rem;
+    .news-metadata {
       display: flex;
-      flex-wrap: wrap;
-      gap: 1.25rem;
-      div {
+      flex-direction: column;
+      gap: 0.975rem;
+      .news-title {
+        line-height: 1.175;
+      }
+      .date-meta {
+        font-size: 1.15rem;
         display: flex;
-        align-items: center;
-        gap: 0.5rem;
+        flex-wrap: wrap;
+        gap: 1.25rem;
+        div {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
       }
     }
     .news-content {

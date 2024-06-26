@@ -4,14 +4,14 @@ import type { MarkdownHeading } from 'astro'
 import type { CollectionEntry } from 'astro:content'
 import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import Likes from '@/components/islands/Likes'
+import { Likes } from '@/components/islands/Likes/Likes'
 import BuyMeACoffee from '@/components/BuyMeACoffee.astro'
 import FormattedDate from '../components/FormattedDate.astro'
+import { Taxonomy } from '@/components/Taxonomy'
 import Toc from '@/components/Toc.astro'
 import { Icon } from '@/components/Icon'
 import { getLocaleFromUrl } from '@/utils/i18n/get-locale-from-url'
 import { useTranslatedPath } from '@/utils/i18n/use-translated-path'
-import { slugify } from '@/utils/slugify'
 import { getRawSlug } from '@/utils/get-raw-slug'
 import { getCategory, getBlogTags } from '@/lib/collections/data'
 
@@ -34,7 +34,6 @@ const {
   modifiedAt,
 } = data
 const rawSlug = getRawSlug(slug)
-const rawCategorySlug = getRawSlug(blogCategory.id)
 const category = await getCategory(blogCategory.id)
 const tags = await getBlogTags(blogTags, locale)
 ---
@@ -72,23 +71,13 @@ const tags = await getBlogTags(blogTags, locale)
         </div>
         <h1 class="entry-title">{title}</h1>
         <section class="taxonomies">
-          <a
-            href={translatePath(
-              `/${collection}/${category.collection}/${slugify(rawCategorySlug)}`
-            )}>{category.data.title}</a
-          >
+          <Taxonomy taxonomy={category} />
           {
             tags.length !== 0 && (
               <ul class="tag-list">
                 {tags.map((tag) => (
                   <li>
-                    <a
-                      href={translatePath(
-                        `/${collection}/${tag.collection}/${slugify(getRawSlug(tag.id))}`
-                      )}
-                    >
-                      #{tag.data.title}
-                    </a>
+                    <Taxonomy taxonomy={tag} />
                   </li>
                 ))}
               </ul>
@@ -132,9 +121,12 @@ const tags = await getBlogTags(blogTags, locale)
       width: 100%;
     }
     .blog-metadata {
-      display: grid;
-      gap: 0.85rem;
-      place-items: start;
+      display: flex;
+      flex-direction: column;
+      gap: 0.975rem;
+      align-items: center;
+      margin: 0 auto;
+      max-width: 45rem;
       .date-meta {
         font-size: 1.15rem;
         display: flex;
@@ -147,11 +139,12 @@ const tags = await getBlogTags(blogTags, locale)
         }
       }
       .entry-title {
-        margin: 0;
-        line-height: 1.275;
+        text-align: center;
+        line-height: 1.175;
       }
       .taxonomies {
         font-size: 1.15rem;
+        padding: 1.25rem 0;
         display: flex;
         flex-wrap: wrap;
         align-items: center;
@@ -163,10 +156,11 @@ const tags = await getBlogTags(blogTags, locale)
             color: var(--accent-dark);
           }
         }
-        ul.tag-list {
+        .tag-list {
           display: flex;
           flex-wrap: wrap;
-          gap: 0.65rem;
+          column-gap: 0.65rem;
+          row-gap: 0.85rem;
           margin: 0;
         }
       }

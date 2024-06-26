@@ -2,9 +2,8 @@
 import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getEntry } from 'astro:content'
-import TaxonomyList from '@/components/TaxonomyList.astro'
+import { Taxonomy } from '@/components/Taxonomy'
 import { langList } from '@/utils/i18n/data'
-// import { getSortedContentEntries } from '@/lib/collections/contents'
 import { getCategories } from '@/lib/collections/data'
 
 export const getStaticPaths = (() => {
@@ -16,9 +15,7 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>
 const { locale } = Astro.params
 const meta = await getEntry('meta', `${locale}/site-data`)
 const t = await getEntry('i18n', `${locale}/translation`)
-// const entries = await getSortedContentEntries('blog', locale)
 const categories = await getCategories(locale)
-// const categories = [...new Set(entries.flatMap((entry) => entry.data.category))]
 ---
 
 <BaseLayout
@@ -32,13 +29,20 @@ const categories = await getCategories(locale)
       >◀ {t.data.pages.blog.back_to_top}</a
     >
     <hr />
-    <TaxonomyList taxonomyList={categories} />
+    <section class="category-cloud">
+      {categories.map((category) => <Taxonomy taxonomy={category} />)}
+    </section>
   </main>
 </BaseLayout>
 <style>
   main {
     h1 {
       margin-bottom: 1.25rem;
+    }
+    .category-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
     }
   }
 </style>

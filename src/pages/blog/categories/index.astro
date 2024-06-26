@@ -1,16 +1,13 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getEntry } from 'astro:content'
-import TaxonomyList from '@/components/TaxonomyList.astro'
-// import { getSortedContentEntries } from '@/lib/collections/contents'
+import { Taxonomy } from '@/components/Taxonomy'
 import { defaultLang } from '@/utils/i18n/data'
 import { getCategories } from '@/lib/collections/data'
 
 const meta = await getEntry('meta', `${defaultLang}/site-data`)
 const t = await getEntry('i18n', `${defaultLang}/translation`)
-// const entries = await getSortedContentEntries('blog', defaultLang)
 const categories = await getCategories(defaultLang)
-// const categories = [...new Set(entries.flatMap((entry) => entry.data.category))]
 ---
 
 <BaseLayout
@@ -23,13 +20,20 @@ const categories = await getCategories(defaultLang)
     <a class="back-to-link" href={'/blog'}>◀ {t.data.pages.blog.back_to_top}</a
     >
     <hr />
-    <TaxonomyList taxonomyList={categories} />
+    <section class="category-cloud">
+      {categories.map((category) => <Taxonomy taxonomy={category} />)}
+    </section>
   </main>
 </BaseLayout>
 <style>
   main {
     h1 {
       margin-bottom: 1.25rem;
+    }
+    .category-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
     }
   }
 </style>

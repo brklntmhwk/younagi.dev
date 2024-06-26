@@ -38,7 +38,7 @@ const t = await getEntry('i18n', `${defaultLang}/translation`)
             <li>
               <article>
                 <section class="date">
-                  <div>
+                  <div class="published">
                     <Icon iconName="publish" width={20} height={20} />
                     <FormattedDate
                       date={entry.data.publishedAt}
@@ -46,7 +46,7 @@ const t = await getEntry('i18n', `${defaultLang}/translation`)
                     />
                   </div>
                   {entry.data.modifiedAt && (
-                    <div>
+                    <div class="updated">
                       <Icon iconName="update" width={20} height={20} />
                       <FormattedDate
                         date={entry.data.modifiedAt}
@@ -86,18 +86,19 @@ const t = await getEntry('i18n', `${defaultLang}/translation`)
       }
       article {
         display: grid;
-        gap: 0.75rem;
-        section.date {
+        gap: 0.875rem;
+        .date {
           display: flex;
           gap: 0.85rem;
           padding-top: 1rem;
-          div {
+          .published,
+          .updated {
             display: flex;
             align-items: center;
             gap: 0.35rem;
           }
         }
-        a.news-title {
+        .news-title {
           color: var(--fg);
           font-size: 1.5rem;
           font-weight: 700;

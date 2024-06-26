@@ -38,17 +38,19 @@ const t = await getEntry('i18n', `${locale}/translation`)
 >
   <main data-pagefind-ignore="all">
     <article>
-      <h1 class="page-title">{title}</h1>
-      <div class="date-meta">
-        {
-          modifiedAt && (
-            <div>
-              <Icon iconName="update" width={20} height={20} />
-              <FormattedDate date={modifiedAt} locale={locale} />
-            </div>
-          )
-        }
-      </div>
+      <section class="page-metadata">
+        <h1 class="page-title">{title}</h1>
+        <div class="date-meta">
+          {
+            modifiedAt && (
+              <div class="updated">
+                <Icon iconName="update" width={20} height={20} />
+                <FormattedDate date={modifiedAt} locale={locale} />
+              </div>
+            )
+          }
+        </div>
+      </section>
       <hr />
       <section class="page-content">
         <slot />
@@ -72,18 +74,23 @@ const t = await getEntry('i18n', `${locale}/translation`)
     hr {
       width: 100%;
     }
-    .page-title {
-      line-height: 1.175;
-    }
-    .date-meta {
-      font-size: 1.15rem;
+    .page-metadata {
       display: flex;
-      flex-wrap: wrap;
-      gap: 1.25rem;
-      div {
+      flex-direction: column;
+      gap: 0.975rem;
+      .page-title {
+        line-height: 1.175;
+      }
+      .date-meta {
+        font-size: 1.15rem;
         display: flex;
-        align-items: center;
-        gap: 0.5rem;
+        flex-wrap: wrap;
+        gap: 1.25rem;
+        .updated {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
       }
     }
     .page-content {

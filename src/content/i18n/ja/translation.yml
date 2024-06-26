@@ -40,7 +40,7 @@ svg:
   not_found_message: が見つかりませんでした
   invalid_error_message: 無効なSVGファイルであるか、SVGタグがありません
 bmc:
-  greeting_message: コーヒーのない人生は想像できません
+  greeting_message: 励みになります
 likes:
   button_label: 推せる
 contact_form:

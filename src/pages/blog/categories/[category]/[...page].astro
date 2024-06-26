@@ -14,9 +14,6 @@ import { getCategories } from '@/lib/collections/data'
 export const getStaticPaths = (async ({ paginate }) => {
   const entries = await getSortedContentEntries('blog', defaultLang)
   const categories = await getCategories(defaultLang)
-  // const categories = [
-  //   ...new Set(entries.flatMap((entry) => entry.data.category)),
-  // ]
 
   return categories.flatMap((category) => {
     const displayEntries = entries.filter(

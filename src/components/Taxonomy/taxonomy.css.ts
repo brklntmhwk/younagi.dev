@@ -47,7 +47,7 @@ export const taxonomyVariants = styleVariants({
     vars: {
       [borderRadius]: '0.25rem',
       [boxShadow]: 'none',
-      [padding]: '0.375rem 0.975rem',
+      [padding]: '0.425rem 0.975rem',
       [margin]: '0',
     },
     borderRadius: borderRadius,
@@ -57,10 +57,10 @@ export const taxonomyVariants = styleVariants({
   tags: {
     vars: {
       [borderRadius]: 'unset',
-      [boxShadow]: `0 0.25rem 0.05rem ${selectedBgColor},
-      0 -0.25rem 0.05rem ${selectedBgColor},
-      0.5rem 0 0.05rem ${selectedBgColor},
-      -0.5rem 0 0.05rem ${selectedBgColor}`,
+      [boxShadow]: `0 0.25rem ${selectedBgColor},
+      0 -0.25rem ${selectedBgColor},
+      0.5rem 0 ${selectedBgColor},
+      -0.5rem 0 ${selectedBgColor}`,
       [padding]: '0.175rem 0.375rem',
       [margin]: '0.25rem 0.5rem',
     },

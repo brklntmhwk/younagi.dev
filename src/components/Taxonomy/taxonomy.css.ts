@@ -40,6 +40,38 @@ export const colorVariants = styleVariants({
     color: selectedColor,
     backgroundColor: selectedBgColor,
   },
+  green: {
+    vars: {
+      [selectedColor]: 'hsla(0, 0%, 96.7%, 1)',
+      [selectedBgColor]: 'hsla(117, 65%, 60%, 1)',
+    },
+    '@media': {
+      '(prefers-color-scheme: dark)': {
+        vars: {
+          [selectedColor]: 'hsla(0, 0%, 96.7%, 1)',
+          [selectedBgColor]: 'hsla(117, 42%, 58%, 1)',
+        },
+      },
+    },
+    color: selectedColor,
+    backgroundColor: selectedBgColor,
+  },
+  purple: {
+    vars: {
+      [selectedColor]: 'hsla(0, 0%, 96.7%, 1)',
+      [selectedBgColor]: 'hsla(253, 56%, 70%, 1)',
+    },
+    '@media': {
+      '(prefers-color-scheme: dark)': {
+        vars: {
+          [selectedColor]: 'hsla(0, 0%, 96.7%, 1)',
+          [selectedBgColor]: 'hsla(258, 42%, 65%, 1)',
+        },
+      },
+    },
+    color: selectedColor,
+    backgroundColor: selectedBgColor,
+  },
 })
 
 export const taxonomyVariants = styleVariants({

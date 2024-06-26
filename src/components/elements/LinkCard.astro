@@ -1,0 +1,101 @@
+---
+import { unfurl } from 'unfurl.js'
+import { Icon } from '@/components/Icon'
+
+type Props = {
+  href: string
+}
+
+const { href, ...props } = Astro.props
+const url = new URL(href ?? '')
+const metadata = await unfurl(url.href).catch(() => undefined)
+const favicon = metadata?.favicon
+const title =
+  metadata?.open_graph.title ??
+  metadata?.twitter_card.title ??
+  metadata?.title ??
+  url.hostname
+const description =
+  metadata?.open_graph?.description ??
+  metadata?.twitter_card?.description ??
+  metadata?.description
+const image = {
+  url:
+    metadata?.open_graph.images?.[0]?.url ??
+    metadata?.twitter_card?.images?.[0]?.url,
+  alt:
+    metadata?.open_graph?.images?.[0]?.alt ??
+    metadata?.twitter_card?.images?.[0]?.alt,
+}
+---
+
+<div class="pixel-border">
+  <a href={url.href} class="link-card" {...props}>
+    <div class="link-metadata">
+      <span class="link-title">{title}</span>
+      {description && <span class="link-description">{description}</span>}
+      <div class="link-hostname">
+        {
+          favicon ? (
+            <img class="link-favicon" src={favicon} />
+          ) : (
+            <Icon iconName="link" width={15} height={15} />
+          )
+        }
+        <span>{url.hostname}</span>
+      </div>
+    </div>
+    {
+      image.url && (
+        <div class="link-image">
+          <img src={image.url} alt={image.alt} loading="lazy" />
+        </div>
+      )
+    }
+  </a>
+</div>
+<style>
+  .link-card {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    padding: 0.25rem 0 0.25rem 0.75rem;
+    text-decoration: none;
+    .link-metadata {
+      display: flex;
+      flex-direction: column;
+      flex-basis: 15rem;
+      flex-grow: 1;
+      flex-shrink: 1;
+      .link-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+      }
+      .link-description {
+        font-size: 1.125rem;
+      }
+      .link-hostname {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        .link-favicon {
+          border-radius: 9999px;
+          object-fit: cover;
+        }
+      }
+      > * {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+    .link-image {
+      display: flex;
+      flex-basis: 8rem;
+      flex-grow: 1;
+      flex-shrink: 1;
+      & :global(img) {
+        object-fit: cover;
+      }
+    }
+  }
+</style>

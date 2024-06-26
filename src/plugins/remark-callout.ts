@@ -39,7 +39,7 @@ const parseCallout = (text: string | undefined): Callout | undefined => {
   }
 }
 
-const remarkCallout2: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
+const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
   return (tree) => {
     visit(tree, 'blockquote', (node) => {
       if (!('children' in node) || (node as Parent).children.length === 0)
@@ -145,4 +145,4 @@ const remarkCallout2: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
   }
 }
 
-export default remarkCallout2
+export default remarkCallout

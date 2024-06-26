@@ -8,6 +8,7 @@ export type IconName =
   | 'info'
   | 'language'
   | 'left-arrow'
+  | 'link'
   | 'magnifier'
   | 'moon'
   | 'pencil'

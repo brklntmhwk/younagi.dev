@@ -3,7 +3,9 @@ import type {
   FootnoteDefinition,
   FootnoteReference,
   InlineCode,
+  Link,
   Paragraph,
+  Parent,
   Text,
 } from 'mdast'
 
@@ -33,8 +35,27 @@ export function isInlineCode(node: unknown): node is InlineCode {
   return is(node, 'inlineCode')
 }
 
+export function isLink(node: unknown): node is Link {
+  return is(node, 'link')
+}
+
+export function isBareLink(
+  node: unknown
+): node is Paragraph & { children: [Link & { children: [Text] }] } {
+  return (
+    isParagraph(node) &&
+    node.children.length === 1 &&
+    isLink(node.children[0]) &&
+    isText(node.children[0].children[0])
+  )
+}
+
 export function isParagraph(node: unknown): node is Paragraph {
   return is(node, 'paragraph')
+}
+
+export function isParent(node: unknown): node is Parent {
+  return isObject(node) && 'children' in node
 }
 
 export function isText(node: unknown): node is Text {

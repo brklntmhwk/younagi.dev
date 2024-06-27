@@ -99,7 +99,6 @@ export const taxonomyVariants = styleVariants({
 })
 
 export const taxonomyLink = style({
-  fontSize: '1.075rem',
   whiteSpace: 'nowrap',
   verticalAlign: 'top',
   userSelect: 'none',

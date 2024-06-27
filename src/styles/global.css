@@ -1,6 +1,7 @@
 :root {
   --fg: hsla(248.57, 11.48%, 11.96%, 1);
   --bg: hsla(0, 0%, 96.7%, 1);
+  --bg-hover: hsla(0, 0%, 91.7%, 1);
   --bg-gradient: to top, hsla(0, 0%, 70.47%, 1), hsla(0, 0%, 96.7%, 1);
   --line: hsla(260.87, 10.13%, 55.49%, 0.33);
   --accent: hsla(240.24, 100%, 48.63%, 1);
@@ -39,6 +40,7 @@
   :root {
     --fg: hsla(0, 0%, 96.7%, 1);
     --bg: hsla(248.57, 11.48%, 11.96%, 1);
+    --bg-hover: hsla(248.57, 11.48%, 18.96%, 1);
     --bg-gradient: to top,
       hsla(248.57, 11.48%, 58.96%, 1) hsla(248.57, 11.48%, 11.96%, 1);
     --accent: hsla(215.24, 100%, 52.63%, 1);
@@ -163,7 +165,7 @@ img {
 hr {
   border: none;
   border-top: 1px solid var(--line);
-  margin: 1.5rem 0;
+  margin: 1.25rem 0;
 }
 @supports (backdrop-filter: blur(6px) saturate(180%)) {
   .glassmorphism {

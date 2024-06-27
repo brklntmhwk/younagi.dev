@@ -31,7 +31,7 @@ const {
   title={buttonLabel}
   aria-label={buttonLabel}
 >
-  <Icon iconName={iconName} width={32} height={32} />
+  <Icon iconName={iconName} width={30} height={30} />
   {iconText && <span class="button-label">{iconText}</span>}
 </button>
 <style>
@@ -73,7 +73,10 @@ const {
     gap: 0.5rem;
     align-items: center;
     .button-label {
-      font-size: 1.255rem;
+      font-size: 1.15rem;
+      @media (min-width: 768px) {
+        font-size: 1.255rem;
+      }
     }
   }
 </style>

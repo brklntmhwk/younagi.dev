@@ -57,12 +57,16 @@ const image = {
 <style>
   .link-card-wrapper {
     .link-card {
+      background-color: var(--bg);
       max-width: 40rem;
       max-height: 10rem;
       display: flex;
       flex-wrap: nowrap;
       gap: 0.5rem;
       overflow: hidden;
+      &:hover {
+        background-color: var(--bg-hover);
+      }
       .link-metadata {
         display: flex;
         flex-direction: column;

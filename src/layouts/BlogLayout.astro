@@ -107,7 +107,6 @@ const tags = await getBlogTags(blogTags, locale)
       gap: 0.975rem;
       align-items: center;
       margin: 0 auto;
-      max-width: 50rem;
       .date-meta {
         font-size: 1.15rem;
         display: flex;
@@ -132,11 +131,14 @@ const tags = await getBlogTags(blogTags, locale)
         align-items: center;
         gap: 1.175rem 0.85rem;
         & a {
-          font-size: 1.025rem;
+          font-size: 0.875rem;
           @media (min-width: 640px) {
             font-size: 1.15rem;
           }
         }
+      }
+      @media (min-width: 768px) {
+        max-width: 48rem;
       }
     }
     .prose {

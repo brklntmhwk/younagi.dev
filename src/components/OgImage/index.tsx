@@ -20,7 +20,7 @@ const logo = btoa(
   )
 )
 
-export const getOgImage = async (text: string, t: I18nData<'og_image'>) => {
+const getOgImage = async (text: string, t: I18nData<'og_image'>) => {
   const svg = await satori(
     {
       type: 'div',
@@ -130,3 +130,5 @@ export const getOgImage = async (text: string, t: I18nData<'og_image'>) => {
 
   return imgBuffer
 }
+
+export default getOgImage

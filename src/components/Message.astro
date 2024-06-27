@@ -67,6 +67,9 @@ const t = await getEntry('i18n', `${locale}/translation`)
       p {
         font-size: 1.05rem;
         margin: 0;
+        @media (min-width: 768px) {
+          font-size: 1.175rem;
+        }
       }
       &::before,
       &::after {
@@ -129,15 +132,6 @@ const t = await getEntry('i18n', `${locale}/translation`)
             8px 4px,
             4px 8px,
             8px 8px;
-        }
-      }
-    }
-  }
-  @media (min-width: 768px) {
-    .message {
-      .balloon {
-        p {
-          font-size: 1.175rem;
         }
       }
     }

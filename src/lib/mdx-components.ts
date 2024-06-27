@@ -1,7 +1,7 @@
 import { Callout, CalloutTitle } from '@/components/elements/Callout'
-import Figure from '@/components/elements/Figure.astro'
+import { Figure } from '@/components/elements/Figure'
 import FormattedDate from '@/components/FormattedDate.astro'
-import Link from '@/components/elements/Link.astro'
+import { Link } from '@/components/elements/Link'
 import Message from '@/components/Message.astro'
 
 export const mdxComponents = {

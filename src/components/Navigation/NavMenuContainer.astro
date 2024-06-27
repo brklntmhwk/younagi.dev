@@ -35,6 +35,40 @@ const t = await getEntry('i18n', `${locale}/translation`)
     transition: transform 0.4s ease-in-out; */
     transition: left 0.4s ease-in-out;
     will-change: left;
+    @media (min-width: 768px) {
+      width: unset;
+      height: 100%;
+      position: static;
+      z-index: 0;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: unset;
+      align-items: center;
+      gap: 4rem;
+      padding-top: 0;
+      margin-top: 0;
+      background-color: transparent;
+      transition: unset;
+      transform: unset;
+    }
+    @media (min-width: 1024px) {
+      grid-area: nav-menu;
+      grid-template-rows: 7fr 1fr;
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'nav-links'
+        'icon-links';
+      height: 100%;
+      position: static;
+      z-index: 10;
+      display: grid;
+      gap: 0;
+      padding-top: 0;
+      margin-top: 0;
+      background-color: transparent;
+      transition: unset;
+      transform: unset;
+    }
   }
   .hamburger-icon-btn {
     display: flex;
@@ -46,6 +80,9 @@ const t = await getEntry('i18n', `${locale}/translation`)
     justify-content: center;
     align-items: center;
     z-index: 50;
+    @media (min-width: 768px) {
+      display: none;
+    }
   }
   .hamburger-icon-btn span,
   .hamburger-icon-btn span:before,
@@ -81,55 +118,5 @@ const t = await getEntry('i18n', `${locale}/translation`)
   }
   #menu-toggle-check {
     appearance: none;
-  }
-  @media (min-width: 768px) {
-    .nav-menu-container {
-      width: unset;
-      height: 100%;
-      position: static;
-      z-index: 0;
-      display: flex;
-      justify-content: space-between;
-      flex-direction: unset;
-      align-items: center;
-      gap: 4rem;
-      padding-top: 0;
-      margin-top: 0;
-      background-color: transparent;
-      transition: unset;
-      transform: unset;
-    }
-    .hamburger-icon-btn {
-      display: none;
-    }
-    /* #menu-toggle-check:checked ~ .nav-menu-container {
-      transform: translateX(0);
-    } */
-  }
-  @media (min-width: 1024px) {
-    .nav-menu-container {
-      grid-area: nav-menu;
-      grid-template-rows: 7fr 1fr;
-      grid-template-columns: 1fr;
-      grid-template-areas:
-        'nav-links'
-        'icon-links';
-      height: 100%;
-      position: static;
-      z-index: 10;
-      display: grid;
-      gap: 0;
-      padding-top: 0;
-      margin-top: 0;
-      background-color: transparent;
-      transition: unset;
-      transform: unset;
-    }
-    .hamburger-icon-btn {
-      display: none;
-    }
-    /* #menu-toggle-check:checked ~ .nav-menu-container {
-      transform: translateX(0);
-    } */
   }
 </style>

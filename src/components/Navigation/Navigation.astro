@@ -58,11 +58,15 @@ const t = await getEntry('i18n', `${locale}/translation`)
     a:not(.blog-title) {
       border-bottom: 2px solid transparent;
     }
-    a.blog-title {
+    .blog-title {
       font-size: 1.125rem;
       display: flex;
       justify-content: center;
       align-items: center;
+      @media (min-width: 1024px) {
+        grid-area: blog-title;
+        place-self: center;
+      }
     }
     .nav-links {
       display: grid;
@@ -84,6 +88,35 @@ const t = await getEntry('i18n', `${locale}/translation`)
           font-size: 1.375rem;
           align-self: center;
         }
+        @media (min-width: 768px) {
+          font-size: 1rem;
+        }
+        @media (min-width: 1024px) {
+          font-size: 1.275rem;
+          position: relative;
+          &:hover::before {
+            font-family: var(--base-font);
+            content: '▶';
+            position: absolute;
+            top: 0;
+            left: -1.45rem;
+            font-size: 1.25rem;
+            align-self: center;
+          }
+        }
+      }
+      @media (min-width: 768px) {
+        display: flex;
+        gap: 3.25rem;
+        padding: 0;
+      }
+      @media (min-width: 1024px) {
+        grid-area: nav-links;
+        display: grid;
+        gap: 2rem;
+        align-self: start;
+        margin-left: 1.5rem;
+        padding: 0;
       }
     }
     .icon-links {
@@ -91,32 +124,26 @@ const t = await getEntry('i18n', `${locale}/translation`)
       justify-content: center;
       gap: 2.25rem;
       padding: 0.75rem 2.75rem;
-    }
-  }
-
-  @media (min-width: 768px) {
-    nav {
-      height: 5.25rem;
-      padding: 0.85rem 1.5rem;
-      .icon-links,
-      .nav-links {
+      @media (min-width: 768px) {
         display: flex;
-        padding: 0;
-      }
-      .nav-links {
-        gap: 3.25rem;
-        a {
-          font-size: 1rem;
-        }
-      }
-      .icon-links {
         justify-content: unset;
         gap: 2rem;
+        padding: 0;
+      }
+      @media (min-width: 1024px) {
+        padding: 0 0.5rem;
+        grid-area: icon-links;
+        display: flex;
+        justify-content: space-between;
+        gap: 1.75rem;
+        align-self: end;
       }
     }
-  }
-  @media (min-width: 1024px) {
-    nav {
+    @media (min-width: 768px) {
+      height: 5.25rem;
+      padding: 0.85rem 1.5rem;
+    }
+    @media (min-width: 1024px) {
       display: grid;
       gap: 1.5rem;
       grid-template-rows: 1fr 9fr;
@@ -132,39 +159,6 @@ const t = await getEntry('i18n', `${locale}/translation`)
       width: 18rem;
       height: 100dvh;
       border-right: 1px solid var(--line);
-      a.blog-title {
-        grid-area: blog-title;
-        place-self: center;
-      }
-      .nav-links {
-        grid-area: nav-links;
-        display: grid;
-        gap: 2rem;
-        align-self: start;
-        margin-left: 1.5rem;
-        padding: 0;
-        a {
-          font-size: 1.275rem;
-          position: relative;
-          &:hover::before {
-            font-family: var(--base-font);
-            content: '▶';
-            position: absolute;
-            top: 0;
-            left: -1.45rem;
-            font-size: 1.25rem;
-            align-self: center;
-          }
-        }
-      }
-      .icon-links {
-        padding: 0 0.5rem;
-        grid-area: icon-links;
-        display: flex;
-        justify-content: space-between;
-        gap: 1.75rem;
-        align-self: end;
-      }
     }
   }
 </style>

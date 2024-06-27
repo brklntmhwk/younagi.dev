@@ -79,20 +79,12 @@ const t = await getEntry('i18n', `${locale}/translation`)
           color: var(--bulletin-board-fg);
           text-decoration: none;
         }
-      }
-    }
-  }
-  @media (min-width: 768px) {
-    .bulletin-board {
-      ul {
-        li {
+        @media (min-width: 768px) {
           font-size: 1.85rem;
         }
       }
     }
-  }
-  @media (min-width: 1024px) {
-    .bulletin-board {
+    @media (min-width: 1024px) {
       max-width: 80rem;
     }
   }

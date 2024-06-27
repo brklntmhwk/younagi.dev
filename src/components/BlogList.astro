@@ -94,6 +94,9 @@ const { entries, kind } = Astro.props
           text-decoration: underline;
           text-underline-offset: 6px;
         }
+        @media (min-width: 768px) {
+          font-size: 1.85rem;
+        }
       }
       .date,
       .blog-description,
@@ -131,15 +134,6 @@ const { entries, kind } = Astro.props
           li {
             list-style: none;
           }
-        }
-      }
-    }
-  }
-  @media (min-width: 768px) {
-    .entry-list {
-      article {
-        a.blog-title {
-          font-size: 1.85rem;
         }
       }
     }

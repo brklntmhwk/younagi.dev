@@ -86,6 +86,8 @@ pages:
   about:
     title: *about
     my_name: *author
+    back_to_top: *back_to_top
+    scroll_to_top: *scroll_to_top
     profile_img_alt: My profile image
   contact:
     title: *contact

@@ -197,6 +197,8 @@ const i18n = defineCollection({
         title: z.string(),
         my_name: z.string(),
         profile_img_alt: z.string(),
+        back_to_top: z.string(),
+        scroll_to_top: z.string(),
       }),
       contact: z.object({
         title: z.string(),

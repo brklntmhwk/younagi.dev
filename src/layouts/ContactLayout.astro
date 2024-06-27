@@ -1,48 +1,36 @@
 ---
-import { type CollectionEntry, getEntry } from 'astro:content'
+import { type CollectionEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import { Article } from '@/components/Article'
 import { Contact } from '@/components/Contact'
 // import ContactForm from '@/components/islands/ContactForm'
-import { getLocaleFromUrl } from '@/utils/i18n/get-locale-from-url'
-import { useTranslatedPath } from '@/utils/i18n/use-translated-path'
 
 type Props = {
   page: CollectionEntry<'page'>
 }
 
-const locale = getLocaleFromUrl(Astro.url)
-const translatePath = useTranslatedPath(locale)
 const { page } = Astro.props
 const { data } = page
 const { title, description } = data
-const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
 <BaseLayout title={title} description={description ?? ''} og={{ show: true }}>
   <main data-pagefind-ignore="all">
-    <article>
-      <h1 class="page-title">{title}</h1>
-      <hr />
-      <section class="contact">
+    <Article kind="contact">
+      <h1 slot="metadata" class="page-title">{title}</h1>
+      <section slot="content" class="contact">
         <slot />
         <!-- <ContactForm client:only="solid-js" t={t.data.contact_form} /> -->
         <Contact />
       </section>
-      <hr />
-      <section class="guides">
-        <a class="back-to-link" href={translatePath('/')}
-          >◀ {t.data.pages.page.back_to_top}</a
-        >
-        <a class="back-to-link" href="#top"
-          >{t.data.pages.page.scroll_to_top} ▲</a
-        >
-      </section>
-    </article>
+    </Article>
   </main>
 </BaseLayout>
 <style>
   article {
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
     gap: 0.5rem;
     hr {
       width: 100%;
@@ -56,10 +44,5 @@ const t = await getEntry('i18n', `${locale}/translation`)
       word-wrap: break-word;
       line-height: 1.65;
     }
-  }
-  .guides {
-    display: flex;
-    justify-content: space-between;
-    padding-top: 1.5rem;
   }
 </style>

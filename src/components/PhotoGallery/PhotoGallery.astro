@@ -2,7 +2,7 @@
 import { getEntry } from 'astro:content'
 import type { UnsplashPhotoData } from '@/lib/unsplash/types'
 import { getPhotographer } from '@/lib/unsplash/contents'
-import PhotoGalleryItem from './PhotoGalleryItem.astro'
+import PhotoGalleryItem from '../PhotoGallery/PhotoGalleryItem.astro'
 import { getLocaleFromUrl } from '@/utils/i18n/get-locale-from-url'
 import { ACCOUNT_ID, UNSPLASH_BASE_URL } from '@/consts'
 
@@ -52,6 +52,9 @@ const username = await getPhotographer()
             color: var(--accent-dark);
           }
         }
+        @media (min-width: 768px) {
+          font-size: 1.025rem;
+        }
       }
     }
     .photo-gallery {
@@ -60,37 +63,16 @@ const username = await getPhotographer()
       grid-template-columns: repeat(auto-fit, minmax(9.275rem, 1fr));
       grid-auto-flow: row dense;
       gap: 1.5rem;
-    }
-  }
-  @media (min-width: 640px) {
-    .photo-gallery-wrapper {
-      .photo-gallery {
+      @media (min-width: 640px) {
         grid-template-columns: repeat(auto-fit, minmax(9.675rem, 1fr));
       }
-    }
-  }
-  @media (min-width: 768px) {
-    .photo-gallery-wrapper {
-      aside {
-        p {
-          font-size: 1.025rem;
-        }
-      }
-      .photo-gallery {
+      @media (min-width: 768px) {
         grid-template-columns: repeat(3, 1fr);
       }
-    }
-  }
-  @media (min-width: 1024px) {
-    .photo-gallery-wrapper {
-      .photo-gallery {
+      @media (min-width: 1024px) {
         grid-template-columns: repeat(2, 1fr);
       }
-    }
-  }
-  @media (min-width: 1280px) {
-    .photo-gallery-wrapper {
-      .photo-gallery {
+      @media (min-width: 1280px) {
         grid-template-columns: repeat(3, 1fr);
       }
     }

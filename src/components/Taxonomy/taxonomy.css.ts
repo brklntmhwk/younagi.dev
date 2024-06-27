@@ -82,8 +82,6 @@ export const taxonomyVariants = styleVariants({
       [padding]: '0.425rem 0.975rem',
       [margin]: '0',
     },
-    borderRadius: borderRadius,
-    boxShadow: boxShadow,
     margin: margin,
   },
   tags: {
@@ -96,8 +94,6 @@ export const taxonomyVariants = styleVariants({
       [padding]: '0.175rem 0.375rem',
       [margin]: '0.25rem 0.5rem',
     },
-    borderRadius: borderRadius,
-    boxShadow: boxShadow,
     margin: margin,
   },
 })

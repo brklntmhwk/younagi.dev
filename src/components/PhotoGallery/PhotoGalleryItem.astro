@@ -89,13 +89,11 @@ const dateDiff = getTimeDiff(createdAt, locale)
       .photo-date {
         margin-left: 0.5rem;
       }
+      @media (min-width: 768px) {
+        padding: 0.375rem 0.5rem 0.5rem 0.5rem;
+      }
     }
-  }
-  @media (min-width: 768px) {
-    .photo-metadata {
-      padding: 0.375rem 0.5rem 0.5rem 0.5rem;
-    }
-    .photo-gallery-item {
+    @media (min-width: 768px) {
       margin-bottom: 1.5rem;
     }
   }

@@ -1,0 +1,38 @@
+---
+import 'katex/dist/katex.min.css'
+import { getEntry } from 'astro:content'
+import { getLocaleFromUrl } from '@/utils/i18n/get-locale-from-url'
+import { useTranslatedPath } from '@/utils/i18n/use-translated-path'
+import { articleBase, contentVariants, contentHr } from './article.css'
+
+type Props = {
+  kind: 'blog' | 'news' | 'page' | 'about' | 'contact'
+}
+
+const locale = getLocaleFromUrl(Astro.url)
+const translatePath = useTranslatedPath(locale)
+const { kind } = Astro.props
+const backToPath = kind === 'blog' || kind === 'news' ? `/${kind}` : '/'
+const t = await getEntry('i18n', `${locale}/translation`)
+---
+
+<article class:list={[articleBase, contentVariants[kind]]}>
+  <slot name="metadata" />
+  <hr class={contentHr} />
+  <slot name="content" />
+  <hr class={contentHr} />
+  <slot name="cta" />
+  <section class="guides">
+    <a class="back-to-link" href={translatePath(backToPath)}
+      >◀ {t.data.pages[kind].back_to_top}
+    </a>
+    <a class="back-to-link" href="#top">{t.data.pages[kind].scroll_to_top} ▲</a>
+  </section>
+</article>
+<style>
+  .guides {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1.5rem;
+  }
+</style>

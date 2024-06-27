@@ -3,10 +3,10 @@ import type { MarkdownHeading } from 'astro'
 import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getLocaleFromUrl } from '@/utils/i18n/get-locale-from-url'
+import { Article } from '@/components/Article'
 import Toc from '@/components/Toc.astro'
 import ProfileIcon from '@/components/ProfileIcon.astro'
 import ProfileImage from '@/assets/images/profile.png'
-import { useTranslatedPath } from '@/utils/i18n/use-translated-path'
 
 type Props = {
   headings: MarkdownHeading[]
@@ -14,7 +14,6 @@ type Props = {
 
 const { headings } = Astro.props
 const locale = getLocaleFromUrl(Astro.url)
-const translatePath = useTranslatedPath(locale)
 const meta = await getEntry('meta', `${locale}/site-data`)
 const t = await getEntry('i18n', `${locale}/translation`)
 ---
@@ -25,50 +24,56 @@ const t = await getEntry('i18n', `${locale}/translation`)
   og={{ show: true }}
 >
   <main data-pagefind-ignore="all">
-    <article>
-      <h1>{t.data.pages.about.title}</h1>
-      <section class="profile">
-        <ProfileIcon
-          alt={t.data.pages.about.my_name}
-          src={ProfileImage}
-          size={150}
-        />
-        <span class="my-name">{t.data.pages.about.my_name}</span>
+    <Article kind="about">
+      <section slot="metadata" class="about-metadata">
+        <h1>{t.data.pages.about.title}</h1>
+        <section class="profile">
+          <ProfileIcon
+            alt={t.data.pages.about.my_name}
+            src={ProfileImage}
+            size={150}
+          />
+          <span class="my-name">{t.data.pages.about.my_name}</span>
+        </section>
+        <Toc {headings} />
       </section>
-      <Toc {headings} />
-      <hr />
-      <section class="about-content">
+      <section slot="content" class="about-content">
         <slot />
       </section>
-      <hr />
-      <section class="guides">
-        <a class="back-to-link" href={translatePath('/')}
-          >◀ {t.data.pages.page.back_to_top}</a
-        >
-        <a class="back-to-link" href="#top"
-          >{t.data.pages.page.scroll_to_top} ▲</a
-        >
-      </section>
-    </article>
+    </Article>
   </main>
 </BaseLayout>
-<style>
+<style is:global>
   article {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     gap: 0.5rem;
     hr {
       width: 100%;
     }
-    .profile {
-      padding: 0.5rem 0;
-      display: grid;
-      justify-content: center;
-      place-items: center;
-      gap: 1.05rem;
-      .my-name {
-        font-size: 1.5rem;
-        font-weight: 600;
+    .about-metadata {
+      .profile {
+        padding: 0.5rem 0;
+        display: grid;
+        justify-content: center;
+        place-items: center;
+        gap: 1.05rem;
+        .my-name {
+          font-size: 1.5rem;
+          font-weight: 600;
+        }
+        @media (min-width: 768px) {
+          padding: 1.55rem 0;
+          display: flex;
+          justify-content: center;
+          gap: 2.25rem;
+        }
+        @media (min-width: 1024px) {
+          padding: 2.25rem 0;
+          gap: 2.5rem;
+          justify-content: start;
+        }
       }
     }
     .about-content {
@@ -76,91 +81,86 @@ const t = await getEntry('i18n', `${locale}/translation`)
       overflow-wrap: break-word;
       word-wrap: break-word;
       line-height: 1.65;
-      & :global(h1),
-      & :global(h2),
-      & :global(h3),
-      & :global(h4),
-      & :global(h5),
-      & :global(h6) {
+      & h1 {
+        margin-top: 1.85rem;
         margin-bottom: 1.85rem;
       }
-      & :global(p) {
+      & h2,
+      & h3 {
+        margin-top: 1.85rem;
+        margin-bottom: 1.85rem;
+      }
+      & h4 {
+        margin-top: 1.85rem;
+        margin-bottom: 1.85rem;
+      }
+      & h5,
+      & h6 {
+        margin-top: 1.85rem;
+        margin-bottom: 1.85rem;
+      }
+      & h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        a {
+          text-decoration: none;
+          font-family: var(--base-font);
+          .heading-anchor-icon {
+            color: var(--fg);
+            margin-right: 0.5rem;
+          }
+          &:hover {
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            text-decoration-color: var(--fg);
+          }
+        }
+      }
+      & p {
         color: var(--fg);
         margin-bottom: 1.25rem;
       }
-      & :global(ul),
-      & :global(ol) {
+      & ul,
+      & ol {
         margin: 1.75rem 0;
         padding-inline-start: 2.5rem;
-        & :global(li) {
+        & li {
           list-style-type: square;
         }
       }
-      & :global(li:has(ul)),
-      & :global(li:has(ol)) {
-        & :global(ul),
-        & :global(ol) {
+      & li:has(ul),
+      & li:has(ol) {
+        & ul,
+        & ol {
           margin: 0.5rem 0;
         }
       }
-      & :global(a) {
-        color: var(--accent);
-        text-decoration: underline;
-        text-underline-offset: 3px;
-        &:hover {
-          color: var(--accent-dark);
-        }
-      }
-      & :global(a):has(.heading-anchor-icon) {
-        text-decoration: none;
-        font-family: var(--base-font);
-        & :global(span.heading-anchor-icon) {
-          color: var(--fg);
-          margin-right: 0.5rem;
-        }
-        &:hover {
+      & p,
+      & li {
+        & a {
+          color: var(--accent);
           text-decoration: underline;
-          text-underline-offset: 4px;
-          text-decoration-color: var(--fg);
+          text-underline-offset: 3px;
+          &:hover {
+            color: var(--accent-dark);
+          }
         }
       }
-      & :global(code:not(figure[data-rehype-pretty-code-figure] code)) {
+      & code:not(figure[data-rehype-pretty-code-figure] code) {
         font-size: 0.95rem;
         background-color: var(--gray);
         padding: 0.1rem 0.25rem;
         margin: 0 0.1rem;
         border-radius: 0.25rem;
       }
-      & :global(blockquote:not(.callout-blockquote)) {
+      & blockquote:not(.callout-blockquote) {
         border-left: 4px solid var(--gray-dark);
         padding: 0 0 0 1.5rem;
         margin: 0px;
         font-size: 1.05rem;
       }
     }
-  }
-  @media (min-width: 768px) {
-    article {
-      .profile {
-        padding: 1.55rem 0;
-        display: flex;
-        justify-content: center;
-        gap: 2.25rem;
-      }
-    }
-  }
-  @media (min-width: 1024px) {
-    article {
-      .profile {
-        padding: 2.25rem 0;
-        gap: 2.5rem;
-        justify-content: start;
-      }
-    }
-  }
-  .guides {
-    display: flex;
-    justify-content: space-between;
-    padding-top: 1.5rem;
   }
 </style>

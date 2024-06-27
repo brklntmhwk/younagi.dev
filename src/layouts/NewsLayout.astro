@@ -1,8 +1,8 @@
 ---
 import type { CollectionEntry } from 'astro:content'
-import { getEntry } from 'astro:content'
 import BuyMeACoffee from '@/components/BuyMeACoffee.astro'
 import FormattedDate from '@/components/FormattedDate.astro'
+import { Article } from '@/components/Article'
 import { Icon } from '@/components/Icon'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getLocaleFromUrl } from '@/utils/i18n/get-locale-from-url'
@@ -17,7 +17,6 @@ const translatePath = useTranslatedPath(locale)
 const { entry } = Astro.props
 const { data, collection, slug } = entry
 const { title, publishedAt, modifiedAt } = data
-const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
 <BaseLayout
@@ -38,8 +37,8 @@ const t = await getEntry('i18n', `${locale}/translation`)
   }}
 >
   <main>
-    <article>
-      <section class="news-metadata">
+    <Article kind="news">
+      <section slot="metadata" class="news-metadata">
         <h1 class="news-title">{title}</h1>
         <div class="date-meta">
           <div>
@@ -56,24 +55,16 @@ const t = await getEntry('i18n', `${locale}/translation`)
           }
         </div>
       </section>
-      <hr />
-      <section class="news-content">
+      <section slot="content" class="news-content">
         <slot />
       </section>
-      <hr />
-      <BuyMeACoffee />
-      <section class="guides">
-        <a class="back-to-link" href={translatePath('/news')}
-          >◀ {t.data.pages.news.back_to_top}</a
-        >
-        <a class="back-to-link" href="#top"
-          >{t.data.pages.news.scroll_to_top} ▲</a
-        >
+      <section slot="cta">
+        <BuyMeACoffee />
       </section>
-    </article>
+    </Article>
   </main>
 </BaseLayout>
-<style>
+<style is:global>
   article {
     display: flex;
     flex-direction: column;
@@ -106,59 +97,73 @@ const t = await getEntry('i18n', `${locale}/translation`)
       overflow-wrap: break-word;
       word-wrap: break-word;
       line-height: 1.65;
-      & :global(h1),
-      & :global(h2),
-      & :global(h3),
-      & :global(h4),
-      & :global(h5),
-      & :global(h6) {
+      & h1 {
+        margin-top: 1.85rem;
         margin-bottom: 1.85rem;
       }
-      & :global(p) {
+      & h2,
+      & h3 {
+        margin-top: 1.85rem;
+        margin-bottom: 1.85rem;
+      }
+      & h4 {
+        margin-top: 1.85rem;
+        margin-bottom: 1.85rem;
+      }
+      & h5,
+      & h6 {
+        margin-top: 1.85rem;
+        margin-bottom: 1.85rem;
+      }
+      & h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        a {
+          text-decoration: none;
+          font-family: var(--base-font);
+          .heading-anchor-icon {
+            color: var(--fg);
+            margin-right: 0.5rem;
+          }
+          &:hover {
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            text-decoration-color: var(--fg);
+          }
+        }
+      }
+      & p {
         color: var(--fg);
         margin-bottom: 1.25rem;
       }
-      & :global(ul),
-      & :global(ol) {
+      & ul,
+      & ol {
         margin: 1.75rem 0;
         padding-inline-start: 2.5rem;
-        & :global(li) {
+        & li {
           list-style-type: square;
         }
       }
-      & :global(li:has(ul)),
-      & :global(li:has(ol)) {
-        & :global(ul),
-        & :global(ol) {
+      & li:has(ul),
+      & li:has(ol) {
+        & ul,
+        & ol {
           margin: 0.5rem 0;
         }
       }
-      & :global(a) {
-        color: var(--accent);
-        text-decoration: underline;
-        text-underline-offset: 3px;
-        &:hover {
-          color: var(--accent-dark);
-        }
-      }
-      & :global(a):has(.heading-anchor-icon) {
-        text-decoration: none;
-        font-family: var(--base-font);
-        & :global(span.heading-anchor-icon) {
-          color: var(--fg);
-          margin-right: 0.5rem;
-        }
-        &:hover {
+      & p,
+      & li {
+        & a {
+          color: var(--accent);
           text-decoration: underline;
-          text-underline-offset: 4px;
-          text-decoration-color: var(--fg);
+          text-underline-offset: 3px;
+          &:hover {
+            color: var(--accent-dark);
+          }
         }
       }
     }
-  }
-  .guides {
-    display: flex;
-    justify-content: space-between;
-    padding-top: 1.5rem;
   }
 </style>

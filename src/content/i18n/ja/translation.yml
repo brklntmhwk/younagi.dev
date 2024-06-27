@@ -87,6 +87,8 @@ pages:
     title: *about
     my_name: *author
     profile_img_alt: プロフィール画像
+    back_to_top: *back_to_top
+    scroll_to_top: *scroll_to_top
   contact:
     title: *contact
     back_to_top: *back_to_top

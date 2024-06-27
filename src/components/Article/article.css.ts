@@ -1,9 +1,4 @@
-import {
-  createVar,
-  globalStyle,
-  style,
-  styleVariants,
-} from '@vanilla-extract/css'
+import { createVar, style, styleVariants } from '@vanilla-extract/css'
 
 const contentKind = createVar()
 
@@ -46,11 +41,11 @@ export const articleBase = style({
   gap: '0.5rem',
 })
 
-const blogMetadataGlobalRules = {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '0.975rem',
-  alignItems: 'center',
-  margin: '0 auto',
-  maxWidth: '50rem',
-}
+// const blogMetadataGlobalRules = {
+//   display: 'flex',
+//   flexDirection: 'column',
+//   gap: '0.975rem',
+//   alignItems: 'center',
+//   margin: '0 auto',
+//   maxWidth: '50rem',
+// }

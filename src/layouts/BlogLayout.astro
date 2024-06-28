@@ -48,7 +48,7 @@ const tags = await getBlogTags(blogTags, locale)
     width: 1200,
     image: new URL(
       '/api/og' + translatePath(`/${collection}/${rawSlug}.png`),
-      Astro.url
+      Astro.site
     ),
     type: 'article',
   }}

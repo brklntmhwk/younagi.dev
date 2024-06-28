@@ -1,8 +1,7 @@
 ---
 import { getEntry } from 'astro:content'
 // import Turnstile from './islands/Turnstile'
-import { getLocaleFromUrl } from '@/utils/i18n/get-locale-from-url'
-import { useTranslatedPath } from '@/utils/i18n/use-translated-path'
+import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils'
 import { FORM_TEXTAREA_ROWS, FORM_TEXTAREA_MINLENGTH } from '@/consts'
 
 const locale = getLocaleFromUrl(Astro.url)

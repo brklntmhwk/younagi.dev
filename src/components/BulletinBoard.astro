@@ -2,8 +2,7 @@
 import '@/styles/pixelmplus.css'
 import type { CollectionEntry } from 'astro:content'
 import { getEntry } from 'astro:content'
-import { getLocaleFromUrl } from '@/utils/i18n/get-locale-from-url'
-import { useTranslatedPath } from '@/utils/i18n/use-translated-path'
+import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils'
 
 type Props = {
   newsList: CollectionEntry<'news'>[]

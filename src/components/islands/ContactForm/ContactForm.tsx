@@ -19,7 +19,7 @@ import {
 } from 'valibot'
 import { useStore } from '@nanostores/solid'
 // import wretch from 'wretch'
-import { useTranslatedPath } from '@/utils/i18n/use-translated-path'
+import { useTranslatedPath } from '@/utils/i18n/utils'
 import { FORM_TEXTAREA_ROWS, FORM_TEXTAREA_MINLENGTH } from '@/consts'
 import { locale } from '@/components/islands/LocaleStore/locale-store'
 import { Turnstile } from './Turnstile'

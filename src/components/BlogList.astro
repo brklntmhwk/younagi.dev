@@ -3,8 +3,7 @@ import type { CollectionEntry } from 'astro:content'
 import FormattedDate from '@/components/FormattedDate.astro'
 import { Icon } from '@/components/Icon'
 import { Taxonomy } from '@/components/Taxonomy'
-import { getLocaleFromUrl } from '@/utils/i18n/get-locale-from-url'
-import { useTranslatedPath } from '@/utils/i18n/use-translated-path'
+import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils'
 import { getCategory, getBlogTags } from '@/lib/collections/data'
 
 type Props = {

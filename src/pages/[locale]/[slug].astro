@@ -35,14 +35,15 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
 const { page } = Astro.props
 const { Content, headings } = await page.render()
+const slugWithoutLocale = getSlugWithoutLocale(page.slug)
 ---
 
 {
-  page.slug.slice(page.slug.indexOf('/') + 1) === 'about' ? (
+  slugWithoutLocale === 'about' ? (
     <AboutLayout {headings}>
       <Content components={mdxComponents} />
     </AboutLayout>
-  ) : page.slug.slice(page.slug.indexOf('/') + 1) === 'contact' ? (
+  ) : slugWithoutLocale === 'contact' ? (
     <ContactLayout page={page}>
       <Content components={mdxComponents} />
     </ContactLayout>

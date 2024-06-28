@@ -7,7 +7,7 @@
   "author": "Nagi",
   "license": "MIT",
   "scripts": {
-    "preinstall": "npx only-allow bun",
+    "preinstall": "npx only-allow pnpm",
     "astro": "astro",
     "dev": "astro dev",
     "start": "astro dev",
@@ -94,7 +94,7 @@
     "satori": "^0.10.13",
     "sharp": "^0.33.3",
     "shiki": "^1.3.0",
-    "svgo": "^3.3.2",
+    "ts-node": "^10.9.2",
     "typescript": "^5.4.5",
     "unfurl.js": "^6.4.0",
     "unified": "^11.0.4",
@@ -104,9 +104,7 @@
     "wrangler": "^3.57.2"
   },
   "engines": {
-    "bun": "^1.0.0"
+    "node": ">=18.16.0"
   },
-  "trustedDependencies": [
-    "sharp"
-  ]
+  "packageManager": "pnpm@9.1.0"
 }

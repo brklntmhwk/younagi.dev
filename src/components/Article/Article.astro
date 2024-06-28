@@ -32,5 +32,13 @@ const t = await getEntry('i18n', `${locale}/translation`)
     display: flex;
     justify-content: space-between;
     padding-top: 1.5rem;
+    .back-to-link {
+      font-size: 1.15rem;
+      color: var(--accent);
+      text-decoration: none;
+      &:hover {
+        color: var(--accent-dark);
+      }
+    }
   }
 </style>

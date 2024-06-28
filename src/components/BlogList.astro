@@ -34,12 +34,12 @@ const { entries, kind } = Astro.props
         <li>
           <article class="pokemon-border">
             <section class="date">
-              <div>
+              <div class="published">
                 <Icon iconName="publish" width={20} height={20} />
                 <FormattedDate date={publishedAt} locale={locale} />
               </div>
               {modifiedAt && (
-                <div>
+                <div class="updated">
                   <Icon iconName="update" width={20} height={20} />
                   <FormattedDate date={modifiedAt} locale={locale} />
                 </div>
@@ -57,15 +57,8 @@ const { entries, kind } = Astro.props
             {kind === 'blog' && (
               <section class="taxonomies">
                 <Taxonomy taxonomy={category} />
-                {tags && (
-                  <ul class="tag-list">
-                    {tags.map((tag) => (
-                      <li>
-                        <Taxonomy taxonomy={tag} />
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                {tags.length !== 0 &&
+                  tags.map((tag) => <Taxonomy taxonomy={tag} />)}
               </section>
             )}
           </article>
@@ -76,62 +69,53 @@ const { entries, kind } = Astro.props
 </ul>
 <style>
   .entry-list {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 1.75rem;
     padding: 1.125rem 0;
-    article {
-      padding: 1rem 0.5rem 0.85rem 0.85rem;
-      display: grid;
-      gap: 0.975rem;
-      .blog-title {
-        color: var(--fg);
-        font-size: 1.585rem;
-        font-weight: 700;
-        line-height: 1.215;
-        text-decoration: none;
-        &:hover {
-          text-decoration: underline;
-          text-underline-offset: 6px;
-        }
-        @media (min-width: 768px) {
-          font-size: 1.85rem;
-        }
-      }
-      .date,
-      .blog-description,
-      .taxonomies {
-        font-size: 1.15rem;
-      }
-      .date {
-        display: flex;
-        gap: 0.85rem;
-        div {
-          display: flex;
-          align-items: center;
-          gap: 0.35rem;
-        }
-      }
-      .taxonomies {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        column-gap: 0.95rem;
-        row-gap: 1.25rem;
-        a {
-          color: var(--accent);
+    li {
+      article {
+        padding: 1rem 0.5rem 0.85rem 0.85rem;
+        display: grid;
+        gap: 0.975rem;
+        .blog-title {
+          color: var(--fg);
+          font-size: 1.585rem;
+          font-weight: 700;
+          line-height: 1.215;
           text-decoration: none;
           &:hover {
-            color: var(--accent-dark);
+            text-decoration: underline;
+            text-underline-offset: 6px;
+          }
+          @media (min-width: 768px) {
+            font-size: 1.85rem;
           }
         }
-        .tag-list {
+        .date,
+        .blog-description {
+          font-size: 1.15rem;
+        }
+        .date {
+          display: flex;
+          gap: 0.85rem;
+          .published,
+          .updated {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+          }
+        }
+        .taxonomies {
           display: flex;
           flex-wrap: wrap;
-          column-gap: 0.5rem;
-          row-gap: 0.85rem;
-          padding: 0;
-          li {
-            list-style: none;
+          align-items: center;
+          gap: 0.85rem;
+          a {
+            font-size: 0.875rem;
+            @media (min-width: 640px) {
+              font-size: 1.15rem;
+            }
           }
         }
       }

@@ -56,13 +56,14 @@ const image = {
 </div>
 <style>
   .link-card-wrapper {
+    max-width: 40rem;
+    max-height: 10rem;
     .link-card {
       background-color: var(--bg);
-      max-width: 40rem;
-      max-height: 10rem;
       display: flex;
       flex-wrap: nowrap;
       gap: 0.5rem;
+      justify-content: space-between;
       overflow: hidden;
       &:hover {
         background-color: var(--bg-hover);
@@ -78,12 +79,12 @@ const image = {
         white-space: nowrap;
         overflow: hidden;
         .link-title {
-          font-size: 1.325rem;
+          font-size: 1.35rem;
           font-weight: 700;
           line-height: 1.25;
         }
         .link-description {
-          font-size: 1.05rem;
+          font-size: 0.95rem;
           line-height: 1.2;
         }
         .link-hostname {

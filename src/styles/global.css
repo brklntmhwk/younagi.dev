@@ -142,14 +142,6 @@ h6 {
     font-size: 1.25rem;
   }
 }
-a.back-to-link {
-  font-size: 1.15rem;
-  color: var(--accent);
-  text-decoration: none;
-  &:hover {
-    color: var(--accent-dark);
-  }
-}
 ul,
 ol {
   padding: 0;

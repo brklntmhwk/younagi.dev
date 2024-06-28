@@ -37,7 +37,7 @@
     "@fontsource-variable/inconsolata": "^5.0.18",
     "@modular-forms/solid": "^0.21.0",
     "@unocss/reset": "^0.60.0",
-    "astro": "^4.7.0",
+    "astro": "^4.11.3",
     "astro-purgecss": "4.1.0",
     "drizzle-orm": "^0.31.1",
     "purgecss": "5.0.0",

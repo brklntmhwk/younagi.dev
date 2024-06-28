@@ -7,6 +7,7 @@ import { Icon } from '@/components/Icon'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getLocaleFromUrl } from '@/utils/i18n/get-locale-from-url'
 import { useTranslatedPath } from '@/utils/i18n/use-translated-path'
+import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale'
 
 type Props = {
   entry: CollectionEntry<'news'>
@@ -17,6 +18,7 @@ const translatePath = useTranslatedPath(locale)
 const { entry } = Astro.props
 const { data, collection, slug } = entry
 const { title, publishedAt, modifiedAt } = data
+const slugWithoutLocale = getSlugWithoutLocale(slug)
 ---
 
 <BaseLayout
@@ -27,10 +29,7 @@ const { title, publishedAt, modifiedAt } = data
     height: 630,
     width: 1200,
     image: new URL(
-      '/api/og' +
-        translatePath(
-          `/${collection}/${slug.slice(slug.indexOf('/') + 1)}.png`
-        ),
+      translatePath(`/api/og/${collection}/${slugWithoutLocale}.png`),
       Astro.site
     ),
     type: 'article',

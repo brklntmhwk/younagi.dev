@@ -13,6 +13,11 @@ const hasDraft = (
 ): data is CollectionEntry<'blog'>['data'] | CollectionEntry<'news'>['data'] =>
   Object.hasOwn(data, 'draft') && Object.hasOwn(data, 'publishedAt')
 
+export const isContentCollectionKey = (
+  key: unknown
+): key is ContentCollectionKey =>
+  ['blog', 'news', 'page'].some((cKey) => cKey === key)
+
 export const getLocaleContentEntries = <T extends ContentCollectionKey>(
   entries: Flatten<AnyEntryMap[T]>[],
   locale: Languages
@@ -22,10 +27,10 @@ export const getLocaleContentEntries = <T extends ContentCollectionKey>(
   )
 
 export const getContentEntries = async <T extends ContentCollectionKey>(
-  kind: T,
+  key: T,
   locale?: Languages
 ) => {
-  let entries = await getCollection(kind)
+  let entries = await getCollection(key)
   if (locale) {
     entries = getLocaleContentEntries(entries, locale)
   }
@@ -42,10 +47,10 @@ export const getContentEntries = async <T extends ContentCollectionKey>(
 }
 
 export const getSortedContentEntries = async <T extends ContentCollectionKey>(
-  kind: T,
+  key: T,
   locale?: Languages
 ) => {
-  const entries = await getContentEntries(kind, locale)
+  const entries = await getContentEntries(key, locale)
 
   return entries.sort((a, b) =>
     hasDraft(a.data) && hasDraft(b.data)

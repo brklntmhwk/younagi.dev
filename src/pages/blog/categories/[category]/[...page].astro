@@ -7,7 +7,7 @@ import Pager from '@/components/Pager.astro'
 import { LIMIT_PER_PAGE } from '@/consts'
 import { defaultLang } from '@/utils/i18n/data'
 import { slugify } from '@/utils/slugify'
-import { getRawSlug } from '@/utils/get-raw-slug'
+import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale'
 import { getSortedContentEntries } from '@/lib/collections/contents'
 import { getCategories } from '@/lib/collections/data'
 
@@ -19,7 +19,7 @@ export const getStaticPaths = (async ({ paginate }) => {
     const displayEntries = entries.filter(
       (entry) => entry.data.category.id === category.id
     )
-    const categorySlug = slugify(getRawSlug(category.id))
+    const categorySlug = slugify(getSlugWithoutLocale(category.id))
 
     return paginate(displayEntries, {
       pageSize: LIMIT_PER_PAGE,

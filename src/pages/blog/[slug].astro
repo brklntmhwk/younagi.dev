@@ -3,16 +3,16 @@ import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
 import BlogLayout from '@/layouts/BlogLayout.astro'
 import { getSortedContentEntries } from '@/lib/collections/contents'
 import { mdxComponents } from '@/lib/mdx-components'
-import { getRawSlug } from '@/utils/get-raw-slug'
+import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale'
 import { defaultLang } from '@/utils/i18n/data'
 
 export const getStaticPaths = (async () => {
   const entries = await getSortedContentEntries('blog', defaultLang)
 
   return entries.map((entry) => {
-    const rawSlug = getRawSlug(entry.slug)
+    const slug = getSlugWithoutLocale(entry.slug)
 
-    return { params: { slug: rawSlug }, props: { entry } }
+    return { params: { slug }, props: { entry } }
   })
 }) satisfies GetStaticPaths
 

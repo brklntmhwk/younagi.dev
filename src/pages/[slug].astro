@@ -5,18 +5,18 @@ import ContactLayout from '@/layouts/ContactLayout.astro'
 import PageLayout from '@/layouts/PageLayout.astro'
 import { getSortedContentEntries } from '@/lib/collections/contents'
 import { mdxComponents } from '@/lib/mdx-components'
-import { getRawSlug } from '@/utils/get-raw-slug'
+import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale'
 import { defaultLang } from '@/utils/i18n/data'
 
 export const getStaticPaths = (async () => {
   const pages = await getSortedContentEntries('page', defaultLang)
 
   return pages.map((page) => {
-    const rawSlug = getRawSlug(page.slug)
+    const slug = getSlugWithoutLocale(page.slug)
 
     return {
       params: {
-        slug: rawSlug,
+        slug,
       },
       props: {
         page,

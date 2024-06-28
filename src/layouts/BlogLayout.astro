@@ -13,7 +13,7 @@ import Toc from '@/components/Toc.astro'
 import { Icon } from '@/components/Icon'
 import { getLocaleFromUrl } from '@/utils/i18n/get-locale-from-url'
 import { useTranslatedPath } from '@/utils/i18n/use-translated-path'
-import { getRawSlug } from '@/utils/get-raw-slug'
+import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale'
 import { getCategory, getBlogTags } from '@/lib/collections/data'
 
 type Props = {
@@ -34,7 +34,7 @@ const {
   publishedAt,
   modifiedAt,
 } = data
-const rawSlug = getRawSlug(slug)
+const slugWithoutLocale = getSlugWithoutLocale(slug)
 const category = await getCategory(blogCategory.id)
 const tags = await getBlogTags(blogTags, locale)
 ---
@@ -47,7 +47,7 @@ const tags = await getBlogTags(blogTags, locale)
     height: 630,
     width: 1200,
     image: new URL(
-      '/api/og' + translatePath(`/${collection}/${rawSlug}.png`),
+      translatePath(`/api/og/${collection}/${slugWithoutLocale}.png`),
       Astro.site
     ),
     type: 'article',
@@ -83,7 +83,7 @@ const tags = await getBlogTags(blogTags, locale)
       <section slot="cta" class="cta">
         <Likes
           client:only="solid-js"
-          slug={rawSlug}
+          slug={slugWithoutLocale}
           {collection}
           t={t.data.likes}
         />

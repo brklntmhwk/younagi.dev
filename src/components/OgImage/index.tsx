@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import satori from 'satori'
 import sharp from 'sharp'
-// import type { I18nData } from '@/lib/collections/types'
+import type { I18nData } from '@/lib/collections/types'
 
 const fontPixelMPlus10Regular = readFileSync(
   './src/assets/fonts/PixelMplus10-Regular.woff'
@@ -20,9 +20,7 @@ const logo = btoa(
   )
 )
 
-export const getOgImage = async (
-  text: string /* , t: I18nData<'og_image'> */
-) => {
+export const getOgImage = async (text: string, t: I18nData<'og_image'>) => {
   const svg = await satori(
     {
       type: 'div',
@@ -72,8 +70,7 @@ export const getOgImage = async (
                         type: 'img',
                         props: {
                           src: `data:image/png;base64,${logo}`,
-                          alt: 'Site logo image',
-                          // alt: t.logo_alt,
+                          alt: t.logo_alt,
                           width: '60',
                           height: '60',
                           style: {
@@ -89,8 +86,7 @@ export const getOgImage = async (
                             fontSize: '2.25rem',
                             color: '#1c1b22',
                           },
-                          children: 'younagi.dev',
-                          // children: t.site_name,
+                          children: t.site_name,
                         },
                         key: 'Site name',
                       },

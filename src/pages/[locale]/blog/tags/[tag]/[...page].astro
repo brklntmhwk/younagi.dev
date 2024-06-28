@@ -7,7 +7,7 @@ import Pager from '@/components/Pager.astro'
 import { LIMIT_PER_PAGE } from '@/consts'
 import { langList } from '@/utils/i18n/data'
 import { slugify } from '@/utils/slugify'
-import { getRawSlug } from '@/utils/get-raw-slug'
+import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale'
 import {
   getLocaleContentEntries,
   getSortedContentEntries,
@@ -17,7 +17,6 @@ import { getTags } from '@/lib/collections/data'
 export const getStaticPaths = (async ({ paginate }) => {
   const entries = await getSortedContentEntries('blog')
   const tags = await getTags()
-  // const tags = [...new Set(entries.flatMap((entry) => entry.data.tags ?? []))]
 
   return langList.flatMap((lang) => {
     return tags.flatMap((tag) => {
@@ -27,7 +26,7 @@ export const getStaticPaths = (async ({ paginate }) => {
       ).filter((entry) =>
         entry.data.tags?.some((blogTag) => blogTag.id === tag.id)
       )
-      const tagSlug = slugify(getRawSlug(tag.id))
+      const tagSlug = slugify(getSlugWithoutLocale(tag.id))
 
       return paginate(displayEntries, {
         pageSize: LIMIT_PER_PAGE,

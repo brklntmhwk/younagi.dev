@@ -5,36 +5,17 @@ import { Article } from '@/components/Article'
 import { Icon } from '@/components/Icon'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getLocaleFromUrl } from '@/utils/i18n/get-locale-from-url'
-import { useTranslatedPath } from '@/utils/i18n/use-translated-path'
 
 type Props = {
   page: CollectionEntry<'page'>
 }
 
 const locale = getLocaleFromUrl(Astro.url)
-const translatePath = useTranslatedPath(locale)
 const { page } = Astro.props
-const { data, collection, slug } = page
-const { title, description, modifiedAt } = data
+const { title, description, modifiedAt } = page.data
 ---
 
-<BaseLayout
-  title={title}
-  description={description ?? ''}
-  og={{
-    show: true,
-    height: 630,
-    width: 1200,
-    image: new URL(
-      '/api/og' +
-        translatePath(
-          `/${collection}/${slug.slice(slug.indexOf('/') + 1)}.png`
-        ),
-      Astro.site
-    ),
-    type: 'article',
-  }}
->
+<BaseLayout title={title} description={description ?? ''} og={{ show: true }}>
   <main data-pagefind-ignore="all">
     <Article kind="page">
       <section slot="metadata" class="page-metadata">

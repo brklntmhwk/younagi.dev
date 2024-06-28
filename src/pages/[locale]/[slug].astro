@@ -6,21 +6,23 @@ import PageLayout from '@/layouts/PageLayout.astro'
 import { getSortedContentEntries } from '@/lib/collections/contents'
 import { mdxComponents } from '@/lib/mdx-components'
 import { defaultLang } from '@/utils/i18n/data'
+import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale'
+import { getLocaleFromSlug } from '@/utils/get-locale-from-slug'
 
 export const getStaticPaths = (async () => {
   const pages = await getSortedContentEntries('page')
   const LocalePages = pages.filter(
-    (page) => page.slug.slice(0, page.slug.indexOf('/')) !== defaultLang
+    (page) => getLocaleFromSlug(page.slug) !== defaultLang
   )
 
   return LocalePages.map((page) => {
-    const locale = page.slug.slice(0, page.slug.indexOf('/'))
-    const rawSlug = page.slug.slice(page.slug.indexOf('/') + 1)
+    const locale = getLocaleFromSlug(page.slug)
+    const slug = getSlugWithoutLocale(page.slug)
 
     return {
       params: {
-        slug: rawSlug,
-        locale: locale,
+        slug,
+        locale,
       },
       props: {
         page,

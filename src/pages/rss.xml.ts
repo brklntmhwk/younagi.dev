@@ -3,11 +3,12 @@ import type { APIContext } from 'astro'
 import { getCollection } from 'astro:content'
 import { getEntry } from 'astro:content'
 import { defaultLang } from '@/utils/i18n/data'
+import { getLocaleFromSlug } from '@/utils/get-locale-from-slug'
 
 export async function GET(context: APIContext) {
   const entries = await getCollection('blog')
   const defaultLocaleEntries = entries.filter(
-    (entry) => entry.slug.slice(0, entry.slug.indexOf('/')) === defaultLang
+    (entry) => getLocaleFromSlug(entry.slug) === defaultLang
   )
   const meta = await getEntry('meta', `${defaultLang}/site-data`)
 

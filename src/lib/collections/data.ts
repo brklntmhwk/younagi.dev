@@ -7,12 +7,12 @@ import {
 } from 'astro:content'
 import { type Languages } from '@/utils/i18n/data'
 import type { BlogTags, CategoryId } from './types'
+import { getLocaleFromSlug } from '@/utils/get-locale-from-slug'
 
 export const getLocaleDataEntries = <T extends DataCollectionKey>(
   entries: Flatten<AnyEntryMap[T]>[],
   locale: Languages
-) =>
-  entries.filter((entry) => entry.id.slice(0, entry.id.indexOf('/')) === locale)
+) => entries.filter((entry) => getLocaleFromSlug(entry.id) === locale)
 
 export const getDataEntries = async <T extends DataCollectionKey>(
   kind: T,

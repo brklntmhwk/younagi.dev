@@ -7,6 +7,7 @@ import BulletinBoard from '@/components/BulletinBoard.astro'
 import { PhotoGallery } from '@/components/PhotoGallery'
 import { getPhotos } from '@/lib/unsplash/contents'
 import { getSortedContentEntries } from '@/lib/collections/contents'
+import { getLocaleFromSlug } from '@/utils/get-locale-from-slug'
 import { NEWS_MAXIMUM_COUNT } from '@/consts'
 
 export const getStaticPaths = (() => {
@@ -19,7 +20,7 @@ const { locale } = Astro.params
 const meta = await getEntry('meta', `${locale}/site-data`)
 const newsList = await getSortedContentEntries('news', locale)
 const localeNewsList = newsList.filter(
-  (news) => news.slug.slice(0, news.slug.indexOf('/')) === locale
+  (news) => getLocaleFromSlug(news.slug) === locale
 )
 const photos = await getPhotos()
 const latestNews = localeNewsList.slice(0, NEWS_MAXIMUM_COUNT)

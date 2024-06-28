@@ -6,6 +6,7 @@ import {
   getCollection,
 } from 'astro:content'
 import type { Languages } from '@/utils/i18n/data'
+import { getLocaleFromSlug } from '@/utils/get-locale-from-slug'
 import { SHOW_DRAFT_PAGES_IN_DEV } from '@/consts'
 
 const hasDraft = (
@@ -21,10 +22,7 @@ export const isContentCollectionKey = (
 export const getLocaleContentEntries = <T extends ContentCollectionKey>(
   entries: Flatten<AnyEntryMap[T]>[],
   locale: Languages
-) =>
-  entries.filter(
-    (entry) => entry.slug.slice(0, entry.slug.indexOf('/')) === locale
-  )
+) => entries.filter((entry) => getLocaleFromSlug(entry.slug) === locale)
 
 export const getContentEntries = async <T extends ContentCollectionKey>(
   key: T,

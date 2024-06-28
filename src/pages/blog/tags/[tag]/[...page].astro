@@ -14,7 +14,6 @@ import { getTags } from '@/lib/collections/data'
 export const getStaticPaths = (async ({ paginate }) => {
   const entries = await getSortedContentEntries('blog', defaultLang)
   const tags = await getTags(defaultLang)
-  // const tags = [...new Set(entries.flatMap((entry) => entry.data.tags ?? []))]
 
   return tags.flatMap((tag) => {
     const displayEntries = entries.filter((entry) =>

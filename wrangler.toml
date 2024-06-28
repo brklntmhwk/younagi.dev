@@ -1,4 +1,4 @@
-name = "younagi-dev"
+name = "younagidev"
 pages_build_output_dir = "dist"
 
 [vars]

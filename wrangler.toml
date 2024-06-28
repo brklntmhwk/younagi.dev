@@ -1,5 +1,5 @@
 name = "younagi-dev"
-# pages_build_output_dir = "dist"
+pages_build_output_dir = "dist"
 
 [vars]
 

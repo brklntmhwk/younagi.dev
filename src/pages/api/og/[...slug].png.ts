@@ -1,8 +1,8 @@
 import type { APIRoute, APIContext, GetStaticPaths } from 'astro'
-import { getEntry } from 'astro:content'
+// import { getEntry } from 'astro:content'
 import { getOgImage } from '@/components/OgImage'
 import { getContentEntries } from '@/lib/collections/contents'
-import { type Languages, defaultLang } from '@/utils/i18n/data'
+import { type Languages /* defaultLang */ } from '@/utils/i18n/data'
 import { useTranslatedPath } from '@/utils/i18n/use-translated-path'
 
 const blogEntries = await getContentEntries('blog')
@@ -12,9 +12,10 @@ const articles = [...blogEntries, ...newsEntries, ...pages]
 
 export const GET: APIRoute = async ({ params }: APIContext) => {
   const { slug } = params
-  let locale: Languages = defaultLang
+  // let locale: Languages = defaultLang
   const article = articles.find((article) => {
-    locale = article.slug.slice(0, article.slug.indexOf('/')) as Languages
+    const locale = article.slug.slice(0, article.slug.indexOf('/')) as Languages
+    // locale = article.slug.slice(0, article.slug.indexOf('/')) as Languages
     const collection = article.collection
     const rawSlug = article.slug.slice(article.slug.indexOf('/') + 1)
     const translatePath = useTranslatedPath(locale)
@@ -25,8 +26,9 @@ export const GET: APIRoute = async ({ params }: APIContext) => {
   if (!article) {
     return new Response('Article Not Found', { status: 404 })
   }
-  const t = await getEntry('i18n', `${locale}/translation`)
-  const ogImg = await getOgImage(article.data.title, t.data.og_image)
+  const ogImg = await getOgImage(article.data.title)
+  // const t = await getEntry('i18n', `${locale}/translation`)
+  // const ogImg = await getOgImage(article.data.title, t.data.og_image)
 
   return new Response(ogImg, {
     headers: {

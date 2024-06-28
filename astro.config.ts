@@ -74,7 +74,7 @@ export default defineConfig({
     },
     plugins: [vanillaExtractPlugin(), solidPlugin()],
     ssr: {
-      external: ['node:fs', 'unfurl.js', 'cssesc'],
+      external: ['node:fs', 'unfurl.js'],
     },
   },
   markdown: {

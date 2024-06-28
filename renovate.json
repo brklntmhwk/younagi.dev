@@ -15,13 +15,6 @@
       "groupName": "DevDependencies",
       "matchDepTypes": ["devDependencies"],
       "automerge": true
-    },
-    {
-      "groupName": "Package manager (pnpm, non-major update)",
-      "matchPackagePatterns": ["^pnpm$"],
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
-      "automerge": true
     }
-  ],
-  "enabledManagers": ["github-actions"]
+  ]
 }

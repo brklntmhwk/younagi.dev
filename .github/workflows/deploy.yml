@@ -5,9 +5,6 @@ on:
     branches:
       - main
 
-env:
-  PNPM_HOME: /home/runner/.local/share/pnpm
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -18,45 +15,35 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Set up node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
       - name: Set up Bun
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
-      - name: Configure pnpm path
-        run: echo "${{ env.PNPM_HOME }}" >> $GITHUB_PATH
-      - name: Set up pnpm with corepack
-        run: |
-          corepack enable
-          corepack prepare pnpm@latest --activate
-          pnpm -v
-      - name: Get pnpm store path
-        id: pnpm_cache
-        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-      - name: Set up pnpm store and build artifact cache
+      - name: Set up bun store and build artifact cache
         uses: actions/cache@v4
         with:
-          path: ${{ steps.pnpm_cache.outputs.STORE_PATH }}
-          key: ${{ runner.os }}-astro-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: ${{ runner.os }}-astro-
+          path: |
+            ~/.bun/install/cache
+            node_modules
+          key: ${{ runner.os }}-bun-node-modules-${{ hashFiles('**/bun.lockb') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-node-modules-
+            ${{ runner.os }}-bun-
       - name: Install dependencies
-        run: pnpm i --frozen-lockfile
+        run: bun i --no-save
       - name: Build project
-        run: pnpm run build
+        run: bun --bun run build
         env:
           PUBLIC_TURNSTILE_SITE_KEY: ${{ secrets.PUBLIC_TURNSTILE_SITE_KEY }}
           UNSPLASH_API_ACCESS_KEY: ${{ secrets.UNSPLASH_API_ACCESS_KEY }}
       - name: Apply Cloudflare D1 migrations
-        run: pnpm wrangler d1 migrations apply younagi_dev_db --remote
+        run: bunx wrangler d1 migrations apply younagi_dev_db --remote
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       - name: Publish to Cloudflare Pages
         id: cloudflare_pages_deploy
-        run: pnpm wrangler pages deploy ./dist --project-name=younagidev --branch main
+        run: bunx wrangler pages deploy ./dist --project-name=younagidev --branch main
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

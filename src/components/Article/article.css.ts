@@ -40,12 +40,3 @@ export const articleBase = style({
   flexGrow: 1,
   gap: '0.5rem',
 })
-
-// const blogMetadataGlobalRules = {
-//   display: 'flex',
-//   flexDirection: 'column',
-//   gap: '0.975rem',
-//   alignItems: 'center',
-//   margin: '0 auto',
-//   maxWidth: '50rem',
-// }

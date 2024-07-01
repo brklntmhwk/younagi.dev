@@ -2,7 +2,7 @@
 import BaseHead from '@/components/BaseHead.astro'
 import { Navigation } from '@/components/Navigation'
 import Footer from '@/components/Footer.astro'
-import { LocaleStore } from '@/components/islands/LocaleStore/LocaleStore'
+import { LocaleStore } from '@/components/LocaleStore/LocaleStore'
 import { getLocaleFromUrl } from '@/utils/i18n/utils'
 
 export type Props = {
@@ -33,6 +33,7 @@ const { title, description, og } = Astro.props
       <slot />
       <Footer />
     </div>
+    <div id="modal"></div>
     <style>
       .base-wrapper {
         margin: 0 auto;
@@ -55,6 +56,12 @@ const { title, description, og } = Astro.props
             'navigation main'
             'navigation footer';
         }
+      }
+      #modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 40;
       }
     </style>
   </body>

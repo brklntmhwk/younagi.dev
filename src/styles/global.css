@@ -159,6 +159,14 @@ hr {
   border-top: 1px solid var(--line);
   margin: 1.25rem 0;
 }
+.back-to-link {
+  font-size: 1.15rem;
+  color: var(--accent);
+  text-decoration: none;
+  &:hover {
+    color: var(--accent-dark);
+  }
+}
 @supports (backdrop-filter: blur(6px) saturate(180%)) {
   .glassmorphism {
     backdrop-filter: blur(6px) saturate(180%);

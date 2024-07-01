@@ -21,7 +21,7 @@ import { useStore } from '@nanostores/solid'
 // import wretch from 'wretch'
 import { useTranslatedPath } from '@/utils/i18n/utils'
 import { FORM_TEXTAREA_ROWS, FORM_TEXTAREA_MINLENGTH } from '@/consts'
-import { locale } from '@/components/islands/LocaleStore/locale-store'
+import { locale } from '@/components/LocaleStore/locale-store'
 import { Turnstile } from './Turnstile'
 import type { I18nData } from '@/lib/collections/types'
 import {

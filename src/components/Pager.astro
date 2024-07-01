@@ -1,10 +1,9 @@
 ---
 import type { Page } from 'astro'
-import { getEntry } from 'astro:content'
-import type { CollectionEntry } from 'astro:content'
+import { type CollectionEntry, getEntry } from 'astro:content'
 import { Icon } from './Icon'
-import { DEFAULT_PAGINATION_WIDTH } from '@/consts'
 import { getLocaleFromUrl } from '@/utils/i18n/utils'
+import { DEFAULT_PAGINATION_WIDTH } from '@/consts'
 
 type Props = {
   page?: Page<CollectionEntry<'blog' | 'news'>>

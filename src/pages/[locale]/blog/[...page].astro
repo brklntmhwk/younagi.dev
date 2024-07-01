@@ -1,5 +1,5 @@
 ---
-import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
+import type { GetStaticPaths } from 'astro'
 import { getEntry } from 'astro:content'
 import BlogList from '@/components/BlogList.astro'
 import BaseLayout from '@/layouts/BaseLayout.astro'
@@ -23,8 +23,6 @@ export const getStaticPaths = (async ({ paginate }) => {
     })
   })
 }) satisfies GetStaticPaths
-
-type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
 const { locale } = Astro.params
 const { page } = Astro.props

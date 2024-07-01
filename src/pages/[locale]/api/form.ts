@@ -14,7 +14,7 @@ import {
   // boolean,
   safeParse,
 } from 'valibot'
-import type { Languages } from '@/utils/i18n/data'
+import type { Language } from '@/utils/i18n/data'
 import {
   TURNSTILE_SITE_VERIFICATION_URL,
   BREVO_FORM_URL,
@@ -64,7 +64,7 @@ export const POST: APIRoute = async ({
     )
   }
 
-  const curLocale = locale as Languages
+  const curLocale = locale as Language
   const t = await getEntry('i18n', `${curLocale}/translation`)
   const meta = await getEntry('meta', `${curLocale}/site-data`)
 

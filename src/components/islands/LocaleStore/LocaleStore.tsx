@@ -1,10 +1,10 @@
 import { type Component } from 'solid-js'
 import { useStore } from '@nanostores/solid'
-import type { Languages } from '@/utils/i18n/data'
+import type { Language } from '@/utils/i18n/data'
 import { locale as localeStore } from './locale-store'
 
 type Props = {
-  locale: Languages
+  locale: Language
 }
 
 export const LocaleStore: Component<Props> = ({ locale }) => {

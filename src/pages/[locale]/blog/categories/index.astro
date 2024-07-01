@@ -1,5 +1,5 @@
 ---
-import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
+import type { GetStaticPaths } from 'astro'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getEntry } from 'astro:content'
 import { Taxonomy } from '@/components/Taxonomy'
@@ -9,8 +9,6 @@ import { getCategories } from '@/lib/collections/data'
 export const getStaticPaths = (() => {
   return langList.map((lang) => ({ params: { locale: lang } }))
 }) satisfies GetStaticPaths
-
-type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
 const { locale } = Astro.params
 const meta = await getEntry('meta', `${locale}/site-data`)

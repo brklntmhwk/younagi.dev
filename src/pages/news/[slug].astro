@@ -1,5 +1,5 @@
 ---
-import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
+import type { GetStaticPaths } from 'astro'
 import NewsLayout from '@/layouts/NewsLayout.astro'
 import { getSortedContentEntries } from '@/lib/collections/contents'
 import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale'
@@ -14,8 +14,6 @@ export const getStaticPaths = (async () => {
     return { params: { slug }, props: { entry } }
   })
 }) satisfies GetStaticPaths
-
-type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
 const { entry } = Astro.props
 const { Content } = await entry.render()

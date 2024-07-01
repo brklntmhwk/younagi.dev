@@ -2,8 +2,7 @@
 import { getEntry } from 'astro:content'
 import { defaultLang, languages } from '@/utils/i18n/data'
 import Modal from '@/components/Modal.astro'
-import { getLocaleFromUrl } from '@/utils/i18n/utils'
-import { getTargetLocaleSlug } from '@/utils/i18n/utils'
+import { getLocaleFromUrl, getTargetLocaleSlug } from '@/utils/i18n/utils'
 
 const curUrl = Astro.url
 const curLocale = getLocaleFromUrl(curUrl)

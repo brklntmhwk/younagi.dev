@@ -1,9 +1,9 @@
 ---
-import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
+import type { GetStaticPaths } from 'astro'
 import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import Pager from '@/components/Pager.astro'
-import FormattedDate from '@/components/FormattedDate.astro'
+import { FormattedDate } from '@/components/FormattedDate'
 import { Icon } from '@/components/Icon'
 import { LIMIT_PER_PAGE } from '@/consts'
 import { defaultLang } from '@/utils/i18n/data'
@@ -16,8 +16,6 @@ export const getStaticPaths = (async ({ paginate }) => {
     pageSize: LIMIT_PER_PAGE,
   })
 }) satisfies GetStaticPaths
-
-type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
 const { page } = Astro.props
 const meta = await getEntry('meta', `${defaultLang}/site-data`)

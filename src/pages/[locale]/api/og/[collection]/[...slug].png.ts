@@ -8,7 +8,7 @@ import type {
 import { getEntry } from 'astro:content'
 import { getOgImage } from '@/components/OgImage'
 import { getContentEntries } from '@/lib/collections/contents'
-import { type Languages, langList } from '@/utils/i18n/data'
+import { type Language, langList } from '@/utils/i18n/data'
 import { getLocaleFromSlug } from '@/utils/get-locale-from-slug'
 import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale'
 
@@ -46,7 +46,7 @@ export const getStaticPaths = (async () => {
   )
   const ogArticlePaths = [
     ...localeArticles.map((article) => {
-      const locale = getLocaleFromSlug(article.slug) as Languages
+      const locale = getLocaleFromSlug(article.slug) as Language
       const collection = article.collection
       const slugWithoutLocale = getSlugWithoutLocale(article.slug)
 

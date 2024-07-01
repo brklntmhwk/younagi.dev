@@ -1,7 +1,7 @@
 import { type Component, createResource } from 'solid-js'
 import { useStore } from '@nanostores/solid'
 import { Motion } from 'solid-motionone'
-import { type Languages } from '@/utils/i18n/data'
+import { type Language } from '@/utils/i18n/data'
 import { useTranslatedPath } from '@/utils/i18n/utils'
 import { locale } from '@/components/islands/LocaleStore/locale-store'
 import {
@@ -18,7 +18,7 @@ type Props = {
   collection: string
   t: I18nData<'likes'>
 }
-type FetcherProps = Omit<Props, 't'> & { locale: Languages }
+type FetcherProps = Omit<Props, 't'> & { locale: Language }
 
 const fetchLikes = async ({ slug, collection, locale }: FetcherProps) => {
   const translatePath = useTranslatedPath(locale)

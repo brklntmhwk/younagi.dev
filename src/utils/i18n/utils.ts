@@ -1,23 +1,23 @@
-import { defaultLang, languages, type Languages } from './data'
+import { defaultLang, languages, type Language } from './data'
 
 export const getLocaleFromUrl = (url: URL) => {
   const [, lang] = url.pathname.split('/')
-  if (lang && lang in languages) return lang as Languages
+  if (lang && lang in languages) return lang as Language
 
   return defaultLang
 }
 
-export const useTranslatedPath = (lang: Languages) => {
+export const useTranslatedPath = (lang: Language) => {
   return function translatePath(path: string, l = lang) {
     return l === defaultLang ? path : `/${l}${path}`
   }
 }
 
-export const isLocale = (locale: string | undefined): locale is Languages =>
+export const isLocale = (locale: string | undefined): locale is Language =>
   locale !== undefined && Object.hasOwn(languages, locale)
 
 export const getTargetLocaleSlug = (
-  curLocale: Languages | string,
+  curLocale: Language | string,
   curUrl: URL
 ) => {
   let slug: string

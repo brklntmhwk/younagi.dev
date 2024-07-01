@@ -57,12 +57,12 @@ const image = {
 <style>
   .link-card-wrapper {
     max-width: 40rem;
-    max-height: 10rem;
+    height: 103px;
     .link-card {
+      height: 100%;
       background-color: var(--bg);
       display: flex;
       flex-wrap: nowrap;
-      gap: 0.5rem;
       justify-content: space-between;
       overflow: hidden;
       &:hover {
@@ -74,14 +74,17 @@ const image = {
         flex-basis: 12rem;
         flex-grow: 1;
         flex-shrink: 1;
-        gap: 0.25rem;
-        padding: 0.5rem 0 0.5rem 0.875rem;
+        justify-content: space-between;
+        padding: 0.5rem 0.875rem;
         white-space: nowrap;
         overflow: hidden;
         .link-title {
           font-size: 1.35rem;
           font-weight: 700;
           line-height: 1.25;
+          @media (min-width: 768px) {
+            font-size: 1.4rem;
+          }
         }
         .link-description {
           font-size: 0.95rem;
@@ -103,6 +106,9 @@ const image = {
           overflow: hidden;
           text-overflow: ellipsis;
         }
+        @media (min-width: 768px) {
+          padding: 0.65rem 0.875rem;
+        }
       }
       .link-image {
         max-width: 8.75rem;
@@ -110,10 +116,18 @@ const image = {
         flex-basis: 6rem;
         flex-grow: 1;
         flex-shrink: 1;
-        img {
+        & :global(img) {
           object-fit: cover;
+          height: 100%;
+        }
+        @media (min-width: 768px) {
+          max-width: 9.5rem;
+          flex-basis: 7rem;
         }
       }
+    }
+    @media (min-width: 768px) {
+      height: 125px;
     }
   }
 </style>

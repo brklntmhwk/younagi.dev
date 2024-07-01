@@ -1,4 +1,4 @@
-export type Languages = keyof typeof languages
+export type Language = keyof typeof languages
 export type LangsWithoutDefault = typeof langList
 
 /* Add languages on an as-needed basis here */

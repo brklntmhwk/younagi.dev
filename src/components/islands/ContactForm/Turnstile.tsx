@@ -5,13 +5,13 @@ import {
   splitProps,
   onCleanup,
 } from 'solid-js'
-import { type Languages } from '@/utils/i18n/data'
+import { type Language } from '@/utils/i18n/data'
 import { cfTurnstile } from './contact-form.css'
 
 type Props = {
   siteKey: string
   size?: 'normal' | 'compact'
-  locale?: Languages
+  locale?: Language
   onVerify?: (token: string) => void
 } & Omit<JSX.HTMLAttributes<HTMLDivElement>, 'class'>
 

@@ -1,0 +1,14 @@
+---
+import { type FormattedDate, formatDate } from './format-date'
+
+type Props = {
+  date: FormattedDate[0]
+  locale: FormattedDate[1]
+  show?: FormattedDate[2]
+}
+
+const { date, locale, show } = Astro.props
+const displayDate = formatDate(date, locale, show)
+---
+
+<time datetime={date.toISOString()}>{displayDate}</time>

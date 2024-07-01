@@ -1,14 +1,18 @@
-import { type Languages } from '@/utils/i18n/data'
+import { type Language } from '@/utils/i18n/data'
 
-export const formatDate = (
+type FormateDate = (
   date: Date,
-  locale: Languages,
+  locale: Language,
   show?: {
     year: boolean
     month: boolean
     day: boolean
   }
-) =>
+) => string
+
+export type FormattedDate = Parameters<FormateDate>
+
+export const formatDate: FormateDate = (date, locale, show) =>
   !show
     ? new Intl.DateTimeFormat(locale, {
         year: 'numeric',

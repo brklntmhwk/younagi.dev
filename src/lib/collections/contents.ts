@@ -5,7 +5,7 @@ import {
   type Flatten,
   getCollection,
 } from 'astro:content'
-import type { Languages } from '@/utils/i18n/data'
+import type { Language } from '@/utils/i18n/data'
 import { getLocaleFromSlug } from '@/utils/get-locale-from-slug'
 import { SHOW_DRAFT_PAGES_IN_DEV } from '@/consts'
 
@@ -21,12 +21,12 @@ export const isContentCollectionKey = (
 
 export const getLocaleContentEntries = <T extends ContentCollectionKey>(
   entries: Flatten<AnyEntryMap[T]>[],
-  locale: Languages
+  locale: Language
 ) => entries.filter((entry) => getLocaleFromSlug(entry.slug) === locale)
 
 export const getContentEntries = async <T extends ContentCollectionKey>(
   key: T,
-  locale?: Languages
+  locale?: Language
 ) => {
   let entries = await getCollection(key)
   if (locale) {
@@ -46,7 +46,7 @@ export const getContentEntries = async <T extends ContentCollectionKey>(
 
 export const getSortedContentEntries = async <T extends ContentCollectionKey>(
   key: T,
-  locale?: Languages
+  locale?: Language
 ) => {
   const entries = await getContentEntries(key, locale)
 

@@ -1,5 +1,5 @@
 ---
-import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
+import type { GetStaticPaths } from 'astro'
 import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import BlogList from '@/components/BlogList.astro'
@@ -7,7 +7,7 @@ import Pager from '@/components/Pager.astro'
 import { LIMIT_PER_PAGE } from '@/consts'
 import { ArchiveSlugify } from '@/utils/archive-slugify'
 import { defaultLang } from '@/utils/i18n/data'
-import { formatDate } from '@/utils/format-date'
+import { formatDate } from '@/components/FormattedDate'
 import { convertDateStr } from '@/utils/convert-date-str'
 import { getSortedContentEntries } from '@/lib/collections/contents'
 
@@ -28,8 +28,6 @@ export const getStaticPaths = (async ({ paginate }) => {
     })
   })
 }) satisfies GetStaticPaths
-
-type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
 const { page } = Astro.props
 const { date } = Astro.params

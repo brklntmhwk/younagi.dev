@@ -3,6 +3,7 @@ import { style } from '@vanilla-extract/css'
 export const TocUlList = style({
   height: 'fit-content',
   maxHeight: '75dvh',
+  padding: '0.85rem 0.5rem 0.85rem 0',
   display: 'flex',
   flexDirection: 'column',
   gap: '1rem',

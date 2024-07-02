@@ -1,8 +1,6 @@
-// import { type Component } from 'solid-js'
 import { useStore } from '@nanostores/solid'
 import { locale } from '@/components/LocaleStore/locale-store'
 import { url } from '@/components/UrlStore/url-store'
-// import type { I18nData } from '@/lib/collections/types'
 import { getTargetLocaleSlug } from '@/utils/i18n/utils'
 import { defaultLang, languages } from '@/utils/i18n/data'
 import {
@@ -11,10 +9,6 @@ import {
   localeLink,
   localeSpan,
 } from './locale-picker.css'
-
-// type Props = {
-//   t: I18nData<'locale_picker'>
-// }
 
 export const LocalePicker = () => {
   const $locale = useStore(locale)

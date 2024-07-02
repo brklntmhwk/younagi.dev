@@ -15,6 +15,7 @@ type Props = {
   modalName: ModalContent
   icon?: SVGElement
   iconLabel?: string
+  buttonStyle?: string
   buttonLabel: string
 }
 
@@ -22,6 +23,7 @@ export const Modal: ParentComponent<Props> = ({
   modalName,
   icon,
   iconLabel,
+  buttonStyle,
   buttonLabel,
   children,
 }) => {
@@ -67,7 +69,7 @@ export const Modal: ParentComponent<Props> = ({
         type="button"
         id={`${modalName}-icon-button`}
         ref={buttonRef}
-        class={modalButton}
+        class={`${modalButton} ${buttonStyle}`}
         title={buttonLabel}
         aria-label={buttonLabel}
       >

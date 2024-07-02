@@ -6,10 +6,9 @@ import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { Article } from '@/components/Article'
 import { Likes } from '@/components/Likes/Likes'
-import BuyMeACoffee from '@/components/BuyMeACoffee.astro'
+import { BuyMeACoffee } from '@/components/BuyMeACoffee'
 import { FormattedDate } from '@/components/FormattedDate'
 import { Taxonomy } from '@/components/Taxonomy'
-// import Toc from '@/components/Toc.astro'
 import { Modal } from '@/components/Modal/Modal'
 import { Toc } from '@/components/Toc/Toc'
 import { Icon } from '@/components/Icon'
@@ -85,7 +84,6 @@ const tags = await getBlogTags(blogTags, locale)
           <Toc client:only="solid" {headings} />
           <Icon slot="icon" iconName="toc" width={28} height={28} />
         </Modal>
-        <!-- <Toc {headings} /> -->
       </section>
       <section slot="content" class="prose">
         <slot />

@@ -1,0 +1,41 @@
+---
+import { getEntry } from 'astro:content'
+import { getLocaleFromUrl } from '@/utils/i18n/utils'
+import { Icon } from '@/components/Icon'
+import { Modal } from '@/components/Modal/Modal'
+import { ACCOUNT_ID } from '@/consts'
+import {
+  bmcWrapper,
+  bmcIframe,
+  bmcButton,
+  ornament,
+  bmcGreeting,
+} from './buy-me-a-coffee.css'
+
+const locale = getLocaleFromUrl(Astro.url)
+const t = await getEntry('i18n', `${locale}/translation`)
+---
+
+<Modal
+  client:only="solid"
+  modalName="buy_me_a_coffee"
+  buttonLabel="Buy Me A Coffee"
+  buttonStyle={bmcButton}
+  iconLabel="Buy Me A Coffee"
+>
+  <div class={bmcWrapper}>
+    <iframe
+      id="bmc-frame"
+      class={bmcIframe}
+      title="Buy Me A Coffee"
+      allow="payment"
+      src={`https://buymeacoffee.com/widget/page/${ACCOUNT_ID}`}
+      fetchpriority="low"
+      loading="lazy"></iframe>
+  </div>
+  <Icon slot="icon" iconName="bmc" width={30} height={30} />
+</Modal>
+<div class={bmcGreeting}>
+  <p>{t.data.bmc.greeting_message}</p>
+  <span class={ornament}></span>
+</div>

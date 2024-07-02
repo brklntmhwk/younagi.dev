@@ -4,7 +4,10 @@ import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getLocaleFromUrl } from '@/utils/i18n/utils'
 import { Article } from '@/components/Article'
-import Toc from '@/components/Toc.astro'
+// import Toc from '@/components/Toc.astro'
+import { Modal } from '@/components/Modal/Modal'
+import { Toc } from '@/components/Toc/Toc'
+import { Icon } from '@/components/Icon'
 import ProfileIcon from '@/components/ProfileIcon.astro'
 import ProfileImage from '@/assets/images/profile.png'
 
@@ -35,7 +38,16 @@ const t = await getEntry('i18n', `${locale}/translation`)
           />
           <span class="my-name">{t.data.pages.about.my_name}</span>
         </section>
-        <Toc {headings} />
+        <Modal
+          client:only="solid"
+          modalName="toc"
+          buttonLabel={t.data.toc.button_label}
+          iconLabel={t.data.toc.button_label}
+        >
+          <Toc client:only="solid" {headings} />
+          <Icon slot="icon" iconName="toc" width={28} height={28} />
+        </Modal>
+        <!-- <Toc {headings} /> -->
       </section>
       <section slot="content" class="about-content">
         <slot />
@@ -53,6 +65,9 @@ const t = await getEntry('i18n', `${locale}/translation`)
       width: 100%;
     }
     .about-metadata {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
       .profile {
         padding: 0.5rem 0;
         display: grid;

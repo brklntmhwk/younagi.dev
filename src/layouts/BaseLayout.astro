@@ -3,6 +3,7 @@ import BaseHead from '@/components/BaseHead.astro'
 import { Navigation } from '@/components/Navigation'
 import Footer from '@/components/Footer.astro'
 import { LocaleStore } from '@/components/LocaleStore/LocaleStore'
+import { UrlStore } from '@/components/UrlStore/UrlStore'
 import { getLocaleFromUrl } from '@/utils/i18n/utils'
 
 export type Props = {
@@ -17,7 +18,8 @@ export type Props = {
   }
 }
 
-const locale = getLocaleFromUrl(Astro.url)
+const url = Astro.url
+const locale = getLocaleFromUrl(url)
 const { title, description, og } = Astro.props
 ---
 
@@ -28,6 +30,7 @@ const { title, description, og } = Astro.props
   </head>
   <body data-pagefind-body>
     <LocaleStore client:only="solid-js" {locale} />
+    <UrlStore client:only="solid-js" {url} />
     <div class="base-wrapper">
       <Navigation />
       <slot />

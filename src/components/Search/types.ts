@@ -1,3 +1,9 @@
+/**
+ * Pagefind API types manually extracted from:
+ * https://github.com/CloudCannon/pagefind/blob/v1.0.4/pagefind_web_js/types/index.d.ts
+ * Since using the "Object" type throws an error, they are replaced with "object".
+ */
+
 /** Global index options that can be passed to pagefind.options() */
 export type PagefindIndexOptions = {
   /** Overrides the URL path that Pagefind uses to load its search bundle */

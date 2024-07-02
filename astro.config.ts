@@ -21,10 +21,11 @@ import rehypeMarkImageFigure from './src/plugins/rehype-image-figure'
 import remarkAstroImageAssets from './src/plugins/remark-astro-image-assets'
 import remarkLineBreaks from './src/plugins/remark-line-breaks'
 import remarkCallout from './src/plugins/remark-callout'
+import { SITE_URL } from './src/consts'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://younagi.dev',
+  site: SITE_URL,
   output: 'hybrid',
   adapter: cloudflare({
     platformProxy: {

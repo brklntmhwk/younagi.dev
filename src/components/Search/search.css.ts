@@ -1,25 +1,25 @@
 import { style, globalStyle } from '@vanilla-extract/css'
-import { bgColor, fgColor, lineColor } from '@/styles/styles.css'
+import { bgColor, fgColor, lineColor, hoverBgColor } from '@/styles/styles.css'
 
 export const searchWrapper = style({
   vars: {
-    // [bgColor]: 'hsla(0, 0%, 96.7%, 1)',
     [fgColor]: 'hsla(248.57, 11.48%, 11.96%, 1)',
   },
   '@media': {
     '(prefers-color-scheme: dark)': {
       vars: {
-        // [bgColor]: 'hsla(248.57, 11.48%, 11.96%, 1)',
         [fgColor]: 'hsla(0, 0%, 96.7%, 1)',
       },
     },
   },
   color: fgColor,
-  // backgroundColor: bgColor,
+  boxSizing: 'border-box',
+  height: 'fit-content',
+  maxHeight: '77dvh',
   display: 'flex',
   flexDirection: 'column',
-  gap: '0.75rem',
-  padding: '1.15rem 1rem',
+  gap: '1.75rem',
+  padding: '1.15rem 0.25rem',
 })
 
 export const searchInputWrapper = style({
@@ -34,8 +34,9 @@ export const searchInputWrapper = style({
     },
   },
   backgroundColor: bgColor,
+  position: 'sticky',
   display: 'flex',
-  gap: '0.85rem',
+  gap: '0.5rem',
   padding: '0.75rem',
   zIndex: '60',
 })
@@ -62,22 +63,37 @@ export const searchInput = style({
 export const searchResults = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '1.5rem',
+  flexGrow: 1,
+  flexShrink: 1,
+  flexBasis: 'auto',
+  gap: '0.25rem',
   overflowY: 'auto',
-  padding: '1.5rem 1.25rem 0.95rem 1.25rem',
+  padding: '0 0.15rem 0.95rem 0.15rem',
 })
 
 export const searchResult = style({
   vars: {
     [lineColor]: 'hsla(260.87, 10.13%, 55.49%, 0.33)',
+    [hoverBgColor]: 'hsla(0, 0%, 91.7%, 1)',
   },
   '@media': {
     '(prefers-color-scheme: dark)': {
-      vars: {},
+      vars: {
+        [hoverBgColor]: 'hsla(248.57, 11.48%, 18.96%, 1)',
+      },
     },
   },
-  paddingBottom: '0.75rem',
+  ':hover': {
+    backgroundColor: hoverBgColor,
+  },
+  selectors: {
+    '&.active': {
+      backgroundColor: hoverBgColor,
+    },
+  },
+  padding: '0.85rem 0',
   borderBottom: `1px solid ${lineColor}`,
+  borderRadius: '0.15rem',
   display: 'flex',
   flexDirection: 'column',
   gap: '0.625rem',
@@ -89,7 +105,8 @@ export const hitArticleTitle = style({
 })
 
 export const hitArticleExcerpt = style({
-  fontSize: '1.05rem',
+  fontSize: '0.95rem',
+  lineHeight: '1.175',
 })
 
 globalStyle(`${hitArticleExcerpt} > mark`, {

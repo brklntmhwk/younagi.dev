@@ -36,6 +36,8 @@
     "@astrojs/solid-js": "^4.2.0",
     "@fontsource-variable/inconsolata": "^5.0.18",
     "@modular-forms/solid": "^0.21.0",
+    "@solid-primitives/event-listener": "^2.3.3",
+    "@solid-primitives/keyboard": "^1.2.8",
     "@unocss/reset": "^0.60.0",
     "astro": "^4.11.3",
     "astro-purgecss": "4.1.0",

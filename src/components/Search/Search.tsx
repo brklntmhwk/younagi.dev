@@ -99,14 +99,16 @@ export const Search: Component<Props> = ({ t }) => {
     <div class={searchWrapper}>
       <form onsubmit={handleSubmit}>
         <div class={`${searchInputWrapper} pokemon-border`}>
-          <SearchIcon width={20} height={20} />
+          <SearchIcon width={22} height={22} />
           <input
+            id="search-window"
             type="text"
             value={query()}
             placeholder={t.button_label}
             onInput={(e) => setQuery(e.currentTarget.value)}
             onKeyDown={handleKeyDown}
             class={searchInput}
+            autocomplete="off"
           />
         </div>
       </form>
@@ -182,7 +184,7 @@ const SearchResult: Component<SearchResultProps> = (props) => {
   return (
     <li>
       <a
-        class={searchResult}
+        class={`${searchResult} ${props.active && 'active'}`}
         href={result()?.raw_url ?? ''}
         ref={props.ref}
         onFocus={() => props.setActiveIndex(props.index)}

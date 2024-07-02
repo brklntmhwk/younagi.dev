@@ -1,9 +1,10 @@
 ---
 import { getEntry } from 'astro:content'
-import Search from '@/components/Search.astro'
-import LocalePicker from '@/components/LocalePicker.astro'
+// import Search from '@/components/Search.astro'
+// import LocalePicker from '@/components/LocalePicker.astro'
 import { Modal } from '@/components/Modal/Modal'
-import { Search as SolidSearch } from '@/components/Search/Search'
+import { Search } from '@/components/Search/Search'
+import { LocalePicker } from '@/components/LocalePicker/LocalePicker'
 import { Icon } from '@/components/Icon'
 import NavMenuContainer from './NavMenuContainer.astro'
 import NavLink from './NavLink.astro'
@@ -35,10 +36,14 @@ const t = await getEntry('i18n', `${locale}/translation`)
       >
     </div>
     <div class="icon-links">
-      <LocalePicker />
-      <Search />
+      <!-- <LocalePicker /> -->
+      <Modal client:only="solid" modalName="locale" buttonLabel="locale">
+        <LocalePicker client:only="solid" />
+        <Icon slot="icon" iconName="language" width={30} height={30} />
+      </Modal>
+      <!-- <Search /> -->
       <Modal client:only="solid" modalName="search" buttonLabel="search">
-        <SolidSearch client:only="solid" t={t.data.search} />
+        <Search client:only="solid" t={t.data.search} />
         <Icon slot="icon" iconName="magnifier" width={30} height={30} />
       </Modal>
     </div>

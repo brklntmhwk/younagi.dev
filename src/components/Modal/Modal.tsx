@@ -66,7 +66,6 @@ export const Modal: ParentComponent<Props> = ({
   return (
     <>
       <button
-        type="button"
         id={`${modalName}-icon-button`}
         ref={buttonRef}
         class={`${modalButton} ${buttonStyle}`}

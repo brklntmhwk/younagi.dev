@@ -56,25 +56,24 @@ export const modalWrapper = style({
   maxHeight: '80dvh',
   padding: '1.5rem 1rem',
   margin: '0 1.5rem',
-  // overflowY: 'auto',
   boxSizing: 'border-box',
 })
 
 export const modalButton = style({
-  vars: {
-    [bgColor]: 'hsla(0, 0%, 96.7%, 1)',
-    [fgColor]: 'hsla(248.57, 11.48%, 11.96%, 1)',
-  },
-  '@media': {
-    '(prefers-color-scheme: dark)': {
-      vars: {
-        [bgColor]: 'hsla(248.57, 11.48%, 11.96%, 1)',
-        [fgColor]: 'hsla(0, 0%, 96.7%, 1)',
-      },
-    },
-  },
-  backgroundColor: 'transparent',
-  color: fgColor,
+  // vars: {
+  //   [bgColor]: 'hsla(0, 0%, 96.7%, 1)',
+  //   [fgColor]: 'hsla(248.57, 11.48%, 11.96%, 1)',
+  // },
+  // '@media': {
+  //   '(prefers-color-scheme: dark)': {
+  //     vars: {
+  //       [bgColor]: 'hsla(248.57, 11.48%, 11.96%, 1)',
+  //       [fgColor]: 'hsla(0, 0%, 96.7%, 1)',
+  //     },
+  //   },
+  // },
+  // backgroundColor: 'transparent',
+  // color: fgColor,
   border: 'none',
   padding: '0',
   display: 'flex',

@@ -56,7 +56,7 @@ const slugWithoutLocale = getSlugWithoutLocale(slug)
       <section slot="content" class="news-content">
         <slot />
       </section>
-      <section slot="cta">
+      <section slot="cta" class="cta">
         <BuyMeACoffee />
       </section>
     </Article>
@@ -162,6 +162,12 @@ const slugWithoutLocale = getSlugWithoutLocale(slug)
           }
         }
       }
+    }
+    .cta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem 1.75rem;
     }
   }
 </style>

@@ -64,7 +64,7 @@ export const searchResults = style({
   flexBasis: 'auto',
   gap: '0.25rem',
   overflowY: 'auto',
-  padding: '0 0.15rem 0.95rem 0.15rem',
+  padding: '0.75rem 0 0.95rem 0',
 })
 
 export const searchResult = style({
@@ -87,7 +87,7 @@ export const searchResult = style({
       backgroundColor: hoverBgColor,
     },
   },
-  padding: '0.85rem 0',
+  padding: '0.85rem 0.5rem',
   borderBottom: `1px solid ${lineColor}`,
   borderRadius: '0.15rem',
   display: 'flex',

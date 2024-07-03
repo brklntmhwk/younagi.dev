@@ -1,8 +1,8 @@
 ---
 import type { OEmbedSchema } from './types'
-import OEmbedPhoto from './OEmbedPhoto.astro'
-import OEmbedVideo from './OEmbedVideo.astro'
-import OEmbedRich from './OEmbedRich.astro'
+import { OEmbedPhoto } from './OEmbedPhoto'
+import { OEmbedVideo } from './OEmbedVideo'
+import { OEmbedRich } from './OEmbedRich'
 import LinkCard from '../Link/LinkCard.astro'
 import { isPhoto, isVideo, isRich } from './embed-is'
 
@@ -19,11 +19,11 @@ oEmbedData = JSON.parse(oEmbedData as unknown as string)
 
 {
   isPhoto(oEmbedData) ? (
-    <OEmbedPhoto data={oEmbedData} />
+    <OEmbedPhoto client:only="solid" data={oEmbedData} />
   ) : isVideo(oEmbedData) ? (
-    <OEmbedVideo data={oEmbedData} />
+    <OEmbedVideo client:only="solid" data={oEmbedData} />
   ) : isRich(oEmbedData) ? (
-    <OEmbedRich data={oEmbedData} />
+    <OEmbedRich client:only="solid" data={oEmbedData} />
   ) : (
     <LinkCard {href} data-link-card />
   )

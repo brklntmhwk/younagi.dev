@@ -25,7 +25,9 @@ locale_picker:
 theme_toggle:
   button_label: Toggle theme
 search:
-  button_label: Search content
+  placeholder: Search...
+  button_label: Hit Ctrl + K to search contents
+  result_not_found: No results found for
 toc:
   button_label: Table of Content
 bulleting_board:

@@ -15,9 +15,6 @@ export const bmcWrapper = style({
   color: fgColor,
   boxSizing: 'border-box',
   maxHeight: '77dvh',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '1.75rem',
 })
 
 export const bmcIframe = style({
@@ -114,14 +111,11 @@ export const bmcButton = style({
     backgroundColor: hoverBgColor,
   },
   justifyContent: 'center',
-  width: '12.5rem',
-  height: '2.7rem',
+  width: '12.75rem',
+  height: '2.75rem',
   color: fgColor,
   backgroundColor: bgColor,
   fontWeight: 700,
-  borderRadius: '0.5rem',
+  borderRadius: '0.275rem',
   // padding: '0.5rem 0.85rem',
-  // display: 'flex',
-  // gap: '0.5rem',
-  // alignItems: 'center',
 })

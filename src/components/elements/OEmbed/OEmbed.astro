@@ -1,0 +1,30 @@
+---
+import type { OEmbedSchema } from './types'
+import OEmbedPhoto from './OEmbedPhoto.astro'
+import OEmbedVideo from './OEmbedVideo.astro'
+import OEmbedRich from './OEmbedRich.astro'
+import LinkCard from '../Link/LinkCard.astro'
+import { isPhoto, isVideo, isRich } from './embed-is'
+
+export type Props = {
+  oEmbed: OEmbedSchema
+  href: string
+}
+
+const props = Astro.props
+let oEmbedData = props.oEmbed
+const href = props.href
+oEmbedData = JSON.parse(oEmbedData as unknown as string)
+---
+
+{
+  isPhoto(oEmbedData) ? (
+    <OEmbedPhoto data={oEmbedData} />
+  ) : isVideo(oEmbedData) ? (
+    <OEmbedVideo data={oEmbedData} />
+  ) : isRich(oEmbedData) ? (
+    <OEmbedRich data={oEmbedData} />
+  ) : (
+    <LinkCard {href} data-link-card />
+  )
+}

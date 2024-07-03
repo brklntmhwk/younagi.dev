@@ -54,7 +54,7 @@ export const modalWrapper = style({
   width: '100%',
   maxWidth: '38rem',
   maxHeight: '80dvh',
-  padding: '1.5rem 1rem',
+  padding: '1.5rem 0.85rem',
   margin: '0 1.5rem',
   boxSizing: 'border-box',
 })

@@ -79,7 +79,7 @@ export const Modal: ParentComponent<Props> = ({
         <div
           id={`${modalName}-modal-overlay`}
           ref={overlayRef}
-          class={`${modal} ${isOpen() ? '' : hidden}`}
+          class={`${modal} ${!isOpen() && hidden}`}
         >
           <div
             id={`${modalName}-wrapper`}

@@ -15,12 +15,20 @@ import rehypeKatex from 'rehype-katex'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeSlug from 'rehype-slug'
 import rehypePrettyCode from 'rehype-pretty-code'
+import rehypeMarkImageFigure from './src/plugins/rehype-image-figure'
+import remarkCallout from './src/plugins/remark-callout'
+import remarkAstroImageAssets from './src/plugins/remark-astro-image-assets'
 import remarkFootnote from './src/plugins/remark-footnote'
 import remarkLinkCard from './src/plugins/remark-link-card'
-import rehypeMarkImageFigure from './src/plugins/rehype-image-figure'
-import remarkAstroImageAssets from './src/plugins/remark-astro-image-assets'
 import remarkLineBreaks from './src/plugins/remark-line-breaks'
-import remarkCallout from './src/plugins/remark-callout'
+import remarkEmbed, {
+  type RemarkEmbedOptions,
+} from './src/plugins/remark-embed'
+import {
+  googleSlidesTransformer,
+  youTubeTransformer,
+  oEmbedTransformer,
+} from './src/plugins/transformers'
 import { SITE_URL } from './src/consts'
 
 // https://astro.build/config
@@ -91,8 +99,18 @@ export default defineConfig({
       remarkAstroImageAssets,
       remarkCallout,
       remarkFootnote,
-      remarkLinkCard,
       remarkLineBreaks,
+      [
+        remarkEmbed,
+        {
+          transformers: [
+            googleSlidesTransformer,
+            youTubeTransformer,
+            oEmbedTransformer,
+          ],
+        } satisfies RemarkEmbedOptions,
+      ],
+      remarkLinkCard,
     ],
     rehypePlugins: [
       rehypeKatex,

@@ -25,7 +25,9 @@ locale_picker:
 theme_toggle:
   button_label: テーマを切り替える
 search:
-  button_label: コンテンツを検索する
+  placeholder: 検索...
+  button_label: Ctrl + K で検索
+  result_not_found: 記事がヒットしませんでした：
 toc:
   button_label: 目次
 bulleting_board:

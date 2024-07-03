@@ -1,13 +1,8 @@
 import type { RemarkPlugin } from '@astrojs/markdown-remark'
 import type { Plugin } from 'unified'
-import type {
-  Root,
-  Parent,
-  BlockContent,
-  DefinitionContent,
-  Paragraph,
-} from 'mdast'
+import type { Root, BlockContent, DefinitionContent, Paragraph } from 'mdast'
 import { visit } from 'unist-util-visit'
+import { isParent } from './mdast-is'
 
 type Callout = {
   type: string
@@ -42,19 +37,16 @@ const parseCallout = (text: string | undefined): Callout | undefined => {
 const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
   return (tree) => {
     visit(tree, 'blockquote', (node) => {
-      if (!('children' in node) || (node as Parent).children.length === 0)
-        return
+      if (!isParent(node)) return
+      if (node.children.length === 0) return
 
       const paragraphNode = node.children[0]!
       if (paragraphNode.type !== 'paragraph') return
 
-      if (
-        !('children' in paragraphNode) ||
-        (paragraphNode as Parent).children.length === 0
-      )
-        return
+      if (!isParent(paragraphNode)) return
+      if (paragraphNode.children.length === 0) return
 
-      const calloutNode = paragraphNode.children[0]!
+      const calloutNode = paragraphNode.children[0]
       if (calloutNode?.type !== 'text') return
 
       const [calloutTypeTitle, ...calloutContent] =
@@ -66,6 +58,7 @@ const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
         ...node.data,
         hName: 'callout',
         hProperties: {
+          ...(node.data?.hProperties ?? {}),
           dataCalloutType: calloutData.type,
           dataExpandable: String(calloutData.expandable),
           dataExpanded: String(calloutData.expanded),

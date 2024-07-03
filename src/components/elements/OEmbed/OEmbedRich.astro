@@ -1,0 +1,32 @@
+---
+import { fromHtml } from 'hast-util-from-html'
+import { select } from 'hast-util-select'
+import { toHtml } from 'hast-util-to-html'
+import type { OEmbedRich } from './types'
+// import { sanitize } from './sanitize'
+
+type Props = {
+  data: OEmbedRich
+}
+
+const { data } = Astro.props
+const hast = fromHtml(data.html)
+const iframe = select('iframe', hast)
+if (iframe?.properties.style?.toString().includes('aspect-ratio:')) {
+  iframe.properties.width = '100%'
+  iframe.properties.height = '100%'
+}
+const processedHtml = toHtml(hast)
+---
+
+<div
+  class="pokemon-border"
+  set:html={processedHtml}
+  data-oembed
+  data-oembed-rich
+/>
+<style>
+  [data-oembed-rich] {
+    width: 100%;
+  }
+</style>

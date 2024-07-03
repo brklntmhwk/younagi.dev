@@ -104,7 +104,7 @@ export const Search: Component<Props> = ({ t }) => {
             id="search-window"
             type="text"
             value={query()}
-            placeholder={t.button_label}
+            placeholder={t.placeholder}
             onInput={(e) => setQuery(e.currentTarget.value)}
             onKeyDown={handleKeyDown}
             class={searchInput}
@@ -121,6 +121,7 @@ export const Search: Component<Props> = ({ t }) => {
             setResultRefs={setSearchResultRefs}
             activeIndex={activeIndex()}
             setActiveIndex={setActiveIndex}
+            notFoundLabel={t.result_not_found}
           />
         )}
       </Suspense>
@@ -135,6 +136,7 @@ type SearchResultsProps = {
   setResultRefs: Setter<HTMLAnchorElement[]>
   activeIndex: number
   setActiveIndex: Setter<number>
+  notFoundLabel: string
 }
 
 const SearchResults: Component<SearchResultsProps> = (props) => {
@@ -149,7 +151,7 @@ const SearchResults: Component<SearchResultsProps> = (props) => {
     <>
       {props.results?.length === 0 ? (
         <div class={notFound}>
-          No results found for{' '}
+          {props.notFoundLabel}{' '}
           <span class={notFoundKeyword}>"{props.query}"</span>
         </div>
       ) : (

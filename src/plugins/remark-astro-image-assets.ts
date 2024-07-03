@@ -14,14 +14,18 @@ type RemarkAstroImageAssetsOptions = {
   sizes: string
 }
 
-const remarkAstroImageAssets: Plugin<[RemarkAstroImageAssetsOptions?], Root> = (
+const defaultRemarkAstroImageAssetsOptions: Readonly<RemarkAstroImageAssetsOptions> =
   {
-    imgDir = './assets/images',
-    size = 8,
-    blurFormat = 'webp',
-    widths = [240, 540, 720],
-    sizes = '(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px',
-  } = {} as RemarkAstroImageAssetsOptions
+    imgDir: './assets/images',
+    size: 8,
+    blurFormat: 'webp',
+    widths: [240, 540, 720],
+    sizes:
+      '(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px',
+  }
+
+const remarkAstroImageAssets: Plugin<[RemarkAstroImageAssetsOptions?], Root> = (
+  options = defaultRemarkAstroImageAssetsOptions
 ): ReturnType<RemarkPlugin> => {
   return async (tree) => {
     const imgAndParentPairs: { node: Image; parent: Parent }[] = []
@@ -36,6 +40,8 @@ const remarkAstroImageAssets: Plugin<[RemarkAstroImageAssetsOptions?], Root> = (
 
       imgAndParentPairs.push({ node, parent })
     })
+
+    const { imgDir, size, blurFormat, sizes, widths } = options
 
     await Promise.all(
       imgAndParentPairs.map(async ({ node, parent }) => {
@@ -80,7 +86,7 @@ const remarkAstroImageAssets: Plugin<[RemarkAstroImageAssetsOptions?], Root> = (
         node.data = {
           ...node.data,
           hProperties: {
-            ...((node.data && node.data.hProperties) || {}),
+            ...(node.data?.hProperties ?? {}),
             widths: [...widths, width],
             sizes: `${sizes}, ${width}px`,
             format: 'avif',
@@ -90,7 +96,7 @@ const remarkAstroImageAssets: Plugin<[RemarkAstroImageAssetsOptions?], Root> = (
         parent.data = {
           ...parent.data,
           hProperties: {
-            ...((parent.data && parent.data.hProperties) || {}),
+            ...(parent.data?.hProperties ?? {}),
             dataImageFigure: true,
             dataImageAlt: node.alt,
             dataImageAspectRatio: aspectRatio,

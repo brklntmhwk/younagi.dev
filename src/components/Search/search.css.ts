@@ -16,6 +16,9 @@ export const searchWrapper = style({
   boxSizing: 'border-box',
   height: 'fit-content',
   maxHeight: '77dvh',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '1.5rem',
 })
 
 export const searchInputWrapper = style({

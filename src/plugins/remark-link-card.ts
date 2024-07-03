@@ -9,15 +9,19 @@ const remarkLinkCard: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
     visit(tree, isBareLink, (node, _index, parent: Parent | undefined) => {
       if (!isParent(parent)) return
 
+      const link = node.children[0]
+
       if (
-        node.children[0].children[0].value !== node.children[0].url ||
+        link.children[0].value !== link.url ||
+        !link.url.startsWith('http') ||
         parent.type === 'listItem'
       )
         return
 
-      node.children[0].data = {
-        ...node.children[0].data,
+      link.data = {
+        ...link.data,
         hProperties: {
+          ...(link.data?.hProperties ?? {}),
           dataLinkCard: true,
         },
       }

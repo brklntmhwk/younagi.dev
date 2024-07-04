@@ -12,10 +12,15 @@ import { h } from 'hastscript'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import rehypeAutolinkHeadings, {
+  type Options as RehypeAutoLinkHeadingsOptions,
+} from 'rehype-autolink-headings'
 import rehypeSlug from 'rehype-slug'
-import rehypePrettyCode from 'rehype-pretty-code'
-import rehypeMarkImageFigure from './src/plugins/rehype-image-figure'
+import rehypePrettyCode, {
+  type Options as RehypePrettyCodeOptions,
+} from 'rehype-pretty-code'
+import rehypeImageFigure from './src/plugins/rehype-image-figure'
+import rehypePagefindIgnore from './src/plugins/rehype-pagefind-ignore'
 import remarkCallout from './src/plugins/remark-callout'
 import remarkAstroImageAssets from './src/plugins/remark-astro-image-assets'
 import remarkFootnote from './src/plugins/remark-footnote'
@@ -88,6 +93,7 @@ export default defineConfig({
   },
   markdown: {
     syntaxHighlight: false,
+    smartypants: false,
     remarkRehype: {
       footnoteLabel: ' ',
       footnoteLabelProperties: { className: [''] },
@@ -115,7 +121,7 @@ export default defineConfig({
     rehypePlugins: [
       rehypeKatex,
       rehypeSlug,
-      rehypeMarkImageFigure,
+      rehypeImageFigure,
       [
         rehypeAutolinkHeadings,
         {
@@ -127,7 +133,7 @@ export default defineConfig({
             },
             ['#']
           ),
-        },
+        } satisfies RehypeAutoLinkHeadingsOptions,
       ],
       [
         rehypePrettyCode,
@@ -137,8 +143,9 @@ export default defineConfig({
             dark: 'github-dark',
           },
           grid: false,
-        },
+        } satisfies RehypePrettyCodeOptions,
       ],
+      rehypePagefindIgnore,
     ],
   },
 })

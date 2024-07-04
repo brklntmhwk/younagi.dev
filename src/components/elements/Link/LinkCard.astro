@@ -1,26 +1,38 @@
 ---
+import type { HTMLAttributes } from 'astro/types'
 import { unfurl } from 'unfurl.js'
 import { Icon } from '@/components/Icon'
 
-type Props = {
-  href: string
+type Props = HTMLAttributes<'a'> & {
+  title?: string
+  description?: string
+  image?: string
 }
 
-const { href, ...props } = Astro.props
+const {
+  href,
+  title: titleProp,
+  description: descriptionProp,
+  image: imageProp,
+  ...props
+} = Astro.props
 const url = new URL(href ?? '')
 const metadata = await unfurl(url.href).catch(() => undefined)
 const favicon = metadata?.favicon
 const title =
+  titleProp ??
   metadata?.open_graph.title ??
   metadata?.twitter_card.title ??
   metadata?.title ??
   url.hostname
 const description =
+  descriptionProp ??
   metadata?.open_graph?.description ??
   metadata?.twitter_card?.description ??
   metadata?.description
 const image = {
   url:
+    imageProp ??
     metadata?.open_graph.images?.[0]?.url ??
     metadata?.twitter_card?.images?.[0]?.url,
   alt:

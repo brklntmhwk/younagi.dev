@@ -18,7 +18,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
     {t.data.blog_name}
   </a>
   <NavMenuContainer>
-    <div class="nav-links">
+    <div class="nav-links" slot="inside-drawer">
       <NavLink href={translatePath('/')}>{t.data.nav.nav_links.home}</NavLink>
       <NavLink href={translatePath('/blog')}
         >{t.data.nav.nav_links.blog}</NavLink
@@ -33,14 +33,14 @@ const t = await getEntry('i18n', `${locale}/translation`)
         >{t.data.nav.nav_links.contact}</NavLink
       >
     </div>
-    <div class="icon-links">
+    <div class="icon-links" slot="outside-drawer">
       <Modal client:only="solid" modalName="locale" buttonLabel="locale">
         <LocalePicker client:only="solid" />
-        <Icon slot="icon" iconName="language" width={30} height={30} />
+        <Icon slot="icon" iconName="language" width={28} height={28} />
       </Modal>
       <Modal client:only="solid" modalName="search" buttonLabel="search">
         <Search client:only="solid" t={t.data.search} />
-        <Icon slot="icon" iconName="magnifier" width={30} height={30} />
+        <Icon slot="icon" iconName="magnifier" width={28} height={28} />
       </Modal>
     </div>
   </NavMenuContainer>
@@ -66,17 +66,21 @@ const t = await getEntry('i18n', `${locale}/translation`)
       border-bottom: 2px solid transparent;
     }
     .blog-title {
-      font-size: 1.125rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      display: none;
+      @media (min-width: 320px) {
+        display: flex;
+        font-size: 1.125rem;
+        justify-content: center;
+        align-items: center;
+      }
       @media (min-width: 1024px) {
         grid-area: blog-title;
         place-self: center;
       }
     }
     .nav-links {
-      display: grid;
+      display: flex;
+      flex-direction: column;
       gap: 1.5rem;
       padding: 0.75rem 2.75rem;
       margin-left: 1.25rem;
@@ -95,9 +99,9 @@ const t = await getEntry('i18n', `${locale}/translation`)
           font-size: 1.375rem;
           align-self: center;
         }
-        @media (min-width: 768px) {
+        /* @media (min-width: 768px) {
           font-size: 1rem;
-        }
+        } */
         @media (min-width: 1024px) {
           font-size: 1.275rem;
           position: relative;
@@ -112,14 +116,14 @@ const t = await getEntry('i18n', `${locale}/translation`)
           }
         }
       }
-      @media (min-width: 768px) {
+      /* @media (min-width: 768px) {
         display: flex;
         gap: 3.25rem;
         padding: 0;
-      }
+      } */
       @media (min-width: 1024px) {
-        grid-area: nav-links;
-        display: grid;
+        /* grid-area: nav-links; */
+        /* display: grid; */
         gap: 2rem;
         align-self: start;
         margin-left: 1.5rem;
@@ -129,27 +133,32 @@ const t = await getEntry('i18n', `${locale}/translation`)
     .icon-links {
       display: flex;
       justify-content: center;
-      gap: 2.25rem;
-      padding: 0.75rem 2.75rem;
-      @media (min-width: 768px) {
+      gap: 0.5rem;
+      padding: 0.75rem;
+      /* @media (min-width: 768px) {
         display: flex;
         justify-content: unset;
         gap: 2rem;
         padding: 0;
+      } */
+      @media (min-width: 320px) {
+        gap: 1.25rem;
+        padding: 0.75rem 1.25rem;
       }
       @media (min-width: 1024px) {
-        padding: 0 0.5rem;
-        grid-area: icon-links;
+        width: 100%;
+        padding: 0 1.25rem;
+        /* grid-area: icon-links; */
         display: flex;
         justify-content: space-between;
         gap: 1.75rem;
-        align-self: end;
+        /* align-self: end; */
       }
     }
-    @media (min-width: 768px) {
+    /* @media (min-width: 768px) {
       height: 5.25rem;
       padding: 0.85rem 1.5rem;
-    }
+    } */
     @media (min-width: 1024px) {
       display: grid;
       gap: 1.5rem;

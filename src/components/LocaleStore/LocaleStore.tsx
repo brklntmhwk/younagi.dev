@@ -7,10 +7,10 @@ type Props = {
   locale: Language
 }
 
-export const LocaleStore: Component<Props> = ({ locale }) => {
+export const LocaleStore: Component<Props> = (props) => {
   const $locale = useStore(localeStore)
-  if (locale !== $locale()) {
-    localeStore.set(locale)
+  if (props.locale !== $locale()) {
+    localeStore.set(props.locale)
   }
 
   return null

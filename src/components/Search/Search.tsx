@@ -42,7 +42,7 @@ type Props = {
   t: I18nData<'search'>
 }
 
-export const Search: Component<Props> = ({ t }) => {
+export const Search: Component<Props> = (props) => {
   let pagefind: Pagefind
 
   onMount(async () => {
@@ -104,7 +104,7 @@ export const Search: Component<Props> = ({ t }) => {
             id="search-window"
             type="text"
             value={query()}
-            placeholder={t.placeholder}
+            placeholder={props.t.placeholder}
             onInput={(e) => setQuery(e.currentTarget.value)}
             onKeyDown={handleKeyDown}
             class={searchInput}
@@ -121,7 +121,7 @@ export const Search: Component<Props> = ({ t }) => {
             setResultRefs={setSearchResultRefs}
             activeIndex={activeIndex()}
             setActiveIndex={setActiveIndex}
-            notFoundLabel={t.result_not_found}
+            notFoundLabel={props.t.result_not_found}
           />
         )}
       </Suspense>

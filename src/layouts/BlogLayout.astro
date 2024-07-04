@@ -81,7 +81,7 @@ const tags = await getBlogTags(blogTags, locale)
           buttonLabel={t.data.toc.button_label}
           iconLabel={t.data.toc.button_label}
         >
-          <Toc client:only="solid" client:idle {headings} />
+          <Toc client:only="solid" {headings} />
           <Icon slot="icon" iconName="toc" width={28} height={28} />
         </Modal>
       </section>

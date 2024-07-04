@@ -6,10 +6,10 @@ type Props = {
   url: URL
 }
 
-export const UrlStore: Component<Props> = ({ url }) => {
+export const UrlStore: Component<Props> = (props) => {
   const $url = useStore(urlStore)
-  if (url !== $url()) {
-    urlStore.set(url)
+  if (props.url !== $url()) {
+    urlStore.set(props.url)
   }
 
   return null

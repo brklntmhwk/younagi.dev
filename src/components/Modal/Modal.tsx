@@ -19,14 +19,7 @@ type Props = {
   buttonLabel: string
 }
 
-export const Modal: ParentComponent<Props> = ({
-  modalName,
-  icon,
-  iconLabel,
-  buttonStyle,
-  buttonLabel,
-  children,
-}) => {
+export const Modal: ParentComponent<Props> = (props) => {
   onMount(() => {
     makeEventListener(
       overlayRef,
@@ -45,7 +38,7 @@ export const Modal: ParentComponent<Props> = ({
       () => {
         toggle()
 
-        if (modalName === 'search') {
+        if (props.modalName === 'search') {
           const searchInput = document.getElementById(
             'search-window'
           ) as HTMLInputElement
@@ -61,31 +54,35 @@ export const Modal: ParentComponent<Props> = ({
   const [isOpen, setIsOpen] = createSignal(false)
   const toggle = () => setIsOpen((isOpen) => !isOpen)
 
-  createShortcut(shortcutKeyMap[modalName], toggle, { preventDefault: true })
+  createShortcut(shortcutKeyMap[props.modalName], toggle, {
+    preventDefault: true,
+  })
 
   return (
     <>
       <button
-        id={`${modalName}-icon-button`}
+        id={`${props.modalName}-icon-button`}
         ref={buttonRef}
-        class={`${modalButton} ${buttonStyle}`}
-        title={buttonLabel}
-        aria-label={buttonLabel}
+        class={`${modalButton} ${props.buttonStyle}`}
+        title={props.buttonLabel}
+        aria-label={props.buttonLabel}
       >
-        {icon}
-        {iconLabel && <span class={modalButtonLabel}>{iconLabel}</span>}
+        {props.icon}
+        {props.iconLabel && (
+          <span class={modalButtonLabel}>{props.iconLabel}</span>
+        )}
       </button>
       <Portal mount={document.getElementById('#modal')!}>
         <div
-          id={`${modalName}-modal-overlay`}
+          id={`${props.modalName}-modal-overlay`}
           ref={overlayRef}
           class={`${modal} ${!isOpen() && hidden}`}
         >
           <div
-            id={`${modalName}-wrapper`}
+            id={`${props.modalName}-wrapper`}
             class={`${modalWrapper} pixel-border`}
           >
-            {children}
+            {props.children}
           </div>
         </div>
       </Portal>

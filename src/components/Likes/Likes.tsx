@@ -12,6 +12,7 @@ import {
   likesFillColor,
 } from './likes.css'
 import type { I18nData } from '@/lib/collections/types'
+import { LikeIcon } from './LikeIcon'
 
 type FetcherProps = Omit<Props, 't'> & { locale: Language }
 
@@ -31,11 +32,15 @@ type Props = {
   t: I18nData<'likes'>
 }
 
-export const Likes: Component<Props> = ({ slug, collection, t }) => {
+export const Likes: Component<Props> = (props) => {
   const $locale = useStore(locale)
   const translatePath = useTranslatedPath($locale())
   const [likes, { refetch, mutate }] = createResource(
-    () => ({ slug, collection, locale: $locale() }),
+    () => ({
+      slug: props.slug,
+      collection: props.collection,
+      locale: $locale(),
+    }),
     fetchLikes
   )
 
@@ -47,7 +52,10 @@ export const Likes: Component<Props> = ({ slug, collection, t }) => {
         onClick={async () => {
           await fetch(translatePath('/api/likes'), {
             method: 'POST',
-            body: JSON.stringify({ slug, collection }),
+            body: JSON.stringify({
+              slug: props.slug,
+              collection: props.collection,
+            }),
           })
           mutate((prev) => {
             const previous = prev ?? { likes: 0, liked: false }
@@ -59,6 +67,12 @@ export const Likes: Component<Props> = ({ slug, collection, t }) => {
           refetch()
         }}
       >
+        <LikeIcon
+          isLiked={likes()?.liked}
+          width={24}
+          height={24}
+          stroke="none"
+        />
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width={24}
@@ -87,7 +101,7 @@ export const Likes: Component<Props> = ({ slug, collection, t }) => {
             />
           </g>
         </svg>
-        <span class={likesSpan}>{t.button_label}</span>
+        <span class={likesSpan}>{props.t.button_label}</span>
         <span class={likesSpan}>{likes()?.likes ?? 0}</span>
       </button>
     </div>

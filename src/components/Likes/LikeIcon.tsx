@@ -1,4 +1,4 @@
-import type { Component, ComponentProps } from 'solid-js'
+import { type Component, type ComponentProps, splitProps } from 'solid-js'
 import { Motion } from 'solid-motionone'
 import { likesFgColor, likesFillColor } from './likes.css'
 
@@ -6,16 +6,15 @@ type Props = {
   isLiked: boolean | undefined
 }
 
-export const LikeIcon: Component<ComponentProps<'svg'> & Props> = ({
-  isLiked,
-  ...props
-}) => {
+export const LikeIcon: Component<ComponentProps<'svg'> & Props> = (props) => {
+  const [local, others] = splitProps(props, ['isLiked'])
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill={likesFgColor}
-      {...props}
+      {...others}
     >
       <defs>
         <clipPath id="clip-path">
@@ -32,7 +31,7 @@ export const LikeIcon: Component<ComponentProps<'svg'> & Props> = ({
           fill={likesFillColor}
           initial={{ y: '100%' }}
           animate={{
-            y: isLiked ? '0' : '100%',
+            y: local.isLiked ? '0' : '100%',
           }}
         />
       </g>

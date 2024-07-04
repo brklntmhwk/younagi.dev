@@ -21,7 +21,7 @@ pager:
   left_arrow_label: 前のページ
   right_arrow_label: 次のページ
 locale_picker:
-  button_label: 言語を選択する
+  button_label: Ctrl + L で言語を選択
 theme_toggle:
   button_label: テーマを切り替える
 search:

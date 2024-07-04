@@ -21,7 +21,7 @@ pager:
   left_arrow_label: Previous page
   right_arrow_label: Next page
 locale_picker:
-  button_label: Select language
+  button_label: Hit Ctrl + L to select a language
 theme_toggle:
   button_label: Toggle theme
 search:

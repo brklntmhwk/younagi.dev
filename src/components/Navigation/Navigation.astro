@@ -34,11 +34,19 @@ const t = await getEntry('i18n', `${locale}/translation`)
       >
     </div>
     <div class="icon-links" slot="outside-drawer">
-      <Modal client:only="solid" modalName="locale" buttonLabel="locale">
+      <Modal
+        client:only="solid"
+        modalName="locale"
+        buttonLabel={t.data.locale_picker.button_label}
+      >
         <LocalePicker client:only="solid" />
         <Icon slot="icon" iconName="language" width={28} height={28} />
       </Modal>
-      <Modal client:only="solid" modalName="search" buttonLabel="search">
+      <Modal
+        client:only="solid"
+        modalName="search"
+        buttonLabel={t.data.search.button_label}
+      >
         <Search client:only="solid" t={t.data.search} />
         <Icon slot="icon" iconName="magnifier" width={28} height={28} />
       </Modal>

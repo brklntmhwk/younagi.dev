@@ -2,6 +2,13 @@ import { style } from '@vanilla-extract/css'
 import { bgColor, fgColor, lineColor, hoverBgColor } from '@/styles/styles.css'
 
 export const bmcWrapper = style({
+  display: 'flex',
+  alignItems: 'center',
+  flexWrap: 'wrap',
+  gap: '0.5rem 0.25rem',
+})
+
+export const bmcModalWrapper = style({
   vars: {
     [fgColor]: 'hsla(248.57, 11.48%, 11.96%, 1)',
   },
@@ -26,6 +33,7 @@ export const bmcGreeting = style({
   vars: {
     [lineColor]: 'hsla(60, 0.52%, 75.55%, 1)',
   },
+  fontSize: '0.785rem',
   position: 'relative',
   padding: '0.2rem 0 0.2rem 1.75rem',
   margin: '1.25rem 0',
@@ -111,11 +119,11 @@ export const bmcButton = style({
     backgroundColor: hoverBgColor,
   },
   justifyContent: 'center',
-  width: '12.75rem',
-  height: '2.75rem',
+  // width: '12.75rem',
+  // height: '2.75rem',
   color: fgColor,
   backgroundColor: bgColor,
   fontWeight: 700,
-  borderRadius: '0.275rem',
-  // padding: '0.5rem 0.85rem',
+  borderRadius: '0.375rem',
+  padding: '0.55rem 0.95rem',
 })

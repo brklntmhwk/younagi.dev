@@ -42,6 +42,7 @@ svg:
   not_found_message: not found
   invalid_error_message: Invalid svg file or svg tags missing
 bmc:
+  button_label: Buy Me A Coffee
   greeting_message: Caffeine helps me create more
 likes:
   button_label: Like it

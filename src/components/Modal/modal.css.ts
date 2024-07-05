@@ -60,22 +60,7 @@ export const modalWrapper = style({
 })
 
 export const modalButton = style({
-  // vars: {
-  //   [bgColor]: 'hsla(0, 0%, 96.7%, 1)',
-  //   [fgColor]: 'hsla(248.57, 11.48%, 11.96%, 1)',
-  // },
-  // '@media': {
-  //   '(prefers-color-scheme: dark)': {
-  //     vars: {
-  //       [bgColor]: 'hsla(248.57, 11.48%, 11.96%, 1)',
-  //       [fgColor]: 'hsla(0, 0%, 96.7%, 1)',
-  //     },
-  //   },
-  // },
-  // backgroundColor: 'transparent',
-  // color: fgColor,
   border: 'none',
-  padding: '0',
   display: 'flex',
   gap: '0.5rem',
   alignItems: 'center',

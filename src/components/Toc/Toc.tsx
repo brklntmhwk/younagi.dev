@@ -1,7 +1,9 @@
 import type { MarkdownHeading } from 'astro'
 import { type Component, onMount } from 'solid-js'
+// import { useStore } from '@nanostores/solid'
 import { TOC_MINIMUM_COUNT } from '@/consts'
-import { useToggle } from '@/components/Modal/ToggleProvider'
+// import { useToggle } from '@/components/Modal/ToggleProvider'
+// import { toggle } from '@/components/Modal/modal-toggle-store'
 import { TocUlList, TocListElem } from './toc.css'
 import { makeEventListener } from '@solid-primitives/event-listener'
 
@@ -15,16 +17,20 @@ export const Toc: Component<Props> = ({ headings }) => {
       linkRef,
       'click',
       () => {
-        if (toggle !== undefined) {
-          toggle
-        }
+        // if ($toggle()) {
+        //   $toggle()?.setIsOpen((isOpen) => !isOpen)
+        // }
+        // if (toggle !== undefined) {
+        //   toggle
+        // }
       },
       { passive: true }
     )
   })
 
   let linkRef!: HTMLAnchorElement
-  const toggle = useToggle()
+  // const toggle = useToggle()
+  // const $toggle = useStore(toggle)
 
   return (
     headings.length >= TOC_MINIMUM_COUNT && (

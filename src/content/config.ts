@@ -138,6 +138,7 @@ const i18n = defineCollection({
       invalid_error_message: z.string(),
     }),
     bmc: z.object({
+      button_label: z.string(),
       greeting_message: z.string(),
     }),
     likes: z.object({

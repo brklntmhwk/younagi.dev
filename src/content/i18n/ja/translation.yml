@@ -42,6 +42,7 @@ svg:
   not_found_message: が見つかりませんでした
   invalid_error_message: 無効なSVGファイルであるか、SVGタグがありません
 bmc:
+  button_label: 応援する
   greeting_message: 励みになります
 likes:
   button_label: 推せる

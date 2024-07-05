@@ -30,6 +30,7 @@ import remarkEmbed, {
   type RemarkEmbedOptions,
 } from './src/plugins/remark-embed'
 import {
+  canvaTransformer,
   googleSlidesTransformer,
   youTubeTransformer,
   oEmbedTransformer,
@@ -110,6 +111,7 @@ export default defineConfig({
         remarkEmbed,
         {
           transformers: [
+            canvaTransformer,
             googleSlidesTransformer,
             youTubeTransformer,
             oEmbedTransformer,

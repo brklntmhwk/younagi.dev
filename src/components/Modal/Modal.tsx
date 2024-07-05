@@ -3,6 +3,7 @@ import { Portal } from 'solid-js/web'
 import { makeEventListener } from '@solid-primitives/event-listener'
 import { createShortcut } from '@solid-primitives/keyboard'
 import { type ModalContent, shortcutKeyMap } from './modal-data'
+import { ToggleProvider } from './ToggleProvider'
 import {
   hidden,
   modal,
@@ -82,7 +83,7 @@ export const Modal: ParentComponent<Props> = (props) => {
             id={`${props.modalName}-wrapper`}
             class={`${modalWrapper} pixel-border`}
           >
-            {props.children}
+            <ToggleProvider isOpen={isOpen()}>{props.children}</ToggleProvider>
           </div>
         </div>
       </Portal>

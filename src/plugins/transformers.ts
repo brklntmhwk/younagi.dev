@@ -20,39 +20,62 @@ export const getHProperties = async (transformer: Transformer, url: URL) => {
   return transformer.hProperties
 }
 
-export const oEmbedTransformer: Readonly<Transformer> = {
-  hName: 'oembed',
-  hProperties: async (url) => {
-    const metadata = await unfurl(url.href)
+type MediaKind = 'youtube' | 'canva'
+type Medium = {
+  name: string
+  regExp: RegExp
+  uidPosition: number
+  createSrc: (uid: string) => string
+}
+type MediaMap = {
+  [key in MediaKind]: Readonly<Medium>
+}
 
-    if (metadata.oEmbed !== undefined)
-      return { oEmbed: JSON.stringify(metadata.oEmbed) }
+const media = {
+  youtube: {
+    name: 'YouTube',
+    regExp: /^.*(watch\?v=|embed\/)([^#&?]*).*/,
+    uidPosition: 2,
+    createSrc: (uid) => 'https://www.youtube.com/embed/' + uid,
+  },
+  canva: {
+    name: 'Canva',
+    regExp: /^.*(design\/)([^#&?]*)(\/view).*/,
+    uidPosition: 2,
+    createSrc: (uid) => 'https://www.canva.com/design/' + uid + '/view?embed',
+  },
+} as const satisfies MediaMap
 
-    return {} as HProperties
+const convertToEmbedUrl = (url: string, kind: MediaKind): string => {
+  const medium = media[kind]
+  const matched = url.match(medium.regExp)
+
+  if (matched && matched[medium.uidPosition]) {
+    return medium.createSrc(matched[medium.uidPosition]!)
+  } else {
+    throw new Error(`Invalid ${medium.name} URL`)
+  }
+}
+
+export const canvaTransformer: Readonly<Transformer> = {
+  hName: 'iframe',
+  hProperties: async (url): Promise<HProperties> => {
+    return {
+      src: convertToEmbedUrl(url.href, 'canva'),
+      width: '100%',
+      height: '360',
+    }
   },
   shouldTransform: async (url) => {
-    const metadata = await unfurl(url.href)
-
-    return metadata.oEmbed !== undefined
+    return url.hostname === 'www.canva.com'
   },
 }
 
 export const youTubeTransformer: Readonly<Transformer> = {
   hName: 'iframe',
   hProperties: async (url): Promise<HProperties> => {
-    const convertToEmbedUrl = (url: string): string => {
-      const regExp = /^.*(watch\?v=|embed\/)([^#&?]*).*/
-      const matched = url.match(regExp)
-
-      if (matched && matched[2]) {
-        return 'https://www.youtube.com/embed/' + matched[2]
-      } else {
-        throw new Error('Invalid YouTube URL')
-      }
-    }
-
     return {
-      src: convertToEmbedUrl(url.href),
+      src: convertToEmbedUrl(url.href, 'youtube'),
       width: '100%',
       height: '360',
     }
@@ -98,5 +121,22 @@ export const googleSlidesTransformer: Readonly<Transformer> = {
     const isGoogleSlides = url.pathname.startsWith('/presentation/d/')
 
     return isGoogleDocs && isGoogleSlides
+  },
+}
+
+export const oEmbedTransformer: Readonly<Transformer> = {
+  hName: 'oembed',
+  hProperties: async (url) => {
+    const metadata = await unfurl(url.href)
+
+    if (metadata.oEmbed !== undefined)
+      return { oEmbed: JSON.stringify(metadata.oEmbed) }
+
+    return {} as HProperties
+  },
+  shouldTransform: async (url) => {
+    const metadata = await unfurl(url.href)
+
+    return metadata.oEmbed !== undefined
   },
 }

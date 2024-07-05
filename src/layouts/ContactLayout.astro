@@ -20,7 +20,7 @@ const { title, description } = data
       <h1 slot="metadata" class="page-title">{title}</h1>
       <section slot="content" class="contact">
         <slot />
-        <!-- <ContactForm client:only="solid-js" t={t.data.contact_form} /> -->
+        <!-- <ContactForm client:only="solid" t={t.data.contact_form} /> -->
         <Contact />
       </section>
     </Article>

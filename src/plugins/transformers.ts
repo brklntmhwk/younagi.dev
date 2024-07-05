@@ -20,7 +20,7 @@ export const getHProperties = async (transformer: Transformer, url: URL) => {
   return transformer.hProperties
 }
 
-type MediaKind = 'youtube' | 'canva'
+type MediaKind = 'canva' | 'google_slides' | 'youtube'
 type Medium = {
   name: string
   regExp: RegExp
@@ -32,23 +32,30 @@ type MediaMap = {
 }
 
 const media = {
-  youtube: {
-    name: 'YouTube',
-    regExp: /^.*(watch\?v=|embed\/)([^#&?]*).*/,
-    uidPosition: 2,
-    createSrc: (uid) => 'https://www.youtube.com/embed/' + uid,
-  },
   canva: {
     name: 'Canva',
     regExp: /^.*(design\/)([^#&?]*)(\/view).*/,
     uidPosition: 2,
     createSrc: (uid) => 'https://www.canva.com/design/' + uid + '/view?embed',
   },
+  google_slides: {
+    name: 'Google Slides',
+    regExp: /^.*(d\/)(e\/[^/#&?]*|[^/#&?]*)\/(edit|pub)?(\?[^#]+)?(#.*)?$/,
+    uidPosition: 2,
+    createSrc: (uid) =>
+      'https://docs.google.com/presentation/d/' + uid + '/embed',
+  },
+  youtube: {
+    name: 'YouTube',
+    regExp: /^.*(watch\?v=|embed\/)([^/#&?]*).*/,
+    uidPosition: 2,
+    createSrc: (uid) => 'https://www.youtube.com/embed/' + uid,
+  },
 } as const satisfies MediaMap
 
-const convertToEmbedUrl = (url: string, kind: MediaKind): string => {
+const convertToEmbedUrl = (url: URL, kind: MediaKind): string => {
   const medium = media[kind]
-  const matched = url.match(medium.regExp)
+  const matched = url.href.match(medium.regExp)
 
   if (matched && matched[medium.uidPosition]) {
     return medium.createSrc(matched[medium.uidPosition]!)
@@ -61,7 +68,7 @@ export const canvaTransformer: Readonly<Transformer> = {
   hName: 'iframe',
   hProperties: async (url): Promise<HProperties> => {
     return {
-      src: convertToEmbedUrl(url.href, 'canva'),
+      src: convertToEmbedUrl(url, 'canva'),
       width: '100%',
       height: '360',
     }
@@ -75,7 +82,7 @@ export const youTubeTransformer: Readonly<Transformer> = {
   hName: 'iframe',
   hProperties: async (url): Promise<HProperties> => {
     return {
-      src: convertToEmbedUrl(url.href, 'youtube'),
+      src: convertToEmbedUrl(url, 'youtube'),
       width: '100%',
       height: '360',
     }
@@ -88,26 +95,8 @@ export const youTubeTransformer: Readonly<Transformer> = {
 export const googleSlidesTransformer: Readonly<Transformer> = {
   hName: 'iframe',
   hProperties: async (url): Promise<HProperties> => {
-    const getEmbedUrl = (isWeb: boolean) => {
-      const path = url.pathname.split('/')
-
-      if (isWeb) {
-        path[path.length - 1] = 'embed'
-        return new URL(path.join('/'), url.origin)
-      }
-
-      if (path.length <= 3) {
-        path.push('embed')
-      } else {
-        path[path.length - 1] = 'embed'
-      }
-      return new URL(path.join('/'), url.origin)
-    }
-
-    const isWeb = url.pathname.startsWith('/presentation/d/e/')
-
     return {
-      src: getEmbedUrl(isWeb).href,
+      src: convertToEmbedUrl(url, 'google_slides'),
       width: '100%',
       frameBorder: '0',
       allowFullScreen: 'true',

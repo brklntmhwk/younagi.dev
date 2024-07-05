@@ -29,8 +29,8 @@ const { title, description, og } = Astro.props
     <BaseHead {title} description={description ?? ''} {og} />
   </head>
   <body data-pagefind-body>
-    <LocaleStore client:only="solid-js" {locale} />
-    <UrlStore client:only="solid-js" {url} />
+    <LocaleStore client:only="solid" {locale} />
+    <UrlStore client:only="solid" {url} />
     <div class="base-wrapper">
       <Navigation />
       <slot />

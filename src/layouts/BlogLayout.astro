@@ -90,7 +90,7 @@ const tags = await getBlogTags(blogTags, locale)
       </section>
       <section slot="cta" class="cta">
         <Likes
-          client:only="solid-js"
+          client:only="solid"
           slug={slugWithoutLocale}
           {collection}
           t={t.data.likes}

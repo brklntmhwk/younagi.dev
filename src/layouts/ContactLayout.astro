@@ -1,17 +1,20 @@
 ---
-import { type CollectionEntry } from 'astro:content'
+import { type CollectionEntry /* , getEntry */ } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { Article } from '@/components/Article'
 import { Contact } from '@/components/Contact'
-// import ContactForm from '@/components/islands/ContactForm'
+// import { ContactForm } from '@/components/ContactForm/ContactForm'
+// import { getLocaleFromUrl } from '@/utils/i18n/utils'
 
 type Props = {
   page: CollectionEntry<'page'>
 }
 
+// const locale = getLocaleFromUrl(Astro.url)
 const { page } = Astro.props
 const { data } = page
 const { title, description } = data
+// const t = await getEntry('i18n', `${locale}/translation`)
 ---
 
 <BaseLayout title={title} description={description ?? ''} og={{ show: true }}>

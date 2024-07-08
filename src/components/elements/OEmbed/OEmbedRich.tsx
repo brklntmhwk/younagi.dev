@@ -1,7 +1,7 @@
+import type { Component } from 'solid-js'
 import { fromHtml } from 'hast-util-from-html'
 import { select } from 'hast-util-select'
 import { toHtml } from 'hast-util-to-html'
-import type { Component } from 'solid-js'
 import type { OEmbedRich as OEmbedRichSchema } from './types'
 import { sanitize } from './sanitize'
 

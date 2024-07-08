@@ -31,7 +31,7 @@ export const modal = style({
   width: '100dvw',
   height: '100dvh',
   paddingTop: '3.25rem',
-  zIndex: '50',
+  zIndex: '10',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'flex-start',

@@ -5,7 +5,7 @@ export const bmcWrapper = style({
   display: 'flex',
   alignItems: 'center',
   flexWrap: 'wrap',
-  gap: '0.5rem 0.25rem',
+  gap: '0.5rem 0.375rem',
 })
 
 export const bmcModalWrapper = style({

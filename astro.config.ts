@@ -2,12 +2,11 @@ import { defineConfig, passthroughImageService } from 'astro/config'
 import cloudflare from '@astrojs/cloudflare'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
-import solid from '@astrojs/solid-js'
+import solidJs from '@astrojs/solid-js'
 import purgecss from 'astro-purgecss'
 import browserslist from 'browserslist'
 import { browserslistToTargets } from 'lightningcss'
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin'
-import solidPlugin from 'vite-plugin-solid'
 import { h } from 'hastscript'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
@@ -52,7 +51,7 @@ export default defineConfig({
   },
   integrations: [
     mdx(),
-    solid(),
+    solidJs(),
     purgecss({
       fontFace: true,
     }),
@@ -70,13 +69,10 @@ export default defineConfig({
     build: {
       cssMinify: 'lightningcss',
       sourcemap: 'hidden',
-      minify: 'esbuild',
     },
     css: {
       devSourcemap: true,
       transformer: 'lightningcss',
-      // @ts-expect-error Object literals may only specify known properties ... probably because Vite or Astro haven't updated their config to reflect the actually existing analyzeDependencies option from LightningCSS yet.
-      analyzeDependencies: true,
       lightningcss: {
         cssModules: {
           pattern: '[hash]-[local]',
@@ -87,7 +83,7 @@ export default defineConfig({
         targets: browserslistToTargets(browserslist('>= 0.1%')),
       },
     },
-    plugins: [vanillaExtractPlugin(), solidPlugin()],
+    plugins: [vanillaExtractPlugin()],
     ssr: {
       external: ['node:fs', 'unfurl.js'],
     },

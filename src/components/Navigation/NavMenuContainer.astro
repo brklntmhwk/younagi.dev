@@ -47,12 +47,12 @@ const t = await getEntry('i18n', `${locale}/translation`)
       position: fixed;
       top: 0;
       left: 100%;
-      z-index: 50;
+      z-index: 20;
       display: flex;
       flex-direction: column;
       gap: 3.5rem;
       padding-top: 3rem;
-      margin-top: 4.25rem;
+      /* margin-top: 4.25rem; */
       background-color: var(--mobile-nav-bg);
       /* transform: translateX(100%);
     transition: transform 0.4s ease-in-out; */
@@ -62,7 +62,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
         grid-area: nav-menu;
         height: 100%;
         position: static;
-        z-index: 10;
+        z-index: 0;
         display: grid;
         gap: 0;
         padding-top: 0;
@@ -81,7 +81,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 50;
+      z-index: 30;
       @media (min-width: 1024px) {
         display: none;
       }

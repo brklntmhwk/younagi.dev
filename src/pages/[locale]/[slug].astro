@@ -34,13 +34,13 @@ export const getStaticPaths = (async () => {
 type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
 const { page } = Astro.props
-const { Content, headings } = await page.render()
+const { Content } = await page.render()
 const slugWithoutLocale = getSlugWithoutLocale(page.slug)
 ---
 
 {
   slugWithoutLocale === 'about' ? (
-    <AboutLayout {headings}>
+    <AboutLayout>
       <Content components={mdxComponents} />
     </AboutLayout>
   ) : slugWithoutLocale === 'contact' ? (

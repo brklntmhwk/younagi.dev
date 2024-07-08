@@ -1,5 +1,39 @@
-import { style } from '@vanilla-extract/css'
+import { keyframes, style } from '@vanilla-extract/css'
 import { bgColor, fgColor } from '@/styles/styles.css'
+
+const skeletonFade = keyframes({
+  '0%': { opacity: 0.4 },
+  '100%': { opacity: 0.4 },
+  '50%': { opacity: 1 },
+})
+
+export const skeleton = style({
+  position: 'relative',
+  transform: 'translateZ(0)',
+  WebkitTransform: 'translateZ(0)',
+  selectors: {
+    '&[data-animate="true"]::after': {
+      animation: `${skeletonFade} 1500ms linear infinite`,
+    },
+    '&[data-visible="true"]': {
+      overflow: 'hidden',
+    },
+    '&[data-visible="true"]::before': {
+      position: 'absolute',
+      content: '',
+      inset: 0,
+      zIndex: 10,
+      backgroundColor: 'white',
+    },
+    '&[data-visible="true"]::after': {
+      position: 'absolute',
+      content: '',
+      inset: 0,
+      zIndex: 11,
+      backgroundColor: 'gray',
+    },
+  },
+})
 
 export const contactForm = style({
   display: 'flex',
@@ -8,11 +42,14 @@ export const contactForm = style({
 })
 
 export const contactButton = style({
+  width: '10rem',
   fontWeight: '600',
   marginTop: '1.25rem',
   padding: '0.25rem 1.85rem',
   alignSelf: 'center',
 })
+
+export const contactButtonSkeleton = style({})
 
 export const contactField = style({
   display: 'flex',

@@ -1,20 +1,11 @@
 ---
-import type { MarkdownHeading } from 'astro'
 import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getLocaleFromUrl } from '@/utils/i18n/utils'
 import { Article } from '@/components/Article'
-import { Modal } from '@/components/Modal/Modal'
-import { Toc } from '@/components/Toc/Toc'
-import { Icon } from '@/components/Icon'
 import { ProfileIcon } from '@/components/ProfileIcon'
 import ProfileImage from '@/assets/images/profile.png'
 
-type Props = {
-  headings: MarkdownHeading[]
-}
-
-const { headings } = Astro.props
 const locale = getLocaleFromUrl(Astro.url)
 const meta = await getEntry('meta', `${locale}/site-data`)
 const t = await getEntry('i18n', `${locale}/translation`)
@@ -37,15 +28,6 @@ const t = await getEntry('i18n', `${locale}/translation`)
           />
           <span class="my-name">{t.data.pages.about.my_name}</span>
         </section>
-        <Modal
-          client:only="solid"
-          modalName="toc"
-          buttonLabel={t.data.toc.button_label}
-          iconLabel={t.data.toc.button_label}
-        >
-          <Toc client:only="solid" {headings} />
-          <Icon slot="icon" iconName="toc" width={28} height={28} />
-        </Modal>
       </section>
       <section slot="content" class="about-content">
         <slot />

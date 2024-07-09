@@ -1,5 +1,5 @@
 import { unsplashApiClient } from '@/lib/unsplash/client'
-import { DEFAULT_PHOTO_COUNT, ACCOUNT_ID } from '@/consts'
+import { DEFAULT_PHOTO_COUNT, ACCOUNT_ID } from '@/lib/consts'
 
 export const getPhotos = async (pageNum?: number) => {
   const res = await unsplashApiClient.users.getPhotos({

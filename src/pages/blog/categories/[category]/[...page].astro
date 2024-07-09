@@ -4,7 +4,7 @@ import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { BlogList } from '@/components/BlogList'
 import { Pager } from '@/components/Pager'
-import { LIMIT_PER_PAGE } from '@/consts'
+import { LIMIT_PER_PAGE } from '@/lib/consts'
 import { defaultLang } from '@/utils/i18n/data'
 import { slugify } from '@/utils/slugify'
 import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale'
@@ -43,10 +43,13 @@ const t = await getEntry('i18n', `${defaultLang}/translation`)
   <main data-pagefind-ignore="all">
     <section>
       <h1>{rawCategory.data.title}</h1>
-      <a class="back-to-link" href={'/blog/categories'}>
+      <a class="classic-blue-link" href={'/blog/categories'}>
         ◀ {t.data.pages.blog.categories.back_to_top}
       </a>
-      <BlogList entries={page.data} kind="taxonomy" />
+      <BlogList
+        entries={page.data}
+        taxonomies={{ show: true, shouldDisplay: ['tags'] }}
+      />
     </section>
     <Pager page={page} />
   </main>

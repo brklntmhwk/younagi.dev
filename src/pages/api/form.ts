@@ -20,7 +20,7 @@ import {
   BREVO_FORM_URL,
   CONTACT_NOTIFICATION_SUBJECT,
   FORM_TEXTAREA_MINLENGTH,
-} from '@/consts'
+} from '@/lib/consts'
 
 type TurnstileErrorCode =
   | 'missing-input-secret'

@@ -21,10 +21,12 @@ const t = await getEntry('i18n', `${locale}/translation`)
   <hr class={contentHr} />
   <slot name="cta" />
   <section class="guides">
-    <a class="back-to-link" href={translatePath(backToPath)}
+    <a class="classic-blue-link" href={translatePath(backToPath)}
       >◀ {t.data.pages[kind].back_to_top}
     </a>
-    <a class="back-to-link" href="#top">{t.data.pages[kind].scroll_to_top} ▲</a>
+    <a class="classic-blue-link" href="#top"
+      >{t.data.pages[kind].scroll_to_top} ▲</a
+    >
   </section>
 </article>
 <style>

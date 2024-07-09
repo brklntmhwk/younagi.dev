@@ -4,7 +4,7 @@ import type { UnsplashPhotoData } from '@/lib/unsplash/types'
 import { getPhotographer } from '@/lib/unsplash/contents'
 import PhotoGalleryItem from '../PhotoGallery/PhotoGalleryItem.astro'
 import { getLocaleFromUrl } from '@/utils/i18n/utils'
-import { ACCOUNT_ID, UNSPLASH_BASE_URL } from '@/consts'
+import { ACCOUNT_ID, UNSPLASH_BASE_URL } from '@/lib/consts'
 
 type Props = {
   photos: UnsplashPhotoData
@@ -40,9 +40,10 @@ const username = await getPhotographer()
 </div>
 <style>
   .photo-gallery-wrapper {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 1.5rem;
-    padding: 0 0.375rem 0.875rem 0.375rem;
+    padding: 1.175rem 0.275rem;
     aside {
       p {
         font-size: 0.875rem;

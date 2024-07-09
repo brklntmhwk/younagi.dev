@@ -15,12 +15,8 @@ export const getStaticPaths = (async () => {
     const slug = getSlugWithoutLocale(page.slug)
 
     return {
-      params: {
-        slug,
-      },
-      props: {
-        page,
-      },
+      params: { slug },
+      props: { page },
     }
   })
 }) satisfies GetStaticPaths

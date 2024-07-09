@@ -34,7 +34,7 @@ import {
   youTubeTransformer,
   oEmbedTransformer,
 } from './src/plugins/transformers'
-import { SITE_URL } from './src/consts'
+import { SITE_URL } from './src/lib/consts'
 
 // https://astro.build/config
 export default defineConfig({

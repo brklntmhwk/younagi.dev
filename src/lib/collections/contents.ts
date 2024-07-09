@@ -7,7 +7,28 @@ import {
 } from 'astro:content'
 import type { Language } from '@/utils/i18n/data'
 import { getLocaleFromSlug } from '@/utils/get-locale-from-slug'
-import { SHOW_DRAFT_PAGES_IN_DEV } from '@/consts'
+import { SHOW_DRAFT_PAGES_IN_DEV } from '@/lib/consts'
+
+export const isBlogList = (
+  listData: Record<string, unknown>[]
+): listData is CollectionEntry<'blog'>[] =>
+  listData.every(
+    (data) => Object.hasOwn(data, 'collection') && data.collection === 'blog'
+  )
+
+export const isNewsList = (
+  listData: Record<string, unknown>[]
+): listData is CollectionEntry<'news'>[] =>
+  listData.every(
+    (data) => Object.hasOwn(data, 'collection') && data.collection === 'news'
+  )
+
+export const isPageList = (
+  listData: Record<string, unknown>[]
+): listData is CollectionEntry<'page'>[] =>
+  listData.every(
+    (data) => Object.hasOwn(data, 'collection') && data.collection === 'page'
+  )
 
 const hasDraft = (
   data: Record<string, unknown>

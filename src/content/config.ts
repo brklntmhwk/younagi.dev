@@ -163,7 +163,7 @@ const i18n = defineCollection({
         label: z.string(),
         required: z.string(),
       }),
-      sendLabel: z.string(),
+      send_label: z.string(),
       submitting: z.string(),
     }),
     og_image: z.object({
@@ -172,7 +172,20 @@ const i18n = defineCollection({
     }),
     pages: z.object({
       home: z.object({
-        photo_gallery_title: z.string(),
+        about_section: z.object({
+          title: z.string(),
+          description: z.string(),
+          read_more: z.string(),
+        }),
+        blog_section: z.object({
+          title: z.string(),
+          read_more: z.string(),
+        }),
+        photo_section: z.object({
+          title: z.string(),
+          description: z.string(),
+          read_more: z.string(),
+        }),
       }),
       blog: z.object({
         title: z.string(),

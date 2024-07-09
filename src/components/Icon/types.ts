@@ -11,6 +11,7 @@ export type IconName =
   | 'link'
   | 'magnifier'
   | 'moon'
+  | 'new'
   | 'pencil'
   | 'publish'
   | 'question'

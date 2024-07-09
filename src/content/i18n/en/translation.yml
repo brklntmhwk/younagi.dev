@@ -61,14 +61,24 @@ contact_form:
   confirmation:
     label: I confirm that the above information is correct.
     required: Please tick the checkbox before submission
-  sendLabel: Submit
+  send_label: Submit
   submitting: Submitting...
 og_image:
   site_name: *website
   logo_alt: Site logo
 pages:
   home:
-    photo_gallery_title: Recently uploaded photos
+    about_section:
+      title: About this website
+      description: Here is a web platform for Nagi, just another engineer & creator. His work and writings will be posted every so often.
+      read_more: Read more about him
+    blog_section:
+      title: Latest Blog Entries
+      read_more: Read more entries
+    photo_section:
+      title: Latest Photo Shots
+      description: These photos are uploaded on Unsplash. You can check out all my photos via the link and photos below.
+      read_more: See more photos
   blog:
     title: *blog
     back_to_top: *back_to_top

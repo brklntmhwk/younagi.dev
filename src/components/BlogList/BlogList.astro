@@ -8,12 +8,15 @@ import { getCategory, getBlogTags } from '@/lib/collections/data'
 
 type Props = {
   entries: CollectionEntry<'blog'>[]
-  kind: 'blog' | 'taxonomy'
+  taxonomies: {
+    show: boolean
+    shouldDisplay?: ('category' | 'tags')[]
+  }
 }
 
 const locale = getLocaleFromUrl(Astro.url)
 const translatePath = useTranslatedPath(locale)
-const { entries, kind } = Astro.props
+const { entries, taxonomies } = Astro.props
 ---
 
 <ul class="entry-list">
@@ -31,7 +34,7 @@ const { entries, kind } = Astro.props
       const tags = await getBlogTags(blogTags, locale)
 
       return (
-        <li>
+        <li class="entry-item fade-in-up">
           <article class="pokemon-border">
             <section class="date">
               <div class="published">
@@ -54,10 +57,13 @@ const { entries, kind } = Astro.props
               {title}
             </a>
             <span class="blog-description">{description}</span>
-            {kind === 'blog' && (
+            {taxonomies.show && (
               <section class="taxonomies">
-                <Taxonomy taxonomy={category} />
-                {tags.length !== 0 &&
+                {taxonomies.shouldDisplay?.includes('category') && (
+                  <Taxonomy taxonomy={category} />
+                )}
+                {taxonomies.shouldDisplay?.includes('tags') &&
+                  tags.length !== 0 &&
                   tags.map((tag) => <Taxonomy taxonomy={tag} />)}
               </section>
             )}
@@ -73,11 +79,12 @@ const { entries, kind } = Astro.props
     flex-direction: column;
     gap: 1.75rem;
     padding: 1.125rem 0;
-    li {
+    .entry-item {
       article {
         padding: 1rem 0.5rem 0.85rem 0.85rem;
-        display: grid;
-        gap: 0.975rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.725rem;
         .blog-title {
           color: var(--fg);
           font-size: 1.585rem;
@@ -94,7 +101,7 @@ const { entries, kind } = Astro.props
         }
         .date,
         .blog-description {
-          font-size: 1.15rem;
+          font-size: 1.025rem;
         }
         .date {
           display: flex;

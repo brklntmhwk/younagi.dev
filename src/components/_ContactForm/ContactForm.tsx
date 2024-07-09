@@ -21,7 +21,7 @@ import { Skeleton } from '@kobalte/core/skeleton'
 import { useStore } from '@nanostores/solid'
 // import wretch from 'wretch'
 import { useTranslatedPath } from '@/utils/i18n/utils'
-import { /* FORM_TEXTAREA_ROWS, */ FORM_TEXTAREA_MINLENGTH } from '@/consts'
+import { /* FORM_TEXTAREA_ROWS, */ FORM_TEXTAREA_MINLENGTH } from '@/lib/consts'
 import { locale } from '@/components/LocaleStore/locale-store'
 import { Turnstile } from './Turnstile'
 import type { I18nData } from '@/lib/collections/types'
@@ -225,9 +225,9 @@ export const ContactForm: Component<Props> = ({ t }) => {
             </>
           )}
         </Field>
-        <SubmitButton label={t.sendLabel} />
+        <SubmitButton label={t.send_label} />
         {/* <button class={`pokemon-border ${contactButton}`} type="submit">
-        {contactForm.submitting ? t.submitting : t.sendLabel}
+        {contactForm.submitting ? t.submitting : t.send_label}
       </button> */}
         {contactForm.response.message && (
           <div>{contactForm.response.message}</div>

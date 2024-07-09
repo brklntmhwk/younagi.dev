@@ -9,8 +9,7 @@ import { Likes } from '@/components/Likes/Likes'
 import { BuyMeACoffee } from '@/components/BuyMeACoffee'
 import { FormattedDate } from '@/components/FormattedDate'
 import { Taxonomy } from '@/components/Taxonomy'
-import { Modal } from '@/components/Modal/Modal'
-import { Toc } from '@/components/Toc/Toc'
+import { Toc } from '@/components/Toc'
 import { Icon } from '@/components/Icon'
 import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils'
 import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale'
@@ -75,15 +74,7 @@ const tags = await getBlogTags(blogTags, locale)
           <Taxonomy taxonomy={category} />
           {tags.length !== 0 && tags.map((tag) => <Taxonomy taxonomy={tag} />)}
         </div>
-        <Modal
-          client:only="solid"
-          modalName="toc"
-          buttonLabel={t.data.toc.button_label}
-          iconLabel={t.data.toc.button_label}
-        >
-          <Toc client:only="solid" {headings} />
-          <Icon slot="icon" iconName="toc" width={28} height={28} />
-        </Modal>
+        <Toc {headings} />
       </section>
       <section slot="content" class="prose">
         <slot />

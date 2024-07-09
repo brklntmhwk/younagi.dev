@@ -1,0 +1,70 @@
+---
+import type { MarkdownHeading } from 'astro'
+import { TOC_MINIMUM_COUNT } from '@/lib/consts'
+import TocDrawer from './TocDrawer.astro'
+
+type Props = {
+  headings: MarkdownHeading[]
+}
+
+const { headings } = Astro.props
+---
+
+{
+  headings.length >= TOC_MINIMUM_COUNT && (
+    <TocDrawer>
+      <ul class="toc-list">
+        {headings.map((heading) => (
+          <li class={`depth-${heading.depth}`}>
+            <a href={`#${heading.slug}`}>{heading.text.replace('#', '')}</a>
+          </li>
+        ))}
+      </ul>
+    </TocDrawer>
+  )
+}
+<style>
+  .toc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    li {
+      &.depth-2 {
+        margin-left: 0;
+        &::before {
+          content: '◆ ';
+        }
+      }
+      &.depth-3 {
+        margin-left: 1.25rem;
+        &::before {
+          content: '▶ ';
+        }
+      }
+      &.depth-4 {
+        margin-left: 2.5rem;
+        &::before {
+          content: '◇ ';
+        }
+      }
+      &.depth-5 {
+        margin-left: 3.75rem;
+        &::before {
+          content: '▷ ';
+        }
+      }
+      &.depth-6 {
+        margin-left: 5rem;
+        &::before {
+          content: '・ ';
+        }
+      }
+      a {
+        &:hover {
+          text-decoration: underline;
+          text-underline-offset: 6px;
+        }
+      }
+    }
+  }
+</style>

@@ -1,7 +1,7 @@
 ---
 import { getEntry } from 'astro:content'
 import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils'
-import { FORM_TEXTAREA_ROWS, FORM_TEXTAREA_MINLENGTH } from '@/consts'
+import { FORM_TEXTAREA_ROWS, FORM_TEXTAREA_MINLENGTH } from '@/lib/consts'
 
 const locale = getLocaleFromUrl(Astro.url)
 const translatePath = useTranslatedPath(locale)
@@ -63,7 +63,7 @@ const t = await getEntry('i18n', `${locale}/translation`)
   >
   </div>
   <button id="submit-button" class="pokemon-border" type="submit"
-    >{t.data.contact_form.sendLabel}</button
+    >{t.data.contact_form.send_label}</button
   >
 </form>
 <style>

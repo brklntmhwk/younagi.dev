@@ -30,7 +30,7 @@ const createdAt = new Date(created_at)
 const dateDiff = getTimeDiff(createdAt, locale)
 ---
 
-<div class="photo-gallery-item pixel-border">
+<div class="photo-gallery-item pixel-border fade-in-up">
   <a
     aria-label={`${t.data.photo_gallery_item.photo_label}${order}`}
     href={`${links.html}?utm_source=${toSnakeCase(meta.data.site.title)}&utm_medium=referral`}

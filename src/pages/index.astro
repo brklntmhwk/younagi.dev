@@ -2,16 +2,28 @@
 import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { BulletinBoard } from '@/components/BulletinBoard'
+import { BlogList } from '@/components/BlogList'
 import { PhotoGallery } from '@/components/PhotoGallery'
+import { Icon } from '@/components/Icon'
 import { getPhotos } from '@/lib/unsplash/contents'
 import { getSortedContentEntries } from '@/lib/collections/contents'
-import { NEWS_MAXIMUM_COUNT } from '@/consts'
+import {
+  ACCOUNT_ID,
+  BLOG_LATEST_MAXIMUM_COUNT,
+  NEWS_LATEST_MAXIMUM_COUNT,
+  UNSPLASH_BASE_URL,
+} from '@/lib/consts'
+import { useTranslatedPath } from '@/utils/i18n/utils'
 import { defaultLang } from '@/utils/i18n/data'
 
+const translatePath = useTranslatedPath(defaultLang)
 const meta = await getEntry('meta', `${defaultLang}/site-data`)
+const t = await getEntry('i18n', `${defaultLang}/translation`)
+const blogList = await getSortedContentEntries('blog', defaultLang)
 const newsList = await getSortedContentEntries('news', defaultLang)
 const photos = await getPhotos()
-const latestNews = newsList.slice(0, NEWS_MAXIMUM_COUNT)
+const latestBlogEntries = blogList.slice(0, BLOG_LATEST_MAXIMUM_COUNT)
+const latestNews = newsList.slice(0, NEWS_LATEST_MAXIMUM_COUNT)
 ---
 
 <BaseLayout
@@ -21,7 +33,34 @@ const latestNews = newsList.slice(0, NEWS_MAXIMUM_COUNT)
 >
   <main data-pagefind-ignore="all">
     <BulletinBoard newsList={latestNews} />
-    <PhotoGallery {photos} />
+    <section class="about-section">
+      <h2>{t.data.pages.home.about_section.title}</h2>
+      <span>{t.data.pages.home.about_section.description}</span>
+      <a class="read-more classic-blue-link" href={translatePath('/about')}>
+        {t.data.pages.home.about_section.read_more}
+        <Icon iconName="right-arrow" width={20} height={20} />
+      </a>
+    </section>
+    <section class="blog-section">
+      <h2>{t.data.pages.home.blog_section.title}</h2>
+      <BlogList taxonomies={{ show: false }} entries={latestBlogEntries} />
+      <a class="read-more classic-blue-link" href={translatePath('/blog')}>
+        {t.data.pages.home.blog_section.read_more}
+        <Icon iconName="right-arrow" width={18} height={18} />
+      </a>
+    </section>
+    <section class="photo-section">
+      <h2>{t.data.pages.home.photo_section.title}</h2>
+      <span>{t.data.pages.home.photo_section.description}</span>
+      <PhotoGallery {photos} />
+      <a
+        class="read-more classic-blue-link"
+        href={`${UNSPLASH_BASE_URL}/@${ACCOUNT_ID}`}
+      >
+        {t.data.pages.home.photo_section.read_more}
+        <Icon iconName="right-arrow" width={18} height={18} />
+      </a>
+    </section>
   </main>
 </BaseLayout>
 <style>
@@ -30,6 +69,25 @@ const latestNews = newsList.slice(0, NEWS_MAXIMUM_COUNT)
     flex-direction: column;
     place-items: start;
     gap: 1.25rem;
+    .about-section,
+    .blog-section,
+    .photo-section {
+      padding: 0.85rem 1.5rem;
+      border: 2px solid var(--line);
+      border-radius: 0.15rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.275rem;
+      .read-more {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        align-self: flex-end;
+      }
+      @media (min-width: 768px) {
+        padding: 1.5rem 2.25rem;
+      }
+    }
   }
   @media (min-width: 1280px) {
     main {

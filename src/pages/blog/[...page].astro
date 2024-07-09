@@ -4,7 +4,7 @@ import { getEntry } from 'astro:content'
 import { BlogList } from '@/components/BlogList'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { Pager } from '@/components/Pager'
-import { LIMIT_PER_PAGE } from '@/consts'
+import { LIMIT_PER_PAGE } from '@/lib/consts'
 import { getSortedContentEntries } from '@/lib/collections/contents'
 import { defaultLang } from '@/utils/i18n/data'
 
@@ -40,7 +40,10 @@ const t = await getEntry('i18n', `${defaultLang}/translation`)
           {t.data.pages.blog.archive.title}
         </a>
       </div>
-      <BlogList entries={page.data} kind="blog" />
+      <BlogList
+        entries={page.data}
+        taxonomies={{ show: true, shouldDisplay: ['category', 'tags'] }}
+      />
     </section>
     <Pager page={page} />
   </main>

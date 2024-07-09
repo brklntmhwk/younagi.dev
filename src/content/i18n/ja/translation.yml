@@ -61,14 +61,24 @@ contact_form:
   confirmation:
     label: 上記の内容で送信する
     required: 送信前にチェックをしてください
-  sendLabel: 送信する
+  send_label: 送信する
   submitting: 送信中...
 og_image:
   site_name: *website
   logo_alt: サイトのロゴ
 pages:
   home:
-    photo_gallery_title: 最近の投稿写真
+    about_section:
+      title: このサイトについて
+      description: ここは凪が生みだした作品や書き物を公開する為のプラットフォームです。更新頻度はときたまです。
+      read_more: 詳細を読む
+    blog_section:
+      title: 最新のブログ記事
+      read_more: 記事を読む
+    photo_section:
+      title: 最新の写真
+      description: これらの写真は Unsplash に投稿されたものです。下記リンクから全ての写真にアクセスできます。
+      read_more: 写真を眺める
   blog:
     title: *blog
     back_to_top: *back_to_top

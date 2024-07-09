@@ -1,6 +1,7 @@
 ---
 import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import { Balloon } from '@/components/Balloon'
 import { BulletinBoard } from '@/components/BulletinBoard'
 import { BlogList } from '@/components/BlogList'
 import { PhotoGallery } from '@/components/PhotoGallery'
@@ -35,7 +36,10 @@ const latestNews = newsList.slice(0, NEWS_LATEST_MAXIMUM_COUNT)
     <BulletinBoard newsList={latestNews} />
     <section class="about-section">
       <h2>{t.data.pages.home.about_section.title}</h2>
-      <span>{t.data.pages.home.about_section.description}</span>
+      <Balloon
+        direction="left"
+        content={t.data.pages.home.about_section.description}
+      />
       <a class="read-more classic-blue-link" href={translatePath('/about')}>
         {t.data.pages.home.about_section.read_more}
         <Icon iconName="right-arrow" width={18} height={18} />

@@ -70,7 +70,7 @@ pages:
   home:
     about_section:
       title: このサイトについて
-      description: ここは凪が生みだした作品や書き物を公開する為のプラットフォームです。更新頻度はときたまです。
+      description: ここは私の作品や書き物を公開する為のプラットフォームです。更新頻度はときたまです。
       read_more: 詳細を読む
     blog_section:
       title: 最新のブログ記事

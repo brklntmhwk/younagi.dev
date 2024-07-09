@@ -70,8 +70,8 @@ pages:
   home:
     about_section:
       title: About this website
-      description: Here is a web platform for Nagi, just another engineer & creator. His work and writings will be posted every so often.
-      read_more: Read more about him
+      description: Here is a web platform for me, just another engineer & creator. I post my work and writings every so often.
+      read_more: Read more about me & my website
     blog_section:
       title: Latest Blog Entries
       read_more: Read more entries

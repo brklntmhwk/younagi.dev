@@ -36,26 +36,28 @@ const { entries, taxonomies } = Astro.props
       return (
         <li class="entry-item fade-in-up">
           <article class="pokemon-border">
-            <section class="date">
-              <div class="published">
-                <Icon iconName="publish" width={20} height={20} />
-                <FormattedDate date={publishedAt} locale={locale} />
-              </div>
-              {modifiedAt && (
-                <div class="updated">
-                  <Icon iconName="update" width={20} height={20} />
-                  <FormattedDate date={modifiedAt} locale={locale} />
+            <>
+              <a
+                class="blog-title"
+                href={translatePath(
+                  `/${entry.collection}/${entry.slug.split('/').pop()}`
+                )}
+              >
+                {title}
+              </a>
+              <section class="date">
+                <div class="published">
+                  <Icon iconName="publish" width={20} height={20} />
+                  <FormattedDate date={publishedAt} locale={locale} />
                 </div>
-              )}
-            </section>
-            <a
-              class="blog-title"
-              href={translatePath(
-                `/${entry.collection}/${entry.slug.split('/').pop()}`
-              )}
-            >
-              {title}
-            </a>
+                {modifiedAt && (
+                  <div class="updated">
+                    <Icon iconName="update" width={20} height={20} />
+                    <FormattedDate date={modifiedAt} locale={locale} />
+                  </div>
+                )}
+              </section>
+            </>
             <span class="blog-description">{description}</span>
             {taxonomies.show && (
               <section class="taxonomies">
@@ -101,11 +103,12 @@ const { entries, taxonomies } = Astro.props
         }
         .date,
         .blog-description {
-          font-size: 1.025rem;
+          font-size: 1.015rem;
         }
         .date {
           display: flex;
-          gap: 0.85rem;
+          flex-wrap: wrap;
+          gap: 0.25rem 0.85rem;
           .published,
           .updated {
             display: flex;

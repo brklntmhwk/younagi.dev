@@ -38,7 +38,7 @@ const latestNews = newsList.slice(0, NEWS_LATEST_MAXIMUM_COUNT)
       <span>{t.data.pages.home.about_section.description}</span>
       <a class="read-more classic-blue-link" href={translatePath('/about')}>
         {t.data.pages.home.about_section.read_more}
-        <Icon iconName="right-arrow" width={20} height={20} />
+        <Icon iconName="right-arrow" width={18} height={18} />
       </a>
     </section>
     <section class="blog-section">
@@ -67,12 +67,11 @@ const latestNews = newsList.slice(0, NEWS_LATEST_MAXIMUM_COUNT)
   main {
     display: flex;
     flex-direction: column;
-    place-items: start;
     gap: 1.25rem;
     .about-section,
     .blog-section,
     .photo-section {
-      padding: 0.85rem 1.5rem;
+      padding: 0.85rem 1.05rem;
       border: 2px solid var(--line);
       border-radius: 0.15rem;
       display: flex;

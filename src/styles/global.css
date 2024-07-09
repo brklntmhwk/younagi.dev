@@ -164,11 +164,14 @@ hr {
   margin: 1.25rem 0;
 }
 .classic-blue-link {
-  font-size: 1.15rem;
+  font-size: 1.025rem;
   color: var(--accent);
   text-decoration: none;
   &:hover {
     color: var(--accent-dark);
+  }
+  @media (min-width: 768px) {
+    font-size: 1.15rem;
   }
 }
 

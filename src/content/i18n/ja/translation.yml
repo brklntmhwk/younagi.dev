@@ -70,15 +70,15 @@ pages:
   home:
     about_section:
       title: このサイトについて
-      description: ここは私の作品や書き物を公開する為のプラットフォームです。更新頻度はときたまです。
-      read_more: 詳細を読む
+      description: ここは凪の作品や書き物を公開する為のプラットフォームです。更新頻度はときたまです。
+      read_more: 運営者紹介へ
     blog_section:
       title: 最新のブログ記事
-      read_more: 記事を読む
+      read_more: 記事一覧へ
     photo_section:
       title: 最新の写真
-      description: これらの写真は Unsplash に投稿されたものです。下記リンクから全ての写真にアクセスできます。
-      read_more: 写真を眺める
+      description: これらの写真は凪が Unsplash に投稿したものです。下記リンクから全ての写真にアクセスできます。
+      read_more: 写真を見る
   blog:
     title: *blog
     back_to_top: *back_to_top

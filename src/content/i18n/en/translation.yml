@@ -70,13 +70,13 @@ pages:
   home:
     about_section:
       title: About this website
-      description: Here is a web platform for me, just another engineer & creator. I post my work and writings every so often.
-      read_more: Read more about me & my website
+      description: Here is a web platform for Nagi, just another engineer & creator. He posts his work and writings every so often.
+      read_more: Read more about him
     blog_section:
       title: Latest Blog Entries
       read_more: Read more entries
     photo_section:
-      title: Latest Photo Shots
+      title: Latest Photos
       description: These photos are uploaded on Unsplash. You can check out all my photos via the link and photos below.
       read_more: See more photos
   blog:

@@ -32,8 +32,6 @@
   --callout-check-bg: hsla(117, 64%, 90%, 1);
   --callout-note-fg: hsla(22, 74%, 58%, 1);
   --callout-note-bg: hsla(22, 74%, 85%, 1);
-  --base-font: 'LINE Seed JP', ui-sans-serif, system-ui, sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --code-font: Menlo, Consolas, monospace;
 }
 @media (prefers-color-scheme: dark) {
@@ -99,7 +97,8 @@
 }
 
 body {
-  font-family: var(--base-font);
+  font-family: 'LINE Seed JP', ui-sans-serif, system-ui, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   font-weight: 400;
   margin: 0;
   padding: 0;

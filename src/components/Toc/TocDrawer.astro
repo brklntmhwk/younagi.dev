@@ -19,14 +19,17 @@ const t = await getEntry('i18n', `${locale}/translation`)
 <style>
   .toc-drawer {
     .toc-label {
-      display: block;
       cursor: pointer;
       user-select: none;
+      list-style: none;
       display: flex;
       gap: 0.325rem;
       align-items: center;
       justify-content: center;
       justify-self: center;
+      &::-webkit-details-marker {
+        display: none;
+      }
     }
     .toc-wrapper {
       background-color: var(--menu-bg);

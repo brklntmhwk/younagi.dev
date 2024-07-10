@@ -5,6 +5,7 @@ export const checkboxArea = style({
   marginTop: '1.5rem',
   display: 'inline-flex',
   alignItems: 'center',
+  gap: '0.25rem',
 })
 
 export const checkboxControl = style({

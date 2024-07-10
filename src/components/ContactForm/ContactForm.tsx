@@ -18,7 +18,6 @@ import {
   boolean,
 } from 'valibot'
 import { useStore } from '@nanostores/solid'
-// import wretch from 'wretch'
 import { useTranslatedPath } from '@/utils/i18n/utils'
 import { FORM_TEXTAREA_MINLENGTH } from '@/lib/consts'
 import { locale } from '@/components/LocaleStore/locale-store'
@@ -146,7 +145,13 @@ export const ContactForm: Component<Props> = ({ t }) => {
               locale={$locale()}
               onVerify={handleVerify}
             />
-            <input {...props} type="hidden" value={field.value || ''} />
+            <TextField
+              {...props}
+              type="hidden"
+              value={field.value || ''}
+              error={field.error}
+            />
+            {/* <input {...props} type="hidden" value={field.value || ''} /> */}
           </>
         )}
       </Field>

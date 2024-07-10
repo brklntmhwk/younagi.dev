@@ -36,28 +36,26 @@ const { entries, taxonomies } = Astro.props
       return (
         <li class="entry-item fade-in-up">
           <article class="pokemon-border">
-            <>
-              <a
-                class="blog-title"
-                href={translatePath(
-                  `/${entry.collection}/${entry.slug.split('/').pop()}`
-                )}
-              >
-                {title}
-              </a>
-              <section class="date">
-                <div class="published">
-                  <Icon iconName="publish" width={20} height={20} />
-                  <FormattedDate date={publishedAt} locale={locale} />
+            <a
+              class="blog-title"
+              href={translatePath(
+                `/${entry.collection}/${entry.slug.split('/').pop()}`
+              )}
+            >
+              {title}
+            </a>
+            <section class="date">
+              <div class="published">
+                <Icon iconName="publish" width={20} height={20} />
+                <FormattedDate date={publishedAt} locale={locale} />
+              </div>
+              {modifiedAt && (
+                <div class="updated">
+                  <Icon iconName="update" width={20} height={20} />
+                  <FormattedDate date={modifiedAt} locale={locale} />
                 </div>
-                {modifiedAt && (
-                  <div class="updated">
-                    <Icon iconName="update" width={20} height={20} />
-                    <FormattedDate date={modifiedAt} locale={locale} />
-                  </div>
-                )}
-              </section>
-            </>
+              )}
+            </section>
             <span class="blog-description">{description}</span>
             {taxonomies.show && (
               <section class="taxonomies">
@@ -87,16 +85,15 @@ const { entries, taxonomies } = Astro.props
         display: flex;
         flex-direction: column;
         gap: 0.725rem;
+        &:hover {
+          background-color: var(--bg-hover);
+        }
         .blog-title {
           color: var(--fg);
           font-size: 1.585rem;
           font-weight: 700;
           line-height: 1.215;
           text-decoration: none;
-          &:hover {
-            text-decoration: underline;
-            text-underline-offset: 6px;
-          }
           @media (min-width: 768px) {
             font-size: 1.85rem;
           }

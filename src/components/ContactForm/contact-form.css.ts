@@ -53,7 +53,7 @@ export const contactLabel = style({
   fontWeight: 600,
   userSelect: 'none',
   selectors: {
-    [`${checkboxArea} &`]: {
+    [`${checkboxArea} > &`]: {
       marginLeft: '0.675rem',
     },
   },

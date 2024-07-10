@@ -8,7 +8,7 @@ import { textField } from './text-field.css'
 
 type Props = {
   name: string
-  type?: 'text' | 'email' | 'tel' | 'password' | 'url' | 'date'
+  type?: 'text' | 'email' | 'tel' | 'hidden' | 'password' | 'url' | 'date'
   label?: string
   placeholder?: string
   value?: string
@@ -41,13 +41,24 @@ export const TextField = (props: Props) => {
       <Show
         when={props.multiline}
         fallback={
-          <div class="pokemon-border">
+          <Show
+            when={props.type === 'hidden'}
+            fallback={
+              <div class="pokemon-border">
+                <Kobalte.Input
+                  {...inputProps}
+                  type={props.type}
+                  class={textField}
+                />
+              </div>
+            }
+          >
             <Kobalte.Input
               {...inputProps}
               type={props.type}
               class={textField}
             />
-          </div>
+          </Show>
         }
       >
         <div class="pokemon-border">

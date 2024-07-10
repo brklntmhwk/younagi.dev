@@ -99,6 +99,7 @@ pages:
   about:
     title: *about
     my_name: *author
+    contact_me: お問い合わせ
     profile_img_alt: プロフィール画像
     back_to_top: *back_to_top
     scroll_to_top: *scroll_to_top

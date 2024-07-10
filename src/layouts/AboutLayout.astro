@@ -3,6 +3,9 @@ import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getLocaleFromUrl } from '@/utils/i18n/utils'
 import { Article } from '@/components/Article'
+import { Icon } from '@/components/Icon'
+import { ContactForm } from '@/components/ContactForm/ContactForm'
+import { Modal } from '@/components/Modal/Modal'
 import { ProfileIcon } from '@/components/ProfileIcon'
 import ProfileImage from '@/assets/images/profile.png'
 
@@ -20,14 +23,25 @@ const t = await getEntry('i18n', `${locale}/translation`)
     <Article kind="about">
       <section slot="metadata" class="about-metadata">
         <h1>{t.data.pages.about.title}</h1>
-        <section class="profile">
+        <div class="profile">
           <ProfileIcon
             alt={t.data.pages.about.my_name}
             src={ProfileImage}
             size={150}
           />
           <span class="my-name">{t.data.pages.about.my_name}</span>
-        </section>
+        </div>
+        <div class="contact">
+          <Modal
+            client:only="solid"
+            modalName="contact"
+            buttonLabel={t.data.pages.about.contact_me}
+            iconLabel={t.data.pages.about.contact_me}
+          >
+            <ContactForm client:only="solid" t={t.data.contact_form} />
+            <Icon slot="icon" iconName="mail" width={28} height={28} />
+          </Modal>
+        </div>
       </section>
       <section slot="content" class="about-content">
         <slot />

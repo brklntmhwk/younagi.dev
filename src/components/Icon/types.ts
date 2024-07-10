@@ -10,6 +10,7 @@ export type IconName =
   | 'left-arrow'
   | 'link'
   | 'magnifier'
+  | 'mail'
   | 'moon'
   | 'new'
   | 'pencil'

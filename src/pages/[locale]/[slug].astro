@@ -1,7 +1,6 @@
 ---
 import type { InferGetStaticPropsType, GetStaticPaths } from 'astro'
 import AboutLayout from '@/layouts/AboutLayout.astro'
-import ContactLayout from '@/layouts/ContactLayout.astro'
 import PageLayout from '@/layouts/PageLayout.astro'
 import { getSortedContentEntries } from '@/lib/collections/contents'
 import { mdxComponents } from '@/lib/mdx-components'
@@ -43,10 +42,6 @@ const slugWithoutLocale = getSlugWithoutLocale(page.slug)
     <AboutLayout>
       <Content components={mdxComponents} />
     </AboutLayout>
-  ) : slugWithoutLocale === 'contact' ? (
-    <ContactLayout page={page}>
-      <Content components={mdxComponents} />
-    </ContactLayout>
   ) : (
     <PageLayout page={page}>
       <Content components={mdxComponents} />

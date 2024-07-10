@@ -1,4 +1,4 @@
-export type ModalContent = 'search' | 'locale' | 'toc' | 'buy_me_a_coffee'
+export type ModalContent = 'search' | 'locale' | 'contact' | 'buy_me_a_coffee'
 type ShortcutKeyMap = {
   [key in ModalContent]: string[]
 }
@@ -6,6 +6,6 @@ type ShortcutKeyMap = {
 export const shortcutKeyMap: ShortcutKeyMap = {
   search: ['Control', 'K'],
   locale: ['Control', 'L'],
-  toc: ['Control', 'Shift', 'C'],
+  contact: ['Control', 'Shift', 'C'],
   buy_me_a_coffee: [],
 }

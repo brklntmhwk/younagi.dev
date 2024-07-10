@@ -6,6 +6,7 @@ import {
   fillColor,
   lineColor, */
 } from '@/styles/styles.css'
+import { contactForm } from '@/components/ContactForm/contact-form.css'
 
 export const modalBgColor = createVar()
 
@@ -57,6 +58,11 @@ export const modalWrapper = style({
   padding: '1.5rem 0.85rem',
   margin: '0 1.5rem',
   boxSizing: 'border-box',
+  selectors: {
+    [`&:has(${contactForm})`]: {
+      overflowY: 'auto',
+    },
+  },
 })
 
 export const modalButton = style({

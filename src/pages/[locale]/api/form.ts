@@ -11,7 +11,7 @@ import {
   nonEmpty,
   minLength,
   email,
-  // boolean,
+  boolean,
   safeParse,
 } from 'valibot'
 import type { Language } from '@/utils/i18n/data'
@@ -81,16 +81,16 @@ export const POST: APIRoute = async ({
       minLength(FORM_TEXTAREA_MINLENGTH, t.data.contact_form.message.minlength)
     ),
     confirmation: pipe(
-      // boolean(),
-      string(),
-      check(
-        (input) => input === 'on',
-        t.data.contact_form.confirmation.required
-      )
+      boolean(),
+      // string(),
       // check(
-      //   (input) => input === true,
+      //   (input) => input === 'on',
       //   t.data.contact_form.confirmation.required
       // )
+      check(
+        (input) => input === true,
+        t.data.contact_form.confirmation.required
+      )
     ),
     'cf-turnstile-response': string(),
   })
@@ -102,7 +102,8 @@ export const POST: APIRoute = async ({
     return new Response(
       JSON.stringify({
         message: `Missing or invalid field input(s): ${vResult.issues.map((issue) => `${issue}\n`)}`,
-      })
+      }),
+      { status: 422 }
     )
   }
 

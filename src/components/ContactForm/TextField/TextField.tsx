@@ -2,14 +2,9 @@ import {
   TextField as Kobalte,
   Root as KobalteRoot,
 } from '@kobalte/core/text-field'
-import { Skeleton } from '@kobalte/core/skeleton'
 import { type JSX, Show, splitProps } from 'solid-js'
-import {
-  contactField,
-  contactFormError,
-  contactLabel,
-  skeleton,
-} from './contact-form.css'
+import { contactFormError, contactLabel, fieldGroup } from '../contact-form.css'
+import { textField } from './text-field.css'
 
 type Props = {
   name: string
@@ -37,29 +32,28 @@ export const TextField = (props: Props) => {
   return (
     <KobalteRoot
       {...rootProps}
+      class={fieldGroup}
       validationState={props.error ? 'invalid' : 'valid'}
     >
-      <Skeleton class={`${skeleton} ${contactField}`}>
-        <Show when={props.label}>
-          <Kobalte.Label class={contactLabel}>{props.label}</Kobalte.Label>
-        </Show>
-        <Show
-          when={props.multiline}
-          fallback={
-            <div class="pokemon-border">
-              <Kobalte.Input
-                {...inputProps}
-                type={props.type}
-                class={contactField}
-              />
-            </div>
-          }
-        >
+      <Show when={props.label}>
+        <Kobalte.Label class={contactLabel}>{props.label}</Kobalte.Label>
+      </Show>
+      <Show
+        when={props.multiline}
+        fallback={
           <div class="pokemon-border">
-            <Kobalte.TextArea {...inputProps} class={contactField} autoResize />
+            <Kobalte.Input
+              {...inputProps}
+              type={props.type}
+              class={textField}
+            />
           </div>
-        </Show>
-      </Skeleton>
+        }
+      >
+        <div class="pokemon-border">
+          <Kobalte.TextArea {...inputProps} class={textField} />
+        </div>
+      </Show>
       <Kobalte.ErrorMessage class={contactFormError}>
         {props.error}
       </Kobalte.ErrorMessage>

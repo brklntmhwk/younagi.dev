@@ -37,7 +37,6 @@ export const searchInputWrapper = style({
   display: 'flex',
   gap: '0.5rem',
   padding: '0.75rem',
-  zIndex: '60',
 })
 
 export const searchInput = style({

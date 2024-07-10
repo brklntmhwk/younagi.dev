@@ -6,7 +6,7 @@ import {
   onCleanup,
 } from 'solid-js'
 import { type Language } from '@/utils/i18n/data'
-import { cfTurnstile } from './contact-form.css'
+import { cfTurnstile } from './turnstile.css'
 
 type Props = {
   siteKey: string

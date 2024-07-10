@@ -73,10 +73,11 @@ export const modalButton = style({
 })
 
 export const modalButtonLabel = style({
-  fontSize: '1.15rem',
+  fontSize: '1.025rem',
+  fontWeight: 700,
   '@media': {
     '(min-width: 768px)': {
-      fontSize: '1.255rem',
+      fontSize: '1.125rem',
     },
   },
 })

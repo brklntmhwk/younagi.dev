@@ -32,7 +32,6 @@ export const localeLink = style({
   borderBottom: '2px solid transparent',
   selectors: {
     '&:hover::before': {
-      // font-family: var(--base-font);
       content: '▶',
       position: 'absolute',
       top: '0',

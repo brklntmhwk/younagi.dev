@@ -101,7 +101,7 @@ export const POST: APIRoute = async ({
   if (!vResult.success) {
     return new Response(
       JSON.stringify({
-        message: `Missing or invalid field input(s): ${vResult.issues.map((issue) => `${issue}\n`)}`,
+        message: `Missing or invalid field input(s): ${vResult.issues.map((issue) => `message: ${issue.message}\n input: ${issue.input}`)}`,
       }),
       { status: 422 }
     )

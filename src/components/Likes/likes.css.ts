@@ -52,8 +52,13 @@ export const likesButton = style({
 
 export const likesSpan = style({
   color: fgColor,
-  fontSize: '1.15rem',
-  fontWeight: 600,
+  fontSize: '1.025rem',
+  fontWeight: 700,
+  '@media': {
+    '(min-width: 768px)': {
+      fontSize: '1.125rem',
+    },
+  },
   selectors: {
     [`${likesButton} &:last-child`]: {
       borderLeft: `1px solid ${lineColor}`,

@@ -35,7 +35,7 @@ export const localeLink = style({
       // font-family: var(--base-font);
       content: '▶',
       position: 'absolute',
-      top: '-0.215rem',
+      top: '0',
       left: '-1.5rem',
       fontSize: '1.25rem',
       alignSelf: 'center',

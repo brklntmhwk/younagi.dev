@@ -32,7 +32,8 @@
   --callout-check-bg: hsla(117, 64%, 90%, 1);
   --callout-note-fg: hsla(22, 74%, 58%, 1);
   --callout-note-bg: hsla(22, 74%, 85%, 1);
-  --base-font: 'Inconsolata Variable', 'Helvetica Neue', 'Helvetica', Arial,
+  --base-font: 'LINE Seed JP', ui-sans-serif, system-ui, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji',
     'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, Verdana, sans-serif;
   --code-font: Menlo, Consolas, monospace;
 }
@@ -69,6 +70,38 @@
   }
 }
 
+@font-face {
+  font-family: 'LINE Seed JP';
+  src: url('/fonts/LINESeedJP_OTF_Rg.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LINE Seed JP';
+  src: url('/fonts/LINESeedJP_OTF_Bd.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LINE Seed JP';
+  src: url('/fonts/LINESeedJP_OTF_Th.woff2') format('woff2');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LINE Seed JP';
+  src: url('/fonts/LINESeedJP_OTF_Eb.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
   font-family: var(--base-font);
   font-weight: 400;
@@ -79,7 +112,7 @@ body {
   overflow-wrap: break-word;
   color: var(--fg);
   background: var(--bg);
-  line-height: 1.35;
+  line-height: 1.375;
   -webkit-text-size-adjust: 100%;
   touch-action: manipulation;
 }
@@ -108,7 +141,7 @@ h1 {
 }
 h2 {
   font-size: 1.875rem;
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.4;
 }
 h3 {
@@ -118,13 +151,13 @@ h3 {
 }
 h4 {
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.2;
 }
 h5,
 h6 {
   font-size: 1.05rem;
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.2;
 }
 

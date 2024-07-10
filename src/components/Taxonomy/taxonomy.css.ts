@@ -79,7 +79,7 @@ export const taxonomyVariants = styleVariants({
     vars: {
       [borderRadius]: '0.25rem',
       [boxShadow]: 'none',
-      [padding]: '0.425rem 0.975rem',
+      [padding]: '0.375rem 0.875rem',
       [margin]: '0',
     },
     margin: margin,
@@ -91,7 +91,7 @@ export const taxonomyVariants = styleVariants({
       0 -0.25rem ${selectedBgColor},
       0.5rem 0 ${selectedBgColor},
       -0.5rem 0 ${selectedBgColor}`,
-      [padding]: '0.175rem 0.375rem',
+      [padding]: '0.125rem 0.35rem',
       [margin]: '0.25rem 0.5rem',
     },
     margin: margin,

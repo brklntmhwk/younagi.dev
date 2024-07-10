@@ -46,12 +46,12 @@ const { entries, taxonomies } = Astro.props
             </a>
             <section class="date">
               <div class="published">
-                <Icon iconName="publish" width={20} height={20} />
+                <Icon iconName="publish" width={18} height={18} />
                 <FormattedDate date={publishedAt} locale={locale} />
               </div>
               {modifiedAt && (
                 <div class="updated">
-                  <Icon iconName="update" width={20} height={20} />
+                  <Icon iconName="update" width={18} height={18} />
                   <FormattedDate date={modifiedAt} locale={locale} />
                 </div>
               )}
@@ -84,7 +84,7 @@ const { entries, taxonomies } = Astro.props
         padding: 1rem 0.5rem 0.85rem 0.85rem;
         display: flex;
         flex-direction: column;
-        gap: 0.725rem;
+        gap: 0.825rem;
         &:hover {
           background-color: var(--bg-hover);
         }
@@ -92,15 +92,14 @@ const { entries, taxonomies } = Astro.props
           color: var(--fg);
           font-size: 1.585rem;
           font-weight: 700;
-          line-height: 1.215;
-          text-decoration: none;
+          line-height: 1.325;
           @media (min-width: 768px) {
             font-size: 1.85rem;
           }
         }
         .date,
         .blog-description {
-          font-size: 1.015rem;
+          font-size: 0.925rem;
         }
         .date {
           display: flex;

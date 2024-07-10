@@ -50,7 +50,6 @@ export const fieldGroup = style({
 })
 
 export const contactLabel = style({
-  fontWeight: 600,
   userSelect: 'none',
   selectors: {
     [`${checkboxArea} > &`]: {

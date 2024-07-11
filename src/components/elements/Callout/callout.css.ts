@@ -156,7 +156,7 @@ export const calloutTitle = style({
       fontSize: '1.35rem',
       transition: 'transform 0.3s ease',
     },
-    [`${calloutToggleCheck}:checked ~ &::after`]: {
+    [`&:has(+ ${calloutToggleCheck}:checked)::after`]: {
       transform: 'rotate(90deg)',
     },
   },
@@ -176,8 +176,16 @@ globalStyle('.callout-content', {
   fontSize: '1rem',
 })
 
+globalStyle(`${calloutToggleCheck}:checked ~ ${callout}`, {
+  display: 'block',
+})
+
 globalStyle(`${calloutToggleCheck}:checked ~ .callout-content`, {
   display: 'inline-block',
+})
+
+globalStyle(`${calloutToggleCheck}:not(:checked) ~ ${callout}`, {
+  display: 'none',
 })
 
 globalStyle(`${calloutToggleCheck}:not(:checked) ~ .callout-content`, {

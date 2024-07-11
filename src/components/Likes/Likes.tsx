@@ -1,6 +1,7 @@
 import { type Component, createResource } from 'solid-js'
 import { useStore } from '@nanostores/solid'
 import toast from 'solid-toast'
+import wretch from 'wretch'
 import { type Language } from '@/utils/i18n/data'
 import { useTranslatedPath } from '@/utils/i18n/utils'
 import { locale } from '@/components/LocaleStore/locale-store'
@@ -12,9 +13,10 @@ type FetcherProps = Omit<Props, 't'> & { locale: Language }
 
 const fetchLikes = async ({ slug, collection, locale }: FetcherProps) => {
   const translatePath = useTranslatedPath(locale)
-  const res = await fetch(
-    translatePath(`/api/likes?slug=${slug}&collection=${collection}`)
-  )
+  const res = await wretch()
+    .url(translatePath(`/api/likes?slug=${slug}&collection=${collection}`))
+    .get()
+    .res()
   const data = (await res.json()) as { likes: number; liked: boolean }
 
   return data
@@ -39,18 +41,22 @@ export const Likes: Component<Props> = (props) => {
   )
 
   const handleClick = async () => {
-    await fetch(translatePath('/api/likes'), {
-      method: 'POST',
-      body: JSON.stringify({
+    await wretch()
+      .url(translatePath('/api/likes'))
+      .post({
         slug: props.slug,
         collection: props.collection,
-      }),
-    })
+      })
+      .res()
 
     mutate((prev) => {
       const previous = prev ?? { likes: 0, liked: false }
       if (!previous.liked) {
-        toast.success(props.t.thanks_message, { position: 'bottom-right' })
+        toast(props.t.thanks_message, {
+          duration: 3000,
+          position: 'bottom-right',
+          icon: '🙏',
+        })
       }
 
       return {

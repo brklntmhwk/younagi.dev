@@ -35,6 +35,7 @@ export const searchInputWrapper = style({
   backgroundColor: bgColor,
   position: 'sticky',
   display: 'flex',
+  alignItems: 'center',
   gap: '0.5rem',
   padding: '0.75rem',
 })

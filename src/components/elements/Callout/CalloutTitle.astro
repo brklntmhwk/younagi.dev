@@ -28,12 +28,6 @@ const calloutTitle: string | undefined = await Astro.slots.render('default')
 {
   isExpandable ? (
     <>
-      <input
-        type="checkbox"
-        class={calloutToggleCheck}
-        id={`callout-toggle-check-${dataCalloutType}-${uniqueId}`}
-        checked={isExpanded === true ?? false}
-      />
       <label
         for={`callout-toggle-check-${dataCalloutType}-${uniqueId}`}
         class={titleStyle}
@@ -48,6 +42,12 @@ const calloutTitle: string | undefined = await Astro.slots.render('default')
           {calloutTitle ? <Fragment set:html={calloutTitle} /> : callout.label}
         </span>
       </label>
+      <input
+        type="checkbox"
+        class={calloutToggleCheck}
+        id={`callout-toggle-check-${dataCalloutType}-${uniqueId}`}
+        checked={isExpanded === true ?? false}
+      />
     </>
   ) : (
     <div class={titleStyle}>

@@ -76,7 +76,7 @@ export const ContactForm: Component<Props> = ({ t }) => {
         ${t.error_handler_message}`,
         {
           position: 'bottom-right',
-          duration: 10000,
+          duration: 8000,
         }
       )
       console.error(errorMessage)
@@ -86,7 +86,7 @@ export const ContactForm: Component<Props> = ({ t }) => {
         ${t.error_handler_message}`,
         {
           position: 'bottom-right',
-          duration: 10000,
+          duration: 8000,
         }
       )
       console.trace(`${t.unexpected_error_message}: ${e}`)

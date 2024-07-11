@@ -119,11 +119,11 @@ const { entries, taxonomies } = Astro.props
           display: flex;
           flex-wrap: wrap;
           align-items: center;
-          gap: 0.85rem;
-          a {
+          gap: 0.95rem 0.85rem;
+          & :global(a) {
             font-size: 0.875rem;
             @media (min-width: 640px) {
-              font-size: 1.15rem;
+              font-size: 1.025rem;
             }
           }
         }

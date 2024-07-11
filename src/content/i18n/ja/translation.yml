@@ -22,8 +22,6 @@ pager:
   right_arrow_label: 次のページ
 locale_picker:
   button_label: Ctrl + L で言語を選択
-theme_toggle:
-  button_label: テーマを切り替える
 search:
   placeholder: 検索...
   button_label: Ctrl + K で検索
@@ -61,7 +59,7 @@ contact_form:
   confirmation:
     label: 上記の内容で送信する
     required: 送信前にチェックをしてください
-  send_label: 送信する
+  submit: 送信する
   submitting: 送信中...
 og_image:
   site_name: *website
@@ -101,10 +99,6 @@ pages:
     my_name: *author
     contact_me: お問い合わせ
     profile_img_alt: プロフィール画像
-    back_to_top: *back_to_top
-    scroll_to_top: *scroll_to_top
-  contact:
-    title: *contact
     back_to_top: *back_to_top
     scroll_to_top: *scroll_to_top
   page:

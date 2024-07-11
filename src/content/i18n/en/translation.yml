@@ -22,8 +22,6 @@ pager:
   right_arrow_label: Next page
 locale_picker:
   button_label: Hit Ctrl + L to select a language
-theme_toggle:
-  button_label: Toggle theme
 search:
   placeholder: Search...
   button_label: Hit Ctrl + K to search contents
@@ -61,7 +59,7 @@ contact_form:
   confirmation:
     label: I confirm that the above information is correct.
     required: Please tick the checkbox before submission
-  send_label: Submit
+  submit: Submit
   submitting: Submitting...
 og_image:
   site_name: *website
@@ -103,10 +101,6 @@ pages:
     back_to_top: *back_to_top
     scroll_to_top: *scroll_to_top
     profile_img_alt: My profile image
-  contact:
-    title: *contact
-    back_to_top: *back_to_top
-    scroll_to_top: *scroll_to_top
   page:
     back_to_top: *back_to_top
     scroll_to_top: *scroll_to_top

@@ -4,6 +4,12 @@ import { generateUniqueId } from '@/utils/generate-unique-id'
 import { toBoolean } from '@/utils/to-boolean'
 import { getCallout } from './callouts'
 import type { Props as CalloutProps } from './Callout.astro'
+import {
+  calloutTitle as titleStyle,
+  calloutToggleCheck,
+  calloutTitleText,
+  calloutTitleIcon,
+} from './callout.css'
 
 type Props = CalloutProps
 
@@ -24,27 +30,34 @@ const calloutTitle: string | undefined = await Astro.slots.render('default')
     <>
       <input
         type="checkbox"
+        class={calloutToggleCheck}
         id={`callout-toggle-check-${dataCalloutType}-${uniqueId}`}
         checked={isExpanded === true ?? false}
       />
       <label
         for={`callout-toggle-check-${dataCalloutType}-${uniqueId}`}
-        class="callout-title"
+        class={titleStyle}
       >
-        <div class="callout-title-icon">
-          <Icon iconName={callout.icon} width={20} height={20} />
-        </div>
-        <span class="callout-title-text">
+        <Icon
+          class={calloutTitleIcon}
+          iconName={callout.icon}
+          width={20}
+          height={20}
+        />
+        <span class={calloutTitleText}>
           {calloutTitle ? <Fragment set:html={calloutTitle} /> : callout.label}
         </span>
       </label>
     </>
   ) : (
-    <div class="callout-title">
-      <div class="callout-title-icon">
-        <Icon iconName={callout.icon} width={20} height={20} />
-      </div>
-      <span class="callout-title-text">
+    <div class={titleStyle}>
+      <Icon
+        class={calloutTitleIcon}
+        iconName={callout.icon}
+        width={20}
+        height={20}
+      />
+      <span class={calloutTitleText}>
         {calloutTitle ? <Fragment set:html={calloutTitle} /> : callout.label}
       </span>
     </div>

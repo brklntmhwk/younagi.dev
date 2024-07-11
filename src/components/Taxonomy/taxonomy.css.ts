@@ -1,7 +1,6 @@
 import { createVar, style, styleVariants } from '@vanilla-extract/css'
+import { bgColor, fgColor } from '@/styles/styles.css'
 
-const selectedColor = createVar()
-const selectedBgColor = createVar()
 const borderRadius = createVar()
 const boxShadow = createVar()
 const padding = createVar()
@@ -10,67 +9,67 @@ const margin = createVar()
 export const colorVariants = styleVariants({
   primary: {
     vars: {
-      [selectedColor]: 'hsla(0, 0%, 96.7%, 1)',
-      [selectedBgColor]: 'hsla(240.24, 100%, 48.63%, 1)',
+      [fgColor]: 'hsla(0, 0%, 96.7%, 1)',
+      [bgColor]: 'hsla(240.24, 100%, 48.63%, 1)',
     },
     '@media': {
       '(prefers-color-scheme: dark)': {
         vars: {
-          [selectedColor]: 'hsla(0, 0%, 96.7%, 1)',
-          [selectedBgColor]: 'hsla(215.24, 100%, 52.63%, 1)',
+          [fgColor]: 'hsla(0, 0%, 96.7%, 1)',
+          [bgColor]: 'hsla(215.24, 100%, 52.63%, 1)',
         },
       },
     },
-    color: selectedColor,
-    backgroundColor: selectedBgColor,
+    color: fgColor,
+    backgroundColor: bgColor,
   },
   secondary: {
     vars: {
-      [selectedColor]: 'hsla(0, 0%, 96.7%, 1)',
-      [selectedBgColor]: 'hsla(32.94, 100%, 50%, 1)',
+      [fgColor]: 'hsla(0, 0%, 96.7%, 1)',
+      [bgColor]: 'hsla(32.94, 100%, 50%, 1)',
     },
     '@media': {
       '(prefers-color-scheme: dark)': {
         vars: {
-          [selectedColor]: 'hsla(0, 0%, 96.7%, 1)',
-          [selectedBgColor]: 'hsla(29, 96%, 42%, 1)',
+          [fgColor]: 'hsla(0, 0%, 96.7%, 1)',
+          [bgColor]: 'hsla(29, 96%, 42%, 1)',
         },
       },
     },
-    color: selectedColor,
-    backgroundColor: selectedBgColor,
+    color: fgColor,
+    backgroundColor: bgColor,
   },
   green: {
     vars: {
-      [selectedColor]: 'hsla(0, 0%, 96.7%, 1)',
-      [selectedBgColor]: 'hsla(117, 65%, 60%, 1)',
+      [fgColor]: 'hsla(0, 0%, 96.7%, 1)',
+      [bgColor]: 'hsla(117, 65%, 60%, 1)',
     },
     '@media': {
       '(prefers-color-scheme: dark)': {
         vars: {
-          [selectedColor]: 'hsla(0, 0%, 96.7%, 1)',
-          [selectedBgColor]: 'hsla(117, 42%, 58%, 1)',
+          [fgColor]: 'hsla(0, 0%, 96.7%, 1)',
+          [bgColor]: 'hsla(117, 42%, 58%, 1)',
         },
       },
     },
-    color: selectedColor,
-    backgroundColor: selectedBgColor,
+    color: fgColor,
+    backgroundColor: bgColor,
   },
   purple: {
     vars: {
-      [selectedColor]: 'hsla(0, 0%, 96.7%, 1)',
-      [selectedBgColor]: 'hsla(253, 56%, 70%, 1)',
+      [fgColor]: 'hsla(0, 0%, 96.7%, 1)',
+      [bgColor]: 'hsla(253, 56%, 70%, 1)',
     },
     '@media': {
       '(prefers-color-scheme: dark)': {
         vars: {
-          [selectedColor]: 'hsla(0, 0%, 96.7%, 1)',
-          [selectedBgColor]: 'hsla(258, 42%, 65%, 1)',
+          [fgColor]: 'hsla(0, 0%, 96.7%, 1)',
+          [bgColor]: 'hsla(258, 42%, 65%, 1)',
         },
       },
     },
-    color: selectedColor,
-    backgroundColor: selectedBgColor,
+    color: fgColor,
+    backgroundColor: bgColor,
   },
 })
 
@@ -87,10 +86,10 @@ export const taxonomyVariants = styleVariants({
   tags: {
     vars: {
       [borderRadius]: 'unset',
-      [boxShadow]: `0 0.25rem ${selectedBgColor},
-      0 -0.25rem ${selectedBgColor},
-      0.5rem 0 ${selectedBgColor},
-      -0.5rem 0 ${selectedBgColor}`,
+      [boxShadow]: `0 0.25rem ${bgColor},
+      0 -0.25rem ${bgColor},
+      0.5rem 0 ${bgColor},
+      -0.5rem 0 ${bgColor}`,
       [padding]: '0.125rem 0.35rem',
       [margin]: '0.25rem 0.5rem',
     },
@@ -107,8 +106,8 @@ export const taxonomyLink = style({
 export const taxonomySpan = style({
   padding: padding,
   textAlign: 'center',
-  color: selectedColor,
-  backgroundColor: selectedBgColor,
+  color: fgColor,
+  backgroundColor: bgColor,
   boxShadow: boxShadow,
   borderRadius: borderRadius,
 })

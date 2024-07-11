@@ -151,14 +151,10 @@ export const ContactForm: Component<Props> = ({ t }) => {
               value={field.value || ''}
               error={field.error}
             />
-            {/* <input {...props} type="hidden" value={field.value || ''} /> */}
           </>
         )}
       </Field>
-      <SubmitButton label={t.send_label} />
-      {contactForm.response.message && (
-        <div>{contactForm.response.message}</div>
-      )}
+      <SubmitButton label={contactForm.submitting ? t.submitting : t.submit} />
     </Form>
   )
 }

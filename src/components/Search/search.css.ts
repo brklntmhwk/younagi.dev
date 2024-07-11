@@ -52,7 +52,7 @@ export const searchInput = style({
   },
   width: '100%',
   fontSize: '1.05rem',
-  fontWeight: 600,
+  fontWeight: 400,
   color: fgColor,
   backgroundColor: 'transparent',
   outline: 'none',

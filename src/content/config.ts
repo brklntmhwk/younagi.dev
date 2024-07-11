@@ -110,9 +110,6 @@ const i18n = defineCollection({
     locale_picker: z.object({
       button_label: z.string(),
     }),
-    theme_toggle: z.object({
-      button_label: z.string(),
-    }),
     search: z.object({
       placeholder: z.string(),
       button_label: z.string(),
@@ -163,7 +160,7 @@ const i18n = defineCollection({
         label: z.string(),
         required: z.string(),
       }),
-      send_label: z.string(),
+      submit: z.string(),
       submitting: z.string(),
     }),
     og_image: z.object({
@@ -214,11 +211,6 @@ const i18n = defineCollection({
         my_name: z.string(),
         contact_me: z.string(),
         profile_img_alt: z.string(),
-        back_to_top: z.string(),
-        scroll_to_top: z.string(),
-      }),
-      contact: z.object({
-        title: z.string(),
         back_to_top: z.string(),
         scroll_to_top: z.string(),
       }),

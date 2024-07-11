@@ -1,5 +1,6 @@
 ---
 import { getCalloutType } from './callouts'
+import { callout, calloutVariants } from './callout.css'
 
 export type Props = {
   'data-callout-type': string
@@ -11,146 +12,10 @@ const { 'data-callout-type': calloutType, ...restProps } = Astro.props
 const validCalloutType = getCalloutType(calloutType)
 ---
 
-<div class="callout" data-callout-type={validCalloutType} {...restProps}>
+<div
+  class:list={[callout, calloutVariants[validCalloutType]]}
+  data-callout-type={validCalloutType}
+  {...restProps}
+>
   <slot />
 </div>
-<style>
-  .callout {
-    padding: 0.75rem 0.85rem;
-    margin: 1.5rem 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    border-radius: 0.25rem;
-    & :global(input[id^='callout-toggle-check']) {
-      display: none;
-    }
-    & :global(.callout-title) {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-      user-select: none;
-      & :global(.callout-title-text) {
-        font-size: 1.05rem;
-        font-weight: extrabold;
-      }
-      & :global(.callout-title-icon > svg) {
-        width: 20px;
-        height: 20px;
-      }
-    }
-    & :global(.callout-content) {
-      font-size: 1rem;
-    }
-    &
-      :global(input[id^='callout-toggle-check']):checked
-      ~ :global(.callout-title)::after {
-      transform: rotate(90deg);
-    }
-    &
-      :global(input[id^='callout-toggle-check']):checked
-      ~ :global(.callout-content) {
-      display: inline-block;
-    }
-    &
-      :global(input[id^='callout-toggle-check']):not(:checked)
-      ~ :global(.callout-content) {
-      display: none;
-    }
-  }
-  .callout[data-expandable='true'] {
-    & :global(.callout-title) {
-      &::after {
-        content: '›';
-        color: inherit;
-        display: inline-block;
-        font-size: 1.35rem;
-        transition: transform 0.3s ease;
-      }
-    }
-  }
-  .callout[data-callout-type='info'] {
-    background-color: var(--callout-info-bg);
-    & :global(.callout-title) {
-      color: var(--callout-info-fg);
-      & :global(.callout-title-text) {
-        color: var(--callout-info-fg);
-      }
-      & :global(.callout-title-icon > svg) {
-        stroke: var(--callout-info-fg);
-      }
-    }
-  }
-  .callout[data-callout-type='warning'] {
-    background-color: var(--callout-caution-bg);
-    & :global(.callout-title) {
-      color: var(--callout-caution-fg);
-      & :global(.callout-title-text) {
-        color: var(--callout-caution-fg);
-      }
-      & :global(.callout-title-icon > svg) {
-        stroke: var(--callout-caution-fg);
-      }
-    }
-  }
-  .callout[data-callout-type='failure'] {
-    background-color: var(--callout-failure-bg);
-    & :global(.callout-title) {
-      color: var(--callout-failure-fg);
-      & :global(.callout-title-text) {
-        color: var(--callout-failure-fg);
-      }
-      & :global(.callout-title-icon > svg) {
-        stroke: var(--callout-failure-fg);
-      }
-    }
-  }
-  .callout[data-callout-type='question'] {
-    background-color: var(--callout-question-bg);
-    & :global(.callout-title) {
-      color: var(--callout-question-fg);
-      & :global(.callout-title-text) {
-        color: var(--callout-question-fg);
-      }
-      & :global(.callout-title-icon > svg) {
-        stroke: var(--callout-question-fg);
-      }
-    }
-  }
-  .callout[data-callout-type='check'] {
-    background-color: var(--callout-check-bg);
-    & :global(.callout-title) {
-      color: var(--callout-check-fg);
-      & :global(.callout-title-text) {
-        color: var(--callout-check-fg);
-      }
-      & :global(.callout-title-icon > svg) {
-        stroke: var(--callout-check-fg);
-      }
-    }
-  }
-  .callout[data-callout-type='quote'] {
-    background-color: var(--callout-quote-bg);
-    & :global(.callout-title) {
-      color: var(--callout-quote-fg);
-      & :global(.callout-title-text) {
-        color: var(--callout-quote-fg);
-      }
-      & :global(.callout-title-icon > svg) {
-        stroke: var(--callout-quote-fg);
-      }
-    }
-  }
-  .callout[data-callout-type='note'] {
-    background-color: var(--callout-note-bg);
-    & :global(.callout-title) {
-      color: var(--callout-note-fg);
-      & :global(.callout-title-text) {
-        color: var(--callout-note-fg);
-      }
-      & :global(.callout-title-icon > svg) {
-        stroke: var(--callout-note-fg);
-      }
-    }
-  }
-</style>

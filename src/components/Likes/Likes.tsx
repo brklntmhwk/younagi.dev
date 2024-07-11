@@ -1,5 +1,6 @@
 import { type Component, createResource } from 'solid-js'
 import { useStore } from '@nanostores/solid'
+import toast from 'solid-toast'
 import { type Language } from '@/utils/i18n/data'
 import { useTranslatedPath } from '@/utils/i18n/utils'
 import { locale } from '@/components/LocaleStore/locale-store'
@@ -37,29 +38,32 @@ export const Likes: Component<Props> = (props) => {
     fetchLikes
   )
 
+  const handleClick = async () => {
+    await fetch(translatePath('/api/likes'), {
+      method: 'POST',
+      body: JSON.stringify({
+        slug: props.slug,
+        collection: props.collection,
+      }),
+    })
+
+    mutate((prev) => {
+      const previous = prev ?? { likes: 0, liked: false }
+      if (!previous.liked) {
+        toast.success(props.t.thanks_message, { position: 'bottom-right' })
+      }
+
+      return {
+        likes: previous.likes + (previous.liked ? -1 : 1),
+        liked: !previous.liked,
+      }
+    })
+    refetch()
+  }
+
   return (
     <div class={likesWrapper}>
-      <button
-        type="button"
-        class={likesButton}
-        onClick={async () => {
-          await fetch(translatePath('/api/likes'), {
-            method: 'POST',
-            body: JSON.stringify({
-              slug: props.slug,
-              collection: props.collection,
-            }),
-          })
-          mutate((prev) => {
-            const previous = prev ?? { likes: 0, liked: false }
-            return {
-              likes: previous.likes + (previous.liked ? -1 : 1),
-              liked: !previous.liked,
-            }
-          })
-          refetch()
-        }}
-      >
+      <button type="button" class={likesButton} onClick={handleClick}>
         <LikeIcon
           isLiked={likes()?.liked}
           width={24}

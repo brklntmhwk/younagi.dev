@@ -68,27 +68,29 @@ export const ContactForm: Component<Props> = ({ t }) => {
   const handleError = (e: unknown | WretchError) => {
     if (isWretchError(e)) {
       const errorMessage = `
-      status code: ${e.status}
-      error name: ${e.name}
-      error message: ${e.message}
-      error response text: ${e.text}`
+      ${e.status} ${e.response.statusText}
+      ${e.message}`
 
-      toast.error(errorMessage, {
-        position: 'bottom-right',
-        duration: 10000,
-      })
+      toast.error(
+        `${errorMessage}\n
+        ${t.error_handler_message}`,
+        {
+          position: 'bottom-right',
+          duration: 10000,
+        }
+      )
       console.error(errorMessage)
     } else {
-      toast.error(`Unexpected Error: ${e}`, {
-        position: 'bottom-right',
-        duration: 10000,
-      })
-      console.trace(e)
+      toast.error(
+        `${t.unexpected_error_message}: ${e}\n
+        ${t.error_handler_message}`,
+        {
+          position: 'bottom-right',
+          duration: 10000,
+        }
+      )
+      console.trace(`${t.unexpected_error_message}: ${e}`)
     }
-  }
-
-  const handleVerify = (token: string) => {
-    setValue(contactForm, 'cf-turnstile-response', token)
   }
 
   const handleSubmit: SubmitHandler<FormFields> = async (values) => {
@@ -102,49 +104,14 @@ export const ContactForm: Component<Props> = ({ t }) => {
         .notFound((err) => handleError(err))
         .fetchError((err) => handleError(err))
         .res((r) => window.location.replace(r.url))
-
-      // await toast.promise(
-      //   wretch()
-      //     .url(translatePath('/api/form'))
-      //     .post(values)
-      //     .error(422, (err) => handleError(err))
-      //     .badRequest((err) => handleError(err))
-      //     .internalError((err) => handleError(err))
-      //     .notFound((err) => handleError(err))
-      //     .fetchError((err) => handleError(err))
-      //     .res(),
-      //   {
-      //     loading: t.submitting,
-      //     success: 'Your Message has been Successfully Submitted',
-      //     error: 'Something went wrong...',
-      //   },
-      //   {
-      //     position: 'bottom-right',
-      //   }
-      // )
     } catch (err) {
       handleError(err)
     }
   }
 
-  // const handleSubmit: SubmitHandler<FormFields> = async (values) => {
-  //   try {
-  //     const res = await fetch(translatePath('/api/form'), {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(values),
-  //     })
-  //     if (!res.ok) {
-  //       throw new FormError<FormFields>(`${res.statusText} ${res.status}`)
-  //     }
-
-  //     window.location.replace(res.url)
-  //   } catch (err) {
-  //     handleError(err, 'Failed to submit form data')
-  //   }
-  // }
+  const handleVerify = (token: string) => {
+    setValue(contactForm, 'cf-turnstile-response', token)
+  }
 
   return (
     <Form class={ContactFormStyle} onSubmit={handleSubmit}>

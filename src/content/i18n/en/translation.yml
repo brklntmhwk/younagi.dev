@@ -44,6 +44,7 @@ bmc:
   greeting_message: Caffeine helps me create more
 likes:
   button_label: Like it
+  thanks_message: Thank you
 contact_form:
   name:
     label: Name
@@ -61,6 +62,8 @@ contact_form:
     required: Please tick the checkbox before submission
   submit: Submit
   submitting: Submitting...
+  error_handler_message: Please try again.
+  unexpected_error_message: Unexpected error occurred
 og_image:
   site_name: *website
   logo_alt: Site logo

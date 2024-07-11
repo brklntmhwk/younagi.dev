@@ -44,6 +44,7 @@ bmc:
   greeting_message: 励みになります
 likes:
   button_label: 推せる
+  thanks_message: ありがとうございます
 contact_form:
   name:
     label: 氏名
@@ -61,6 +62,8 @@ contact_form:
     required: 送信前にチェックをしてください
   submit: 送信する
   submitting: 送信中...
+  error_handler_message: 再度お試しください
+  unexpected_error_message: 予期せぬエラーが発生しました
 og_image:
   site_name: *website
   logo_alt: サイトのロゴ

@@ -1,3 +1,4 @@
+import type { Component } from 'solid-js'
 import { useStore } from '@nanostores/solid'
 import { locale } from '@/components/LocaleStore/locale-store'
 import { url } from '@/components/UrlStore/url-store'
@@ -10,7 +11,7 @@ import {
   localeSpan,
 } from './locale-picker.css'
 
-export const LocalePicker = () => {
+export const LocalePicker: Component = () => {
   const $locale = useStore(locale)
   const $url = useStore(url)
 

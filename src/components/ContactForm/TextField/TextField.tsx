@@ -2,7 +2,7 @@ import {
   TextField as Kobalte,
   Root as KobalteRoot,
 } from '@kobalte/core/text-field'
-import { type JSX, Show, splitProps } from 'solid-js'
+import { type JSX, type Component, Show, splitProps } from 'solid-js'
 import { contactFormError, contactLabel, fieldGroup } from '../contact-form.css'
 import { textField } from './text-field.css'
 
@@ -23,7 +23,7 @@ type Props = {
   onBlur: JSX.EventHandler<HTMLInputElement | HTMLTextAreaElement, FocusEvent>
 }
 
-export const TextField = (props: Props) => {
+export const TextField: Component<Props> = (props) => {
   const [rootProps, inputProps] = splitProps(
     props,
     ['name', 'value', 'required', 'disabled'],

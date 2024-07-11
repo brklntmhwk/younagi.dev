@@ -4,7 +4,7 @@ import type { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 
 const shouldIgnore = (node: Element) => {
-  /* At this point, the link card data attribute has yet to be converted to kebab case so designate it in pascal case */
+  /* At this point, the link card data attribute has yet to be converted to kebab case so designate it in pascal case here */
   const isLinkCard =
     node.tagName === 'a' && Object.hasOwn(node.properties, 'dataLinkCard')
   const isCodeBlock =

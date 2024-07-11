@@ -1,5 +1,5 @@
 import { Checkbox as KCheckbox, Root as KRoot } from '@kobalte/core/checkbox'
-import { type JSX, splitProps } from 'solid-js'
+import { type JSX, type Component, splitProps } from 'solid-js'
 import { CheckIcon } from '../Checkbox/CheckIcon'
 import { checkboxArea, checkboxControl } from './checkbox.css'
 import { contactFormError, contactLabel, fieldGroup } from '../contact-form.css'
@@ -19,7 +19,7 @@ type Props = {
   onBlur: JSX.EventHandler<HTMLInputElement, FocusEvent>
 }
 
-export const Checkbox = (props: Props) => {
+export const Checkbox: Component<Props> = (props) => {
   const [rootProps, inputProps] = splitProps(
     props,
     ['name', 'value', 'checked', 'required', 'disabled'],

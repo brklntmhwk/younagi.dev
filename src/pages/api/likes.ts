@@ -95,5 +95,5 @@ export const POST: APIRoute = async ({
       .execute()
   }
 
-  return new Response(JSON.stringify({ success: true }))
+  return new Response(JSON.stringify({ success: true }), { status: 201 })
 }

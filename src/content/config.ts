@@ -140,6 +140,7 @@ const i18n = defineCollection({
     }),
     likes: z.object({
       button_label: z.string(),
+      thanks_message: z.string(),
     }),
     contact_form: z.object({
       name: z.object({
@@ -162,6 +163,8 @@ const i18n = defineCollection({
       }),
       submit: z.string(),
       submitting: z.string(),
+      error_handler_message: z.string(),
+      unexpected_error_message: z.string(),
     }),
     og_image: z.object({
       site_name: z.string(),

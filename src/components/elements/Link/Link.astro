@@ -1,7 +1,8 @@
 ---
+import type { HTMLAttributes } from 'astro/types'
 import LinkCard from './LinkCard.astro'
 
-export type Props = {
+type Props = HTMLAttributes<'a'> & {
   href: string
   'data-link-card'?: string
 }

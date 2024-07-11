@@ -2,7 +2,6 @@ import { type Component } from 'solid-js'
 import {
   type SubmitHandler,
   createForm,
-  FormError,
   valiForm,
   setValue,
 } from '@modular-forms/solid'
@@ -18,6 +17,8 @@ import {
   boolean,
 } from 'valibot'
 import { useStore } from '@nanostores/solid'
+import wretch, { type WretchError } from 'wretch'
+import toast from 'solid-toast'
 import { useTranslatedPath } from '@/utils/i18n/utils'
 import { FORM_TEXTAREA_MINLENGTH } from '@/lib/consts'
 import { locale } from '@/components/LocaleStore/locale-store'
@@ -26,6 +27,7 @@ import type { I18nData } from '@/lib/collections/types'
 import { SubmitButton } from './SubmitButton/SubmitButton'
 import { Checkbox } from './Checkbox/Checkbox'
 import { TextField } from './TextField/TextField'
+import { isWretchError } from './error-is'
 import { contactForm as ContactFormStyle } from './contact-form.css'
 
 type Props = {
@@ -33,6 +35,10 @@ type Props = {
 }
 
 export const ContactForm: Component<Props> = ({ t }) => {
+  /** Form schema must be inside this component to apply translated strings.
+   * Putting the async getEntry function for i18n outside and using it here is also possible,
+   * but it brings about a warning that using async functions from Astro Content Collections in that way will be deprecated in the future. (As of July 2024)
+   * */
   const formSchema = object({
     name: pipe(string(), nonEmpty(t.name.required)),
     email: pipe(string(), nonEmpty(t.email.required), email(t.email.invalid)),
@@ -59,10 +65,24 @@ export const ContactForm: Component<Props> = ({ t }) => {
     validate: valiForm(formSchema),
   })
 
-  const handleError = (e: unknown, message: string) => {
-    if (e instanceof Error) {
-      console.error(`${message}: ${e.message}`)
+  const handleError = (e: unknown | WretchError) => {
+    if (isWretchError(e)) {
+      const errorMessage = `
+      status code: ${e.status}
+      error name: ${e.name}
+      error message: ${e.message}
+      error response text: ${e.text}`
+
+      toast.error(errorMessage, {
+        position: 'bottom-right',
+        duration: 10000,
+      })
+      console.error(errorMessage)
     } else {
+      toast.error(`Unexpected Error: ${e}`, {
+        position: 'bottom-right',
+        duration: 10000,
+      })
       console.trace(e)
     }
   }
@@ -73,22 +93,58 @@ export const ContactForm: Component<Props> = ({ t }) => {
 
   const handleSubmit: SubmitHandler<FormFields> = async (values) => {
     try {
-      const res = await fetch(translatePath('/api/form'), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(values),
-      })
-      if (!res.ok) {
-        throw new FormError<FormFields>(`${res.statusText} ${res.status}`)
-      }
+      await wretch()
+        .url(translatePath('/api/form'))
+        .post(values)
+        .error(422, (err) => handleError(err))
+        .badRequest((err) => handleError(err))
+        .internalError((err) => handleError(err))
+        .notFound((err) => handleError(err))
+        .fetchError((err) => handleError(err))
+        .res((r) => window.location.replace(r.url))
 
-      window.location.replace(res.url)
+      // await toast.promise(
+      //   wretch()
+      //     .url(translatePath('/api/form'))
+      //     .post(values)
+      //     .error(422, (err) => handleError(err))
+      //     .badRequest((err) => handleError(err))
+      //     .internalError((err) => handleError(err))
+      //     .notFound((err) => handleError(err))
+      //     .fetchError((err) => handleError(err))
+      //     .res(),
+      //   {
+      //     loading: t.submitting,
+      //     success: 'Your Message has been Successfully Submitted',
+      //     error: 'Something went wrong...',
+      //   },
+      //   {
+      //     position: 'bottom-right',
+      //   }
+      // )
     } catch (err) {
-      handleError(err, 'Failed to submit form data')
+      handleError(err)
     }
   }
+
+  // const handleSubmit: SubmitHandler<FormFields> = async (values) => {
+  //   try {
+  //     const res = await fetch(translatePath('/api/form'), {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(values),
+  //     })
+  //     if (!res.ok) {
+  //       throw new FormError<FormFields>(`${res.statusText} ${res.status}`)
+  //     }
+
+  //     window.location.replace(res.url)
+  //   } catch (err) {
+  //     handleError(err, 'Failed to submit form data')
+  //   }
+  // }
 
   return (
     <Form class={ContactFormStyle} onSubmit={handleSubmit}>

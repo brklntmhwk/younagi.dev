@@ -1,40 +1,6 @@
-import { keyframes, style } from '@vanilla-extract/css'
+import { style } from '@vanilla-extract/css'
 import { bgColor, fgColor } from '@/styles/styles.css'
 import { checkboxArea } from './Checkbox/checkbox.css'
-
-const skeletonFade = keyframes({
-  '0%': { opacity: 0.4 },
-  '100%': { opacity: 0.4 },
-  '50%': { opacity: 1 },
-})
-
-export const skeleton = style({
-  position: 'relative',
-  transform: 'translateZ(0)',
-  WebkitTransform: 'translateZ(0)',
-  selectors: {
-    '&[data-animate="true"]::after': {
-      animation: `${skeletonFade} 1500ms linear infinite`,
-    },
-    '&[data-visible="true"]': {
-      overflow: 'hidden',
-    },
-    '&[data-visible="true"]::before': {
-      position: 'absolute',
-      content: '',
-      inset: 0,
-      zIndex: 10,
-      backgroundColor: 'white',
-    },
-    '&[data-visible="true"]::after': {
-      position: 'absolute',
-      content: '',
-      inset: 0,
-      zIndex: 11,
-      backgroundColor: 'gray',
-    },
-  },
-})
 
 export const contactForm = style({
   display: 'flex',

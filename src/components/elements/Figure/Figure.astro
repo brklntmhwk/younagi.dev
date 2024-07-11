@@ -1,8 +1,9 @@
 ---
+import type { HTMLAttributes } from 'astro/types'
 import AstroCode from './Code.astro'
 import AstroImage from './Image.astro'
 
-export type Props = {
+type Props = HTMLAttributes<'figure'> & {
   'data-image-figure'?: ''
   'data-rehype-pretty-code-figure'?: ''
 }

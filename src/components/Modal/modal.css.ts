@@ -1,11 +1,5 @@
 import { style, createVar } from '@vanilla-extract/css'
-import {
-  bgColor,
-  fgColor,
-  /* hoverBgColor,
-  fillColor,
-  lineColor, */
-} from '@/styles/styles.css'
+import { bgColor, fgColor } from '@/styles/styles.css'
 import { contactForm } from '@/components/ContactForm/contact-form.css'
 
 export const modalBgColor = createVar()

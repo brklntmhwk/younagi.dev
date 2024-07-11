@@ -1,5 +1,7 @@
 ---
-export type Props = {
+import type { HTMLAttributes } from 'astro/types'
+
+type Props = HTMLAttributes<'figure'> & {
   'data-image-alt'?: string
   'data-image-aspect-ratio'?: string
   'data-image-blur-url'?: string

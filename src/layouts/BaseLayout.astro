@@ -4,6 +4,7 @@ import { Navigation } from '@/components/Navigation'
 import { Footer } from '@/components/Footer'
 import { LocaleStore } from '@/components/LocaleStore/LocaleStore'
 import { UrlStore } from '@/components/UrlStore/UrlStore'
+import { Toaster } from '@/components/Toaster/Toaster'
 import { getLocaleFromUrl } from '@/utils/i18n/utils'
 
 export type Props = {
@@ -37,6 +38,7 @@ const { title, description, og } = Astro.props
       <Footer />
     </div>
     <div id="modal"></div>
+    <Toaster client:only="solid" />
     <style>
       .base-wrapper {
         margin: 0 auto;

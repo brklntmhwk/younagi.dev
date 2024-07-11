@@ -3,8 +3,7 @@ import { Portal } from 'solid-js/web'
 import { makeEventListener } from '@solid-primitives/event-listener'
 import { createShortcut } from '@solid-primitives/keyboard'
 import { type ModalContent, shortcutKeyMap } from './modal-data'
-// import { toggle as toggleStore } from './modal-toggle-store'
-// import { ToggleProvider } from './ToggleProvider'
+
 import {
   hidden,
   modal,
@@ -54,10 +53,7 @@ export const Modal: ParentComponent<Props> = (props) => {
   let overlayRef!: HTMLDivElement
   let buttonRef!: HTMLButtonElement
   const [isOpen, setIsOpen] = createSignal(false)
-  const toggle = () => {
-    setIsOpen((isOpen) => !isOpen)
-    // toggleStore.set({ isOpen, setIsOpen })
-  }
+  const toggle = () => setIsOpen((isOpen) => !isOpen)
 
   createShortcut(shortcutKeyMap[props.modalName], toggle, {
     preventDefault: true,
@@ -88,7 +84,6 @@ export const Modal: ParentComponent<Props> = (props) => {
             class={`${modalWrapper} pixel-border`}
           >
             {props.children}
-            {/* <ToggleProvider isOpen={isOpen()}>{props.children}</ToggleProvider> */}
           </div>
         </div>
       </Portal>

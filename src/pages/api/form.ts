@@ -69,11 +69,6 @@ export const POST: APIRoute = async ({
     ),
     confirmation: pipe(
       boolean(),
-      // string(),
-      // check(
-      //   (input) => input === 'on',
-      //   t.data.contact_form.confirmation.required
-      // )
       check(
         (input) => input === true,
         t.data.contact_form.confirmation.required

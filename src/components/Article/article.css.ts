@@ -23,11 +23,6 @@ export const contentVariants = styleVariants({
       [contentKind]: 'about',
     },
   },
-  contact: {
-    vars: {
-      [contentKind]: 'contact',
-    },
-  },
 })
 
 export const contentHr = style({

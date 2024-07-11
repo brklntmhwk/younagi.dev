@@ -4,7 +4,7 @@ import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils'
 import { articleBase, contentVariants, contentHr } from './article.css'
 
 type Props = {
-  kind: 'blog' | 'news' | 'page' | 'about' | 'contact'
+  kind: 'blog' | 'news' | 'page' | 'about'
 }
 
 const locale = getLocaleFromUrl(Astro.url)

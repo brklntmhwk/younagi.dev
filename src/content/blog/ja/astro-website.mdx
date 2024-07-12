@@ -17,164 +17,21 @@ tags:
     - cloudflare
 ---
 
-## 概要
-
-- Next.js から Astro に乗り換えて個人サイトを作った
-- サイトには全文検索機能(Pagefind)や多言語化対応などの機能が盛り込まれている。それらのうち幾つかについて実装コードを載せつつ言及した
-- Cloudflare はサイトのホスティングのみならず、独自ドメインの取得やそれに基づいたカスタムメールアドレスの取得まで幅広いサービスを提供している。
-- 取り分け、無料プランでも月あたりの帯域幅上限が無制限なのが素晴らしい
-- Front Matter CMS によってコードの修正、記事の執筆、サイトのデプロイがVS Code エディタ上に集約できる
-
 ## 導入
 
-当ページで触れられていないトピックについては、他の有益な情報源をあたってみてください。
+個人ウェブサイト開発に4ヶ月程費やし、何とか最低限見せられるレベルまで完成しました。その開発体験についてポイントをかいつまんで書きます。
 
 当サイトのソースコードに興味のある方は、[当サイトの Github レポジトリ](https://github.com/brklntmhwk/younagi.dev)をご覧ください。
-
-### 何について話すか
-
-- Astroで実装した特筆すべき機能について
-- なぜホスティング先に Cloudflare Pages を選んだのか
-- Front Matter CMS のカスタマイズについて
-
-### 何について話さないか
-
-例えば、次のようなトピックには触れません。
-
-- Astro のスターターテンプレートでプロジェクトを始める手順
-- Git(Github)にプロジェクトを紐づける手順
-- Cloudflare Pages にデプロイするまでの手順
-- Cloudflare で独自ドメインを取得する方法
-- Cloudflare Email Routing でカスタムメールアドレスを取得する方法
-- Front Matter CMS を使い始めるまでの準備
-- Astro (延いては、JavaScript や TypeScript) についての基本的な知識
 
 ## 本題
 
 ### Astro
 
-ReactなどのJavaScriptライブラリはなるべく使わず、素のJavaScript (TypeScript) だけで実装するようにしました。そのうえで、幾つかの機能をトッピングしています。
+基本はAstroの機能範囲で実装し、例外部分は新進気鋭のJSフレームワーク「SolidJS」で実装しています。もちろん全て TypeScript(と TSX) です。
 
 #### 全文検索
 
 Rust製の静的検索ライブラリである[Pagefind](https://pagefind.app/)の力を借りることにしました。軽量、高速、そして導入が簡単！
-
-`pagefind` と `@pagefind/default-ui` をプロジェクトに追加して, 次のような検索用コンポーネントを作りました。
-要点は、空の `div` タグに割り振られた`search` IDです。このIDが割り振られたタグ内に、Pagefindが提供する検索ウィンドウが設置されます。また、モーダルウィンドウは `hidden` クラスの有無に応じて表示が切り替わります。
-
-```astro title="src/components/Search.astro"
----
-import '@pagefind/default-ui/css/ui.css'
-// ...
-import Modal from '@/components/Modal.astro'
-// ...
----
-
-<Modal
-  modalName="search"
-  iconName="magnifier"
-  buttonLabel={t.data.search.button_label}
-  class="search-window"
->
-  <div id="search"></div>
-</Modal>
-<style>
-  /* ... */
-  #search-modal.hidden {
-    display: none;
-  }
-  /* ... */
-</style>
-<!-- ... -->
-```
-
-次にJSの部分を見ていきましょう。`PagefindUI` インスタンスは `element` プロパティを取り、ここに先ほどのIDを渡します。他にも、私の場合は検索結果に記事の画像を表示するかどうかや、記事の説明文の表示文字数のオプションも設定しました。その他プロパティについて詳しい情報は[Pagefind公式ドキュメント](https://pagefind.app/docs/ui/)をご覧あれ。
-
-`listenToModalEvents` の中身はイベント登録に関するコードです。PCユーザの為にショートカットキーや `escape` キーでモーダルの表示を切り替えられるようにしてあります。(PCからであれば `Ctrl + Shift + F` をお試しあれ！)
-
-```astro title="src/components/Search.astro"
-<!-- ... -->
-<script>
-  import { PagefindUI } from '@pagefind/default-ui'
-
-  function init() {
-    new PagefindUI({
-      element: '#search',
-      showImages: false,
-      excerptLength: 20,
-    })
-
-    const listenToModalEvents = (
-      modalButton: Element,
-      modal: Element,
-      input: HTMLInputElement
-    ) => {
-      modalButton.addEventListener('click', () => {
-        modal.classList.toggle('hidden')
-        input.focus()
-      })
-
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-          modal.classList.toggle('hidden')
-        }
-      })
-
-      window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-          modal.classList.add('hidden')
-        }
-        if (e.code === 'KeyF' && e.ctrlKey && e.shiftKey) {
-          e.preventDefault()
-          modal.classList.toggle('hidden')
-          input.focus()
-        }
-      })
-    }
-
-    const modalButton = document.querySelector('#search-icon-button')
-    const modal = document.querySelector('#search-modal')
-    const input = document.querySelector(
-      '.pagefind-ui__search-input'
-    ) as HTMLInputElement | null
-
-    if (modalButton && modal && input) {
-      listenToModalEvents(modalButton, modal, input)
-    }
-  }
-
-  const eventsToBeAdded = ['DOMContentLoaded'] as const
-
-  eventsToBeAdded.forEach((evName) => {
-    document.addEventListener(evName, init)
-  })
-</script>
-```
-
-最後に、私の場合はこれをナビゲーションに追加しました。
-
-```astro title="src/components/Navigation.astro" {4, 16}
----
-// ...
-import NavMenuContainer from '@/components/NavMenuContainer.astro'
-import Search from '@/components/Search.astro'
-// ...
----
-
-<nav class="glassmorphism" data-pagefind-ignore="all">
-  <!-- ... -->
-  <NavMenuContainer>
-    <div class="nav-links">
-      <!-- ... -->
-    </div>
-    <div class="icon-links">
-      <!-- ... -->
-      <Search />
-    </div>
-  </NavMenuContainer>
-</nav>
-<!-- ... -->
-```
 
 #### 多言語対応 (i18n)
 
@@ -186,302 +43,24 @@ Astro の [Content Collections](https://docs.astro.build/ja/guides/content-colle
 
 Content Collectionsの詳しいカスタマイズについては、[Astro公式ドキュメント](https://docs.astro.build/ja/guides/content-collections/)をご覧あれ。
 
-i18n対応についての重要なポイントは以下の通りです。`utils` ディレクトリ下に `i18n` ディレクトリがあり、次の2つのファイルが入っています。
-
-```typescript title="src/utils/i18n/data.ts"
-export const languages = {
-  en: 'English',
-  ja: '日本語',
-}
-export const langList = ['en', 'ja'] as const
-export const defaultLang = 'en'
-```
-
-```typescript title="src/utils/i18n/getLocaleFromUrl.ts"
-import { defaultLang, languages } from './data'
-
-export const getLocaleFromUrl = (url: URL) => {
-  const [, lang] = url.pathname.split('/')
-  if (lang && lang in languages) return lang as Languages
-
-  return defaultLang
-}
-```
-
-これらを、言語選択コンポーネントの中で次のようにインポートして使います。
-
-```astro title="src/components/LocalePicker.astro" {2,4,6-7,20-31}
----
-import { languages } from '@/utils/i18n/data'
-import Modal from '@/components/Modal.astro'
-import { getLocaleFromUrl } from '@/utils/i18n/getLocaleFromUrl'
-// ...
-const locale = getLocaleFromUrl(Astro.url)
-const t = await getEntry('i18n', `${locale}/translation`)
-const [_firstSlash, _prevLocale, ...rest] = Astro.url.pathname.split('/')
-const slug = rest.join('/')
-// ...
----
-
-<Modal
-  modalName="lang"
-  iconName="language"
-  buttonLabel={t.data.locale_picker.button_label}
->
-  <ul class="lang-list">
-    {
-      Object.entries(languages).map(([lang, label]) => (
-        <li>
-          <a
-            class:list={[{ active: lang === locale }]}
-            href={`/${lang}/${slug}`}
-          >
-            {label}
-          </a>
-        </li>
-      ))
-    }
-  </ul>
-</Modal>
-<!-- ... -->
-<script>
-  {
-    /* ... */
-  }
-</script>
-```
-
-イベントの登録については、先ほど検索コンポーネントで紹介したものとほとんど同じです。飛ばして先へ進みましょう。
-
-その他大事なポイントは言語のメタデータです。SEOの観点から、head コンポーネントに言語の数だけ `link` タグを追加しました。
-
-```astro title="BaseHead.astro" {3-4,8-23}
----
-// ...
-import { getAbsoluteLocaleUrl } from 'astro:i18n'
-import { langList } from '@/utils/i18n/data'
-// ...
----
-
-{
-  langList.map((lang) => (
-    <>
-      <link
-        rel="alternate"
-        href={getAbsoluteLocaleUrl(lang, slug)}
-        hreflang={lang}
-      />
-      <link
-        rel="alternate"
-        type="application/rss+xml"
-        href={getAbsoluteLocaleUrl(lang, 'rss.xml')}
-      />
-    </>
-  ))
-}
-
-<!-- ... -->
-```
-
-最後にナビゲーションに追加するところは検索コンポーネントの時と同じです。
-
 #### OG 画像 (Open Graph)
 
-OG画像はAstroが提供する[静的ファイルAPIエンドポイント機能](https://docs.astro.build/en/guides/endpoints/)でビルド時に予め生成します。大まかなコードの流れは、
+When it comes to individual entries of blog and news, their OG Images are dynamically generated via [the Astro API endpoints](https://docs.astro.build/en/guides/endpoints/).
+It's dynamic in the sense that every path of OG Images is generated dynamically referring to [the Astro dynamic routes](https://docs.astro.build/en/guides/routing/#dynamic-routes), but static in the sense that they are generated at build time.
 
-1. OG画像を生成したいコンテンツのデータを全取得する
-2. `getStaticPaths` 関数内でデータを回して各コンテンツのOG画像パスを生成
-3. データを `OGImageRoute` に渡す
+Along the way, [the satori library](https://github.com/vercel/satori) generates an svg image based on the HTML & CSS input, and then [the Sharp library](https://sharp.pixelplumbing.com/) optimizes and formats it to a PNG image. You can access them via the dynamically generated paths. Here's an example.
 
-このような感じです。私の場合、多言語化で `locale` ディレクトリを導入した時にパスを改造しており、ここでも整合性を保つためにパスを加工しなければなりませんでした。
+![ OG Image example of this page ](../../../assets/images/og-image-example.png)
 
-```typescript title="src/pages/og/[...slug].png.ts"
-import type { APIRoute, APIContext, GetStaticPaths } from 'astro'
-import { getCollection } from 'astro:content'
-import getOgImage from '@/components/OgImage'
-import { getSortedContentEntries } from '@/lib/content'
+#### Remark/Rehype プラグイン
 
-const blogEntries = getSortedContentEntries(await getCollection('blog'))
-const newsEntries = const newsList = await getSortedContentEntries('news')
-const pages = await getCollection('page')
-const articles = [...blogEntries, ...newsEntries, ...pages]
-
-export const GET: APIRoute = async ({ params }: APIContext) => {
-  const { slug } = params
-  const article = articles.find((article) => {
-    const locale = article.slug.slice(0, article.slug.indexOf('/'))
-    const collection = article.collection
-    const rawSlug = article.slug.slice(article.slug.indexOf('/') + 1)
-
-    return `${locale}/${collection}/${rawSlug}` === slug
-  })
-
-  if (!article) {
-    return new Response('Article Not Found', { status: 404 })
-  }
-  const ogImg = await getOgImage(article.data.title)
-
-  return new Response(ogImg)
-}
-
-export const getStaticPaths = (async () => {
-  const ogArticlePaths = [
-    ...articles.map((article) => {
-      const locale = article.slug.slice(0, article.slug.indexOf('/'))
-      const collection = article.collection
-      const rawSlug = article.slug.slice(article.slug.indexOf('/') + 1)
-
-      return { params: { slug: `${locale}/${collection}/${rawSlug}` } }
-    }),
-  ]
-
-  return ogArticlePaths
-}) satisfies GetStaticPaths
-```
-
-その他のオプションについては、[astro-og-canvas 公式ドキュメント](https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas)をご覧あれ。
-
-これでOG画像用エンドポイントへアクセスできるようになりました。一つ例を見てみましょう。先述の head コンポーネントは `BaseLayout` の中に設置しています。
-
-```astro title="src/components/BaseHead.astro"
----
-// ...
-import type { Props as BaseLayoutProps } from '@/layouts/BaseLayout.astro'
-
-type Props = BaseLayoutProps
-// ...
-const { title, description, og } = Astro.props
----
-
-<!-- ... -->
-<meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
-<meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
-{
-  og.show && (
-    <>
-      <meta
-        property="og:image"
-        content={og.image ?? new URL('/placeholder.png', Astro.url)}
-      />
-      <meta
-        property="og:image:height"
-        content={(og.height ?? 720).toString()}
-      />
-      <meta property="og:image:width" content={(og.width ?? 720).toString()} />
-      <meta property="og:type" content={og.type ?? 'website'} />
-    </>
-  )
-}
-<meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
-{
-  og.show && (
-    <>
-      <meta
-        property="twitter:card"
-        content={og.type === 'article' ? 'summary_large_image' : 'summary'}
-      />
-      <meta
-        property="twitter:image"
-        content={og.image ?? new URL('/placeholder.png', Astro.url)}
-      />
-    </>
-  )
-}
-<!-- ... -->
-```
-
-```astro title="src/layouts/BaseLayout.astro" {2, 24}
----
-import BaseHead from '../components/BaseHead.astro'
-// ...
-
-// this is supposed to be imported from the BaseHead component
-export type Props = {
-  title: string
-  description?: string
-  og: {
-    show: boolean
-    image?: URL
-    height?: number
-    width?: number
-    type?: 'article' | 'website'
-  }
-}
-
-const { title, description, og } = Astro.props
----
-
-<!doctype html>
-<html lang={/* ... */}>
-  <head>
-    <BaseHead {title} description={description ?? ''} {og} />
-  </head>
-  <body data-pagefind-body>
-    <!-- ... -->
-  </body>
-</html>
-```
-
-このページを含めて、当サイトの全てのブログ記事は `BlogLayout` をテンプレートにしています。そして `BlogLayout` のベースとなるのは `BaseLayout` です。
-このマトリョシカのような入れ子構造の中で、`og` プロパティが `BaseLayout` --> `BaseHead` へ、と渡されていきます。
-
-```astro title="src/layouts/BlogLayout.astro" {24-33}
----
-// ...
-import type { MarkdownHeading } from 'astro'
-import type { CollectionEntry } from 'astro:content'
-// ...
-import BaseLayout from '@/layouts/BaseLayout.astro'
-// ...
-
-type Props = {
-  entry: CollectionEntry<'blog'>
-  headings: MarkdownHeading[]
-}
-
-// ...
-const { entry, headings } = Astro.props
-const { data, collection, slug } = entry
-const { title, description, category, tags, publishedAt, modifiedAt } = data
-// ...
----
-
-<BaseLayout
-  title={title}
-  description={description ?? ''}
-  og={{
-    show: true,
-    height: 630,
-    width: 1200,
-    image: new URL(
-      `/og/${locale}/${collection}/${slug.slice(slug.indexOf('/') + 1)}.png`,
-      Astro.url
-    ),
-    type: 'article',
-  }}
->
-  <main>
-    <!-- ... -->
-  </main>
-</BaseLayout>
-<!-- ... -->
-```
-
-結果、出来上がったOG画像はこちらです。
-
-![ 当ページのOG画像 ](../../../assets/images/og-image.png)
-
-#### 記事内要素のCSSスタイリング
-
-ブログ本文内のスタイルについて、ここでは幾つか特筆すべき(したい)例を挙げます。
+In my website, all contents are written in the Markdown/MDX format, but the basic syntax is limited to an absolute minimum, so I decided to use those off-the-shelf [Remark](https://unifiedjs.com/explore/project/remarkjs/remark/) and [Rehype](https://unifiedjs.com/explore/project/rehypejs/rehype/) plugins or make them on my own to extend it to the extent I feel comfortable writing stuff.
 
 ##### KaTex
 
-$\KaTeX$ はウェブページ上で数式などをきれいに表示してくれます。例えば、こちらの呪文が...
+$\KaTeX$ はウェブページ上で数式などをきれいに表示してくれます。その呪文を数式に変換するのに、[remark-math と rehype-katex](https://github.com/remarkjs/remark-math/tree/main/packages/rehype-katex)を追加しました。
+
+入力
 
 ```Markdown
 $$
@@ -496,7 +75,7 @@ $$
 $$
 ```
 
-こんな風に！読みやすくて感動します。
+出力
 
 $$
 x = {-b \pm \sqrt{b^2-4ac} \over 2a}
@@ -511,168 +90,31 @@ $$
 = \lim_{n \to \infty} \dfrac{1}{n} \sum_{k=0}^{n-1} f \left (\dfrac{k}{n} \right)
 $$
 
-$\KaTeX$ の利用に際して、`katex`、 `rehype-katex`、 `remark-math`、 `@types/katex` ライブラリを追加しました。そして次のようにコードを追加。
-
-```typescript title="astro.config.ts" {2-3,10,14}
-// ...
-import remarkMath from 'remark-math'
-import rehypeKatex from 'rehype-katex'
-// ...
-export default defineConfig({
-  // ...
-  markdown: {
-    // ...
-    remarkPlugins: [
-      remarkMath,
-      // ...
-    ],
-    rehypePlugins: [
-      rehypeKatex,
-      // ...
-    ],
-  },
-})
-```
-
-私の場合、$\KaTeX$ のスタイルシートは `BlogLayout` でのみ読み込ませています。他のページでは使う予定がないからです。
-
-```astro title="src/layouts/BlogLayout.astro"
----
-import 'katex/dist/katex.min.css'
-// ...
----
-
-<!-- ... -->
-```
-
 ##### コードブロック
 
-ここまでで、コードの説明に際してその都度コードブロックを使ってきましたが、シンタックスハイライトやコードの強調などの見た目の部分は自分で設定しています。
+As a developer, sharing some code examples is inevitable. [The rehype-pretty-code](https://rehype-pretty.pages.dev/) did all the heavy lifting in adding code syntax highlighting for me. Incidentally, the syntax highlighter is [Shiki](https://shiki.style/).
 
-`rehype-pretty-code`、`shiki` ライブラリを追加し、次の箇所を変更しました。Astroではデフォルトでシンタックスハイライト機能がついているので、カスタマイズする際には `syntaxHighlight` の項目を明示的に `false` にする必要があります。
-
-Shiki が提供する全テーマとそのプレビューは、[Shiki 公式ページ](https://shiki.style/themes)で確認できます。
-
-> [!caution]+注意
-> `shiki` は `rehype-pretty-code` 内部で使われているため、インストール必須です。
-
-```typescript title="astro.config.ts" {2,7,11-20}
-// ...
-import rehypePrettyCode from 'rehype-pretty-code'
-// ...
-export default defineConfig({
-  // ...
-  markdown: {
-    syntaxHighlight: false,
-    // ...
-    rehypePlugins: [
-      // ...
-      [
-        rehypePrettyCode,
-        {
-          theme: {
-            light: 'github-dark',
-            dark: 'github-dark',
-          },
-          grid: false,
-        },
-      ],
-      // ...
-    ],
-  },
-})
-```
-
-次に、以下2つのコンポーネントを作成しました。このネスト構造 (と大半のCSS) については、[haxibami.net](https://www.haxibami.net/)のGithubレポジトリを参考にしました。
-
-データ属性 `data-rehype-pretty-code-figure` は `rehype-pretty-code` が自動で追加してくれるものです。これはコードブロックに対して追加される仕組みになっているので、`figure` タグの中に `code` タグがあるのかを判断する材料になります。
-下記コードでは、`figure` タグに含めるものとして、`img` or `code` で条件分岐をしています。
-
-```astro title="src/components/elements/Figure.astro"
+```astro title="example.astro"
 ---
-import AstroCode from './Code.astro'
-import AstroImage from './Image.astro'
-
-export type Props = {
-  'data-image-figure'?: ''
-  'data-rehype-pretty-code-figure'?: ''
+type Props = {
+  title: string
 }
 
-const props = Astro.props
-const isCodeFigure = Object.hasOwn(props, 'data-rehype-pretty-code-figure')
-const isImageFigure = Object.hasOwn(props, 'data-image-figure')
+const { title } = Astro.props
 ---
 
-{
-  isCodeFigure ? (
-    <AstroCode {...props}>
-      <slot />
-    </AstroCode>
-  ) : isImageFigure ? (
-    <AstroImage {...props}>
-      <slot />
-    </AstroImage>
-  ) : (
-    <figure {...props}>
-      <slot />
-    </figure>
-  )
-}
-```
-
-本旨からは逸れますが、マークダウンで埋め込まれた画像は `p` タグに囲まれているだけの簡素な構造になってしまい、相当変態です。
-ここは意味論的にも `figure` タグで囲うのが妥当と思い、`rehype` プラグインを自作してカスタマイズしています。([haxibami.net](https://www.haxibami.net/)のGithub レポジトリ等を参考にしました)
-上記の `data-image-figure` のデータ属性は `figure` タグの中身が画像なのかを判別する為に使われています。
-
-```astro title="src/components/elements/Code.astro"
----
-const props = Astro.props
----
-
-<figure {...props}>
-  <slot />
-</figure>
-<style>
-  figure {
-    /* ... */
-  }
-  @media (min-width: 1024px) {
-    figure {
-      /* ... */
-    }
-  }
-  :global(pre[data-theme*=' ']),
-  :global(pre[data-theme*=' '] span) {
-    /* ... */
-  }
-</style>
-```
-
-最後に、明示的にコンポーネントをエクスポートして、`Content` に渡します。(MDXの作法です)
-
-```astro title="src/pages/[locale]/blog/[slug].astro" {4, 7-10, 16}
----
-// ...
-import BlogLayout from '@/layouts/BlogLayout.astro'
-import Figure from '@/components/elements/Figure.astro'
-// ...
-
-export const components = {
-  figure: Figure,
-  // ...
-}
-
-// ...
----
-
-<BlogLayout entry={/* ... */} headings={/* ... */}>
-  <Content components={mdxComponents} />
-</BlogLayout>
+<div>{`This is an example page titled ${title}.`}</div>
 ```
 
 ##### コールアウト
 
 数年間 [Obsidian](https://obsidian.md/) をナレッジベースとして愛用していて、マークダウン記法で書ける[コールアウト](https://help.obsidian.md/Editing+and+formatting/Callouts)が好きでした。このブログでも使いたくなり、実装しました。
+実装に際して、こだわった点は次の通りです。
+
+- 開閉可能
+  - コールアウトタイトルの横に "+" もしくは "-" のマークがある場合、そのコールアウトは開閉可能と判断される
+- 多彩な種類と色
+- 入れ子構造にできる
 
 以下がその例です。
 
@@ -706,383 +148,50 @@ export const components = {
 
 ---
 
-コードブロックと同様、`remark` プラグインを自作して機能を追加しています。([remark-obsidian-callout の Github レポジトリ](https://github.com/escwxyz/remark-obsidian-callout)などを参考にしました)
+##### OEmbed(埋め込み)
 
-山括弧の閉じ括弧(">")はHTMLの `blockquote` タグに変身するので、マークダウン/MDXファイル内のそれら全てを `visit` し、下記のように処理しています。
+URLs pasted directly morphs into embedded frames if they are compatible with embedding media. I manually added the integrations with Canva, YouTube, and Google Slides. Other than them, URLs are transformed in accordance with [the OEmbed](https://oembed.com/) format.
+Incidentally, [the unfurl library](https://github.com/jacktuck/unfurl) fetches the media metadata necessary for the format behind the scenes.
 
-```typescript title="src/plugins/remark-callout.ts"
-import type { RemarkPlugin } from '@astrojs/markdown-remark'
-import type { Plugin } from 'unified'
-import type { Node, Root, Parent, Data, Blockquote, RootContent } from 'mdast'
-import { visit } from 'unist-util-visit'
-import { toString } from 'mdast-util-to-string'
-import { optimize } from 'svgo'
-import {
-  quoteIcon,
-  infoIcon,
-  xIcon,
-  helpCircleIcon,
-  alertTriangleIcon,
-  pencilIcon,
-  checkIcon,
-} from '../consts'
+YouTube
 
-type Callout = Map<string, string>
-type HtmlNode = Node & {
-  type: 'html'
-  data: Data
-  value: string
-}
+https://www.youtube.com/watch?v=dsTXcSeAZq8
 
-const regex = /^\[!(\w+)\]([+-]?)/
-const containsKey = (mapObj: Callout, str: string) => mapObj.has(str)
-const optimizeSvgIcons = (callouts: Callout) => {
-  for (const [key, svg] of callouts.entries()) {
-    callouts.set(
-      key,
-      optimize(svg, {
-        multipass: true,
-        js2svg: { pretty: true },
-      }).data
-    )
-  }
-}
-const callouts: Callout = new Map([
-  ['question', helpCircleIcon],
-  ['help', helpCircleIcon],
-  ['faq', helpCircleIcon],
-  ['info', infoIcon],
-  ['tip', infoIcon],
-  ['hint', infoIcon],
-  ['warning', alertTriangleIcon],
-  ['attention', alertTriangleIcon],
-  ['caution', alertTriangleIcon],
-  ['quote', quoteIcon],
-  ['cite', quoteIcon],
-  ['success', checkIcon],
-  ['check', checkIcon],
-  ['done', checkIcon],
-  ['note', pencilIcon],
-  ['failure', xIcon],
-])
+Spotify
 
-const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
-  return (tree) => {
-    const blockquoteChildrenTriples: {
-      node: Blockquote
-      firstChild: RootContent
-      children: RootContent[]
-    }[] = []
+https://open.spotify.com/intl-ja/track/04z1fwsw1gXI8HWQpoETa9?si=862c02d3e52a49b0
 
-    visit(tree, 'blockquote', (node) => {
-      if (
-        !('children' in node) ||
-        (node as Parent).children.length === 0 ||
-        (node as Parent).children[0]?.type !== 'paragraph'
-      )
-        return
+Canva
 
-      blockquoteChildrenTriples.push({
-        node,
-        firstChild: (node as Parent).children[0]!,
-        children: (node as Parent).children,
-      })
-    })
+https://www.canva.com/design/DAGKC41Tjws/zSEw1hvi9r30o5KiF96AGA/view
 
-    blockquoteChildrenTriples.map(({ node, firstChild, children }, index) => {
-      const value = toString(firstChild)
-      const [firstLine, ...rest] = value.split('\n')
-      const restContent = rest.join('\n')
-      const matched = firstLine?.match(regex)
+Google Slides
 
-      if (matched) {
-        const array = regex.exec(firstLine!)
-        const calloutType = array?.at(1)
-        const expandCollapseSign = array?.at(2) as '+' | '-' | undefined
+https://docs.google.com/presentation/d/1CbeSiVYta0VTuENQ-25OLcIV5vK8pkcBJ-8DfKqlE2I/edit?usp=sharing
 
-        if (array && calloutType && containsKey(callouts, calloutType)) {
-          const title = array.input.slice(matched[0].length).trim()
-          const isExpandable = Boolean(expandCollapseSign)
-          const isExpanded = expandCollapseSign === '+'
+##### リンクカード
 
-          optimizeSvgIcons(callouts)
+#### お問い合わせフォーム
 
-          const calloutHtmlNode: HtmlNode = {
-            type: 'html',
-            data: {},
-            value: isExpandable
-              ? `
-              <input type="checkbox" id="callout-toggle-check-${calloutType}-${index}" ${isExpanded === true ? 'checked' : ''} />
-              <label for="callout-toggle-check-${calloutType}-${index}" class="callout-title">
-                <div class="callout-title-icon">${callouts.get(calloutType)}</div>
-                <span class="callout-title-text">${title}</span>
-              </label>
-              <div class="callout-content">${restContent}</div>
-              `
-              : `
-              <div class="callout-title">
-                <div class="callout-title-icon">${callouts.get(calloutType)}</div>
-                <span class="callout-title-text">${title}</span>
-              </div>
-              <div class="callout-content">${restContent}</div>
-              `,
-          }
+### Cloudflare
 
-          children.splice(0, 1, calloutHtmlNode)
+#### Cloudflare Pages
 
-          node.data = {
-            hProperties: {
-              ...((node.data && node.data.hProperties) || {}),
-              className: `callout-${calloutType}`,
-              dataCalloutBlockquote: true,
-              dataCallout: calloutType,
-              dataExpandable: String(isExpandable),
-              dataExpanded: String(isExpanded),
-            },
-          }
-        }
-      }
-    })
-  }
-}
+[Next.js](https://nextjs.org/) に執心だった頃、 私のお気に入りのホスティングサービスは [Vercel](https://vercel.com/) でしたが、Astroへの移行に際して、見直す必要があると感じました。そしてたどり着きました。[Cloudflare Pages](https://developers.cloudflare.com/pages/)という結論に。
 
-export default remarkCallout
-```
+##### どうして Cloudflare Pages?
 
-上記コードのポイントをいくつか紹介します。
+Cloudflare Pagesをホスティング先に選んだのには次のような理由がありました。
 
-- **開閉可能なコールアウトのコンテンツ:** "+" か "-" の記号がコールアウトの種類の記述の直後に加わると、クリックによって中身が開閉可能になります
-  - データ属性である `data-expandable` と `data-expanded` はコールアウトコンポーネント側で開閉の判断材料になります
-- **`svgo` によるSVGアイコンの最適化:** `optimizeSvgIcons` 関数にSVGタグの文字列定数渡され、最適化されます
-- **多種のデータ属性**: 上述の2つ以外にもデータ属性が渡されていますが、これらは後ほどコールアウト各種のスタイリングに使われます
+- 寛大なフリープラン
+  - 月あたりの帯域幅上限が無制限という素晴らしさ (2024年5月9日現在)
+- 非常に高速なデプロイ
+- ドメイン用のカスタムEメールアドレスが取得できる
+- 独自ドメイン取得可能 (有料)
 
-そして[前章コードブロックのところ](#コードブロック)で `figure` と `code` にしたのと同様に、`blockquote` と コールアウトコンポーネントも入れ子構造にしました。
+フリープランでも当サイトのような小規模プロジェクトならば十分運用可能だと思います。この点が最も魅力的でした。
 
-```astro title="src/components/elements/Blockquote.astro"
----
-import Callout from './Callout.astro'
-
-export type Props = {
-  'data-callout-blockquote'?: ''
-}
-
-const props = Astro.props
-const isCallout = Object.hasOwn(props, 'data-callout-blockquote')
----
-
-{
-  isCallout ? (
-    <Callout {...props}>
-      <slot />
-    </Callout>
-  ) : (
-    <blockquote {...props}>
-      <slot />
-    </blockquote>
-  )
-}
-```
-
-```astro title="src/components/elements/Callout.astro"
----
-const props = Astro.props
----
-
-<blockquote class="callout-blockquote" {...props}>
-  <slot />
-</blockquote>
-<style>
-  .callout-blockquote {
-    /* ... */
-    & :global(input[id^='callout-toggle-check']) {
-      display: none;
-    }
-    & :global(.callout-title) {
-      /* ... */
-      & :global(.callout-title-text) {
-        /* ... */
-      }
-      & :global(.callout-title-icon > svg) {
-        /* ... */
-      }
-    }
-    & :global(.callout-content) {
-      /* ... */
-    }
-    &
-      :global(input[id^='callout-toggle-check']):checked
-      ~ :global(.callout-title)::after {
-      transform: rotate(90deg);
-    }
-    &
-      :global(input[id^='callout-toggle-check']):checked
-      ~ :global(.callout-content) {
-      display: inline-block;
-    }
-    &
-      :global(input[id^='callout-toggle-check']):not(:checked)
-      ~ :global(.callout-content) {
-      display: none;
-    }
-  }
-  .callout-blockquote[data-expandable='true'] {
-    & :global(.callout-title) {
-      &::after {
-        content: '›';
-        color: inherit;
-        display: inline-block;
-        font-size: 1.35rem;
-        transition: transform 0.3s ease;
-      }
-    }
-  }
-  .callout-blockquote[data-callout='info'],
-  .callout-blockquote[data-callout='tip'],
-  .callout-blockquote[data-callout='hint'] {
-    background-color: var(--callout-info-bg);
-    & :global(.callout-title) {
-      color: var(--callout-info-fg);
-      & :global(.callout-title-text) {
-        color: var(--callout-info-fg);
-      }
-      & :global(.callout-title-icon > svg) {
-        stroke: var(--callout-info-fg);
-      }
-    }
-  }
-  .callout-blockquote[data-callout='caution'],
-  .callout-blockquote[data-callout='attention'],
-  .callout-blockquote[data-callout='warning'] {
-    background-color: var(--callout-caution-bg);
-    & :global(.callout-title) {
-      color: var(--callout-caution-fg);
-      & :global(.callout-title-text) {
-        color: var(--callout-caution-fg);
-      }
-      & :global(.callout-title-icon > svg) {
-        stroke: var(--callout-caution-fg);
-      }
-    }
-  }
-</style>
-```
-
-先述の通り、コールアウトのスタイルと開閉の部分では、受け取ったデータ属性を利用しています。
-
-最後に、`astro.config.ts` ファイルにプラグインの追加と、`Blockquote` カスタムコンポーネントの明示的なエクスポートをお忘れなく。
-
-```astro title="src/pages/[locale]/blog/[slug].astro" {4, 7-10, 16}
----
-// ...
-import BlogLayout from '@/layouts/BlogLayout.astro'
-import Blockquote from '@/components/elements/Blockquote.astro'
-// ...
-
-export const components = {
-  blockquote: Blockquote,
-  // ...
-}
-
-// ...
----
-
-<BlogLayout entry={/* ... */} headings={/* ... */}>
-  <Content components={mdxComponents} />
-</BlogLayout>
-```
-
-```typescript title="astro.config.ts" {3, 11}
-import { defineConfig } from 'astro/config'
-// ...
-import remarkCallout from './src/plugins/remark-callout'
-
-export default defineConfig({
-  // ...
-  markdown: {
-    // ...
-    remarkPlugins: [
-      // ...
-      remarkCallout,
-    ],
-    // ...
-  },
-})
-```
-
-##### アンカーリンク付き見出し
-
-この記事も含め、全てのブログ記事内の見出しにはアンカーリンクが付いています。このおかげで、目次が見出しを検知して、各見出しへのリンクすることができます。
-
-`rehype-autolink-headings`、`rehype-slug`、`hastscript` ライブラリを追加して、次の箇所を変更します。
-
-> [!info]-ノート
-> `rehype-slug` は `id` 属性を見出しに追加し、`hastscript` は、例えばマークダウン⇆HTMLのように構文が変化する中間地点において、抽象構文木(AST, Abstract Syntax Trees)を操作できるライブラリです
-
-```typescript title="astro.config.ts" {2-4,12-25}
-// ...
-import { h } from 'hastscript'
-import rehypeSlug from 'rehype-slug'
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-// ...
-export default defineConfig({
-  // ...
-  markdown: {
-    // ...
-    rehypePlugins: [
-      // ...
-      rehypeSlug,
-      [
-        rehypeAutolinkHeadings,
-        {
-          behavior: 'prepend',
-          content: h(
-            'span.heading-anchor-icon',
-            {
-              title: 'Anchor link',
-            },
-            ['#']
-          ),
-        },
-      ],
-      // ...
-    ],
-  },
-})
-```
-
-それから、すべてのコンテンツ用レイアウトでアンカーリンクのCSSを追記しました。以下はブログレイアウトの例です。
-
-```astro title="src/components/BlogLayout.astro" {17-26}
----
-// ...
----
-
-<BaseLayout {/* ... */}>
-  <main>
-    <article>
-      <!-- ... -->
-    </article>
-  </main>
-</BaseLayout>
-<style>
-  article {
-    /* ... */
-    .prose {
-      /* ... */
-      & :global(a):has(.heading-anchor-icon) {
-        /* ... */
-        & :global(span.heading-anchor-icon) {
-          /* ... */
-        }
-        &:hover {
-          /* ... */
-        }
-        /* ... */
-      }
-    }
-  }
-</style>
-```
+#### Cloudflare D1
 
 ### Front Matter CMS
 
@@ -1102,141 +211,10 @@ VS Code の拡張機能であり、ローカルで動くという点で、他の
 - `frontMatter.content.publicFolder`: デフォルトでは `public` フォルダを参照します。私の場合はAstroが画像最適化の為に提供する[Asset](https://docs.astro.build/ja/guides/images/)を使いたかったので、参照先を `src/assets/images/` に変更しました
 - `frontMatter.content.i18n`: Front Matter CMS は多言語化機能(i18n)も有しています。この設定では、言語ごとにディレクトリ名との紐づけを行えます
 
-```json title="frontmatter.json"
-{
-  "$schema": "https://frontmatter.codes/frontmatter.schema.json",
-  "frontMatter.framework.id": "astro",
-  "frontMatter.preview.host": "http://localhost:4321",
-  "frontMatter.content.publicFolder": "./src/assets/images/",
-  "frontMatter.content.pageFolders": [
-    {
-      "title": "blog",
-      "path": "[[workspace]]/src/content/blog",
-      "contentTypes": ["blog"],
-      "defaultLocale": "en"
-    }
-    // ...
-  ],
-  "frontMatter.content.i18n": [
-    {
-      "title": "English",
-      "locale": "en",
-      "path": "en"
-    },
-    {
-      "title": "Japanese",
-      "locale": "ja",
-      "path": "ja"
-    }
-  ],
-  "frontMatter.content.draftField": {
-    "name": "draft",
-    "type": "choice",
-    "choices": ["draft", "in progress", "published"]
-  },
-  "frontMatter.taxonomy.seoTitleLength": 72,
-  "frontMatter.taxonomy.contentTypes": [
-    {
-      "name": "blog",
-      "pageBundle": false,
-      "previewPath": "'blog'",
-      "filePrefix": null,
-      "clearEmpty": true,
-      "fileType": "mdx",
-      "fields": [
-        {
-          "title": "Title",
-          "name": "title",
-          "type": "string",
-          "single": true,
-          "required": true
-        },
-        {
-          "title": "Description",
-          "name": "description",
-          "type": "string"
-        },
-        {
-          "title": "Category",
-          "name": "category",
-          "type": "categories",
-          "required": true,
-          "taxonomyLimit": 1,
-          "singleValueAsString": true
-        },
-        {
-          "title": "Tags",
-          "name": "tags",
-          "type": "tags"
-        },
-        {
-          "title": "Draft status",
-          "name": "draft",
-          "type": "draft",
-          "required": true,
-          "default": "draft"
-        },
-        {
-          "title": "Published At",
-          "name": "publishedAt",
-          "type": "datetime",
-          "default": "{{now}}",
-          "isPublishDate": true
-        },
-        {
-          "title": "Modified At",
-          "name": "modifiedAt",
-          "type": "datetime",
-          "isModifiedDate": true
-        },
-        {
-          "title": "type",
-          "name": "type",
-          "type": "string"
-        },
-        {
-          "title": "draft",
-          "name": "draft",
-          "type": "draft"
-        }
-      ]
-    }
-    // ...
-  ]
-  // ...
-}
-```
-
 私のダッシュボードはこのような感じです。他のCMSに匹敵する見栄えではないでしょうか。
 
 ![ 私の Front Matter CMS ダッシュボード (リスト表示) ](../../../assets/images/front-matter-cms-dashboard.png)
 
 ![ 私の Front Matter CMS 編集モード画面 ](../../../assets/images/front-matter-cms-editing.png)
 
-### Cloudflare Pages
-
-[Next.js](https://nextjs.org/) に執心だった頃、 私のお気に入りのホスティングサービスは [Vercel](https://vercel.com/) でしたが、Astroへの移行に際して、見直す必要があると感じました。そしてたどり着きました。[Cloudflare Pages](https://developers.cloudflare.com/pages/)という結論に。
-
-#### どうして Cloudflare Pages?
-
-Cloudflare Pagesをホスティング先に選んだのには次のような理由がありました。
-
-- 寛大なフリープラン
-  - 月あたりの帯域幅上限が無制限という素晴らしさ (2024年5月9日現在)
-- 非常に高速なデプロイ
-- ドメイン用のカスタムEメールアドレスが取得できる
-- 独自ドメイン取得可能 (有料)
-
-フリープランでも当サイトのような小規模プロジェクトならば十分運用可能だと思います。この点が最も魅力的でした。
-
-## 後記
-
-私は個人サイトを作る為に莫大な時間を費やしました。作り方を説明する膨大な量の記事を読み、YouTubeのJSフレームワークについてのチュートリアル動画を何本も視聴し、そして実際に手を動かして。
-当時初心者だった私は、まるで夜空に浮かぶ無数の星を眺めているかのような、そんな気分で星の数ほどのフレームワークを眺めていました。
-
-その中に、ひと際輝く星を見つけました。それがReactのフレームワーク、Next.jsとの最初の出会いでした。それからというもの、私はNext.jsを学びながら個人サイト開発に没頭しました。8ヶ月程経ち、なんとかそれなりにまともなNext.js製ウェブサイトを作ることができました。
-
-しかし、結論から言うと、Next.jsとはその後破局しました。あんなに(一方的に)愛していたのに、どうして？確かに、バックエンドを代わりに任せられたりと、機能提供の面で八面六臂の活躍をしてくれたことは魅力的でした。
-ところが、それこそが問題でした。アップグレードを重ね、より多くの機能を手に入れるにつれて、JS標準から徐々に逸脱してしまっていると感じたのです。加えて、そうした絶え間ないアップデートに、付き合いきれないと感じる自分がいました。私たちはいつの間にかすれ違っていたのです。(辛うじてApp Routerまでは頑張りました)
-
-そんな折、Astroとの出会いが訪れました。JSフレームワークのフレームワーク、とでも言いましょうか。個人的にAstroの好きなところは、柔軟性です。機能を最小限に抑えつつ、ユーザにカスタマイズの余地を十分に残してくれています。私の場合、ReactなどのJSフレームワークはできる限り使わずに、素のJS(TypeScript)で書きたかったのです。
+## 終結

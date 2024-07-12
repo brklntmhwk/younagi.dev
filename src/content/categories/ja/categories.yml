@@ -1,0 +1,12 @@
+- title: 実験
+  slug: experiment
+  color: primary
+- title: 学び
+  slug: learning
+  color: secondary
+- title: 旅
+  slug: travel
+  color: green
+- title: その他
+  slug: others
+  color: purple

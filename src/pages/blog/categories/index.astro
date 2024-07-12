@@ -22,7 +22,11 @@ const categories = await getCategories(defaultLang)
     >
     <hr />
     <section class="category-cloud">
-      {categories.map((category) => <Taxonomy taxonomy={category} />)}
+      {
+        categories.data.map((category) => (
+          <Taxonomy kind="categories" taxonomy={category} />
+        ))
+      }
     </section>
   </main>
 </BaseLayout>

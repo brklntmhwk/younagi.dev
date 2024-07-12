@@ -4,7 +4,7 @@ import { FormattedDate } from '@/components/FormattedDate'
 import { Icon } from '@/components/Icon'
 import { Taxonomy } from '@/components/Taxonomy'
 import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils'
-import { getCategory, getBlogTags } from '@/lib/collections/data'
+import { getBlogCategory, getBlogTags } from '@/lib/collections/data'
 
 type Props = {
   entries: CollectionEntry<'blog'>[]
@@ -30,8 +30,8 @@ const { entries, taxonomies } = Astro.props
         publishedAt,
         modifiedAt,
       } = entry.data
-      const category = await getCategory(blogCategory.id)
-      const tags = await getBlogTags(blogTags, locale)
+      const category = await getBlogCategory(blogCategory)
+      const tags = await getBlogTags(blogTags)
 
       return (
         <li class="entry-item fade-in-up">
@@ -59,12 +59,20 @@ const { entries, taxonomies } = Astro.props
             <span class="blog-description">{description}</span>
             {taxonomies.show && (
               <section class="taxonomies">
-                {taxonomies.shouldDisplay?.includes('category') && (
-                  <Taxonomy taxonomy={category} />
+                {taxonomies.shouldDisplay?.includes('category') && category && (
+                  <Taxonomy
+                    kind={blogCategory.metadata.collection}
+                    taxonomy={category}
+                  />
                 )}
                 {taxonomies.shouldDisplay?.includes('tags') &&
                   tags.length !== 0 &&
-                  tags.map((tag) => <Taxonomy taxonomy={tag} />)}
+                  tags.map((tag) => (
+                    <Taxonomy
+                      kind={blogTags.metadata.collection}
+                      taxonomy={tag}
+                    />
+                  ))}
               </section>
             )}
           </article>

@@ -5,31 +5,29 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 import { BlogList } from '@/components/BlogList'
 import { Pager } from '@/components/Pager'
 import { LIMIT_PER_PAGE } from '@/lib/consts'
-import { defaultLang } from '@/utils/i18n/data'
-import { slugify } from '@/utils/slugify'
-import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale'
 import { getSortedContentEntries } from '@/lib/collections/contents'
 import { getTags } from '@/lib/collections/data'
+import { slugify } from '@/utils/slugify'
+import { defaultLang } from '@/utils/i18n/data'
 
 export const getStaticPaths = (async ({ paginate }) => {
   const entries = await getSortedContentEntries('blog', defaultLang)
   const tags = await getTags(defaultLang)
 
-  return tags.flatMap((tag) => {
+  return tags.data.flatMap((tag) => {
     const displayEntries = entries.filter((entry) =>
-      entry.data.tags?.some((blogTag) => blogTag.id === tag.id)
+      entry.data.tags.slugList?.some((blogTag) => blogTag === tag.slug)
     )
-    const tagSlug = slugify(getSlugWithoutLocale(tag.id))
 
     return paginate(displayEntries, {
       pageSize: LIMIT_PER_PAGE,
-      params: { tag: tagSlug },
-      props: { rawTag: tag },
+      params: { tag: slugify(tag.slug) },
+      props: { title: tag.title },
     })
   })
 }) satisfies GetStaticPaths
 
-const { page, rawTag } = Astro.props
+const { page, title } = Astro.props
 const { tag } = Astro.params
 const meta = await getEntry('meta', `${defaultLang}/site-data`)
 const t = await getEntry('i18n', `${defaultLang}/translation`)
@@ -42,7 +40,7 @@ const t = await getEntry('i18n', `${defaultLang}/translation`)
 >
   <main data-pagefind-ignore="all">
     <section>
-      <h1>{rawTag.data.title}</h1>
+      <h1>{title}</h1>
       <a class="classic-blue-link" href={'/blog/tags'}>
         ◀ {t.data.pages.blog.tags.back_to_top}
       </a>

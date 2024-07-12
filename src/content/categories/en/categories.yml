@@ -1,0 +1,12 @@
+- title: Experiment
+  slug: experiment
+  color: primary
+- title: Learning
+  slug: learning
+  color: secondary
+- title: Others
+  slug: others
+  color: purple
+- title: Travel
+  slug: travel
+  color: green

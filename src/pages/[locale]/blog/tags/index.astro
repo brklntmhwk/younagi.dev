@@ -28,7 +28,7 @@ const tags = await getTags(locale)
     </a>
     <hr />
     <section class="tag-cloud">
-      {tags.map((tag) => <Taxonomy taxonomy={tag} />)}
+      {tags.data.map((tag) => <Taxonomy kind="tags" taxonomy={tag} />)}
     </section>
   </main>
 </BaseLayout>

@@ -12,14 +12,21 @@ const blog = defineCollection({
     description: z.string().optional(),
     publishedAt: z.coerce.date(),
     modifiedAt: z.coerce.date().optional(),
-    category: reference('categories'),
-    tags: z.array(reference('tags')).optional(),
+    category: z.object({
+      metadata: reference('categories'),
+      slug: z.string(),
+    }),
+    tags: z.object({
+      metadata: reference('tags'),
+      slugList: z.array(z.string()).optional(),
+    }),
     draft: z.enum(['draft', 'in progress', 'published']),
   }),
 })
 
 const taxonomySchema = z.object({
   title: z.string(),
+  slug: z.string(),
   color: z.enum<TaxonomyColor, TaxonomyColorEnum>(
     taxonomyColors as TaxonomyColorEnum
   ),
@@ -27,12 +34,12 @@ const taxonomySchema = z.object({
 
 const categories = defineCollection({
   type: 'data',
-  schema: taxonomySchema,
+  schema: z.array(taxonomySchema),
 })
 
 const tags = defineCollection({
   type: 'data',
-  schema: taxonomySchema,
+  schema: z.array(taxonomySchema),
 })
 
 const news = defineCollection({

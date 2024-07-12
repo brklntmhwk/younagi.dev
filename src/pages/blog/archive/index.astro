@@ -5,6 +5,7 @@ import { FormattedDate } from '@/components/FormattedDate'
 import { groupArchiveByYear } from '@/utils/group-archive-by-year'
 import { getSortedContentEntries } from '@/lib/collections/contents'
 import { defaultLang } from '@/utils/i18n/data'
+import { orderByDateDesc } from '@/utils/order-by-date-desc'
 
 const meta = await getEntry('meta', `${defaultLang}/site-data`)
 const t = await getEntry('i18n', `${defaultLang}/translation`)
@@ -25,26 +26,28 @@ const YearMonthPairs = groupArchiveByYear(entries)
     <hr />
     <ul class="year-list">
       {
-        Object.keys(YearMonthPairs).map((year) => (
-          <li>
-            <span class="year">{year}</span>
-            <ul class="month-list">
-              {YearMonthPairs[year]?.map(({ mStr, mDate }) => {
-                return (
-                  <li>
-                    <a href={`/blog/archive/${year}${mStr}`} class="month">
-                      <FormattedDate
-                        date={mDate}
-                        locale={defaultLang}
-                        show={{ year: true, month: true, day: false }}
-                      />
-                    </a>
-                  </li>
-                )
-              })}
-            </ul>
-          </li>
-        ))
+        Object.keys(YearMonthPairs)
+          .sort((a, b) => orderByDateDesc(a, b))
+          .map((year) => (
+            <li>
+              <span class="year">{year}</span>
+              <ul class="month-list">
+                {YearMonthPairs[year]?.map(({ mStr, mDate }) => {
+                  return (
+                    <li>
+                      <a href={`/blog/archive/${year}${mStr}`} class="month">
+                        <FormattedDate
+                          date={mDate}
+                          locale={defaultLang}
+                          show={{ year: true, month: true, day: false }}
+                        />
+                      </a>
+                    </li>
+                  )
+                })}
+              </ul>
+            </li>
+          ))
       }
     </ul>
   </main>

@@ -13,7 +13,7 @@ import { Toc } from '@/components/Toc'
 import { Icon } from '@/components/Icon'
 import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils'
 import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale'
-import { getCategory, getBlogTags } from '@/lib/collections/data'
+import { getBlogCategory, getBlogTags } from '@/lib/collections/data'
 
 type Props = {
   entry: CollectionEntry<'blog'>
@@ -34,8 +34,8 @@ const {
   modifiedAt,
 } = data
 const slugWithoutLocale = getSlugWithoutLocale(slug)
-const category = await getCategory(blogCategory.id)
-const tags = await getBlogTags(blogTags, locale)
+const category = await getBlogCategory(blogCategory)
+const tags = await getBlogTags(blogTags)
 ---
 
 <BaseLayout
@@ -71,8 +71,20 @@ const tags = await getBlogTags(blogTags, locale)
         </div>
         <h1 class="entry-title">{title}</h1>
         <div class="taxonomies">
-          <Taxonomy taxonomy={category} />
-          {tags.length !== 0 && tags.map((tag) => <Taxonomy taxonomy={tag} />)}
+          {
+            category && (
+              <Taxonomy
+                kind={blogCategory.metadata.collection}
+                taxonomy={category}
+              />
+            )
+          }
+          {
+            tags.length !== 0 &&
+              tags.map((tag) => (
+                <Taxonomy kind={blogTags.metadata.collection} taxonomy={tag} />
+              ))
+          }
         </div>
         <Toc {headings} />
       </section>

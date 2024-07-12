@@ -1,8 +1,7 @@
 ---
-import type { Taxonomy } from '@/lib/collections/types'
+import type { Taxonomy, TaxonomyKind } from '@/lib/collections/types'
 import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils'
 import { slugify } from '@/utils/slugify'
-import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale'
 import {
   colorVariants,
   taxonomyVariants,
@@ -11,29 +10,24 @@ import {
 } from './taxonomy.css'
 
 type Props = {
+  kind: TaxonomyKind
   taxonomy: Taxonomy
 }
 
 const locale = getLocaleFromUrl(Astro.url)
 const translatePath = useTranslatedPath(locale)
-const { taxonomy } = Astro.props
+const { kind, taxonomy } = Astro.props
 ---
 
 <a
   class:list={[
     taxonomyLink,
-    taxonomyVariants[taxonomy.collection],
-    colorVariants[taxonomy.data.color],
+    taxonomyVariants[kind],
+    colorVariants[taxonomy.color],
   ]}
-  href={translatePath(
-    `/blog/${taxonomy.collection}/${slugify(getSlugWithoutLocale(taxonomy.id))}`
-  )}
+  href={translatePath(`/blog/${kind}/${slugify(taxonomy.slug)}`)}
 >
   <span class:list={[taxonomySpan]}
-    >{
-      taxonomy.collection === 'tags'
-        ? `# ${taxonomy.data.title}`
-        : taxonomy.data.title
-    }</span
+    >{kind === 'tags' ? `# ${taxonomy.title}` : taxonomy.title}</span
   >
 </a>

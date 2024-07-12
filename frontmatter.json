@@ -7,25 +7,19 @@
     {
       "title": "blog",
       "path": "[[workspace]]/src/content/blog",
-      "contentTypes": [
-        "blog"
-      ],
+      "contentTypes": ["blog"],
       "defaultLocale": "en"
     },
     {
       "title": "news",
       "path": "[[workspace]]/src/content/news",
-      "contentTypes": [
-        "news"
-      ],
+      "contentTypes": ["news"],
       "defaultLocale": "en"
     },
     {
       "title": "page",
       "path": "[[workspace]]/src/content/page",
-      "contentTypes": [
-        "page"
-      ],
+      "contentTypes": ["page"],
       "defaultLocale": "en"
     }
   ],
@@ -44,11 +38,7 @@
   "frontMatter.content.draftField": {
     "name": "draft",
     "type": "choice",
-    "choices": [
-      "draft",
-      "in progress",
-      "published"
-    ]
+    "choices": ["draft", "in progress", "published"]
   },
   "frontMatter.taxonomy.seoTitleLength": 72,
   "frontMatter.taxonomy.contentTypes": [
@@ -75,18 +65,54 @@
         {
           "title": "Category",
           "name": "category",
-          "type": "categories",
-          "required": true,
-          "taxonomyLimit": 1,
-          "singleValueAsString": true
+          "type": "fields",
+          "fields": [
+            {
+              "title": "Category ID",
+              "name": "metadata",
+              "type": "categories",
+              "required": true,
+              "taxonomyLimit": 1,
+              "singleValueAsString": true
+            },
+            {
+              "title": "Category Slug",
+              "name": "slug",
+              "type": "dataFile",
+              "dataFileId": "categories",
+              "dataFileKey": "slug",
+              "dataFileValue": "title",
+              "required": true,
+              "singleValueAsString": true
+            }
+          ]
         },
         {
           "title": "Tags",
           "name": "tags",
-          "type": "tags"
+          "type": "fields",
+          "fields": [
+            {
+              "title": "Tags ID",
+              "name": "metadata",
+              "type": "tags",
+              "required": true,
+              "taxonomyLimit": 1,
+              "singleValueAsString": true
+            },
+            {
+              "title": "Tag Slugs",
+              "name": "slugList",
+              "type": "dataFile",
+              "dataFileId": "tags",
+              "dataFileKey": "slug",
+              "dataFileValue": "title",
+              "multiple": true
+            }
+          ]
         },
         {
-          "title": "Draft status",
+          "title": "Draft Status",
           "name": "draft",
           "type": "draft",
           "required": true,
@@ -186,6 +212,82 @@
       ]
     }
   ],
+  "frontMatter.data.types": [
+    {
+      "id": "categories",
+      "schema": {
+        "title": "Categories",
+        "type": "object",
+        "required": ["title", "slug", "color"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "color": {
+            "type": "string",
+            "title": "Color"
+          }
+        }
+      }
+    },
+    {
+      "id": "tags",
+      "schema": {
+        "title": "Tags",
+        "type": "object",
+        "required": ["title", "slug", "color"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "color": {
+            "type": "string",
+            "title": "Color"
+          }
+        }
+      }
+    }
+  ],
+  "frontMatter.data.files": [
+    {
+      "title": "En Categories",
+      "id": "categories",
+      "type": "categories",
+      "file": "[[workspace]]/src/content/categories/en/categories.yml",
+      "fileType": "yaml"
+    },
+    {
+      "title": "Ja Categories",
+      "id": "categories",
+      "type": "categories",
+      "file": "[[workspace]]/src/content/categories/ja/categories.yml",
+      "fileType": "yaml"
+    },
+    {
+      "title": "En Tags",
+      "id": "tags",
+      "type": "tags",
+      "file": "[[workspace]]/src/content/tags/en/tags.yml",
+      "fileType": "yaml"
+    },
+    {
+      "title": "Ja Tags",
+      "id": "tags",
+      "type": "tags",
+      "file": "[[workspace]]/src/content/tags/ja/tags.yml",
+      "fileType": "yaml"
+    }
+  ],
   "frontMatter.snippets.wrapper.enabled": false,
   "frontMatter.content.snippets": {
     "Image with caption": {
@@ -195,11 +297,7 @@
     },
     "Code block with specified language": {
       "description": "Insert code block snippet",
-      "body": [
-        "```[[language]] title=\"[[filename]]\"",
-        "",
-        "```"
-      ],
+      "body": ["```[[language]] title=\"[[filename]]\"", "", "```"],
       "fields": [
         {
           "name": "language",
@@ -233,5 +331,7 @@
         }
       ]
     }
-  }
+  },
+  "frontMatter.website.host": "https://younagi.dev/",
+  "frontMatter.framework.startCommand": "bun dev"
 }

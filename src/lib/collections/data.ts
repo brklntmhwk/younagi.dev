@@ -2,11 +2,12 @@ import {
   type DataCollectionKey,
   type Flatten,
   type AnyEntryMap,
+  getEntry,
   getCollection,
   getDataEntryById,
 } from 'astro:content'
 import { type Language } from '@/utils/i18n/data'
-import type { BlogTags, CategoryId } from './types'
+import type { BlogCategoryData, BlogTagsData } from './types'
 import { getLocaleFromSlug } from '@/utils/get-locale-from-slug'
 
 export const getLocaleDataEntries = <T extends DataCollectionKey>(
@@ -26,19 +27,46 @@ export const getDataEntries = async <T extends DataCollectionKey>(
   return entries
 }
 
-export const getCategory = async (id: CategoryId) =>
-  await getDataEntryById('categories', id)
+export const getBlogCategory = async (blogCategory: BlogCategoryData) => {
+  const categories = await getDataEntryById(
+    'categories',
+    blogCategory.metadata.id
+  )
 
-export const getCategories = async (locale?: Language) =>
-  await getDataEntries('categories', locale)
-
-export const getBlogTags = async (blogTags: BlogTags, locale?: Language) => {
-  const allTags = await getDataEntries('tags', locale)
-
-  return allTags.filter((tag) =>
-    blogTags?.some((blogTag) => blogTag.id === tag.id)
+  return categories.data.find(
+    (categoryData) => blogCategory.slug === categoryData.slug
   )
 }
+// export const getCategory = async (id: metadata) =>
+//   await getDataEntryById('categories', id)
 
-export const getTags = async (locale?: Language) =>
-  await getDataEntries('tags', locale)
+export const getCategories = async (locale: Language) =>
+  await getEntry('categories', `${locale}/categories`)
+
+// export const getCategories = async (locale?: Language) =>
+//   await getDataEntries('categories', locale)
+
+export const getBlogTags = async (blogTags: BlogTagsData) => {
+  const tags = await getDataEntryById('tags', blogTags.metadata.id)
+
+  return tags.data.filter((tagData) =>
+    blogTags.slugList?.some((blogTag) => blogTag === tagData.slug)
+  )
+}
+// export const getBlogTags = async (blogTags: BlogTags, locale?: Language) => {
+//   const allTags = await getDataEntries('tags', locale)
+
+//   return allTags.map((tag) =>
+//     tag.data.filter((tagData) =>
+//       blogTags.tagsData?.some((blogTag) => blogTag === tagData.slug)
+//     )
+//   )
+//   // return allTags.filter((tag) =>
+//   //   blogTags?.some((blogTag) => blogTag.id === tag.id)
+//   // )
+// }
+
+export const getTags = async (locale: Language) =>
+  await getEntry('tags', `${locale}/tags`)
+// export const getTags = async (locale?: Language) =>
+//   await getDataEntries('tags', locale)

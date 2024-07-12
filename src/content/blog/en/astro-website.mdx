@@ -57,6 +57,10 @@ It's dynamic in the sense that every path of OG Images is generated dynamically 
 
 Along the way, [the satori library](https://github.com/vercel/satori) generates an svg image based on the HTML & CSS input, and then [the Sharp library](https://sharp.pixelplumbing.com/) optimizes and formats it to a PNG image. You can access them via the dynamically generated paths. Here's an example.
 
+```txt title="The path example"
+https://younagi.dev/api/og/blog/astro-website.png
+```
+
 ![ OG Image example of this page](../../../assets/images/og-image-example.png)
 
 #### Remark/Rehype Plugins
@@ -97,7 +101,7 @@ $$
 = \lim_{n \to \infty} \dfrac{1}{n} \sum_{k=0}^{n-1} f \left (\dfrac{k}{n} \right)
 $$
 
-##### Code block
+##### Code blocks
 
 As a developer, sharing some code examples is inevitable. [The rehype-pretty-code](https://rehype-pretty.pages.dev/) did all the heavy lifting in adding code syntax highlighting for me. Incidentally, the syntax highlighter is [Shiki](https://shiki.style/).
 
@@ -113,13 +117,14 @@ const { title } = Astro.props
 <div>{`This is an example page titled ${title}.`}</div>
 ```
 
-##### Callout
+##### Callouts
 
 I've been using [Obsidian](https://obsidian.md/) for years as my knowledge base and love [the callout component](https://help.obsidian.md/Editing+and+formatting/Callouts). I wanted to have it here too so embarked on developing it on my own.
 Along the way, I got hung up on some key points:
 
 - Expandable/foldable
   - If there are either "+" or "-" mark beside the callout title, it's regarded as expandable/foldable
+  - Nested callouts are also expanded or folded when the outer callout toggles
 - Various types and colors
 - Able to be nested
 
@@ -204,25 +209,70 @@ Below are some examples.
 URLs pasted directly morphs into embedded frames if they are compatible with embedding media. I manually added the integrations with Canva, YouTube, and Google Slides. Other than them, URLs are transformed in accordance with [the OEmbed](https://oembed.com/) format.
 Incidentally, [the unfurl library](https://github.com/jacktuck/unfurl) fetches the media metadata necessary for the format behind the scenes.
 
-YouTube
+###### YouTube
+
+```txt
+https://www.youtube.com/watch?v=dsTXcSeAZq8
+```
 
 https://www.youtube.com/watch?v=dsTXcSeAZq8
 
-Spotify
+###### Spotify
+
+```txt
+https://open.spotify.com/intl-ja/track/04z1fwsw1gXI8HWQpoETa9?si=862c02d3e52a49b0
+```
 
 https://open.spotify.com/intl-ja/track/04z1fwsw1gXI8HWQpoETa9?si=862c02d3e52a49b0
 
-Canva
+###### Canva
+
+```txt
+https://www.canva.com/design/DAGKC41Tjws/zSEw1hvi9r30o5KiF96AGA/view
+```
 
 https://www.canva.com/design/DAGKC41Tjws/zSEw1hvi9r30o5KiF96AGA/view
 
-Google Slides
+###### Google Slides
+
+```txt
+https://docs.google.com/presentation/d/1CbeSiVYta0VTuENQ-25OLcIV5vK8pkcBJ-8DfKqlE2I/edit?usp=sharing
+```
 
 https://docs.google.com/presentation/d/1CbeSiVYta0VTuENQ-25OLcIV5vK8pkcBJ-8DfKqlE2I/edit?usp=sharing
 
 ##### Link cards
 
+When it comes to other bare links than OEmbed compatible ones, they are transformed into a link card as a fallback. I made up a Remark plugin for this coupled with that for the OEmbed.
+
+[the unfurl library](https://github.com/jacktuck/unfurl) does great work under the hood here again. It fetches the OG image and other site metadata via the URL.
+
+```txt
+https://younagi.dev
+```
+
+https://younagi.dev
+
 #### Contact Form
+
+What I spent a considerable amount of time racking my brain was the contact form. Having gone through several major changes, it's ended up with SolidJS and TSX.
+That said, Turning the whole contact form into a client-side loaded component with [the Astro client directive](https://docs.astro.build/ja/reference/directives-reference/) causes a serious CLS(Cumulative Layout Shifts) problem that could affect SEO badly. With that in mind, I made a detour and ended up putting it in a modal component.
+
+To make it simple and concise, I utilized [the Modular Forms](https://modularforms.dev/), [Kobalte](https://kobalte.dev/docs/core/overview/introduction), [Valibot](https://valibot.dev/), and other useful libraries.
+Here are some points:
+
+- The client side validation
+  - The Modular Forms x Valibot x Cloudflare Turnstile
+- The server side validation
+  - The Valibot x Cloudflare Turnstile
+- The submit button label changes when submitting
+  - This feature can easily be topped thanks to the form control of the Modular Forms
+
+For bot management, I got hung up on the Cloudflare Turnstile compared to the notorious Google reCAPTCHA. (I never forget the wasted time solving the car puzzles...) It's free and fully compatible with other Cloudflare services, so I had no other choice.
+
+> [!warning] Caution
+>
+> Since contact forms require user interactions, they must be rendered on the client side, which in turn requires you to change your Astro project's configuration from full SSG to partial SSG (hybrid SSR, so to speak). it's a bit tricky in that some libraries cannot work due to the difference between server and client.
 
 ### Cloudflare
 
@@ -257,7 +307,7 @@ When it comes to the setup, consult [the Front Matter official doc](https://fron
 
 #### Customization of Front Matter CMS
 
-In the `frontmatter.json`, there are two notable points here:
+In the `frontmatter.json` configuration, there are some notable points:
 
 - `frontMatter.content.publicFolder`: it refers to the public folder by default. I wanted to use [the asset directory](https://docs.astro.build/ja/guides/images/) Astro offers for image optimization, so changed it to `src/assets/images/`
 - `frontMatter.content.i18n`: Front Matter CMS also covers an i18n feature. With this setting, it can spot the association between locales and directories
@@ -269,3 +319,5 @@ My dashboard looks like this. It's fully comparable to other CMS, isn't it?
 ![ My Front Matter CMS editing mode ](../../../assets/images/front-matter-cms-editing.png)
 
 ## Outro
+
+Over the course of my development journey, I consulted a bunch of information sources. I wouldn't be able to complete it if it hadn't been for them. Here are some of them that I visited very often. Thank you so much for your helpful information and code!

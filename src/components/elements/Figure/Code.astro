@@ -77,6 +77,9 @@ const props = Astro.props
       border-radius: 0.15rem 0.15rem 0.15rem 0;
     }
   }
+  .code-figure:not(:has([data-rehype-pretty-code-title])) {
+    margin: 1.75rem 0;
+  }
   :global(pre[data-theme*=' ']),
   :global(pre[data-theme*=' '] span) {
     color: var(--shiki-light);

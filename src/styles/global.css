@@ -112,19 +112,23 @@ h2 {
   line-height: 1.4;
 }
 h3 {
-  font-size: 1.5rem;
+  font-size: 1.625rem;
   font-weight: 700;
   line-height: 1.35;
 }
 h4 {
-  font-size: 1.25rem;
-  font-weight: 400;
+  font-size: 1.325rem;
+  font-weight: 700;
   line-height: 1.2;
 }
-h5,
+h5 {
+  font-size: 1.215rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
 h6 {
-  font-size: 1.05rem;
-  font-weight: 400;
+  font-size: 1.135rem;
+  font-weight: 700;
   line-height: 1.2;
 }
 

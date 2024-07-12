@@ -30,7 +30,15 @@ Basically, I managed to develop it with what Astro offers, but when it comes to 
 
 #### Full text search
 
-I'm using [Pagefind](https://pagefind.app/), a Rust based static search library. It's lightweight, lightning fast, and easy to use.
+I used [Pagefind](https://pagefind.app/), a Rust based static search library. It's lightweight, lightning fast, and easy to use. It's also self-contained on the browser without needing to interact with server. The secret is that static files under the designated directory to be generated at build time, are read and their index files are generated in advance.
+
+Along the way, I got hung up on some key points:
+
+- Callable via a shortcut key
+  - Press `Ctrl + K` if you're on PC
+- Custom keyword highlighting
+- Accessible from everywhere
+  - The search button is placed in the navigation bar
 
 #### Internationalization (i18n)
 
@@ -49,7 +57,7 @@ It's dynamic in the sense that every path of OG Images is generated dynamically 
 
 Along the way, [the satori library](https://github.com/vercel/satori) generates an svg image based on the HTML & CSS input, and then [the Sharp library](https://sharp.pixelplumbing.com/) optimizes and formats it to a PNG image. You can access them via the dynamically generated paths. Here's an example.
 
-![ OG Image example of this page ](../../../assets/images/og-image-example.png)
+![ OG Image example of this page](../../../assets/images/og-image-example.png)
 
 #### Remark/Rehype Plugins
 

@@ -31,7 +31,15 @@ tags:
 
 #### 全文検索
 
-Rust製の静的検索ライブラリである[Pagefind](https://pagefind.app/)の力を借りることにしました。軽量、高速、そして導入が簡単！
+Rust製の静的検索ライブラリである[Pagefind](https://pagefind.app/)の力を借りることにしました。軽量、高速、そして導入が簡単！It's also self-contained on the browser without needing to interact with server. The secret is that static files under the designated directory to be generated at build time, are read and their index files are generated in advance.
+
+Along the way, I got hung up on some key points:
+
+- Callable via a shortcut key
+  - Press `Ctrl + K` if you're on PC
+- Custom keyword highlighting
+- Accessible from everywhere
+  - The search button is placed in the navigation bar
 
 #### 多言語対応 (i18n)
 

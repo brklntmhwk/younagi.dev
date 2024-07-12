@@ -1,5 +1,5 @@
-import { readdirSync, writeFileSync } from 'node:fs'
-import { resolve } from 'node:path'
+import { readdirSync, writeFileSync } from 'fs'
+import { resolve } from 'path'
 
 const ICONS_DIR = '../components/Icon/icons'
 const ICON_TYPES_DIR = '../components/Icon/types.ts'

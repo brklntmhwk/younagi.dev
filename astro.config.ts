@@ -86,7 +86,6 @@ export default defineConfig({
     plugins: [vanillaExtractPlugin()],
     ssr: {
       external: ['node:fs', 'unfurl.js'],
-      noExternal: ['node:path'],
     },
   },
   markdown: {

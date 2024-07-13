@@ -5,7 +5,7 @@ import type { CollectionEntry } from 'astro:content'
 import { getEntry } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { Article } from '@/components/Article'
-import { Likes } from '@/components/Likes/Likes'
+// import { Likes } from '@/components/Likes/Likes'
 import { BuyMeACoffee } from '@/components/BuyMeACoffee'
 import { FormattedDate } from '@/components/FormattedDate'
 import { Taxonomy } from '@/components/Taxonomy'
@@ -92,12 +92,12 @@ const tags = await getBlogTags(blogTags)
         <slot />
       </section>
       <section slot="cta" class="cta">
-        <Likes
+        <!-- <Likes
           client:only="solid"
           slug={slugWithoutLocale}
           {collection}
           t={t.data.likes}
-        />
+        /> -->
         <BuyMeACoffee />
       </section>
     </Article>

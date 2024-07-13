@@ -28,9 +28,19 @@ If you're interested in the code behind my website, see [my Github repo](https:/
 
 Basically, I managed to develop it with what Astro offers, but when it comes to some exceptions, I used SolidJS, the up-and-coming JS framework. It goes without saying that all written in TypeScript (and TSX).
 
+> [!info]- The tech stack
+> Language: TypeScript
+> Framework: Astro and SolidJS
+> Styling: Astro's scoped CSS and Vanilla Extract(Zero runtime CSS)
+> DB: Cloudflare D1
+> ORM: Drizzle ORM
+> CI/CD: Github Actions
+> Deployment: Cloudflare Pages
+> CMS: Front Matter CMS
+
 #### Full text search
 
-I used [Pagefind](https://pagefind.app/), a Rust based static search library. It's lightweight, lightning fast, and easy to use. It's also self-contained on the browser without needing to interact with server. The secret is that static files under the designated directory to be generated at build time, are read and their index files are generated in advance.
+I used [Pagefind](https://pagefind.app/), a Rust based static search library. It's lightweight, lightning fast, and easy to use. It's also self-contained on the browser without needing to interact with server. The secret is that, at build time, static files are generated under the designated directory, based on which Pagefind creates index files in advance.
 
 Along the way, I got hung up on some key points:
 
@@ -39,6 +49,8 @@ Along the way, I got hung up on some key points:
 - Custom keyword highlighting
 - Accessible from everywhere
   - The search button is placed in the navigation bar
+- Automatic input cursor focus
+  - Once you open the search modal, the cursor is automatically focused on the window
 
 #### Internationalization (i18n)
 
@@ -271,9 +283,11 @@ Here are some points:
 For bot management, I got hung up on the Cloudflare Turnstile compared to the notorious Google reCAPTCHA. (I never forget the wasted time solving the car puzzles...) It's free and fully compatible with other Cloudflare services, so I had no other choice.
 
 > [!warning] Caution
-> Since contact forms require user interactions, they must be rendered on the client side, which in turn requires you to change your Astro project's configuration from full SSG to partial SSG (hybrid SSR, so to speak). it's a bit tricky in that some libraries cannot work due to the difference between server and client.
+> Since contact forms require user interactions, they must be rendered on the client side, which means you cannot make it as an Astro component and in turn requires you to change your Astro project's configuration from full SSG to partial SSG (hybrid SSR, so to speak). it's a bit tricky in that some libraries cannot work due to the difference between the server and client sides.
 
 ### Cloudflare
+
+My website heavily relies on the Cloudflare's ecosystem.
 
 #### Cloudflare Pages
 
@@ -287,7 +301,10 @@ I decided to use Cloudflare Pages to host my website for the following reasons:
   - The unlimited maximum bandwidth per month is awesome (As of May 9, 2024)
 - Lightning fast deployment
 - Custom email addresses for your domain available
+  - I'm using it for the contact form
+  - The messages are sent to my private email address via the custom one so it doesn't have to be open to the public (Not to mention the reply looks like being sent from the custom one)
 - Own domains available (paid)
+  - `https://younagi.dev`
 
 I suppose the free plan suffices for a small project like my website. That's the most appealing factor to me.
 
@@ -295,7 +312,7 @@ I suppose the free plan suffices for a small project like my website. That's the
 
 ### Front Matter CMS
 
-Along with a choice of framework, what takes you ages to decide is that of CMS(Content Management System). I fell in love with [Front Matter CMS](https://frontmatter.codes/) for the following reasons:
+CMS(Content Management System) selection is also time-consuming. I fell in love with [Front Matter CMS](https://frontmatter.codes/) for the following reasons:
 
 - Writing and storing articles in local
 - Markdown/MDX file format
@@ -308,7 +325,11 @@ When it comes to the setup, consult [the Front Matter official doc](https://fron
 
 In the `frontmatter.json` configuration, there are some notable points:
 
-- something
+- Compatible with directory-based internationalization(i18n)
+  - You can specify locale directories (in my case, `en` and `ja` as of now) inside the content directory
+  - By doing so, you can select in which language you're creating a post via the VSCode command
+- Compatible with the Astro's Content Collections (with both the content and data types)
+  - You can use the Data functionality for Astro's data collections, not to mention the Contents for Astro's content collections
 
 My dashboard looks like this. It's fully comparable to other CMS, isn't it?
 
@@ -319,3 +340,17 @@ My dashboard looks like this. It's fully comparable to other CMS, isn't it?
 ## Outro
 
 Over the course of my development journey, I consulted a bunch of information sources. I wouldn't be able to complete it if it hadn't been for them. Here are some of them that I visited very often. Thank you so much for your helpful information and code!
+
+https://tus-ricora.com/
+
+https://zenn.dev/ricora/articles/5a170c17933c3f
+
+https://www.haxibami.net/
+
+https://honghong.me/
+
+https://snorre.io/blog/2024-05-06-likes-cloudflare-d1-astro-api-endpoints/
+
+https://route360.dev/ja/post/frontmatter-cms/
+
+https://nostalgic-css.github.io/NES.css/

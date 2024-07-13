@@ -25,7 +25,8 @@ const image = {
     metadata?.twitter_card?.images?.[0]?.url,
   alt:
     metadata?.open_graph?.images?.[0]?.alt ??
-    metadata?.twitter_card?.images?.[0]?.alt,
+    metadata?.twitter_card?.images?.[0]?.alt ??
+    title,
 }
 ---
 

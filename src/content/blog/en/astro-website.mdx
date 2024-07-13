@@ -20,25 +20,27 @@ tags:
 
 It took me 4 months or so to get it done to build my personal website up to a minimum decent level. Here, you'll join a quick tour of the whole development experience.
 
-If you're interested in the code behind my website, see [my Github repo](https://github.com/brklntmhwk/younagi.dev).
+If you're interested in the code behind my website, see [my Github repo](https://github.com/brklntmhwk/younagi.dev). Code is worth a thousand words.
 
 ## Main
 
 ### Astro
 
-Basically, I managed to develop it with what Astro offers, but when it comes to some exceptions, I used SolidJS, the up-and-coming JS framework. It goes without saying that all written in TypeScript (and TSX).
+Basically, I managed to develop it with what Astro offers, but when it comes to some exceptions, I used [SolidJS](https://www.solidjs.com/), the up-and-coming JS framework. It goes without saying that all written in TypeScript (and TSX).
 
 > [!info]- The tech stack
-> Language: TypeScript and TSX
-> Framework: Astro and SolidJS
-> Styling: Astro's scoped CSS and Vanilla Extract(Zero runtime CSS)
-> DB: Cloudflare D1
-> ORM: Drizzle ORM
-> CI/CD: Github Actions
-> Deployment: Cloudflare Pages
-> CMS: Front Matter CMS
+> **Language:** TypeScript and TSX
+> **Framework:** Astro and SolidJS
+> **Styling:** Astro's scoped CSS and Vanilla Extract(Zero runtime CSS)
+> **DB:** Cloudflare D1
+> **ORM:** Drizzle ORM
+> **CI/CD:** Github Actions
+> **Deployment:** Cloudflare Pages
+> **CMS:** Front Matter CMS
 
 #### Full text search
+
+![Demo: How the search functionality works](../../../assets/images/fulltext-search.gif)
 
 I used [Pagefind](https://pagefind.app/), a Rust based static search library. It's lightweight, lightning fast, and easy to use. It's also self-contained on the browser without needing to interact with server. The secret is that, at build time, static files are generated under the designated directory, based on which Pagefind creates index files in advance.
 
@@ -153,12 +155,12 @@ Below are some examples.
 ---
 
 ```Markdown title="Caution callout"
-> [!warning]-warning
-> Caution callout example. (Folded by default)
+> [!warning]-Warning
+> Warning callout example. (Folded by default)
 ```
 
-> [!warning]-Caution
-> Caution callout example. (Folded by default)
+> [!warning]-Warning
+> Warning callout example. (Folded by default)
 
 ---
 
@@ -267,6 +269,8 @@ https://younagi.dev
 
 #### Contact Form
 
+![Demo: How the contact form works](../../../assets/images/contact-form-demo.gif)
+
 What I spent a considerable amount of time racking my brain was the contact form. Having gone through several major changes, it's ended up with SolidJS and TSX.
 That said, Turning the whole contact form into a client-side loaded component with [the Astro client directive](https://docs.astro.build/ja/reference/directives-reference/) causes a serious CLS(Cumulative Layout Shifts) problem that could affect SEO badly. With that in mind, I made a detour and ended up putting it in a modal component.
 
@@ -310,11 +314,21 @@ I suppose the free plan suffices for a small project like my website. That's the
 
 #### Cloudflare D1
 
-Regarding the backend, I'm using Cloudflare D1 as database. It also offers a generous free plan, though I'm not going to dig deeper into it here.
+Regarding the backend, I'm using [Cloudflare D1](https://developers.cloudflare.com/d1/) as database. It also offers a generous free plan, though I'm not going to dig deeper into it here.
 
 ##### Likes Button
 
-With the D1 database in combination with [the Drizzle ORM(Object-relational Mapping)](https://orm.drizzle.team/), I created the Likes button as you can see here at the bottom of this article.
+![Demo: How the likes button works](../../../assets/images/likes-button-demo.gif)
+
+With the combination of D1 database and [the Drizzle ORM(Object-relational Mapping)](https://orm.drizzle.team/), I created the Likes button as you can see at the bottom of this article.
+
+Long story short, the mechanism is as follows:
+
+- The total likes count is displayed on the button
+  - In the event of the page loaded, it forwards a GET request to the likes API endpoint to get the total likes count and that of the current user based on the session ID from cookies
+  - The session ids are stored in the database coupled with the page info
+- When clicked, it counts up one when the user hasn't done it and vice versa
+  - It forwards a POST request to the likes API endpoint in which the request data is inserted into the database table
 
 ### Front Matter CMS
 

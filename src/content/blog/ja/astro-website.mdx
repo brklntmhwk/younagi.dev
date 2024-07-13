@@ -29,11 +29,21 @@ tags:
 
 基本はAstroの機能範囲で実装し、例外部分は新進気鋭のJSフレームワーク「SolidJS」で実装しています。もちろん全て TypeScript(と TSX) です。
 
+> [!info]- 技術構成
+> 言語: TypeScript, TSX
+> フレームワーク: Astro, SolidJS
+> スタイリング: Astro の scoped CSS, Vanilla Extract(ゼロランタイム CSS)
+> データベース: Cloudflare D1
+> ORM: Drizzle ORM
+> CI/CD: Github Actions
+> デプロイ: Cloudflare Pages
+> CMS: Front Matter CMS
+
 #### 全文検索
 
-Rust製の静的検索ライブラリである[Pagefind](https://pagefind.app/)の力を借りることにしました。軽量、高速、そして導入が簡単！It's also self-contained on the browser without needing to interact with server. The secret is that static files under the designated directory to be generated at build time, are read and their index files are generated in advance.
+Rust製の静的検索ライブラリである[Pagefind](https://pagefind.app/)の力を借りることにしました。軽量、高速、そして導入が簡単。更にサーバーとのやり取りが不要でブラウザ簡潔なのも魅力的です。仕組みは至ってシンプルで、ビルド時に生成される指定ディレクトリ下の静的ファイルを読みに行き、検索用のインデックスファイルをあらかじめ生成しておくというものです。
 
-Along the way, I got hung up on some key points:
+開発に際して、次のポイントにこだわりました。
 
 - Callable via a shortcut key
   - Press `Ctrl + K` if you're on PC
@@ -126,35 +136,79 @@ const { title } = Astro.props
 
 以下がその例です。
 
-```Markdown title="Info callout"
+```Markdown title="Info コールアウト"
 > [!info]+Info
-> Info callout example. (Expanded by default)
+> Info コールアウトの例 (Expanded by default)
 ```
 
 > [!info]+Info
-> Info callout example. (Expanded by default)
+> Info コールアウトの例 (Expanded by default)
 
 ---
 
-```Markdown title="Caution callout"
-> [!caution]-Caution
-> Caution callout example. (Folded by default)
+```Markdown title="Caution コールアウト"
+> [!warning]-warning
+> Caution コールアウトの例 (Folded by default)
 ```
 
-> [!caution]-Caution
-> Caution callout example. (Folded by default)
+> [!warning]-Caution
+> Caution コールアウトの例 (Folded by default)
 
 ---
 
-```Markdown title="Check callout"
+```Markdown title="Check コールアウト"
 > [!check] Check
-> Check callout example. (No expansion/fold)
+> Check コールアウトの例 (No expansion/fold)
 ```
 
 > [!check] Check
-> Check callout example. (No expansion/fold)
+> Check コールアウトの例 (No expansion/fold)
 
 ---
+
+```Markdown title="Nested コールアウト"
+> [!note]+
+> コールアウト
+>
+> > [!info]+
+> > Nested コールアウト
+> >
+> > > [!warning]+
+> > > further nested コールアウト
+
+> [!question]+
+> Question!
+>
+> > [!failure]+
+> > Failure!
+> >
+> > > [!check]+
+> > > Check!
+> > >
+> > > > [!quote]+
+> > > > Quote!
+```
+
+> [!note]+
+> コールアウト
+>
+> > [!info]+
+> > Nested コールアウト
+> >
+> > > [!warning]+
+> > > further nested コールアウト
+
+> [!question]+
+> Question!
+>
+> > [!failure]+
+> > Failure!
+> >
+> > > [!check]+
+> > > Check!
+> > >
+> > > > [!quote]+
+> > > > Quote!
 
 ##### OEmbed(埋め込み)
 

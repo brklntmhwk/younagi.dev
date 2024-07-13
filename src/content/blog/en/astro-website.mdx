@@ -29,7 +29,7 @@ If you're interested in the code behind my website, see [my Github repo](https:/
 Basically, I managed to develop it with what Astro offers, but when it comes to some exceptions, I used SolidJS, the up-and-coming JS framework. It goes without saying that all written in TypeScript (and TSX).
 
 > [!info]- The tech stack
-> Language: TypeScript
+> Language: TypeScript and TSX
 > Framework: Astro and SolidJS
 > Styling: Astro's scoped CSS and Vanilla Extract(Zero runtime CSS)
 > DB: Cloudflare D1
@@ -282,7 +282,7 @@ Here are some points:
 
 For bot management, I got hung up on the Cloudflare Turnstile compared to the notorious Google reCAPTCHA. (I never forget the wasted time solving the car puzzles...) It's free and fully compatible with other Cloudflare services, so I had no other choice.
 
-> [!warning] Caution
+> [!warning]- Caution
 > Since contact forms require user interactions, they must be rendered on the client side, which means you cannot make it as an Astro component and in turn requires you to change your Astro project's configuration from full SSG to partial SSG (hybrid SSR, so to speak). it's a bit tricky in that some libraries cannot work due to the difference between the server and client sides.
 
 ### Cloudflare
@@ -310,6 +310,12 @@ I suppose the free plan suffices for a small project like my website. That's the
 
 #### Cloudflare D1
 
+Regarding the backend, I'm using Cloudflare D1 as database. It also offers a generous free plan, though I'm not going to dig deeper into it here.
+
+##### Likes Button
+
+With the D1 database in combination with [the Drizzle ORM(Object-relational Mapping)](https://orm.drizzle.team/), I created the Likes button as you can see here at the bottom of this article.
+
 ### Front Matter CMS
 
 CMS(Content Management System) selection is also time-consuming. I fell in love with [Front Matter CMS](https://frontmatter.codes/) for the following reasons:
@@ -323,13 +329,14 @@ When it comes to the setup, consult [the Front Matter official doc](https://fron
 
 #### Customization of Front Matter CMS
 
-In the `frontmatter.json` configuration, there are some notable points:
+In the `frontmatter.json` configuration, there are some notable customizations:
 
 - Compatible with directory-based internationalization(i18n)
   - You can specify locale directories (in my case, `en` and `ja` as of now) inside the content directory
-  - By doing so, you can select in which language you're creating a post via the VSCode command
+  - By doing so, you can select in which language you're creating a post via the VSCode command and it does prepare the content with the frontmatters for you
 - Compatible with the Astro's Content Collections (with both the content and data types)
   - You can use the Data functionality for Astro's data collections, not to mention the Contents for Astro's content collections
+  - Contents like blog and news are treated as contents while data like translations, site metadata, and blog categories & tags as data
 
 My dashboard looks like this. It's fully comparable to other CMS, isn't it?
 

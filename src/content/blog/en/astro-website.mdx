@@ -38,6 +38,7 @@ Basically, I managed to develop it with what Astro offers, but when it comes to 
 > **CI/CD:** Github Actions
 > **Deployment:** Cloudflare Pages
 > **CMS:** Front Matter CMS
+> **ボット対策**: Cloudflare Turnstile
 
 #### Full text search
 
@@ -282,7 +283,7 @@ That said, Turning the whole contact form into a client-side loaded component wi
 [^1]: When you use other JS frameworks that contain JavaScript (in my case, SolidJS) inside an Astro component or page, you need to explicitly tell the Astro compiler what kind of framework because they are supposed to be loaded on the client side, by the Astro's specifications, once they contain JS; therefore the compiler has no clue who they are at build time or on the server side. Since the contact form is all about user interactions and requires JavaScript as long as you seek a lot more features, it must be a client-side loaded component.
 [^2]: Files with an extension `.astro` are rendered on the server side. If you put a client-side rendered component on them, it looks like it's suddenly pouring down on the page right after being loaded. For those small components, this is not that big deal, but for a large one like the contact form causing a tremendous layout shift.
 
-To make it simple and concise, I utilized [the Modular Forms](https://modularforms.dev/), [Kobalte](https://kobalte.dev/docs/core/overview/introduction), [Valibot](https://valibot.dev/), and other useful libraries.
+To make it simple and concise, I utilized [the Modular Forms](https://modularforms.dev/) for form controls, [Kobalte](https://kobalte.dev/docs/core/overview/introduction) for UI, and [Valibot](https://valibot.dev/) for validation, and other useful libraries.
 Here are some points:
 
 - The client side validation
@@ -392,6 +393,8 @@ https://honghong.me/
 https://snorre.io/blog/2024-05-06-likes-cloudflare-d1-astro-api-endpoints/
 
 Front Matter CMS setup
+
+https://frontmatter.codes/docs
 
 https://route360.dev/ja/post/frontmatter-cms/
 

@@ -12,6 +12,7 @@ tags:
   metadata: en/tags
   slugList:
     - astro
+    - typescript
     - front-matter-cms
     - cloudflare
 ---
@@ -69,7 +70,7 @@ The Content Collections API covers YAML and JSON formats as well as those of Mar
 When it comes to individual entries of blog and news, their OG Images are dynamically generated via [the Astro API endpoints](https://docs.astro.build/en/guides/endpoints/).
 It's dynamic in the sense that every path of OG Images is generated dynamically referring to [the Astro dynamic routes](https://docs.astro.build/en/guides/routing/#dynamic-routes), but static in the sense that they are generated at build time.
 
-Along the way, [the satori library](https://github.com/vercel/satori) generates an svg image based on the HTML & CSS input, and then [the Sharp library](https://sharp.pixelplumbing.com/) optimizes and formats it to a PNG image. You can access them via the dynamically generated paths. Here's an example.
+Along the way, [the satori library](https://github.com/vercel/satori) generates an svg image based on the HTML & CSS input, and then [the Sharp library](https://sharp.pixelplumbing.com/) optimizes and formats it to a PNG image.
 
 ```txt title="The path example"
 https://younagi.dev/api/og/blog/astro-website.png
@@ -117,7 +118,7 @@ $$
 
 ##### Code blocks
 
-As a developer, sharing some code examples is inevitable. [The rehype-pretty-code](https://rehype-pretty.pages.dev/) did all the heavy lifting in adding code syntax highlighting for me. Incidentally, the syntax highlighter is [Shiki](https://shiki.style/).
+As a developer, sharing some code examples is inevitable destiny. [The rehype-pretty-code](https://rehype-pretty.pages.dev/) did all the heavy lifting in adding code syntax highlighting for me. Incidentally, the syntax highlighter is [Shiki](https://shiki.style/).
 
 ```astro title="example.astro"
 ---
@@ -138,9 +139,9 @@ Along the way, I got hung up on some key points:
 
 - Expandable/foldable
   - If there are either "+" or "-" mark beside the callout title, it's regarded as expandable/foldable
+  - "+" is "Expanded by default" and "-" is "Folded by default"
   - Nested callouts are also expanded or folded when the outer callout toggles
 - Various types and colors
-- Able to be nested
 
 Below are some examples.
 
@@ -220,7 +221,7 @@ Below are some examples.
 
 ##### OEmbed
 
-URLs pasted directly morphs into embedded frames if they are compatible with embedding media. I manually added the integrations with Canva, YouTube, and Google Slides. Other than them, URLs are transformed in accordance with [the OEmbed](https://oembed.com/) format.
+URLs pasted directly morphs into embedded frames if they are compatible with embedding media. I created a Remark plugin and added the integrations with Canva, YouTube, and Google Slides on my own. Other than them, URLs are transformed in accordance with [the OEmbed](https://oembed.com/) format.
 Incidentally, [the unfurl library](https://github.com/jacktuck/unfurl) fetches the media metadata necessary for the format behind the scenes.
 
 ###### YouTube
@@ -272,7 +273,11 @@ https://younagi.dev
 ![Demo: How the contact form works](../../../assets/images/contact-form-demo.gif)
 
 What I spent a considerable amount of time racking my brain was the contact form. Having gone through several major changes, it's ended up with SolidJS and TSX.
-That said, Turning the whole contact form into a client-side loaded component with [the Astro client directive](https://docs.astro.build/ja/reference/directives-reference/) causes a serious CLS(Cumulative Layout Shifts) problem that could affect SEO badly. With that in mind, I made a detour and ended up putting it in a modal component.
+
+That said, Turning the whole contact form into a client-side loaded component with [the Astro client directive](https://docs.astro.build/ja/reference/directives-reference/) causes a serious CLS(Cumulative Layout Shifts) problem[^1] that could affect SEO badly. With that in mind, I made a detour and ended up putting it in a modal component.[^2]
+
+[^1]: When you use other JS frameworks that contain JavaScript (in my case, SolidJS) inside an Astro component or page, you need to explicitly tell the Astro compiler what kind of framework because they are supposed to be loaded on the client side, by the Astro's specifications, once they contain JS; therefore the compiler has no clue who they are at build time or on the server side. Since the contact form is all about user interactions and requires JavaScript as long as you seek a lot more features, it must be a client-side loaded component.
+[^2]: Files with an extension `.astro` are rendered on the server side. If you put a client-side rendered component on them, it looks like it's suddenly pouring down on the page right after being loaded. For those small components, this is not that big deal, but for a large one like the contact form causing a tremendous layout shift.
 
 To make it simple and concise, I utilized [the Modular Forms](https://modularforms.dev/), [Kobalte](https://kobalte.dev/docs/core/overview/introduction), [Valibot](https://valibot.dev/), and other useful libraries.
 Here are some points:
@@ -282,12 +287,11 @@ Here are some points:
 - The server side validation
   - The Valibot x Cloudflare Turnstile
 - The submit button label changes when submitting
+  - For users to get to know easily what's going on
   - This feature can easily be topped thanks to the form control of the Modular Forms
+- After the form successfully submitted, it redirects to a thanks page
 
 For bot management, I got hung up on the Cloudflare Turnstile compared to the notorious Google reCAPTCHA. (I never forget the wasted time solving the car puzzles...) It's free and fully compatible with other Cloudflare services, so I had no other choice.
-
-> [!warning]- Caution
-> Since contact forms require user interactions, they must be rendered on the client side, which means you cannot make it as an Astro component and in turn requires you to change your Astro project's configuration from full SSG to partial SSG (hybrid SSR, so to speak). it's a bit tricky in that some libraries cannot work due to the difference between the server and client sides.
 
 ### Cloudflare
 
@@ -343,35 +347,53 @@ When it comes to the setup, consult [the Front Matter official doc](https://fron
 
 #### Customization of Front Matter CMS
 
+![Demo: Create a new article](../../../assets/images/front-matter-cms-demo.gif)
+
 In the `frontmatter.json` configuration, there are some notable customizations:
 
 - Compatible with directory-based internationalization(i18n)
   - You can specify locale directories (in my case, `en` and `ja` as of now) inside the content directory
-  - By doing so, you can select in which language you're creating a post via the VSCode command and it does prepare the content with the frontmatters for you
+  - By doing so, you can select in which language you're creating a post via the VSCode command and it does create the file under the designated directory for you
 - Compatible with the Astro's Content Collections (with both the content and data types)
   - You can use the Data functionality for Astro's data collections, not to mention the Contents for Astro's content collections
-  - Contents like blog and news are treated as contents while data like translations, site metadata, and blog categories & tags as data
-
-My dashboard looks like this. It's fully comparable to other CMS, isn't it?
-
-![ My Front Matter CMS dashboard (List appearance) ](../../../assets/images/front-matter-cms-dashboard.png)
-
-![ My Front Matter CMS editing mode ](../../../assets/images/front-matter-cms-editing.png)
+  - Contents like blog and news are treated as "contents" while data like translations, site metadata, and blog categories & tags as "data"
 
 ## Outro
 
 Over the course of my development journey, I consulted a bunch of information sources. I wouldn't be able to complete it if it hadn't been for them. Here are some of them that I visited very often. Thank you so much for your helpful information and code!
 
+Overall
+
+https://astro.build/
+
 https://tus-ricora.com/
 
-https://zenn.dev/ricora/articles/5a170c17933c3f
+https://zenn.dev/ricora/articles/5a170c17933c3f/
 
 https://www.haxibami.net/
+
+https://developers.cloudflare.com/
+
+Full-text search
+
+https://pagefind.app/
+
+Contact form
+
+https://trap.jp/post/2088/
+
+DB setup
 
 https://honghong.me/
 
 https://snorre.io/blog/2024-05-06-likes-cloudflare-d1-astro-api-endpoints/
 
+Front Matter CMS setup
+
 https://route360.dev/ja/post/frontmatter-cms/
 
+Styling
+
 https://nostalgic-css.github.io/NES.css/
+
+https://vanilla-extract.style/

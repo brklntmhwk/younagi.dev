@@ -7,6 +7,7 @@ import {
   Suspense,
   createMemo,
 } from 'solid-js'
+import { makeEventListener } from '@solid-primitives/event-listener'
 import type { PagefindSearchResult, PagefindSearchResults } from './types'
 import { isDev } from '@/lib/mode'
 import type { I18nData } from '@/lib/collections/types'
@@ -45,8 +46,15 @@ type Props = {
 export const Search: Component<Props> = (props) => {
   let pagefind: Pagefind
 
-  onMount(async () => {
-    pagefind = await initPagefind()
+  onMount(() => {
+    makeEventListener(
+      document,
+      'DOMContentLoaded',
+      async () => {
+        pagefind = await initPagefind()
+      },
+      { passive: true }
+    )
   })
 
   const [query, setQuery] = createSignal('')

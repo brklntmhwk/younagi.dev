@@ -41,7 +41,7 @@ Basically, I managed to develop it with what Astro offers, but when it comes to 
 
 #### Full text search
 
-![Demo: How the search functionality works](../../../assets/images/fulltext-search.gif)
+![Demo: How the search functionality works](../../../assets/images/fulltext-search-demo.gif)
 
 I used [Pagefind](https://pagefind.app/), a Rust based static search library. It's lightweight, lightning fast, and easy to use. It's also self-contained on the browser without needing to interact with server. The secret is that, at build time, static files are generated under the designated directory, based on which Pagefind creates index files in advance.
 
@@ -135,6 +135,7 @@ const { title } = Astro.props
 ##### Callouts
 
 I've been using [Obsidian](https://obsidian.md/) for years as my knowledge base and love [the callout component](https://help.obsidian.md/Editing+and+formatting/Callouts). I wanted to have it here too so embarked on developing it on my own.
+
 Along the way, I got hung up on some key points:
 
 - Expandable/foldable
@@ -221,7 +222,9 @@ Below are some examples.
 
 ##### OEmbed
 
-URLs pasted directly morphs into embedded frames if they are compatible with embedding media. I created a Remark plugin and added the integrations with Canva, YouTube, and Google Slides on my own. Other than them, URLs are transformed in accordance with [the OEmbed](https://oembed.com/) format.
+URLs pasted directly morphs into embedded frames if they are compatible with embedding media.
+
+I created a Remark plugin and added the integrations with Canva, YouTube, and Google Slides on my own. Other than them, URLs are transformed in accordance with [the OEmbed](https://oembed.com/) format.
 Incidentally, [the unfurl library](https://github.com/jacktuck/unfurl) fetches the media metadata necessary for the format behind the scenes.
 
 ###### YouTube

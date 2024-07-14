@@ -41,7 +41,7 @@ tags:
 
 #### 全文検索
 
-![デモ: 検索機能](../../../assets/images/fulltext-search.gif)
+![デモ: 検索機能](../../../assets/images/fulltext-search-demo.gif)
 
 Rust製の静的検索ライブラリである[Pagefind](https://pagefind.app/)の力を借りることにしました。軽量、高速、そして導入が簡単。更にサーバーとのやり取りが不要でブラウザ簡潔なのも魅力的です。仕組みは至ってシンプルで、ビルド時に生成される指定ディレクトリ下の静的ファイルを読みに行き、検索用のインデックスファイルをあらかじめ生成しておくというものです。
 
@@ -138,6 +138,7 @@ const { title } = Astro.props
 ##### コールアウト
 
 数年間 [Obsidian](https://obsidian.md/) をナレッジベースとして愛用していて、マークダウン記法で書ける[コールアウト](https://help.obsidian.md/Editing+and+formatting/Callouts)が好きでした。このブログでも使いたくなり、実装しました。
+
 実装に際して、こだわった点は次の通りです。
 
 - 開閉可能
@@ -224,7 +225,8 @@ const { title } = Astro.props
 
 ##### OEmbed(埋め込み)
 
-エディタに直接ペーストされたURLは、埋め込み対応をしているものであればメディアフレームに変身を遂げます。
+エディタに直接ペーストされたURLは、埋め込み対応をしているものであればメディアフレームに変身します。
+
 自前でCanva、YouTube、そしてGoogle Slidesの変換処理を追加し、それ以外のメディアは[OEmbed](https://oembed.com/)の規格に応じて適宜メディアフレームに変身するようにRemarkプラグインを自作しました。
 ちなみに裏では[unfurlというライブラリ](https://github.com/jacktuck/unfurl)が頑張ってくれていて、上記の規格に必要なメディアのメタデータをURL経由で取得しています。
 
@@ -303,7 +305,7 @@ Cloudflare Pagesをホスティング先に選んだのには次のような理�
 
 バックエンドについては、[Cloudflare D1](https://developers.cloudflare.com/d1/)をデータベースとして使用しています。Pagesと同様に寛大なフリープランが魅力的だったのですが、ここでは深くは触れません。
 
-##### Likes Button
+##### いいねボタン
 
 ![デモ: いいねボタン](../../../assets/images/likes-button-demo.gif)
 

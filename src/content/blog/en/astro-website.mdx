@@ -19,9 +19,14 @@ tags:
 
 ## Intro
 
-It took me 4 months or so to get it done to build my personal website up to a minimum decent level. Here, you'll join a quick tour of the whole development experience.
+It took me 4 months or so to complete the journey through building my personal website up to a minimum decent level. Here, you'll join a quick tour of the whole development experience.
 
 If you're interested in the code behind my website, see [my Github repo](https://github.com/brklntmhwk/younagi.dev). Code is worth a thousand words.
+
+### Reader personas
+
+- Want to build a website with Astro but have no idea how the whole project structure should be or what kind of features to be added
+- Want to see some examples of the whole project built with Astro
 
 ## Main
 
@@ -81,7 +86,15 @@ https://younagi.dev/api/og/blog/astro-website.png
 
 #### Remark/Rehype Plugins
 
-In my website, all contents are written in the Markdown/MDX format, but the basic syntax is limited to an absolute minimum, so I decided to use those off-the-shelf [Remark](https://unifiedjs.com/explore/project/remarkjs/remark/) and [Rehype](https://unifiedjs.com/explore/project/rehypejs/rehype/) plugins or make them on my own to extend it to the extent I feel comfortable writing stuff.
+In my website, all contents are written in the Markdown/MDX format, but the basic syntax is limited to an absolute minimum.
+
+That's why I decided to use those off-the-shelf [Remark](https://unifiedjs.com/explore/project/remarkjs/remark/) and [Rehype](https://unifiedjs.com/explore/project/rehypejs/rehype/) plugins or make them on my own to extend it to the extent I feel comfortable writing stuff. The feel of writing means everything to bloggers.
+
+> [!info] Remark & Rehype
+> They belong to the ecosystem called [Unified](https://unifiedjs.com/).
+> Remark: Process and handle Markdown in the form of AST(mdast)
+> Rehype: Process and handle HTML in the form of AST(hast)
+> AST is short for Abstract Syntax Tree
 
 ##### KaTex
 
@@ -295,7 +308,7 @@ Here are some points:
   - This feature can easily be topped thanks to the form control of the Modular Forms
 - After the form successfully submitted, it redirects to a thanks page
 
-For bot management, I got hung up on the Cloudflare Turnstile compared to the notorious Google reCAPTCHA. (I never forget the wasted time solving the car puzzles...) It's free and fully compatible with other Cloudflare services, so I had no other choice.
+For bot management, I got hung up on [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/) compared to notorious Google reCAPTCHA. (I never forget the wasted time solving the car puzzles...) It's free and fully compatible with other Cloudflare services, so I had no other choice.
 
 ### Cloudflare
 

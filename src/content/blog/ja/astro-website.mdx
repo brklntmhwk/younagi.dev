@@ -23,11 +23,16 @@ tags:
 
 当サイトのソースコードに興味のある方は、[当サイトの Github レポジトリ](https://github.com/brklntmhwk/younagi.dev)をご覧ください。百文は一見(コード)に如かず。
 
+### 想定読者
+
+- Astroでウェブサイトを作りたいが、プロジェクト全体の構成をどうすればいいのか、どんな機能を実装すればいいのかわからない
+- Astroで作ったプロジェクトの全体像を参考にしたい
+
 ## 本題
 
 ### Astro
 
-基本はAstroの機能範囲で実装し、例外部分は新進気鋭のJSフレームワーク「SolidJS」で実装しています。もちろん全て TypeScript(と TSX) です。
+基本はAstroの機能範囲で実装し、例外部分は新進気鋭のJSフレームワーク「SolidJS」で実装しています。もちろん全て TypeScript(とTSX) です。
 
 > [!info]- 技術構成
 > **言語:** TypeScript, TSX
@@ -85,6 +90,12 @@ https://younagi.dev/api/og/blog/astro-website.png
 このウェブサイトでは、全てのコンテンツはマークダウン、もしくはMDX形式で書かれています。しかし、カスタマイズなしの標準記法では最小限の表現しかできず味気ないです。
 
 そこで、既製品の[Remark](https://unifiedjs.com/explore/project/remarkjs/remark/)/[Rehype](https://unifiedjs.com/explore/project/rehypejs/rehype/)プラグインを利用、無いものは自作することにしました。書き味はブロガーにとって命です。
+
+> [!info] Remark & Rehype
+> [Unified](https://unifiedjs.com/)という文書変換系のエコシステムに属するプロセッサ群
+> Remark: マークダウンにASTの状態で変換処理を加える(mdast)
+> Rehype: HTMLにASTの状態で変換処理を加える(hast)
+> ASTはAbstract Syntax Tree(抽象構文木)の略です
 
 ##### KaTex
 
@@ -152,31 +163,31 @@ const { title } = Astro.props
 
 ```Markdown title="Info コールアウト"
 > [!info]+Info
-> Info コールアウトの例 (Expanded by default)
+> Info コールアウトの例 (デフォルトで開く)
 ```
 
 > [!info]+Info
-> Info コールアウトの例 (Expanded by default)
+> Info コールアウトの例 (デフォルトで開く)
 
 ---
 
 ```Markdown title="Caution コールアウト"
 > [!warning]-warning
-> Caution コールアウトの例 (Folded by default)
+> Caution コールアウトの例 (デフォルトで閉じる)
 ```
 
 > [!warning]-Caution
-> Caution コールアウトの例 (Folded by default)
+> Caution コールアウトの例 (デフォルトで閉じる)
 
 ---
 
 ```Markdown title="Check コールアウト"
 > [!check] Check
-> Check コールアウトの例 (No expansion/fold)
+> Check コールアウトの例 (開閉なし)
 ```
 
 > [!check] Check
-> Check コールアウトの例 (No expansion/fold)
+> Check コールアウトの例 (開閉なし)
 
 ---
 
@@ -282,7 +293,7 @@ https://younagi.dev
   - Modular Formsのフォーム制御機能のおかげで簡単に実装できました
 - 送信完了後、サンクスページにリダイレクトされる
 
-ボット対策にはどうしてもGoogle reCAPTCHAではなくCloudflare Turnstileを導入したく、この点はかなりこだわりました。(あの車のパズルに費やした合計時間を考えると...しんどい) 無料ですし、他のCloudflareサービスとの連携も考えると、私にとっては一択でした。
+ボット対策にはどうしてもGoogle reCAPTCHAではなく[Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/)を導入したく、この点はかなりこだわりました。(あの車のパズルに費やした合計時間を考えると...しんどい) 無料ですし、他のCloudflareサービスとの連携も考えると、私にとっては一択でした。
 
 ### Cloudflare
 

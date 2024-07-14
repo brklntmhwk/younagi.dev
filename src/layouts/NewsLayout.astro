@@ -79,7 +79,7 @@ const slugWithoutLocale = getSlugWithoutLocale(slug)
         line-height: 1.175;
       }
       .date-meta {
-        font-size: 1.15rem;
+        font-size: 0.875rem;
         display: flex;
         flex-wrap: wrap;
         gap: 0.25rem 0.95rem;
@@ -87,6 +87,9 @@ const slugWithoutLocale = getSlugWithoutLocale(slug)
           display: flex;
           align-items: center;
           gap: 0.5rem;
+        }
+        @media (min-width: 640px) {
+          font-size: 1.125rem;
         }
       }
     }

@@ -110,3 +110,7 @@ pages:
   not_found:
     message: ページが見つかりませんでした
     back_to_top: *back_to_top
+layouts:
+  blog:
+    abstract_label: 抽象
+    concrete_label: 具象

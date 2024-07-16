@@ -132,14 +132,19 @@
           "isModifiedDate": true
         },
         {
+          "title": "Level",
+          "name": "level",
+          "type": "number",
+          "numberOptions": {
+            "min": 0,
+            "max": 4,
+            "step": 1
+          }
+        },
+        {
           "title": "type",
           "name": "type",
           "type": "string"
-        },
-        {
-          "title": "draft",
-          "name": "draft",
-          "type": "draft"
         }
       ]
     },

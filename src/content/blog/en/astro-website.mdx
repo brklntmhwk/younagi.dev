@@ -1,8 +1,8 @@
 ---
 title: Build a Personal Website with Astro, Cloudflare Pages, D1, and Front Matter CMS
 description: A quick tour of my personal blog built with Astro, Cloudflare Pages, D1, and Front Matter CMS.
-publishedAt: 2024-05-13T04:50:45.589Z
-modifiedAt: 2024-05-23T06:40:18.275Z
+publishedAt: 2024-07-13T00:34:54.000Z
+modifiedAt: 2024-07-16T00:35:03.249Z
 draft: published
 type: blog
 category:
@@ -15,6 +15,7 @@ tags:
     - typescript
     - front-matter-cms
     - cloudflare
+level: 3
 ---
 
 ## Intro
@@ -368,7 +369,7 @@ When it comes to the setup, consult [the Front Matter official doc](https://fron
 
 In the `frontmatter.json` configuration, there are some notable customizations:
 
-- Compatible with directory-based internationalization(i18n)
+- [Compatible with directory-based internationalization(i18n)](#internationalization-i18n)
   - You can specify locale directories (in my case, `en` and `ja` as of now) inside the content directory
   - By doing so, you can select in which language you're creating a post via the VSCode command and it does create the file under the designated directory for you
 - Compatible with the Astro's Content Collections (with both the content and data types)

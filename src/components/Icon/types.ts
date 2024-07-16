@@ -14,6 +14,7 @@ export type IconName =
   | 'moon'
   | 'new'
   | 'pencil'
+  | 'point'
   | 'publish'
   | 'question'
   | 'quote'

@@ -65,6 +65,7 @@
     "@typescript-eslint/eslint-plugin": "7.1.1",
     "@typescript-eslint/parser": "7.1.1",
     "@vanilla-extract/css": "^1.15.2",
+    "@vanilla-extract/css-utils": "^0.1.4",
     "@vanilla-extract/vite-plugin": "^4.0.10",
     "better-sqlite3": "^11.0.0",
     "browserslist": "^4.23.0",

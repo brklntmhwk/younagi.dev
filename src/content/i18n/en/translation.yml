@@ -110,3 +110,7 @@ pages:
   not_found:
     message: Page Not Found
     back_to_top: *back_to_top
+layouts:
+  blog:
+    abstract_label: Abstract
+    concrete_label: Concrete

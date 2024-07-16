@@ -21,6 +21,15 @@ const blog = defineCollection({
       slugList: z.array(z.string()).optional(),
     }),
     draft: z.enum(['draft', 'in progress', 'published']),
+    level: z
+      .union([
+        z.literal(0),
+        z.literal(1),
+        z.literal(2),
+        z.literal(3),
+        z.literal(4),
+      ])
+      .optional(),
   }),
 })
 
@@ -231,6 +240,12 @@ const i18n = defineCollection({
       not_found: z.object({
         message: z.string(),
         back_to_top: z.string(),
+      }),
+    }),
+    layouts: z.object({
+      blog: z.object({
+        abstract_label: z.string(),
+        concrete_label: z.string(),
       }),
     }),
   }),

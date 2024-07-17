@@ -176,6 +176,11 @@ globalStyle('.callout-content', {
   fontSize: '1rem',
 })
 
+globalStyle('.callout-content > a', {
+  textDecoration: 'underline',
+  textUnderlineOffset: '5px',
+})
+
 globalStyle(`${calloutToggleCheck}:checked ~ ${callout}`, {
   display: 'block',
 })

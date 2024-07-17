@@ -90,14 +90,12 @@ const tags = await getBlogTags(blogTags)
         </div>
         {
           level && (
-            <>
-              <StarRating
-                method="spectrum"
-                value={level}
-                leftEnd={t.data.layouts.blog.abstract_label}
-                rightEnd={t.data.layouts.blog.concrete_label}
-              />
-            </>
+            <StarRating
+              method="spectrum"
+              value={level}
+              leftEnd={t.data.layouts.blog.abstract_label}
+              rightEnd={t.data.layouts.blog.concrete_label}
+            />
           )
         }
         <Toc {headings} />
@@ -152,16 +150,16 @@ const tags = await getBlogTags(blogTags)
         line-height: 1.275;
       }
       .taxonomies {
-        padding: 0.75rem 0;
+        padding: 0.625rem 0 0.975rem 0;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
         gap: 1.175rem 0.85rem;
         & a {
-          font-size: 0.875rem;
+          font-size: 0.825rem;
           @media (min-width: 640px) {
-            font-size: 1.15rem;
+            font-size: 1.045rem;
           }
         }
       }

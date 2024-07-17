@@ -71,6 +71,22 @@ export const colorVariants = styleVariants({
     color: fgColor,
     backgroundColor: bgColor,
   },
+  red: {
+    vars: {
+      [fgColor]: 'hsla(0, 0%, 96.7%, 1)',
+      [bgColor]: 'hsla(0, 95%, 65%, 1)',
+    },
+    '@media': {
+      '(prefers-color-scheme: dark)': {
+        vars: {
+          [fgColor]: 'hsla(0, 0%, 96.7%, 1)',
+          [bgColor]: 'hsla(0, 100%, 75%, 1)',
+        },
+      },
+    },
+    color: fgColor,
+    backgroundColor: bgColor,
+  },
 })
 
 export const taxonomyVariants = styleVariants({

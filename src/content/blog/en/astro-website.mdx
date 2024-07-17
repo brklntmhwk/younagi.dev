@@ -26,14 +26,14 @@ If you're interested in the code behind my website, see [my Github repo](https:/
 
 ### Reader personas
 
-- Want to build a website with Astro but have no idea how the whole project structure should be or what kind of features to be added
+- Want to build a website with Astro but have no idea how the whole project structure could be or what kind of features to be added
 - Want to see some examples of the whole project built with Astro
 
 ## Main
 
 ### Astro
 
-Basically, I managed to develop it with what Astro offers, but when it comes to some exceptions, I used [SolidJS](https://www.solidjs.com/), the up-and-coming JS framework. It goes without saying that all written in TypeScript (and TSX).
+Basically, I managed to develop it with what Astro offers. When it comes to some exceptions, I used [SolidJS](https://www.solidjs.com/), the up-and-coming JS framework. It goes without saying that all written in TypeScript (and TSX).
 
 > [!info]- The tech stack
 > **Language:** TypeScript and TSX
@@ -299,10 +299,10 @@ What I spent a considerable amount of time racking my brain was the contact form
 
 That said, Turning the whole contact form into a client-side loaded component with [the Astro client directive](https://docs.astro.build/ja/reference/directives-reference/) causes a serious CLS(Cumulative Layout Shifts) problem[^1] that could affect SEO badly. With that in mind, I made a detour and ended up putting it in a modal component.[^2]
 
-[^1]: When you use other JS frameworks that contain JavaScript (in my case, SolidJS) inside an Astro component or page, you need to explicitly tell the Astro compiler what kind of framework because they are supposed to be loaded on the client side, by the Astro's specifications, once they contain JS; therefore the compiler has no clue who they are at build time or on the server side. Since the contact form is all about user interactions and requires JavaScript as long as you seek a lot more features, it must be a client-side loaded component.
+[^1]: When you use other JS frameworks that contain JavaScript (in my case, SolidJS) inside an Astro component or page, you need to explicitly tell the Astro compiler what kind of framework. This is because they are supposed to be loaded on the client side by the Astro's specifications once they contain JS; therefore the compiler has no clue who they are at build time or on the server side. Since the contact form is all about user interactions and requires JavaScript as long as you seek a lot more features, it must be a client-side loaded component.
 [^2]: Files with an extension `.astro` are rendered on the server side. If you put a client-side rendered component on them, it looks like it's suddenly pouring down on the page right after being loaded. For those small components, this is not that big deal, but for a large one like the contact form causing a tremendous layout shift.
 
-To make it simple and concise, I utilized [the Modular Forms](https://modularforms.dev/) for form controls, [Kobalte](https://kobalte.dev/docs/core/overview/introduction) for UI, and [Valibot](https://valibot.dev/) for validation, and other useful libraries.
+To make it simple and concise, I utilized [the Modular Forms](https://modularforms.dev/) for form controls, [Kobalte](https://kobalte.dev/docs/core/overview/introduction) for UI, and [Valibot](https://valibot.dev/) for validation and other useful libraries.
 Here are some points:
 
 - The client side validation

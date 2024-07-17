@@ -1,0 +1,31 @@
+plugins:
+  mdx: true
+  '@textlint/markdown':
+    extensions: ['.md']
+filters:
+  comments: true
+rules:
+  preset-ja-technical-writing:
+    sentence-length:
+      max: 180
+      severity: warning
+    max-kanji-continuous-len:
+      max: 10
+    no-mix-dearu-desumasu:
+      preferInBody: ですます
+      preferInList: である
+      strict: false
+    ja-no-mixed-period:
+      allowPeriodMarks:
+        - ':'
+        - ：
+    ja-no-redundant-expression:
+      severity: warning
+    ja-no-weak-phrase:
+      severity: warning
+    no-exclamation-question-mark:
+      allowFullWidthExclamation: true
+      allowFullWidthQuestion: true
+      allowHalfWidthExclamation: true
+      allowHalfWidthQuestion: true
+  preset-ja-spacing: true

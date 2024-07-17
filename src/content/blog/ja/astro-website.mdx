@@ -33,7 +33,7 @@ level: 4
 
 ### Astro
 
-基本はAstroの機能範囲で実装し、例外部分は新進気鋭のJSフレームワーク「SolidJS」で実装しています。もちろん全て TypeScript(とTSX) です。
+基本はAstroの機能範囲で実装し、例外部分は新進気鋭のJSフレームワーク「SolidJS」で実装しています。もちろん全てTypeScript(とTSX) です。
 
 > [!info]- 技術構成
 > **言語:** TypeScript, TSX
@@ -60,15 +60,15 @@ Rust製の静的検索ライブラリである[Pagefind](https://pagefind.app/)�
 - サイトのどこからでもアクセスできる
   - ナビゲーションバー内に設置
 - 検索窓にオートフォーカス
-  - 検索モーダルを開くとカーソルが検索窓にオートフォーカスされます
+  - 検索モーダルを開くとカーソルが検索窓にオートフォーカスされる
 
 #### 多言語対応 (i18n)
 
 [Astro の Content Collections API](https://docs.astro.build/en/guides/content-collections/)を活用して、言語ごとにディレクトリを切り出し、手動翻訳をする方針にしました。
 
-[公式のドキュメント](https://docs.astro.build/ja/recipes/i18n/)に記載されている手順通りに、言語ごとのディレクトリを作成しました。(私の場合は `en` と `ja` です。一つのファイルに対して、言語の数と同じだけ同名のファイルを作成する必要があります)
+[公式のドキュメント](https://docs.astro.build/ja/recipes/i18n/)に記載されている手順通りに、言語ごとのディレクトリを作成しました。(私の場合は `en` と `ja` です。1つのファイルに対して、言語の数と同じだけ同名のファイルを作成する必要があります)
 
-Astro の [Content Collections](https://docs.astro.build/ja/guides/content-collections/) は Markdown/MDX 形式だけでなく、YAML や JSON形式にも対応しています。私は記事以外の翻訳文字列群の保存にYAML形式を選びました。非常に簡潔で好きです。
+Astroの [Content Collections](https://docs.astro.build/ja/guides/content-collections/) はMarkdown/MDX形式だけでなく、YAMLやJSON形式にも対応しています。私は記事以外の翻訳文字列群の保存にYAML形式を選びました。非常に簡潔で好きです。
 
 ![content ディレクトリツリー](../../../assets/images/content-dir.png)
 
@@ -102,7 +102,7 @@ https://younagi.dev/api/og/blog/astro-website.png
 
 $\KaTeX$ はウェブページ上で数式などをきれいに表示してくれます。その呪文を数式に変換するのに、[remark-math と rehype-katex](https://github.com/remarkjs/remark-math/tree/main/packages/rehype-katex)を追加しました。
 
-入力
+入力:
 
 ```Markdown
 $$
@@ -117,7 +117,7 @@ $$
 $$
 ```
 
-出力
+出力:
 
 $$
 x = {-b \pm \sqrt{b^2-4ac} \over 2a}
@@ -314,8 +314,8 @@ Cloudflare Pagesをホスティング先に選んだのには次のような理�
   - 月あたりの帯域幅上限が無制限という素晴らしさ (2024年5月9日現在)
 - 非常に高速なデプロイ
 - ドメイン用のカスタムEメールアドレスが取得できる
-  - お問い合わせフォーム用に使用しています
-  - フォームから送信されたお問い合わせはこのカスタムEメールアドレス経由で私用のメールアドレスに届くため、プライベートアドレスを公に晒さずに済みます(もちろん、返信時にもメールの送信元をカスタムEメールアドレスに設定できます)
+  - お問い合わせフォーム用に使用している
+  - フォームから送信されたお問い合わせはこのカスタムEメールアドレス経由で私用のメールアドレスに届くため、プライベートアドレスを公に晒さず済む(もちろん、返信時にもメールの送信元をカスタムEメールアドレスに設定できます)
 - 独自ドメイン取得可能 (有料)
   - `https://younagi.dev`
 
@@ -348,7 +348,7 @@ D1データベースと[Drizzle ORM(Object-relational Mapping)](https://orm.driz
 - ローカルで記事の執筆や保存ができる
 - マークダウン/MDX形式
 
-VS Code の拡張機能であり、ローカルで動くという点で、他のヘッドレスCMSとは一線を画しています。つまり、コードの修正や記事の執筆、サイトのデプロイなどの作業が VS Code エディタで一元化できます。 これは特に開発者にとって大きなメリットとなるのではないでしょうか。
+VS Codeの拡張機能であり、ローカルで動くという点で、他のヘッドレスCMSとは一線を画しています。つまり、コードの修正や記事の執筆、サイトのデプロイなどの作業がVS Codeエディタで一元化できます。 これは特に開発者にとって大きなメリットとなるのではないでしょうか。
 
 初期セットアップについては[Front Matter 公式ドキュメント](https://frontmatter.codes/docs/getting-started)をご覧あれ。手順通りに進めると、Astroの `content` フォルダを自動で検知し、その中身に応じて `frontmatter.json` に各コンテンツの項目の定義などを書き出してくれます。基本、Front Matter CMSの設定はプロジェクトルート直下に置かれたこのファイルで管理します。
 
@@ -358,7 +358,7 @@ VS Code の拡張機能であり、ローカルで動くという点で、他の
 
 - [ディレクトリによる多言語化](#多言語対応-i18n)との互換性
   - コンテンツのディレクトリ内にある言語用のディレクトリを指定して、Front Matter CMSの設定と紐づけができます(私の場合、今のところ `en` と `ja`)
-  - こうして、VSCodeのコマンドから記事を作成する際に、書きたい言語を選べるようになりました。記事は自動で指定のディレクトリに作成されます
+  - こうして、VSCodeのコマンドから記事を作成する際に、書きたい言語を選べるようになりました。記事は自動で指定のディレクトリに作成される
 - AstroのContent Collectionsとの互換性(コンテンツ、データタイプ両方)
   - Front Matter CMSにもコンテンツ、データの概念があり、それぞれをAstroのコンテンツ、データと関連させられる
   - ブログやニュースなどの「コンテンツ」はコンテンツとして、翻訳文字列やサイトメタデータ、ブログのカテゴリ・タグなどの「データ」はデータとして扱う
@@ -367,7 +367,7 @@ VS Code の拡張機能であり、ローカルで動くという点で、他の
 
 この長い開発の旅の途中で、沢山の情報源にあたりました。これらの先達なしに今回の旅の成功はあり得なかったでしょう。以下に特によく訪問したウェブサイトやページを載せます。有益な情報やコードをありがとうございました。
 
-プロジェクト全般
+プロジェクト全般:
 
 https://astro.build/
 
@@ -379,27 +379,27 @@ https://www.haxibami.net/
 
 https://developers.cloudflare.com/
 
-全文検索
+全文検索:
 
 https://pagefind.app/
 
-お問い合わせフォーム
+お問い合わせフォーム:
 
 https://trap.jp/post/2088/
 
-DBのセットアップ
+DBのセットアップ:
 
 https://honghong.me/
 
 https://snorre.io/blog/2024-05-06-likes-cloudflare-d1-astro-api-endpoints/
 
-Front Matter CMSのセットアップ
+Front Matter CMSのセットアップ:
 
 https://frontmatter.codes/docs
 
 https://route360.dev/ja/post/frontmatter-cms/
 
-スタイリング
+スタイリング:
 
 https://nostalgic-css.github.io/NES.css/
 

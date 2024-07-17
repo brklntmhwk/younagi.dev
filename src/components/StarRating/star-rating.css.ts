@@ -34,7 +34,7 @@ export const labelWrapper = style({
 })
 
 export const spanBase = style({
-  fontSize: '0.825rem',
+  fontSize: '0.85rem',
   '@media': {
     '(min-width: 640px)': {
       fontSize: '0.975rem',

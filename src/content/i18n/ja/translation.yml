@@ -36,9 +36,6 @@ photo_gallery:
   credit_label: 写真提供元：
 photo_gallery_item:
   photo_label: Unsplashに掲載した写真
-svg:
-  not_found_message: が見つかりませんでした
-  invalid_error_message: 無効なSVGファイルであるか、SVGタグがありません
 bmc:
   button_label: 応援する
   greeting_message: 励みになります

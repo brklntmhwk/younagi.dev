@@ -15,7 +15,7 @@ tags:
     - typescript
     - front-matter-cms
     - cloudflare
-level: 3
+level: 4
 ---
 
 ## 導入
@@ -192,7 +192,7 @@ const { title } = Astro.props
 
 ---
 
-```Markdown title="Nested コールアウト"
+```Markdown title="入れ子コールアウト"
 > [!note]+
 > コールアウト
 >
@@ -258,6 +258,10 @@ https://www.canva.com/design/DAGKC41Tjws/zSEw1hvi9r30o5KiF96AGA/view
 Google Slides
 
 https://docs.google.com/presentation/d/1CbeSiVYta0VTuENQ-25OLcIV5vK8pkcBJ-8DfKqlE2I/edit?usp=sharing
+
+> [!warning ]-
+> 埋め込みはしばしばページのロードやSEOに悪影響を及ぼします。膨大なJSコードや最適化されていない画像などが原因です。現に、このページの[PageSpeed Insights](https://pagespeed.web.dev/)スコアは悲惨なことになっています。
+> そういう訳で、実装したはいいものの、今後埋め込み機能はあまり使わないかも...
 
 ##### リンクカード
 

@@ -23,11 +23,11 @@ const blog = defineCollection({
     draft: z.enum(['draft', 'in progress', 'published']),
     level: z
       .union([
-        z.literal(0),
         z.literal(1),
         z.literal(2),
         z.literal(3),
         z.literal(4),
+        z.literal(5),
       ])
       .optional(),
   }),
@@ -145,10 +145,6 @@ const i18n = defineCollection({
     }),
     photo_gallery_item: z.object({
       photo_label: z.string(),
-    }),
-    svg: z.object({
-      not_found_message: z.string(),
-      invalid_error_message: z.string(),
     }),
     bmc: z.object({
       button_label: z.string(),

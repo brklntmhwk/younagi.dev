@@ -1,0 +1,99 @@
+---
+import { Icon } from '@/components/Icon'
+import { StarIcon } from './StarIcon'
+import {
+  endLabel,
+  labels,
+  labelWrapper,
+  ratingWrapper,
+  stars,
+  spanBase,
+} from './star-rating.css'
+
+type Props = {
+  method: 'spectrum' | 'rating'
+  leftEnd?: string
+  rightEnd?: string
+  value: number
+  total?: number
+}
+
+const { method, leftEnd, rightEnd, value, total = 5 } = Astro.props
+const isLessThanOrEqualTo = (a: number, b: number) => a <= b
+
+if (!isLessThanOrEqualTo(value, total)) {
+  throw new Error('The value must be less than or equal to the total')
+}
+
+const counts = Array.from({ length: total }, (_, i) => i + 1)
+---
+
+<div class={ratingWrapper}>
+  <div class={labels}>
+    {
+      leftEnd && rightEnd && (
+        <>
+          <div class={`${spanBase} ${labelWrapper}`}>
+            <Icon iconName="left-arrow" width={20} height={20} />
+            <span class={endLabel}>{leftEnd}</span>
+          </div>
+          <span class={spanBase}>{`${value}/${total}`}</span>
+          <div class={`${spanBase} ${labelWrapper}`}>
+            <span class={endLabel}>{rightEnd}</span>
+            <Icon iconName="right-arrow" width={20} height={20} />
+          </div>
+        </>
+      )
+    }
+  </div>
+  <div class={stars}>
+    {
+      counts.map((n) => {
+        switch (method) {
+          case 'spectrum': {
+            if (n === value) {
+              return (
+                <StarIcon
+                  client:only="solid"
+                  width={24}
+                  height={24}
+                  isBright={true}
+                />
+              )
+            } else {
+              return (
+                <StarIcon
+                  client:only="solid"
+                  width={24}
+                  height={24}
+                  isBright={false}
+                />
+              )
+            }
+          }
+          case 'rating': {
+            if (isLessThanOrEqualTo(n, value)) {
+              return (
+                <StarIcon
+                  client:only="solid"
+                  width={24}
+                  height={24}
+                  isBright={true}
+                />
+              )
+            } else {
+              return (
+                <StarIcon
+                  client:only="solid"
+                  width={24}
+                  height={24}
+                  isBright={false}
+                />
+              )
+            }
+          }
+        }
+      })
+    }
+  </div>
+</div>

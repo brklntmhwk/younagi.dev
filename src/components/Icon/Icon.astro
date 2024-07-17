@@ -18,12 +18,12 @@ const iconGetter = (iconName: IconName) => {
   })
 
   if (!(filepath in files)) {
-    throw new Error(`${filepath} ${t.data.svg.not_found_message}`)
+    throw new Error(`Path not found: ${filepath}`)
   }
   const root = parse(files[filepath]!)
   const svg = root.querySelector('svg')
   if (!svg) {
-    throw new Error(t.data.svg.invalid_error_message)
+    throw new Error('Invalid svg file or svg tags missing')
   }
   const { attributes, innerHTML } = svg
 

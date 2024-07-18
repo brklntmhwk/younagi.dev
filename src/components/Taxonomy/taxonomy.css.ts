@@ -26,7 +26,7 @@ export const colorVariants = styleVariants({
   secondary: {
     vars: {
       [fgColor]: 'hsla(0, 0%, 96.7%, 1)',
-      [bgColor]: 'hsla(32.94, 100%, 50%, 1)',
+      [bgColor]: 'hsla(28.94, 100%, 50%, 1)',
     },
     '@media': {
       '(prefers-color-scheme: dark)': {

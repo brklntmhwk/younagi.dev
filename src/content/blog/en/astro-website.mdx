@@ -91,7 +91,7 @@ In my website, all articles are written in the Markdown/MDX format, but the basi
 
 That's why I decided to use those off-the-shelf [Remark](https://unifiedjs.com/explore/project/remarkjs/remark/) and [Rehype](https://unifiedjs.com/explore/project/rehypejs/rehype/) plugins or make them on my own to extend it to the extent I feel comfortable writing stuff. The feel of writing means everything to bloggers.
 
-> [!info] Remark & Rehype
+> [!info]+Remark & Rehype
 > They belong to the ecosystem called [Unified](https://unifiedjs.com/).
 > **Remark:** Process and handle Markdown in the form of AST(mdast)
 > **Rehype:** Process and handle HTML in the form of AST(hast)
@@ -135,7 +135,7 @@ $$
 
 As a developer, sharing some code examples is inevitable destiny. [The rehype-pretty-code](https://rehype-pretty.pages.dev/) did all the heavy lifting in adding code syntax highlighting for me. Incidentally, the syntax highlighter is [Shiki](https://shiki.style/).
 
-```astro title="example.astro"
+```astro title="example.astro" "Astro.props" {6,9}
 ---
 type Props = {
   title: string
@@ -258,14 +258,6 @@ https://open.spotify.com/intl-ja/track/04z1fwsw1gXI8HWQpoETa9?si=862c02d3e52a49b
 
 https://open.spotify.com/intl-ja/track/04z1fwsw1gXI8HWQpoETa9?si=862c02d3e52a49b0
 
-###### Canva
-
-```txt
-https://www.canva.com/design/DAGKC41Tjws/zSEw1hvi9r30o5KiF96AGA/view
-```
-
-https://www.canva.com/design/DAGKC41Tjws/zSEw1hvi9r30o5KiF96AGA/view
-
 ###### Google Slides
 
 ```txt
@@ -385,7 +377,7 @@ In the `frontmatter.json`, there are some notable customizations:
 
 Over the course of my development journey, I consulted a bunch of information sources. I wouldn't be able to complete it if it hadn't been for them. Here are some of them that I visited very often. Thank you so much for your helpful information and code!
 
-Overall
+Overall:
 
 https://astro.build/
 
@@ -401,23 +393,23 @@ Full-text search
 
 https://pagefind.app/
 
-Contact form
+Contact form:
 
 https://trap.jp/post/2088/
 
-DB setup
+DB setup:
 
 https://honghong.me/
 
 https://snorre.io/blog/2024-05-06-likes-cloudflare-d1-astro-api-endpoints/
 
-Front Matter CMS setup
+Front Matter CMS setup:
 
 https://frontmatter.codes/docs
 
 https://route360.dev/ja/post/frontmatter-cms/
 
-Styling
+Styling:
 
 https://nostalgic-css.github.io/NES.css/
 

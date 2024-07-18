@@ -1,95 +1,12 @@
 ---
 import type { HTMLAttributes } from 'astro/types'
+import { codeFigure } from './figure.css'
 
 type Props = HTMLAttributes<'figure'>
 
 const props = Astro.props
 ---
 
-<figure class="code-figure" {...props}>
+<figure class={codeFigure} {...props}>
   <slot />
 </figure>
-<style>
-  .code-figure {
-    margin: 3.75rem 0 1.75rem 0;
-    position: relative;
-    font-size: 0.85rem;
-    & :global(pre) {
-      max-height: 30rem;
-      border-radius: 0.25rem;
-      overflow-x: auto;
-      overflow-y: auto;
-    }
-    & :global(code) {
-      font-family: var(--code-font);
-      counter-reset: line;
-      display: grid;
-      & :global([data-line]) {
-        border-left: 4px solid transparent;
-        padding: 0 0.55rem;
-      }
-      & :global([data-line]::before) {
-        counter-increment: line;
-        content: counter(line);
-        display: inline-block;
-        width: 1rem;
-        margin-right: 1.05rem;
-        text-align: right;
-        color: var(--gray);
-      }
-      & :global([data-highlighted-line]) {
-        border-left-color: var(--code-highlight-border);
-        background-color: var(--code-highlight);
-        :global(span) {
-          background-color: unset;
-        }
-      }
-      & :global([data-highlighted-chars]) {
-        background-color: var(--gray-light);
-        padding: 0.25rem;
-        border-radius: 0.25rem;
-        & :global(span) {
-          background-color: unset;
-        }
-      }
-    }
-    & :global([data-rehype-pretty-code-title]) {
-      font-family: var(--code-font);
-      & + :global(pre) {
-        margin-top: 2.85rem;
-        padding: 0.85rem 0;
-      }
-    }
-    & :global(pre:not([data-rehype-pretty-code-title] + pre)) {
-      padding: 0.75rem 0;
-    }
-    & :global([data-rehype-pretty-code-title]) {
-      width: 100%;
-      position: absolute;
-      top: -30px;
-      left: 0;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      padding: 0.25rem 0.75rem;
-      color: var(--gray-dark);
-      background-color: var(--code-title-bg);
-      border-radius: 0.15rem 0.15rem 0.15rem 0;
-    }
-  }
-  .code-figure:not(:has([data-rehype-pretty-code-title])) {
-    margin: 1.75rem 0;
-  }
-  :global(pre[data-theme*=' ']),
-  :global(pre[data-theme*=' '] span) {
-    color: var(--shiki-light);
-    background-color: var(--shiki-light-bg);
-  }
-  @media (prefers-color-scheme: dark) {
-    :global(pre[data-theme*=' ']),
-    :global(pre[data-theme*=' '] span) {
-      color: var(--shiki-dark);
-      background-color: var(--shiki-dark-bg);
-    }
-  }
-</style>

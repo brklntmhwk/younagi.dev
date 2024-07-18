@@ -92,7 +92,7 @@ https://younagi.dev/api/og/blog/astro-website.png
 
 そこで、既製品の[Remark](https://unifiedjs.com/explore/project/remarkjs/remark/)/[Rehype](https://unifiedjs.com/explore/project/rehypejs/rehype/)プラグインを利用、無いものは自作することにしました。書き味はブロガーにとって命です。
 
-> [!info] Remark & Rehype
+> [!info]+Remark & Rehype
 > [Unified](https://unifiedjs.com/)という文書変換系のエコシステムに属するプロセッサ群
 > **Remark:** マークダウンにASTの状態で変換処理を加える(mdast)
 > **Rehype:** HTMLにASTの状態で変換処理を加える(hast)
@@ -136,7 +136,7 @@ $$
 
 開☆発☆者として、コードの具体例を交えた説明は避けられない宿命です。 [rehype-pretty-code](https://rehype-pretty.pages.dev/)を使ってコードのシンタックスハイライトを実装しました。ちなみにシンタックスハイライターは[Shiki](https://shiki.style/)です。
 
-```astro title="example.astro"
+```astro title="example.astro" "Astro.props" {6,9}
 ---
 type Props = {
   title: string
@@ -245,22 +245,31 @@ const { title } = Astro.props
 
 YouTube
 
+```txt
+https://www.youtube.com/watch?v=dsTXcSeAZq8
+```
+
 https://www.youtube.com/watch?v=dsTXcSeAZq8
 
 Spotify
 
+```txt
+https://open.spotify.com/intl-ja/track/04z1fwsw1gXI8HWQpoETa9?si=862c02d3e52a49b0
+```
+
 https://open.spotify.com/intl-ja/track/04z1fwsw1gXI8HWQpoETa9?si=862c02d3e52a49b0
 
-Canva
-
-https://www.canva.com/design/DAGKC41Tjws/zSEw1hvi9r30o5KiF96AGA/view
-
 Google Slides
+
+```txt
+https://docs.google.com/presentation/d/1CbeSiVYta0VTuENQ-25OLcIV5vK8pkcBJ-8DfKqlE2I/edit?usp=sharing
+```
 
 https://docs.google.com/presentation/d/1CbeSiVYta0VTuENQ-25OLcIV5vK8pkcBJ-8DfKqlE2I/edit?usp=sharing
 
 > [!warning]-
-> 埋め込みはしばしばページのロードやSEOに悪影響を及ぼします。膨大なJSコードや最適化されていない画像などが原因です。現に、このページの[PageSpeed Insights](https://pagespeed.web.dev/)スコアは悲惨なことになっています。
+> 埋め込みはしばしばページのロードやSEOに悪影響を及ぼします。
+> ホストから膨大なJSコードや最適化されていない画像などをそのまま使用する為で、現にこのページの[PageSpeed Insights](https://pagespeed.web.dev/)スコアは悲惨なことになっています。
 > そういう訳で、実装したはいいものの、今後埋め込み機能はあまり使わないかも...
 
 ##### リンクカード
@@ -354,7 +363,7 @@ VS Codeの拡張機能であり、ローカルで動くという点で、他の�
 
 #### Front Matter CMS のカスタマイズ
 
-`frontmatter.json`のカスタマイズについて、幾つかこだわったポイントがあります。
+`frontmatter.json`のカスタマイズについて、幾つか嬉しいポイントがあります。
 
 - [ディレクトリによる多言語化](#多言語対応-i18n)との互換性
   - コンテンツのディレクトリ内にある言語用のディレクトリを指定して、Front Matter CMSの設定と紐づけができます(私の場合、今のところ `en` と `ja`)

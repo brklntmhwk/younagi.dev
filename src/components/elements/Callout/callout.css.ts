@@ -12,14 +12,14 @@ export const calloutVariants = styleVariants({
   info: {
     vars: {
       [calloutKind]: 'info',
-      [fgColor]: 'hsla(211, 100%, 65%, 1)',
-      [bgColor]: 'hsla(211, 100%, 94%, 1)',
+      [fgColor]: 'hsla(215, 90%, 55%, 1)',
+      [bgColor]: 'hsla(211, 100%, 95%, 1)',
     },
     '@media': {
       '(prefers-color-scheme: dark)': {
         vars: {
           [fgColor]: 'hsla(211, 100%, 70%, 1)',
-          [bgColor]: 'hsla(211, 100%, 25%, 0.5)',
+          [bgColor]: 'hsla(211, 42%, 25%, 1)',
         },
       },
     },
@@ -29,14 +29,14 @@ export const calloutVariants = styleVariants({
   check: {
     vars: {
       [calloutKind]: 'check',
-      [fgColor]: 'hsla(117, 64%, 52%, 1)',
-      [bgColor]: 'hsla(117, 64%, 90%, 1)',
+      [fgColor]: 'hsla(117, 64%, 48%, 1)',
+      [bgColor]: 'hsla(117, 64%, 92%, 1)',
     },
     '@media': {
       '(prefers-color-scheme: dark)': {
         vars: {
-          [fgColor]: 'hsla(117, 64%, 72%, 1)',
-          [bgColor]: 'hsla(117, 64%, 75%, 0.5)',
+          [fgColor]: 'hsla(132, 64%, 52%, 1)',
+          [bgColor]: 'hsla(107, 14%, 38%, 1)',
         },
       },
     },
@@ -52,8 +52,8 @@ export const calloutVariants = styleVariants({
     '@media': {
       '(prefers-color-scheme: dark)': {
         vars: {
-          [fgColor]: 'hsla(0, 95%, 85%, 1)',
-          [bgColor]: 'hsla(0, 100%, 75%, 0.5)',
+          [fgColor]: 'hsla(0, 95%, 92%, 1)',
+          [bgColor]: 'hsla(0, 38%, 62%, 1)',
         },
       },
     },
@@ -69,8 +69,8 @@ export const calloutVariants = styleVariants({
     '@media': {
       '(prefers-color-scheme: dark)': {
         vars: {
-          [fgColor]: 'hsla(263, 56%, 80%, 1)',
-          [bgColor]: 'hsla(263, 56%, 80%, 0.5)',
+          [fgColor]: 'hsla(263, 56%, 82%, 1)',
+          [bgColor]: 'hsla(243, 26%, 35%, 1)',
         },
       },
     },
@@ -87,7 +87,7 @@ export const calloutVariants = styleVariants({
       '(prefers-color-scheme: dark)': {
         vars: {
           [fgColor]: 'hsla(29, 96%, 56%, 1)',
-          [bgColor]: 'hsla(29, 96%, 25%, 0.5)',
+          [bgColor]: 'hsla(19, 38%, 25%, 1)',
         },
       },
     },
@@ -103,8 +103,8 @@ export const calloutVariants = styleVariants({
     '@media': {
       '(prefers-color-scheme: dark)': {
         vars: {
-          [fgColor]: 'hsla(212, 16%, 88%, 1)',
-          [bgColor]: 'hsla(205, 5%, 55%, 0.9)',
+          [fgColor]: 'hsla(212, 16%, 90%, 1)',
+          [bgColor]: 'hsla(205, 5%, 48%, 1)',
         },
       },
     },
@@ -114,14 +114,14 @@ export const calloutVariants = styleVariants({
   note: {
     vars: {
       [calloutKind]: 'note',
-      [fgColor]: 'hsla(22, 74%, 58%, 1)',
-      [bgColor]: 'hsla(22, 74%, 85%, 1)',
+      [fgColor]: 'hsla(152, 40%, 38%, 1)',
+      [bgColor]: 'hsla(122, 40%, 72%, 1)',
     },
     '@media': {
       '(prefers-color-scheme: dark)': {
         vars: {
-          [fgColor]: 'hsla(22, 74%, 65%, 1)',
-          [bgColor]: 'hsla(22, 74%, 70%, 0.5)',
+          [fgColor]: 'hsla(142, 30%, 75%, 1)',
+          [bgColor]: 'hsla(152, 30%, 30%, 1)',
         },
       },
     },

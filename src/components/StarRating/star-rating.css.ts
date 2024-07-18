@@ -52,8 +52,16 @@ export const endLabel = style({
 export const stars = style({
   vars: {
     [emptyFillColor]: 'hsla(60, 0.52%, 75.55%, 1)',
-    [fillColor]: '#ffac33',
-    [glowFillColor]: '#ffd983',
+    [fillColor]: '#fe9700ff',
+    [glowFillColor]: '#ffc94fff',
+  },
+  '@media': {
+    '(prefers-color-scheme: dark)': {
+      vars: {
+        [fillColor]: '#ffac33',
+        [glowFillColor]: '#ffd983',
+      },
+    },
   },
   width: '100%',
   display: 'flex',

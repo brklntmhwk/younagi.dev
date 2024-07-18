@@ -29,8 +29,8 @@ export const StarIcon: Component<ComponentProps<'svg'> & Props> = (props) => {
         <Motion.rect
           x={0}
           y={0}
-          width={48}
-          height={48}
+          width={36}
+          height={36}
           fill={local.isBright ? starFillColor : emptyFillColor}
           initial={{ opacity: 1 }}
           animate={{

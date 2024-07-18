@@ -12,13 +12,9 @@
   --bulletin-board-fg: hsla(32.94, 100%, 50%, 1);
   --bulletin-board-bg: hsla(30, 9.8%, 20%, 1);
   --glass-bg: hsla(0, 0%, 96.7%, 0.9);
-  --code-title-bg: hsla(60, 0.52%, 85.55%, 1);
-  --code-highlight: hsla(242, 100%, 90%, 0.2);
-  --code-highlight-border: hsla(242, 94.78%, 82.45%, 0.8);
   --gray: hsla(60, 0.52%, 75.55%, 1);
   --gray-light: hsla(0, 0%, 86.71%, 1);
   --gray-dark: hsla(0, 1.27%, 30.98%, 1);
-  --code-font: Menlo, Consolas, monospace;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -33,9 +29,6 @@
     --menu-bg: hsla(248.57, 11.48%, 20.96%, 1);
     --modal-bg: hsla(220, 20%, 9%, 0.9);
     --glass-bg: hsla(248.57, 11.48%, 11.96%, 0.9);
-    --code-title-bg: hsla(60, 0.52%, 65.55%, 1);
-    --code-highlight: hsla(213.49, 87.31%, 82%, 0.2);
-    --code-highlight-border: hsla(213.49, 84.31%, 70%, 0.8);
   }
 }
 

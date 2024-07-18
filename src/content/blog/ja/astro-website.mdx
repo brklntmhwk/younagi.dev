@@ -243,15 +243,23 @@ const { title } = Astro.props
 自前でCanva、YouTube、そしてGoogle Slidesの変換処理を追加し、それ以外のメディアは[OEmbed](https://oembed.com/)の規格に応じて適宜メディアフレームに変身するようにRemarkプラグインを自作しました。
 ちなみに裏では[unfurlというライブラリ](https://github.com/jacktuck/unfurl)が頑張ってくれていて、上記の規格に必要なメディアのメタデータをURL経由で取得しています。
 
-YouTube
+###### Canva
+
+```txt
+https://www.canva.com/design/DAGKC41Tjws/zSEw1hvi9r30o5KiF96AGA/view
+```
+
+![ Canva埋め込みイメージ ](../../../assets/images/canva-embed.png)
+
+###### YouTube
 
 ```txt
 https://www.youtube.com/watch?v=dsTXcSeAZq8
 ```
 
-https://www.youtube.com/watch?v=dsTXcSeAZq8
+![ YouTube埋め込みイメージ ](../../../assets/images/youtube-embed.png)
 
-Spotify
+###### Spotify
 
 ```txt
 https://open.spotify.com/intl-ja/track/04z1fwsw1gXI8HWQpoETa9?si=862c02d3e52a49b0
@@ -259,18 +267,18 @@ https://open.spotify.com/intl-ja/track/04z1fwsw1gXI8HWQpoETa9?si=862c02d3e52a49b
 
 https://open.spotify.com/intl-ja/track/04z1fwsw1gXI8HWQpoETa9?si=862c02d3e52a49b0
 
-Google Slides
+###### Google Slides
 
 ```txt
 https://docs.google.com/presentation/d/1CbeSiVYta0VTuENQ-25OLcIV5vK8pkcBJ-8DfKqlE2I/edit?usp=sharing
 ```
 
-https://docs.google.com/presentation/d/1CbeSiVYta0VTuENQ-25OLcIV5vK8pkcBJ-8DfKqlE2I/edit?usp=sharing
+![ Google Slides埋め込みイメージ ](../../../assets/images/google-slides-embed.png)
 
 > [!warning]-
 > 埋め込みはしばしばページのロードやSEOに悪影響を及ぼします。
-> ホストから膨大なJSコードや最適化されていない画像などをそのまま使用する為で、現にこのページの[PageSpeed Insights](https://pagespeed.web.dev/)スコアは悲惨なことになっています。
-> そういう訳で、実装したはいいものの、今後埋め込み機能はあまり使わないかも...
+> ホストから膨大なJSコードや最適化されていない画像などをそのまま使用する為で、現にこのページの[PageSpeed Insights](https://pagespeed.web.dev/)スコアは悲惨なことになっていました。
+> そういう訳で、一部画像にすり替えました。実装したはいいものの、今後埋め込み機能はあまり使わないかも...
 
 ##### リンクカード
 

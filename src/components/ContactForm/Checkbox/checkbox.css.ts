@@ -1,5 +1,4 @@
-import { style } from '@vanilla-extract/css'
-import { bgColor, lineColor } from '@/styles/styles.css'
+import { style, createVar } from '@vanilla-extract/css'
 
 export const checkboxArea = style({
   marginTop: '1.5rem',
@@ -7,6 +6,9 @@ export const checkboxArea = style({
   alignItems: 'center',
   gap: '0.25rem',
 })
+
+const bgColor = createVar()
+const lineColor = createVar()
 
 export const checkboxControl = style({
   vars: {

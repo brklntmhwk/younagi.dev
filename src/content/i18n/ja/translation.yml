@@ -61,6 +61,8 @@ contact_form:
   submitting: 送信中...
   error_handler_message: 再度お試しください
   unexpected_error_message: 予期せぬエラーが発生しました
+link_card:
+  image_fallback_alt: サイト・ページのイメージ
 og_image:
   site_name: *website
   logo_alt: サイトのロゴ

@@ -1,14 +1,7 @@
-import { style } from '@vanilla-extract/css'
-import {
-  bgColor,
-  fgColor,
-  hoverBgColor,
-  fillColor,
-  lineColor,
-} from '@/styles/styles.css'
+import { style, createVar } from '@vanilla-extract/css'
 
-export const likesFillColor = fillColor
-export const likesFgColor = fgColor
+export const bgColor = createVar()
+export const hoverBgColor = createVar()
 
 export const likesWrapper = style({
   vars: {
@@ -31,16 +24,20 @@ export const likesWrapper = style({
   },
 })
 
+export const emptyFillColor = createVar()
+export const lineColor = createVar()
+export const fillColor = createVar()
+
 export const likesButton = style({
   vars: {
-    [fgColor]: 'hsla(0, 0%, 96%, 1)',
+    [emptyFillColor]: 'hsla(0, 0%, 96%, 1)',
     [fillColor]: 'hsla(50, 100%, 72%, 1)',
     [lineColor]: 'hsla(260.87, 10.13%, 88.49%, 0.33)',
   },
   '@media': {
     '(prefers-color-scheme: dark)': {
       vars: {
-        [fgColor]: 'hsla(0, 0%, 96%, 1)',
+        [emptyFillColor]: 'hsla(0, 0%, 96%, 1)',
         [fillColor]: 'hsla(50, 100%, 49%, 1)',
       },
     },
@@ -51,7 +48,7 @@ export const likesButton = style({
 })
 
 export const likesSpan = style({
-  color: fgColor,
+  color: emptyFillColor,
   fontSize: '1.025rem',
   fontWeight: 700,
   '@media': {

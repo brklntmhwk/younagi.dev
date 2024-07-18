@@ -178,6 +178,9 @@ const i18n = defineCollection({
       error_handler_message: z.string(),
       unexpected_error_message: z.string(),
     }),
+    link_card: z.object({
+      image_fallback_alt: z.string(),
+    }),
     og_image: z.object({
       site_name: z.string(),
       logo_alt: z.string(),

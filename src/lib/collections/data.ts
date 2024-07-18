@@ -37,14 +37,9 @@ export const getBlogCategory = async (blogCategory: BlogCategoryData) => {
     (categoryData) => blogCategory.slug === categoryData.slug
   )
 }
-// export const getCategory = async (id: metadata) =>
-//   await getDataEntryById('categories', id)
 
 export const getCategories = async (locale: Language) =>
   await getEntry('categories', `${locale}/categories`)
-
-// export const getCategories = async (locale?: Language) =>
-//   await getDataEntries('categories', locale)
 
 export const getBlogTags = async (blogTags: BlogTagsData) => {
   const tags = await getDataEntryById('tags', blogTags.metadata.id)
@@ -53,20 +48,5 @@ export const getBlogTags = async (blogTags: BlogTagsData) => {
     blogTags.slugList?.some((blogTag) => blogTag === tagData.slug)
   )
 }
-// export const getBlogTags = async (blogTags: BlogTags, locale?: Language) => {
-//   const allTags = await getDataEntries('tags', locale)
-
-//   return allTags.map((tag) =>
-//     tag.data.filter((tagData) =>
-//       blogTags.tagsData?.some((blogTag) => blogTag === tagData.slug)
-//     )
-//   )
-//   // return allTags.filter((tag) =>
-//   //   blogTags?.some((blogTag) => blogTag.id === tag.id)
-//   // )
-// }
-
 export const getTags = async (locale: Language) =>
   await getEntry('tags', `${locale}/tags`)
-// export const getTags = async (locale?: Language) =>
-//   await getDataEntries('tags', locale)

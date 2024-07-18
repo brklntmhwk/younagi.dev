@@ -1,5 +1,4 @@
-import { style } from '@vanilla-extract/css'
-import { bgColor, fgColor, lineColor, hoverBgColor } from '@/styles/styles.css'
+import { style, createVar } from '@vanilla-extract/css'
 
 export const bmcWrapper = style({
   display: 'flex',
@@ -7,6 +6,11 @@ export const bmcWrapper = style({
   flexWrap: 'wrap',
   gap: '0.5rem 0.375rem',
 })
+
+const fgColor = createVar()
+const bgColor = createVar()
+const hoverBgColor = createVar()
+const lineColor = createVar()
 
 export const bmcModalWrapper = style({
   vars: {
@@ -119,8 +123,6 @@ export const bmcButton = style({
     backgroundColor: hoverBgColor,
   },
   justifyContent: 'center',
-  // width: '12.75rem',
-  // height: '2.75rem',
   color: fgColor,
   backgroundColor: bgColor,
   fontWeight: 700,

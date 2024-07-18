@@ -1,10 +1,7 @@
 import { createVar, style, styleVariants } from '@vanilla-extract/css'
-import { bgColor, fgColor } from '@/styles/styles.css'
 
-const borderRadius = createVar()
-const boxShadow = createVar()
-const padding = createVar()
-const margin = createVar()
+const fgColor = createVar()
+const bgColor = createVar()
 
 export const colorVariants = styleVariants({
   primary: {
@@ -88,6 +85,11 @@ export const colorVariants = styleVariants({
     backgroundColor: bgColor,
   },
 })
+
+const borderRadius = createVar()
+const boxShadow = createVar()
+const padding = createVar()
+const margin = createVar()
 
 export const taxonomyVariants = styleVariants({
   categories: {

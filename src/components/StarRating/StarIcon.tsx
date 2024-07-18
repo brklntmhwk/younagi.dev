@@ -1,6 +1,6 @@
 import { type Component, type ComponentProps, splitProps } from 'solid-js'
 import { Motion } from 'solid-motionone'
-import { glowFillColor, emptyFillColor, starFillColor } from './star-rating.css'
+import { glowFillColor, emptyFillColor, fillColor } from './star-rating.css'
 
 type Props = {
   isBright: boolean | undefined
@@ -31,7 +31,7 @@ export const StarIcon: Component<ComponentProps<'svg'> & Props> = (props) => {
           y={0}
           width={36}
           height={36}
-          fill={local.isBright ? starFillColor : emptyFillColor}
+          fill={local.isBright ? fillColor : emptyFillColor}
           initial={{ opacity: 1 }}
           animate={{
             opacity: local.isBright ? [0, 1, 0, 1, 0, 1] : 1,

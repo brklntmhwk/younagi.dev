@@ -1,11 +1,15 @@
 ---
+import { getEntry } from 'astro:content'
 import type { HTMLAttributes } from 'astro/types'
 import { unfurl } from 'unfurl.js'
 import { Icon } from '@/components/Icon'
+import { getLocaleFromUrl } from '@/utils/i18n/utils'
 
 type Props = HTMLAttributes<'a'>
 
+const locale = getLocaleFromUrl(Astro.url)
 const { href, title: titleProp, ...props } = Astro.props
+const t = await getEntry('i18n', `${locale}/translation`)
 const url = new URL(href ?? '')
 const metadata = await unfurl(url.href).catch(() => undefined)
 const favicon = metadata?.favicon
@@ -25,7 +29,8 @@ const image = {
     metadata?.twitter_card?.images?.[0]?.url,
   alt:
     metadata?.open_graph?.images?.[0]?.alt ??
-    metadata?.twitter_card?.images?.[0]?.alt,
+    metadata?.twitter_card?.images?.[0]?.alt ??
+    `${title} ${t.data.link_card.image_fallback_alt}`,
 }
 ---
 

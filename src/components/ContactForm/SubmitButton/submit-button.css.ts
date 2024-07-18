@@ -1,5 +1,6 @@
-import { style } from '@vanilla-extract/css'
-import { hoverBgColor } from '@/styles/styles.css'
+import { style, createVar } from '@vanilla-extract/css'
+
+const hoverBgColor = createVar()
 
 export const submitButton = style({
   vars: {

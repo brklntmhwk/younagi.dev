@@ -61,6 +61,8 @@ contact_form:
   submitting: Submitting...
   error_handler_message: Please try again.
   unexpected_error_message: Unexpected error occurred
+link_card:
+  image_fallback_alt: site or page image
 og_image:
   site_name: *website
   logo_alt: Site logo

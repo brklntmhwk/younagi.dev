@@ -1,7 +1,6 @@
 import { createVar, style } from '@vanilla-extract/css'
-import { fillColor } from '@/styles/styles.css'
 
-export const starFillColor = fillColor
+export const fillColor = createVar()
 export const emptyFillColor = createVar()
 export const glowFillColor = createVar()
 
@@ -30,7 +29,7 @@ export const labelWrapper = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  maxWidth: '6rem',
+  maxWidth: '6.5rem',
 })
 
 export const spanBase = style({

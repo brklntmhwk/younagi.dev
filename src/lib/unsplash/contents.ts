@@ -9,7 +9,7 @@ export const getPhotos = async (pageNum?: number) => {
   })
 
   if (res.errors) {
-    throw new Error('error occurred when trying to get photos..')
+    throw new Error('Error occurred when trying to get photos..')
   }
 
   return res.response
@@ -26,7 +26,7 @@ export const getPhotographer = async () => {
   const res = await unsplashApiClient.users.get({ username: ACCOUNT_ID })
 
   if (res.errors) {
-    throw new Error('error occurred when trying to get my user data..')
+    throw new Error('Error occurred when trying to get my user data..')
   }
 
   return res.response
@@ -40,7 +40,7 @@ export const getCollections = async () => {
   })
 
   if (res.errors) {
-    throw new Error('error occurred when trying to get my photos..')
+    throw new Error('Error occurred when trying to get my photos..')
   }
 
   return res.response

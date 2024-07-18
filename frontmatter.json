@@ -40,7 +40,7 @@
     "type": "choice",
     "choices": ["draft", "in progress", "published"]
   },
-  "frontMatter.taxonomy.seoTitleLength": 72,
+  "frontMatter.taxonomy.seoTitleLength": 90,
   "frontMatter.taxonomy.contentTypes": [
     {
       "name": "blog",
@@ -48,6 +48,7 @@
       "previewPath": "'blog'",
       "filePrefix": null,
       "clearEmpty": true,
+      "template": "[[workspace]]/.frontmatter/templates/{{locale}}/blog-template.mdx",
       "fileType": "mdx",
       "fields": [
         {

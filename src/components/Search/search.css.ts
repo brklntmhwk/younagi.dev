@@ -1,5 +1,6 @@
-import { style, globalStyle } from '@vanilla-extract/css'
-import { bgColor, fgColor, lineColor, hoverBgColor } from '@/styles/styles.css'
+import { style, createVar, globalStyle } from '@vanilla-extract/css'
+
+const fgColor = createVar()
 
 export const searchWrapper = style({
   vars: {
@@ -20,6 +21,8 @@ export const searchWrapper = style({
   flexDirection: 'column',
   gap: '1.5rem',
 })
+
+const bgColor = createVar()
 
 export const searchInputWrapper = style({
   vars: {
@@ -69,6 +72,9 @@ export const searchResults = style({
   overflowY: 'auto',
   padding: '0.75rem 0 0.95rem 0',
 })
+
+const hoverBgColor = createVar()
+const lineColor = createVar()
 
 export const searchResult = style({
   vars: {

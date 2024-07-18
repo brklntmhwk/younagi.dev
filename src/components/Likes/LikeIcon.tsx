@@ -1,6 +1,6 @@
 import { type Component, type ComponentProps, splitProps } from 'solid-js'
 import { Motion } from 'solid-motionone'
-import { likesFgColor, likesFillColor } from './likes.css'
+import { emptyFillColor, fillColor } from './likes.css'
 
 type Props = {
   isLiked: boolean | undefined
@@ -13,7 +13,7 @@ export const LikeIcon: Component<ComponentProps<'svg'> & Props> = (props) => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      fill={likesFgColor}
+      fill={emptyFillColor}
       {...others}
     >
       <defs>
@@ -28,7 +28,7 @@ export const LikeIcon: Component<ComponentProps<'svg'> & Props> = (props) => {
           y={0}
           width={48}
           height={48}
-          fill={likesFillColor}
+          fill={fillColor}
           initial={{ y: '100%' }}
           animate={{
             y: local.isLiked ? '0' : '100%',

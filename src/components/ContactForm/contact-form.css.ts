@@ -1,5 +1,4 @@
-import { style } from '@vanilla-extract/css'
-import { bgColor, fgColor } from '@/styles/styles.css'
+import { style, createVar } from '@vanilla-extract/css'
 import { checkboxArea } from './Checkbox/checkbox.css'
 
 export const contactForm = style({
@@ -23,6 +22,9 @@ export const contactLabel = style({
     },
   },
 })
+
+const fgColor = createVar()
+const bgColor = createVar()
 
 export const contactFormError = style({
   vars: {

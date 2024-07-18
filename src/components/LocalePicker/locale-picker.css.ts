@@ -1,5 +1,4 @@
-import { style } from '@vanilla-extract/css'
-import { fgColor } from '@/styles/styles.css'
+import { style, createVar } from '@vanilla-extract/css'
 
 export const localeUlList = style({
   display: 'grid',
@@ -14,6 +13,8 @@ export const localeListElem = style({
 export const localeSpan = style({
   fontWeight: 700,
 })
+
+const fgColor = createVar()
 
 export const localeLink = style({
   vars: {

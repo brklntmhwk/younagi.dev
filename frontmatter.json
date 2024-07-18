@@ -48,7 +48,6 @@
       "previewPath": "'blog'",
       "filePrefix": null,
       "clearEmpty": true,
-      "template": "[[workspace]]/.frontmatter/templates/{{locale}}/blog-template.mdx",
       "fileType": "mdx",
       "fields": [
         {

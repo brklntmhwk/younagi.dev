@@ -1,5 +1,5 @@
 ---
-title: Front Matter CMS が Astro製ウェブサイトのヘッドレスCMSに最適だった
+title: Front Matter CMSがAstro製ウェブサイトのヘッドレスCMSに最適
 draft: published
 publishedAt: 2024-07-19T05:39:47.935Z
 type: blog
@@ -12,14 +12,14 @@ tags:
     - front-matter-cms
     - astro
 level: 5
-description: Astro製ウェブサイトのヘッドレスCMSにどうしてFront Matter CMSなのか？という疑問から、チュートリアルでは学べない詳細な設定まで実際のデモも交えて説明します
+description: Astro製ウェブサイトのヘッドレスCMSにどうしてFront Matter CMSなのか？という疑問から、チュートリアルでは学べない詳細な設定まで実際のデモも交えて説明する
 ---
 
 ## 導入
 
 他のヘッドレスCMSと違い、当ウェブサイトの記事たちはVSCodeのエディタ、つまりローカルで編集・管理されています。これは、個人ウェブサイトを開発・運営している開☆発☆者の皆さんにとっては特に大きなメリットではないでしょうか。
 
-ここからは、[Astro](https://astro.build/)と[Front Matter CMS](https://frontmatter.codes/)の見事な調和をご覧に入れます。当サイトの技術構成などの詳細については、こちらの記事をご覧ください。
+ここからは、JSフレームワーク「[Astro](https://astro.build/)」で作ったウェブサイトを例に、[Front Matter CMS](https://frontmatter.codes/)との連携が完了するまでを見ていきます。当サイトの技術構成など、詳細についてはこちらの記事をご覧ください。
 
 https://younagi.dev/ja/blog/astro-website/
 
@@ -501,13 +501,13 @@ export default defineConfig({
 - `frontMatter.content.publicFolder`: 必要に応じてメディアなどアセットのディレクトリを指定する
   - 私の場合、[Astroのアセット最適化](https://docs.astro.build/en/guides/images/#where-to-store-images)の恩恵にあずかりたかったのでパスを指定し直した。デフォルトは`public`ディレクトリとなっている
 - `frontMatter.content.pageFolders`: コンテンツの設定をする
-  - 私の場合、3つあります(`blog`、`news`、`page`)
+  - 私の場合、`blog`、`news`、`page`の3つ
 - `frontMatter.content.i18n`: 使用する言語を指定する
   - ディレクトリで分けるタイプの多言語化に対応している
-- `frontMatter.content.draftField`: 必須ではありません
-  - 個人的にはデフォルトの `true` か `false` の判定よりも記事のステータスを3段階に分けたかった為、別途変更しました
+- `frontMatter.content.draftField`: 必須ではない
+  - 個人的にはデフォルトの `true` か `false` の判定よりも記事のステータスを3段階に分けたかった為、別途変更した
 - `frontMatter.data.types`: データの設定をする
-  - 私の場合、2つあります(`categories`、`tags`)
+  - 私の場合、`categories`、`tags`の2つ
 - `frontMatter.data.files`: データを特定のパスやフォーマットに指定する
   - 私の場合、各データは1つのファイルに追記されるよう変更した。(例: "src/content/tags/en/tags.yml") ここでデータの各ファイルへのパスを指定する。コンテンツ同様、言語の数と同じだけ言語ディレクトリを切り分ける
 - `frontMatter.content.snippets`: スニペットをカスタマイズする

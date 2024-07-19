@@ -98,16 +98,25 @@ const { entries, taxonomies } = Astro.props
         }
         .blog-title {
           color: var(--fg);
-          font-size: 1.585rem;
+          font-size: 1.485rem;
           font-weight: 700;
           line-height: 1.325;
+          @media (min-width: 640px) {
+            font-size: 1.585rem;
+          }
           @media (min-width: 768px) {
-            font-size: 1.85rem;
+            font-size: 1.825rem;
           }
         }
         .date,
         .blog-description {
-          font-size: 0.925rem;
+          font-size: 0.875rem;
+          @media (min-width: 640px) {
+            font-size: 0.925rem;
+          }
+          @media (min-width: 768px) {
+            font-size: 1.025rem;
+          }
         }
         .date {
           display: flex;
@@ -129,9 +138,9 @@ const { entries, taxonomies } = Astro.props
           align-items: center;
           gap: 0.95rem 0.85rem;
           & :global(a) {
-            font-size: 0.875rem;
+            font-size: 0.785rem;
             @media (min-width: 640px) {
-              font-size: 1.025rem;
+              font-size: 0.875rem;
             }
           }
         }

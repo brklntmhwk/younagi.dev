@@ -24,6 +24,10 @@ rules:
       severity: warning
     ja-no-weak-phrase:
       severity: warning
+    ja-no-successive-word:
+      allowOnomatopee: true
+      allow:
+        - そう
     no-exclamation-question-mark:
       allowFullWidthExclamation: true
       allowFullWidthQuestion: true

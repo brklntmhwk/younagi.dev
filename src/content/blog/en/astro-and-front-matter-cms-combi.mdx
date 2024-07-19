@@ -45,6 +45,15 @@ Plus, it also offers [an AI assistance feature](https://frontmatter.codes/docs/s
 
 ![ Demo: Front Matter AI ](../../../assets/images/front-matter-cms-ai-assitance.png)
 
+### Downsides of Front Matter CMS
+
+- Exclusive to VSCode users
+- Available languages are limited
+  - As of Jul 2024, `en`, `de`, and `ja` are supported
+  - Of course you [can be a contributor](https://frontmatter.codes/docs/contributing#translating-the-extension) by translating the strings and sent a pull request!
+- Hard to edit articles without your PC (e.g., on your smartphone)
+  - Still possible with [the web version](https://vscode.dev/) though
+
 ### My Astro project's overview
 
 Thanks to [the Astro Content Collections API](https://docs.astro.build/en/guides/content-collections/), content management is very easy. You can manage contents and data collections under the `src/content` directory.
@@ -81,10 +90,69 @@ younagi.dev/
 
 As you can see, the Content Collections work with the `config.ts` file, in which all the contents' types & fields are defined.
 
-In the `astro.config.ts`, I topped up the i18n feature. You're going to have to make Front Matter CMS settings consistent with this later.
+```typescript title="src/content/config.ts"
+import { defineCollection, reference, z } from 'astro:content'
+import {
+  type TaxonomyColor,
+  type TaxonomyColorEnum,
+  taxonomyColors,
+} from '@/components/Taxonomy'
+
+const blog = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string().optional(),
+    publishedAt: z.coerce.date(),
+    modifiedAt: z.coerce.date().optional(),
+    category: z.object({
+      metadata: reference('categories'),
+      slug: z.string(),
+    }),
+    tags: z.object({
+      metadata: reference('tags'),
+      slugList: z.array(z.string()).optional(),
+    }),
+    draft: z.enum(['draft', 'in progress', 'published']),
+    level: z
+      .union([
+        z.literal(1),
+        z.literal(2),
+        z.literal(3),
+        z.literal(4),
+        z.literal(5),
+      ])
+      .optional(),
+  }),
+})
+
+const taxonomySchema = z.object({
+  title: z.string(),
+  slug: z.string(),
+  color: z.enum<TaxonomyColor, TaxonomyColorEnum>(
+    taxonomyColors as TaxonomyColorEnum
+  ),
+})
+
+const categories = defineCollection({
+  type: 'data',
+  schema: z.array(taxonomySchema),
+})
+
+const tags = defineCollection({
+  type: 'data',
+  schema: z.array(taxonomySchema),
+})
+
+// ...
+
+export const collections = { blog, categories, tags /* ... */ }
+```
+
+In the `astro.config.ts`, within the scope of this article, I topped up the i18n feature. You're going to have to make Front Matter CMS settings consistent with this later.
 
 ```typescript title="astro.config.ts"
-import { defineConfig, passthroughImageService } from 'astro/config'
+import { defineConfig /* ... */ } from 'astro/config'
 // ...
 
 export default defineConfig({
@@ -515,7 +583,8 @@ Some are automatically added during the setup process and some are not. Here are
 
 > [!question]+
 > **Why did I have to create the media snippet on my own?**
-> The path specified in the `publicFolder` is automatically reflected on that of the media snippet. That said, the original media snippet has the image path like "/src/assets/images/image.png", which is an invalid path. (Correctly, "../../../assets/images/image.png")
+> The path specified in the `publicFolder` is automatically reflected on that of the media snippet.
+> That said, the original media snippet has the image path like `/src/assets/images/image.png`, which is an invalid path. (Correctly, `../../../assets/images/image.png`)
 
 ### Usability
 
@@ -567,7 +636,7 @@ You can view and manage all assets from your dashboard. Advantages are:
 
 Front Matter CMS is a VSCode extension. Even if it stops developing, migrating to other CMS is easy, which I think would be one of the most important factors considering the pace as which modern technology is advancing.
 
-For the same reason, I've been using [Obsidian](https://obsidian.md/) as my knowledge base and [Astro](https://astro.build/) as a JS framework of this website. The common ground is they are both "**portable**".
+For the same reason, I've been using [Obsidian](https://obsidian.md/) as my knowledge base and [Astro](https://astro.build/) as a JS framework of this website. The common ground is "**portability**".
 
 - **Obsidian**: All contents are written in Markdown and managed in local unlike Notion
   - All you need to do for migration is move all the `.md` files

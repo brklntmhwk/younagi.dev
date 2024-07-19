@@ -45,6 +45,15 @@ https://younagi.dev/ja/blog/astro-website/
 
 ![ デモ: Front Matter AI ](../../../assets/images/front-matter-cms-ai-assitance.png)
 
+### Front Matter CMSの欠点
+
+- VSCodeユーザしか使えない
+- 利用できる言語は少ない
+  - 2024年7月時点で、`en`、`de`、`ja`がサポートされている
+  - [翻訳のお手伝いをしてプロジェクトに貢献する](https://frontmatter.codes/docs/contributing#translating-the-extension)ことも、もちろんできる！
+- PCなしでは記事の編集が難しい(例: スマホ)
+  - とは言え、[VSCodeウェブバージョン](https://vscode.dev/)を使用すれば不可能ではない
+
 ### 私のAstroプロジェクトの概観
 
 [AstroのコンテンツコレクションAPI](https://docs.astro.build/en/guides/content-collections/)のおかげで、コンテンツ管理は非常に簡単です。コンテンツやデータは全て`src/content`ディレクトリで一元管理できます。
@@ -81,10 +90,69 @@ younagi.dev/
 
 ご覧のように、コンテンツコレクションは`config.ts`ファイルによって機能し、全てのコンテンツのタイプとフィールドはここで定義されます。
 
-`astro.config.ts`はAstroプロジェクト全体の編集ファイルで、多言語化機能を追加しています。この後、この設定と一貫性を保つようにFront Matter CMSの方でも多言語化設定をしていきます。
+```typescript title="src/content/config.ts"
+import { defineCollection, reference, z } from 'astro:content'
+import {
+  type TaxonomyColor,
+  type TaxonomyColorEnum,
+  taxonomyColors,
+} from '@/components/Taxonomy'
+
+const blog = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string().optional(),
+    publishedAt: z.coerce.date(),
+    modifiedAt: z.coerce.date().optional(),
+    category: z.object({
+      metadata: reference('categories'),
+      slug: z.string(),
+    }),
+    tags: z.object({
+      metadata: reference('tags'),
+      slugList: z.array(z.string()).optional(),
+    }),
+    draft: z.enum(['draft', 'in progress', 'published']),
+    level: z
+      .union([
+        z.literal(1),
+        z.literal(2),
+        z.literal(3),
+        z.literal(4),
+        z.literal(5),
+      ])
+      .optional(),
+  }),
+})
+
+const taxonomySchema = z.object({
+  title: z.string(),
+  slug: z.string(),
+  color: z.enum<TaxonomyColor, TaxonomyColorEnum>(
+    taxonomyColors as TaxonomyColorEnum
+  ),
+})
+
+const categories = defineCollection({
+  type: 'data',
+  schema: z.array(taxonomySchema),
+})
+
+const tags = defineCollection({
+  type: 'data',
+  schema: z.array(taxonomySchema),
+})
+
+// ...
+
+export const collections = { blog, categories, tags /* ... */ }
+```
+
+`astro.config.ts`はAstroプロジェクト全体の編集ファイルで、私の場合、当記事に関連する内容で言えば多言語化機能を追加しています。この後、この設定と一貫性を保つようにFront Matter CMSの方でも多言語化設定をしていきます。
 
 ```typescript title="astro.config.ts"
-import { defineConfig, passthroughImageService } from 'astro/config'
+import { defineConfig /* ... */ } from 'astro/config'
 // ...
 
 export default defineConfig({
@@ -505,16 +573,16 @@ export default defineConfig({
 - `frontMatter.content.i18n`: 使用する言語を指定する
   - ディレクトリで分けるタイプの多言語化に対応している
 - `frontMatter.content.draftField`: 必須ではない
-  - 個人的にはデフォルトの `true` か `false` の判定よりも記事のステータスを3段階に分けたかった為、別途変更した
+  - 個人的に記事のステータスをデフォルトの `true` か `false` の判定よりも3段階に分けたかった為、別途変更した
 - `frontMatter.data.types`: データの設定をする
   - 私の場合、`categories`、`tags`の2つ
 - `frontMatter.data.files`: データを特定のパスやフォーマットに指定する
   - 私の場合、各データは1つのファイルに追記されるよう変更した。(例: "src/content/tags/en/tags.yml") ここでデータの各ファイルへのパスを指定する。コンテンツ同様、言語の数と同じだけ言語ディレクトリを切り分ける
 - `frontMatter.content.snippets`: スニペットをカスタマイズする
-  - 私の場合、アセットディレクトリを変更したため、メディアスニペットを別途カスタマイズする必要がありました
+  - 私の場合、アセットディレクトリを変更したため、メディアスニペットを別途カスタマイズする必要があった
 
 > [!question]+
-> **何故メディアスニペットをカスタマイズしなければならなかったか？** > `publicFolder`で指定されたアセットディレクトリはメディアスニペットに自動で反映されますが、デフォルトで存在するメディアスニペットは"/src/assets/images/image.png"のような誤ったパスを参照してしまうからです。(正しくは、"../../../assets/images/image.png")
+> **何故メディアスニペットをカスタマイズしなければならなかったか？** > `publicFolder`で指定されたアセットディレクトリはメディアスニペットに自動で反映されますが、デフォルトで存在するメディアスニペットは`/src/assets/images/image.png`のような誤ったパスを参照してしまうからです。(正しくは、`../../../assets/images/image.png`)
 
 ### 使い心地
 
@@ -549,7 +617,7 @@ export default defineConfig({
 
 ![編集モード](../../../assets/images/front-matter-cms-editing.png)
 
-何かやりたいことがあった時に、アクセス手段が複数あるという点で、非常に快適です。(例: スニペット機能はマークダウンパレットやVSCodeコマンドから呼び出せる)
+何かやりたいことがあった時に、アクセス手段が複数あるという点で、非常に快適です。(例: スニペット機能はマークダウンパレットだけでなくVSCodeコマンドからも呼び出せる)
 
 #### メディアの管理
 

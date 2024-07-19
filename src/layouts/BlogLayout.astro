@@ -147,7 +147,14 @@ const tags = await getBlogTags(blogTags)
       }
       .entry-title {
         text-align: center;
+        font-size: 1.825rem;
         line-height: 1.275;
+        @media (min-width: 640px) {
+          font-size: 1.985rem;
+        }
+        @media (min-width: 768px) {
+          font-size: 2.105rem;
+        }
       }
       .taxonomies {
         padding: 0.625rem 0 0.975rem 0;

@@ -13,3 +13,6 @@
 - title: エラー
   slug: error
   color: red
+- slug: vscode
+  title: VSCode
+  color: primary

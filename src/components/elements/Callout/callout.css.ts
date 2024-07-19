@@ -64,7 +64,7 @@ export const calloutVariants = styleVariants({
   question: {
     vars: {
       [calloutKind]: 'question',
-      [fgColor]: 'hsla(263, 56%, 65%, 1)',
+      [fgColor]: 'hsla(263, 56%, 52%, 1)',
       [bgColor]: 'hsla(263, 56%, 85%, 1)',
     },
     '@media': {

@@ -1,55 +1,55 @@
 ---
-title: How could Front Matter CMS be the best partner for Astro among all headless CMS?
+title: Front Matter CMS が Astro製ウェブサイトのヘッドレスCMSに最適だった
 draft: published
-publishedAt: 2024-07-19T05:39:54.513Z
+publishedAt: 2024-07-19T05:39:47.935Z
 type: blog
 category:
-  metadata: en/categories
+  metadata: ja/categories
   slug: learning
 tags:
-  metadata: en/tags
+  metadata: ja/tags
   slugList:
     - front-matter-cms
     - astro
 level: 5
-description: Detailed explanations of how Front Matter CMS could be the best partner for Astro among all headless CMS, and the configurations I made with some demos.
+description: Astro製ウェブサイトのヘッドレスCMSにどうしてFront Matter CMSなのか？という疑問から、チュートリアルでは学べない詳細な設定まで実際のデモも交えて説明します
 ---
 
-## Intro
+## 導入
 
-Unlike other headless CMS, articles of this website are edited in and posted from local, in the VSCode editor. I believe this is especially beneficial to developers who build and run their own tech blog or the likes.
+他のヘッドレスCMSと違い、当ウェブサイトの記事たちはVSCodeのエディタ、つまりローカルで編集・管理されています。これは、個人ウェブサイトを開発・運営している開☆発☆者の皆さんにとっては特に大きなメリットではないでしょうか。
 
-Here, I'm walking you through the beautiful harmony between [Astro](https://astro.build/) and [Front Matter CMS](https://frontmatter.codes/). For more information about my website, see this article.
+ここからは、[Astro](https://astro.build/)と[Front Matter CMS](https://frontmatter.codes/)の見事な調和をご覧に入れます。当サイトの技術構成などの詳細については、こちらの記事をご覧ください。
 
-https://younagi.dev/blog/astro-website/
+https://younagi.dev/ja/blog/astro-website/
 
-### Reader personas
+### 想定読者
 
-- Want to build and run one's own website or blog but overwhelmed by countless options for headless CMS
-- Struggling to find a headless CMS for a website built with Astro
-- Want to see examples of Front Matter CMS in collaboration with Astro
+- 自分のウェブサイトやブログを開発・運営したいがヘッドレスCMSが多すぎて圧倒されている
+- ちょうどAstro製ウェブサイトのヘッドレスCMS探しに苦戦している
+- Front Matter CMSとAstroを組み合わせたプロジェクトの具体例が見たい
 
-## Main
+## 本題
 
-### Why Front Matter CMS?
+### なぜFront Matter CMS?
 
-There are three reasons:
+大きく3つの理由があります。
 
-- Writing and storing articles in local
-- Markdown/MDX file format
-- Compatible with directory-based internationalization(i18n)
+- ローカルで記事の執筆・管理ができる
+- マークダウン/MDXフォーマット
+- ディレクトリで分ける多言語化(i18n)に対応している
 
-Especially the first one is what makes it different from other headless CMS and makes me decide using it.
+特に1つ目が他のヘッドレスCMSと大きく異なる点で、私がFront Matter CMSを選んだ最たる理由です。
 
-Plus, it also offers [an AI assistance feature](https://frontmatter.codes/docs/sponsor-features#front-matter-ai) where you can ask them whatever via the VSCode command. So you don't even have to have an internet connection to look up something, which is pretty cool coupled with the capability of editing articles offline.
+更に、[AIアシスタンス機能](https://frontmatter.codes/docs/sponsor-features#front-matter-ai)まで有しています。この機能はVSCodeコマンドから呼び出し可能で、何でも聞けます。つまり、調べものをするのにインターネット接続が不要になるのです。これはオフラインで記事が編集できるメリットと相まって、かなり魅力的ではないでしょうか。
 
-![ Demo: Front Matter AI ](../../../assets/images/front-matter-cms-ai-assitance.png)
+![ デモ: Front Matter AI ](../../../assets/images/front-matter-cms-ai-assitance.png)
 
-### My Astro project's overview
+### 私のAstroプロジェクトの概観
 
-Thanks to [the Astro Content Collections API](https://docs.astro.build/en/guides/content-collections/), content management is very easy. You can manage contents and data collections under the `src/content` directory.
+[AstroのコンテンツコレクションAPI](https://docs.astro.build/en/guides/content-collections/)のおかげで、コンテンツ管理は非常に簡単です。コンテンツやデータは全て`src/content`ディレクトリで一元管理できます。
 
-Below is my project's structural overview. For brevity, most irrelevant parts are omitted from the directory tree.
+下記が当ウェブサイトの概観です。簡単の為、本記事に無関係な大部分はディレクトリツリーから省略しています。
 
 ```markdown title=""
 younagi.dev/
@@ -79,9 +79,9 @@ younagi.dev/
 └── astro.config.ts
 ```
 
-As you can see, the Content Collections work with the `config.ts` file, in which all the contents' types & fields are defined.
+ご覧のように、コンテンツコレクションは`config.ts`ファイルによって機能し、全てのコンテンツのタイプとフィールドはここで定義されます。
 
-In the `astro.config.ts`, I topped up the i18n feature. You're going to have to make Front Matter CMS settings consistent with this later.
+`astro.config.ts`はAstroプロジェクト全体の編集ファイルで、多言語化機能を追加しています。この後、この設定と一貫性を保つようにFront Matter CMSの方でも多言語化設定をしていきます。
 
 ```typescript title="astro.config.ts"
 import { defineConfig, passthroughImageService } from 'astro/config'
@@ -97,14 +97,14 @@ export default defineConfig({
 })
 ```
 
-### Configurations
+### 設定ファイルの編集
 
-When it comes to the setup, consult [the Front Matter official doc](https://frontmatter.codes/docs/getting-started). You cannot get lost with the doc and support of the AI assistance.
+初期セットアップについては、[Front Matter公式ドキュメント](https://frontmatter.codes/docs/getting-started)をご覧ください。このドキュメントとAIアシスタンスがあれば、そうそう迷子になることはないと思います。
 
-After the setup, you're supposed to tweak the `frontmatter.json` to make it consistent with your contents and data configurations.
+セットアップが完了したら、`frontmatter.json`がプロジェクトのルート直下に自動生成されます。このファイルの中でAstroのコンテンツやデータとの連携など行っていきます。
 
-In my case, the framework is Astro, but you can do this with other frameworks too as long as you have Markdown/MDX contents in it.
-The thing is how correctly and accurately you can specify your contents' locations in the config file. Here is mine.
+私の場合、フレームワークはAstroですが、マークダウン/MDXで記事を作成している限りは、他のどのフレームワークを使用していても同じことが実現できると思います。
+大事なのは、コンテンツ用のディレクトリをFront Matter CMS側で正確に指定してあげることです。
 
 ````json title="frontmatter.json"
 {
@@ -496,80 +496,80 @@ The thing is how correctly and accurately you can specify your contents' locatio
 }
 ````
 
-Some are automatically added during the setup process and some are not. Here are some important items that I manually added:
+自動で追記されるものと、そうでないものがあります。私が別途追加した項目の中で、重要なものを挙げます。
 
-- `frontMatter.content.publicFolder`: Specify your assets directory if needed
-  - In my case, I wanted to modify it for leveraging [the Astro's assets optimization](https://docs.astro.build/en/guides/images/#where-to-store-images). It's set to the `public` directory by default
-- `frontMatter.content.pageFolders`: Specify your content collections here
-  - In my case, there are three content types: `blog`, `news`, and `page`
-- `frontMatter.content.i18n`: Specify as many languages as you use
-  - This is fully compatible with every directory-based internationalization(i18n)
-- `frontMatter.content.draftField`: Not necessary
-  - I just wanted to have three article statuses rather than the default `true` or `false` flag.
-- `frontMatter.data.types`: Specify your data collections here
-  - In my case, there are two content types: `categories` and `tags`
-- `frontMatter.data.files`: Associate your data collections with specific paths and file formats
-  - In my case, each data is aggregated in one file. (e.g., "src/content/tags/en/tags.yml") Here, each one of file path is specified. By the same token as contents, there should be as many directories as languages you use
-- `frontMatter.content.snippets`: Customize your snippets here
-  - In my case, I had to customize the media snippet since I modify the assets directory.
+- `frontMatter.content.publicFolder`: 必要に応じてメディアなどアセットのディレクトリを指定する
+  - 私の場合、[Astroのアセット最適化](https://docs.astro.build/en/guides/images/#where-to-store-images)の恩恵にあずかりたかったのでパスを指定し直した。デフォルトは`public`ディレクトリとなっている
+- `frontMatter.content.pageFolders`: コンテンツの設定をする
+  - 私の場合、3つあります(`blog`、`news`、`page`)
+- `frontMatter.content.i18n`: 使用する言語を指定する
+  - ディレクトリで分けるタイプの多言語化に対応している
+- `frontMatter.content.draftField`: 必須ではありません
+  - 個人的にはデフォルトの `true` か `false` の判定よりも記事のステータスを3段階に分けたかった為、別途変更しました
+- `frontMatter.data.types`: データの設定をする
+  - 私の場合、2つあります(`categories`、`tags`)
+- `frontMatter.data.files`: データを特定のパスやフォーマットに指定する
+  - 私の場合、各データは1つのファイルに追記されるよう変更した。(例: "src/content/tags/en/tags.yml") ここでデータの各ファイルへのパスを指定する。コンテンツ同様、言語の数と同じだけ言語ディレクトリを切り分ける
+- `frontMatter.content.snippets`: スニペットをカスタマイズする
+  - 私の場合、アセットディレクトリを変更したため、メディアスニペットを別途カスタマイズする必要がありました
 
 > [!question]+
-> **Why did I have to create the media snippet on my own?**
-> The path specified in the `publicFolder` is automatically reflected on that of the media snippet. That said, the original media snippet has the image path like "/src/assets/images/image.png", which is an invalid path. (Correctly, "../../../assets/images/image.png")
+> **何故メディアスニペットをカスタマイズしなければならなかったか？** > `publicFolder`で指定されたアセットディレクトリはメディアスニペットに自動で反映されますが、デフォルトで存在するメディアスニペットは"/src/assets/images/image.png"のような誤ったパスを参照してしまうからです。(正しくは、"../../../assets/images/image.png")
 
-### Usability
+### 使い心地
 
-With all the configurations in mind, my dashboard looks like this.
+ここまでの編集内容を踏まえて、私のダッシュボードはこのようになっています。
 
-#### Create a new article
+#### 新規記事の作成
 
-Only a little time and effort needed till you start writing!
+書き始めるまでに必要な手続きはたったこれだけです。
 
-1. Open the command palette
-2. Select the "Front Matter: Create new content"
-3. Select a type and language for your content
-4. Fill in the title
-5. Now it's ready!
+1. コマンドパレットを開く
+2. "Front Matter: Create new content" を選ぶ
+3. 記事のタイプと言語を選ぶ
+4. 記事のタイトルを入力
+5. 準備完了！
 
-![Demo: Create a new article](../../../assets/images/front-matter-cms-demo.gif)
+![デモ: 新規記事の作成](../../../assets/images/front-matter-cms-demo.gif)
 
-#### Create a new data content
+#### 新規データの作成
 
-You no longer have to directly add them in the file. Just fill in the customized input fields from your dashboard.
+直接ファイルに編集を加える必要はもうありません。ダッシュボードからデータの必須項目を入力するだけで追記できます。
 
-![Demo: Create a new data content](../../../assets/images/front-matter-cms-create-data.gif)
+![デモ: 新規データの作成](../../../assets/images/front-matter-cms-create-data.gif)
 
-#### Edit an article
+#### 記事の編集
 
-Notable points are:
+特筆すべきポイントは次の通りです。
 
-- Frontmatter values can be inserted from the visual editor
-  - on the left in the image
-- The Markdown editor palette available
-  - on the top right in the image
+- フロントマターの値はビジュアルエディタから入力可能
+  - 画像の左側
+- マークダウンエディタのパレットが使用可能
+  - 画像の上部右側
 
-![In editing mode](../../../assets/images/front-matter-cms-editing.png)
+![編集モード](../../../assets/images/front-matter-cms-editing.png)
 
-It feels comfortable that they are accessible from several ways. (e.g., the snippet feature callable from the palette as well as the VSCode command)
+何かやりたいことがあった時に、アクセス手段が複数あるという点で、非常に快適です。(例: スニペット機能はマークダウンパレットやVSCodeコマンドから呼び出せる)
 
-#### Manage assets
+#### メディアの管理
 
-You can view and manage all assets from your dashboard. Advantages are:
+メディアはダッシュボードから一覧で確認・管理できます。長所は次の通りです。
 
-- Easily distinguishable at a glance
-- Able to drag & drop it onto the page to add a new asset
-- Searchable from the search window
-- Assets' metadata is editable directly from the menu
+- 一目でメディアが区別できる
+- 新規メディアを追加したいときにドラッグ&ドロップ可能
+- 検索窓からメディアを検索できる
+- メディアのメタデータはメニューから直接編集可能
 
-![Media view in my dashboard](../../../assets/images/front-matter-cms-media.png)
+![ダッシュボードからメディア一覧画面](../../../assets/images/front-matter-cms-media.png)
 
-## Outro
+## 結び
 
-Front Matter CMS is a VSCode extension. Even if it stops developing, migrating to other CMS is easy, which I think would be one of the most important factors considering the pace as which modern technology is advancing.
+Front Matter CMSはVSCodeの拡張機能です。仮に開発が止まってしまったとしても、他のCMSへの移行は簡単です。
+この点は、現代の技術の進化ペースを鑑みると、最も重要なポイントだと思います。
 
-For the same reason, I've been using [Obsidian](https://obsidian.md/) as my knowledge base and [Astro](https://astro.build/) as a JS framework of this website. The common ground is they are both "**portable**".
+同じ理由で、私はナレッジベースとして[Obsidian](https://obsidian.md/)を、当サイトのJSフレームワークとして[Astro](https://astro.build/)を使用しています。両者に共通する点は「**ポータビリティ(可搬性)**」です。
 
-- **Obsidian**: All contents are written in Markdown and managed in local unlike Notion
-  - All you need to do for migration is move all the `.md` files
-- **Astro**: In `.astro` files, HTML, CSS, and vanilla JS can be used and all contents are written in Markdown/MDX.
-  - Even if Astro reaches its end of life, still you'll be able to reuse them(HTML, CSS, etc..) since those basic technologies aren't supposed to be deprecated that rapidly
+- **Obsidian**: Notionなどと異なり、全てのコンテンツはマークダウン書かれ、ローカルで管理される
+  - 移行の際は全マークダウンファイルを移行先に持っていくだけ
+- **Astro**: `.astro`拡張子のついたファイルではHTML、CSS、バニラJSが使用でき、全てのコンテンツはマークダウン/MDXで書かれる
+  - 仮にAstroがサポート終了を迎えても、HTMLなどの基礎的な技術はそう易々と廃止されないはずであり、依然としてその中身は再利用できるはず

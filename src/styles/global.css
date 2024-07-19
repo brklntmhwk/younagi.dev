@@ -13,7 +13,7 @@
   --glass-bg: hsla(0, 0%, 96.7%, 0.9);
   --gray: hsla(60, 0.52%, 75.55%, 1);
   --gray-light: hsla(0, 0%, 86.71%, 1);
-  --gray-dark: hsla(0, 1.27%, 30.98%, 1);
+  --gray-dark: hsla(0, 1.27%, 20.98%, 1);
 }
 @media (prefers-color-scheme: dark) {
   :root {

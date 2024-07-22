@@ -43,6 +43,7 @@ export const likesButton = style({
     },
   },
   display: 'flex',
+  backgroundColor: 'transparent',
   alignItems: 'center',
   gap: '0.5rem',
 })

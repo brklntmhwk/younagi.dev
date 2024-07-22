@@ -12,6 +12,10 @@ rules:
     max-kanji-continuous-len:
       max: 10
     no-mix-dearu-desumasu:
+      preferInHeader: ""
+      preferInBody: ですます
+      preferInList: である
+      strict: false
     ja-no-mixed-period:
       allowPeriodMarks:
         - ":"

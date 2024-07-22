@@ -1,17 +1,17 @@
 ---
-import type { GetStaticPaths } from 'astro'
 import { getEntry } from 'astro:content'
-import BaseLayout from '@/layouts/BaseLayout.astro'
 import { BlogList } from '@/components/BlogList'
 import { Pager } from '@/components/Pager'
-import { LIMIT_PER_PAGE } from '@/lib/consts'
+import BaseLayout from '@/layouts/BaseLayout.astro'
 import {
   getLocaleContentEntries,
   getSortedContentEntries,
 } from '@/lib/collections/contents'
 import { getDataEntries } from '@/lib/collections/data'
+import { LIMIT_PER_PAGE } from '@/lib/consts'
 import { langList } from '@/utils/i18n/data'
 import { slugify } from '@/utils/slugify'
+import type { GetStaticPaths } from 'astro'
 
 export const getStaticPaths = (async ({ paginate }) => {
   const entries = await getSortedContentEntries('blog')
@@ -22,7 +22,7 @@ export const getStaticPaths = (async ({ paginate }) => {
       return category.data.flatMap((categoryData) => {
         const displayEntries = getLocaleContentEntries<'blog'>(
           entries,
-          lang
+          lang,
         ).filter((entry) => entry.data.category.slug === categoryData.slug)
 
         return paginate(displayEntries, {

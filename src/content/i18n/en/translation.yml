@@ -42,6 +42,8 @@ bmc:
 likes:
   button_label: Like it
   thanks_message: Thank you
+star_rating:
+  icon_label: A star icon
 contact_form:
   name:
     label: Name

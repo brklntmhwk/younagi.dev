@@ -1,5 +1,5 @@
 ---
-title: 'Front Matter CMS: the best partner for Astro among all headless CMS'
+title: "Front Matter CMS: the best partner for Astro among all headless CMS"
 draft: published
 publishedAt: 2024-07-19T05:39:54.513Z
 type: blog
@@ -92,29 +92,29 @@ younagi.dev/
 As you can see, the Content Collections work with the `config.ts` file, in which all the contents' types & fields are defined.
 
 ```typescript title="src/content/config.ts"
-import { defineCollection, reference, z } from 'astro:content'
+import { defineCollection, reference, z } from "astro:content";
 import {
   type TaxonomyColor,
   type TaxonomyColorEnum,
   taxonomyColors,
-} from '@/components/Taxonomy'
+} from "@/components/Taxonomy";
 
 const blog = defineCollection({
-  type: 'content',
+  type: "content",
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),
     publishedAt: z.coerce.date(),
     modifiedAt: z.coerce.date().optional(),
     category: z.object({
-      metadata: reference('categories'),
+      metadata: reference("categories"),
       slug: z.string(),
     }),
     tags: z.object({
-      metadata: reference('tags'),
+      metadata: reference("tags"),
       slugList: z.array(z.string()).optional(),
     }),
-    draft: z.enum(['draft', 'in progress', 'published']),
+    draft: z.enum(["draft", "in progress", "published"]),
     level: z
       .union([
         z.literal(1),
@@ -125,45 +125,45 @@ const blog = defineCollection({
       ])
       .optional(),
   }),
-})
+});
 
 const taxonomySchema = z.object({
   title: z.string(),
   slug: z.string(),
   color: z.enum<TaxonomyColor, TaxonomyColorEnum>(
-    taxonomyColors as TaxonomyColorEnum
+    taxonomyColors as TaxonomyColorEnum,
   ),
-})
+});
 
 const categories = defineCollection({
-  type: 'data',
+  type: "data",
   schema: z.array(taxonomySchema),
-})
+});
 
 const tags = defineCollection({
-  type: 'data',
+  type: "data",
   schema: z.array(taxonomySchema),
-})
+});
 
 // ...
 
-export const collections = { blog, categories, tags /* ... */ }
+export const collections = { blog, categories, tags /* ... */ };
 ```
 
 In the `astro.config.ts`, within the scope of this article, I topped up the i18n feature. You're going to have to make Front Matter CMS settings consistent with this later.
 
 ```typescript title="astro.config.ts"
-import { defineConfig /* ... */ } from 'astro/config'
+import { defineConfig /* ... */ } from "astro/config";
 // ...
 
 export default defineConfig({
   // ...
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'ja'],
+    defaultLocale: "en",
+    locales: ["en", "ja"],
   },
   // ...
-})
+});
 ```
 
 ### Configurations

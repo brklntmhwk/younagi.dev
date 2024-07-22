@@ -1,4 +1,4 @@
-import { style, createVar } from '@vanilla-extract/css'
+import { createVar, style } from '@vanilla-extract/css'
 
 const hoverBgColor = createVar()
 

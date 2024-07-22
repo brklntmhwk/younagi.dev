@@ -1,26 +1,26 @@
 export const prerender = false
 
-import type { APIRoute, APIContext } from 'astro'
 import { getEntry } from 'astro:content'
 import {
-  type InferOutput,
-  check,
-  object,
-  pipe,
-  string,
-  nonEmpty,
-  minLength,
-  email,
-  boolean,
-  safeParse,
-} from 'valibot'
-import type { Language } from '@/utils/i18n/data'
-import {
-  TURNSTILE_SITE_VERIFICATION_URL,
   BREVO_FORM_URL,
   CONTACT_NOTIFICATION_SUBJECT,
   FORM_TEXTAREA_MINLENGTH,
+  TURNSTILE_SITE_VERIFICATION_URL,
 } from '@/lib/consts'
+import type { Language } from '@/utils/i18n/data'
+import type { APIContext, APIRoute } from 'astro'
+import {
+  type InferOutput,
+  boolean,
+  check,
+  email,
+  minLength,
+  nonEmpty,
+  object,
+  pipe,
+  safeParse,
+  string,
+} from 'valibot'
 
 type TurnstileErrorCode =
   | 'missing-input-secret'
@@ -58,9 +58,9 @@ export const POST: APIRoute = async ({
   if (!locale) {
     return new Response(
       JSON.stringify({
-        message: `Locale not found. It must be specified.`,
+        message: 'Locale not found. It must be specified.',
       }),
-      { status: 404 }
+      { status: 404 },
     )
   }
 
@@ -73,12 +73,12 @@ export const POST: APIRoute = async ({
     email: pipe(
       string(),
       nonEmpty(t.data.contact_form.email.required),
-      email(t.data.contact_form.email.invalid)
+      email(t.data.contact_form.email.invalid),
     ),
     message: pipe(
       string(),
       nonEmpty(t.data.contact_form.message.required),
-      minLength(FORM_TEXTAREA_MINLENGTH, t.data.contact_form.message.minlength)
+      minLength(FORM_TEXTAREA_MINLENGTH, t.data.contact_form.message.minlength),
     ),
     confirmation: pipe(
       boolean(),
@@ -89,8 +89,8 @@ export const POST: APIRoute = async ({
       // )
       check(
         (input) => input === true,
-        t.data.contact_form.confirmation.required
-      )
+        t.data.contact_form.confirmation.required,
+      ),
     ),
     'cf-turnstile-response': string(),
   })
@@ -103,7 +103,7 @@ export const POST: APIRoute = async ({
       JSON.stringify({
         message: `Missing or invalid field input(s): ${vResult.issues.map((issue) => `message: ${issue.message}\n input: ${issue.input}`)}`,
       }),
-      { status: 422 }
+      { status: 422 },
     )
   }
 
@@ -126,7 +126,7 @@ export const POST: APIRoute = async ({
       JSON.stringify({
         message: `Turnstile verification failed: ${outcome['error-codes']}`,
       }),
-      { status: 500 }
+      { status: 500 },
     )
   }
 
@@ -163,7 +163,7 @@ export const POST: APIRoute = async ({
       JSON.stringify({
         message: `Form submission failed: ${response.status} ${response.statusText}`,
       }),
-      { status: 500 }
+      { status: 500 },
     )
   }
 

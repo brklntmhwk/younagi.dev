@@ -1,4 +1,4 @@
-import { style, createVar } from '@vanilla-extract/css'
+import { createVar, style } from '@vanilla-extract/css'
 
 export const checkboxArea = style({
   marginTop: '1.5rem',

@@ -1,15 +1,15 @@
 ---
-import type { MarkdownHeading } from 'astro'
 import { getEntry } from 'astro:content'
-import BaseLayout from '@/layouts/BaseLayout.astro'
-import { getLocaleFromUrl } from '@/utils/i18n/utils'
+import ProfileImage from '@/assets/images/profile.png'
 import { Article } from '@/components/Article'
-import { Icon } from '@/components/Icon'
 import { ContactForm } from '@/components/ContactForm/ContactForm'
-import { Toc } from '@/components/Toc'
+import { Icon } from '@/components/Icon'
 import { Modal } from '@/components/Modal/Modal'
 import { ProfileIcon } from '@/components/ProfileIcon'
-import ProfileImage from '@/assets/images/profile.png'
+import { Toc } from '@/components/Toc'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { getLocaleFromUrl } from '@/utils/i18n/utils'
+import type { MarkdownHeading } from 'astro'
 
 type Props = {
   headings: MarkdownHeading[]

@@ -1,7 +1,7 @@
-import { createSignal, onMount, type ParentComponent } from 'solid-js'
-import { Portal } from 'solid-js/web'
 import { makeEventListener } from '@solid-primitives/event-listener'
 import { createShortcut } from '@solid-primitives/keyboard'
+import { type ParentComponent, createSignal, onMount } from 'solid-js'
+import { Portal } from 'solid-js/web'
 import { type ModalContent, shortcutKeyMap } from './modal-data'
 import {
   hidden,
@@ -29,7 +29,7 @@ export const Modal: ParentComponent<Props> = (props) => {
           toggle()
         }
       },
-      { passive: true }
+      { passive: true },
     )
 
     makeEventListener(
@@ -40,12 +40,12 @@ export const Modal: ParentComponent<Props> = (props) => {
 
         if (props.modalName === 'search') {
           const searchInput = document.getElementById(
-            'search-window'
+            'search-window',
           ) as HTMLInputElement
           searchInput.focus()
         }
       },
-      { passive: true }
+      { passive: true },
     )
   })
 
@@ -61,6 +61,7 @@ export const Modal: ParentComponent<Props> = (props) => {
   return (
     <>
       <button
+        type="button"
         id={`${props.modalName}-icon-button`}
         ref={buttonRef}
         class={`${modalButton} ${props.buttonStyle}`}

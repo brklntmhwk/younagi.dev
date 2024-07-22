@@ -1,27 +1,27 @@
+import type { I18nData } from '@/lib/collections/types'
+import { isDev } from '@/lib/mode'
 import {
   type Component,
   type Setter,
-  createSignal,
-  createResource,
-  onMount,
   Suspense,
   createMemo,
+  createResource,
+  createSignal,
+  onMount,
 } from 'solid-js'
-import type { PagefindSearchResult, PagefindSearchResults } from './types'
-import { isDev } from '@/lib/mode'
-import type { I18nData } from '@/lib/collections/types'
+import { SearchIcon } from './SearchIcon'
 import {
-  searchInputWrapper,
+  hitArticleExcerpt,
+  hitArticleTitle,
+  notFound,
+  notFoundKeyword,
   searchInput,
+  searchInputWrapper,
   searchResult,
   searchResults,
   searchWrapper,
-  hitArticleTitle,
-  hitArticleExcerpt,
-  notFound,
-  notFoundKeyword,
 } from './search.css'
-import { SearchIcon } from './SearchIcon'
+import type { PagefindSearchResult, PagefindSearchResults } from './types'
 
 type Pagefind = {
   init: () => void
@@ -192,7 +192,7 @@ const SearchResult: Component<SearchResultProps> = (props) => {
         onFocus={() => props.setActiveIndex(props.index)}
         onMouseEnter={() => props.setActiveIndex(props.index)}
       >
-        <span class={hitArticleTitle}>{result()?.meta['title']}</span>
+        <span class={hitArticleTitle}>{result()?.meta.title}</span>
         <span class={hitArticleExcerpt} innerHTML={result()?.excerpt ?? ''} />
       </a>
     </li>

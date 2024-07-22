@@ -1,13 +1,15 @@
 ---
+import { getEntry } from 'astro:content'
 import { Icon } from '@/components/Icon'
+import { getLocaleFromUrl } from '@/utils/i18n/utils'
 import { StarIcon } from './StarIcon'
 import {
   endLabel,
-  labels,
   labelWrapper,
+  labels,
   ratingWrapper,
-  stars,
   spanBase,
+  stars,
 } from './star-rating.css'
 
 type Props = {
@@ -18,7 +20,9 @@ type Props = {
   total?: number
 }
 
+const locale = getLocaleFromUrl(Astro.url)
 const { method, leftEnd, rightEnd, value, total = 5 } = Astro.props
+const t = await getEntry('i18n', `${locale}/translation`)
 const isLessThanOrEqualTo = (a: number, b: number) => a <= b
 
 if (!isLessThanOrEqualTo(value, total)) {
@@ -57,6 +61,7 @@ const counts = Array.from({ length: total }, (_, i) => i + 1)
                   client:only="solid"
                   width={28}
                   height={28}
+                  label={t.data.star_rating.icon_label}
                   isBright={true}
                 />
               )
@@ -66,6 +71,7 @@ const counts = Array.from({ length: total }, (_, i) => i + 1)
                   client:only="solid"
                   width={28}
                   height={28}
+                  label={t.data.star_rating.icon_label}
                   isBright={false}
                 />
               )
@@ -78,6 +84,7 @@ const counts = Array.from({ length: total }, (_, i) => i + 1)
                   client:only="solid"
                   width={28}
                   height={28}
+                  label={t.data.star_rating.icon_label}
                   isBright={true}
                 />
               )
@@ -87,6 +94,7 @@ const counts = Array.from({ length: total }, (_, i) => i + 1)
                   client:only="solid"
                   width={28}
                   height={28}
+                  label={t.data.star_rating.icon_label}
                   isBright={false}
                 />
               )

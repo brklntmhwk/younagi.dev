@@ -1,6 +1,6 @@
 import type { Component } from 'solid-js'
-import type { OEmbedVideo as OEmbedVideoSchema } from './types'
 import { sanitize } from './sanitize'
+import type { OEmbedVideo as OEmbedVideoSchema } from './types'
 
 export const OEmbedVideo: Component<{ data: OEmbedVideoSchema }> = (props) => {
   return (

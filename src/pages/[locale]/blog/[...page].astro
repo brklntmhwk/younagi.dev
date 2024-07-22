@@ -1,15 +1,15 @@
 ---
-import type { GetStaticPaths } from 'astro'
 import { getEntry } from 'astro:content'
 import { BlogList } from '@/components/BlogList'
-import BaseLayout from '@/layouts/BaseLayout.astro'
 import { Pager } from '@/components/Pager'
-import { LIMIT_PER_PAGE } from '@/lib/consts'
-import { langList } from '@/utils/i18n/data'
+import BaseLayout from '@/layouts/BaseLayout.astro'
 import {
   getLocaleContentEntries,
   getSortedContentEntries,
 } from '@/lib/collections/contents'
+import { LIMIT_PER_PAGE } from '@/lib/consts'
+import { langList } from '@/utils/i18n/data'
+import type { GetStaticPaths } from 'astro'
 
 export const getStaticPaths = (async ({ paginate }) => {
   const entries = await getSortedContentEntries('blog')

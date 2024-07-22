@@ -1,14 +1,14 @@
-import type { Component } from 'solid-js'
-import { useStore } from '@nanostores/solid'
 import { locale } from '@/components/LocaleStore/locale-store'
 import { url } from '@/components/UrlStore/url-store'
-import { getTargetLocaleSlug } from '@/utils/i18n/utils'
 import { defaultLang, languages } from '@/utils/i18n/data'
+import { getTargetLocaleSlug } from '@/utils/i18n/utils'
+import { useStore } from '@nanostores/solid'
+import type { Component } from 'solid-js'
 import {
-  localeUlList,
-  localeListElem,
   localeLink,
+  localeListElem,
   localeSpan,
+  localeUlList,
 } from './locale-picker.css'
 
 export const LocalePicker: Component = () => {

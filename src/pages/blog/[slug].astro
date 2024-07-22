@@ -1,10 +1,10 @@
 ---
-import type { GetStaticPaths } from 'astro'
 import BlogLayout from '@/layouts/BlogLayout.astro'
 import { getSortedContentEntries } from '@/lib/collections/contents'
 import { mdxComponents } from '@/lib/mdx-components'
 import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale'
 import { defaultLang } from '@/utils/i18n/data'
+import type { GetStaticPaths } from 'astro'
 
 export const getStaticPaths = (async () => {
   const entries = await getSortedContentEntries('blog', defaultLang)

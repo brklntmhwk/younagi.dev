@@ -1,5 +1,5 @@
-import { type Component } from 'solid-js'
 import { useStore } from '@nanostores/solid'
+import type { Component } from 'solid-js'
 import { url as urlStore } from './url-store'
 
 type Props = {

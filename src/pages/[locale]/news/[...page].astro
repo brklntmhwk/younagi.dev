@@ -1,16 +1,16 @@
 ---
-import type { GetStaticPaths } from 'astro'
 import { getEntry } from 'astro:content'
-import BaseLayout from '@/layouts/BaseLayout.astro'
-import { Pager } from '@/components/Pager'
 import { FormattedDate } from '@/components/FormattedDate'
 import { Icon } from '@/components/Icon'
-import { LIMIT_PER_PAGE } from '@/lib/consts'
-import { langList } from '@/utils/i18n/data'
+import { Pager } from '@/components/Pager'
+import BaseLayout from '@/layouts/BaseLayout.astro'
 import {
   getLocaleContentEntries,
   getSortedContentEntries,
 } from '@/lib/collections/contents'
+import { LIMIT_PER_PAGE } from '@/lib/consts'
+import { langList } from '@/utils/i18n/data'
+import type { GetStaticPaths } from 'astro'
 
 export const getStaticPaths = (async ({ paginate }) => {
   const entries = await getSortedContentEntries('news')

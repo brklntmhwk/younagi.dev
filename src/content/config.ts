@@ -37,7 +37,7 @@ const taxonomySchema = z.object({
   title: z.string(),
   slug: z.string(),
   color: z.enum<TaxonomyColor, TaxonomyColorEnum>(
-    taxonomyColors as TaxonomyColorEnum
+    taxonomyColors as TaxonomyColorEnum,
   ),
 })
 
@@ -153,6 +153,9 @@ const i18n = defineCollection({
     likes: z.object({
       button_label: z.string(),
       thanks_message: z.string(),
+    }),
+    star_rating: z.object({
+      icon_label: z.string(),
     }),
     contact_form: z.object({
       name: z.object({

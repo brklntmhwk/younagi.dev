@@ -18,7 +18,7 @@ type TurnstileRenderParameters = {
   actions?: string
   cData?: string
   callback?: (token: string) => void
-  'error-callback'?: (e: any) => void
+  'error-callback'?: (e: unknown) => void
   execution?: 'render' | 'execute'
   'expired-callback'?: () => void
   'before-interactive-callback'?: () => void
@@ -43,7 +43,7 @@ interface Window {
   turnstile: {
     render: (
       container: string | HTMLElement,
-      params: TurnstileRenderParameters
+      params: TurnstileRenderParameters,
     ) => string
     reset: (container?: string | HTMLElement) => void
     getResponse: (container?: string | HTMLElement) => string | undefined

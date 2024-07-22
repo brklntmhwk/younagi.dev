@@ -1,8 +1,8 @@
 import type {
-  OEmbedSchema,
-  OEmbedRich,
-  OEmbedVideo,
   OEmbedPhoto,
+  OEmbedRich,
+  OEmbedSchema,
+  OEmbedVideo,
 } from './types'
 
 export function isPhoto(schema: OEmbedSchema): schema is OEmbedPhoto {

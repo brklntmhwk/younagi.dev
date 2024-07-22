@@ -1,9 +1,9 @@
 ---
-import type { Page } from 'astro'
 import { type CollectionEntry, getEntry } from 'astro:content'
-import { Icon } from '../Icon'
-import { getLocaleFromUrl } from '@/utils/i18n/utils'
 import { DEFAULT_PAGINATION_WIDTH } from '@/lib/consts'
+import { getLocaleFromUrl } from '@/utils/i18n/utils'
+import type { Page } from 'astro'
+import { Icon } from '../Icon'
 
 type Props = {
   page?: Page<CollectionEntry<'blog' | 'news'>>
@@ -12,7 +12,7 @@ type Props = {
 const paginator = (
   curPageNum: number,
   totalPageNum: number,
-  width: number = DEFAULT_PAGINATION_WIDTH
+  width: number = DEFAULT_PAGINATION_WIDTH,
 ) => {
   const prevEnd = curPageNum - width
   const nextEnd = curPageNum + width

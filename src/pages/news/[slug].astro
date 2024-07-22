@@ -1,9 +1,9 @@
 ---
-import type { GetStaticPaths } from 'astro'
 import NewsLayout from '@/layouts/NewsLayout.astro'
 import { getSortedContentEntries } from '@/lib/collections/contents'
 import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale'
 import { defaultLang } from '@/utils/i18n/data'
+import type { GetStaticPaths } from 'astro'
 
 export const getStaticPaths = (async () => {
   const entries = await getSortedContentEntries('news', defaultLang)

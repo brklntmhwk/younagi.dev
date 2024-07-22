@@ -1,6 +1,6 @@
-import { type Component } from 'solid-js'
-import { useStore } from '@nanostores/solid'
 import type { Language } from '@/utils/i18n/data'
+import { useStore } from '@nanostores/solid'
+import type { Component } from 'solid-js'
 import { locale as localeStore } from './locale-store'
 
 type Props = {

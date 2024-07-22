@@ -1,4 +1,4 @@
-import { type Language } from '@/utils/i18n/data'
+import type { Language } from '@/utils/i18n/data'
 
 type FormateDate = (
   date: Date,
@@ -7,7 +7,7 @@ type FormateDate = (
     year: boolean
     month: boolean
     day: boolean
-  }
+  },
 ) => string
 
 export type FormattedDate = Parameters<FormateDate>

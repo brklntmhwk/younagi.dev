@@ -1,10 +1,10 @@
 ---
 import { getEntry } from 'astro:content'
-import type { UnsplashPhotoData } from '@/lib/unsplash/types'
-import { getPhotographer } from '@/lib/unsplash/contents'
-import PhotoGalleryItem from '../PhotoGallery/PhotoGalleryItem.astro'
-import { getLocaleFromUrl } from '@/utils/i18n/utils'
 import { ACCOUNT_ID, UNSPLASH_BASE_URL } from '@/lib/consts'
+import { getPhotographer } from '@/lib/unsplash/contents'
+import type { UnsplashPhotoData } from '@/lib/unsplash/types'
+import { getLocaleFromUrl } from '@/utils/i18n/utils'
+import PhotoGalleryItem from '../PhotoGallery/PhotoGalleryItem.astro'
 
 type Props = {
   photos: UnsplashPhotoData

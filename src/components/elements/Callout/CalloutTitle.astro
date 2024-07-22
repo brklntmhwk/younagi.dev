@@ -2,14 +2,14 @@
 import { Icon } from '@/components/Icon'
 import { generateUniqueId } from '@/utils/generate-unique-id'
 import { toBoolean } from '@/utils/to-boolean'
-import { getCallout } from './callouts'
 import type { Props as CalloutProps } from './Callout.astro'
 import {
-  calloutTitle as titleStyle,
-  calloutToggleCheck,
-  calloutTitleText,
   calloutTitleIcon,
+  calloutTitleText,
+  calloutToggleCheck,
+  calloutTitle as titleStyle,
 } from './callout.css'
+import { getCallout } from './callouts'
 
 type Props = CalloutProps
 

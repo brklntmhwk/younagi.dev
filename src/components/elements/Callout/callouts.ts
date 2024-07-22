@@ -1,4 +1,4 @@
-import type { Callouts, CalloutType } from './types'
+import type { CalloutType, Callouts } from './types'
 
 export const callouts = {
   info: {

@@ -1,4 +1,4 @@
-import { style, createVar, globalStyle } from '@vanilla-extract/css'
+import { createVar, globalStyle, style } from '@vanilla-extract/css'
 
 const fgColor = createVar()
 
@@ -16,7 +16,7 @@ export const searchWrapper = style({
   color: fgColor,
   boxSizing: 'border-box',
   height: 'fit-content',
-  maxHeight: '77dvh',
+  maxHeight: '76dvh',
   display: 'flex',
   flexDirection: 'column',
   gap: '1.5rem',

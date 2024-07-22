@@ -1,5 +1,5 @@
 import type { IconName } from '@/components/Icon/types'
-import { callouts } from './callouts'
+import type { callouts } from './callouts'
 
 type Callout = {
   label: string

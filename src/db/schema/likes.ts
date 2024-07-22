@@ -1,5 +1,5 @@
 import { sql } from 'drizzle-orm'
-import { sqliteTable, integer, text, primaryKey } from 'drizzle-orm/sqlite-core'
+import { integer, primaryKey, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 
 export const likes = sqliteTable(
   'likes',
@@ -17,5 +17,5 @@ export const likes = sqliteTable(
         columns: [likes.sessionId, likes.collection, likes.slug],
       }),
     }
-  }
+  },
 )

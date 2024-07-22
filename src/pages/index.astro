@@ -1,11 +1,10 @@
 ---
 import { getEntry } from 'astro:content'
-import BaseLayout from '@/layouts/BaseLayout.astro'
-import { BulletinBoard } from '@/components/BulletinBoard'
 import { BlogList } from '@/components/BlogList'
-import { PhotoGallery } from '@/components/PhotoGallery'
+import { BulletinBoard } from '@/components/BulletinBoard'
 import { Icon } from '@/components/Icon'
-import { getPhotos } from '@/lib/unsplash/contents'
+import { PhotoGallery } from '@/components/PhotoGallery'
+import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getSortedContentEntries } from '@/lib/collections/contents'
 import {
   ACCOUNT_ID,
@@ -13,8 +12,9 @@ import {
   NEWS_LATEST_MAXIMUM_COUNT,
   UNSPLASH_BASE_URL,
 } from '@/lib/consts'
-import { useTranslatedPath } from '@/utils/i18n/utils'
+import { getPhotos } from '@/lib/unsplash/contents'
 import { defaultLang } from '@/utils/i18n/data'
+import { useTranslatedPath } from '@/utils/i18n/utils'
 
 const translatePath = useTranslatedPath(defaultLang)
 const meta = await getEntry('meta', `${defaultLang}/site-data`)

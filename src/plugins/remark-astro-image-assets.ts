@@ -1,9 +1,9 @@
+import fs from 'node:fs'
+import path from 'node:path'
 import type { RemarkPlugin } from '@astrojs/markdown-remark'
-import type { Plugin } from 'unified'
-import type { Root, Image, Parent } from 'mdast'
-import fs from 'fs'
-import path from 'path'
+import type { Image, Parent, Root } from 'mdast'
 import sharp from 'sharp'
+import type { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 
 type RemarkAstroImageAssetsOptions = {
@@ -25,7 +25,7 @@ const defaultRemarkAstroImageAssetsOptions: Readonly<RemarkAstroImageAssetsOptio
   }
 
 const remarkAstroImageAssets: Plugin<[RemarkAstroImageAssetsOptions?], Root> = (
-  options = defaultRemarkAstroImageAssetsOptions
+  options = defaultRemarkAstroImageAssetsOptions,
 ): ReturnType<RemarkPlugin> => {
   return async (tree) => {
     const imgAndParentPairs: { node: Image; parent: Parent }[] = []
@@ -47,7 +47,7 @@ const remarkAstroImageAssets: Plugin<[RemarkAstroImageAssetsOptions?], Root> = (
       imgAndParentPairs.map(async ({ node, parent }) => {
         const basename = path.basename(node.url)
         const buffer = fs.readFileSync(
-          path.join(process.cwd(), './src', imgDir, basename)
+          path.join(process.cwd(), './src', imgDir, basename),
         )
 
         const metadataPromise = sharp(buffer)
@@ -55,12 +55,12 @@ const remarkAstroImageAssets: Plugin<[RemarkAstroImageAssetsOptions?], Root> = (
           .then((data) => {
             if (!data.width || !data.height) {
               throw new Error(`Failed to get image metadata: ${node.url}`)
-            } else {
-              return {
-                width: data.width,
-                height: data.height,
-                aspectRatio: `${data.width} / ${data.height}`,
-              }
+            }
+
+            return {
+              width: data.width,
+              height: data.height,
+              aspectRatio: `${data.width} / ${data.height}`,
             }
           })
 
@@ -75,7 +75,7 @@ const remarkAstroImageAssets: Plugin<[RemarkAstroImageAssetsOptions?], Root> = (
           .toBuffer()
           .then(
             (data) =>
-              `data:image/${blurFormat};base64,${data.toString('base64')}`
+              `data:image/${blurFormat};base64,${data.toString('base64')}`,
           )
 
         const [{ width, aspectRatio }, base64] = await Promise.all([
@@ -103,7 +103,7 @@ const remarkAstroImageAssets: Plugin<[RemarkAstroImageAssetsOptions?], Root> = (
             dataImageBlurUrl: `url("${base64}")`,
           },
         }
-      })
+      }),
     )
   }
 }

@@ -42,6 +42,8 @@ bmc:
 likes:
   button_label: 推せる
   thanks_message: ありがとうございます
+star_rating:
+  icon_label: スターアイコン
 contact_form:
   name:
     label: 氏名

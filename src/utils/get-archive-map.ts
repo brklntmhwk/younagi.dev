@@ -1,6 +1,7 @@
 export const getArchiveMap = (dates: Date[]) => {
   const archiveMap = new Map<number, Array<number>>()
-  dates.forEach((date) => {
+
+  for (const date of dates) {
     if (!archiveMap.has(date.getFullYear())) {
       archiveMap.set(date.getFullYear(), new Array(date.getMonth()))
     } else {
@@ -8,7 +9,7 @@ export const getArchiveMap = (dates: Date[]) => {
         archiveMap.get(date.getFullYear())?.push(date.getMonth())
       }
     }
-  })
+  }
 
   return archiveMap
 }

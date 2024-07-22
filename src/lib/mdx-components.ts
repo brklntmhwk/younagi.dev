@@ -1,10 +1,10 @@
-import { Callout, CalloutTitle } from '@/components/elements/Callout'
 import { Balloon } from '@/components/Balloon'
-import { Figure } from '@/components/elements/Figure'
 import { FormattedDate } from '@/components/FormattedDate'
+import { StarRating } from '@/components/StarRating'
+import { Callout, CalloutTitle } from '@/components/elements/Callout'
+import { Figure } from '@/components/elements/Figure'
 import { Link } from '@/components/elements/Link'
 import { OEmbed } from '@/components/elements/OEmbed'
-import { StarRating } from '@/components/StarRating'
 
 export const mdxComponents = {
   a: Link,

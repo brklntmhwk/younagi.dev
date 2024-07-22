@@ -1,8 +1,8 @@
+import { getCollection, getEntry } from 'astro:content'
+import { getLocaleFromSlug } from '@/utils/get-locale-from-slug'
+import { langList } from '@/utils/i18n/data'
 import rss from '@astrojs/rss'
 import type { APIContext } from 'astro'
-import { getCollection, getEntry } from 'astro:content'
-import { langList } from '@/utils/i18n/data'
-import { getLocaleFromSlug } from '@/utils/get-locale-from-slug'
 
 export function getStaticPaths() {
   return langList.map((lang) => ({ params: { locale: lang } }))
@@ -19,7 +19,7 @@ export async function GET(context: APIContext) {
   }
   const entries = await getCollection('blog')
   const localeEntries = entries.filter(
-    (entry) => getLocaleFromSlug(entry.slug) === locale
+    (entry) => getLocaleFromSlug(entry.slug) === locale,
   )
   const meta = await getEntry('meta', `${locale}/site-data`)
 

@@ -1,11 +1,11 @@
+import type { Language } from '@/utils/i18n/data'
 import {
   type Component,
   type JSX,
+  onCleanup,
   onMount,
   splitProps,
-  onCleanup,
 } from 'solid-js'
-import { type Language } from '@/utils/i18n/data'
 import { cfTurnstile } from './turnstile.css'
 
 type Props = {
@@ -55,7 +55,9 @@ export const Turnstile: Component<Props> = (props) => {
     if (widgetId) window.turnstile.remove(widgetId)
   })
 
-  return (
-    <div {...others} class={cfTurnstile} ref={(el) => void (element = el)} />
-  )
+  const setRef = (el: HTMLDivElement) => {
+    element = el
+  }
+
+  return <div {...others} class={cfTurnstile} ref={setRef} />
 }

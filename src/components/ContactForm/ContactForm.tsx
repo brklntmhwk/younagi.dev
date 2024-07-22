@@ -1,34 +1,34 @@
-import { type Component } from 'solid-js'
+import { locale } from '@/components/LocaleStore/locale-store'
+import type { I18nData } from '@/lib/collections/types'
+import { FORM_TEXTAREA_MINLENGTH } from '@/lib/consts'
+import { useTranslatedPath } from '@/utils/i18n/utils'
 import {
   type SubmitHandler,
   createForm,
-  valiForm,
   setValue,
+  valiForm,
 } from '@modular-forms/solid'
+import { useStore } from '@nanostores/solid'
+import type { Component } from 'solid-js'
+import toast from 'solid-toast'
 import {
   type InferOutput,
+  boolean,
   check,
+  email,
+  minLength,
+  nonEmpty,
   object,
   pipe,
   string,
-  nonEmpty,
-  minLength,
-  email,
-  boolean,
 } from 'valibot'
-import { useStore } from '@nanostores/solid'
 import wretch, { type WretchError } from 'wretch'
-import toast from 'solid-toast'
-import { useTranslatedPath } from '@/utils/i18n/utils'
-import { FORM_TEXTAREA_MINLENGTH } from '@/lib/consts'
-import { locale } from '@/components/LocaleStore/locale-store'
-import { Turnstile } from './Turnstile/Turnstile'
-import type { I18nData } from '@/lib/collections/types'
-import { SubmitButton } from './SubmitButton/SubmitButton'
 import { Checkbox } from './Checkbox/Checkbox'
+import { SubmitButton } from './SubmitButton/SubmitButton'
 import { TextField } from './TextField/TextField'
-import { isWretchError } from './error-is'
+import { Turnstile } from './Turnstile/Turnstile'
 import { contactForm as ContactFormStyle } from './contact-form.css'
+import { isWretchError } from './error-is'
 
 type Props = {
   t: I18nData<'contact_form'>
@@ -45,11 +45,11 @@ export const ContactForm: Component<Props> = ({ t }) => {
     message: pipe(
       string(),
       nonEmpty(t.message.required),
-      minLength(FORM_TEXTAREA_MINLENGTH, t.message.minlength)
+      minLength(FORM_TEXTAREA_MINLENGTH, t.message.minlength),
     ),
     confirmation: pipe(
       boolean(),
-      check((input) => input === true, t.confirmation.required)
+      check((input) => input === true, t.confirmation.required),
     ),
     'cf-turnstile-response': string(),
   })
@@ -77,7 +77,7 @@ export const ContactForm: Component<Props> = ({ t }) => {
         {
           position: 'bottom-right',
           duration: 8000,
-        }
+        },
       )
       console.error(errorMessage)
     } else {
@@ -87,7 +87,7 @@ export const ContactForm: Component<Props> = ({ t }) => {
         {
           position: 'bottom-right',
           duration: 8000,
-        }
+        },
       )
       console.trace(`${t.unexpected_error_message}: ${e}`)
     }

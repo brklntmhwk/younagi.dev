@@ -1,6 +1,6 @@
 ---
-import type { HTMLAttributes } from 'astro/types'
 import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils'
+import type { HTMLAttributes } from 'astro/types'
 
 type Props = Omit<HTMLAttributes<'a'>, 'href'> & {
   href: URL | string

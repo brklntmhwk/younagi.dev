@@ -1,4 +1,4 @@
-import { defaultLang, languages, type Language } from './data'
+import { type Language, defaultLang, languages } from './data'
 
 export const getLocaleFromUrl = (url: URL) => {
   const [, lang] = url.pathname.split('/')
@@ -18,7 +18,7 @@ export const isLocale = (locale: string | undefined): locale is Language =>
 
 export const getTargetLocaleSlug = (
   curLocale: Language | string,
-  curUrl: URL
+  curUrl: URL,
 ) => {
   let slug: string
   if (curLocale === defaultLang) {

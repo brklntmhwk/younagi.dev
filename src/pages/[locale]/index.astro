@@ -1,13 +1,10 @@
 ---
-import type { GetStaticPaths } from 'astro'
 import { getEntry } from 'astro:content'
-import BaseLayout from '@/layouts/BaseLayout.astro'
-import { langList } from '@/utils/i18n/data'
-import { BulletinBoard } from '@/components/BulletinBoard'
 import { BlogList } from '@/components/BlogList'
-import { PhotoGallery } from '@/components/PhotoGallery'
+import { BulletinBoard } from '@/components/BulletinBoard'
 import { Icon } from '@/components/Icon'
-import { getPhotos } from '@/lib/unsplash/contents'
+import { PhotoGallery } from '@/components/PhotoGallery'
+import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getSortedContentEntries } from '@/lib/collections/contents'
 import {
   ACCOUNT_ID,
@@ -15,7 +12,10 @@ import {
   NEWS_LATEST_MAXIMUM_COUNT,
   UNSPLASH_BASE_URL,
 } from '@/lib/consts'
+import { getPhotos } from '@/lib/unsplash/contents'
+import { langList } from '@/utils/i18n/data'
 import { useTranslatedPath } from '@/utils/i18n/utils'
+import type { GetStaticPaths } from 'astro'
 
 export const getStaticPaths = (() => {
   return langList.map((lang) => ({ params: { locale: lang } }))

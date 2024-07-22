@@ -1,9 +1,9 @@
 export const prerender = false
 
-import type { APIRoute, APIContext } from 'astro'
-import { count, eq, and } from 'drizzle-orm'
-import { drizzle } from 'drizzle-orm/d1'
 import { likes } from '@/db/schema'
+import type { APIContext, APIRoute } from 'astro'
+import { and, count, eq } from 'drizzle-orm'
+import { drizzle } from 'drizzle-orm/d1'
 
 export const GET: APIRoute = async ({ locals, url, cookies }: APIContext) => {
   const d1 = locals.runtime.env.DB
@@ -78,8 +78,8 @@ export const POST: APIRoute = async ({
         and(
           eq(likes.slug, slug),
           eq(likes.collection, collection),
-          eq(likes.sessionId, sessionId)
-        )
+          eq(likes.sessionId, sessionId),
+        ),
       )
       .execute()
   } else {

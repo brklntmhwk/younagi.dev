@@ -2,7 +2,7 @@ import {
   TextField as Kobalte,
   Root as KobalteRoot,
 } from '@kobalte/core/text-field'
-import { type JSX, type Component, Show, splitProps } from 'solid-js'
+import { type Component, type JSX, Show, splitProps } from 'solid-js'
 import { contactFormError, contactLabel, fieldGroup } from '../contact-form.css'
 import { textField } from './text-field.css'
 
@@ -27,7 +27,7 @@ export const TextField: Component<Props> = (props) => {
   const [rootProps, inputProps] = splitProps(
     props,
     ['name', 'value', 'required', 'disabled'],
-    ['placeholder', 'ref', 'onInput', 'onChange', 'onBlur']
+    ['placeholder', 'ref', 'onInput', 'onChange', 'onBlur'],
   )
   return (
     <KobalteRoot

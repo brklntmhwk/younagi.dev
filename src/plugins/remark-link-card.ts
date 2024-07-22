@@ -1,6 +1,6 @@
 import type { RemarkPlugin } from '@astrojs/markdown-remark'
-import type { Plugin } from 'unified'
 import type { Parent, Root } from 'mdast'
+import type { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 import { isBareLink, isParent } from './mdast-is'
 

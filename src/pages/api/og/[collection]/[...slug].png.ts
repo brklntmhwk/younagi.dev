@@ -1,15 +1,15 @@
-import type {
-  APIRoute,
-  APIContext,
-  GetStaticPaths,
-  InferGetStaticPropsType,
-  InferGetStaticParamsType,
-} from 'astro'
 import { getEntry } from 'astro:content'
 import { getOgImage } from '@/components/OgImage'
 import { getContentEntries } from '@/lib/collections/contents'
-import { defaultLang } from '@/utils/i18n/data'
 import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale'
+import { defaultLang } from '@/utils/i18n/data'
+import type {
+  APIContext,
+  APIRoute,
+  GetStaticPaths,
+  InferGetStaticParamsType,
+  InferGetStaticPropsType,
+} from 'astro'
 
 type Params = InferGetStaticParamsType<typeof getStaticPaths>
 type Props = InferGetStaticPropsType<typeof getStaticPaths>

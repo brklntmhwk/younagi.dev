@@ -1,23 +1,23 @@
 import {
+  type AnyEntryMap,
   type DataCollectionKey,
   type Flatten,
-  type AnyEntryMap,
-  getEntry,
   getCollection,
   getDataEntryById,
+  getEntry,
 } from 'astro:content'
-import { type Language } from '@/utils/i18n/data'
-import type { BlogCategoryData, BlogTagsData } from './types'
 import { getLocaleFromSlug } from '@/utils/get-locale-from-slug'
+import type { Language } from '@/utils/i18n/data'
+import type { BlogCategoryData, BlogTagsData } from './types'
 
 export const getLocaleDataEntries = <T extends DataCollectionKey>(
   entries: Flatten<AnyEntryMap[T]>[],
-  locale: Language
+  locale: Language,
 ) => entries.filter((entry) => getLocaleFromSlug(entry.id) === locale)
 
 export const getDataEntries = async <T extends DataCollectionKey>(
   kind: T,
-  locale?: Language
+  locale?: Language,
 ) => {
   let entries = await getCollection(kind)
   if (locale) {
@@ -30,11 +30,11 @@ export const getDataEntries = async <T extends DataCollectionKey>(
 export const getBlogCategory = async (blogCategory: BlogCategoryData) => {
   const categories = await getDataEntryById(
     'categories',
-    blogCategory.metadata.id
+    blogCategory.metadata.id,
   )
 
   return categories.data.find(
-    (categoryData) => blogCategory.slug === categoryData.slug
+    (categoryData) => blogCategory.slug === categoryData.slug,
   )
 }
 
@@ -45,7 +45,7 @@ export const getBlogTags = async (blogTags: BlogTagsData) => {
   const tags = await getDataEntryById('tags', blogTags.metadata.id)
 
   return tags.data.filter((tagData) =>
-    blogTags.slugList?.some((blogTag) => blogTag === tagData.slug)
+    blogTags.slugList?.some((blogTag) => blogTag === tagData.slug),
   )
 }
 export const getTags = async (locale: Language) =>

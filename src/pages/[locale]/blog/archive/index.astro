@@ -1,11 +1,11 @@
 ---
-import type { GetStaticPaths } from 'astro'
 import { getEntry } from 'astro:content'
-import BaseLayout from '@/layouts/BaseLayout.astro'
 import { FormattedDate } from '@/components/FormattedDate'
-import { langList } from '@/utils/i18n/data'
-import { groupArchiveByYear } from '@/utils/group-archive-by-year'
+import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getSortedContentEntries } from '@/lib/collections/contents'
+import { groupArchiveByYear } from '@/utils/group-archive-by-year'
+import { langList } from '@/utils/i18n/data'
+import type { GetStaticPaths } from 'astro'
 
 export const getStaticPaths = (() => {
   return langList.map((lang) => ({ params: { locale: lang } }))

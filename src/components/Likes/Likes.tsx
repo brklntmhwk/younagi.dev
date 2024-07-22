@@ -1,13 +1,13 @@
-import { type Component, createResource } from 'solid-js'
+import { locale } from '@/components/LocaleStore/locale-store'
+import type { I18nData } from '@/lib/collections/types'
+import type { Language } from '@/utils/i18n/data'
+import { useTranslatedPath } from '@/utils/i18n/utils'
 import { useStore } from '@nanostores/solid'
+import { type Component, createResource } from 'solid-js'
 import toast from 'solid-toast'
 import wretch from 'wretch'
-import { type Language } from '@/utils/i18n/data'
-import { useTranslatedPath } from '@/utils/i18n/utils'
-import { locale } from '@/components/LocaleStore/locale-store'
-import { likesSpan, likesWrapper, likesButton } from './likes.css'
-import type { I18nData } from '@/lib/collections/types'
 import { LikeIcon } from './LikeIcon'
+import { likesButton, likesSpan, likesWrapper } from './likes.css'
 
 type FetcherProps = Omit<Props, 't'> & { locale: Language }
 
@@ -36,7 +36,7 @@ export const Likes: Component<Props> = (props) => {
       collection: props.collection,
       locale: $locale(),
     }),
-    fetchLikes
+    fetchLikes,
   )
 
   const handleClick = async () => {
@@ -68,8 +68,15 @@ export const Likes: Component<Props> = (props) => {
 
   return (
     <div class={likesWrapper}>
-      <button type="button" class={likesButton} onClick={handleClick}>
+      <button
+        id="likes-button"
+        title={props.t.button_label}
+        type="button"
+        class={likesButton}
+        onClick={handleClick}
+      >
         <LikeIcon
+          label={props.t.button_label}
           isLiked={likes()?.liked}
           width={24}
           height={24}

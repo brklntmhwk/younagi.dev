@@ -1,6 +1,6 @@
 import type { RemarkPlugin } from '@astrojs/markdown-remark'
+import type { BlockContent, DefinitionContent, Paragraph, Root } from 'mdast'
 import type { Plugin } from 'unified'
-import type { Root, BlockContent, DefinitionContent, Paragraph } from 'mdast'
 import { visit } from 'unist-util-visit'
 import { isParent } from './mdast-is'
 
@@ -15,7 +15,7 @@ const parseCallout = (text: string | undefined): Callout | undefined => {
   if (text === undefined || text === '') return
 
   const matched = text.match(
-    /^\[!(?<type>.+?)\](?<expandable>[+-])?\s?(?<title>.+)?$/
+    /^\[!(?<type>.+?)\](?<expandable>[+-])?\s?(?<title>.+)?$/,
   )
 
   if (matched?.groups?.type === undefined) return undefined

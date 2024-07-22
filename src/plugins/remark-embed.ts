@@ -1,6 +1,6 @@
 import type { RemarkPlugin } from '@astrojs/markdown-remark'
-import { type Plugin } from 'unified'
 import type { Parent, Root } from 'mdast'
+import type { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 import { isBareLink, isParent } from './mdast-is'
 import { type Transformer, getHName, getHProperties } from './transformers'
@@ -14,7 +14,7 @@ const defaultRemarkEmbedOptions: Readonly<RemarkEmbedOptions> = {
 }
 
 const remarkEmbed: Plugin<[RemarkEmbedOptions?], Root> = (
-  options = defaultRemarkEmbedOptions
+  options = defaultRemarkEmbedOptions,
 ): ReturnType<RemarkPlugin> => {
   return async (tree, file) => {
     const transforms: Promise<void>[] = []
@@ -58,11 +58,11 @@ const remarkEmbed: Plugin<[RemarkEmbedOptions?], Root> = (
         transform().catch((e) => {
           const msg = `Failed to embed ${link.url} in ${file.path} at line ${link.position?.start?.line}`
           file.message(
-            msg + '; ' + JSON.stringify(e),
+            `${msg}; ${JSON.stringify(e)}`,
             link.position,
-            'remarkEmbed'
+            'remarkEmbed',
           )
-        })
+        }),
       )
     })
 

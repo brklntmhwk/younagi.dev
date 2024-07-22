@@ -1,10 +1,10 @@
 ---
-import type { GetStaticPaths } from 'astro'
-import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getEntry } from 'astro:content'
 import { Taxonomy } from '@/components/Taxonomy'
-import { langList } from '@/utils/i18n/data'
+import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getCategories } from '@/lib/collections/data'
+import { langList } from '@/utils/i18n/data'
+import type { GetStaticPaths } from 'astro'
 
 export const getStaticPaths = (() => {
   return langList.map((lang) => ({ params: { locale: lang } }))

@@ -1,23 +1,23 @@
 import { readFileSync } from 'node:fs'
+import type { I18nData } from '@/lib/collections/types'
 import satori from 'satori'
 import sharp from 'sharp'
-import type { I18nData } from '@/lib/collections/types'
 
 const fontPixelMPlus10Regular = readFileSync(
-  './src/assets/fonts/PixelMplus10-Regular.woff'
+  './src/assets/fonts/PixelMplus10-Regular.woff',
 )
 const fontPixelMPlus10Bold = readFileSync(
-  './src/assets/fonts/PixelMplus10-Bold.woff'
+  './src/assets/fonts/PixelMplus10-Bold.woff',
 )
 const backgroundImage = readFileSync('./src/assets/images/og-bg.jpg').toString(
-  'base64'
+  'base64',
 )
 const logoBuffer = readFileSync('./src/assets/images/logo.png')
 const logo = btoa(
   new Uint8Array(logoBuffer).reduce(
     (data, byte) => data + String.fromCharCode(byte),
-    ''
-  )
+    '',
+  ),
 )
 
 export const getOgImage = async (text: string, t: I18nData<'og_image'>) => {
@@ -119,7 +119,7 @@ export const getOgImage = async (text: string, t: I18nData<'og_image'>) => {
           style: 'normal',
         },
       ],
-    }
+    },
   )
 
   const imgBuffer = await sharp(Buffer.from(svg))

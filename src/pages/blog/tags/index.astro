@@ -1,9 +1,9 @@
 ---
 import { getEntry } from 'astro:content'
-import BaseLayout from '@/layouts/BaseLayout.astro'
 import { Taxonomy } from '@/components/Taxonomy'
-import { defaultLang } from '@/utils/i18n/data'
+import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getTags } from '@/lib/collections/data'
+import { defaultLang } from '@/utils/i18n/data'
 
 const meta = await getEntry('meta', `${defaultLang}/site-data`)
 const t = await getEntry('i18n', `${defaultLang}/translation`)

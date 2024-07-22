@@ -36,20 +36,19 @@ const media = {
     name: 'Canva',
     regExp: /^.*(design\/)([^#&?]*)(\/view).*/,
     uidPosition: 2,
-    createSrc: (uid) => 'https://www.canva.com/design/' + uid + '/view?embed',
+    createSrc: (uid) => `https://www.canva.com/design/${uid}/view?embed`,
   },
   google_slides: {
     name: 'Google Slides',
     regExp: /^.*(d\/)(e\/[^/#&?]*|[^/#&?]*)\/(edit|pub)?(\?[^#]+)?(#.*)?$/,
     uidPosition: 2,
-    createSrc: (uid) =>
-      'https://docs.google.com/presentation/d/' + uid + '/embed',
+    createSrc: (uid) => `https://docs.google.com/presentation/d/${uid}/embed`,
   },
   youtube: {
     name: 'YouTube',
     regExp: /^.*(watch\?v=|embed\/)([^/#&?]*).*/,
     uidPosition: 2,
-    createSrc: (uid) => 'https://www.youtube.com/embed/' + uid,
+    createSrc: (uid) => `https://www.youtube.com/embed/${uid}`,
   },
 } as const satisfies MediaMap
 
@@ -57,11 +56,11 @@ const convertToEmbedUrl = (url: URL, kind: MediaKind): string => {
   const medium = media[kind]
   const matched = url.href.match(medium.regExp)
 
-  if (matched && matched[medium.uidPosition]) {
+  if (matched?.[medium.uidPosition]) {
     return medium.createSrc(matched[medium.uidPosition]!)
-  } else {
-    throw new Error(`Invalid ${medium.name} URL`)
   }
+
+  throw new Error(`Invalid ${medium.name} URL`)
 }
 
 export const canvaTransformer: Readonly<Transformer> = {

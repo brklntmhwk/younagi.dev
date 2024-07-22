@@ -1,4 +1,3 @@
-import type { Node } from 'unist'
 import type {
   FootnoteDefinition,
   FootnoteReference,
@@ -8,6 +7,7 @@ import type {
   Parent,
   Text,
 } from 'mdast'
+import type { Node } from 'unist'
 
 function isObject(target: unknown): target is { [k: string]: unknown } {
   return typeof target === 'object' && target !== null
@@ -22,7 +22,7 @@ function is<T extends Node>(node: unknown, type: string): node is T {
 }
 
 export function isFootnoteDefinition(
-  node: unknown
+  node: unknown,
 ): node is FootnoteDefinition {
   return is(node, 'footnoteDefinition')
 }
@@ -40,7 +40,7 @@ export function isLink(node: unknown): node is Link {
 }
 
 export function isBareLink(
-  node: unknown
+  node: unknown,
 ): node is Paragraph & { children: [Link & { children: [Text] }] } {
   return (
     isParagraph(node) &&

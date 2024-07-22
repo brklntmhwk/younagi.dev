@@ -1,8 +1,8 @@
 import { Checkbox as KCheckbox, Root as KRoot } from '@kobalte/core/checkbox'
-import { type JSX, type Component, splitProps } from 'solid-js'
+import { type Component, type JSX, splitProps } from 'solid-js'
 import { CheckIcon } from '../Checkbox/CheckIcon'
-import { checkboxArea, checkboxControl } from './checkbox.css'
 import { contactFormError, contactLabel, fieldGroup } from '../contact-form.css'
+import { checkboxArea, checkboxControl } from './checkbox.css'
 
 type Props = {
   name: string
@@ -20,10 +20,11 @@ type Props = {
 }
 
 export const Checkbox: Component<Props> = (props) => {
-  const [rootProps, inputProps] = splitProps(
+  const [iconProps, rootProps, inputProps] = splitProps(
     props,
+    ['label'],
     ['name', 'value', 'checked', 'required', 'disabled'],
-    ['ref', 'onInput', 'onChange', 'onBlur']
+    ['ref', 'onInput', 'onChange', 'onBlur'],
   )
   return (
     <KRoot
@@ -35,7 +36,7 @@ export const Checkbox: Component<Props> = (props) => {
         <KCheckbox.Input {...inputProps} />
         <KCheckbox.Control class={checkboxControl}>
           <KCheckbox.Indicator>
-            <CheckIcon width={18} height={18} />
+            <CheckIcon label={iconProps.label} width={18} height={18} />
           </KCheckbox.Indicator>
         </KCheckbox.Control>
         <KCheckbox.Label class={contactLabel}>{props.label}</KCheckbox.Label>

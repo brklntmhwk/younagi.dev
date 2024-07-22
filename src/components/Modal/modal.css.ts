@@ -1,5 +1,5 @@
-import { style, createVar } from '@vanilla-extract/css'
 import { contactForm } from '@/components/ContactForm/contact-form.css'
+import { createVar, style } from '@vanilla-extract/css'
 
 const fgColor = createVar()
 const bgColor = createVar()

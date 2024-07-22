@@ -99,7 +99,7 @@ export const Search: Component<Props> = (props) => {
     <div class={searchWrapper}>
       <form onsubmit={handleSubmit}>
         <div class={`${searchInputWrapper} pokemon-border`}>
-          <SearchIcon width={22} height={22} />
+          <SearchIcon label={props.t.button_label} width={22} height={22} />
           <input
             id="search-window"
             type="text"

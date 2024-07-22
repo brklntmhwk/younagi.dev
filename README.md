@@ -17,3 +17,4 @@ A website where Nagi, just another engineer & creator, posts his work and writin
 - **Bot management**: Cloudflare Turnstile
 - **Package manager:** Bun
 - **Dependency management**: Renovate
+- **Linter & formatter**: Biome

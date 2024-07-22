@@ -1,9 +1,9 @@
-import { contactForm } from '@/components/ContactForm/contact-form.css'
-import { createVar, style } from '@vanilla-extract/css'
+import { contactForm } from '@/components/ContactForm/contact-form.css';
+import { createVar, style } from '@vanilla-extract/css';
 
-const fgColor = createVar()
-const bgColor = createVar()
-export const modalBgColor = createVar()
+const fgColor = createVar();
+const bgColor = createVar();
+export const modalBgColor = createVar();
 
 export const modal = style({
   vars: {
@@ -31,7 +31,7 @@ export const modal = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'flex-start',
-})
+});
 
 export const modalWrapper = style({
   vars: {
@@ -58,14 +58,14 @@ export const modalWrapper = style({
       overflowY: 'auto',
     },
   },
-})
+});
 
 export const modalButton = style({
   border: 'none',
   display: 'flex',
   gap: '0.5rem',
   alignItems: 'center',
-})
+});
 
 export const modalButtonLabel = style({
   fontSize: '1.025rem',
@@ -75,8 +75,8 @@ export const modalButtonLabel = style({
       fontSize: '1.125rem',
     },
   },
-})
+});
 
 export const hidden = style({
   display: 'none',
-})
+});

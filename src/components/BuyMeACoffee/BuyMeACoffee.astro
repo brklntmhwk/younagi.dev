@@ -1,9 +1,9 @@
 ---
-import { getEntry } from 'astro:content'
-import { Icon } from '@/components/Icon'
-import { Modal } from '@/components/Modal/Modal'
-import { ACCOUNT_ID } from '@/lib/consts'
-import { getLocaleFromUrl } from '@/utils/i18n/utils'
+import { getEntry } from 'astro:content';
+import { Icon } from '@/components/Icon';
+import { Modal } from '@/components/Modal/Modal';
+import { ACCOUNT_ID } from '@/lib/consts';
+import { getLocaleFromUrl } from '@/utils/i18n/utils';
 import {
   bmcButton,
   bmcGreeting,
@@ -11,10 +11,10 @@ import {
   bmcModalWrapper,
   bmcWrapper,
   ornament,
-} from './buy-me-a-coffee.css'
+} from './buy-me-a-coffee.css';
 
-const locale = getLocaleFromUrl(Astro.url)
-const t = await getEntry('i18n', `${locale}/translation`)
+const locale = getLocaleFromUrl(Astro.url);
+const t = await getEntry('i18n', `${locale}/translation`);
 ---
 
 <div class={bmcWrapper}>

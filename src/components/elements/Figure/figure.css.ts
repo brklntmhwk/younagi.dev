@@ -1,4 +1,4 @@
-import { createVar, globalStyle, style } from '@vanilla-extract/css'
+import { createVar, globalStyle, style } from '@vanilla-extract/css';
 
 export const codeFigure = style({
   margin: '3.75rem 0 1.75rem 0',
@@ -9,15 +9,15 @@ export const codeFigure = style({
       margin: '1.75rem 0',
     },
   },
-})
+});
 
 globalStyle(`${codeFigure} pre`, {
   maxHeight: '30rem',
   borderRadius: '0.25rem',
   overflow: 'auto',
-})
+});
 
-const counterLine = createVar()
+const counterLine = createVar();
 
 globalStyle(`${codeFigure} code`, {
   vars: {
@@ -26,14 +26,14 @@ globalStyle(`${codeFigure} code`, {
   fontFamily: 'Menlo, Consolas, monospace',
   counterReset: counterLine,
   display: 'grid',
-})
+});
 
 globalStyle(`${codeFigure} code [data-line]`, {
   borderLeft: '4px solid transparent',
   padding: '0 0.55rem',
-})
+});
 
-const lineNumberColor = createVar()
+const lineNumberColor = createVar();
 
 globalStyle(`${codeFigure} code [data-line]::before`, {
   vars: {
@@ -53,10 +53,10 @@ globalStyle(`${codeFigure} code [data-line]::before`, {
   marginRight: '1.05rem',
   textAlign: 'right',
   color: lineNumberColor,
-})
+});
 
-const highlightColor = createVar()
-const highlightBorderColor = createVar()
+const highlightColor = createVar();
+const highlightBorderColor = createVar();
 
 globalStyle(`${codeFigure} code [data-highlighted-line]`, {
   vars: {
@@ -73,13 +73,13 @@ globalStyle(`${codeFigure} code [data-highlighted-line]`, {
   },
   backgroundColor: highlightColor,
   borderLeftColor: highlightBorderColor,
-})
+});
 
 globalStyle(`${codeFigure} code [data-highlighted-line] span`, {
   backgroundColor: 'unset',
-})
+});
 
-const codeCharBg = createVar()
+const codeCharBg = createVar();
 
 globalStyle(`${codeFigure} code [data-highlighted-chars]`, {
   vars: {
@@ -95,14 +95,14 @@ globalStyle(`${codeFigure} code [data-highlighted-chars]`, {
   backgroundColor: codeCharBg,
   padding: '0.25rem',
   borderRadius: '0.25rem',
-})
+});
 
 globalStyle(`${codeFigure} code [data-highlighted-chars] span`, {
   backgroundColor: 'unset',
-})
+});
 
-const codeTitleFg = createVar()
-const codeTitleBg = createVar()
+const codeTitleFg = createVar();
+const codeTitleBg = createVar();
 
 globalStyle(`${codeFigure} [data-rehype-pretty-code-title]`, {
   vars: {
@@ -129,16 +129,16 @@ globalStyle(`${codeFigure} [data-rehype-pretty-code-title]`, {
   color: codeTitleFg,
   backgroundColor: codeTitleBg,
   borderRadius: '0.15rem 0.15rem 0.15rem 0',
-})
+});
 
 globalStyle(`${codeFigure} [data-rehype-pretty-code-title] + pre`, {
   marginTop: '2.85rem',
   padding: '0.85rem 0',
-})
+});
 
 globalStyle(`${codeFigure} pre:not([data-rehype-pretty-code-title] + pre)`, {
   padding: '0.75rem 0',
-})
+});
 
 globalStyle(`pre[data-theme*=' ']`, {
   color: 'var(--shiki-light)',
@@ -149,7 +149,7 @@ globalStyle(`pre[data-theme*=' ']`, {
       backgroundColor: 'var(--shiki-dark-bg)',
     },
   },
-})
+});
 
 globalStyle(`pre[data-theme*=' '] span`, {
   color: 'var(--shiki-light)',
@@ -160,4 +160,4 @@ globalStyle(`pre[data-theme*=' '] span`, {
       backgroundColor: 'var(--shiki-dark-bg)',
     },
   },
-})
+});

@@ -1,1 +1,1 @@
-export { default as Pager } from './Pager.astro'
+export { default as Pager } from './Pager.astro';

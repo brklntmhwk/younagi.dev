@@ -1,18 +1,18 @@
 ---
-import '@/styles/pixelmplus.css'
-import { getEntry } from 'astro:content'
-import { Icon } from '@/components/Icon'
-import { LocalePicker } from '@/components/LocalePicker/LocalePicker'
-import { Modal } from '@/components/Modal/Modal'
-import { Search } from '@/components/Search/Search'
-import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils'
-import NavLink from './NavLink.astro'
-import NavMenuContainer from './NavMenuContainer.astro'
-import { transparentButton } from '@/styles/styles.css'
+import '@/styles/pixelmplus.css';
+import { getEntry } from 'astro:content';
+import { Icon } from '@/components/Icon';
+import { LocalePicker } from '@/components/LocalePicker/LocalePicker';
+import { Modal } from '@/components/Modal/Modal';
+import { Search } from '@/components/Search/Search';
+import { transparentButton } from '@/styles/styles.css';
+import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils';
+import NavLink from './NavLink.astro';
+import NavMenuContainer from './NavMenuContainer.astro';
 
-const locale = getLocaleFromUrl(Astro.url)
-const translatePath = useTranslatedPath(locale)
-const t = await getEntry('i18n', `${locale}/translation`)
+const locale = getLocaleFromUrl(Astro.url);
+const translatePath = useTranslatedPath(locale);
+const t = await getEntry('i18n', `${locale}/translation`);
 ---
 
 <nav class="glassmorphism" data-pagefind-ignore="all">

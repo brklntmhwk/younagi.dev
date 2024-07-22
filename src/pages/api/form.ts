@@ -1,14 +1,14 @@
-export const prerender = false
+export const prerender = false;
 
-import { getEntry } from 'astro:content'
+import { getEntry } from 'astro:content';
 import {
   BREVO_FORM_URL,
   CONTACT_NOTIFICATION_SUBJECT,
   FORM_TEXTAREA_MINLENGTH,
   TURNSTILE_SITE_VERIFICATION_URL,
-} from '@/lib/consts'
-import { defaultLang } from '@/utils/i18n/data'
-import type { APIContext, APIRoute } from 'astro'
+} from '@/lib/consts';
+import { defaultLang } from '@/utils/i18n/data';
+import type { APIContext, APIRoute } from 'astro';
 import {
   type InferOutput,
   boolean,
@@ -20,7 +20,7 @@ import {
   pipe,
   safeParse,
   string,
-} from 'valibot'
+} from 'valibot';
 
 type TurnstileErrorCode =
   | 'missing-input-secret'
@@ -31,29 +31,29 @@ type TurnstileErrorCode =
   | 'invalid-parsed-secret'
   | 'bad-request'
   | 'timeout-or-duplicate'
-  | 'internal-error'
+  | 'internal-error';
 
 type TurnstileResponse =
   | {
-      success: true
-      'error-codes': []
-      challenge_ts: string
-      hostname: string
-      action: string
-      cdata: string
+      success: true;
+      'error-codes': [];
+      challenge_ts: string;
+      hostname: string;
+      action: string;
+      cdata: string;
     }
   | {
-      success: false
-      'error-codes': TurnstileErrorCode[]
-    }
+      success: false;
+      'error-codes': TurnstileErrorCode[];
+    };
 
 export const POST: APIRoute = async ({
   request,
   redirect,
   locals,
 }: APIContext) => {
-  const t = await getEntry('i18n', `${defaultLang}/translation`)
-  const meta = await getEntry('meta', `${defaultLang}/site-data`)
+  const t = await getEntry('i18n', `${defaultLang}/translation`);
+  const meta = await getEntry('meta', `${defaultLang}/site-data`);
 
   const formSchema = object({
     name: pipe(string(), nonEmpty(t.data.contact_form.name.required)),
@@ -75,22 +75,22 @@ export const POST: APIRoute = async ({
       ),
     ),
     'cf-turnstile-response': string(),
-  })
+  });
 
-  const data = (await request.json()) as InferOutput<typeof formSchema>
+  const data = (await request.json()) as InferOutput<typeof formSchema>;
 
-  const vResult = safeParse(formSchema, data)
+  const vResult = safeParse(formSchema, data);
   if (!vResult.success) {
     return new Response(
       JSON.stringify({
         message: `Missing or invalid field input(s):\n ${vResult.issues.map((issue) => `message: ${issue.message}\n input: ${issue.input}`)}`,
       }),
       { status: 422 },
-    )
+    );
   }
 
-  const turnstileToken = data['cf-turnstile-response']
-  const secretKey = locals.runtime.env.TURNSTILE_SECRET_KEY
+  const turnstileToken = data['cf-turnstile-response'];
+  const secretKey = locals.runtime.env.TURNSTILE_SECRET_KEY;
 
   const turnstileResult = await fetch(TURNSTILE_SITE_VERIFICATION_URL, {
     method: 'POST',
@@ -101,18 +101,18 @@ export const POST: APIRoute = async ({
       secret: secretKey,
       response: turnstileToken,
     }),
-  })
-  const outcome = (await turnstileResult.json()) as TurnstileResponse
+  });
+  const outcome = (await turnstileResult.json()) as TurnstileResponse;
   if (!outcome.success) {
     return new Response(
       JSON.stringify({
         message: `Turnstile verification failed: ${outcome['error-codes']}`,
       }),
       { status: 500 },
-    )
+    );
   }
 
-  const myEmail = locals.runtime.env.MY_CUSTOM_EMAIL_ADDRESS
+  const myEmail = locals.runtime.env.MY_CUSTOM_EMAIL_ADDRESS;
 
   const mailContent = {
     sender: { email: myEmail, name: meta.data.site.title },
@@ -128,8 +128,8 @@ export const POST: APIRoute = async ({
       email: data.email,
       name: data.name,
     },
-  }
-  const brevoApiKey = locals.runtime.env.BREVO_API_KEY
+  };
+  const brevoApiKey = locals.runtime.env.BREVO_API_KEY;
 
   const response = await fetch(BREVO_FORM_URL, {
     method: 'POST',
@@ -139,15 +139,15 @@ export const POST: APIRoute = async ({
       'api-key': brevoApiKey,
     },
     body: JSON.stringify(mailContent),
-  })
+  });
   if (!response.ok) {
     return new Response(
       JSON.stringify({
         message: `Form submission failed: ${response.status} ${response.statusText}`,
       }),
       { status: 500 },
-    )
+    );
   }
 
-  return redirect('/thanks-page', 302)
-}
+  return redirect('/thanks-page', 302);
+};

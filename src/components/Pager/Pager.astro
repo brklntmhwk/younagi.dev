@@ -1,40 +1,40 @@
 ---
-import { type CollectionEntry, getEntry } from 'astro:content'
-import { DEFAULT_PAGINATION_WIDTH } from '@/lib/consts'
-import { getLocaleFromUrl } from '@/utils/i18n/utils'
-import type { Page } from 'astro'
-import { Icon } from '../Icon'
+import { type CollectionEntry, getEntry } from 'astro:content';
+import { DEFAULT_PAGINATION_WIDTH } from '@/lib/consts';
+import { getLocaleFromUrl } from '@/utils/i18n/utils';
+import type { Page } from 'astro';
+import { Icon } from '../Icon';
 
 type Props = {
-  page?: Page<CollectionEntry<'blog' | 'news'>>
-}
+  page?: Page<CollectionEntry<'blog' | 'news'>>;
+};
 
 const paginator = (
   curPageNum: number,
   totalPageNum: number,
   width: number = DEFAULT_PAGINATION_WIDTH,
 ) => {
-  const prevEnd = curPageNum - width
-  const nextEnd = curPageNum + width
-  const ranges = []
+  const prevEnd = curPageNum - width;
+  const nextEnd = curPageNum + width;
+  const ranges = [];
 
   for (let i = 1; i <= totalPageNum; i += 1) {
     if (curPageNum === 1) {
-      if (i <= nextEnd) ranges.push(i)
+      if (i <= nextEnd) ranges.push(i);
     } else if (curPageNum === totalPageNum) {
-      if (i >= prevEnd) ranges.push(i)
+      if (i >= prevEnd) ranges.push(i);
     } else {
-      if (i >= prevEnd && i <= nextEnd) ranges.push(i)
+      if (i >= prevEnd && i <= nextEnd) ranges.push(i);
     }
   }
 
-  return ranges
-}
+  return ranges;
+};
 
-const currentPath = Astro.url.pathname
-const locale = getLocaleFromUrl(Astro.url)
-const t = await getEntry('i18n', `${locale}/translation`)
-const { page } = Astro.props
+const currentPath = Astro.url.pathname;
+const locale = getLocaleFromUrl(Astro.url);
+const t = await getEntry('i18n', `${locale}/translation`);
+const { page } = Astro.props;
 ---
 
 {

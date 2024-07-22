@@ -1,9 +1,9 @@
-import type { Basic } from 'unsplash-js/dist/methods/photos/types'
+import type { Basic } from 'unsplash-js/dist/methods/photos/types';
 
-export type UnsplashPhoto = Basic
+export type UnsplashPhoto = Basic;
 export type UnsplashPhotoData =
   | {
-      results: Basic[]
-      total: number
+      results: Basic[];
+      total: number;
     }
-  | undefined
+  | undefined;

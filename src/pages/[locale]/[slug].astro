@@ -1,22 +1,22 @@
 ---
-import AboutLayout from '@/layouts/AboutLayout.astro'
-import PageLayout from '@/layouts/PageLayout.astro'
-import { getSortedContentEntries } from '@/lib/collections/contents'
-import { mdxComponents } from '@/lib/mdx-components'
-import { getLocaleFromSlug } from '@/utils/get-locale-from-slug'
-import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale'
-import { defaultLang } from '@/utils/i18n/data'
-import type { GetStaticPaths, InferGetStaticPropsType } from 'astro'
+import AboutLayout from '@/layouts/AboutLayout.astro';
+import PageLayout from '@/layouts/PageLayout.astro';
+import { getSortedContentEntries } from '@/lib/collections/contents';
+import { mdxComponents } from '@/lib/mdx-components';
+import { getLocaleFromSlug } from '@/utils/get-locale-from-slug';
+import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale';
+import { defaultLang } from '@/utils/i18n/data';
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
 
 export const getStaticPaths = (async () => {
-  const pages = await getSortedContentEntries('page')
+  const pages = await getSortedContentEntries('page');
   const LocalePages = pages.filter(
     (page) => getLocaleFromSlug(page.slug) !== defaultLang,
-  )
+  );
 
   return LocalePages.map((page) => {
-    const locale = getLocaleFromSlug(page.slug)
-    const slug = getSlugWithoutLocale(page.slug)
+    const locale = getLocaleFromSlug(page.slug);
+    const slug = getSlugWithoutLocale(page.slug);
 
     return {
       params: {
@@ -26,15 +26,15 @@ export const getStaticPaths = (async () => {
       props: {
         page,
       },
-    }
-  })
-}) satisfies GetStaticPaths
+    };
+  });
+}) satisfies GetStaticPaths;
 
-type Props = InferGetStaticPropsType<typeof getStaticPaths>
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
-const { page } = Astro.props
-const { Content, headings } = await page.render()
-const slugWithoutLocale = getSlugWithoutLocale(page.slug)
+const { page } = Astro.props;
+const { Content, headings } = await page.render();
+const slugWithoutLocale = getSlugWithoutLocale(page.slug);
 ---
 
 {

@@ -1,28 +1,28 @@
 ---
-import BlogLayout from '@/layouts/BlogLayout.astro'
-import { getSortedContentEntries } from '@/lib/collections/contents'
-import { mdxComponents } from '@/lib/mdx-components'
-import { getLocaleFromSlug } from '@/utils/get-locale-from-slug'
-import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale'
-import { defaultLang } from '@/utils/i18n/data'
-import type { GetStaticPaths } from 'astro'
+import BlogLayout from '@/layouts/BlogLayout.astro';
+import { getSortedContentEntries } from '@/lib/collections/contents';
+import { mdxComponents } from '@/lib/mdx-components';
+import { getLocaleFromSlug } from '@/utils/get-locale-from-slug';
+import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale';
+import { defaultLang } from '@/utils/i18n/data';
+import type { GetStaticPaths } from 'astro';
 
 export const getStaticPaths = (async () => {
-  const entries = await getSortedContentEntries('blog')
+  const entries = await getSortedContentEntries('blog');
   const LocaleEntries = entries.filter(
     (entry) => getLocaleFromSlug(entry.slug) !== defaultLang,
-  )
+  );
 
   return LocaleEntries.map((entry) => {
-    const locale = getLocaleFromSlug(entry.slug)
-    const slug = getSlugWithoutLocale(entry.slug)
+    const locale = getLocaleFromSlug(entry.slug);
+    const slug = getSlugWithoutLocale(entry.slug);
 
-    return { params: { locale, slug }, props: { entry } }
-  })
-}) satisfies GetStaticPaths
+    return { params: { locale, slug }, props: { entry } };
+  });
+}) satisfies GetStaticPaths;
 
-const { entry } = Astro.props
-const { Content, headings } = await entry.render()
+const { entry } = Astro.props;
+const { Content, headings } = await entry.render();
 ---
 
 <BlogLayout entry={{ ...entry }} {headings}>

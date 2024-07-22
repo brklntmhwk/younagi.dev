@@ -1,1 +1,1 @@
-export * from './likes'
+export * from './likes';

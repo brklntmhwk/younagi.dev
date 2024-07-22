@@ -1,18 +1,18 @@
-import { createVar, style } from '@vanilla-extract/css'
-import { checkboxArea } from './Checkbox/checkbox.css'
+import { createVar, style } from '@vanilla-extract/css';
+import { checkboxArea } from './Checkbox/checkbox.css';
 
 export const contactForm = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '0.875rem',
-})
+});
 
 export const fieldGroup = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '0.875rem',
   zIndex: '1',
-})
+});
 
 export const contactLabel = style({
   userSelect: 'none',
@@ -21,10 +21,10 @@ export const contactLabel = style({
       marginLeft: '0.675rem',
     },
   },
-})
+});
 
-const fgColor = createVar()
-const bgColor = createVar()
+const fgColor = createVar();
+const bgColor = createVar();
 
 export const contactFormError = style({
   vars: {
@@ -43,4 +43,4 @@ export const contactFormError = style({
   backgroundColor: bgColor,
   padding: '0.5rem',
   borderRadius: '0.25rem',
-})
+});

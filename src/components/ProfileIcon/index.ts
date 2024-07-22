@@ -1,1 +1,1 @@
-export { default as ProfileIcon } from './ProfileIcon.astro'
+export { default as ProfileIcon } from './ProfileIcon.astro';

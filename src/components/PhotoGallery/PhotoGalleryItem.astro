@@ -1,21 +1,21 @@
 ---
-import { Image } from 'astro:assets'
-import { getEntry } from 'astro:content'
-import { ProfileIcon } from '@/components/ProfileIcon'
-import type { UnsplashPhoto } from '@/lib/unsplash/types'
-import { getTimeDiff } from '@/utils/get-time-diff'
-import { getLocaleFromUrl } from '@/utils/i18n/utils'
-import { toSnakeCase } from '@/utils/to-snake-case'
+import { Image } from 'astro:assets';
+import { getEntry } from 'astro:content';
+import { ProfileIcon } from '@/components/ProfileIcon';
+import type { UnsplashPhoto } from '@/lib/unsplash/types';
+import { getTimeDiff } from '@/utils/get-time-diff';
+import { getLocaleFromUrl } from '@/utils/i18n/utils';
+import { toSnakeCase } from '@/utils/to-snake-case';
 
 type Props = {
-  photo: UnsplashPhoto
-  order: number
-}
+  photo: UnsplashPhoto;
+  order: number;
+};
 
-const locale = getLocaleFromUrl(Astro.url)
-const t = await getEntry('i18n', `${locale}/translation`)
-const meta = await getEntry('meta', 'en/site-data')
-const { photo, order } = Astro.props
+const locale = getLocaleFromUrl(Astro.url);
+const t = await getEntry('i18n', `${locale}/translation`);
+const meta = await getEntry('meta', 'en/site-data');
+const { photo, order } = Astro.props;
 const {
   alt_description,
   description,
@@ -25,9 +25,9 @@ const {
   user,
   height,
   width,
-} = photo
-const createdAt = new Date(created_at)
-const dateDiff = getTimeDiff(createdAt, locale)
+} = photo;
+const createdAt = new Date(created_at);
+const dateDiff = getTimeDiff(createdAt, locale);
 ---
 
 <div class="photo-gallery-item pixel-border fade-in-up">

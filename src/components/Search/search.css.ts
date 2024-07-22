@@ -1,6 +1,6 @@
-import { createVar, globalStyle, style } from '@vanilla-extract/css'
+import { createVar, globalStyle, style } from '@vanilla-extract/css';
 
-const fgColor = createVar()
+const fgColor = createVar();
 
 export const searchWrapper = style({
   vars: {
@@ -20,9 +20,9 @@ export const searchWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '1.5rem',
-})
+});
 
-const bgColor = createVar()
+const bgColor = createVar();
 
 export const searchInputWrapper = style({
   vars: {
@@ -41,7 +41,7 @@ export const searchInputWrapper = style({
   alignItems: 'center',
   gap: '0.5rem',
   padding: '0.75rem',
-})
+});
 
 export const searchInput = style({
   vars: {
@@ -60,7 +60,7 @@ export const searchInput = style({
   color: fgColor,
   backgroundColor: 'transparent',
   outline: 'none',
-})
+});
 
 export const searchResults = style({
   display: 'flex',
@@ -71,10 +71,10 @@ export const searchResults = style({
   gap: '0.25rem',
   overflowY: 'auto',
   padding: '0.75rem 0 0.95rem 0',
-})
+});
 
-const hoverBgColor = createVar()
-const lineColor = createVar()
+const hoverBgColor = createVar();
+const lineColor = createVar();
 
 export const searchResult = style({
   vars: {
@@ -102,17 +102,17 @@ export const searchResult = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '0.625rem',
-})
+});
 
 export const hitArticleTitle = style({
   fontSize: '1.35rem',
   fontWeight: 600,
-})
+});
 
 export const hitArticleExcerpt = style({
   fontSize: '0.95rem',
   lineHeight: '1.175',
-})
+});
 
 globalStyle(`${hitArticleExcerpt} > mark`, {
   vars: {
@@ -128,14 +128,14 @@ globalStyle(`${hitArticleExcerpt} > mark`, {
   fontWeight: 600,
   color: fgColor,
   backgroundColor: 'transparent',
-})
+});
 
 export const notFound = style({
   fontSize: '1.05rem',
   padding: '1.5rem 1.25rem 0.75rem 1.25rem',
   textAlign: 'center',
-})
+});
 
 export const notFoundKeyword = style({
   fontWeight: 700,
-})
+});

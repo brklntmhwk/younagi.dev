@@ -20,20 +20,20 @@ level: 4
 
 ## 導入
 
-個人ウェブサイト開発に4ヶ月程費やし、何とか最低限見せられるレベルまで完成しました。その開発体験についてポイントをかいつまんで書きます。
+個人ウェブサイト開発に 4 ヶ月程費やし、何とか最低限見せられるレベルまで完成しました。その開発体験についてポイントをかいつまんで書きます。
 
 当サイトのソースコードに興味のある方は、[当サイトの Github レポジトリ](https://github.com/brklntmhwk/younagi.dev)をご覧ください。百文は一見(コード)に如かず。
 
 ### 想定読者
 
-- Astroでウェブサイトを作りたいが、プロジェクト全体の構成をどうすればいいのか、どんな機能を実装すればいいのかわからない
-- Astroで作ったプロジェクトの全体像を参考にしたい
+- Astro でウェブサイトを作りたいが、プロジェクト全体の構成をどうすればいいのか、どんな機能を実装すればいいのかわからない
+- Astro で作ったプロジェクトの全体像を参考にしたい
 
 ## 本題
 
 ### Astro
 
-基本はAstroの機能範囲で実装し、例外部分は新進気鋭のJSフレームワーク「[SolidJS](https://www.solidjs.com/)」で実装しています。もちろん全てTypeScript(とTSX) です。
+基本は Astro の機能範囲で実装し、例外部分は新進気鋭の JS フレームワーク「[SolidJS](https://www.solidjs.com/)」で実装しています。もちろん全て TypeScript(と TSX) です。
 
 > [!info]- 技術構成
 > **言語:** TypeScript, TSX
@@ -48,18 +48,19 @@ level: 4
 > **パッケージマネージャ:** Bun
 > **パッケージ依存関係管理**: Renovate
 > **リンター & フォーマッター**: Biome
+> **テキスト校正**: Textlint
 > **Gitフックマネージャ**: Lefthook
 
 #### 全文検索
 
 ![デモ: 検索機能](../../../assets/images/fulltext-search-demo.gif)
 
-Rust製の静的検索ライブラリである[Pagefind](https://pagefind.app/)の力を借りることにしました。軽量、高速、そして導入が簡単。更にサーバーとのやり取りが不要でブラウザ完結なのも魅力的です。仕組みは至ってシンプルで、ビルド時に生成される指定ディレクトリ下の静的ファイルを読みに行き、検索用のインデックスファイルをあらかじめ生成しておくというものです。
+Rust 製の静的検索ライブラリである[Pagefind](https://pagefind.app/)の力を借りることにしました。軽量、高速、そして導入が簡単。更にサーバーとのやり取りが不要でブラウザ完結なのも魅力的です。仕組みは至ってシンプルで、ビルド時に生成される指定ディレクトリ下の静的ファイルを読みに行き、検索用のインデックスファイルをあらかじめ生成しておくというものです。
 
 開発に際して、次のポイントにこだわりました。
 
 - ショートカットキーでも呼び出せる
-  - PCからであれば `Ctrl + K` で呼び出し可能
+  - PC からであれば`Ctrl + K`で呼び出し可能
 - キーワードのハイライトをカスタマイズ
 - サイトのどこからでもアクセスできる
   - ナビゲーションバー内に設置
@@ -70,19 +71,19 @@ Rust製の静的検索ライブラリである[Pagefind](https://pagefind.app/)�
 
 [Astro の Content Collections API](https://docs.astro.build/en/guides/content-collections/)を活用して、言語ごとにディレクトリを切り出し、手動翻訳をする方針にしました。
 
-[公式のドキュメント](https://docs.astro.build/ja/recipes/i18n/)に記載されている手順通りに、言語ごとのディレクトリを作成しました。(私の場合は `en` と `ja` です。1つのファイルに対して、言語の数と同じだけ同名のファイルを作成する必要があります)
+[公式のドキュメント](https://docs.astro.build/ja/recipes/i18n/)に記載されている手順通りに、言語ごとのディレクトリを作成しました。(私の場合は`en`と`ja`です。1 つのファイルに対して、言語の数と同じだけ同名のファイルを作成する必要があります)
 
-Astroの [Content Collections](https://docs.astro.build/ja/guides/content-collections/) はMarkdown/MDX形式だけでなく、YAMLやJSON形式にも対応しています。私は記事以外の翻訳文字列群の保存にYAML形式を選びました。非常に簡潔で好きです。
+Astro の [Content Collections](https://docs.astro.build/ja/guides/content-collections/) は Markdown/MDX 形式だけでなく、YAML や JSON 形式にも対応しています。私は記事以外の翻訳文字列群の保存に YAML 形式を選びました。非常に簡潔で好きです。
 
 ![content ディレクトリツリー](../../../assets/images/content-dir.png)
 
 #### OG 画像 (Open Graph)
 
-個々のブログやニュース記事については、OG画像が[Astro の APIエンドポイント](https://docs.astro.build/en/guides/endpoints/)を介して動的に生成されます。
+個々のブログやニュース記事については、OG 画像が[Astro の APIエンドポイント](https://docs.astro.build/en/guides/endpoints/)を介して動的に生成されます。
 
-OG画像の全パスは[Astro の dynamic routes](https://docs.astro.build/en/guides/routing/#dynamic-routes)によって動的に生成され、その意味では動的なのですが、それらがビルド時に生成されるという意味では静的です。
+OG 画像の全パスは[Astro の dynamic routes](https://docs.astro.build/en/guides/routing/#dynamic-routes)によって動的に生成され、その意味では動的なのですが、それらがビルド時に生成されるという意味では静的です。
 
-画像生成に際して、[satori ライブラリ](https://github.com/vercel/satori)にHTMLとCSSを渡せばそこからSVG形式で画像を生成してくれます。そして[Sharp ライブラリ](https://sharp.pixelplumbing.com/)にその結果を渡して画像最適化処理など適宜加えつつPNG形式の画像を出力します。
+画像生成に際して、[satori ライブラリ](https://github.com/vercel/satori)に HTML と CSS を渡せばそこから SVG 形式で画像を生成してくれます。そして[Sharp ライブラリ](https://sharp.pixelplumbing.com/)にその結果を渡して画像最適化処理など適宜加えつつ PNG 形式の画像を出力します。
 
 ```txt title="パスの例"
 https://younagi.dev/api/og/blog/astro-website.png
@@ -92,7 +93,7 @@ https://younagi.dev/api/og/blog/astro-website.png
 
 #### Remark/Rehype プラグイン
 
-このウェブサイトでは、全ての記事はマークダウン、もしくはMDX形式で書かれています。しかし、カスタマイズなしの標準記法では最小限の表現しかできず味気ないです。
+このウェブサイトでは、全ての記事はマークダウン、もしくは MDX 形式で書かれています。しかし、カスタマイズなしの標準記法では最小限の表現しかできず味気ないです。
 
 そこで、既製品の[Remark](https://unifiedjs.com/explore/project/remarkjs/remark/)/[Rehype](https://unifiedjs.com/explore/project/rehypejs/rehype/)プラグインを利用、無いものは自作することにしました。書き味はブロガーにとって命です。
 
@@ -242,10 +243,10 @@ const { title } = Astro.props
 
 ##### OEmbed(埋め込み)
 
-エディタに直接ペーストされたURLは、埋め込み対応をしているものであればメディアフレームに変身します。
+エディタに直接ペーストされた URL は、埋め込み対応をしているものであればメディアフレームに変身します。
 
-自前でCanva、YouTube、そしてGoogle Slidesの変換処理を追加し、それ以外のメディアは[OEmbed](https://oembed.com/)の規格に応じて適宜メディアフレームに変身するようにRemarkプラグインを自作しました。
-ちなみに裏では[unfurlというライブラリ](https://github.com/jacktuck/unfurl)が頑張ってくれていて、上記の規格に必要なメディアのメタデータをURL経由で取得しています。
+自前で Canva、YouTube、そして Google Slides の変換処理を追加し、それ以外のメディアは[OEmbed](https://oembed.com/)の規格に応じて適宜メディアフレームに変身するように Remark プラグインを自作しました。
+ちなみに裏では[unfurlというライブラリ](https://github.com/jacktuck/unfurl)が頑張ってくれていて、上記の規格に必要なメディアのメタデータを URL 経由で取得しています。
 
 ###### Canva
 
@@ -286,9 +287,9 @@ https://docs.google.com/presentation/d/1CbeSiVYta0VTuENQ-25OLcIV5vK8pkcBJ-8DfKql
 
 ##### リンクカード
 
-OEmbed非対応の裸リンクは、フォールバックとして全てリンクカード形式に変身します。先述のOEmbedに加えて、この部分もRemarkプラグインを自作しました。
+OEmbed 非対応の裸リンクは、フォールバックとして全てリンクカード形式に変身します。先述の OEmbed に加えて、この部分も Remark プラグインを自作しました。
 
-ここでも[unfurl](https://github.com/jacktuck/unfurl)が裏で暗躍していて、リンクカードに表示するサイト名やディスクリプション、OG画像などを取得してくれています。
+ここでも[unfurl](https://github.com/jacktuck/unfurl)が裏で暗躍していて、リンクカードに表示するサイト名やディスクリプション、OG 画像などを取得してくれています。
 
 ```txt
 https://younagi.dev
@@ -300,14 +301,14 @@ https://younagi.dev
 
 ![デモ: お問い合わせフォーム](../../../assets/images/contact-form-demo.gif)
 
-最も頭を悩ませたのがお問い合わせフォームです。幾度かの大きな仕様変更を経て、最終的にSolidJS + TSXで実装する形に着地しました。
+最も頭を悩ませたのがお問い合わせフォームです。幾度かの大きな仕様変更を経て、最終的に SolidJS + TSX で実装する形に着地しました。
 
-とはいえ、お問い合わせフォームを丸ごとクライアントサイドで読み込ませると[^1]、ページロード時に甚大なレイアウトシフトが発生します。これではSEOに悪いということで、同じくクライアントサイドでレンダリングされるモーダルの中に押し込むという荒業に着地しました[^2]。
+とはいえ、お問い合わせフォームを丸ごとクライアントサイドで読み込ませると[^1]、ページロード時に甚大なレイアウトシフトが発生します。これでは SEO に悪いということで、同じくクライアントサイドでレンダリングされるモーダルの中に押し込むという荒業に着地しました[^2]。
 
-[^1]: 他のJSフレームワーク(私のケースではSolidJS)をAstroのページやコンポーネント内で使用し、かつそれがJavaScriptによる処理を含む場合、それがどのフレームワークのコンポーネントなのか、Astroのコンパイラに明示的に教えてあげる必要があります。(クライアントディレクティブなるものをコンポーネント呼び出し箇所に追記すればOK)これらフレームワークは、Astroの仕様によって、JSを含む時点でクライアントサイドでのレンダリング扱いとなり、故にコンパイラはビルド時やサーバーサイドで全く関知できないからです。お問い合わせフォームはユーザインタラクティブであり、簡素なものでなければ大抵はJavaScriptが必要になるため、クライアントサイドのコンポーネントになります。
-[^2]: 前提として、Astroのページを含め、`.astro`のファイルはサーバーサイドでレンダリングされます。その上にクライアントで読み込まれるコンポーネントを置くと、ページ表示後にドサッと降ってくるような見た目の挙動になります。これが小さいコンポーネントならレイアウトシフトは深刻にはなりませんが、お問い合わせフォームのような巨大な部品だと被害は甚大になります。
+[^1]: 他の JS フレームワーク(私のケースでは SolidJS)を Astro のページやコンポーネント内で使用し、かつそれが JavaScript による処理を含む場合、それがどのフレームワークのコンポーネントなのか、Astro のコンパイラに明示的に教えてあげる必要があります。(クライアントディレクティブなるものをコンポーネント呼び出し箇所に追記すれば OK)これらフレームワークは、Astro の仕様によって、JS を含む時点でクライアントサイドでのレンダリング扱いとなり、故にコンパイラはビルド時やサーバーサイドで全く関知できないからです。お問い合わせフォームはユーザインタラクティブであり、簡素なものでなければ大抵は JavaScript が必要になるため、クライアントサイドのコンポーネントになります。
+[^2]: 前提として、Astro のページを含め、`.astro`のファイルはサーバーサイドでレンダリングされます。その上にクライアントで読み込まれるコンポーネントを置くと、ページ表示後にドサッと降ってくるような見た目の挙動になります。これが小さいコンポーネントならレイアウトシフトは深刻にはなりませんが、お問い合わせフォームのような巨大な部品だと被害は甚大になります。
 
-簡単のため、フォーム制御に[Modular Forms](https://modularforms.dev/)、UIに[Kobalte](https://kobalte.dev/docs/core/overview/introduction)、バリデーションチェックに[Valibot](https://valibot.dev/)など有力なライブラリを使用しました。
+簡単のため、フォーム制御に[Modular Forms](https://modularforms.dev/)、UI に[Kobalte](https://kobalte.dev/docs/core/overview/introduction)、バリデーションチェックに[Valibot](https://valibot.dev/)など有力なライブラリを使用しました。
 ポイントは下記の通りです。
 
 - クライアントサイドのバリデーション
@@ -316,27 +317,27 @@ https://younagi.dev
   - Valibot x Cloudflare Turnstile
 - 送信ボタンのラベルが送信中に変わる
   - ユーザがわかり易いように
-  - Modular Formsのフォーム制御機能のおかげで簡単に実装できました
+  - Modular Forms のフォーム制御機能のおかげで簡単に実装できました
 - 送信完了後、サンクスページにリダイレクトされる
 
-ボット対策にはどうしてもGoogle reCAPTCHAではなく[Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/)を導入したく、この点はかなりこだわりました。(あの車のパズルに費やした合計時間を考えると...しんどい) 無料ですし、他のCloudflareサービスとの連携も考えると、私にとっては一択でした。
+ボット対策にはどうしても Google reCAPTCHA ではなく[Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/)を導入したく、この点はかなりこだわりました。(あの車のパズルに費やした合計時間を考えると...しんどい) 無料ですし、他の Cloudflare サービスとの連携も考えると、私にとっては一択でした。
 
 ### Cloudflare
 
 #### Cloudflare Pages
 
-[Next.js](https://nextjs.org/) に執心だった頃、 私のお気に入りのホスティングサービスは [Vercel](https://vercel.com/) でしたが、Astroへの移行に際して、見直す必要があると感じました。そしてたどり着きました。[Cloudflare Pages](https://developers.cloudflare.com/pages/)という結論に。
+[Next.js](https://nextjs.org/) に執心だった頃、 私のお気に入りのホスティングサービスは [Vercel](https://vercel.com/) でしたが、Astro への移行に際して、見直す必要があると感じました。そしてたどり着きました。[Cloudflare Pages](https://developers.cloudflare.com/pages/)という結論に。
 
 ##### どうして Cloudflare Pages?
 
-Cloudflare Pagesをホスティング先に選んだのには次のような理由がありました。
+Cloudflare Pages をホスティング先に選んだのには次のような理由がありました。
 
 - 寛大なフリープラン
-  - 月あたりの帯域幅上限が無制限という素晴らしさ (2024年5月9日現在)
+  - 月あたりの帯域幅上限が無制限という素晴らしさ (2024 年 5 月 9 日現在)
 - 非常に高速なデプロイ
-- ドメイン用のカスタムEメールアドレスが取得できる
+- ドメイン用のカスタム E メールアドレスが取得できる
   - お問い合わせフォーム用に使用している
-  - フォームから送信されたお問い合わせはこのカスタムEメールアドレス経由で私用のメールアドレスに届くため、プライベートアドレスを公に晒さず済む(もちろん、返信時にもメールの送信元をカスタムEメールアドレスに設定できます)
+  - フォームから送信されたお問い合わせはこのカスタム E メールアドレス経由で私用のメールアドレスに届くため、プライベートアドレスを公に晒さず済む(もちろん、返信時にもメールの送信元をカスタム E メールアドレスに設定できます)
 - 独自ドメイン取得可能 (有料)
   - `https://younagi.dev`
 
@@ -344,21 +345,21 @@ Cloudflare Pagesをホスティング先に選んだのには次のような理�
 
 #### Cloudflare D1
 
-バックエンドについては、[Cloudflare D1](https://developers.cloudflare.com/d1/)をデータベースとして使用しています。Pagesと同様に寛大なフリープランが魅力的だったのですが、ここでは深くは触れません。
+バックエンドについては、[Cloudflare D1](https://developers.cloudflare.com/d1/)をデータベースとして使用しています。Pages と同様に寛大なフリープランが魅力的だったのですが、ここでは深くは触れません。
 
 ##### いいねボタン
 
 ![デモ: いいねボタン](../../../assets/images/likes-button-demo.gif)
 
-D1データベースと[Drizzle ORM(Object-relational Mapping)](https://orm.drizzle.team/)を連携させ、よくあるいいねボタンを実装しました。ブログ記事の各ページに設置しています。
+D1 データベースと[Drizzle ORM(Object-relational Mapping)](https://orm.drizzle.team/)を連携させ、よくあるいいねボタンを実装しました。ブログ記事の各ページに設置しています。
 
 仕組みを簡潔に述べます。
 
 - その記事のいいねの合計数が表示される
-  - ページのロードに際して、いいね用のAPIエンドポイントにGETリクエストが送られ、その時点でのいいねの合計数を取得、ユーザがいいねをしているか否かはデータベースに登録されているクッキーのセッションIDカラムを照合して判断する
-  - データベースには、セッションIDとともに該当ページの判別に必要な情報も登録される
-- ボタン押下時、ユーザがまだ「いいね」をしていなければカウントが1つ増え、そうでない場合は1つ減る
-  - APIエンドポイントにPOSTリクエストが送られ、リクエストデータがデータベースに登録される
+  - ページのロードに際して、いいね用の API エンドポイントに GET リクエストが送られ、その時点でのいいねの合計数を取得、ユーザがいいねをしているか否かはデータベースに登録されているクッキーのセッション ID カラムを照合して判断する
+  - データベースには、セッション ID とともに該当ページの判別に必要な情報も登録される
+- ボタン押下時、ユーザがまだ「いいね」をしていなければカウントが 1 つ増え、そうでない場合は 1 つ減る
+  - API エンドポイントに POST リクエストが送られ、リクエストデータがデータベースに登録される
 
 ### Front Matter CMS
 
@@ -367,21 +368,21 @@ D1データベースと[Drizzle ORM(Object-relational Mapping)](https://orm.driz
 フレームワーク選定と並んで、CMS(Content Management System)選定にもかなりの時間を要します。私は [Front Matter CMS](https://frontmatter.codes/) に惹かれました。理由は次の通りです。
 
 - ローカルで記事の執筆や保存ができる
-- マークダウン/MDX形式
+- マークダウン/MDX 形式
 
-VS Codeの拡張機能であり、ローカルで動くという点で、他のヘッドレスCMSとは一線を画しています。つまり、コードの修正や記事の執筆、サイトのデプロイなどの作業がVS Codeエディタで一元化できます。 これは特に開発者にとって大きなメリットとなるのではないでしょうか。
+VS Code の拡張機能であり、ローカルで動くという点で、他のヘッドレス CMS とは一線を画しています。つまり、コードの修正や記事の執筆、サイトのデプロイなどの作業が VS Code エディタで一元化できます。 これは特に開発者にとって大きなメリットとなるのではないでしょうか。
 
-初期セットアップについては[Front Matter 公式ドキュメント](https://frontmatter.codes/docs/getting-started)をご覧あれ。手順通りに進めると、Astroの `content` フォルダを自動で検知し、その中身に応じて `frontmatter.json` に各コンテンツの項目の定義などを書き出してくれます。基本、Front Matter CMSの設定はプロジェクトルート直下に置かれたこのファイルで管理します。
+初期セットアップについては[Front Matter 公式ドキュメント](https://frontmatter.codes/docs/getting-started)をご覧あれ。手順通りに進めると、Astro の`content`フォルダを自動で検知し、その中身に応じて`frontmatter.json`に各コンテンツの項目の定義などを書き出してくれます。基本、Front Matter CMS の設定はプロジェクトルート直下に置かれたこのファイルで管理します。
 
 #### Front Matter CMS のカスタマイズ
 
 `frontmatter.json`のカスタマイズについて、幾つか嬉しいポイントがあります。
 
 - [ディレクトリによる多言語化](#多言語対応-i18n)との互換性
-  - コンテンツのディレクトリ内にある言語用のディレクトリを指定して、Front Matter CMSの設定と紐づけができます(私の場合、今のところ `en` と `ja`)
-  - こうして、VSCodeのコマンドから記事を作成する際に、書きたい言語を選べるようになりました。記事は自動で指定のディレクトリに作成される
-- AstroのContent Collectionsとの互換性(コンテンツ、データタイプ両方)
-  - Front Matter CMSにもコンテンツ、データの概念があり、それぞれをAstroのコンテンツ、データと関連させられる
+  - コンテンツのディレクトリ内にある言語用のディレクトリを指定して、Front Matter CMS の設定と紐づけができます(私の場合、今のところ`en`と`ja`)
+  - こうして、VSCode のコマンドから記事を作成する際に、書きたい言語を選べるようになりました。記事は自動で指定のディレクトリに作成される
+- Astro の Content Collections との互換性(コンテンツ、データタイプ両方)
+  - Front Matter CMS にもコンテンツ、データの概念があり、それぞれを Astro のコンテンツ、データと関連させられる
   - ブログやニュースなどの「コンテンツ」はコンテンツとして、翻訳文字列やサイトメタデータ、ブログのカテゴリ・タグなどの「データ」はデータとして扱う
 
 https://younagi.dev/ja/blog/astro-and-front-matter-cms-combi/
@@ -410,13 +411,13 @@ https://pagefind.app/
 
 https://trap.jp/post/2088/
 
-DBのセットアップ:
+DB のセットアップ:
 
 https://honghong.me/
 
 https://snorre.io/blog/2024-05-06-likes-cloudflare-d1-astro-api-endpoints/
 
-Front Matter CMSのセットアップ:
+Front Matter CMS のセットアップ:
 
 https://frontmatter.codes/docs
 

@@ -1,5 +1,5 @@
-import type { I18nData } from '@/lib/collections/types'
-import { isDev } from '@/lib/mode'
+import type { I18nData } from '@/lib/collections/types';
+import { isDev } from '@/lib/mode';
 import {
   type Component,
   type Setter,
@@ -8,8 +8,8 @@ import {
   createResource,
   createSignal,
   onMount,
-} from 'solid-js'
-import { SearchIcon } from './SearchIcon'
+} from 'solid-js';
+import { SearchIcon } from './SearchIcon';
 import {
   hitArticleExcerpt,
   hitArticleTitle,
@@ -20,80 +20,80 @@ import {
   searchResult,
   searchResults,
   searchWrapper,
-} from './search.css'
-import type { PagefindSearchResult, PagefindSearchResults } from './types'
+} from './search.css';
+import type { PagefindSearchResult, PagefindSearchResults } from './types';
 
 type Pagefind = {
-  init: () => void
-  search: (query: string) => Promise<PagefindSearchResults>
-}
+  init: () => void;
+  search: (query: string) => Promise<PagefindSearchResults>;
+};
 
 const initPagefind = async () => {
   const pagefindPath = isDev
     ? '../../../dist/pagefind/pagefind.js'
-    : '/pagefind/pagefind.js'
-  const pagefind = (await import(/* @vite-ignore */ pagefindPath)) as Pagefind
-  pagefind.init()
+    : '/pagefind/pagefind.js';
+  const pagefind = (await import(/* @vite-ignore */ pagefindPath)) as Pagefind;
+  pagefind.init();
 
-  return pagefind
-}
+  return pagefind;
+};
 
 type Props = {
-  t: I18nData<'search'>
-}
+  t: I18nData<'search'>;
+};
 
 export const Search: Component<Props> = (props) => {
-  let pagefind: Pagefind
+  let pagefind: Pagefind;
 
   onMount(async () => {
-    pagefind = await initPagefind()
-  })
+    pagefind = await initPagefind();
+  });
 
-  const [query, setQuery] = createSignal('')
-  const isQuerying = createMemo(() => query().length > 0)
+  const [query, setQuery] = createSignal('');
+  const isQuerying = createMemo(() => query().length > 0);
   const [searchResultRefs, setSearchResultRefs] = createSignal<
     HTMLAnchorElement[]
-  >([])
+  >([]);
   const [searchResults] = createResource(query, async (query: string) => {
-    if (query.length === 0) return undefined
+    if (query.length === 0) return undefined;
 
-    const searchResults = await pagefind?.search(query)
-    setSearchResultRefs(Array(searchResults?.results.length ?? 0).fill(null))
-    setActiveIndex(0)
+    const searchResults = await pagefind?.search(query);
+    setSearchResultRefs(Array(searchResults?.results.length ?? 0).fill(null));
+    setActiveIndex(0);
 
-    return searchResults
-  })
-  const [activeIndex, setActiveIndex] = createSignal(0)
+    return searchResults;
+  });
+  const [activeIndex, setActiveIndex] = createSignal(0);
   const incrementActiveIndex = () =>
-    setActiveIndex(Math.min(activeIndex() + 1, searchResultRefs().length - 1))
+    setActiveIndex(Math.min(activeIndex() + 1, searchResultRefs().length - 1));
   const decrementActiveIndex = () =>
-    setActiveIndex(Math.max(activeIndex() - 1, 0))
+    setActiveIndex(Math.max(activeIndex() - 1, 0));
 
   const handleKeyDown = (e: KeyboardEvent) => {
     switch (e.key) {
       case 'ArrowDown':
-        e.preventDefault()
-        incrementActiveIndex()
+        e.preventDefault();
+        incrementActiveIndex();
         searchResultRefs()
           .at(activeIndex())
-          ?.scrollIntoView({ block: 'nearest' })
-        break
+          ?.scrollIntoView({ block: 'nearest' });
+        break;
       case 'ArrowUp':
-        e.preventDefault()
-        decrementActiveIndex()
+        e.preventDefault();
+        decrementActiveIndex();
         searchResultRefs()
           .at(activeIndex())
-          ?.scrollIntoView({ block: 'nearest' })
-        break
+          ?.scrollIntoView({ block: 'nearest' });
+        break;
     }
-  }
+  };
 
   const handleSubmit = (e: SubmitEvent) => {
-    e.preventDefault()
-    if (searchResultRefs().length <= 0) return
+    e.preventDefault();
+    if (searchResultRefs().length <= 0) return;
 
-    searchResultRefs().at(activeIndex())?.click()
-  }
+    searchResultRefs().at(activeIndex())?.click();
+  };
 
   return (
     <div class={searchWrapper}>
@@ -126,26 +126,27 @@ export const Search: Component<Props> = (props) => {
         )}
       </Suspense>
     </div>
-  )
-}
+  );
+};
 
 type SearchResultsProps = {
-  query: string
-  results: PagefindSearchResults['results'] | undefined
-  resultRefs: HTMLAnchorElement[]
-  setResultRefs: Setter<HTMLAnchorElement[]>
-  activeIndex: number
-  setActiveIndex: Setter<number>
-  notFoundLabel: string
-}
+  query: string;
+  results: PagefindSearchResults['results'] | undefined;
+  resultRefs: HTMLAnchorElement[];
+  setResultRefs: Setter<HTMLAnchorElement[]>;
+  activeIndex: number;
+  setActiveIndex: Setter<number>;
+  notFoundLabel: string;
+};
 
 const SearchResults: Component<SearchResultsProps> = (props) => {
   const setResultRef = (i: number) => (el: HTMLAnchorElement) => {
     props.setResultRefs((refs) => {
-      refs[i] = el
-      return refs
-    })
-  }
+      refs[i] = el;
+
+      return refs;
+    });
+  };
 
   return (
     <>
@@ -170,19 +171,20 @@ const SearchResults: Component<SearchResultsProps> = (props) => {
         </ol>
       )}
     </>
-  )
-}
+  );
+};
 
 type SearchResultProps = {
-  index: number
-  result: PagefindSearchResult
-  ref: (el: HTMLAnchorElement) => void
-  active: boolean
-  setActiveIndex: Setter<number>
-}
+  index: number;
+  result: PagefindSearchResult;
+  ref: (el: HTMLAnchorElement) => void;
+  active: boolean;
+  setActiveIndex: Setter<number>;
+};
 
 const SearchResult: Component<SearchResultProps> = (props) => {
-  const [result] = createResource(() => props.result.data())
+  const [result] = createResource(() => props.result.data());
+
   return (
     <li>
       <a
@@ -196,5 +198,5 @@ const SearchResult: Component<SearchResultProps> = (props) => {
         <span class={hitArticleExcerpt} innerHTML={result()?.excerpt ?? ''} />
       </a>
     </li>
-  )
-}
+  );
+};

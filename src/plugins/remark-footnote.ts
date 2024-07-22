@@ -1,28 +1,28 @@
-import type { RemarkPlugin } from '@astrojs/markdown-remark'
-import type { InlineCode, Root, Text } from 'mdast'
-import type { Plugin } from 'unified'
-import { visit } from 'unist-util-visit'
+import type { RemarkPlugin } from '@astrojs/markdown-remark';
+import type { InlineCode, Root, Text } from 'mdast';
+import type { Plugin } from 'unified';
+import { visit } from 'unist-util-visit';
 import {
   isFootnoteDefinition,
   isFootnoteReference,
   isTextOrInlineCode,
-} from './mdast-is'
+} from './mdast-is';
 
 const remarkFootnote: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
   return (tree) => {
-    const footnotes = new Map<string, string>()
+    const footnotes = new Map<string, string>();
 
     visit(tree, isFootnoteDefinition, (node) => {
-      let content = ''
+      let content = '';
 
       visit(node, isTextOrInlineCode, (text: Text | InlineCode) => {
-        content += text.value
-      })
+        content += text.value;
+      });
 
-      footnotes.set(node.identifier, content)
-    })
+      footnotes.set(node.identifier, content);
+    });
     visit(tree, isFootnoteReference, (node) => {
-      if (!footnotes.get(node.identifier)) return
+      if (!footnotes.get(node.identifier)) return;
 
       node.data = {
         ...node.data,
@@ -30,9 +30,9 @@ const remarkFootnote: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
           ...(node.data?.hProperties ?? {}),
           title: footnotes.get(node.identifier)!,
         },
-      }
-    })
-  }
-}
+      };
+    });
+  };
+};
 
-export default remarkFootnote
+export default remarkFootnote;

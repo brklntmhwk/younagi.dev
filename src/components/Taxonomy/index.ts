@@ -1,2 +1,2 @@
-export { default as Taxonomy } from './Taxonomy.astro'
-export * from './taxonomy'
+export { default as Taxonomy } from './Taxonomy.astro';
+export * from './taxonomy';

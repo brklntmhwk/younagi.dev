@@ -1,33 +1,33 @@
 ---
-import { getEntry } from 'astro:content'
-import { BlogList } from '@/components/BlogList'
-import { Pager } from '@/components/Pager'
-import BaseLayout from '@/layouts/BaseLayout.astro'
+import { getEntry } from 'astro:content';
+import { BlogList } from '@/components/BlogList';
+import { Pager } from '@/components/Pager';
+import BaseLayout from '@/layouts/BaseLayout.astro';
 import {
   getLocaleContentEntries,
   getSortedContentEntries,
-} from '@/lib/collections/contents'
-import { LIMIT_PER_PAGE } from '@/lib/consts'
-import { langList } from '@/utils/i18n/data'
-import type { GetStaticPaths } from 'astro'
+} from '@/lib/collections/contents';
+import { LIMIT_PER_PAGE } from '@/lib/consts';
+import { langList } from '@/utils/i18n/data';
+import type { GetStaticPaths } from 'astro';
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const entries = await getSortedContentEntries('blog')
+  const entries = await getSortedContentEntries('blog');
 
   return langList.flatMap((lang) => {
-    const displayEntries = getLocaleContentEntries<'blog'>(entries, lang)
+    const displayEntries = getLocaleContentEntries<'blog'>(entries, lang);
 
     return paginate(displayEntries, {
       pageSize: LIMIT_PER_PAGE,
       params: { locale: lang },
-    })
-  })
-}) satisfies GetStaticPaths
+    });
+  });
+}) satisfies GetStaticPaths;
 
-const { locale } = Astro.params
-const { page } = Astro.props
-const meta = await getEntry('meta', `${locale}/site-data`)
-const t = await getEntry('i18n', `${locale}/translation`)
+const { locale } = Astro.params;
+const { page } = Astro.props;
+const meta = await getEntry('meta', `${locale}/site-data`);
+const t = await getEntry('i18n', `${locale}/translation`);
 ---
 
 <BaseLayout

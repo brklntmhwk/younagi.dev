@@ -1,8 +1,8 @@
 ---
-import { getEntry } from 'astro:content'
-import { Icon } from '@/components/Icon'
-import { getLocaleFromUrl } from '@/utils/i18n/utils'
-import { StarIcon } from './StarIcon'
+import { getEntry } from 'astro:content';
+import { Icon } from '@/components/Icon';
+import { getLocaleFromUrl } from '@/utils/i18n/utils';
+import { StarIcon } from './StarIcon';
 import {
   endLabel,
   labelWrapper,
@@ -10,26 +10,26 @@ import {
   ratingWrapper,
   spanBase,
   stars,
-} from './star-rating.css'
+} from './star-rating.css';
 
 type Props = {
-  method: 'spectrum' | 'rating'
-  leftEnd?: string
-  rightEnd?: string
-  value: number
-  total?: number
-}
+  method: 'spectrum' | 'rating';
+  leftEnd?: string;
+  rightEnd?: string;
+  value: number;
+  total?: number;
+};
 
-const locale = getLocaleFromUrl(Astro.url)
-const { method, leftEnd, rightEnd, value, total = 5 } = Astro.props
-const t = await getEntry('i18n', `${locale}/translation`)
-const isLessThanOrEqualTo = (a: number, b: number) => a <= b
+const locale = getLocaleFromUrl(Astro.url);
+const { method, leftEnd, rightEnd, value, total = 5 } = Astro.props;
+const t = await getEntry('i18n', `${locale}/translation`);
+const isLessThanOrEqualTo = (a: number, b: number) => a <= b;
 
 if (!isLessThanOrEqualTo(value, total)) {
-  throw new Error('The value must be less than or equal to the total')
+  throw new Error('The value must be less than or equal to the total');
 }
 
-const counts = Array.from({ length: total }, (_, i) => i + 1)
+const counts = Array.from({ length: total }, (_, i) => i + 1);
 ---
 
 <div class={ratingWrapper}>

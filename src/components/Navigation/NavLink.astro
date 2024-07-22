@@ -1,20 +1,20 @@
 ---
-import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils'
-import type { HTMLAttributes } from 'astro/types'
+import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils';
+import type { HTMLAttributes } from 'astro/types';
 
 type Props = Omit<HTMLAttributes<'a'>, 'href'> & {
-  href: URL | string
-}
+  href: URL | string;
+};
 
-const { href, class: className, ...props } = Astro.props
+const { href, class: className, ...props } = Astro.props;
 
-const { pathname } = Astro.url
-const locale = getLocaleFromUrl(Astro.url)
-const translatePath = useTranslatedPath(locale)
+const { pathname } = Astro.url;
+const locale = getLocaleFromUrl(Astro.url);
+const translatePath = useTranslatedPath(locale);
 const isActive =
   href === translatePath('/')
     ? pathname === translatePath('/')
-    : pathname.startsWith(href.toString())
+    : pathname.startsWith(href.toString());
 ---
 
 <a href={href} class:list={[className, { active: isActive }]} {...props}>

@@ -1,19 +1,19 @@
 ---
-import { getEntry } from 'astro:content'
-import { Taxonomy } from '@/components/Taxonomy'
-import BaseLayout from '@/layouts/BaseLayout.astro'
-import { getTags } from '@/lib/collections/data'
-import { langList } from '@/utils/i18n/data'
-import type { GetStaticPaths } from 'astro'
+import { getEntry } from 'astro:content';
+import { Taxonomy } from '@/components/Taxonomy';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getTags } from '@/lib/collections/data';
+import { langList } from '@/utils/i18n/data';
+import type { GetStaticPaths } from 'astro';
 
 export const getStaticPaths = (() => {
-  return langList.map((lang) => ({ params: { locale: lang } }))
-}) satisfies GetStaticPaths
+  return langList.map((lang) => ({ params: { locale: lang } }));
+}) satisfies GetStaticPaths;
 
-const { locale } = Astro.params
-const meta = await getEntry('meta', `${locale}/site-data`)
-const t = await getEntry('i18n', `${locale}/translation`)
-const tags = await getTags(locale)
+const { locale } = Astro.params;
+const meta = await getEntry('meta', `${locale}/site-data`);
+const t = await getEntry('i18n', `${locale}/translation`);
+const tags = await getTags(locale);
 ---
 
 <BaseLayout

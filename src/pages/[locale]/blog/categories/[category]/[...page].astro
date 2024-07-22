@@ -1,21 +1,21 @@
 ---
-import { getEntry } from 'astro:content'
-import { BlogList } from '@/components/BlogList'
-import { Pager } from '@/components/Pager'
-import BaseLayout from '@/layouts/BaseLayout.astro'
+import { getEntry } from 'astro:content';
+import { BlogList } from '@/components/BlogList';
+import { Pager } from '@/components/Pager';
+import BaseLayout from '@/layouts/BaseLayout.astro';
 import {
   getLocaleContentEntries,
   getSortedContentEntries,
-} from '@/lib/collections/contents'
-import { getDataEntries } from '@/lib/collections/data'
-import { LIMIT_PER_PAGE } from '@/lib/consts'
-import { langList } from '@/utils/i18n/data'
-import { slugify } from '@/utils/slugify'
-import type { GetStaticPaths } from 'astro'
+} from '@/lib/collections/contents';
+import { getDataEntries } from '@/lib/collections/data';
+import { LIMIT_PER_PAGE } from '@/lib/consts';
+import { langList } from '@/utils/i18n/data';
+import { slugify } from '@/utils/slugify';
+import type { GetStaticPaths } from 'astro';
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const entries = await getSortedContentEntries('blog')
-  const categories = await getDataEntries('categories')
+  const entries = await getSortedContentEntries('blog');
+  const categories = await getDataEntries('categories');
 
   return langList.flatMap((lang) => {
     return categories.flatMap((category) => {
@@ -23,22 +23,22 @@ export const getStaticPaths = (async ({ paginate }) => {
         const displayEntries = getLocaleContentEntries<'blog'>(
           entries,
           lang,
-        ).filter((entry) => entry.data.category.slug === categoryData.slug)
+        ).filter((entry) => entry.data.category.slug === categoryData.slug);
 
         return paginate(displayEntries, {
           pageSize: LIMIT_PER_PAGE,
           params: { locale: lang, category: slugify(categoryData.slug) },
           props: { title: categoryData.title },
-        })
-      })
-    })
-  })
-}) satisfies GetStaticPaths
+        });
+      });
+    });
+  });
+}) satisfies GetStaticPaths;
 
-const { page, title } = Astro.props
-const { category, locale } = Astro.params
-const meta = await getEntry('meta', `${locale}/site-data`)
-const t = await getEntry('i18n', `${locale}/translation`)
+const { page, title } = Astro.props;
+const { category, locale } = Astro.params;
+const meta = await getEntry('meta', `${locale}/site-data`);
+const t = await getEntry('i18n', `${locale}/translation`);
 ---
 
 <BaseLayout

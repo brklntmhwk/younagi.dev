@@ -1,5 +1,5 @@
-import type { Component } from 'solid-js'
-import type { OEmbedPhoto as OEmbedPhotoSchema } from './types'
+import type { Component } from 'solid-js';
+import type { OEmbedPhoto as OEmbedPhotoSchema } from './types';
 
 export const OEmbedPhoto: Component<{ data: OEmbedPhotoSchema }> = (props) => {
   return (
@@ -13,5 +13,5 @@ export const OEmbedPhoto: Component<{ data: OEmbedPhotoSchema }> = (props) => {
       data-oembed
       data-oembed-photo
     />
-  )
-}
+  );
+};

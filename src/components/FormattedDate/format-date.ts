@@ -1,16 +1,16 @@
-import type { Language } from '@/utils/i18n/data'
+import type { Language } from '@/utils/i18n/data';
 
 type FormateDate = (
   date: Date,
   locale: Language,
   show?: {
-    year: boolean
-    month: boolean
-    day: boolean
+    year: boolean;
+    month: boolean;
+    day: boolean;
   },
-) => string
+) => string;
 
-export type FormattedDate = Parameters<FormateDate>
+export type FormattedDate = Parameters<FormateDate>;
 
 export const formatDate: FormateDate = (date, locale, show) =>
   !show
@@ -23,4 +23,4 @@ export const formatDate: FormateDate = (date, locale, show) =>
         year: show.year ? 'numeric' : undefined,
         month: show.month ? 'short' : undefined,
         day: show.day ? 'numeric' : undefined,
-      }).format(date)
+      }).format(date);

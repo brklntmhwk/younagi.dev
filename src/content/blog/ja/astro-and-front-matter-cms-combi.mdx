@@ -18,41 +18,41 @@ description: Astro製ウェブサイトのヘッドレスCMSにどうしてFront
 
 ## 導入
 
-他のヘッドレスCMSと違い、当ウェブサイトの記事たちはVSCodeのエディタ、つまりローカルで編集・管理されています。これは、個人ウェブサイトを開発・運営している開☆発☆者の皆さんにとっては特に大きなメリットではないでしょうか。
+他のヘッドレス CMS と違い、当ウェブサイトの記事たちは VSCode のエディタ、つまりローカルで編集・管理されています。これは、個人ウェブサイトを開発・運営している開☆発☆者の皆さんにとっては特に大きなメリットではないでしょうか。
 
-ここからは、JSフレームワーク「[Astro](https://astro.build/)」で作ったウェブサイトを例に、[Front Matter CMS](https://frontmatter.codes/)との連携が完了するまでを見ていきます。当サイトの技術構成など、詳細についてはこちらの記事をご覧ください。
+ここからは、JS フレームワーク「[Astro](https://astro.build/)」で作ったウェブサイトを例に、[Front Matter CMS](https://frontmatter.codes/)との連携が完了するまでを見ていきます。当サイトの技術構成など、詳細についてはこちらの記事をご覧ください。
 
 https://younagi.dev/ja/blog/astro-website/
 
 ### 想定読者
 
-- 自分のウェブサイトやブログを開発・運営したいがヘッドレスCMSが多すぎて圧倒されている
-- ちょうどAstro製ウェブサイトのヘッドレスCMS探しに苦戦している
-- Front Matter CMSとAstroを組み合わせたプロジェクトの具体例が見たい
+- 自分のウェブサイトやブログを開発・運営したいがヘッドレス CMS が多すぎて圧倒されている
+- ちょうど Astro 製ウェブサイトのヘッドレス CMS 探しに苦戦している
+- Front Matter CMS と Astro を組み合わせたプロジェクトの具体例が見たい
 
 ## 本題
 
 ### なぜFront Matter CMS?
 
-大きく3つの理由があります。
+大きく 3 つの理由があります。
 
 - ローカルで記事の執筆・管理ができる
-- マークダウン/MDXフォーマット
+- マークダウン/MDX フォーマット
 - ディレクトリで分ける多言語化(i18n)に対応している
 
-特に1つ目が他のヘッドレスCMSと大きく異なる点で、私がFront Matter CMSを選んだ最たる理由です。
+特に 1 つ目が他のヘッドレス CMS と大きく異なる点で、私が Front Matter CMS を選んだ最たる理由です。
 
-更に、[AIアシスタンス機能](https://frontmatter.codes/docs/sponsor-features#front-matter-ai)まで有しています。この機能はVSCodeコマンドから呼び出し可能で、何でも聞けます。つまり、調べものをするのにインターネット接続が不要になるのです。これはオフラインで記事が編集できるメリットと相まって、かなり魅力的ではないでしょうか。
+更に、[AIアシスタンス機能](https://frontmatter.codes/docs/sponsor-features#front-matter-ai)まで有しています。この機能は VSCode コマンドから呼び出し可能で、何でも聞けます。つまり、調べものをするのにインターネット接続が不要になるのです。これはオフラインで記事が編集できるメリットと相まって、かなり魅力的ではないでしょうか。
 
 ![ デモ: Front Matter AI ](../../../assets/images/front-matter-cms-ai-assitance.png)
 
 ### Front Matter CMSの欠点
 
-- VSCodeユーザしか使えない
+- VSCode ユーザしか使えない
 - 利用できる言語は少ない
-  - 2024年7月時点で、`en`、`de`、`ja`がサポートされている
+  - 2024 年 7 月時点で、`en`、`de`、`ja`がサポートされている
   - [翻訳のお手伝いをしてプロジェクトに貢献する](https://frontmatter.codes/docs/contributing#translating-the-extension)ことも、もちろんできる！
-- PCなしでは記事の編集が難しい(例: スマホ)
+- PC なしでは記事の編集が難しい(例: スマホ)
   - とは言え、[VSCodeウェブバージョン](https://vscode.dev/)を使用すれば不可能ではない
 
 ### 私のAstroプロジェクトの概観
@@ -61,30 +61,31 @@ https://younagi.dev/ja/blog/astro-website/
 
 下記が当ウェブサイトの概観です。簡単の為、本記事に無関係な大部分はディレクトリツリーから省略しています。
 
+// biome-ignore format: The directory tree should not be formatted
 ```markdown title=""
 younagi.dev/
 ├── public
 ├── src/
-│ ├── assets/
-│ │ ├── font
-│ │ └── images
-│ └── content/
-│ ├── blog/
-│ │ ├── en
-│ │ └── ja
-│ ├── categories/
-│ │ └── ...
-│ ├── i18n/
-│ │ └── ...
-│ ├── meta/
-│ │ └── ...
-│ ├── news/
-│ │ └── ...
-│ ├── page/
-│ │ └── ...
-│ ├── tags/
-│ │ └── ...
-│ └── config.ts
+│   ├── assets/
+│   │   ├── font
+│   │   └── images
+│   └── content/
+│       ├── blog/
+│       │   ├── en
+│       │   └── ja
+│       ├── categories/
+│       │   └── ...
+│       ├── i18n/
+│       │   └── ...
+│       ├── meta/
+│       │   └── ...
+│       ├── news/
+│       │   └── ...
+│       ├── page/
+│       │   └── ...
+│       ├── tags/
+│       │   └── ...
+│       └── config.ts
 ├── frontmatter.json
 └── astro.config.ts
 ```
@@ -150,7 +151,7 @@ const tags = defineCollection({
 export const collections = { blog, categories, tags /* ... */ };
 ```
 
-`astro.config.ts`はAstroプロジェクト全体の編集ファイルで、私の場合、当記事に関連する内容で言えば多言語化機能を追加しています。この後、この設定と一貫性を保つようにFront Matter CMSの方でも多言語化設定をしていきます。
+`astro.config.ts`は Astro プロジェクト全体の編集ファイルで、私の場合、当記事に関連する内容で言えば多言語化機能を追加しています。この後、この設定と一貫性を保つように Front Matter CMS の方でも多言語化設定をしていきます。
 
 ```typescript title="astro.config.ts"
 import { defineConfig /* ... */ } from "astro/config";
@@ -168,12 +169,12 @@ export default defineConfig({
 
 ### 設定ファイルの編集
 
-初期セットアップについては、[Front Matter公式ドキュメント](https://frontmatter.codes/docs/getting-started)をご覧ください。このドキュメントとAIアシスタンスがあれば、そうそう迷子になることはないと思います。
+初期セットアップについては、[Front Matter公式ドキュメント](https://frontmatter.codes/docs/getting-started)をご覧ください。このドキュメントと AI アシスタンスがあれば、そうそう迷子になることはないと思います。
 
-セットアップが完了したら、`frontmatter.json`がプロジェクトのルート直下に自動生成されます。このファイルの中でAstroのコンテンツやデータとの連携など行っていきます。
+セットアップが完了したら、`frontmatter.json`がプロジェクトのルート直下に自動生成されます。このファイルの中で Astro のコンテンツやデータとの連携など行っていきます。
 
-私の場合、フレームワークはAstroですが、マークダウン/MDXで記事を作成している限りは、他のどのフレームワークを使用していても同じことが実現できると思います。
-大事なのは、コンテンツ用のディレクトリをFront Matter CMS側で正確に指定してあげることです。
+私の場合、フレームワークは Astro ですが、マークダウン/MDX で記事を作成している限りは、他のどのフレームワークを使用していても同じことが実現できると思います。
+大事なのは、コンテンツ用のディレクトリを Front Matter CMS 側で正確に指定してあげることです。
 
 ````json title="frontmatter.json"
 {
@@ -570,15 +571,15 @@ export default defineConfig({
 - `frontMatter.content.publicFolder`: 必要に応じてメディアなどアセットのディレクトリを指定する
   - 私の場合、[Astroのアセット最適化](https://docs.astro.build/en/guides/images/#where-to-store-images)の恩恵にあずかりたかったのでパスを指定し直した。デフォルトは`public`ディレクトリとなっている
 - `frontMatter.content.pageFolders`: コンテンツの設定をする
-  - 私の場合、`blog`、`news`、`page`の3つ
+  - 私の場合、`blog`、`news`、`page`の 3 つ
 - `frontMatter.content.i18n`: 使用する言語を指定する
   - ディレクトリで分けるタイプの多言語化に対応している
 - `frontMatter.content.draftField`: 必須ではない
-  - 個人的に記事のステータスをデフォルトの `true` か `false` の判定よりも3段階に分けたかった為、別途変更した
+  - 個人的に記事のステータスをデフォルトの`true`か`false`の判定よりも 3 段階に分けたかった為、別途変更した
 - `frontMatter.data.types`: データの設定をする
-  - 私の場合、`categories`、`tags`の2つ
+  - 私の場合、`categories`、`tags`の 2 つ
 - `frontMatter.data.files`: データを特定のパスやフォーマットに指定する
-  - 私の場合、各データは1つのファイルに追記されるよう変更した。(例: "src/content/tags/en/tags.yml")
+  - 私の場合、各データは 1 つのファイルに追記されるよう変更した。(例: "src/content/tags/en/tags.yml")
   - ここでデータの各ファイルへのパスを指定する。コンテンツ同様、言語の数と同じだけ言語ディレクトリを切り分ける
 - `frontMatter.content.snippets`: スニペットをカスタマイズする
   - 私の場合、アセットディレクトリを変更したため、メディアスニペットを別途カスタマイズする必要があった
@@ -620,7 +621,7 @@ export default defineConfig({
 
 ![編集モード](../../../assets/images/front-matter-cms-editing.png)
 
-何かやりたいことがあった時に、アクセス手段が複数あるという点で、非常に快適です。(例: スニペット機能はマークダウンパレットだけでなくVSCodeコマンドからも呼び出せる)
+何かやりたいことがあった時に、アクセス手段が複数あるという点で、非常に快適です。(例: スニペット機能はマークダウンパレットだけでなく VSCode コマンドからも呼び出せる)
 
 #### メディアの管理
 
@@ -635,12 +636,12 @@ export default defineConfig({
 
 ## 結び
 
-Front Matter CMSはVSCodeの拡張機能です。仮に開発が止まってしまったとしても、他のCMSへの移行は簡単です。
+Front Matter CMS は VSCode の拡張機能です。仮に開発が止まってしまったとしても、他の CMS への移行は簡単です。
 この点は、現代の技術の進化ペースを鑑みると、最も重要なポイントだと思います。
 
-同じ理由で、私はナレッジベースとして[Obsidian](https://obsidian.md/)を、当サイトのJSフレームワークとして[Astro](https://astro.build/)を使用しています。両者に共通する点は「**ポータビリティ(可搬性)**」です。
+同じ理由で、私はナレッジベースとして[Obsidian](https://obsidian.md/)を、当サイトの JS フレームワークとして[Astro](https://astro.build/)を使用しています。両者に共通する点は「**ポータビリティ(可搬性)**」です。
 
-- **Obsidian**: Notionなどと異なり、全てのコンテンツはマークダウン書かれ、ローカルで管理される
+- **Obsidian**: Notion などと異なり、全てのコンテンツはマークダウン書かれ、ローカルで管理される
   - 移行の際は全マークダウンファイルを移行先に持っていくだけ
-- **Astro**: `.astro`拡張子のついたファイルではHTML、CSS、バニラJSが使用でき、全てのコンテンツはマークダウン/MDXで書かれる
-  - 仮にAstroがサポート終了を迎えても、HTMLなどの基礎的な技術はそう易々と廃止されるものではなく、依然としてその中身は再利用できるはず
+- **Astro**: `.astro`拡張子のついたファイルでは HTML、CSS、バニラ JS が使用でき、全てのコンテンツはマークダウン/MDX で書かれる
+  - 仮に Astro がサポート終了を迎えても、HTML などの基礎的な技術はそう易々と廃止されるものではなく、依然としてその中身は再利用できるはず

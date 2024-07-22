@@ -1,9 +1,9 @@
 ---
-import { getEntry } from 'astro:content'
-import { getLocaleFromUrl } from '@/utils/i18n/utils'
+import { getEntry } from 'astro:content';
+import { getLocaleFromUrl } from '@/utils/i18n/utils';
 
-const locale = getLocaleFromUrl(Astro.url)
-const t = await getEntry('i18n', `${locale}/translation`)
+const locale = getLocaleFromUrl(Astro.url);
+const t = await getEntry('i18n', `${locale}/translation`);
 ---
 
 <aside class="nav-menu-container">

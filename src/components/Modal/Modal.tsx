@@ -1,23 +1,23 @@
-import { makeEventListener } from '@solid-primitives/event-listener'
-import { createShortcut } from '@solid-primitives/keyboard'
-import { type ParentComponent, createSignal, onMount } from 'solid-js'
-import { Portal } from 'solid-js/web'
-import { type ModalContent, shortcutKeyMap } from './modal-data'
+import { makeEventListener } from '@solid-primitives/event-listener';
+import { createShortcut } from '@solid-primitives/keyboard';
+import { type ParentComponent, createSignal, onMount } from 'solid-js';
+import { Portal } from 'solid-js/web';
+import { type ModalContent, shortcutKeyMap } from './modal-data';
 import {
   hidden,
   modal,
   modalButton,
   modalButtonLabel,
   modalWrapper,
-} from './modal.css'
+} from './modal.css';
 
 type Props = {
-  modalName: ModalContent
-  icon?: SVGElement
-  iconLabel?: string
-  buttonStyle: string
-  buttonLabel: string
-}
+  modalName: ModalContent;
+  icon?: SVGElement;
+  iconLabel?: string;
+  buttonStyle: string;
+  buttonLabel: string;
+};
 
 export const Modal: ParentComponent<Props> = (props) => {
   onMount(() => {
@@ -26,37 +26,37 @@ export const Modal: ParentComponent<Props> = (props) => {
       'click',
       (e) => {
         if (e.target === overlayRef) {
-          toggle()
+          toggle();
         }
       },
       { passive: true },
-    )
+    );
 
     makeEventListener(
       buttonRef,
       'click',
       () => {
-        toggle()
+        toggle();
 
         if (props.modalName === 'search') {
           const searchInput = document.getElementById(
             'search-window',
-          ) as HTMLInputElement
-          searchInput.focus()
+          ) as HTMLInputElement;
+          searchInput.focus();
         }
       },
       { passive: true },
-    )
-  })
+    );
+  });
 
-  let overlayRef!: HTMLDivElement
-  let buttonRef!: HTMLButtonElement
-  const [isOpen, setIsOpen] = createSignal(false)
-  const toggle = () => setIsOpen((isOpen) => !isOpen)
+  let overlayRef!: HTMLDivElement;
+  let buttonRef!: HTMLButtonElement;
+  const [isOpen, setIsOpen] = createSignal(false);
+  const toggle = () => setIsOpen((isOpen) => !isOpen);
 
   createShortcut(shortcutKeyMap[props.modalName], toggle, {
     preventDefault: true,
-  })
+  });
 
   return (
     <>
@@ -88,5 +88,5 @@ export const Modal: ParentComponent<Props> = (props) => {
         </div>
       </Portal>
     </>
-  )
-}
+  );
+};

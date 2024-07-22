@@ -1,36 +1,36 @@
 ---
-import { getEntry } from 'astro:content'
-import { BlogList } from '@/components/BlogList'
-import { Pager } from '@/components/Pager'
-import BaseLayout from '@/layouts/BaseLayout.astro'
-import { getSortedContentEntries } from '@/lib/collections/contents'
-import { getCategories } from '@/lib/collections/data'
-import { LIMIT_PER_PAGE } from '@/lib/consts'
-import { defaultLang } from '@/utils/i18n/data'
-import { slugify } from '@/utils/slugify'
-import type { GetStaticPaths } from 'astro'
+import { getEntry } from 'astro:content';
+import { BlogList } from '@/components/BlogList';
+import { Pager } from '@/components/Pager';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getSortedContentEntries } from '@/lib/collections/contents';
+import { getCategories } from '@/lib/collections/data';
+import { LIMIT_PER_PAGE } from '@/lib/consts';
+import { defaultLang } from '@/utils/i18n/data';
+import { slugify } from '@/utils/slugify';
+import type { GetStaticPaths } from 'astro';
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const entries = await getSortedContentEntries('blog', defaultLang)
-  const categories = await getCategories(defaultLang)
+  const entries = await getSortedContentEntries('blog', defaultLang);
+  const categories = await getCategories(defaultLang);
 
   return categories.data.flatMap((category) => {
     const displayEntries = entries.filter(
       (entry) => entry.data.category.slug === category.slug,
-    )
+    );
 
     return paginate(displayEntries, {
       pageSize: LIMIT_PER_PAGE,
       params: { category: slugify(category.slug) },
       props: { title: category.title },
-    })
-  })
-}) satisfies GetStaticPaths
+    });
+  });
+}) satisfies GetStaticPaths;
 
-const { page, title } = Astro.props
-const { category } = Astro.params
-const meta = await getEntry('meta', `${defaultLang}/site-data`)
-const t = await getEntry('i18n', `${defaultLang}/translation`)
+const { page, title } = Astro.props;
+const { category } = Astro.params;
+const meta = await getEntry('meta', `${defaultLang}/site-data`);
+const t = await getEntry('i18n', `${defaultLang}/translation`);
 ---
 
 <BaseLayout

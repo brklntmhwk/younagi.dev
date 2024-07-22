@@ -1,15 +1,15 @@
 ---
-import { callout, calloutVariants } from './callout.css'
-import { getCalloutType } from './callouts'
+import { callout, calloutVariants } from './callout.css';
+import { getCalloutType } from './callouts';
 
 export type Props = {
-  'data-callout-type': string
-  'data-expanded': string
-  'data-expandable': string
-}
+  'data-callout-type': string;
+  'data-expanded': string;
+  'data-expandable': string;
+};
 
-const { 'data-callout-type': calloutType, ...restProps } = Astro.props
-const validCalloutType = getCalloutType(calloutType)
+const { 'data-callout-type': calloutType, ...restProps } = Astro.props;
+const validCalloutType = getCalloutType(calloutType);
 ---
 
 <div

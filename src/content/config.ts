@@ -1,9 +1,9 @@
-import { defineCollection, reference, z } from 'astro:content'
+import { defineCollection, reference, z } from 'astro:content';
 import {
   type TaxonomyColor,
   type TaxonomyColorEnum,
   taxonomyColors,
-} from '@/components/Taxonomy'
+} from '@/components/Taxonomy';
 
 const blog = defineCollection({
   type: 'content',
@@ -31,7 +31,7 @@ const blog = defineCollection({
       ])
       .optional(),
   }),
-})
+});
 
 const taxonomySchema = z.object({
   title: z.string(),
@@ -39,17 +39,17 @@ const taxonomySchema = z.object({
   color: z.enum<TaxonomyColor, TaxonomyColorEnum>(
     taxonomyColors as TaxonomyColorEnum,
   ),
-})
+});
 
 const categories = defineCollection({
   type: 'data',
   schema: z.array(taxonomySchema),
-})
+});
 
 const tags = defineCollection({
   type: 'data',
   schema: z.array(taxonomySchema),
-})
+});
 
 const news = defineCollection({
   type: 'content',
@@ -59,7 +59,7 @@ const news = defineCollection({
     modifiedAt: z.coerce.date().optional(),
     draft: z.enum(['draft', 'in progress', 'published']),
   }),
-})
+});
 
 const page = defineCollection({
   type: 'content',
@@ -68,7 +68,7 @@ const page = defineCollection({
     description: z.string().optional(),
     modifiedAt: z.coerce.date().optional(),
   }),
-})
+});
 
 const meta = defineCollection({
   type: 'data',
@@ -102,7 +102,7 @@ const meta = defineCollection({
       description: z.string(),
     }),
   }),
-})
+});
 
 const i18n = defineCollection({
   type: 'data',
@@ -251,6 +251,6 @@ const i18n = defineCollection({
       }),
     }),
   }),
-})
+});
 
-export const collections = { blog, categories, tags, news, page, meta, i18n }
+export const collections = { blog, categories, tags, news, page, meta, i18n };

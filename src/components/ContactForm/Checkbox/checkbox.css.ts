@@ -1,14 +1,14 @@
-import { createVar, style } from '@vanilla-extract/css'
+import { createVar, style } from '@vanilla-extract/css';
 
 export const checkboxArea = style({
   marginTop: '1.5rem',
   display: 'inline-flex',
   alignItems: 'center',
   gap: '0.25rem',
-})
+});
 
-const bgColor = createVar()
-const lineColor = createVar()
+const bgColor = createVar();
+const lineColor = createVar();
 
 export const checkboxControl = style({
   vars: {
@@ -27,4 +27,4 @@ export const checkboxControl = style({
   borderRadius: '0.15rem',
   border: `1px solid ${lineColor}`,
   backgroundColor: bgColor,
-})
+});

@@ -1,44 +1,44 @@
 ---
-import { getEntry } from 'astro:content'
-import { BlogList } from '@/components/BlogList'
-import { formatDate } from '@/components/FormattedDate'
-import { Pager } from '@/components/Pager'
-import BaseLayout from '@/layouts/BaseLayout.astro'
-import { getSortedContentEntries } from '@/lib/collections/contents'
-import { LIMIT_PER_PAGE } from '@/lib/consts'
-import { ArchiveSlugify } from '@/utils/archive-slugify'
-import { convertDateStr } from '@/utils/convert-date-str'
-import { defaultLang } from '@/utils/i18n/data'
-import type { GetStaticPaths } from 'astro'
+import { getEntry } from 'astro:content';
+import { BlogList } from '@/components/BlogList';
+import { formatDate } from '@/components/FormattedDate';
+import { Pager } from '@/components/Pager';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getSortedContentEntries } from '@/lib/collections/contents';
+import { LIMIT_PER_PAGE } from '@/lib/consts';
+import { ArchiveSlugify } from '@/utils/archive-slugify';
+import { convertDateStr } from '@/utils/convert-date-str';
+import { defaultLang } from '@/utils/i18n/data';
+import type { GetStaticPaths } from 'astro';
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const entries = await getSortedContentEntries('blog', defaultLang)
+  const entries = await getSortedContentEntries('blog', defaultLang);
   const dates = [
     ...new Set(entries.map((entry) => ArchiveSlugify(entry.data.publishedAt))),
-  ]
+  ];
 
   return dates.flatMap((date) => {
     const displayEntries = entries.filter(
       (entry) => ArchiveSlugify(entry.data.publishedAt) === date,
-    )
+    );
 
     return paginate(displayEntries, {
       pageSize: LIMIT_PER_PAGE,
       params: { date },
-    })
-  })
-}) satisfies GetStaticPaths
+    });
+  });
+}) satisfies GetStaticPaths;
 
-const { page } = Astro.props
-const { date } = Astro.params
-const meta = await getEntry('meta', `${defaultLang}/site-data`)
-const t = await getEntry('i18n', `${defaultLang}/translation`)
-const convertedDate = convertDateStr(date)
+const { page } = Astro.props;
+const { date } = Astro.params;
+const meta = await getEntry('meta', `${defaultLang}/site-data`);
+const t = await getEntry('i18n', `${defaultLang}/translation`);
+const convertedDate = convertDateStr(date);
 const displayDate = formatDate(convertedDate, defaultLang, {
   year: true,
   month: true,
   day: false,
-})
+});
 ---
 
 <BaseLayout

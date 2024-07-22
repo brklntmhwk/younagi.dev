@@ -1,20 +1,20 @@
 ---
-import LinkCard from '../Link/LinkCard.astro'
-import { OEmbedPhoto } from './OEmbedPhoto'
-import { OEmbedRich } from './OEmbedRich'
-import { OEmbedVideo } from './OEmbedVideo'
-import { isPhoto, isRich, isVideo } from './embed-is'
-import type { OEmbedSchema } from './types'
+import LinkCard from '../Link/LinkCard.astro';
+import { OEmbedPhoto } from './OEmbedPhoto';
+import { OEmbedRich } from './OEmbedRich';
+import { OEmbedVideo } from './OEmbedVideo';
+import { isPhoto, isRich, isVideo } from './embed-is';
+import type { OEmbedSchema } from './types';
 
 export type Props = {
-  oEmbed: OEmbedSchema
-  href: string
-}
+  oEmbed: OEmbedSchema;
+  href: string;
+};
 
-const props = Astro.props
-let oEmbedData = props.oEmbed
-const href = props.href
-oEmbedData = JSON.parse(oEmbedData as unknown as string)
+const props = Astro.props;
+let oEmbedData = props.oEmbed;
+const href = props.href;
+oEmbedData = JSON.parse(oEmbedData as unknown as string);
 ---
 
 {

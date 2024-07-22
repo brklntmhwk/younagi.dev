@@ -1,22 +1,22 @@
 ---
-import type { Taxonomy, TaxonomyKind } from '@/lib/collections/types'
-import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils'
-import { slugify } from '@/utils/slugify'
+import type { Taxonomy, TaxonomyKind } from '@/lib/collections/types';
+import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils';
+import { slugify } from '@/utils/slugify';
 import {
   colorVariants,
   taxonomyLink,
   taxonomySpan,
   taxonomyVariants,
-} from './taxonomy.css'
+} from './taxonomy.css';
 
 type Props = {
-  kind: TaxonomyKind
-  taxonomy: Taxonomy
-}
+  kind: TaxonomyKind;
+  taxonomy: Taxonomy;
+};
 
-const locale = getLocaleFromUrl(Astro.url)
-const translatePath = useTranslatedPath(locale)
-const { kind, taxonomy } = Astro.props
+const locale = getLocaleFromUrl(Astro.url);
+const translatePath = useTranslatedPath(locale);
+const { kind, taxonomy } = Astro.props;
 ---
 
 <a

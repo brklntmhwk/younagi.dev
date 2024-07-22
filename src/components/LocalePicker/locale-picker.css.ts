@@ -1,20 +1,20 @@
-import { createVar, style } from '@vanilla-extract/css'
+import { createVar, style } from '@vanilla-extract/css';
 
 export const localeUlList = style({
   display: 'grid',
   gap: '1.5rem',
   marginLeft: '1.25rem',
-})
+});
 
 export const localeListElem = style({
   fontSize: '1.25rem',
-})
+});
 
 export const localeSpan = style({
   fontWeight: 700,
-})
+});
 
-const fgColor = createVar()
+const fgColor = createVar();
 
 export const localeLink = style({
   vars: {
@@ -41,4 +41,4 @@ export const localeLink = style({
       alignSelf: 'center',
     },
   },
-})
+});

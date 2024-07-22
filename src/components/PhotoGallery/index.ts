@@ -1,1 +1,1 @@
-export { default as PhotoGallery } from './PhotoGallery.astro'
+export { default as PhotoGallery } from './PhotoGallery.astro';

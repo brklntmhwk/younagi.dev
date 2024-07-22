@@ -1,8 +1,8 @@
-import { createVar, style } from '@vanilla-extract/css'
+import { createVar, style } from '@vanilla-extract/css';
 
-export const fillColor = createVar()
-export const emptyFillColor = createVar()
-export const glowFillColor = createVar()
+export const fillColor = createVar();
+export const emptyFillColor = createVar();
+export const glowFillColor = createVar();
 
 export const ratingWrapper = style({
   display: 'none',
@@ -16,21 +16,21 @@ export const ratingWrapper = style({
       gap: '0.85rem',
     },
   },
-})
+});
 
 export const labels = style({
   width: '100%',
   maxWidth: '32rem',
   display: 'flex',
   justifyContent: 'space-between',
-})
+});
 
 export const labelWrapper = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   maxWidth: '6.5rem',
-})
+});
 
 export const spanBase = style({
   fontSize: '0.875rem',
@@ -39,14 +39,14 @@ export const spanBase = style({
       fontSize: '0.975rem',
     },
   },
-})
+});
 
 export const endLabel = style({
   width: '100%',
   whiteSpace: 'nowrap',
   textOverflow: 'ellipsis',
   overflow: 'hidden',
-})
+});
 
 export const stars = style({
   vars: {
@@ -68,4 +68,4 @@ export const stars = style({
   alignItems: 'center',
   justifyContent: 'center',
   gap: '0.75rem',
-})
+});

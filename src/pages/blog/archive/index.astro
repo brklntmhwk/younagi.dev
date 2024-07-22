@@ -1,16 +1,16 @@
 ---
-import { getEntry } from 'astro:content'
-import { FormattedDate } from '@/components/FormattedDate'
-import BaseLayout from '@/layouts/BaseLayout.astro'
-import { getSortedContentEntries } from '@/lib/collections/contents'
-import { groupArchiveByYear } from '@/utils/group-archive-by-year'
-import { defaultLang } from '@/utils/i18n/data'
-import { orderByDateDesc } from '@/utils/order-by-date-desc'
+import { getEntry } from 'astro:content';
+import { FormattedDate } from '@/components/FormattedDate';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getSortedContentEntries } from '@/lib/collections/contents';
+import { groupArchiveByYear } from '@/utils/group-archive-by-year';
+import { defaultLang } from '@/utils/i18n/data';
+import { orderByDateDesc } from '@/utils/order-by-date-desc';
 
-const meta = await getEntry('meta', `${defaultLang}/site-data`)
-const t = await getEntry('i18n', `${defaultLang}/translation`)
-const entries = await getSortedContentEntries('blog', defaultLang)
-const YearMonthPairs = groupArchiveByYear(entries)
+const meta = await getEntry('meta', `${defaultLang}/site-data`);
+const t = await getEntry('i18n', `${defaultLang}/translation`);
+const entries = await getSortedContentEntries('blog', defaultLang);
+const YearMonthPairs = groupArchiveByYear(entries);
 ---
 
 <BaseLayout

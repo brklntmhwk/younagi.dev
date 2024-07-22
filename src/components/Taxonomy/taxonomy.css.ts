@@ -1,7 +1,7 @@
-import { createVar, style, styleVariants } from '@vanilla-extract/css'
+import { createVar, style, styleVariants } from '@vanilla-extract/css';
 
-const fgColor = createVar()
-const bgColor = createVar()
+const fgColor = createVar();
+const bgColor = createVar();
 
 export const colorVariants = styleVariants({
   primary: {
@@ -84,12 +84,12 @@ export const colorVariants = styleVariants({
     color: fgColor,
     backgroundColor: bgColor,
   },
-})
+});
 
-const borderRadius = createVar()
-const boxShadow = createVar()
-const padding = createVar()
-const margin = createVar()
+const borderRadius = createVar();
+const boxShadow = createVar();
+const padding = createVar();
+const margin = createVar();
 
 export const taxonomyVariants = styleVariants({
   categories: {
@@ -113,13 +113,13 @@ export const taxonomyVariants = styleVariants({
     },
     margin: margin,
   },
-})
+});
 
 export const taxonomyLink = style({
   whiteSpace: 'nowrap',
   verticalAlign: 'top',
   userSelect: 'none',
-})
+});
 
 export const taxonomySpan = style({
   padding: padding,
@@ -128,4 +128,4 @@ export const taxonomySpan = style({
   backgroundColor: bgColor,
   boxShadow: boxShadow,
   borderRadius: borderRadius,
-})
+});

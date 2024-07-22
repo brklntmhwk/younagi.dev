@@ -1,1 +1,1 @@
-export { default as BulletinBoard } from './BulletinBoard.astro'
+export { default as BulletinBoard } from './BulletinBoard.astro';

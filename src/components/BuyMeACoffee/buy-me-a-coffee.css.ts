@@ -1,16 +1,16 @@
-import { createVar, style } from '@vanilla-extract/css'
+import { createVar, style } from '@vanilla-extract/css';
 
 export const bmcWrapper = style({
   display: 'flex',
   alignItems: 'center',
   flexWrap: 'wrap',
   gap: '0.5rem 0.375rem',
-})
+});
 
-const fgColor = createVar()
-const bgColor = createVar()
-const hoverBgColor = createVar()
-const lineColor = createVar()
+const fgColor = createVar();
+const bgColor = createVar();
+const hoverBgColor = createVar();
+const lineColor = createVar();
 
 export const bmcModalWrapper = style({
   vars: {
@@ -26,12 +26,12 @@ export const bmcModalWrapper = style({
   color: fgColor,
   boxSizing: 'border-box',
   maxHeight: '77dvh',
-})
+});
 
 export const bmcIframe = style({
   width: '100%',
   height: '55dvh',
-})
+});
 
 export const bmcGreeting = style({
   vars: {
@@ -65,7 +65,7 @@ export const bmcGreeting = style({
       backgroundColor: lineColor,
     },
   },
-})
+});
 
 export const ornament = style({
   vars: {
@@ -102,7 +102,7 @@ export const ornament = style({
       backgroundColor: lineColor,
     },
   },
-})
+});
 
 export const bmcButton = style({
   vars: {
@@ -128,4 +128,4 @@ export const bmcButton = style({
   fontWeight: 700,
   borderRadius: '0.375rem',
   padding: '0.55rem 0.95rem',
-})
+});

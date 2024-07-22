@@ -1,4 +1,4 @@
-import type { CalloutType, Callouts } from './types'
+import type { CalloutType, Callouts } from './types';
 
 export const callouts = {
   info: {
@@ -29,22 +29,22 @@ export const callouts = {
     label: 'Warning',
     icon: 'warning',
   },
-} as const satisfies Callouts
+} as const satisfies Callouts;
 
-const defaultCalloutType: CalloutType = 'info'
+const defaultCalloutType: CalloutType = 'info';
 
-const hasCallout = (type: string): type is CalloutType => type in callouts
+const hasCallout = (type: string): type is CalloutType => type in callouts;
 
 export const getCalloutType = (type: string) => {
-  const key = type.toLowerCase()
-  if (hasCallout(key)) return key
+  const key = type.toLowerCase();
+  if (hasCallout(key)) return key;
 
-  return defaultCalloutType
-}
+  return defaultCalloutType;
+};
 
 export const getCallout = (type: string) => {
-  const key = type.toLowerCase()
-  if (hasCallout(key)) return callouts[key]
+  const key = type.toLowerCase();
+  if (hasCallout(key)) return callouts[key];
 
-  return callouts[defaultCalloutType]
-}
+  return callouts[defaultCalloutType];
+};

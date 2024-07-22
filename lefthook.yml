@@ -7,3 +7,10 @@ pre-commit:
       skip:
         - merge
         - rebase
+    textlint:
+      glob: "*.{md,mdx}"
+      run: bun textlint --fix './src/content/'
+      stage_fixed: true
+      skip:
+        - merge
+        - rebase

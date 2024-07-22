@@ -3,11 +3,11 @@ import {
   globalStyle,
   style,
   styleVariants,
-} from '@vanilla-extract/css'
+} from '@vanilla-extract/css';
 
-const calloutKind = createVar()
-const fgColor = createVar()
-const bgColor = createVar()
+const calloutKind = createVar();
+const fgColor = createVar();
+const bgColor = createVar();
 
 export const calloutVariants = styleVariants({
   info: {
@@ -129,7 +129,7 @@ export const calloutVariants = styleVariants({
     color: fgColor,
     backgroundColor: bgColor,
   },
-})
+});
 
 export const callout = style({
   padding: '0.75rem 0.85rem',
@@ -138,11 +138,11 @@ export const callout = style({
   flexDirection: 'column',
   gap: '0.5rem',
   borderRadius: '0.25rem',
-})
+});
 
 export const calloutToggleCheck = style({
   display: 'none',
-})
+});
 
 export const calloutTitle = style({
   display: 'flex',
@@ -161,39 +161,39 @@ export const calloutTitle = style({
       transform: 'rotate(90deg)',
     },
   },
-})
+});
 
 export const calloutTitleText = style({
   fontSize: '1.05rem',
   fontWeight: 800,
-})
+});
 
 export const calloutTitleIcon = style({
   width: '20px',
   height: '20px',
-})
+});
 
 globalStyle('.callout-content', {
   fontSize: '1rem',
-})
+});
 
 globalStyle('.callout-content > a', {
   textDecoration: 'underline',
   textUnderlineOffset: '5px',
-})
+});
 
 globalStyle(`${calloutToggleCheck}:checked ~ ${callout}`, {
   display: 'block',
-})
+});
 
 globalStyle(`${calloutToggleCheck}:checked ~ .callout-content`, {
   display: 'inline-block',
-})
+});
 
 globalStyle(`${calloutToggleCheck}:not(:checked) ~ ${callout}`, {
   display: 'none',
-})
+});
 
 globalStyle(`${calloutToggleCheck}:not(:checked) ~ .callout-content`, {
   display: 'none',
-})
+});

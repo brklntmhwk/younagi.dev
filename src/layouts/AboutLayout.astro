@@ -1,25 +1,25 @@
 ---
-import { getEntry } from 'astro:content'
-import ProfileImage from '@/assets/images/profile.png'
-import { Article } from '@/components/Article'
-import { ContactForm } from '@/components/ContactForm/ContactForm'
-import { Icon } from '@/components/Icon'
-import { Modal } from '@/components/Modal/Modal'
-import { ProfileIcon } from '@/components/ProfileIcon'
-import { Toc } from '@/components/Toc'
-import BaseLayout from '@/layouts/BaseLayout.astro'
-import { getLocaleFromUrl } from '@/utils/i18n/utils'
-import type { MarkdownHeading } from 'astro'
-import { transparentButton } from '@/styles/styles.css'
+import { getEntry } from 'astro:content';
+import ProfileImage from '@/assets/images/profile.png';
+import { Article } from '@/components/Article';
+import { ContactForm } from '@/components/ContactForm/ContactForm';
+import { Icon } from '@/components/Icon';
+import { Modal } from '@/components/Modal/Modal';
+import { ProfileIcon } from '@/components/ProfileIcon';
+import { Toc } from '@/components/Toc';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { transparentButton } from '@/styles/styles.css';
+import { getLocaleFromUrl } from '@/utils/i18n/utils';
+import type { MarkdownHeading } from 'astro';
 
 type Props = {
-  headings: MarkdownHeading[]
-}
+  headings: MarkdownHeading[];
+};
 
-const locale = getLocaleFromUrl(Astro.url)
-const meta = await getEntry('meta', `${locale}/site-data`)
-const t = await getEntry('i18n', `${locale}/translation`)
-const { headings } = Astro.props
+const locale = getLocaleFromUrl(Astro.url);
+const meta = await getEntry('meta', `${locale}/site-data`);
+const t = await getEntry('i18n', `${locale}/translation`);
+const { headings } = Astro.props;
 ---
 
 <BaseLayout

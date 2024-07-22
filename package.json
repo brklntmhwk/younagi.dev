@@ -108,5 +108,8 @@
   },
   "engines": {
     "bun": "^1.0.0"
-  }
+  },
+  "trustedDependencies": [
+    "@biomejs/biome"
+  ]
 }

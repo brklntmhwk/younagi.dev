@@ -1,4 +1,4 @@
-import type { WretchError } from 'wretch'
+import type { WretchError } from 'wretch';
 
 export function isWretchError(e: unknown): e is WretchError {
   return (
@@ -6,5 +6,5 @@ export function isWretchError(e: unknown): e is WretchError {
     Object.hasOwn(e, 'status') &&
     Object.hasOwn(e, 'response') &&
     Object.hasOwn(e, 'url')
-  )
+  );
 }

@@ -1,28 +1,28 @@
 ---
-import { getEntry } from 'astro:content'
-import { Icon } from '@/components/Icon'
-import { getLocaleFromUrl } from '@/utils/i18n/utils'
-import type { HTMLAttributes } from 'astro/types'
-import { unfurl } from 'unfurl.js'
+import { getEntry } from 'astro:content';
+import { Icon } from '@/components/Icon';
+import { getLocaleFromUrl } from '@/utils/i18n/utils';
+import type { HTMLAttributes } from 'astro/types';
+import { unfurl } from 'unfurl.js';
 
-type Props = HTMLAttributes<'a'>
+type Props = HTMLAttributes<'a'>;
 
-const locale = getLocaleFromUrl(Astro.url)
-const { href, title: titleProp, ...props } = Astro.props
-const t = await getEntry('i18n', `${locale}/translation`)
-const url = new URL(href ?? '')
-const metadata = await unfurl(url.href).catch(() => undefined)
-const favicon = metadata?.favicon
+const locale = getLocaleFromUrl(Astro.url);
+const { href, title: titleProp, ...props } = Astro.props;
+const t = await getEntry('i18n', `${locale}/translation`);
+const url = new URL(href ?? '');
+const metadata = await unfurl(url.href).catch(() => undefined);
+const favicon = metadata?.favicon;
 const title =
   titleProp ??
   metadata?.open_graph.title ??
   metadata?.twitter_card.title ??
   metadata?.title ??
-  url.hostname
+  url.hostname;
 const description =
   metadata?.open_graph?.description ??
   metadata?.twitter_card?.description ??
-  metadata?.description
+  metadata?.description;
 const image = {
   url:
     metadata?.open_graph.images?.[0]?.url ??
@@ -31,7 +31,7 @@ const image = {
     metadata?.open_graph?.images?.[0]?.alt ??
     metadata?.twitter_card?.images?.[0]?.alt ??
     `${title} ${t.data.link_card.image_fallback_alt}`,
-}
+};
 ---
 
 <div class="pokemon-border link-card-wrapper">

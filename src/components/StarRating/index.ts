@@ -1,1 +1,1 @@
-export { default as StarRating } from './StarRating.astro'
+export { default as StarRating } from './StarRating.astro';

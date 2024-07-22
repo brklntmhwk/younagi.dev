@@ -1,7 +1,7 @@
-import { createVar, style } from '@vanilla-extract/css'
+import { createVar, style } from '@vanilla-extract/css';
 
-export const bgColor = createVar()
-export const hoverBgColor = createVar()
+export const bgColor = createVar();
+export const hoverBgColor = createVar();
 
 export const likesWrapper = style({
   vars: {
@@ -22,11 +22,11 @@ export const likesWrapper = style({
   ':hover': {
     backgroundColor: hoverBgColor,
   },
-})
+});
 
-export const emptyFillColor = createVar()
-export const lineColor = createVar()
-export const fillColor = createVar()
+export const emptyFillColor = createVar();
+export const lineColor = createVar();
+export const fillColor = createVar();
 
 export const likesButton = style({
   vars: {
@@ -46,7 +46,7 @@ export const likesButton = style({
   backgroundColor: 'transparent',
   alignItems: 'center',
   gap: '0.5rem',
-})
+});
 
 export const likesSpan = style({
   color: emptyFillColor,
@@ -63,4 +63,4 @@ export const likesSpan = style({
       paddingLeft: '0.875rem',
     },
   },
-})
+});

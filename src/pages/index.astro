@@ -1,29 +1,29 @@
 ---
-import { getEntry } from 'astro:content'
-import { BlogList } from '@/components/BlogList'
-import { BulletinBoard } from '@/components/BulletinBoard'
-import { Icon } from '@/components/Icon'
-import { PhotoGallery } from '@/components/PhotoGallery'
-import BaseLayout from '@/layouts/BaseLayout.astro'
-import { getSortedContentEntries } from '@/lib/collections/contents'
+import { getEntry } from 'astro:content';
+import { BlogList } from '@/components/BlogList';
+import { BulletinBoard } from '@/components/BulletinBoard';
+import { Icon } from '@/components/Icon';
+import { PhotoGallery } from '@/components/PhotoGallery';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getSortedContentEntries } from '@/lib/collections/contents';
 import {
   ACCOUNT_ID,
   BLOG_LATEST_MAXIMUM_COUNT,
   NEWS_LATEST_MAXIMUM_COUNT,
   UNSPLASH_BASE_URL,
-} from '@/lib/consts'
-import { getPhotos } from '@/lib/unsplash/contents'
-import { defaultLang } from '@/utils/i18n/data'
-import { useTranslatedPath } from '@/utils/i18n/utils'
+} from '@/lib/consts';
+import { getPhotos } from '@/lib/unsplash/contents';
+import { defaultLang } from '@/utils/i18n/data';
+import { useTranslatedPath } from '@/utils/i18n/utils';
 
-const translatePath = useTranslatedPath(defaultLang)
-const meta = await getEntry('meta', `${defaultLang}/site-data`)
-const t = await getEntry('i18n', `${defaultLang}/translation`)
-const blogList = await getSortedContentEntries('blog', defaultLang)
-const newsList = await getSortedContentEntries('news', defaultLang)
-const photos = await getPhotos()
-const latestBlogEntries = blogList.slice(0, BLOG_LATEST_MAXIMUM_COUNT)
-const latestNews = newsList.slice(0, NEWS_LATEST_MAXIMUM_COUNT)
+const translatePath = useTranslatedPath(defaultLang);
+const meta = await getEntry('meta', `${defaultLang}/site-data`);
+const t = await getEntry('i18n', `${defaultLang}/translation`);
+const blogList = await getSortedContentEntries('blog', defaultLang);
+const newsList = await getSortedContentEntries('news', defaultLang);
+const photos = await getPhotos();
+const latestBlogEntries = blogList.slice(0, BLOG_LATEST_MAXIMUM_COUNT);
+const latestNews = newsList.slice(0, NEWS_LATEST_MAXIMUM_COUNT);
 ---
 
 <BaseLayout

@@ -1,16 +1,16 @@
-import { getCollection } from 'astro:content'
-import { getEntry } from 'astro:content'
-import { getLocaleFromSlug } from '@/utils/get-locale-from-slug'
-import { defaultLang } from '@/utils/i18n/data'
-import rss from '@astrojs/rss'
-import type { APIContext } from 'astro'
+import { getCollection } from 'astro:content';
+import { getEntry } from 'astro:content';
+import { getLocaleFromSlug } from '@/utils/get-locale-from-slug';
+import { defaultLang } from '@/utils/i18n/data';
+import rss from '@astrojs/rss';
+import type { APIContext } from 'astro';
 
 export async function GET(context: APIContext) {
-  const entries = await getCollection('blog')
+  const entries = await getCollection('blog');
   const defaultLocaleEntries = entries.filter(
     (entry) => getLocaleFromSlug(entry.slug) === defaultLang,
-  )
-  const meta = await getEntry('meta', `${defaultLang}/site-data`)
+  );
+  const meta = await getEntry('meta', `${defaultLang}/site-data`);
 
   const { body } = await rss({
     title: meta.data.site.title,
@@ -22,10 +22,10 @@ export async function GET(context: APIContext) {
       link: `/${entry.collection}/${entry.slug}`,
     })),
     customData: `<language>${defaultLang}</language>`,
-  })
+  });
 
   return new Response(body, {
     status: 200,
     statusText: 'RSS Feed successfully generated',
-  })
+  });
 }

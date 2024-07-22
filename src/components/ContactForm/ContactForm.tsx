@@ -1,16 +1,16 @@
-import { locale } from '@/components/LocaleStore/locale-store'
-import type { I18nData } from '@/lib/collections/types'
-import { FORM_TEXTAREA_MINLENGTH } from '@/lib/consts'
-import { useTranslatedPath } from '@/utils/i18n/utils'
+import { locale } from '@/components/LocaleStore/locale-store';
+import type { I18nData } from '@/lib/collections/types';
+import { FORM_TEXTAREA_MINLENGTH } from '@/lib/consts';
+import { useTranslatedPath } from '@/utils/i18n/utils';
 import {
   type SubmitHandler,
   createForm,
   setValue,
   valiForm,
-} from '@modular-forms/solid'
-import { useStore } from '@nanostores/solid'
-import type { Component } from 'solid-js'
-import toast from 'solid-toast'
+} from '@modular-forms/solid';
+import { useStore } from '@nanostores/solid';
+import type { Component } from 'solid-js';
+import toast from 'solid-toast';
 import {
   type InferOutput,
   boolean,
@@ -21,18 +21,18 @@ import {
   object,
   pipe,
   string,
-} from 'valibot'
-import wretch, { type WretchError } from 'wretch'
-import { Checkbox } from './Checkbox/Checkbox'
-import { SubmitButton } from './SubmitButton/SubmitButton'
-import { TextField } from './TextField/TextField'
-import { Turnstile } from './Turnstile/Turnstile'
-import { contactForm as ContactFormStyle } from './contact-form.css'
-import { isWretchError } from './error-is'
+} from 'valibot';
+import wretch, { type WretchError } from 'wretch';
+import { Checkbox } from './Checkbox/Checkbox';
+import { SubmitButton } from './SubmitButton/SubmitButton';
+import { TextField } from './TextField/TextField';
+import { Turnstile } from './Turnstile/Turnstile';
+import { contactForm as ContactFormStyle } from './contact-form.css';
+import { isWretchError } from './error-is';
 
 type Props = {
-  t: I18nData<'contact_form'>
-}
+  t: I18nData<'contact_form'>;
+};
 
 export const ContactForm: Component<Props> = ({ t }) => {
   /** Form schema must be inside this component to apply translated strings.
@@ -52,24 +52,24 @@ export const ContactForm: Component<Props> = ({ t }) => {
       check((input) => input === true, t.confirmation.required),
     ),
     'cf-turnstile-response': string(),
-  })
+  });
 
-  type FormFields = InferOutput<typeof formSchema>
+  type FormFields = InferOutput<typeof formSchema>;
 
-  const $locale = useStore(locale)
-  const translatePath = useTranslatedPath($locale())
+  const $locale = useStore(locale);
+  const translatePath = useTranslatedPath($locale());
 
   const [contactForm, { Form, Field }] = createForm<FormFields>({
     validateOn: 'submit',
     revalidateOn: 'blur',
     validate: valiForm(formSchema),
-  })
+  });
 
   const handleError = (e: unknown | WretchError) => {
     if (isWretchError(e)) {
       const errorMessage = `
       ${e.status} ${e.response.statusText}
-      ${e.message}`
+      ${e.message}`;
 
       toast.error(
         `${errorMessage}\n
@@ -78,8 +78,8 @@ export const ContactForm: Component<Props> = ({ t }) => {
           position: 'bottom-right',
           duration: 8000,
         },
-      )
-      console.error(errorMessage)
+      );
+      console.error(errorMessage);
     } else {
       toast.error(
         `${t.unexpected_error_message}: ${e}\n
@@ -88,10 +88,10 @@ export const ContactForm: Component<Props> = ({ t }) => {
           position: 'bottom-right',
           duration: 8000,
         },
-      )
-      console.trace(`${t.unexpected_error_message}: ${e}`)
+      );
+      console.trace(`${t.unexpected_error_message}: ${e}`);
     }
-  }
+  };
 
   const handleSubmit: SubmitHandler<FormFields> = async (values) => {
     try {
@@ -103,15 +103,15 @@ export const ContactForm: Component<Props> = ({ t }) => {
         .internalError((err) => handleError(err))
         .notFound((err) => handleError(err))
         .fetchError((err) => handleError(err))
-        .res((r) => window.location.replace(r.url))
+        .res((r) => window.location.replace(r.url));
     } catch (err) {
-      handleError(err)
+      handleError(err);
     }
-  }
+  };
 
   const handleVerify = (token: string) => {
-    setValue(contactForm, 'cf-turnstile-response', token)
-  }
+    setValue(contactForm, 'cf-turnstile-response', token);
+  };
 
   return (
     <Form class={ContactFormStyle} onSubmit={handleSubmit}>
@@ -179,5 +179,5 @@ export const ContactForm: Component<Props> = ({ t }) => {
       </Field>
       <SubmitButton label={contactForm.submitting ? t.submitting : t.submit} />
     </Form>
-  )
-}
+  );
+};

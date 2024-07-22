@@ -1,14 +1,14 @@
 ---
-import type { HTMLAttributes } from 'astro/types'
-import LinkCard from './LinkCard.astro'
+import type { HTMLAttributes } from 'astro/types';
+import LinkCard from './LinkCard.astro';
 
 type Props = HTMLAttributes<'a'> & {
-  href: string
-  'data-link-card'?: string
-}
+  href: string;
+  'data-link-card'?: string;
+};
 
-const props = Astro.props
-const isLinkCard = Object.hasOwn(props, 'data-link-card')
+const props = Astro.props;
+const isLinkCard = Object.hasOwn(props, 'data-link-card');
 ---
 
 {

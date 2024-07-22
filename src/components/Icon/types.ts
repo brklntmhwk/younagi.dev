@@ -24,4 +24,4 @@ export type IconName =
   | 'toc'
   | 'unsplash'
   | 'update'
-  | 'warning'
+  | 'warning';

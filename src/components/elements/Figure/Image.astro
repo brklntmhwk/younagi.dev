@@ -1,18 +1,18 @@
 ---
-import type { HTMLAttributes } from 'astro/types'
+import type { HTMLAttributes } from 'astro/types';
 
 type Props = HTMLAttributes<'figure'> & {
-  'data-image-alt'?: string
-  'data-image-aspect-ratio'?: string
-  'data-image-blur-url'?: string
-}
+  'data-image-alt'?: string;
+  'data-image-aspect-ratio'?: string;
+  'data-image-blur-url'?: string;
+};
 
 const {
   'data-image-alt': alt,
   'data-image-aspect-ratio': aspectRatio,
   'data-image-blur-url': blurUrl,
   ...props
-} = Astro.props
+} = Astro.props;
 ---
 
 <figure class="image-figure" {...props}>

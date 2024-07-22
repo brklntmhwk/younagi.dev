@@ -1,28 +1,28 @@
 ---
-import { Icon } from '@/components/Icon'
-import { generateUniqueId } from '@/utils/generate-unique-id'
-import { toBoolean } from '@/utils/to-boolean'
-import type { Props as CalloutProps } from './Callout.astro'
+import { Icon } from '@/components/Icon';
+import { generateUniqueId } from '@/utils/generate-unique-id';
+import { toBoolean } from '@/utils/to-boolean';
+import type { Props as CalloutProps } from './Callout.astro';
 import {
   calloutTitleIcon,
   calloutTitleText,
   calloutToggleCheck,
   calloutTitle as titleStyle,
-} from './callout.css'
-import { getCallout } from './callouts'
+} from './callout.css';
+import { getCallout } from './callouts';
 
-type Props = CalloutProps
+type Props = CalloutProps;
 
 const {
   'data-callout-type': dataCalloutType,
   'data-expanded': dataExpanded,
   'data-expandable': dataExpandable,
-} = Astro.props
-const uniqueId = generateUniqueId()
-const isExpandable = toBoolean(dataExpandable)
-const isExpanded = toBoolean(dataExpanded)
-const callout = getCallout(dataCalloutType)
-const calloutTitle: string | undefined = await Astro.slots.render('default')
+} = Astro.props;
+const uniqueId = generateUniqueId();
+const isExpandable = toBoolean(dataExpandable);
+const isExpanded = toBoolean(dataExpanded);
+const callout = getCallout(dataCalloutType);
+const calloutTitle: string | undefined = await Astro.slots.render('default');
 ---
 
 {

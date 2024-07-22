@@ -1,2 +1,2 @@
 export const getSlugWithoutLocale = (slug: string) =>
-  slug.slice(slug.indexOf('/') + 1)
+  slug.slice(slug.indexOf('/') + 1);

@@ -1,1 +1,1 @@
-export { default as BuyMeACoffee } from './BuyMeACoffee.astro'
+export { default as BuyMeACoffee } from './BuyMeACoffee.astro';

@@ -1,14 +1,14 @@
-import { type Component, type ComponentProps, splitProps } from 'solid-js'
-import { Motion } from 'solid-motionone'
-import { emptyFillColor, fillColor, glowFillColor } from './star-rating.css'
+import { type Component, type ComponentProps, splitProps } from 'solid-js';
+import { Motion } from 'solid-motionone';
+import { emptyFillColor, fillColor, glowFillColor } from './star-rating.css';
 
 type Props = {
-  label: string
-  isBright: boolean | undefined
-}
+  label: string;
+  isBright: boolean | undefined;
+};
 
 export const StarIcon: Component<ComponentProps<'svg'> & Props> = (props) => {
-  const [local, others] = splitProps(props, ['label', 'isBright'])
+  const [local, others] = splitProps(props, ['label', 'isBright']);
 
   return (
     <svg
@@ -57,5 +57,5 @@ export const StarIcon: Component<ComponentProps<'svg'> & Props> = (props) => {
         />
       </g>
     </svg>
-  )
-}
+  );
+};

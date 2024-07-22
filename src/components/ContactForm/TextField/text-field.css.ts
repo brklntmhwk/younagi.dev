@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css'
+import { style } from '@vanilla-extract/css';
 
 export const textField = style({
   display: 'flex',
@@ -7,4 +7,4 @@ export const textField = style({
   padding: '0.5rem',
   backgroundColor: 'transparent',
   outline: 'none',
-})
+});

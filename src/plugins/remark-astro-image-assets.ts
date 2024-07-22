@@ -1,18 +1,18 @@
-import fs from 'node:fs'
-import path from 'node:path'
-import type { RemarkPlugin } from '@astrojs/markdown-remark'
-import type { Image, Parent, Root } from 'mdast'
-import sharp from 'sharp'
-import type { Plugin } from 'unified'
-import { visit } from 'unist-util-visit'
+import fs from 'node:fs';
+import path from 'node:path';
+import type { RemarkPlugin } from '@astrojs/markdown-remark';
+import type { Image, Parent, Root } from 'mdast';
+import sharp from 'sharp';
+import type { Plugin } from 'unified';
+import { visit } from 'unist-util-visit';
 
 type RemarkAstroImageAssetsOptions = {
-  imgDir: string
-  size: number
-  blurFormat: keyof sharp.FormatEnum
-  widths: number[]
-  sizes: string
-}
+  imgDir: string;
+  size: number;
+  blurFormat: keyof sharp.FormatEnum;
+  widths: number[];
+  sizes: string;
+};
 
 const defaultRemarkAstroImageAssetsOptions: Readonly<RemarkAstroImageAssetsOptions> =
   {
@@ -22,13 +22,13 @@ const defaultRemarkAstroImageAssetsOptions: Readonly<RemarkAstroImageAssetsOptio
     widths: [240, 540, 720],
     sizes:
       '(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px',
-  }
+  };
 
 const remarkAstroImageAssets: Plugin<[RemarkAstroImageAssetsOptions?], Root> = (
   options = defaultRemarkAstroImageAssetsOptions,
 ): ReturnType<RemarkPlugin> => {
   return async (tree) => {
-    const imgAndParentPairs: { node: Image; parent: Parent }[] = []
+    const imgAndParentPairs: { node: Image; parent: Parent }[] = [];
 
     visit(tree, 'image', (node, index, parent) => {
       if (
@@ -36,33 +36,33 @@ const remarkAstroImageAssets: Plugin<[RemarkAstroImageAssetsOptions?], Root> = (
         index !== 0 ||
         node.url.startsWith('http')
       )
-        return
+        return;
 
-      imgAndParentPairs.push({ node, parent })
-    })
+      imgAndParentPairs.push({ node, parent });
+    });
 
-    const { imgDir, size, blurFormat, sizes, widths } = options
+    const { imgDir, size, blurFormat, sizes, widths } = options;
 
     await Promise.all(
       imgAndParentPairs.map(async ({ node, parent }) => {
-        const basename = path.basename(node.url)
+        const basename = path.basename(node.url);
         const buffer = fs.readFileSync(
           path.join(process.cwd(), './src', imgDir, basename),
-        )
+        );
 
         const metadataPromise = sharp(buffer)
           .metadata()
           .then((data) => {
             if (!data.width || !data.height) {
-              throw new Error(`Failed to get image metadata: ${node.url}`)
+              throw new Error(`Failed to get image metadata: ${node.url}`);
             }
 
             return {
               width: data.width,
               height: data.height,
               aspectRatio: `${data.width} / ${data.height}`,
-            }
-          })
+            };
+          });
 
         const base64Promise = sharp(buffer)
           .resize(size, size, { fit: 'inside' })
@@ -76,12 +76,12 @@ const remarkAstroImageAssets: Plugin<[RemarkAstroImageAssetsOptions?], Root> = (
           .then(
             (data) =>
               `data:image/${blurFormat};base64,${data.toString('base64')}`,
-          )
+          );
 
         const [{ width, aspectRatio }, base64] = await Promise.all([
           metadataPromise,
           base64Promise,
-        ])
+        ]);
 
         node.data = {
           ...node.data,
@@ -91,7 +91,7 @@ const remarkAstroImageAssets: Plugin<[RemarkAstroImageAssetsOptions?], Root> = (
             sizes: `${sizes}, ${width}px`,
             format: 'avif',
           },
-        }
+        };
 
         parent.data = {
           ...parent.data,
@@ -102,10 +102,10 @@ const remarkAstroImageAssets: Plugin<[RemarkAstroImageAssetsOptions?], Root> = (
             dataImageAspectRatio: aspectRatio,
             dataImageBlurUrl: `url("${base64}")`,
           },
-        }
+        };
       }),
-    )
-  }
-}
+    );
+  };
+};
 
-export default remarkAstroImageAssets
+export default remarkAstroImageAssets;

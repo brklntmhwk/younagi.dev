@@ -1,6 +1,6 @@
-import { createVar, style } from '@vanilla-extract/css'
+import { createVar, style } from '@vanilla-extract/css';
 
-const hoverBgColor = createVar()
+const hoverBgColor = createVar();
 
 export const submitButton = style({
   vars: {
@@ -16,8 +16,9 @@ export const submitButton = style({
   ':hover': {
     backgroundColor: hoverBgColor,
   },
+  backgroundColor: 'transparent',
   fontWeight: '600',
   padding: '0.375rem 1.85rem',
   alignSelf: 'center',
   zIndex: 1,
-})
+});

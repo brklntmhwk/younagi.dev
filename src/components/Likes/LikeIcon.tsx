@@ -1,14 +1,14 @@
-import { type Component, type ComponentProps, splitProps } from 'solid-js'
-import { Motion } from 'solid-motionone'
-import { emptyFillColor, fillColor } from './likes.css'
+import { type Component, type ComponentProps, splitProps } from 'solid-js';
+import { Motion } from 'solid-motionone';
+import { emptyFillColor, fillColor } from './likes.css';
 
 type Props = {
-  label: string
-  isLiked: boolean | undefined
-}
+  label: string;
+  isLiked: boolean | undefined;
+};
 
 export const LikeIcon: Component<ComponentProps<'svg'> & Props> = (props) => {
-  const [local, others] = splitProps(props, ['label', 'isLiked'])
+  const [local, others] = splitProps(props, ['label', 'isLiked']);
 
   return (
     <svg
@@ -38,5 +38,5 @@ export const LikeIcon: Component<ComponentProps<'svg'> & Props> = (props) => {
         />
       </g>
     </svg>
-  )
-}
+  );
+};

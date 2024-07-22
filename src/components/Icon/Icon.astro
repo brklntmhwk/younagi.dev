@@ -1,39 +1,39 @@
 ---
-import type { HTMLAttributes } from 'astro/types'
-import { parse } from 'node-html-parser'
-import type { IconName } from './types'
+import type { HTMLAttributes } from 'astro/types';
+import { parse } from 'node-html-parser';
+import type { IconName } from './types';
 
 type Props = {
-  iconName: IconName
-} & HTMLAttributes<'svg'>
+  iconName: IconName;
+} & HTMLAttributes<'svg'>;
 
 const iconGetter = (iconName: IconName) => {
-  const filepath = `./icons/${iconName}.svg`
+  const filepath = `./icons/${iconName}.svg`;
   const files = import.meta.glob<string>('./icons/**/*.svg', {
     query: '?raw',
     import: 'default',
     eager: true,
-  })
+  });
 
   if (!(filepath in files)) {
-    throw new Error(`Path not found: ${filepath}`)
+    throw new Error(`Path not found: ${filepath}`);
   }
-  const root = parse(files[filepath]!)
-  const svg = root.querySelector('svg')
+  const root = parse(files[filepath]!);
+  const svg = root.querySelector('svg');
   if (!svg) {
-    throw new Error('Invalid svg file or svg tags missing')
+    throw new Error('Invalid svg file or svg tags missing');
   }
-  const { attributes, innerHTML } = svg
+  const { attributes, innerHTML } = svg;
 
   return {
     attributes,
     innerHTML,
-  }
-}
+  };
+};
 
-const { iconName, ...attributes } = Astro.props
-const { attributes: baseAttributes, innerHTML } = iconGetter(iconName)
-const svgAttributes = { ...baseAttributes, ...attributes }
+const { iconName, ...attributes } = Astro.props;
+const { attributes: baseAttributes, innerHTML } = iconGetter(iconName);
+const svgAttributes = { ...baseAttributes, ...attributes };
 ---
 
 <svg {...svgAttributes} set:html={innerHTML} />

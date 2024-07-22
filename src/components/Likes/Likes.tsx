@@ -1,35 +1,35 @@
-import { locale } from '@/components/LocaleStore/locale-store'
-import type { I18nData } from '@/lib/collections/types'
-import type { Language } from '@/utils/i18n/data'
-import { useTranslatedPath } from '@/utils/i18n/utils'
-import { useStore } from '@nanostores/solid'
-import { type Component, createResource } from 'solid-js'
-import toast from 'solid-toast'
-import wretch from 'wretch'
-import { LikeIcon } from './LikeIcon'
-import { likesButton, likesSpan, likesWrapper } from './likes.css'
+import { locale } from '@/components/LocaleStore/locale-store';
+import type { I18nData } from '@/lib/collections/types';
+import type { Language } from '@/utils/i18n/data';
+import { useTranslatedPath } from '@/utils/i18n/utils';
+import { useStore } from '@nanostores/solid';
+import { type Component, createResource } from 'solid-js';
+import toast from 'solid-toast';
+import wretch from 'wretch';
+import { LikeIcon } from './LikeIcon';
+import { likesButton, likesSpan, likesWrapper } from './likes.css';
 
-type FetcherProps = Omit<Props, 't'> & { locale: Language }
+type FetcherProps = Omit<Props, 't'> & { locale: Language };
 
 const fetchLikes = async ({ slug, collection, locale }: FetcherProps) => {
-  const translatePath = useTranslatedPath(locale)
+  const translatePath = useTranslatedPath(locale);
   const data = (await wretch()
     .url(translatePath(`/api/likes?slug=${slug}&collection=${collection}`))
     .get()
-    .json()) as { likes: number; liked: boolean }
+    .json()) as { likes: number; liked: boolean };
 
-  return data
-}
+  return data;
+};
 
 type Props = {
-  slug: string
-  collection: string
-  t: I18nData<'likes'>
-}
+  slug: string;
+  collection: string;
+  t: I18nData<'likes'>;
+};
 
 export const Likes: Component<Props> = (props) => {
-  const $locale = useStore(locale)
-  const translatePath = useTranslatedPath($locale())
+  const $locale = useStore(locale);
+  const translatePath = useTranslatedPath($locale());
   const [likes, { refetch, mutate }] = createResource(
     () => ({
       slug: props.slug,
@@ -37,7 +37,7 @@ export const Likes: Component<Props> = (props) => {
       locale: $locale(),
     }),
     fetchLikes,
-  )
+  );
 
   const handleClick = async () => {
     await wretch()
@@ -46,25 +46,25 @@ export const Likes: Component<Props> = (props) => {
         slug: props.slug,
         collection: props.collection,
       })
-      .res()
+      .res();
 
     mutate((prev) => {
-      const previous = prev ?? { likes: 0, liked: false }
+      const previous = prev ?? { likes: 0, liked: false };
       if (!previous.liked) {
         toast(props.t.thanks_message, {
           duration: 3000,
           position: 'bottom-right',
           icon: '🙏',
-        })
+        });
       }
 
       return {
         likes: previous.likes + (previous.liked ? -1 : 1),
         liked: !previous.liked,
-      }
-    })
-    refetch()
-  }
+      };
+    });
+    refetch();
+  };
 
   return (
     <div class={likesWrapper}>
@@ -86,5 +86,5 @@ export const Likes: Component<Props> = (props) => {
         <span class={likesSpan}>{likes()?.likes ?? 0}</span>
       </button>
     </div>
-  )
-}
+  );
+};

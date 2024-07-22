@@ -8,7 +8,7 @@ A website where Nagi, just another engineer & creator, posts his work and writin
 
 - **Language:** TypeScript and TSX
 - **Framework:** Astro and SolidJS
-- **Styling:** Astro's scoped CSS and Vanilla Extract(Zero runtime CSS)
+- **Styling:** Astro's scoped CSS and Vanilla Extract
 - **DB:** Cloudflare D1(Sqlite)
 - **ORM:** Drizzle ORM
 - **CI/CD:** Github Actions
@@ -18,3 +18,4 @@ A website where Nagi, just another engineer & creator, posts his work and writin
 - **Package manager:** Bun
 - **Dependency management**: Renovate
 - **Linter & formatter**: Biome
+- **Git hooks manager**: Lefthook

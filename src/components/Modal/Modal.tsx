@@ -15,7 +15,7 @@ type Props = {
   modalName: ModalContent
   icon?: SVGElement
   iconLabel?: string
-  buttonStyle?: string
+  buttonStyle: string
   buttonLabel: string
 }
 

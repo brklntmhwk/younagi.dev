@@ -10,6 +10,7 @@ import { Toc } from '@/components/Toc'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getLocaleFromUrl } from '@/utils/i18n/utils'
 import type { MarkdownHeading } from 'astro'
+import { transparentButton } from '@/styles/styles.css'
 
 type Props = {
   headings: MarkdownHeading[]
@@ -44,6 +45,7 @@ const { headings } = Astro.props
             modalName="contact"
             buttonLabel={t.data.pages.about.contact_me}
             iconLabel={t.data.pages.about.contact_me}
+            buttonStyle={transparentButton}
           >
             <ContactForm client:only="solid" t={t.data.contact_form} />
             <Icon slot="icon" iconName="mail" width={28} height={28} />

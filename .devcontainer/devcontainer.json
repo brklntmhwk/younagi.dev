@@ -1,0 +1,38 @@
+{
+  "name": "younagi.dev",
+  "service": "younagi_dev",
+  "workspaceFolder": "/workspace",
+  "dockerComposeFile": "../docker-compose.yml",
+  "remoteUser": "bun",
+  "containerUser": "bun",
+  "init": true,
+  "features": {
+    "ghcr.io/devcontainers/features/desktop-lite": {
+      "version": "latest",
+      "noVncVersion": "1.2.0",
+      "password": "vscode",
+      "webPort": "6080",
+      "vncPort": "5901"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "astro-build.astro-vscode",
+        "taichi.vscode-textlint",
+        "unifiedjs.vscode-mdx",
+        "github.vscode-github-actions",
+        "eliostruyf.vscode-front-matter",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  },
+  "forwardPorts": [
+    4321,
+    4322,
+    5901,
+    6080
+  ],
+  "overrideCommand": true,
+  "postCreateCommand": "/bin/sh .devcontainer/postCreateCommand.sh"
+}

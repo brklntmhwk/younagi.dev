@@ -20,7 +20,6 @@
     "lint:fix": "bunx @biomejs/biome check --write ./src/",
     "textlint": "textlint './src/content/'",
     "textlint:fix": "textlint --fix './src/content/'",
-    "prepare": "lefthook install",
     "wrangler:typegen": "wrangler types",
     "wrangler:dev": "wrangler pages dev --compatibility-date=2024-05-24 --proxy 3000 -- astro dev",
     "db:generate": "drizzle-kit generate",
@@ -69,6 +68,7 @@
     "better-sqlite3": "^11.0.0",
     "browserslist": "^4.23.0",
     "drizzle-kit": "^0.22.2",
+    "git-cz": "^4.9.0",
     "hast": "^1.0.0",
     "hast-util-from-html": "^2.0.1",
     "hast-util-select": "^6.0.2",
@@ -111,5 +111,10 @@
   },
   "trustedDependencies": [
     "@biomejs/biome"
-  ]
+  ],
+  "config": {
+    "commitizen": {
+      "path": "git-cz"
+    }
+  }
 }

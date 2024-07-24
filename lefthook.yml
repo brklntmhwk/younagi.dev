@@ -1,4 +1,5 @@
 pre-commit:
+  parallel: true
   commands:
     biome:
       glob: "*.{js,cjs,mjs,ts,cts,mts,jsx,tsx,json,jsonc,css}"

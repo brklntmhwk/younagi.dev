@@ -8,8 +8,6 @@ services:
       args:
         - PROJECT_DIR=workspace
         - USERNAME=bun
-        # - USER_UID=1001
-        # - USER_GID=1001
     environment:
       - COMPOSE_PROJECT_NAME=app
     working_dir: /workspace

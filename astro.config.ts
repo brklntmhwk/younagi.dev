@@ -84,6 +84,12 @@ export default defineConfig({
       },
     },
     plugins: [vanillaExtractPlugin()],
+    server: {
+      watch: {
+        usePolling: true,
+        interval: 1000
+      }
+    },
     ssr: {
       external: ['node:fs', 'unfurl.js'],
     },

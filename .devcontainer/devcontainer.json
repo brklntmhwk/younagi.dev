@@ -6,15 +6,6 @@
   "remoteUser": "bun",
   "containerUser": "bun",
   "init": true,
-  "features": {
-    "ghcr.io/devcontainers/features/desktop-lite": {
-      "version": "latest",
-      "noVncVersion": "1.2.0",
-      "password": "vscode",
-      "webPort": "6080",
-      "vncPort": "5901"
-    }
-  },
   "customizations": {
     "vscode": {
       "extensions": [
@@ -27,11 +18,14 @@
       ]
     }
   },
+  "portsAttributes": {
+    "4321": {
+      "label": "Application",
+      "onAutoForward": "openBrowserOnce"
+    }
+  },
   "forwardPorts": [
-    4321,
-    4322,
-    5901,
-    6080
+    4321
   ],
   "overrideCommand": true,
   "postCreateCommand": "/bin/sh .devcontainer/postCreateCommand.sh"

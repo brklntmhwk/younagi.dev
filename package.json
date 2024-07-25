@@ -75,7 +75,6 @@
     "hastscript": "^9.0.0",
     "isomorphic-dompurify": "^2.12.0",
     "katex": "0.16.10",
-    "lefthook": "^1.7.2",
     "lightningcss": "^1.24.1",
     "mdast": "^3.0.0",
     "mdast-util-newline-to-break": "^2.0.0",
@@ -109,11 +108,8 @@
     "bun": "^1.0.0"
   },
   "trustedDependencies": [
-    "@biomejs/biome"
-  ],
-  "config": {
-    "commitizen": {
-      "path": "git-cz"
-    }
-  }
+    "@biomejs/biome",
+    "esbuild",
+    "sharp"
+  ]
 }

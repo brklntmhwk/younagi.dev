@@ -20,7 +20,7 @@ FROM base AS cacher
 COPY package.json bun.lockb ./
 
 # Install dependencies
-RUN bun install --no-save
+RUN bun install
 
 ############################################################################
 # Builder Stage
@@ -73,7 +73,7 @@ RUN apt-get update \
 # Install commitizen & git-cz
 RUN npm install -g commitizen git-cz
 
-# Init Git-cz
+# Init git-cz
 RUN commitizen init git-cz --save-dev --save-exact
 
 # Execute as a non-root user hereafter

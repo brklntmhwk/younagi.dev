@@ -8,10 +8,10 @@ A website where Nagi, just another engineer & creator, posts his work and writin
 
 - **Language:**
   - [TypeScript](https://www.typescriptlang.org/)
-  - TSX
-  - CSS
-  - YAML
-  - JSON
+  - [TSX](https://www.typescriptlang.org/docs/handbook/jsx.html)
+  - [CSS](https://www.w3.org/Style/CSS/Overview.en.html)
+  - [YAML](https://yaml.org/)
+  - [JSON](https://www.json.org/json-en.html)
 - **Meta framework:**
   - [Astro](https://astro.build/)
 - **Framework:**
@@ -20,7 +20,7 @@ A website where Nagi, just another engineer & creator, posts his work and writin
   - [Astro's Scoped CSS](https://docs.astro.build/en/guides/styling/#scoped-styles)
   - [Vanilla Extract](https://vanilla-extract.style/)
 - **DB:**
-  - [Cloudflare D1](https://developers.cloudflare.com/d1/)(Sqlite)
+  - [Cloudflare D1](https://developers.cloudflare.com/d1/)([Sqlite](https://www.sqlite.org/))
 - **ORM:**
   - [Drizzle ORM](https://orm.drizzle.team/)
 - **Dev:**
@@ -42,5 +42,16 @@ A website where Nagi, just another engineer & creator, posts his work and writin
   - [Renovate](https://github.com/renovatebot/renovate)
 - **Linter & formatter:**
   - [Biome](https://biomejs.dev/)
+- **Proofreading:**
+  - [Textlint](https://textlint.github.io/)
 - **Git hooks manager:**
   - [Lefthook](https://github.com/evilmartians/lefthook)
+
+## Ready, set, go!
+
+### Prerequisites
+
+You need to:
+
+- install [VSCode](https://code.visualstudio.com/) on your local machine
+- install [the Remote Development extension](https://github.com/Microsoft/vscode-remote-release) in your VSCode editor

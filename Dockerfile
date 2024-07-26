@@ -41,14 +41,12 @@ RUN bun --bun run build
 # Runtime Stage
 # Launch the project
 ############################################################################
-# The GLIBC version of the Debian in the oven/bun image is discrepant with that of the Lefthook, which causes an error. That's why other compatible image must be used here
+# The GLIBC version of the Debian in the oven/bun image is discrepant with that of the Lefthook, which causes an error.
+# That's why other compatible image must be used here
 FROM ubuntu:24.10 AS runtime
 
 # Move to the project dir
 WORKDIR /$PROJECT_DIR
-
-# Copy the build artifacts
-# COPY --from=builder /$PROJECT_DIR/dist dist
 
 ARG PROJECT_DIR
 ARG USERNAME
@@ -84,7 +82,8 @@ RUN curl -fsSL https://bun.sh/install | bash \
     && ln -s $BIN_BASE_PATH/bun $BIN_BASE_PATH/bunx \
     && chmod a+x $BIN_BASE_PATH/bun
 
-# Install Lefthook (Must be installed here otherwise it'll be unavailable in the script for the "postCreateCommand" in devcontainer and thereafter)
+# Install Lefthook
+# (Must be installed here otherwise it'll be unavailable in the script for the "postCreateCommand" in devcontainer and thereafter)
 RUN curl -1sLf 'https://dl.cloudsmith.io/public/evilmartians/lefthook/setup.deb.sh' | bash \
     && apt-get update \
     && apt-get -y install lefthook

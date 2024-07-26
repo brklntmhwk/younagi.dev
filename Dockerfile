@@ -26,7 +26,10 @@ RUN bun install
 # Builder Stage
 # Build the project
 ############################################################################
-FROM cacher AS builder
+FROM base AS builder
+
+# Copy dependencies
+COPY --from=cacher /$PROJECT_DIR/node_modules node_modules
 
 # Copy the project
 COPY . .
@@ -38,31 +41,30 @@ RUN bun --bun run build
 # Runtime Stage
 # Launch the project
 ############################################################################
-# FROM base AS runtime
+# The GLIBC version of the Debian in the oven/bun image is discrepant with that of the Lefthook, which causes an error. That's why other compatible image must be used here
 FROM ubuntu:24.10 AS runtime
-
-ARG PROJECT_DIR
-ARG USERNAME
-# ARG USER_UID
-# ARG USER_GID
 
 # Move to the project dir
 WORKDIR /$PROJECT_DIR
 
-# Copy dependencies
-COPY --from=cacher /$PROJECT_DIR/node_modules node_modules
-
 # Copy the build artifacts
-COPY --from=builder /$PROJECT_DIR/dist dist
+# COPY --from=builder /$PROJECT_DIR/dist dist
 
-# The oven/bun Docker image prepares a non-root user "bun" with its ID "1000" so you don't have to do it on your own
+ARG PROJECT_DIR
+ARG USERNAME
+ARG USER_UID
+ARG USER_GID
+
 # Add a non-root user
-# RUN groupadd --gid $USER_GID $USERNAME \
-#     && useradd -m -s /bin/bash $USERNAME --uid $USER_UID --gid $USER_GID \
-#     && apt-get update \
-#     && apt-get install -y sudo \
-#     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
-#     && chmod 0440 /etc/sudoers.d/$USERNAME
+RUN groupadd --gid $USER_GID $USERNAME \
+    && useradd -m -s /bin/bash $USERNAME --uid $USER_UID --gid $USER_GID \
+    && apt-get update \
+    && apt-get install -y sudo \
+    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
+    && chmod 0440 /etc/sudoers.d/$USERNAME
+
+# Copy the whole project
+COPY --from=builder --chown=$USERNAME:$USERNAME /$PROJECT_DIR /$PROJECT_DIR
 
 # Install packages
 RUN apt-get update \

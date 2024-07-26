@@ -3,8 +3,8 @@
   "service": "younagi_dev",
   "workspaceFolder": "/workspace",
   "dockerComposeFile": "../docker-compose.yml",
-  "remoteUser": "ubuntu",
-  "containerUser": "ubuntu",
+  "remoteUser": "dev",
+  "containerUser": "dev",
   "init": true,
   "customizations": {
     "vscode": {

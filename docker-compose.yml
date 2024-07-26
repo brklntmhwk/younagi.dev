@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
       args:
         - PROJECT_DIR=workspace
-        - USERNAME=ubuntu
+        - USERNAME=dev
         - USER_UID=1001
         - USER_GID=1001
     environment:
@@ -16,6 +16,6 @@ services:
     volumes:
       - .:/workspace:cached
       # - node-modules-data:/workspace/node_modules
-    user: ubuntu
+    user: dev
 # volumes:
 #   node-modules-data:

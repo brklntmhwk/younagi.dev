@@ -29,7 +29,6 @@ A website where Nagi, just another engineer & creator, posts his work and writin
 - **CI/CD:**
   - [Github Actions](https://github.co.jp/features/actions)
 - **Commit management:**
-  - [Commitizen](https://commitizen-tools.github.io/commitizen/)
   - [Git-cz](https://ttys3.github.io/git-cz/)
 - **Deployment:**
   - [Cloudflare Pages](https://pages.cloudflare.com/)

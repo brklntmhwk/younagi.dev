@@ -38,10 +38,16 @@ RUN bun --bun run build
 # Runtime Stage
 # Launch the project
 ############################################################################
-FROM base AS runtime
+# FROM base AS runtime
+FROM ubuntu:24.10 AS runtime
 
-ARG USERNAME
 ARG PROJECT_DIR
+ARG USERNAME
+# ARG USER_UID
+# ARG USER_GID
+
+# Move to the project dir
+WORKDIR /$PROJECT_DIR
 
 # Copy dependencies
 COPY --from=cacher /$PROJECT_DIR/node_modules node_modules
@@ -61,13 +67,24 @@ COPY --from=builder /$PROJECT_DIR/dist dist
 # Install packages
 RUN apt-get update \
     && apt-get -y install --no-install-recommends \
-    ca-certificates curl git sudo \
+    ca-certificates curl git unzip binutils \
     && apt-get auto-remove -y \
     && apt-get clean -y
 
-# Install Lefthook
-RUN apt-get update \
-    && curl -1sLf 'https://dl.cloudsmith.io/public/evilmartians/lefthook/setup.deb.sh' | bash \
+# Define the base path for Bun related bins
+ARG ORIGINAL_BUN_PATH=/root/.bun
+ARG BIN_BASE_PATH=/usr/local/bin
+
+# Install Bun
+RUN curl -fsSL https://bun.sh/install | bash \
+    && mv $ORIGINAL_BUN_PATH/bin/bun $BIN_BASE_PATH/bun \
+    && rm -rf $ORIGINAL_BUN_PATH \
+    && ln -s $BIN_BASE_PATH/bun $BIN_BASE_PATH/bunx \
+    && chmod a+x $BIN_BASE_PATH/bun
+
+# Install Lefthook (Must be installed here otherwise it'll be unavailable in the script for the "postCreateCommand" in devcontainer and thereafter)
+RUN curl -1sLf 'https://dl.cloudsmith.io/public/evilmartians/lefthook/setup.deb.sh' | bash \
+    && apt-get update \
     && apt-get -y install lefthook
 
 # Install Node.js & npm (To install git-cz, bun didn't work somewhat)
@@ -76,7 +93,7 @@ RUN apt-get update \
     && apt-get -y install nodejs
 
 # Set the pnpm bin dir
-ENV PNPM_HOME="/pnpm"
+ENV PNPM_HOME="$BIN_BASE_PATH/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 
 # Enable pnpm

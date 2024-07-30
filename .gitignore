@@ -22,5 +22,3 @@ node_modules/
 
 # VS Code
 .vscode
-
-src/scripts/generate-icon-types.ts

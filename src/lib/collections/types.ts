@@ -11,7 +11,7 @@ export type TaxonomyKind =
   | CollectionEntry<'categories'>['collection']
   | CollectionEntry<'tags'>['collection'];
 
-export type Taxonomy =
+export type TaxonomyData =
   | CollectionEntry<'categories'>['data'][number]
   | CollectionEntry<'tags'>['data'][number];
 

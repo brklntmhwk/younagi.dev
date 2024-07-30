@@ -58,7 +58,7 @@ Basically, I managed to develop it with what Astro offers. When it comes to some
 
 ![Demo: How the search functionality works](../../../assets/images/fulltext-search-demo.gif)
 
-I used [Pagefind](https://pagefind.app/), a Rust based static search library. It's lightweight, lightning fast, and easy to use. It's also self-contained on the browser without needing to interact with server. The secret is that, at build time, static files are generated under the designated directory, based on which Pagefind creates index files in advance.
+I used [Pagefind](https://pagefind.app/), a Rust based static search library. It's lightweight, lightning fast, and easy to use. It's also self-contained on the browser without needing to interact with server. The secret is that Pagefind creates index files in advance based on those static files that are generated at build time.
 
 Along the way, I got hung up on some key points:
 

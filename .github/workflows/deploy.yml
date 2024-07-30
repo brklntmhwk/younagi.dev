@@ -25,9 +25,8 @@ jobs:
           path: |
             ~/.bun/install/cache
             node_modules
-          key: ${{ runner.os }}-bun-node-modules-${{ hashFiles('**/bun.lockb') }}
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
           restore-keys: |
-            ${{ runner.os }}-bun-node-modules-
             ${{ runner.os }}-bun-
       - name: Install dependencies
         run: bun i --no-save

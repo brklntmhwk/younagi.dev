@@ -67,20 +67,20 @@ COPY --from=builder --chown=$USERNAME:$USERNAME /$PROJECT_DIR /$PROJECT_DIR
 # Install packages
 RUN apt-get update \
     && apt-get -y install --no-install-recommends \
-    ca-certificates curl git unzip binutils \
+    ca-certificates curl git \
     && apt-get auto-remove -y \
     && apt-get clean -y
 
-# Define the base path for Bun related bins
+# # Define the base path for Bun related bins
 ARG ORIGINAL_BUN_PATH=/root/.bun
 ARG BIN_BASE_PATH=/usr/local/bin
 
-# Install Bun
-RUN curl -fsSL https://bun.sh/install | bash \
-    && mv $ORIGINAL_BUN_PATH/bin/bun $BIN_BASE_PATH/bun \
-    && rm -rf $ORIGINAL_BUN_PATH \
-    && ln -s $BIN_BASE_PATH/bun $BIN_BASE_PATH/bunx \
-    && chmod a+x $BIN_BASE_PATH/bun
+# # Install Bun
+# RUN curl -fsSL https://bun.sh/install | bash \
+#     && mv $ORIGINAL_BUN_PATH/bin/bun $BIN_BASE_PATH/bun \
+#     && rm -rf $ORIGINAL_BUN_PATH \
+#     && ln -s $BIN_BASE_PATH/bun $BIN_BASE_PATH/bunx \
+#     && chmod a+x $BIN_BASE_PATH/bun
 
 # Install Lefthook
 # (Must be installed here otherwise it'll be unavailable in the script for the "postCreateCommand" in devcontainer and thereafter)
@@ -113,3 +113,16 @@ RUN pnpm install -g git-cz
 
 # Execute as a non-root user hereafter
 USER $USERNAME
+
+# Copy the tool-versions file
+COPY .tool-versions ./.tool-versions
+
+# Define the user's home path
+ARG USER_HOME=/home/$USERNAME
+
+# Install Mise & other tools specified in the tool-versions file
+RUN curl https://mise.run | sh \
+    && $USER_HOME/.local/bin/mise install \
+    && $USER_HOME/.local/bin/mise reshim \
+    && echo 'eval "$('$USER_HOME'/.local/bin/mise activate bash)"' >> ~/.bashrc \
+    && echo 'export PS1="\[\e[1;32m\]\u@\h\[\e[0m\]:\[\e[1;31m\]\w\[\e[0m\]\$ "' >> ~/.bashrc

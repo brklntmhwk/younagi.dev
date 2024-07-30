@@ -10,3 +10,6 @@ git config --global user.name "brklntmhwk_dev"
 
 # Make the settings in ".git/hooks" consistent with your lefthook.yml
 lefthook install
+
+# # Install tools specified in the .tool-versions file
+# mise install

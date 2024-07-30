@@ -14,7 +14,6 @@
     "preview": "astro preview",
     "build": "astro check && astro build",
     "sync": "astro sync",
-    "prebuild": "bun ./src/scripts/generate-icon-types.ts",
     "postbuild": "pagefind --site dist",
     "lint": "bunx @biomejs/biome check ./src/",
     "lint:fix": "bunx @biomejs/biome check --write ./src/",

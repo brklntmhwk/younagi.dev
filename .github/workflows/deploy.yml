@@ -35,10 +35,6 @@ jobs:
         env:
           PUBLIC_TURNSTILE_SITE_KEY: ${{ secrets.PUBLIC_TURNSTILE_SITE_KEY }}
           UNSPLASH_API_ACCESS_KEY: ${{ secrets.UNSPLASH_API_ACCESS_KEY }}
-  migrate:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
       - name: Apply Cloudflare D1 migrations
         run: bunx wrangler d1 migrations apply younagi_dev_db --remote
         env:

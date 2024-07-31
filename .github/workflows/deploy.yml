@@ -11,7 +11,7 @@ permissions:
       statuses: write
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -40,14 +40,6 @@ jobs:
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Set up Node & Bun
-        uses: jdx/mise-action@v2
       - name: Publish to Cloudflare Pages
         id: cloudflare_pages_deploy
         run: bunx wrangler pages deploy ./dist --project-name=younagidev --branch main --commit-dirty=true

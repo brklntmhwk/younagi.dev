@@ -2,7 +2,7 @@
 title: Astro + Cloudflare Pages + D1 + Front Matter CMS で個人ウェブサイトを作った
 description: Astro + Cloudflare Pages + D1 + Front Matter CMSの構成で作った個人ウェブサイトの開発体験を簡単に紹介する
 publishedAt: 2024-07-13T00:35:10.000Z
-modifiedAt: 2024-07-26T08:52:19.199Z
+modifiedAt: 2024-07-31T08:50:58.690Z
 draft: published
 type: blog
 category:
@@ -36,10 +36,11 @@ level: 4
 基本は Astro の機能範囲で実装し、例外部分は新進気鋭の JS フレームワーク「[SolidJS](https://www.solidjs.com/)」で実装しています。もちろん全て TypeScript(と TSX) です。
 
 > [!info]- 技術構成
-> **言語:** [TypeScript](https://www.typescriptlang.org/), [TSX](https://www.typescriptlang.org/docs/handbook/jsx.html), [CSS](https://www.w3.org/Style/CSS/Overview.en.html), [YAML](https://yaml.org/), [JSON](https://www.json.org/json-en.html)
+> **言語:** [TypeScript](https://www.typescriptlang.org/), [TSX](https://www.typescriptlang.org/docs/handbook/jsx.html), [YAML](https://yaml.org/)
+> **データフォーマット:** [JSON](https://www.json.org/json-en.html)
 > **メタフレームワーク:** [Astro](https://astro.build/)
 > **フレームワーク:** [SolidJS](https://www.solidjs.com/)
-> **スタイリング:** [AstroのScoped CSS](https://docs.astro.build/en/guides/styling/#scoped-styles), [Vanilla Extract](https://vanilla-extract.style/)
+> **スタイリング:** [バニラCSS](https://www.w3.org/Style/CSS/Overview.en.html), [AstroのScoped CSS](https://docs.astro.build/en/guides/styling/#scoped-styles), [Vanilla Extract](https://vanilla-extract.style/)
 > **データベース:** [Cloudflare D1](https://developers.cloudflare.com/d1/)([Sqlite](https://www.sqlite.org/))
 > **ORM:** [Drizzle ORM](https://orm.drizzle.team/)
 > **開発環境:** [Dev Containers](https://code.visualstudio.com/docs/devcontainers/containers), [Docker](https://www.docker.com/)

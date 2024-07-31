@@ -7,16 +7,16 @@ module.exports = {
     'chore',
     'docs',
     'refactor',
+    'revert',
     'style',
     'ci',
     'perf',
-    'config',
     'package',
   ],
   maxMessageLength: 72,
   minMessageLength: 3,
   questions: ['type', 'scope', 'subject', 'body', 'breaking', 'issues', 'lerna'],
-  scopes: ['ui', 'api', 'deps', 'types', 'dev'],
+  scopes: ['api', "cms", 'config', 'contents', 'db', 'deps', 'docker', 'i18n', 'none', 'ui', "utils"],
   types: {
     chore: {
       description: 'Build process or auxiliary tool changes',
@@ -53,6 +53,11 @@ module.exports = {
       emoji: '✨',
       value: 'refactor',
     },
+    revert: {
+      description: 'Reverting to a previous commit',
+      emoji: '🔙',
+      value: 'revert',
+    },
     style: {
       description: 'Formatting tweaks(Markup, white-space, missing semi-colons etc...)',
       emoji: '💄',
@@ -62,11 +67,6 @@ module.exports = {
       description: 'Tweaks for tests',
       emoji: '✒️',
       value: 'test',
-    },
-    config: {
-      description: 'Config tweaks',
-      emoji: '⚙️',
-      value: 'config',
     },
     package: {
       description: 'Package changes(install, update, remove etc...)',

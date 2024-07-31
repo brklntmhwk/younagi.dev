@@ -1,7 +1,1 @@
-{
-  "textlint.languages": [
-    "markdown",
-    "mdx"
-  ],
-  "frontMatter.content.autoUpdateDate": true
-}
+{}

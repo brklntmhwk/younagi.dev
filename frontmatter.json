@@ -412,5 +412,6 @@
   },
   "frontMatter.website.host": "https://younagi.dev/",
   "frontMatter.framework.startCommand": "bun dev",
-  "frontMatter.dashboard.openOnStart": false
+  "frontMatter.dashboard.openOnStart": false,
+  "frontMatter.content.autoUpdateDate": true
 }

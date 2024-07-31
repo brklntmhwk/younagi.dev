@@ -19,6 +19,3 @@ node_modules/
 
 # Wrangler
 .wrangler/
-
-# VS Code
-.vscode

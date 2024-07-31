@@ -35,6 +35,8 @@ import {
   oEmbedTransformer,
 } from './src/plugins/transformers'
 import { SITE_URL } from './src/lib/consts'
+import { pagefind } from "./src/lib/astro-integrations/pagefind"
+import { iconNameTypes } from "./src/lib/astro-integrations/icon-name-type"
 
 // https://astro.build/config
 export default defineConfig({
@@ -56,6 +58,8 @@ export default defineConfig({
       fontFace: true,
     }),
     sitemap(),
+    iconNameTypes(),
+    pagefind()
   ],
   prefetch: {
     defaultStrategy: 'viewport',

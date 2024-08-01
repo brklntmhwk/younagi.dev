@@ -5,6 +5,11 @@ on:
     branches:
       - dev
 
+permissions:
+  contents: read
+  deployments: write
+  statuses: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest

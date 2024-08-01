@@ -1,5 +1,8 @@
 # younagi.dev
 
+[![Alpha deployment](https://github.com/brklntmhwk/younagi.dev/actions/workflows/dev.yml/badge.svg)](https://github.com/brklntmhwk/younagi.dev/actions/workflows/dev.yml)
+[![Production deployment](https://github.com/brklntmhwk/younagi.dev/actions/workflows/prod.yml/badge.svg)](https://github.com/brklntmhwk/younagi.dev/actions/workflows/prod.yml)
+
 ![younagi.dev site image](/public/placeholder.jpg)
 
 A website where Nagi, just another engineer & creator, posts his work and writings every so often.

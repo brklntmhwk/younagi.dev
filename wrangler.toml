@@ -9,3 +9,13 @@ database_name = "younagi_dev_db"
 database_id = "500cb3d8-68a9-41e1-bf09-1ce81c89e51f"
 migrations_dir = "./src/db/migrations"
 preview_database_id = "DB"
+
+[[services]]
+binding = "EMAIL_SENDER"
+service = "younagi-contact-worker"
+environment = "production"
+
+[[env.production.services]]
+binding = "EMAIL_SENDER"
+service = "younagi-contact-worker"
+environment = "production"

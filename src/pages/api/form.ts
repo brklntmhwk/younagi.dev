@@ -2,8 +2,8 @@ export const prerender = false;
 
 import { getEntry } from 'astro:content';
 import {
-  BREVO_FORM_URL,
-  CONTACT_NOTIFICATION_SUBJECT,
+  // BREVO_FORM_URL,
+  // CONTACT_NOTIFICATION_SUBJECT,
   FORM_TEXTAREA_MINLENGTH,
   TURNSTILE_SITE_VERIFICATION_URL,
 } from '@/lib/consts';
@@ -53,7 +53,7 @@ export const POST: APIRoute = async ({
   locals,
 }: APIContext) => {
   const t = await getEntry('i18n', `${defaultLang}/translation`);
-  const meta = await getEntry('meta', `${defaultLang}/site-data`);
+  // const meta = await getEntry('meta', `${defaultLang}/site-data`);
 
   const formSchema = object({
     name: pipe(string(), nonEmpty(t.data.contact_form.name.required)),
@@ -112,38 +112,50 @@ export const POST: APIRoute = async ({
     );
   }
 
-  const myEmail = locals.runtime.env.MY_CUSTOM_EMAIL_ADDRESS;
+  // const myEmail = locals.runtime.env.MY_CUSTOM_EMAIL_ADDRESS;
 
-  const mailContent = {
-    sender: { email: myEmail, name: meta.data.site.title },
-    to: [
-      {
-        email: myEmail,
-        name: t.data.author_name,
-      },
-    ],
-    subject: CONTACT_NOTIFICATION_SUBJECT,
-    textContent: `お問い合わせ内容 \n --- \n 名前: ${data.name} \n メールアドレス: ${data.email} \n メッセージ: ${data.message} \n ---`,
-    replyTo: {
-      email: data.email,
-      name: data.name,
-    },
-  };
-  const brevoApiKey = locals.runtime.env.BREVO_API_KEY;
+  // const mailContent = {
+  //   sender: { email: myEmail, name: meta.data.site.title },
+  //   to: [
+  //     {
+  //       email: myEmail,
+  //       name: t.data.author_name,
+  //     },
+  //   ],
+  //   subject: CONTACT_NOTIFICATION_SUBJECT,
+  //   textContent: `お問い合わせ内容 \n --- \n 名前: ${data.name} \n メールアドレス: ${data.email} \n メッセージ: ${data.message} \n ---`,
+  //   replyTo: {
+  //     email: data.email,
+  //     name: data.name,
+  //   },
+  // };
+  // const brevoApiKey = locals.runtime.env.BREVO_API_KEY;
 
-  const response = await fetch(BREVO_FORM_URL, {
+  // const response = await fetch(BREVO_FORM_URL, {
+  //   method: 'POST',
+  //   headers: {
+  //     Accept: 'application/json',
+  //     'Content-Type': 'application/json',
+  //     'api-key': brevoApiKey,
+  //   },
+  //   body: JSON.stringify(mailContent),
+  // });
+  const response = await fetch('/api/email', {
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      'api-key': brevoApiKey,
     },
-    body: JSON.stringify(mailContent),
+    body: JSON.stringify({
+      name: data.name,
+      email: data.email,
+      message: data.message,
+    }),
   });
   if (!response.ok) {
     return new Response(
       JSON.stringify({
-        message: `Form submission failed: ${response.status} ${response.statusText}`,
+        message: `Failed to submit form data: ${response.status} ${response.statusText}`,
       }),
       { status: 500 },
     );

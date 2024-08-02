@@ -168,7 +168,6 @@ export const POST: APIRoute = async ({
   const response = await fetch(`${SITE_URL}/functions/api/email`, {
     method: 'POST',
     headers: {
-      Accept: 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({

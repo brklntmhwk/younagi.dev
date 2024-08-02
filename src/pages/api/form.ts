@@ -141,10 +141,9 @@ export const POST: APIRoute = async ({
   //   },
   //   body: JSON.stringify(mailContent),
   // });
-  const response = await fetch(`${SITE_URL}/functions/api/email`, {
+  const response = await fetch(`${SITE_URL}/api/email`, {
     method: 'POST',
     headers: {
-      Accept: 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
@@ -156,7 +155,7 @@ export const POST: APIRoute = async ({
   if (!response.ok) {
     return new Response(
       JSON.stringify({
-        message: `Failed to submit form data: ${response.status} ${response.statusText}`,
+        message: `Failed to submit form data: ${response.status} ${response.statusText} ${response.url}`,
       }),
       { status: 500 },
     );

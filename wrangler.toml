@@ -13,9 +13,3 @@ preview_database_id = "DB"
 [[services]]
 binding = "EMAIL_SENDER"
 service = "younagi-contact-worker"
-environment = "production"
-
-[[env.production.services]]
-binding = "EMAIL_SENDER"
-service = "younagi-contact-worker"
-environment = "production"

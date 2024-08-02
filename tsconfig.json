@@ -16,6 +16,6 @@
   "exclude": [
     "./dist",
     "./node_modules",
-    "./functions"
+    "src/functions"
   ]
 }

@@ -5,6 +5,7 @@ import {
   // BREVO_FORM_URL,
   // CONTACT_NOTIFICATION_SUBJECT,
   FORM_TEXTAREA_MINLENGTH,
+  SITE_URL,
   TURNSTILE_SITE_VERIFICATION_URL,
 } from '@/lib/consts';
 import type { Language } from '@/utils/i18n/data';
@@ -164,7 +165,7 @@ export const POST: APIRoute = async ({
   //   body: JSON.stringify(mailContent),
   // });
 
-  const response = await fetch('api/email', {
+  const response = await fetch(`${SITE_URL}/functions/api/email`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',

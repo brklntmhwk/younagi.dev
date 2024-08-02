@@ -2,9 +2,10 @@ export const prerender = false;
 
 import { getEntry } from 'astro:content';
 import {
+  FORM_TEXTAREA_MINLENGTH,
   // BREVO_FORM_URL,
   // CONTACT_NOTIFICATION_SUBJECT,
-  FORM_TEXTAREA_MINLENGTH,
+  SITE_URL,
   TURNSTILE_SITE_VERIFICATION_URL,
 } from '@/lib/consts';
 import { defaultLang } from '@/utils/i18n/data';
@@ -140,18 +141,18 @@ export const POST: APIRoute = async ({
   //   },
   //   body: JSON.stringify(mailContent),
   // });
-  const response = await fetch("/api/email", {
+  const response = await fetch(`${SITE_URL}/functions/api/email`, {
     method: 'POST',
-     headers: {
+    headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       name: data.name,
       email: data.email,
-      message: data.message
+      message: data.message,
     }),
-  })
+  });
   if (!response.ok) {
     return new Response(
       JSON.stringify({

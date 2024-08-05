@@ -20,7 +20,7 @@ import {
   safeParse,
   string,
 } from 'valibot';
-import nodemailer from 'nodemailer'
+import { Resend} from 'resend'
 
 export const POST: APIRoute = async ({
   request,
@@ -113,48 +113,31 @@ type TurnstileResponse =
   }
 
   const {
-    MY_EMAIL_ADDRESS: user,
     MY_CUSTOM_EMAIL_ADDRESS: myCustomAddress,
-    MAIL_OAUTH_CLIENT_ID: clientId,
-    MAIL_OAUTH_CLIENT_SECRET: clientSecret,
-    MAIL_OAUTH_REFRESH_TOKEN: refreshToken
+    RESEND_API_KEY: resendApiKey
   } = locals.runtime.env
 
-  const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
-    auth: {
-      type: "OAuth2",
-      user,
-      clientId,
-      clientSecret,
-      refreshToken
-    }
-  })
+  const resend = new Resend(resendApiKey)
 
   const mailContent = {
-    from: `"${meta.data.site.title}" <${myCustomAddress}>`,
+    from: `${meta.data.site.title} <${myCustomAddress}>`,
     to: myCustomAddress,
     subject: `${CONTACT_NOTIFICATION_SUBJECT} from ${data.name}`,
     text:
       `Name:\n${data.name}\n\n` +
         `Email:\n${data.email}\n\n` +
         `Message:\n${data.message}\n\n`,
-    replyTo: {
-      name: data.name,
-      address: data.email,
-    },
+    reply_to: `${data.name} <${data.email}>`,
   };
 
-  try {
-    await transporter.sendMail(mailContent)
-  } catch (e) {
-    if (e instanceof Error) {
-    throw new Error(`Failed to send email due to the error "${e.name}: ${e.message}"`);
-  }
-
-  throw new Error('An unexpected error occurred');
+ const resendResult = await resend.emails.send(mailContent)
+  if (resendResult.error) {
+    return new Response(
+      JSON.stringify({
+        message: `Failed to send email due to the error "${resendResult.error.name}: ${resendResult.error.message}"`,
+      }),
+      { status: 500 },
+    );
   }
 
   return redirect('/thanks-page', 302);

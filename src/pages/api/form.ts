@@ -2,7 +2,6 @@ export const prerender = false;
 
 import { getEntry } from 'astro:content';
 import {
-  BREVO_FORM_URL,
   CONTACT_NOTIFICATION_SUBJECT,
   FORM_TEXTAREA_MINLENGTH,
   TURNSTILE_SITE_VERIFICATION_URL,
@@ -21,31 +20,7 @@ import {
   safeParse,
   string,
 } from 'valibot';
-
-type TurnstileErrorCode =
-  | 'missing-input-secret'
-  | 'invalid-input-secret'
-  | 'missing-input-response'
-  | 'invalid-input-response'
-  | 'invalid-widget-id'
-  | 'invalid-parsed-secret'
-  | 'bad-request'
-  | 'timeout-or-duplicate'
-  | 'internal-error';
-
-type TurnstileResponse =
-  | {
-      success: true;
-      'error-codes': [];
-      challenge_ts: string;
-      hostname: string;
-      action: string;
-      cdata: string;
-    }
-  | {
-      success: false;
-      'error-codes': TurnstileErrorCode[];
-    };
+import nodemailer from 'nodemailer'
 
 export const POST: APIRoute = async ({
   request,
@@ -89,6 +64,31 @@ export const POST: APIRoute = async ({
     );
   }
 
+  type TurnstileErrorCode =
+  | 'missing-input-secret'
+  | 'invalid-input-secret'
+  | 'missing-input-response'
+  | 'invalid-input-response'
+  | 'invalid-widget-id'
+  | 'invalid-parsed-secret'
+  | 'bad-request'
+  | 'timeout-or-duplicate'
+  | 'internal-error';
+
+type TurnstileResponse =
+  | {
+      success: true;
+      'error-codes': [];
+      challenge_ts: string;
+      hostname: string;
+      action: string;
+      cdata: string;
+    }
+  | {
+      success: false;
+      'error-codes': TurnstileErrorCode[];
+    };
+
   const turnstileToken = data['cf-turnstile-response'];
   const secretKey = locals.runtime.env.TURNSTILE_SECRET_KEY;
 
@@ -106,47 +106,55 @@ export const POST: APIRoute = async ({
   if (!outcome.success) {
     return new Response(
       JSON.stringify({
-        message: `Turnstile verification failed: ${outcome['error-codes']}`,
+        message: `Failed to verify Turnstile: ${outcome['error-codes']}`,
       }),
       { status: 500 },
     );
   }
 
-  const myEmail = locals.runtime.env.MY_CUSTOM_EMAIL_ADDRESS;
+  const {
+    MY_EMAIL_ADDRESS: user,
+    MY_CUSTOM_EMAIL_ADDRESS: myCustomAddress,
+    MAIL_OAUTH_CLIENT_ID: clientId,
+    MAIL_OAUTH_CLIENT_SECRET: clientSecret,
+    MAIL_OAUTH_REFRESH_TOKEN: refreshToken
+  } = locals.runtime.env
+
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+      type: "OAuth2",
+      user,
+      clientId,
+      clientSecret,
+      refreshToken
+    }
+  })
 
   const mailContent = {
-    sender: { email: myEmail, name: meta.data.site.title },
-    to: [
-      {
-        email: myEmail,
-        name: t.data.author_name,
-      },
-    ],
-    subject: CONTACT_NOTIFICATION_SUBJECT,
-    textContent: `お問い合わせ内容 \n --- \n 名前: ${data.name} \n メールアドレス: ${data.email} \n メッセージ: ${data.message} \n ---`,
+    from: `"${meta.data.site.title}" <${myCustomAddress}>`,
+    to: myCustomAddress,
+    subject: `${CONTACT_NOTIFICATION_SUBJECT} from ${data.name}`,
+    text:
+      `Name:\n${data.name}\n\n` +
+        `Email:\n${data.email}\n\n` +
+        `Message:\n${data.message}\n\n`,
     replyTo: {
-      email: data.email,
       name: data.name,
+      address: data.email,
     },
   };
-  const brevoApiKey = locals.runtime.env.BREVO_API_KEY;
 
-  const response = await fetch(BREVO_FORM_URL, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      'api-key': brevoApiKey,
-    },
-    body: JSON.stringify(mailContent),
-  });
-  if (!response.ok) {
-    return new Response(
-      JSON.stringify({
-        message: `Failed to submit form data: ${response.status} ${response.statusText} ${response.url}`,
-      }),
-      { status: 500 },
-    );
+  try {
+    await transporter.sendMail(mailContent)
+  } catch (e) {
+    if (e instanceof Error) {
+    throw new Error(`Failed to send email due to the error "${e.name}: ${e.message}"`);
+  }
+
+  throw new Error('An unexpected error occurred');
   }
 
   return redirect('/thanks-page', 302);

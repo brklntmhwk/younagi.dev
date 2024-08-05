@@ -18,4 +18,4 @@ export const TURNSTILE_SITE_VERIFICATION_URL =
   'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 export const SHOW_DRAFT_PAGES_IN_DEV = true;
 export const CONTACT_NOTIFICATION_SUBJECT =
-  'younagi.dev からお問い合わせがありました';
+  '"younagi.dev" Got a contact message';

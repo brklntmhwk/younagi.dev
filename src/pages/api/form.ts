@@ -55,10 +55,13 @@ export const POST: APIRoute = async ({
   const data = (await request.json()) as InferOutput<typeof formSchema>;
 
   const vResult = safeParse(formSchema, data);
+
   if (!vResult.success) {
     return new Response(
       JSON.stringify({
-        message: `Missing or invalid field input(s):\n ${vResult.issues.map((issue) => `message: ${issue.message}\n input: ${issue.input}`)}`,
+        message: `Missing or invalid field input(s):\n ${vResult.issues.map(
+          (issue) => `message: ${issue.message}\n input: ${issue.input}`,
+        )}`,
       }),
       { status: 422 },
     );
@@ -102,7 +105,9 @@ export const POST: APIRoute = async ({
       response: turnstileToken,
     }),
   });
+
   const outcome = (await turnstileResult.json()) as TurnstileResponse;
+
   if (!outcome.success) {
     return new Response(
       JSON.stringify({

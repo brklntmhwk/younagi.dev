@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Add the project directory as a safe directory in Git
-git config --global --add safe.directory /workspace
+git config --global --add safe.directory /workspaces/younagi.dev
 
 # Set required user info for the container user.
 # As to the email, set an alternative one available for the private email setting "Keep my email addresses private" in Github
@@ -10,6 +10,3 @@ git config --global user.name "brklntmhwk_dev"
 
 # Make the settings in ".git/hooks" consistent with your lefthook.yml
 lefthook install
-
-# Add "Execute" permission for Git hooks
-chmod ug+x .husky/*

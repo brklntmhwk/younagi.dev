@@ -2,13 +2,9 @@
 # That's why other compatible image must be used here
 FROM ubuntu:24.10 AS runtime
 
-# Move to the project dir
-WORKDIR /$PROJECT_DIR
-
-ARG PROJECT_DIR
-ARG USERNAME
-ARG USER_UID
-ARG USER_GID
+ARG USERNAME=dev
+ARG USER_UID=1001
+ARG USER_GID=1001
 
 # Add a non-root user
 RUN groupadd --gid $USER_GID $USERNAME \

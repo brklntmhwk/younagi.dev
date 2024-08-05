@@ -1,11 +1,10 @@
 {
   "name": "younagi.dev",
-  "service": "younagi_dev",
-  "workspaceFolder": "/workspace",
-  "dockerComposeFile": "../docker-compose.yml",
+  "build": {
+    "dockerfile": "../Dockerfile"
+  },
   "remoteUser": "dev",
   "containerUser": "dev",
-  "init": true,
   "customizations": {
     "vscode": {
       "extensions": [

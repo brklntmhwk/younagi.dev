@@ -1,8 +1,7 @@
-node_modules/
-Dockerfile*
-docker-compose*
-.dockerignore
 dist/
-.git/
-.gitignore
-README.md
+node_modules/
+# Dockerfile*
+# docker-compose*
+# .dockerignore
+# .git/
+# .gitignore

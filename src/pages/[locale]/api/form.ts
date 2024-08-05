@@ -82,11 +82,6 @@ export const POST: APIRoute = async ({
     ),
     confirmation: pipe(
       boolean(),
-      // string(),
-      // check(
-      //   (input) => input === 'on',
-      //   t.data.contact_form.confirmation.required
-      // )
       check(
         (input) => input === true,
         t.data.contact_form.confirmation.required,
@@ -161,7 +156,7 @@ export const POST: APIRoute = async ({
   if (!response.ok) {
     return new Response(
       JSON.stringify({
-        message: `Form submission failed: ${response.status} ${response.statusText}`,
+        message: `Failed to submit form data: ${response.status} ${response.statusText}`,
       }),
       { status: 500 },
     );

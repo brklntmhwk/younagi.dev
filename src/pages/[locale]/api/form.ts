@@ -8,6 +8,7 @@ import {
 } from '@/lib/consts';
 import type { Language } from '@/utils/i18n/data';
 import type { APIContext, APIRoute } from 'astro';
+import { Resend } from 'resend';
 import {
   type InferOutput,
   boolean,
@@ -20,7 +21,6 @@ import {
   safeParse,
   string,
 } from 'valibot';
-import { Resend} from 'resend'
 
 export const POST: APIRoute = async ({
   request,
@@ -78,29 +78,29 @@ export const POST: APIRoute = async ({
   }
 
   type TurnstileErrorCode =
-  | 'missing-input-secret'
-  | 'invalid-input-secret'
-  | 'missing-input-response'
-  | 'invalid-input-response'
-  | 'invalid-widget-id'
-  | 'invalid-parsed-secret'
-  | 'bad-request'
-  | 'timeout-or-duplicate'
-  | 'internal-error';
+    | 'missing-input-secret'
+    | 'invalid-input-secret'
+    | 'missing-input-response'
+    | 'invalid-input-response'
+    | 'invalid-widget-id'
+    | 'invalid-parsed-secret'
+    | 'bad-request'
+    | 'timeout-or-duplicate'
+    | 'internal-error';
 
-type TurnstileResponse =
-  | {
-      success: true;
-      'error-codes': [];
-      challenge_ts: string;
-      hostname: string;
-      action: string;
-      cdata: string;
-    }
-  | {
-      success: false;
-      'error-codes': TurnstileErrorCode[];
-    };
+  type TurnstileResponse =
+    | {
+        success: true;
+        'error-codes': [];
+        challenge_ts: string;
+        hostname: string;
+        action: string;
+        cdata: string;
+      }
+    | {
+        success: false;
+        'error-codes': TurnstileErrorCode[];
+      };
 
   const turnstileToken = data['cf-turnstile-response'];
   const secretKey = locals.runtime.env.TURNSTILE_SECRET_KEY;
@@ -125,12 +125,12 @@ type TurnstileResponse =
     );
   }
 
- const {
-   MY_CUSTOM_EMAIL_ADDRESS: myCustomAddress,
-    RESEND_API_KEY: resendApiKey
-  } = locals.runtime.env
+  const {
+    MY_CUSTOM_EMAIL_ADDRESS: myCustomAddress,
+    RESEND_API_KEY: resendApiKey,
+  } = locals.runtime.env;
 
-  const resend = new Resend(resendApiKey)
+  const resend = new Resend(resendApiKey);
 
   const mailContent = {
     from: `${meta.data.site.title} <${myCustomAddress}>`,
@@ -138,12 +138,12 @@ type TurnstileResponse =
     subject: `${CONTACT_NOTIFICATION_SUBJECT} from ${data.name}`,
     text:
       `Name:\n${data.name}\n\n` +
-        `Email:\n${data.email}\n\n` +
-        `Message:\n${data.message}\n\n`,
+      `Email:\n${data.email}\n\n` +
+      `Message:\n${data.message}\n\n`,
     reply_to: `${data.name} <${data.email}>`,
   };
 
-  const resendResult = await resend.emails.send(mailContent)
+  const resendResult = await resend.emails.send(mailContent);
   if (resendResult.error) {
     return new Response(
       JSON.stringify({

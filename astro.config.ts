@@ -95,7 +95,7 @@ export default defineConfig({
       }
     },
     ssr: {
-      external: ['node:fs', 'unfurl.js', 'node:events'],
+      external: ['node:fs', 'unfurl.js', 'node:events', 'node:url'],
     },
   },
   markdown: {

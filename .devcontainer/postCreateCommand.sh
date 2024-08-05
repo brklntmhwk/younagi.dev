@@ -11,5 +11,5 @@ git config --global user.name "brklntmhwk_dev"
 # Make the settings in ".git/hooks" consistent with your lefthook.yml
 lefthook install
 
-# # Install tools specified in the .tool-versions file
-# mise install
+# Add "Execute" permission for Git hooks
+chmod ug+x .husky/*

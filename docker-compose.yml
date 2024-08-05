@@ -13,9 +13,9 @@ services:
     environment:
       - COMPOSE_PROJECT_NAME=app
     working_dir: /workspace
-    volumes:
-      - .:/workspace:cached
-      # - node-modules-data:/workspace/node_modules
+    # volumes:
+    #   - .:/workspace:cached
+    # - node-modules-data:/workspace/node_modules
     user: dev
 # volumes:
 #   node-modules-data:

@@ -71,17 +71,6 @@ RUN apt-get update \
     && apt-get auto-remove -y \
     && apt-get clean -y
 
-# # Define the base path for Bun related bins
-ARG ORIGINAL_BUN_PATH=/root/.bun
-ARG BIN_BASE_PATH=/usr/local/bin
-
-# # Install Bun
-# RUN curl -fsSL https://bun.sh/install | bash \
-#     && mv $ORIGINAL_BUN_PATH/bin/bun $BIN_BASE_PATH/bun \
-#     && rm -rf $ORIGINAL_BUN_PATH \
-#     && ln -s $BIN_BASE_PATH/bun $BIN_BASE_PATH/bunx \
-#     && chmod a+x $BIN_BASE_PATH/bun
-
 # Install Lefthook
 # (Must be installed here otherwise it'll be unavailable in the script for the "postCreateCommand" in devcontainer and thereafter)
 RUN curl -1sLf 'https://dl.cloudsmith.io/public/evilmartians/lefthook/setup.deb.sh' | bash \
@@ -94,6 +83,7 @@ RUN apt-get update \
     && apt-get -y install nodejs
 
 # Set the pnpm bin dir
+ARG BIN_BASE_PATH=/usr/local/bin
 ENV PNPM_HOME="$BIN_BASE_PATH/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 
@@ -102,14 +92,6 @@ RUN corepack enable pnpm
 
 # Install Git-cz globally
 RUN pnpm install -g git-cz
-
-## Git-cz could also be available via another route below but the "commit init git-cz ..." command took a large amount of time
-
-# Install Commitizen & Git-cz globally
-# RUN pnpm install -g commitizen
-
-# Init git-cz
-# RUN commitizen init git-cz --save-dev --save-exact
 
 # Execute as a non-root user hereafter
 USER $USERNAME

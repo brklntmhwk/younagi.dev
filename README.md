@@ -50,8 +50,10 @@ A website where Nagi, just another engineer & creator, posts his work and writin
   - [Textlint](https://textlint.github.io/): The pluggable linting tool for text and markdown
 - **Git hooks manager:**
   - [Lefthook](https://github.com/evilmartians/lefthook): A polyglot Git hooks manager
+- **Email sender:**
+  - [Resend](https://resend.com/docs/introduction): A simple email API for developers
 
-## Ready, set, go!
+## Ready, Set, Go!
 
 ### Prerequisites
 
@@ -59,3 +61,29 @@ You need to:
 
 - install [VSCode](https://code.visualstudio.com/) on your local machine
 - install [the Remote Development extension](https://github.com/Microsoft/vscode-remote-release) in your VSCode editor
+
+### The Dev Workflow
+
+This project adopts Issue-driven Development.
+
+> [!NOTE]
+> Issue-driven Development is a dev process where:
+> - developers are always supposed to create a Github issue first whenever starting coding
+> - issues are associated with specific branches on-to-one, in which development proceeds
+> - After peer code reviews and passing your team's conventional rules, changes are finally merged into the main branch
+
+1. On [the issue page](https://github.com/brklntmhwk/younagi.dev/issues), Create an issue
+    - preferably add a label that matches the purpose of your issue
+2. Select "Create a branch for this issue or link a pull request" to create a branch for your issue
+    - e.g., "18-refine-readme" for an issue #18 to refine the README doc
+3. On your local dev environment, execute `git switch -c [[the branch name]]`
+    - If you haven't had a clone of this project, execute `git clone https://github.com/brklntmhwk/younagi.dev.git` first
+    - Hereafter, you're supposed to be at the project root
+4. Execute `git pull origin [[the branch name]]` to keep your local up to date
+5. Start coding!
+    1. Open the VSCode command palette
+    2. Select "Dev Containers: Reopen Container"
+        - It starts rebuilding the container if needed
+        - It might take longer the first time
+6. Execute `git add .` > `git cz`, add commit info answering prompts, and then execute `git push origin [[the branch name]]`
+7. Go to [the project's repo](https://github.com/brklntmhwk/younagi.dev) and create a pull request for changes you've made

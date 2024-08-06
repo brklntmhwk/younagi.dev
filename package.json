@@ -66,6 +66,7 @@
     "@vanilla-extract/vite-plugin": "^4.0.10",
     "better-sqlite3": "^11.0.0",
     "browserslist": "^4.23.0",
+    "danger": "^12.3.3",
     "drizzle-kit": "^0.23.0",
     "hast": "^1.0.0",
     "hast-util-from-html": "^2.0.1",

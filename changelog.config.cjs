@@ -11,7 +11,6 @@ module.exports = {
     'style',
     'ci',
     'perf',
-    'package',
   ],
   maxMessageLength: 72,
   minMessageLength: 3,
@@ -68,11 +67,6 @@ module.exports = {
       description: "Tweaks for tests",
       emoji: "✒️",
       value: "test",
-    },
-    package: {
-      description: "Package changes(install, update, remove etc...)",
-      emoji: "📦",
-      value: "package",
     },
   },
 };

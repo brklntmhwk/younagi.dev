@@ -1,6 +1,5 @@
 # younagi.dev
 
-[![Alpha deployment](https://github.com/brklntmhwk/younagi.dev/actions/workflows/dev.yml/badge.svg)](https://github.com/brklntmhwk/younagi.dev/actions/workflows/dev.yml)
 [![Production deployment](https://github.com/brklntmhwk/younagi.dev/actions/workflows/prod.yml/badge.svg)](https://github.com/brklntmhwk/younagi.dev/actions/workflows/prod.yml)
 
 ![younagi.dev site image](/public/placeholder.jpg)
@@ -31,7 +30,8 @@ A website where Nagi, just another engineer & creator, posts his work and writin
   - [Dev Containers](https://code.visualstudio.com/docs/devcontainers/containers): Docker containers that are specifically configured to provide a fully featured development environment
   - [Docker](https://www.docker.com/): An open platform for developing, shipping, and running applications
 - **CI/CD:**
-  - [Github Actions](https://github.co.jp/features/actions): A CI/CD platform
+  - [Github Actions](https://github.co.jp/features/actions): A CI/CD platform fully based in Github
+  - [DangerJS](https://danger.systems/js/): An automation tool for your team's conventions surrounding code review
 - **Commit management:**
   - [Git-cz](https://ttys3.github.io/git-cz/): A Conventional commit CLI
 - **Deployment:**

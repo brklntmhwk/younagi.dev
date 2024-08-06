@@ -1,0 +1,21 @@
+name: Danger on PR
+
+on:
+  pull_request:
+    types: [edited, opened, reopened, synchronize]
+
+jobs:
+  danger:
+    name: Run Danger JS on Pull Request
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Bun with Mise
+        uses: jdx/mise-action@v2
+      - name: Install dependencies
+        run: bun i --no-save
+      - name: Danger
+        run: bun danger ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

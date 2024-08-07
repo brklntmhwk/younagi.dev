@@ -77,7 +77,7 @@ This project adopts Issue-driven Development.
 > - issues are associated with specific branches one-to-one, in which development proceeds
 > - After peer code reviews and passing your team's conventional rules, changes are finally merged into the main branch
 
-1. On [the issue page](https://github.com/brklntmhwk/younagi.dev/issues), Create an issue
+1. On [the issue page](https://github.com/brklntmhwk/younagi.dev/issues), create an issue
     - Preferably add a label that matches the purpose of your issue
     - In your issue, clarify the following points
         - The purpose
@@ -90,15 +90,22 @@ This project adopts Issue-driven Development.
     - Hereafter, you're supposed to be at the project root
 4. Execute `git pull origin [[the branch name]]` to keep your local up to date
 5. Start coding!
-    1. Open the VSCode command palette
-    2. Select "Dev Containers: Reopen Container"
+    1. [Setup](#setup-for-coding)
+    2. Open the VSCode command palette
+    3. Select "Dev Containers: Reopen Container"
         - It starts rebuilding the container if needed
         - It might take longer the first time
 6. After you're finished coding, execute `git add .` > `git cz`, add commit info answering prompts, and then execute `git push origin [[the branch name]]`
 7. Go to [the project's repo](https://github.com/brklntmhwk/younagi.dev) and create a pull request for changes you've made
     - The title of pull requests must be in this format: `[[type]]([[scope]]): detailed descriptions here...`
       - Check the changelog config or dangerfile for allowed types & scopes
+      - e.g., "feat(ui): 🆕 add a likes button"
 8. Fix your code over the course of peer code review on an as-needed basis
     - Once the whole team gives you the green light, changes you've made will be merged into the main branch
 9. Confirm if the merge is done without any problem and then delete the remote branch from [this page](https://github.com/brklntmhwk/younagi.dev/branches)
     - Execute `git switch main` > `git branch -d [[the branch name]]` to delete the one in local
+
+### Setup for coding
+
+1. Create `.env` and `.env.vars` at the root
+    - see `.env.example` and `.env.vars.example` for reference, respectively

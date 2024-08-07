@@ -1,0 +1,4 @@
+TURNSTILE_SECRET_KEY=xxxxxx
+MY_CUSTOM_EMAIL_ADDRESS=xxxxxx@xxxxxx.xxx
+RESEND_API_KEY=xxxxxx
+LOCAL_DB_PATH=.wrangler\\state\\v3\\d1\\miniflare-D1DatabaseObject\\xxxxxx.sqlite

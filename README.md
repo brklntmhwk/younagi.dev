@@ -99,9 +99,12 @@ This project adopts Issue-driven Development.
     4. [Setup](#setup-for-coding)
 6. After you're finished coding, execute `git add .` > `git cz`, add commit info answering prompts, and then execute `git push origin [[the branch name]]`
 7. Go to [the project's repo](https://github.com/brklntmhwk/younagi.dev) and create a pull request for changes you've made
-    - The title of pull requests must be in this format: `[[type]]([[scope]]): detailed descriptions here...`
+    - The title of pull requests must be in this format: `<type>(<scope>): detailed descriptions here...`
       - Check the changelog config or dangerfile for allowed types & scopes
       - e.g., "feat(ui): 🆕 add a likes button"
+    - In your pull request, clarify the following points:
+      - Changes
+      - Checklist
 8. Fix your code over the course of peer code review on an as-needed basis
     - Once the whole team gives you the green light, changes you've made will be merged into the main branch
 9. Confirm if the merge is done without any problem and then delete the remote branch from [this page](https://github.com/brklntmhwk/younagi.dev/branches)

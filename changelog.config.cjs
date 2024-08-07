@@ -14,8 +14,12 @@ module.exports = {
   ],
   maxMessageLength: 72,
   minMessageLength: 3,
-  questions: ['type', 'scope', 'subject', 'body', 'breaking', 'issues', 'lerna'],
-  scopes: ['api', "cms", 'config', 'contents', 'db', 'deps', 'docker', 'i18n', 'none', 'ui', "utils"],
+  questions: [
+    'type', 'scope', 'subject', 'body', 'breaking', 'issues', 'lerna'
+  ],
+  scopes: [
+    'api', "cms", 'config', 'contents', 'db', 'deps', 'docker', 'i18n', 'none', 'ui', "utils"
+  ],
   types: {
     chore: {
       description: "Build process or auxiliary tool changes",

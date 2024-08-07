@@ -22,7 +22,6 @@ const checkPRTitle = () => {
   const scopePattern = scopeAllowList.join('|');
   const titleRegex = new RegExp(`^(${typePattern})\\((${scopePattern})\\): .+`);
 
-
   if (!titleRegex.test(title)) {
     fail(
       `:x: Invalid PR title: ${title}\n` +

@@ -22,6 +22,9 @@ COPY package.json bun.lockb ./
 # Install dependencies
 RUN bun install
 
+# Set up local DB
+RUN bun --bun run db:migrate:local
+
 ############################################################################
 # Builder Stage
 # Build the project
@@ -30,6 +33,9 @@ FROM base AS builder
 
 # Copy dependencies
 COPY --from=cacher /$PROJECT_DIR/node_modules node_modules
+
+# Copy wrangler dir
+COPY --from=cacher /$PROJECT_DIR/.wrangler .wrangler
 
 # Copy the project
 COPY . .

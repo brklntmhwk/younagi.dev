@@ -55,12 +55,17 @@ A website where Nagi, just another engineer & creator, posts his work and writin
 
 ## Ready, Set, Go!
 
+This section is a memo for myself assuming there are other project members or contributers.
+
 ### Prerequisites
 
 You need to:
 
 - install [VSCode](https://code.visualstudio.com/) on your local machine
 - install [the Remote Development extension](https://github.com/Microsoft/vscode-remote-release) in your VSCode editor
+
+> [!IMPORTANT]
+> You can also start coding without them, but need to install required packages and libraries in your local in that case.
 
 ### The Dev Workflow
 
@@ -69,14 +74,18 @@ This project adopts Issue-driven Development.
 > [!NOTE]
 > Issue-driven Development is a dev process where:
 > - developers are always supposed to create a Github issue first whenever starting coding
-> - issues are associated with specific branches on-to-one, in which development proceeds
+> - issues are associated with specific branches one-to-one, in which development proceeds
 > - After peer code reviews and passing your team's conventional rules, changes are finally merged into the main branch
 
 1. On [the issue page](https://github.com/brklntmhwk/younagi.dev/issues), Create an issue
-    - preferably add a label that matches the purpose of your issue
+    - Preferably add a label that matches the purpose of your issue
+    - In your issue, clarify the following points
+        - The purpose
+        - As-is
+        - To-be
 2. Select "Create a branch for this issue or link a pull request" to create a branch for your issue
     - e.g., "18-refine-readme" for an issue #18 to refine the README doc
-3. On your local dev environment, execute `git switch -c [[the branch name]]`
+3. In your local dev environment, execute `git switch -c [[the branch name]]`
     - If you haven't had a clone of this project, execute `git clone https://github.com/brklntmhwk/younagi.dev.git` first
     - Hereafter, you're supposed to be at the project root
 4. Execute `git pull origin [[the branch name]]` to keep your local up to date
@@ -85,5 +94,11 @@ This project adopts Issue-driven Development.
     2. Select "Dev Containers: Reopen Container"
         - It starts rebuilding the container if needed
         - It might take longer the first time
-6. Execute `git add .` > `git cz`, add commit info answering prompts, and then execute `git push origin [[the branch name]]`
+6. After you're finished coding, execute `git add .` > `git cz`, add commit info answering prompts, and then execute `git push origin [[the branch name]]`
 7. Go to [the project's repo](https://github.com/brklntmhwk/younagi.dev) and create a pull request for changes you've made
+    - The title of pull requests must be in this format: `[[type]]([[scope]]): detailed descriptions here...`
+      - Check the changelog config or dangerfile for allowed types & scopes
+8. Fix your code over the course of peer code review on an as-needed basis
+    - Once the whole team gives you the green light, changes you've made will be merged into the main branch
+9. Confirm if the merge is done without any problem and then delete the remote branch from [this page](https://github.com/brklntmhwk/younagi.dev/branches)
+    - Execute `git switch main` > `git branch -d [[the branch name]]` to delete the one in local

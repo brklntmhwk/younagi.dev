@@ -118,3 +118,5 @@ This project adopts Issue-driven Development.
 #### Inside the container
 
 1. Set the `LOCAL_DB_PATH` var looking up the dir ".wrangler/state/v3/d1/miniflare-D1DatabaseObject/"
+2. Run `bun dev --host` to start the dev server
+3. Go to "http://localhost:4321/"

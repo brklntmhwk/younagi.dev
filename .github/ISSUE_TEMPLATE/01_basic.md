@@ -1,6 +1,6 @@
 ---
 name: Basic
-about: The basic issue format of this project
+about: Use this for a general issue
 title: ''
 labels: ''
 assignees: brklntmhwk

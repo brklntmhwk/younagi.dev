@@ -123,3 +123,7 @@ This project adopts Issue-driven Development.
 1. Set the `LOCAL_DB_PATH` var looking up the dir ".wrangler/state/v3/d1/miniflare-D1DatabaseObject/"
 2. Run `bun dev --host` to start the dev server
 3. Go to "http://localhost:4321/"
+
+## License
+
+This project is licensed under the MIT License, see the [LICENSE](./LICENSE) file for more details.

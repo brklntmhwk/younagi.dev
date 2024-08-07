@@ -87,6 +87,7 @@ This project adopts Issue-driven Development.
     - e.g., "18-refine-readme" for an issue #18 to refine the README doc
 3. In your local dev environment, execute `git switch -c [[the branch name]]`
     - If you haven't had a clone of this project, execute `git clone https://github.com/brklntmhwk/younagi.dev.git` first
+        - In a real project run by a team, fork this project first via [the Github repo](https://github.com/brklntmhwk/younagi.dev) and then clone it
     - Hereafter, you're supposed to be at the project root
 4. Execute `git pull origin [[the branch name]]` to keep your local up to date
 5. Start coding!
@@ -95,6 +96,7 @@ This project adopts Issue-driven Development.
     3. Select "Dev Containers: Reopen Container"
         - It starts rebuilding the container if needed
         - It might take longer the first time
+    4. [Setup](#setup-for-coding)
 6. After you're finished coding, execute `git add .` > `git cz`, add commit info answering prompts, and then execute `git push origin [[the branch name]]`
 7. Go to [the project's repo](https://github.com/brklntmhwk/younagi.dev) and create a pull request for changes you've made
     - The title of pull requests must be in this format: `[[type]]([[scope]]): detailed descriptions here...`
@@ -107,5 +109,12 @@ This project adopts Issue-driven Development.
 
 ### Setup for coding
 
+#### Outside the container
+
 1. Create `.env` and `.env.vars` at the root
     - see `.env.example` and `.env.vars.example` for reference, respectively
+    - At this moment, you can't set the `LOCAL_DB_PATH` var yet
+
+#### Inside the container
+
+1. Set the `LOCAL_DB_PATH` var looking up the dir ".wrangler/state/v3/d1/miniflare-D1DatabaseObject/"

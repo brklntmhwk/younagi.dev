@@ -1,0 +1,128 @@
+---
+title: Free pomodoro timer shortcut built only with the genuine Apple Clock app
+draft: draft
+publishedAt: 2024-08-08T03:05:43.193Z
+type: blog
+modifiedAt: 2024-08-08T09:50:57.027Z
+category:
+  slug: learning
+  metadata: en/categories
+tags:
+  slugList:
+    - iphone
+    - ipad
+  metadata: en/tags
+level: 5
+description: Learn how to create a pomodoro timer shortcut with the Apple Clock app
+---
+
+## Intro
+
+[The Pomodoro® Technique](https://www.pomodorotechnique.com/) plays a pivotal role in enhancing our productivity in modern society and there has been a bunch of pomodoro timer apps available in app stores.
+
+That said, it turned out that few of them were really my cup of tea. Some have very limited features for free tier users, whereas some have a lot of bells and whistles that I don't use. Given that, I embarked on creating it on my own with the Apple shortcut.
+
+> [!info]-What's the Pomodoro® Technique?
+> The Pomodoro® Technique utilizes fixed time intervals for focused work, usually 25 minutes, followed by short breaks. This structured approach keeps the mind alert and engaged, significantly reducing the inclination to procrastinate and enabling a deeper focus on tasks.
+
+### Reader personas
+
+- Want to use a useful pomodoro timer for free
+- Interested in creating a pomodoro timer with the Apple shortcut without any help of third-party apps
+
+## Main
+
+You can download the final product via the link below.
+
+https://www.icloud.com/shortcuts/b12a5c2e30484677b40a5f98b9e7774d
+
+> [!warning]
+> This is only available to iOS/iPadOS/MacOS users
+
+### The design concept
+
+- Use genuine Apple apps only in combination with the shortcut
+- Keep features to an absolute minimum
+- Make it customizable by users by themselves
+
+### How to use
+
+![ Asking how long to work ](../../../assets/images/ask-work-interval.png)
+
+To start the pomodoro timer, all you have to do are:
+
+1. Tap or click the shortcut icon(Put it on your home screen or somewhere in advance)
+2. Set your working interval(25mins by default)
+3. Set your breaking interval(5mins by default)
+
+You'll see the timer counting down appear and now it's time to get your work started!
+
+![ The timer tab ](../../../assets/images/timer-display.png)
+
+### The workflow
+
+Behind the scenes, the pomodoro shortcut proceeds as follows:
+
+**Does the shortcut receives a parameter?**
+
+↪️Yes
+
+- Retrieve the work & break time from the param by splitting it
+
+↪️No
+
+- Ask you how long you're working(in minutes)
+- Ask you how long you're taking a break(in minutes)
+
+Hereafter, it runs the same processes
+
+- Set the work & break intervals to variables
+- Wait for a few seconds
+- Open the timer tab of the Apple Clock app
+- Show a notification that lets you know the work interval's started
+- multiply the work & break intervals by 60 to get them in seconds
+- Set the work interval in seconds to a variable
+- Wait for the work intervals in seconds
+- Show an alert to check if you want to continue
+- Open the timer tab of the Apple Clock app
+- Show a notification that lets you know the break interval's started
+- Set the break interval in seconds to a variable
+- Wait for the break intervals in seconds
+- Show an alert to check if you want to continue
+- Concatenate the work & break intervals in minutes as a string
+- Set the concatenated string to a variable
+- Pass it to this shortcut and call it in itself
+
+To achieve the recursive structure, this shortcut takes a parameter in text and then retrieves the work & break interval times separately from it if there's any.
+If not, it asks you how long, which is supposed to be the case only the first time.
+
+Another important point is, to the best of my knowledge, the Apple shortcut doesn't have a feature like the [async/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) from JavaScript. That's why I had to use the "Wait xxx" block instead of the await operator to make it align with the timer countdown.
+
+> [!question]+Why do you need to get interval times in seconds?
+> Because the shortcut block "Wait xxx" only takes a time in seconds
+
+> [!question]+Why do you need to concatenate interval times?
+> Because the shortcut block "Run a shortcut" only takes one parameter. This is sort of a workaround.
+
+### Cautions
+
+When you use this shortcut, make sure the following limitations:
+
+- It's not fully synchronized with the Apple Clock app
+  - Any actions beyond the scope of the workflow could cause a misalignment of them
+    - e.g., Close the alert popup by tapping or clicking other areas on your screen than button menus
+      - This stops the shortcut but not the Clock app
+    - e.g., Tweak the timer directly in the Clock app
+      - This affects the Clock app but not the shortcut
+
+## Outro
+
+After installing the shortcut, You can customize the default work & break intervals and other behaviors as you like.
+
+Incidentally, I use it like these:
+
+- It's callable by tapping the icon on the home screen of iPhone & iPad
+- It's automatically called when the study mode is turned on.
+  - triggered by the Automation functionality of the Apple shortcut
+
+https://www.icloud.com/shortcuts/b12a5c2e30484677b40a5f98b9e7774d

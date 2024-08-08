@@ -39,13 +39,13 @@ export const colorVariants = styleVariants({
   green: {
     vars: {
       [fgColor]: 'hsla(0, 0%, 96.7%, 1)',
-      [bgColor]: 'hsla(117, 65%, 60%, 1)',
+      [bgColor]: 'hsla(117, 75%, 40%, 1)',
     },
     '@media': {
       '(prefers-color-scheme: dark)': {
         vars: {
           [fgColor]: 'hsla(0, 0%, 96.7%, 1)',
-          [bgColor]: 'hsla(117, 42%, 58%, 1)',
+          [bgColor]: 'hsla(117, 42%, 30%, 1)',
         },
       },
     },
@@ -78,6 +78,22 @@ export const colorVariants = styleVariants({
         vars: {
           [fgColor]: 'hsla(0, 0%, 96.7%, 1)',
           [bgColor]: 'hsla(0, 100%, 75%, 1)',
+        },
+      },
+    },
+    color: fgColor,
+    backgroundColor: bgColor,
+  },
+  grey: {
+    vars: {
+      [fgColor]: 'hsla(0, 0%, 96.7%, 1)',
+      [bgColor]: 'hsla(212, 10%, 48%, 1)',
+    },
+    '@media': {
+      '(prefers-color-scheme: dark)': {
+        vars: {
+          [fgColor]: 'hsla(0, 0%, 96.7%, 1)',
+          [bgColor]: 'hsla(205, 10%, 38%, 1)',
         },
       },
     },

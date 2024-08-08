@@ -16,3 +16,9 @@
 - slug: vscode
   title: VSCode
   color: primary
+- title: iPhone
+  slug: iphone
+  color: grey
+- title: iPad
+  slug: ipad
+  color: grey

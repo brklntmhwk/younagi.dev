@@ -11,13 +11,11 @@ assignees: brklntmhwk
 - xxxxx
 
 ## As-is
-
-The as-is around this issue
+<!-- The as-is around this issue -->
 
 - xxxxx
 
 ## To-be
-
-The to-be as a result of upcoming changes
+<!-- The to-be as a result of upcoming changes -->
 
 - xxxxx

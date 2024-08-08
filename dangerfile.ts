@@ -26,6 +26,7 @@ const checkPRTitle = () => {
     'docker',
     'i18n',
     'none',
+    'overall',
     'ui',
     'utils',
   ];

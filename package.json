@@ -109,9 +109,5 @@
   "engines": {
     "bun": "^1.0.0"
   },
-  "trustedDependencies": [
-    "@biomejs/biome",
-    "esbuild",
-    "sharp"
-  ]
+  "trustedDependencies": ["@biomejs/biome", "esbuild", "sharp"]
 }

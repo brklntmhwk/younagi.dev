@@ -1,4 +1,4 @@
-import { danger, fail, warn } from 'danger';
+import { danger, fail, markdown, warn } from 'danger';
 
 const checkPRTitle = () => {
   const title = danger.github.pr.title;
@@ -36,12 +36,12 @@ const checkPRTitle = () => {
   const titleRegex = new RegExp(`^(${typePattern})\\((${scopePattern})\\): .+`);
 
   if (!titleRegex.test(title)) {
-    fail(
-      `**:x: Invalid PR title: ${title}**\n
-        Use either of the following type & scope instead.\n
-        Allowed type list:\n
+    fail(`**:x: Invalid PR title: ${title}**\n`);
+    markdown(
+      `Use either of the following type & scope instead.\n
+        **Allowed type list:**\n
         - ${typeAllowList.join(',')}\n
-        Allowed scope list:\n
+        **Allowed scope list:**\n
         - ${scopeAllowList.join(',')}\n
         e.g., feat(ui): 🆕 add a likes button\n`,
     );
@@ -54,11 +54,11 @@ const warnLargePR = () => {
     danger.github.pr.additions + danger.github.pr.deletions;
 
   if (changedLinesTotal > 500 || changedFiles > 30) {
-    warn(
-      `**:warning: PR size appears relatively large.**\n
-        - Changed files: ${changedFiles}\n
-        - Changed lines: ${changedLinesTotal}\n
-        Preferably, break changes into separate PRs for faster and easier code review.\n`,
+    warn('**:warning: PR size appears relatively large.**\n');
+    markdown(
+      `Preferably, break changes into separate PRs for faster and easier code review.\n
+      - Changed files: ${changedFiles}\n
+      - Changed lines: ${changedLinesTotal}\n`,
     );
   }
 };

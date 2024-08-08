@@ -7,25 +7,19 @@
     {
       "title": "blog",
       "path": "[[workspace]]/src/content/blog",
-      "contentTypes": [
-        "blog"
-      ],
+      "contentTypes": ["blog"],
       "defaultLocale": "en"
     },
     {
       "title": "news",
       "path": "[[workspace]]/src/content/news",
-      "contentTypes": [
-        "news"
-      ],
+      "contentTypes": ["news"],
       "defaultLocale": "en"
     },
     {
       "title": "page",
       "path": "[[workspace]]/src/content/page",
-      "contentTypes": [
-        "page"
-      ],
+      "contentTypes": ["page"],
       "defaultLocale": "en"
     }
   ],
@@ -44,11 +38,7 @@
   "frontMatter.content.draftField": {
     "name": "draft",
     "type": "choice",
-    "choices": [
-      "draft",
-      "in progress",
-      "published"
-    ]
+    "choices": ["draft", "in progress", "published"]
   },
   "frontMatter.taxonomy.seoTitleLength": 90,
   "frontMatter.taxonomy.contentTypes": [
@@ -233,11 +223,7 @@
       "schema": {
         "title": "Categories",
         "type": "object",
-        "required": [
-          "title",
-          "slug",
-          "color"
-        ],
+        "required": ["title", "slug", "color"],
         "properties": {
           "title": {
             "type": "string",
@@ -259,11 +245,7 @@
       "schema": {
         "title": "Tags",
         "type": "object",
-        "required": [
-          "title",
-          "slug",
-          "color"
-        ],
+        "required": ["title", "slug", "color"],
         "properties": {
           "title": {
             "type": "string",
@@ -320,11 +302,7 @@
     },
     "Code block with specified language": {
       "description": "Insert code block snippet",
-      "body": [
-        "```[[language]] title=\"[[filename]]\"",
-        "",
-        "```"
-      ],
+      "body": ["```[[language]] title=\"[[filename]]\"", "", "```"],
       "fields": [
         {
           "name": "language",
@@ -360,10 +338,7 @@
     },
     "Callout": {
       "description": "Insert a callout",
-      "body": [
-        "> [![[type]] ][[symbol]][[title]]",
-        "> [[content]]"
-      ],
+      "body": ["> [![[type]] ][[symbol]][[title]]", "> [[content]]"],
       "fields": [
         {
           "name": "type",
@@ -385,11 +360,7 @@
           "name": "symbol",
           "title": "Symbol",
           "type": "choice",
-          "choices": [
-            "+",
-            "-",
-            " "
-          ],
+          "choices": ["+", "-", " "],
           "single": true,
           "default": " "
         },

@@ -26,9 +26,7 @@
       "onAutoForward": "openBrowserOnce"
     }
   },
-  "forwardPorts": [
-    4321
-  ],
+  "forwardPorts": [4321],
   "overrideCommand": true,
   "postCreateCommand": "/bin/sh .devcontainer/postCreateCommand.sh"
 }

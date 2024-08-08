@@ -36,13 +36,13 @@ const checkPRTitle = () => {
 
   if (!titleRegex.test(title)) {
     fail(
-      `:x: Invalid PR title: ${title}\n
+      `**:x: Invalid PR title: ${title}**\n
         Use either of the following type & scope instead.\n
         Allowed type list:\n
-        ${typeAllowList.join(',')}\n
+        - ${typeAllowList.join(',')}\n
         Allowed scope list:\n
-        ${scopeAllowList.join(',')}\n
-        e.g., feat(ui): 🆕 add a likes button`,
+        - ${scopeAllowList.join(',')}\n
+        e.g., feat(ui): 🆕 add a likes button\n`,
     );
   }
 };
@@ -54,9 +54,10 @@ const warnLargePR = () => {
 
   if (changedLinesTotal > 500 || changedFiles > 30) {
     warn(
-      `:warning: PR size appears relatively large.\n
-        Changed files: ${changedFiles}, Changed lines: ${changedLinesTotal}\n
-        Preferably, break changes into separate PRs for faster and easier code review.`,
+      `**:warning: PR size appears relatively large.**\n
+        - Changed files: ${changedFiles}\n
+        - Changed lines: ${changedLinesTotal}\n
+        Preferably, break changes into separate PRs for faster and easier code review.\n`,
     );
   }
 };
@@ -67,8 +68,8 @@ const preventInconsistentDeps = () => {
 
   if (hasPackageChanges && !hasLockfileChanges) {
     fail(
-      ':x: Inconsistent deps changes detected.\n' +
-        'Make changes in package.json consistent with those in your lockfile.',
+      '**:x: Inconsistent deps changes detected.**\n' +
+        'Make changes in package.json consistent with those in your lockfile.\n',
     );
   }
 };

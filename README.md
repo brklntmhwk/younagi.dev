@@ -106,7 +106,7 @@ This project adopts Issue-driven Development.
       - e.g., "feat(ui): 🆕 add a likes button"
     - Use a template by hitting the URL like below
       - `https://github.com/brklntmhwk/younagi.dev/compare/main...${BRANCH_NAME}?template=${TEMPLATE_NAME}`
-      - For the TEMPLATE_NAME, see `.github/PULL_REQUEST_TEMPLATE`
+      - For the `TEMPLATE_NAME`, see under the ".github/PULL_REQUEST_TEMPLATE/" directory
         - e.g., `...?template=01_basic.md`
 8. Fix your code over the course of peer code review on an as-needed basis
     - Once the whole team gives you the green light, changes you've made will be merged into the main branch

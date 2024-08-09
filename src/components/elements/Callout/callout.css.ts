@@ -146,7 +146,7 @@ export const calloutToggleCheck = style({
 
 export const calloutTitle = style({
   display: 'flex',
-  gap: '0.5rem',
+  gap: '0.5875rem',
   alignItems: 'center',
   userSelect: 'none',
   selectors: {
@@ -154,7 +154,7 @@ export const calloutTitle = style({
       content: '›',
       color: 'inherit',
       display: 'inline-block',
-      fontSize: '1.35rem',
+      fontSize: '1.785rem',
       transition: 'transform 0.3s ease',
     },
     [`&:has(+ ${calloutToggleCheck}:checked)::after`]: {
@@ -169,8 +169,12 @@ export const calloutTitleText = style({
 });
 
 export const calloutTitleIcon = style({
-  width: '20px',
-  height: '20px',
+  flexBasis: '32px',
+  '@media': {
+    '(min-width: 640px)': {
+      flexBasis: '20px',
+    },
+  },
 });
 
 globalStyle('.callout-content', {

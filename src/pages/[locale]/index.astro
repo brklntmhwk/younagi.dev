@@ -49,7 +49,7 @@ const latestNews = newsList.slice(0, NEWS_LATEST_MAXIMUM_COUNT);
     </section>
     <section class="blog-section">
       <h2>{t.data.pages.home.blog_section.title}</h2>
-      <BlogList taxonomies={{ show: false }} entries={latestBlogEntries} />
+      <BlogList taxonomies={{ show: true, shouldDisplay: ['category', 'tags'] }} entries={latestBlogEntries} />
       <a class="read-more classic-blue-link" href={translatePath('/blog')}>
         {t.data.pages.home.blog_section.read_more}
         <Icon iconName="right-arrow" width={18} height={18} />

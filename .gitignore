@@ -1,5 +1,6 @@
 # build output
 dist/
+
 # generated types
 .astro/
 
@@ -14,11 +15,5 @@ node_modules/
 # macOS-specific files
 .DS_Store
 
-# Front Matter CMS files
-.frontmatter/
-
 # Wrangler
 .wrangler/
-
-# VSCode
-# .vscode/

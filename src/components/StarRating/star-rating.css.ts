@@ -9,11 +9,12 @@ export const ratingWrapper = style({
   '@media': {
     '(min-width: 300px)': {
       width: '100%',
+      padding: '0.785rem',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
-      gap: '0.85rem',
+      gap: '0.975rem',
     },
   },
 });

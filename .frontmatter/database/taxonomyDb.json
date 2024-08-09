@@ -1,1 +1,6 @@
-{}
+{
+  "taxonomy": {
+    "categories": ["en/categories", "ja/categories"],
+    "tags": ["en/tags", "ja/tags"]
+  }
+}

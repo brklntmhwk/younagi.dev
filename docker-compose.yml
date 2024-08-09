@@ -16,8 +16,15 @@ services:
     volumes:
       - project-data:/workspace:consistent
       # - .:/workspace:cached
-    # - node-modules-data:/workspace/node_modules
     user: dev
+  db:
+    container_name: younagi-db
+    image: sqlite:latest
+    volumes:
+      - db-data:/var/lib/sqlite/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
 volumes:
   project-data:
-#   node-modules-data:
+  db-data:

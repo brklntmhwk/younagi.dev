@@ -32,7 +32,9 @@ const YearMonthPairs = groupArchiveByYear(entries);
             <li>
               <span class="year">{year}</span>
               <ul class="month-list">
-                {YearMonthPairs[year]?.sort((a,b) => orderByDate(a.mStr, b.mStr, 'asc')).map(({ mStr, mDate }) => {
+                {YearMonthPairs[year]
+                ?.sort((a,b) => orderByDate(a.mStr, b.mStr, 'asc'))
+                .map(({ mStr, mDate }) => {
                   return (
                     <li>
                       <a href={`/blog/archive/${year}${mStr}`} class="month">

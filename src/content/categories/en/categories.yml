@@ -1,12 +1,16 @@
 - title: Experiment
   slug: experiment
+  ruby: Experiment
   color: primary
 - title: Learning
   slug: learning
+  ruby: Learning
   color: secondary
 - title: Others
   slug: others
+  ruby: Others
   color: purple
 - title: Travel
   slug: travel
+  ruby: Travel
   color: green

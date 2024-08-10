@@ -4,6 +4,7 @@ import { Taxonomy } from '@/components/Taxonomy';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getTags } from '@/lib/collections/data';
 import { langList } from '@/utils/i18n/data';
+import { compareCharsInLocale } from '@/utils/i18n/utils';
 import type { GetStaticPaths } from 'astro';
 
 export const getStaticPaths = (() => {
@@ -14,6 +15,9 @@ const { locale } = Astro.params;
 const meta = await getEntry('meta', `${locale}/site-data`);
 const t = await getEntry('i18n', `${locale}/translation`);
 const tags = await getTags(locale);
+const sortedTags = tags.data.sort((a, b) =>
+  compareCharsInLocale(a.ruby, b.ruby, locale),
+);
 ---
 
 <BaseLayout
@@ -28,7 +32,7 @@ const tags = await getTags(locale);
     </a>
     <hr />
     <section class="tag-cloud">
-      {tags.data.map((tag) => <Taxonomy kind="tags" taxonomy={tag} />)}
+      {sortedTags.map((tag) => <Taxonomy kind="tags" taxonomy={tag} />)}
     </section>
   </main>
 </BaseLayout>

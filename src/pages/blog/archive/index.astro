@@ -5,7 +5,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getSortedContentEntries } from '@/lib/collections/contents';
 import { groupArchiveByYear } from '@/utils/group-archive-by-year';
 import { defaultLang } from '@/utils/i18n/data';
-import { orderByDateDesc } from '@/utils/order-by-date-desc';
+import { orderByDate } from '@/utils/order-by-date';
 
 const meta = await getEntry('meta', `${defaultLang}/site-data`);
 const t = await getEntry('i18n', `${defaultLang}/translation`);
@@ -27,12 +27,14 @@ const YearMonthPairs = groupArchiveByYear(entries);
     <ul class="year-list">
       {
         Object.keys(YearMonthPairs)
-          .sort((a, b) => orderByDateDesc(a, b))
+          .sort((a, b) => orderByDate(a, b, 'desc'))
           .map((year) => (
             <li>
               <span class="year">{year}</span>
               <ul class="month-list">
-                {YearMonthPairs[year]?.map(({ mStr, mDate }) => {
+                {YearMonthPairs[year]
+                ?.sort((a,b) => orderByDate(a.mStr, b.mStr, 'asc'))
+                .map(({ mStr, mDate }) => {
                   return (
                     <li>
                       <a href={`/blog/archive/${year}${mStr}`} class="month">

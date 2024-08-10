@@ -5,6 +5,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getSortedContentEntries } from '@/lib/collections/contents';
 import { groupArchiveByYear } from '@/utils/group-archive-by-year';
 import { langList } from '@/utils/i18n/data';
+import { orderByDate } from '@/utils/order-by-date';
 import type { GetStaticPaths } from 'astro';
 
 export const getStaticPaths = (() => {
@@ -31,11 +32,14 @@ const YearMonthPairs = groupArchiveByYear(entries);
     <hr />
     <ul class="year-list">
       {
-        Object.keys(YearMonthPairs).map((year) => (
+        Object.keys(YearMonthPairs).sort((a, b) => orderByDate(a, b, 'desc'))
+        .map((year) => (
           <li>
             <span class="year">{year}</span>
             <ul class="month-list">
-              {YearMonthPairs[year]?.map(({ mStr, mDate }) => {
+              {YearMonthPairs[year]
+              ?.sort((a,b) => orderByDate(a.mStr, b.mStr, 'asc'))
+              .map(({ mStr, mDate }) => {
                 return (
                   <li>
                     <a

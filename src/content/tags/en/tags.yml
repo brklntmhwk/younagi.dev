@@ -1,24 +1,32 @@
 - title: Astro
   slug: astro
+  ruby: Astro
   color: primary
 - title: Cloudflare
   slug: cloudflare
+  ruby: Cloudflare
   color: primary
 - title: TypeScript
   slug: typescript
+  ruby: TypeScript
   color: primary
 - title: Front Matter CMS
   slug: front-matter-cms
+  ruby: Front Matter CMS
   color: primary
 - title: Error
   slug: error
+  ruby: Error
   color: red
 - title: VSCode
-  color: primary
   slug: vscode
+  ruby: VSCode
+  color: primary
 - title: iPad
   slug: ipad
+  ruby: iPad
   color: grey
 - title: iPhone
   slug: iphone
+  ruby: iPhone
   color: grey

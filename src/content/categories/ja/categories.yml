@@ -1,12 +1,16 @@
 - title: 実験
   slug: experiment
+  ruby: じっけん
   color: primary
 - title: 学び
   slug: learning
+  ruby: まなび
   color: secondary
 - title: 旅
   slug: travel
+  ruby: たび
   color: green
 - title: その他
   slug: others
+  ruby: そのた
   color: purple

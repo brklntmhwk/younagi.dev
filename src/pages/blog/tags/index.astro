@@ -4,12 +4,14 @@ import { Taxonomy } from '@/components/Taxonomy';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getTags } from '@/lib/collections/data';
 import { defaultLang } from '@/utils/i18n/data';
-import { compareCharsInLocale } from '@/utils/i18n/utils'
+import { compareCharsInLocale } from '@/utils/i18n/utils';
 
 const meta = await getEntry('meta', `${defaultLang}/site-data`);
 const t = await getEntry('i18n', `${defaultLang}/translation`);
 const tags = await getTags(defaultLang);
-const sortedTags = tags.data.sort((a, b) => compareCharsInLocale(a.title, b.title, defaultLang))
+const sortedTags = tags.data.sort((a, b) =>
+  compareCharsInLocale(a.ruby, b.ruby, defaultLang),
+);
 ---
 
 <BaseLayout

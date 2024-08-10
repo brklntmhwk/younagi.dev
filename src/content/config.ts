@@ -36,6 +36,7 @@ const blog = defineCollection({
 const taxonomySchema = z.object({
   title: z.string(),
   slug: z.string(),
+  ruby: z.string(),
   color: z.enum<TaxonomyColor, TaxonomyColorEnum>(
     taxonomyColors as TaxonomyColorEnum,
   ),

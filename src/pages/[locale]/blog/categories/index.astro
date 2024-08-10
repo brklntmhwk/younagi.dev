@@ -4,8 +4,8 @@ import { Taxonomy } from '@/components/Taxonomy';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getCategories } from '@/lib/collections/data';
 import { langList } from '@/utils/i18n/data';
+import { compareCharsInLocale } from '@/utils/i18n/utils';
 import type { GetStaticPaths } from 'astro';
-import { compareCharsInLocale } from '@/utils/i18n/utils'
 
 export const getStaticPaths = (() => {
   return langList.map((lang) => ({ params: { locale: lang } }));
@@ -15,7 +15,9 @@ const { locale } = Astro.params;
 const meta = await getEntry('meta', `${locale}/site-data`);
 const t = await getEntry('i18n', `${locale}/translation`);
 const categories = await getCategories(locale);
-const sortedCategories = categories.data.sort((a, b) => compareCharsInLocale(a.title, b.title, locale))
+const sortedCategories = categories.data.sort((a, b) =>
+  compareCharsInLocale(a.ruby, b.ruby, locale),
+);
 ---
 
 <BaseLayout

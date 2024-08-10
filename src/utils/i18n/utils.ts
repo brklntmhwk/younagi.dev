@@ -31,3 +31,13 @@ export const getTargetLocaleSlug = (
 
   return slug;
 };
+
+export const compareCharsInLocale = (
+  a: string,
+  b: string,
+  locale: Language,
+) => {
+  const collator = new Intl.Collator(locale);
+
+  return collator.compare(a, b);
+};

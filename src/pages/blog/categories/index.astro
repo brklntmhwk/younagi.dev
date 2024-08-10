@@ -4,10 +4,12 @@ import { Taxonomy } from '@/components/Taxonomy';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getCategories } from '@/lib/collections/data';
 import { defaultLang } from '@/utils/i18n/data';
+import { compareCharsInLocale } from '@/utils/i18n/utils'
 
 const meta = await getEntry('meta', `${defaultLang}/site-data`);
 const t = await getEntry('i18n', `${defaultLang}/translation`);
 const categories = await getCategories(defaultLang);
+const sortedCategories = categories.data.sort((a, b) => compareCharsInLocale(a.title, b.title, defaultLang))
 ---
 
 <BaseLayout
@@ -23,7 +25,7 @@ const categories = await getCategories(defaultLang);
     <hr />
     <section class="category-cloud">
       {
-        categories.data.map((category) => (
+        sortedCategories.map((category) => (
           <Taxonomy kind="categories" taxonomy={category} />
         ))
       }

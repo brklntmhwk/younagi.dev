@@ -124,7 +124,7 @@ export const POST: APIRoute = async ({
 
   const mailContent = {
     from: `${meta.data.site.title} <${myCustomAddress}>`,
-    to: myCustomAddress,
+    to: [myCustomAddress],
     subject: `${CONTACT_NOTIFICATION_SUBJECT} from ${data.name}`,
     text:
       `Name:\n${data.name}\n\n` +

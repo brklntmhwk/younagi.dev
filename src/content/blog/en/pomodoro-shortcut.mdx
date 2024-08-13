@@ -3,7 +3,7 @@ title: Free pomodoro timer shortcut built only with the genuine Apple Clock app
 draft: published
 publishedAt: 2024-08-08T03:05:43.193Z
 type: blog
-modifiedAt: 2024-08-09T02:52:38.552Z
+modifiedAt: 2024-08-13T03:56:30.278Z
 category:
   slug: learning
   metadata: en/categories
@@ -20,7 +20,7 @@ description: Learn how to create a pomodoro timer shortcut with the Apple Clock 
 
 [The Pomodoro® Technique](https://www.pomodorotechnique.com/) plays a pivotal role in enhancing our productivity in modern society and there has been a bunch of pomodoro timer apps available in app stores.
 
-That said, it turned out that few of them were really my cup of tea. Some have very limited features for free tier users, whereas some have a lot of bells and whistles that I don't use. Given that, I embarked on creating it on my own with the Apple shortcut.
+That said, it turned out that few of them were really my cup of tea. Some have very limited features for free tier users, whereas some have a lot of bells and whistles that I mightn't use. Given that, I embarked on creating it on my own with the Apple shortcut.
 
 > [!info]-What's the Pomodoro® Technique?
 > The Pomodoro® Technique utilizes fixed time intervals for focused work, usually 25 minutes, followed by short breaks. This structured approach keeps the mind alert and engaged, significantly reducing the inclination to procrastinate and enabling a deeper focus on tasks.
@@ -51,7 +51,7 @@ https://www.icloud.com/shortcuts/b12a5c2e30484677b40a5f98b9e7774d
 
 To start the pomodoro timer, all you have to do are:
 
-1. Tap or click the shortcut icon(Put it on your home screen or somewhere in advance)
+1. Tap or click the shortcut icon to run it(Put it on your home screen or somewhere in advance)
 2. Set your working interval(25mins by default)
 3. Set your breaking interval(5mins by default)
 
@@ -61,13 +61,16 @@ You'll see the timer counting down appear and now it's time to get your work sta
 
 ### The workflow
 
-Behind the scenes, the pomodoro shortcut proceeds as follows:
+Behind the scenes, the pomodoro shortcut proceeds as follows: (You can skip this section if you're not interested in the mechanism)
 
 **Does the shortcut receives a parameter?**
 
 ↪️Yes
 
 - Retrieve the work & break time from the param by splitting it
+
+> [!info]
+> You will see what it means later in this section
 
 ↪️No
 

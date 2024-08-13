@@ -139,8 +139,7 @@ export const POST: APIRoute = async ({
     return new Response(
       JSON.stringify({
         message: `Failed to send email\n
-         ${resendResult.error.name}: ${resendResult.error.message}\n
-         ${meta.data.site.title} <${myCustomAddress}>`,
+         ${resendResult.error.name}: ${resendResult.error.message}`,
       }),
       { status: 500 },
     );

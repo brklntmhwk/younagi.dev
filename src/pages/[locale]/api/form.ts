@@ -71,9 +71,10 @@ export const POST: APIRoute = async ({
   if (!vResult.success) {
     return new Response(
       JSON.stringify({
-        message: `Missing or invalid field input(s): ${vResult.issues.map(
-          (issue) => `message: ${issue.message}\n input: ${issue.input}`,
-        )}`,
+        message: `Missing or invalid field input(s):\n
+          ${vResult.issues.map(
+            (issue) => `message: ${issue.message}\n input: ${issue.input}`,
+          )}`,
       }),
       { status: 422 },
     );
@@ -122,7 +123,8 @@ export const POST: APIRoute = async ({
   if (!outcome.success) {
     return new Response(
       JSON.stringify({
-        message: `Failed to verify Turnstile due to the error "${outcome['error-codes']}"`,
+        message: `Failed to verify Turnstile\n
+          ${outcome['error-codes'].join(',')}`,
       }),
       { status: 500 },
     );
@@ -139,10 +141,9 @@ export const POST: APIRoute = async ({
     from: `${meta.data.site.title} <${myCustomAddress}>`,
     to: [myCustomAddress],
     subject: `${CONTACT_NOTIFICATION_SUBJECT} from ${data.name}`,
-    text:
-      `Name:\n${data.name}\n\n` +
-      `Email:\n${data.email}\n\n` +
-      `Message:\n${data.message}\n\n`,
+    text: `Name:\n${data.name}\n\n
+      Email:\n${data.email}\n\n
+      Message:\n${data.message}\n\n`,
     reply_to: `${data.name} <${data.email}>`,
   };
 
@@ -150,7 +151,8 @@ export const POST: APIRoute = async ({
   if (resendResult.error) {
     return new Response(
       JSON.stringify({
-        message: `Failed to send email due to the error "${resendResult.error.name}: ${resendResult.error.message}"`,
+        message: `Failed to send email\n
+          ${resendResult.error.name}: ${resendResult.error.message}`,
       }),
       { status: 500 },
     );

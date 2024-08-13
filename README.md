@@ -117,8 +117,8 @@ This project adopts Issue-driven Development.
 
 #### Outside the container
 
-1. Create `.env` and `.env.vars` at the root
-    - see `.env.example` and `.env.vars.example` for reference, respectively
+1. Create `.env` and `.dev.vars` at the root
+    - see `.env.example` and `.dev.vars.example` for reference, respectively
     - At this moment, you can't set the `LOCAL_DB_PATH` var yet
 
 #### Inside the container

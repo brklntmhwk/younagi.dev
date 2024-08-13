@@ -3,7 +3,7 @@ title: Free pomodoro timer shortcut built only with the genuine Apple Clock app
 draft: published
 publishedAt: 2024-08-08T03:05:43.193Z
 type: blog
-modifiedAt: 2024-08-09T02:52:38.552Z
+modifiedAt: 2024-08-13T04:45:14.521Z
 category:
   slug: learning
   metadata: en/categories
@@ -20,7 +20,7 @@ description: Learn how to create a pomodoro timer shortcut with the Apple Clock 
 
 [The Pomodoro® Technique](https://www.pomodorotechnique.com/) plays a pivotal role in enhancing our productivity in modern society and there has been a bunch of pomodoro timer apps available in app stores.
 
-That said, it turned out that few of them were really my cup of tea. Some have very limited features for free tier users, whereas some have a lot of bells and whistles that I don't use. Given that, I embarked on creating it on my own with the Apple shortcut.
+That said, it turned out that few of them were really my cup of tea. Some have very limited features for free tier users, whereas some have a lot of bells and whistles that I mightn't use. Given that, I embarked on creating it on my own with the Apple shortcut.
 
 > [!info]-What's the Pomodoro® Technique?
 > The Pomodoro® Technique utilizes fixed time intervals for focused work, usually 25 minutes, followed by short breaks. This structured approach keeps the mind alert and engaged, significantly reducing the inclination to procrastinate and enabling a deeper focus on tasks.
@@ -51,7 +51,7 @@ https://www.icloud.com/shortcuts/b12a5c2e30484677b40a5f98b9e7774d
 
 To start the pomodoro timer, all you have to do are:
 
-1. Tap or click the shortcut icon(Put it on your home screen or somewhere in advance)
+1. Tap or click the shortcut icon to run it(Put it on your home screen or somewhere in advance)
 2. Set your working interval(25mins by default)
 3. Set your breaking interval(5mins by default)
 
@@ -61,7 +61,7 @@ You'll see the timer counting down appear and now it's time to get your work sta
 
 ### The workflow
 
-Behind the scenes, the pomodoro shortcut proceeds as follows:
+Behind the scenes, the pomodoro shortcut proceeds as follows: (You can skip this section if you're not interested in the mechanism)
 
 **Does the shortcut receives a parameter?**
 
@@ -69,29 +69,34 @@ Behind the scenes, the pomodoro shortcut proceeds as follows:
 
 - Retrieve the work & break time from the param by splitting it
 
+> [!info]
+> You will see what it means later in this section
+
 ↪️No
 
 - Ask you how long you're working(in minutes)
 - Ask you how long you're taking a break(in minutes)
 
-Hereafter, it runs the same processes
+Hereafter, it runs on the same process
 
-- Set the work & break intervals to variables
-- Wait for a few seconds
-- Open the timer tab of the Apple Clock app
-- Show a notification that lets you know the work interval's started
-- multiply the work & break intervals by 60 to get them in seconds
-- Set the work interval in seconds to a variable
-- Wait for the work intervals in seconds
-- Show an alert to check if you want to continue
-- Open the timer tab of the Apple Clock app
-- Show a notification that lets you know the break interval's started
-- Set the break interval in seconds to a variable
-- Wait for the break intervals in seconds
-- Show an alert to check if you want to continue
-- Concatenate the work & break intervals in minutes as a string
-- Set the concatenated string to a variable
-- Pass it to this shortcut and call it in itself
+- 𝕏 Set the work & break intervals to variables
+- ✋Wait for a few seconds
+- ⏰Open the timer tab of the Apple Clock app
+- 📢Show a notification that lets you know the work interval's started
+- 🔄multiply the work & break intervals by 60 to get them in seconds
+- 𝕏 Set the work interval in seconds to a variable
+- ✋Wait for the work intervals in seconds
+- ⚠️Show an alert to check if you want to continue
+  - If canceled, it gets out of the process here
+- ⏰Open the timer tab of the Apple Clock app
+- 📢Show a notification that lets you know the break interval's started
+- 𝕏 Set the break interval in seconds to a variable
+- ✋Wait for the break intervals in seconds
+- ⚠️Show an alert to check if you want to continue
+  - If canceled, it gets out of the process here
+- 🔄Concatenate the work & break intervals in minutes as a string
+- 𝕏 Set the concatenated string to a variable
+- 🔛Pass it to this shortcut and call it in itself
 
 This shortcut can take a parameter in text and then retrieves the work & break interval times separately from it if it exists, which enables the recursive structure.
 If not, it asks you how long, which is supposed to be the case only the first time.

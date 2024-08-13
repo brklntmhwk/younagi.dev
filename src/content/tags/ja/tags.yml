@@ -30,3 +30,7 @@
   slug: iphone
   ruby: iPhone
   color: grey
+- title: Obsidian
+  slug: obsidian
+  ruby: obsidian
+  color: purple

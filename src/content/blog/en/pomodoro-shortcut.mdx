@@ -3,7 +3,7 @@ title: Free pomodoro timer shortcut built only with the genuine Apple Clock app
 draft: published
 publishedAt: 2024-08-08T03:05:43.193Z
 type: blog
-modifiedAt: 2024-08-13T03:56:30.278Z
+modifiedAt: 2024-08-13T04:45:14.521Z
 category:
   slug: learning
   metadata: en/categories
@@ -77,24 +77,26 @@ Behind the scenes, the pomodoro shortcut proceeds as follows: (You can skip this
 - Ask you how long you're working(in minutes)
 - Ask you how long you're taking a break(in minutes)
 
-Hereafter, it runs the same processes
+Hereafter, it runs on the same process
 
-- Set the work & break intervals to variables
-- Wait for a few seconds
-- Open the timer tab of the Apple Clock app
-- Show a notification that lets you know the work interval's started
-- multiply the work & break intervals by 60 to get them in seconds
-- Set the work interval in seconds to a variable
-- Wait for the work intervals in seconds
-- Show an alert to check if you want to continue
-- Open the timer tab of the Apple Clock app
-- Show a notification that lets you know the break interval's started
-- Set the break interval in seconds to a variable
-- Wait for the break intervals in seconds
-- Show an alert to check if you want to continue
-- Concatenate the work & break intervals in minutes as a string
-- Set the concatenated string to a variable
-- Pass it to this shortcut and call it in itself
+- 𝕏 Set the work & break intervals to variables
+- ✋Wait for a few seconds
+- ⏰Open the timer tab of the Apple Clock app
+- 📢Show a notification that lets you know the work interval's started
+- 🔄multiply the work & break intervals by 60 to get them in seconds
+- 𝕏 Set the work interval in seconds to a variable
+- ✋Wait for the work intervals in seconds
+- ⚠️Show an alert to check if you want to continue
+  - If canceled, it gets out of the process here
+- ⏰Open the timer tab of the Apple Clock app
+- 📢Show a notification that lets you know the break interval's started
+- 𝕏 Set the break interval in seconds to a variable
+- ✋Wait for the break intervals in seconds
+- ⚠️Show an alert to check if you want to continue
+  - If canceled, it gets out of the process here
+- 🔄Concatenate the work & break intervals in minutes as a string
+- 𝕏 Set the concatenated string to a variable
+- 🔛Pass it to this shortcut and call it in itself
 
 This shortcut can take a parameter in text and then retrieves the work & break interval times separately from it if it exists, which enables the recursive structure.
 If not, it asks you how long, which is supposed to be the case only the first time.

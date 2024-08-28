@@ -58,6 +58,7 @@
       "previewPath": "'blog'",
       "filePrefix": null,
       "clearEmpty": true,
+      "template": "[[workspace]]/.frontmatter/templates/blog.mdx",
       "fileType": "mdx",
       "fields": [
         {
@@ -164,6 +165,7 @@
       "previewPath": "'news'",
       "filePrefix": null,
       "clearEmpty": true,
+      "template": "[[workspace]]/.frontmatter/templates/news.md",
       "fileType": "md",
       "fields": [
         {

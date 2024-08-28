@@ -1,9 +1,3 @@
 {
-  "users": {
-    "tobew": {
-      "documents": {
-        "my-astro-blog": { "public": {}, "src": { "assets": { "images": {} } } }
-      }
-    }
-  }
+  "assets": { "images": {} }
 }

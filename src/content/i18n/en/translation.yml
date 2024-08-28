@@ -113,5 +113,5 @@ pages:
     back_to_top: *back_to_top
 layouts:
   blog:
-    abstract_label: Abstract
-    concrete_label: Concrete
+    level_easy: Easy
+    level_hard: Hard

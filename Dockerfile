@@ -43,7 +43,7 @@ RUN bun --bun run build
 ############################################################################
 # The GLIBC version of the Debian in the oven/bun image is discrepant with that of the Lefthook, which causes an error.
 # That's why other compatible image must be used here
-FROM ubuntu:24.10 AS runtime
+FROM ubuntu:oracular-20240617 AS runtime
 
 # Move to the project dir
 WORKDIR /$PROJECT_DIR

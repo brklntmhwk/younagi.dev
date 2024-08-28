@@ -247,8 +247,8 @@ const i18n = defineCollection({
     }),
     layouts: z.object({
       blog: z.object({
-        abstract_label: z.string(),
-        concrete_label: z.string(),
+        level_easy: z.string(),
+        level_hard: z.string(),
       }),
     }),
   }),

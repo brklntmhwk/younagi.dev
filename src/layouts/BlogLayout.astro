@@ -91,10 +91,10 @@ const tags = await getBlogTags(blogTags);
         {
           level && (
             <StarRating
-              method="spectrum"
+              method="rating"
               value={level}
-              leftEnd={t.data.layouts.blog.abstract_label}
-              rightEnd={t.data.layouts.blog.concrete_label}
+              leftEnd={t.data.layouts.blog.level_easy}
+              rightEnd={t.data.layouts.blog.level_hard}
             />
           )
         }

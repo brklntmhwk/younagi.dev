@@ -113,5 +113,5 @@ pages:
     back_to_top: *back_to_top
 layouts:
   blog:
-    abstract_label: 抽象
-    concrete_label: 具象
+    level_easy: 易しい
+    level_hard: 難しい

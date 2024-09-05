@@ -34,3 +34,8 @@
   slug: obsidian
   ruby: obsidian
   color: purple
+- title: JavaScript
+  slug: javascript
+  ruby: javascript
+  color: primary
+

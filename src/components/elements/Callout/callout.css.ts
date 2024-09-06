@@ -98,7 +98,7 @@ export const calloutVariants = styleVariants({
   quote: {
     vars: {
       [calloutKind]: 'quote',
-      [fgColor]: 'hsla(212, 16%, 48%, 1)',
+      [fgColor]: 'hsla(212, 16%, 35%, 1)',
       [bgColor]: 'hsla(212, 16%, 82%, 1)',
     },
     '@media': {

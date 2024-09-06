@@ -55,7 +55,7 @@ export const colorVariants = styleVariants({
   purple: {
     vars: {
       [fgColor]: 'hsla(0, 0%, 96.7%, 1)',
-      [bgColor]: 'hsla(253, 56%, 70%, 1)',
+      [bgColor]: 'hsla(253, 56%, 60%, 1)',
     },
     '@media': {
       '(prefers-color-scheme: dark)': {
@@ -93,7 +93,7 @@ export const colorVariants = styleVariants({
       '(prefers-color-scheme: dark)': {
         vars: {
           [fgColor]: 'hsla(0, 0%, 96.7%, 1)',
-          [bgColor]: 'hsla(205, 10%, 38%, 1)',
+          [bgColor]: 'hsla(205, 10%, 35%, 1)',
         },
       },
     },

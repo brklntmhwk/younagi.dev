@@ -100,7 +100,7 @@ const tags = await getBlogTags(blogTags);
         }
         <Toc {headings} />
       </section>
-      <section slot="content" class="prose">
+      <section slot="content" class="blog-content">
         <slot />
       </section>
       <section slot="cta" class="cta">
@@ -174,7 +174,7 @@ const tags = await getBlogTags(blogTags);
         max-width: 48rem;
       }
     }
-    .prose {
+    .blog-content {
       font-size: 1.125rem;
       overflow-wrap: break-word;
       word-wrap: break-word;

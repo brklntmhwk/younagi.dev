@@ -76,7 +76,14 @@ const slugWithoutLocale = getSlugWithoutLocale(slug);
       flex-direction: column;
       gap: 0.975rem;
       .news-title {
-        line-height: 1.175;
+        font-size: 1.825rem;
+        line-height: 1.275;
+        @media (min-width: 640px) {
+          font-size: 2.015rem;
+        }
+        @media (min-width: 768px) {
+          font-size: 2.365rem;
+        }
       }
       .date-meta {
         font-size: 0.875rem;

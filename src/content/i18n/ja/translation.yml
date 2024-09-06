@@ -4,7 +4,7 @@ back_to_top: &back_to_top トップに戻る
 scroll_to_top: &scroll_to_top ページ上部へ
 blog: &blog ブログ
 news: &news ニュース
-about: &about 運営者
+about: &about 自己紹介
 contact: &contact お問い合わせ
 
 blog_name: *website

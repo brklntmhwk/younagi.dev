@@ -2,7 +2,7 @@
 title: Astro + Cloudflare Pages + D1 + Front Matter CMS で個人ウェブサイトを作った
 description: Astro + Cloudflare Pages + D1 + Front Matter CMSの構成で作った個人ウェブサイトの開発体験を簡単に紹介する
 publishedAt: 2024-07-13T00:35:10.000Z
-modifiedAt: 2024-09-03T06:24:24.221Z
+modifiedAt: 2024-09-06T01:11:33.218Z
 draft: published
 type: blog
 category:
@@ -41,7 +41,7 @@ level: 4
 
 ### Astro
 
-基本は Astro の機能範囲で実装し、例外部分は新進気鋭の JS フレームワーク「[SolidJS](https://www.solidjs.com/)」で実装しています。もちろん全て TypeScript(と TSX) です。
+基本は Astro の機能範囲で実装し、一部 JS フレームワーク「[SolidJS](https://www.solidjs.com/)」を使って実装しています。もちろん全て TypeScript(と TSX) です。
 
 > [!info]- 技術構成
 > **言語:** [TypeScript](https://www.typescriptlang.org/), [TSX](https://www.typescriptlang.org/docs/handbook/jsx.html), [YAML](https://yaml.org/)
@@ -68,7 +68,8 @@ level: 4
 
 ![デモ: 検索機能](../../../assets/images/fulltext-search-demo.gif)
 
-Rust 製の静的検索ライブラリである[Pagefind](https://pagefind.app/)の力を借りることにしました。軽量、高速、そして導入が簡単。更にサーバーとのやり取りが不要でブラウザ完結なのも魅力的です。仕組みは至ってシンプルで、ビルド時に生成される指定ディレクトリ下の静的ファイルを読みに行き、検索用のインデックスファイルをあらかじめ生成しておくというものです。
+Rust 製の静的検索ライブラリである[Pagefind](https://pagefind.app/)の力を借りることにしました。軽量、高速、そして導入が簡単。
+更にサーバーとのやり取りが不要でブラウザ完結なのも魅力的です。仕組みは至ってシンプルで、ビルド時に生成される静的ファイルを読みに行き、検索用のインデックスファイルをあらかじめ生成しておくというものです。
 
 開発に際して、次のポイントにこだわりました。
 

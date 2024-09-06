@@ -115,14 +115,14 @@ export const calloutVariants = styleVariants({
   note: {
     vars: {
       [calloutKind]: 'note',
-      [fgColor]: 'hsla(152, 40%, 38%, 1)',
-      [bgColor]: 'hsla(122, 40%, 72%, 1)',
+      [fgColor]: 'hsla(51, 65%, 32%, 1)',
+      [bgColor]: 'hsla(51, 75%, 65%, 1)',
     },
     '@media': {
       '(prefers-color-scheme: dark)': {
         vars: {
-          [fgColor]: 'hsla(142, 30%, 75%, 1)',
-          [bgColor]: 'hsla(152, 30%, 30%, 1)',
+          [fgColor]: 'hsla(51, 65%, 65%, 1)',
+          [bgColor]: 'hsla(51, 52%, 28%, 1)',
         },
       },
     },
@@ -179,6 +179,7 @@ export const calloutTitleIcon = style({
 
 globalStyle('.callout-content', {
   fontSize: '1rem',
+  lineHeight: '1.95',
 });
 
 globalStyle('.callout-content > a', {

@@ -2,5 +2,5 @@
   "files.associations": {
     "*.mdx": "markdown"
   },
-  "frontMatter.content.autoUpdateDate": true
+  "frontMatter.content.autoUpdateDate": true,
 }

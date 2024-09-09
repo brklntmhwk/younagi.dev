@@ -93,14 +93,14 @@ const { entries, taxonomies } = Astro.props;
         display: flex;
         flex-direction: column;
         gap: 0.825rem;
-        &:hover {
-          background-color: var(--bg-hover);
-        }
         .blog-title {
           color: var(--fg);
           font-size: 1.485rem;
           font-weight: 700;
           line-height: 1.325;
+          &:hover {
+          background-color: var(--bg-hover);
+        }
           @media (min-width: 640px) {
             font-size: 1.585rem;
           }

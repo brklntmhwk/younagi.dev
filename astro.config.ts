@@ -37,6 +37,7 @@ import {
   oEmbedTransformer,
   youTubeTransformer,
 } from './src/plugins/transformers';
+import remarkCard from './src/plugins/remark-card';
 
 // https://astro.build/config
 export default defineConfig({
@@ -111,6 +112,7 @@ export default defineConfig({
       remarkGfm,
       remarkAstroImageAssets,
       remarkCallout,
+      remarkCard,
       remarkFootnote,
       remarkLineBreaks,
       [

@@ -181,6 +181,11 @@ hr {
   }
 }
 
+.solid-border {
+  border: 2px solid var(--line);
+  border-radius: 0.175rem;
+}
+
 .pokemon-border {
   position: relative;
   border-top: 4px solid var(--pixel-border);

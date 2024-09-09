@@ -1,0 +1,32 @@
+---
+import { type CardBorderType, type ElementCardProps, type ComponentCardProps, isElementCard, isValidBorderType } from './card'
+
+type Props = ComponentCardProps | ElementCardProps;
+
+let cardBorderType: CardBorderType = "solid";
+let isAnimated: boolean = false;
+
+if (isElementCard(Astro.props)) {
+  const { 'data-border-type': dataBorderType } = Astro.props;
+  if (isValidBorderType(dataBorderType)) {
+    cardBorderType = dataBorderType;
+  }
+} else {
+  const {borderType, isAnimated: animation} = Astro.props
+  cardBorderType = borderType;
+  isAnimated = animation;
+}
+---
+
+<div class:list={["card", `${cardBorderType}-border`, { "fade-in-up": isAnimated }]}>
+<slot name="image" />
+<slot name="content" />
+</div>
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    break-inside: avoid;
+  }
+</style>

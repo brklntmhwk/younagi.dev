@@ -34,7 +34,7 @@ const image = {
 };
 ---
 
-<div class="pokemon-border link-card-wrapper">
+<div class="double-border link-card-wrapper">
   <a href={url.href} class="link-card" {...props}>
     <div class="link-metadata">
       <span class="link-title">{title}</span>
@@ -82,9 +82,7 @@ const image = {
       .link-metadata {
         display: flex;
         flex-direction: column;
-        flex-basis: 12rem;
-        flex-grow: 1;
-        flex-shrink: 1;
+        flex: 1 1 12rem;
         justify-content: space-between;
         padding: 0.5rem 0.875rem;
         white-space: nowrap;
@@ -125,9 +123,7 @@ const image = {
       .link-image {
         max-width: 8.75rem;
         display: flex;
-        flex-basis: 6rem;
-        flex-grow: 1;
-        flex-shrink: 1;
+        flex: 1 1 6rem;
         & :global(img) {
           object-fit: cover;
           width: 100%;

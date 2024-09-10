@@ -31,6 +31,9 @@ const t = await getEntry('i18n', `${locale}/translation`);
       <NavLink href={translatePath('/about')}
         >{t.data.nav.nav_links.about}</NavLink
       >
+      <NavLink href={translatePath('/tools')}
+        >{t.data.nav.nav_links.tools}</NavLink
+      >
     </div>
     <div class="icon-links" slot="outside-drawer">
       <Modal

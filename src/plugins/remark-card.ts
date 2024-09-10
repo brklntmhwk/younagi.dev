@@ -14,7 +14,7 @@ const parseSign = (sign: string | undefined): string | undefined => {
     borderTypeSign === '-'
       ? 'solid'
       : borderTypeSign === '='
-        ? 'pokemon'
+        ? 'double'
         : borderTypeSign === '.'
           ? 'pixel'
           : 'solid';
@@ -103,6 +103,7 @@ const remarkCard: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
             hName: 'div',
             hProperties: {
               slot: 'image',
+              className: 'card-image',
             },
           },
           children: [imageNode],
@@ -114,33 +115,40 @@ const remarkCard: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
             hName: 'div',
             hProperties: {
               slot: 'content',
+              className: 'card-content',
             },
           },
           children: [],
         };
 
-        for (const cardListContentNode of cardListContentNodes) {
-          if (!isParent(cardListContentNode)) continue;
-          if (cardListContentNode.children.length === 0) continue;
+        cardListContentNodes.forEach((cardListContentNode, index, thisArr) => {
+          if (!isParent(cardListContentNode)) return;
+          if (cardListContentNode.children.length === 0) return;
 
           const cardContentNode = cardListContentNode.children[0];
-          if (cardContentNode?.type !== 'paragraph') continue;
+          if (cardContentNode?.type !== 'paragraph') return;
 
-          if (!isParent(cardContentNode)) continue;
-          if (cardContentNode.children.length === 0) continue;
+          if (!isParent(cardContentNode)) return;
+          if (cardContentNode.children.length === 0) return;
 
           const cardContent = cardContentNode.children[0];
-          if (cardContent?.type !== 'text') continue;
+          if (cardContent?.type !== 'text') return;
 
           contentNode.children.push(cardContent);
-        }
+
+          if (thisArr.length !== index) {
+            contentNode.children.push({
+              type: 'text',
+              value: '\n',
+            });
+          }
+        });
 
         node.data = {
           ...node.data,
           hName: 'card-grid',
         };
 
-        // imageWrapperNode, contentNodeをlistItemNode.childrenに詰めるのをやめて、liteItemNode.data.hPropertiesにimageのurl, alt, あればlinkのurlをdataとして渡す形式にすればslot廃止できる
         listItemNode.data = {
           ...listItemNode.data,
           hName: 'card',

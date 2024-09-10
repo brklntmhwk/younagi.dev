@@ -48,7 +48,7 @@ export const TextField: Component<Props> = (props) => {
           <Show
             when={props.type === 'hidden'}
             fallback={
-              <div class="pokemon-border">
+              <div class="double-border">
                 <Kobalte.Input
                   {...inputProps}
                   type={props.type}
@@ -65,7 +65,7 @@ export const TextField: Component<Props> = (props) => {
           </Show>
         }
       >
-        <div class="pokemon-border">
+        <div class="double-border">
           <Kobalte.TextArea {...inputProps} class={textField} />
         </div>
       </Show>

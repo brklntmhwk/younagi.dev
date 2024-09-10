@@ -8,7 +8,7 @@ type Props = {
 
 export const SubmitButton: Component<Props> = (props) => {
   return (
-    <Button type="submit" class={`pokemon-border ${submitButton}`}>
+    <Button type="submit" class={`double-border ${submitButton}`}>
       {props.label}
     </Button>
   );

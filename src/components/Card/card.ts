@@ -1,4 +1,4 @@
-const cardBorderTypes = ['pixel', 'pokemon', 'solid'] as const;
+const cardBorderTypes = ['pixel', 'double', 'solid'] as const;
 
 export type CardBorderType = (typeof cardBorderTypes)[number];
 

@@ -15,7 +15,7 @@ nav:
     blog: *blog
     news: *news
     about: *about
-    contact: *contact
+    tools: Tools I use
   hamburger_label: Hamburger menu toggle
 pager:
   left_arrow_label: Previous page

@@ -15,7 +15,7 @@ nav:
     blog: *blog
     news: *news
     about: *about
-    contact: *contact
+    tools: 愛用ツール群
   hamburger_label: ハンバーガーメニュー開閉
 pager:
   left_arrow_label: 前のページ
@@ -101,7 +101,7 @@ pages:
   about:
     title: *about
     my_name: *author
-    contact_me: お問い合わせ
+    contact_me: *contact
     profile_img_alt: プロフィール画像
     back_to_top: *back_to_top
     scroll_to_top: *scroll_to_top

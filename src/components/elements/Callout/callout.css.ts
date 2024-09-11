@@ -116,7 +116,7 @@ export const calloutVariants = styleVariants({
     vars: {
       [calloutKind]: 'note',
       [fgColor]: 'hsla(51, 65%, 32%, 1)',
-      [bgColor]: 'hsla(51, 75%, 65%, 1)',
+      [bgColor]: 'hsla(55, 60%, 67%, 1)',
     },
     '@media': {
       '(prefers-color-scheme: dark)': {

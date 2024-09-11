@@ -2,7 +2,7 @@ import type { RemarkPlugin } from '@astrojs/markdown-remark';
 import type { BlockContent, DefinitionContent, Image, Link, Root } from 'mdast';
 import type { Plugin } from 'unified';
 import { visit } from 'unist-util-visit';
-import { isParent } from './mdast-is';
+import { isParent, isText } from './mdast-is';
 
 const parseSign = (sign: string | undefined): string | undefined => {
   if (sign === undefined || sign === '') return;
@@ -132,9 +132,15 @@ const remarkCard: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
           if (cardContentNode.children.length === 0) return;
 
           const cardContent = cardContentNode.children[0];
-          if (cardContent?.type !== 'text') return;
+          if (isText(cardContent)) {
+            contentNode.children.push(cardContent);
+          } else {
+            if (!isParent(cardContent)) return;
+            if (cardContentNode.children.length === 0) return;
+            if (!isText(cardContent.children[0])) return;
 
-          contentNode.children.push(cardContent);
+            contentNode.children.push(cardContent);
+          }
 
           if (thisArr.length !== index) {
             contentNode.children.push({

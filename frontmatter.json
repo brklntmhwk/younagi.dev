@@ -166,7 +166,7 @@
       "filePrefix": null,
       "clearEmpty": true,
       "template": "[[workspace]]/.frontmatter/templates/news.md",
-      "fileType": "md",
+      "fileType": "mdx",
       "fields": [
         {
           "title": "Title",

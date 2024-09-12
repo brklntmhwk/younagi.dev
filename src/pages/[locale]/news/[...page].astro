@@ -104,18 +104,22 @@ const t = await getEntry('i18n', `${locale}/translation`);
             gap: 0.35rem;
           }
         }
-        a.news-title {
+        .news-title {
           color: var(--fg);
           font-size: 1.5rem;
           font-weight: 700;
           line-height: 1.35;
           text-decoration: none;
+          &:hover {
+            text-decoration: underline;
+            text-underline-offset: 5px;
+          }
         }
       }
     }
   }
   @media (min-width: 768px) {
-    a.news-title {
+    .news-title {
       font-size: 1.85rem;
     }
   }

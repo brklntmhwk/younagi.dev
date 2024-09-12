@@ -15,7 +15,7 @@ nav:
     blog: *blog
     news: *news
     about: *about
-    tools: 愛用ツール群
+    tools: 愛用ツール一覧
   hamburger_label: ハンバーガーメニュー開閉
 pager:
   left_arrow_label: 前のページ

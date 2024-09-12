@@ -77,14 +77,10 @@ body {
 main {
   grid-area: main;
   padding: 2.25rem 1.5rem;
-}
-@media (min-width: 768px) {
-  main {
+  @media (min-width: 768px) {
     padding: 2.25rem 2.75rem;
   }
-}
-@media (min-width: 1024px) {
-  main {
+  @media (min-width: 1024px) {
     grid-area: main;
     padding: 3rem 4rem;
     overflow-y: auto;
@@ -92,54 +88,72 @@ main {
 }
 
 h1 {
-  font-size: 2.25rem;
+  font-size: 2.125rem;
   font-weight: 800;
   line-height: 1.5;
+  @media (min-width: 480px) {
+    font-size: 2.175rem;
+  }
+  @media (min-width: 768px) {
+    font-size: 2.875rem;
+  }
 }
 h2 {
-  font-size: 1.875rem;
+  font-size: 1.785rem;
   font-weight: 700;
   line-height: 1.4;
+  @media (min-width: 480px) {
+    font-size: 1.875rem;
+  }
+  @media (min-width: 768px) {
+    font-size: 2.225rem;
+  }
 }
 h3 {
-  font-size: 1.625rem;
+  font-size: 1.615rem;
   font-weight: 700;
   line-height: 1.35;
+  @media (min-width: 480px) {
+    font-size: 1.675rem;
+  }
+  @media (min-width: 768px) {
+    font-size: 1.875rem;
+  }
 }
 h4 {
   font-size: 1.325rem;
   font-weight: 700;
   line-height: 1.2;
+  @media (min-width: 480px) {
+    font-size: 1.375rem;
+  }
+  @media (min-width: 768px) {
+    font-size: 1.585rem;
+  }
 }
 h5 {
   font-size: 1.215rem;
   font-weight: 700;
   line-height: 1.2;
+  @media (min-width: 480px) {
+    font-size: 1.275rem;
+  }
+  @media (min-width: 768px) {
+    font-size: 1.325rem;
+  }
 }
 h6 {
-  font-size: 1.135rem;
+  font-size: 1.15rem;
   font-weight: 700;
   line-height: 1.2;
+  @media (min-width: 480px) {
+    font-size: 1.225rem;
+  }
+  @media (min-width: 768px) {
+    font-size: 1.275rem;
+  }
 }
 
-@media (min-width: 768px) {
-  h1 {
-    font-size: 3rem;
-  }
-  h2 {
-    font-size: 2.25rem;
-  }
-  h3 {
-    font-size: 1.875rem;
-  }
-  h4 {
-    font-size: 1.5rem;
-  }
-  h5,
-  h6 {
-    font-size: 1.25rem;
-  }
-}
 ul,
 ol {
   padding: 0;
@@ -147,16 +161,19 @@ ol {
 li {
   list-style-type: none;
 }
+
 img {
   max-width: 100%;
   height: auto;
   border-radius: 0.15rem;
 }
+
 hr {
   border: none;
   border-top: 1px solid var(--line);
   margin: 1.25rem 0;
 }
+
 .classic-blue-link {
   font-size: 1.025rem;
   color: var(--accent);

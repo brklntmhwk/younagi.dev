@@ -64,7 +64,7 @@ const t = await getEntry('i18n', `${locale}/translation`);
       margin: 0;
       padding-left: 100%;
       white-space: nowrap;
-      animation: bulletinRoll 15s linear infinite;
+      animation: bulletinRoll 18s linear infinite;
       li {
         display: inline;
         margin: 0 5rem 0 0;
@@ -81,6 +81,9 @@ const t = await getEntry('i18n', `${locale}/translation`);
         @media (min-width: 768px) {
           font-size: 1.85rem;
         }
+      }
+      @media (min-width: 768px) {
+        animation: bulletinRoll 16s linear infinite;
       }
     }
     @media (min-width: 1024px) {

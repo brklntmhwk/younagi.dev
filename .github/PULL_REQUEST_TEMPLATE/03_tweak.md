@@ -1,4 +1,4 @@
-<!-- Title Format of Pull Request: refactor(overall) ✨ tweak -->
+<!-- Title Format of Pull Request: refactor(overall): ✨ tweak -->
 
 ## Changes
 <!-- List up changes you've made below. -->

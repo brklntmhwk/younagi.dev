@@ -1,6 +1,7 @@
 ---
 import NewsLayout from '@/layouts/NewsLayout.astro';
 import { getSortedContentEntries } from '@/lib/collections/contents';
+import { mdxComponents } from '@/lib/mdx-components';
 import { getLocaleFromSlug } from '@/utils/get-locale-from-slug';
 import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale';
 import { defaultLang } from '@/utils/i18n/data';
@@ -25,5 +26,5 @@ const { Content } = await entry.render();
 ---
 
 <NewsLayout entry={{ ...entry }}>
-  <Content />
+  <Content components={mdxComponents} />
 </NewsLayout>

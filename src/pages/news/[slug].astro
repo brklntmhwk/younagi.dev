@@ -1,9 +1,9 @@
 ---
 import NewsLayout from '@/layouts/NewsLayout.astro';
 import { getSortedContentEntries } from '@/lib/collections/contents';
+import { mdxComponents } from '@/lib/mdx-components';
 import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale';
 import { defaultLang } from '@/utils/i18n/data';
-import { mdxComponents } from '@/lib/mdx-components';
 import type { GetStaticPaths } from 'astro';
 
 export const getStaticPaths = (async () => {

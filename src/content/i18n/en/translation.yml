@@ -15,6 +15,7 @@ nav:
     blog: *blog
     news: *news
     about: *about
+    work: Work
     tools: Tools I use
   hamburger_label: Hamburger menu toggle
 pager:

@@ -116,6 +116,7 @@ const i18n = defineCollection({
         blog: z.string(),
         news: z.string(),
         about: z.string(),
+        work: z.string(),
         tools: z.string(),
       }),
       hamburger_label: z.string(),

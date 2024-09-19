@@ -2,7 +2,7 @@ import type { RemarkPlugin } from '@astrojs/markdown-remark';
 import type { BlockContent, DefinitionContent, Paragraph, Root } from 'mdast';
 import type { Plugin } from 'unified';
 import { visit } from 'unist-util-visit';
-import { isParent } from './mdast-is';
+import { isParagraph, isParent, isText } from './mdast-is';
 
 type Callout = {
   type: string;
@@ -41,13 +41,13 @@ const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
       if (node.children.length === 0) return;
 
       const paragraphNode = node.children[0]!;
-      if (paragraphNode.type !== 'paragraph') return;
+      if (!isParagraph(paragraphNode)) return;
 
       if (!isParent(paragraphNode)) return;
       if (paragraphNode.children.length === 0) return;
 
       const calloutNode = paragraphNode.children[0];
-      if (calloutNode?.type !== 'text') return;
+      if (!isText(calloutNode)) return;
 
       const [calloutTypeTitle, ...calloutContent] =
         calloutNode.value.split('\n');
@@ -78,7 +78,7 @@ const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
         },
         ...node.children.splice(1),
       ];
-      if (contentNode[0]?.type !== 'paragraph') return;
+      if (!isParagraph(contentNode[0])) return;
       if (calloutContent.length > 0) {
         contentNode[0].children.push({
           type: 'text',
@@ -107,7 +107,7 @@ const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
 
       if (calloutContent.length <= 0) {
         for (const [i, child] of paragraphNode.children.slice(1).entries()) {
-          if (child.type !== 'text') {
+          if (!isText(child)) {
             titleNode.children.push(child);
             continue;
           }
@@ -120,7 +120,7 @@ const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
             });
           }
           if (contentLines.length > 0) {
-            if (contentNode[0]?.type !== 'paragraph') return;
+            if (!isParagraph(contentNode[0])) return;
             contentNode[0].children.push({
               type: 'text',
               value: contentLines.join('\n'),

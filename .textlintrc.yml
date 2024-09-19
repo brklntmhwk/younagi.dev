@@ -27,7 +27,9 @@ rules:
     ja-no-successive-word:
       allowOnomatopee: true
       allow:
+        - ある
         - そう
+        - ・
     no-exclamation-question-mark:
       allowFullWidthExclamation: true
       allowFullWidthQuestion: true

@@ -38,4 +38,16 @@
   slug: javascript
   ruby: javascript
   color: primary
+- title: Mac
+  slug: mac
+  ruby: mac
+  color: grey
+- title: PC
+  slug: pc
+  ruby: pc
+  color: grey
+- title: NixOS
+  slug: nixos
+  ruby: nixos
+  color: grey
 

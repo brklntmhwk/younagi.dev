@@ -3,6 +3,7 @@ import type {
   FootnoteReference,
   InlineCode,
   Link,
+  List,
   Paragraph,
   Parent,
   Text,
@@ -64,4 +65,8 @@ export function isText(node: unknown): node is Text {
 
 export function isTextOrInlineCode(node: unknown): node is Text | InlineCode {
   return isText(node) || isInlineCode(node);
+}
+
+export function isList(node: unknown): node is List {
+  return is(node, 'list');
 }

@@ -2,7 +2,7 @@ import type { RemarkPlugin } from '@astrojs/markdown-remark';
 import type { BlockContent, DefinitionContent, Image, Link, Root } from 'mdast';
 import type { Plugin } from 'unified';
 import { visit } from 'unist-util-visit';
-import { isParent, isText } from './mdast-is';
+import { isLink, isList, isParagraph, isParent, isText } from './mdast-is';
 
 const parseSign = (sign: string | undefined): string | undefined => {
   if (sign === undefined || sign === '') return;
@@ -24,7 +24,7 @@ const parseSign = (sign: string | undefined): string | undefined => {
 
 const remarkCard: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
   return (tree) => {
-    visit(tree, 'list', (node) => {
+    visit(tree, isList, (node) => {
       if (!isParent(node)) return;
       if (node.children.length === 0) return;
 
@@ -33,13 +33,13 @@ const remarkCard: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
         if (listItemNode.children.length === 0) continue;
 
         const cardSignNode = listItemNode.children[0];
-        if (cardSignNode?.type !== 'paragraph') continue;
+        if (!isParagraph(cardSignNode)) continue;
 
         if (!isParent(cardSignNode)) continue;
         if (cardSignNode.children.length === 0) continue;
 
         const cardSign = cardSignNode.children[0];
-        if (cardSign?.type !== 'text') continue;
+        if (!isText(cardSign)) continue;
 
         const cardSignText = cardSign.value;
         if (!cardSignText.startsWith('@')) continue;
@@ -49,7 +49,7 @@ const remarkCard: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
         const borderType = parseSign(sign);
 
         const cardListNode = listItemNode.children[1];
-        if (cardListNode?.type !== 'list') continue;
+        if (!isList(cardListNode)) continue;
 
         if (!isParent(cardListNode)) continue;
         if (cardListNode.children.length === 0) continue;
@@ -60,7 +60,7 @@ const remarkCard: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
         if (cardListImageNode.children.length === 0) continue;
 
         const cardImageNode = cardListImageNode.children[0];
-        if (cardImageNode?.type !== 'paragraph') continue;
+        if (!isParagraph(cardImageNode)) continue;
 
         if (!isParent(cardImageNode)) continue;
         if (cardImageNode.children.length === 0) continue;
@@ -76,7 +76,7 @@ const remarkCard: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
             alt: imageMap.get('alt'),
             url: imageMap.get('url'),
           } as Image;
-        } else if (cardImageOrLink?.type === 'link') {
+        } else if (isLink(cardImageOrLink)) {
           const cardImage = cardImageOrLink.children[0];
           if (cardImage?.type !== 'image') continue;
 
@@ -126,7 +126,7 @@ const remarkCard: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
           if (cardListContentNode.children.length === 0) return;
 
           const cardContentNode = cardListContentNode.children[0];
-          if (cardContentNode?.type !== 'paragraph') return;
+          if (!isParagraph(cardContentNode)) return;
 
           if (!isParent(cardContentNode)) return;
           if (cardContentNode.children.length === 0) return;

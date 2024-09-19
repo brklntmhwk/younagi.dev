@@ -5,7 +5,7 @@ type: blog
 title: Total newbie builds Mini-ITX Linux PC (Error after Error)
 publishedAt: 2024-09-19T01:48:09.453Z
 fmContentType: blog
-modifiedAt: 2024-09-19T03:29:59.275Z
+modifiedAt: 2024-09-19T07:33:51.925Z
 category:
   metadata: en/categories
   slug: learning
@@ -92,6 +92,8 @@ The overview of my parts selection is as follows:
 Just in case, "Mini-ITX" is one of the motherboard types. It's the smallest one of the common options and said to be the most difficult one to build because of its small size. You can see how small it is at a glance.
 
 ![ Sizes of motherboard ](../../../assets/images/mobo-size.png)
+
+Basically, you're supposed to choose it at the early stage of parts selection and then later other parts such as the PC case, power supply, and so forth. This is because they have a specific compatible type of motherboard one another.
 
 > [!warning]+
 > Personally, I don't recommend going with a Mini-ITX PC case if you're a newbie like me because one of the most hardest parts was cable menagement. On top of that, I felt like it's a bit more expensive than other types, guessing it has a fewer lineups or is a niche option. (As of Sep 2024)
@@ -200,7 +202,8 @@ Now I managed to install the OS. My choice is [NixOS](https://nixos.org/), a pur
 What's taken for granted by advanced users is not always so by newbies. Here are what I found tricky as a total newbie:
 
 - **Memory & storage compatibility:**
-  - Even if your choice of the memory or storage is compatible with your motherboard in the types or interface, some of them could possibly be not
+  - Even if your choice of the memory or storage is compatible with your motherboard in the types or interface, it cannot accept some of them
+    - Examples of the types & interface: "DDR4" or "DDR5" for memories, "PCIe Gen xxx" or "SATA" for storages, etc.
   - Depending on the vendor or even its specific products, your motherboard doesn't accept them
   - I strongly recommend checking out the maker's official website
     - There will usually be the support lists of memory, storage, and CPU

@@ -7,12 +7,14 @@
 </div>
 <style>
   .card-grid {
+    padding: 0.625rem 0;
     display: grid;
     align-items: flex-start;
     grid-template-columns: repeat(auto-fit, minmax(7.875rem, 1fr));
     grid-auto-flow: row dense;
     gap: 1.5rem;
     @media (min-width: 640px) {
+      padding: 0.785rem 0;
       grid-template-columns: repeat(auto-fit, minmax(9.675rem, 1fr));
     }
     @media (min-width: 768px) {

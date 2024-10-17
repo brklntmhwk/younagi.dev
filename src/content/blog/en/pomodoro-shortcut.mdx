@@ -3,7 +3,7 @@ title: Free pomodoro timer shortcut built only with the genuine Apple Clock app
 draft: published
 publishedAt: 2024-08-08T03:05:43.193Z
 type: blog
-modifiedAt: 2024-09-19T07:25:19.977Z
+modifiedAt: 2024-10-17T03:34:50.184Z
 category:
   slug: learning
   metadata: en/categories
@@ -109,10 +109,12 @@ Hereafter, it runs on the same process
 - 𝕏 Set the concatenated string to a variable
 - 🔛Pass it to this shortcut and call it in itself
 
-This shortcut can take a parameter in text and then retrieves the work & break interval times separately from it if it exists, which enables the recursive structure.
+This shortcut can take a parameter in text and then retrieves the interval times separately from it if it exists, which makes it recursive.
 If not, it asks you how long, which is supposed to be the case only the first time.
 
-Another important point is, to the best of my knowledge, the Apple shortcut doesn't have a feature like the [async/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) from JavaScript. That's why I had to use the "Wait xxx" block instead of the await operator to make it align with the timer in terms of the timing, which is a bit of a workaround.
+Another important point is that the Apple shortcut doesn't have a feature like the [async/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) from JavaScript. [^1] That's why I had to use the "Wait xxx" block instead of the await operator to make it align with the timer in terms of the timing, which is a bit of a workaround.
+
+[^1]: To the best of my knowledge, there's no such feature as asynchronous as of Oct 2024.
 
 > [!question]+Why do you need to get interval times in seconds?
 > Because the shortcut block "Wait xxx" only takes a time in seconds

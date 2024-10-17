@@ -3,7 +3,7 @@ title: 【無料】ポモドーロタイマー用ショートカットを Apple 
 draft: published
 publishedAt: 2024-08-08T03:05:43.193Z
 type: blog
-modifiedAt: 2024-09-19T07:24:19.306Z
+modifiedAt: 2024-10-17T03:31:52.614Z
 category:
   slug: learning
   metadata: ja/categories
@@ -111,11 +111,11 @@ https://www.icloud.com/shortcuts/b12a5c2e30484677b40a5f98b9e7774d
 - 🔛その変数を自身に渡してもう一度起動する
 
 特筆すべきはこの再帰的とも言える構造とパラメータです。
-ショートカットはパラメータを受け取ることができるので、そこで初回に設定した集中＆休憩タイムを渡してしまえば次回以降はわざわざ聞く必要もなくなるね、ということになります。
-もしパラメータを受け取っていれば、文字列連結を分解してそこから集中＆休憩タイムを取り出しますが、無ければユーザに聞きます。
-パラメータが渡らずにショートカットが起動するのは初回のみ、という想定です。
+ショートカットはパラメータ(引数)を受け取ることができるので、そこへ初回に設定した時間を渡せば次回以降はその時間を使ってタイマーをセットしてくれます。
 
-その他重要な点として、私の知る限りでは、Apple のショートカットには JavaScript の[async/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)のような機能がありません。その為、await の代わりに"xxx 待機"のブロックを使って、タイマーのカウントダウンとタイミングが合うようにしました。無理矢理な感じは否めません。
+その他重要な点として、Apple のショートカットには JavaScript の[async/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)のような機能がありません。[^1] その為、await の代わりに"xxx 待機"のブロックを使って、タイマーのカウントダウンとタイミングが合うようにしました。無理矢理な感じは否めません。
+
+[^1]: 私の知る限り、2024 年 10 月現在ではこうした非同期処理機能はありませんでした。
 
 > [!question]+どうしてインターバルの時間を秒単位に直す必要があるの？
 > "xxx 待機"のブロックが秒単位の数値しか受け付けないからです。

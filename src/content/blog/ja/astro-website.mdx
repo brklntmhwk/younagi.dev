@@ -2,7 +2,7 @@
 title: Astro + Cloudflare Pages + D1 + Front Matter CMS で個人ウェブサイトを作った
 description: Astro + Cloudflare Pages + D1 + Front Matter CMSの構成で作った個人ウェブサイトの開発体験を簡単に紹介する
 publishedAt: 2024-07-13T00:35:10.000Z
-modifiedAt: 2024-09-06T04:01:52.458Z
+modifiedAt: 2024-10-17T03:16:06.824Z
 draft: published
 type: blog
 category:
@@ -29,8 +29,11 @@ level: 4
 
 ### 想定読者
 
+読者の方は趣味や仕事でフロントエンド開発をしているという想定です。
+
 - Astro でウェブサイトを作りたいが、プロジェクト全体の構成をどうすればいいのか、どんな機能を実装すればいいのかわからない
 - Astro で作ったプロジェクトの全体像を参考にしたい
+- 個人開発のウェブサイトにどんな機能を盛り込めばよいか分からない
 
 ### 現時点での私の習熟度
 
@@ -44,7 +47,7 @@ level: 4
 
 ### Astro
 
-基本は Astro の機能範囲で実装し、一部 JS フレームワーク「[SolidJS](https://www.solidjs.com/)」を使って実装しています。もちろん全て TypeScript(と TSX) です。
+基本は Astro の機能範囲で実装し、一部 JS フレームワーク「[SolidJS](https://www.solidjs.com/)」を使って実装しています。全て TypeScript(と TSX) です。
 
 > [!info]- 技術構成
 > **言語:** [TypeScript](https://www.typescriptlang.org/), [TSX](https://www.typescriptlang.org/docs/handbook/jsx.html), [YAML](https://yaml.org/)
@@ -71,8 +74,8 @@ level: 4
 
 ![デモ: 検索機能](../../../assets/images/fulltext-search-demo.gif)
 
-Rust 製の静的検索ライブラリである[Pagefind](https://pagefind.app/)の力を借りることにしました。軽量、高速、そして導入が簡単。
-更にサーバーとのやり取りが不要でブラウザ完結なのも魅力的です。仕組みは至ってシンプルで、ビルド時に生成される静的ファイルを読みに行き、検索用のインデックスファイルをあらかじめ生成しておくというものです。
+Rust 製の静的検索ライブラリである[Pagefind](https://pagefind.app/)を選びました。とにかく軽量、高速、そして導入が簡単。
+更にサーバーとのやり取りが不要でブラウザ完結なのも魅力的です。仕組みは至ってシンプルで、ビルド時生成ファイルを基に予めインデックスファイルを作成しておき、静的にキーワード検索できるようにしています。
 
 開発に際して、次のポイントにこだわりました。
 
@@ -334,10 +337,12 @@ https://younagi.dev
   - Valibot x Cloudflare Turnstile
 - 送信ボタンのラベルが送信中に変わる
   - ユーザがわかり易いように
-  - Modular Forms のフォーム制御機能のおかげで簡単に実装できました
+  - Modular Forms のフォーム制御機能のおかげで簡単に実装できた
 - 送信完了後、サンクスページにリダイレクトされる
 
-ボット対策にはどうしても Google reCAPTCHA ではなく[Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/)を導入したく、この点はかなりこだわりました。(あの車のパズルに費やした合計時間を考えると...しんどい) 無料ですし、他の Cloudflare サービスとの連携も考えると、私にとっては一択でした。
+ボット対策にはどうしても Google reCAPTCHA ではなく[Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/)を導入したく、この点はかなりこだわりました。[^3] 無料ですし、他の Cloudflare サービスとの連携も考えると、私にとっては一択でした。
+
+[^3]: 2010 年代を生き抜いた皆さんであれば恐らく誰もが遭遇しているであろう、例の車や信号をひたすら選ばせるパズルです。私の総プレイ時間は恐らく 1 時間を超えていると思われます・・。
 
 ### Cloudflare
 

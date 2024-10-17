@@ -2,7 +2,7 @@
 title: Build a Personal Website with Astro, Cloudflare Pages, D1, and Front Matter CMS
 description: A quick tour of my personal blog built with Astro, Cloudflare Pages, D1, and Front Matter CMS.
 publishedAt: 2024-07-13T00:34:54.000Z
-modifiedAt: 2024-09-12T02:58:57.715Z
+modifiedAt: 2024-10-17T03:25:25.106Z
 draft: published
 type: blog
 category:
@@ -29,8 +29,11 @@ If you're interested in the code behind my website, see [my Github repo](https:/
 
 ### Reader personas
 
+This article is written assuming readers are a front-end developer whether hobby or work.
+
 - Want to build a website with Astro but have no idea how the whole project structure could be or what kind of features to be added
 - Want to see some examples of the whole project built with Astro
+- Have no idea what sort of features to add to a personal website
 
 ### My proficiency level
 
@@ -44,7 +47,7 @@ As of the day when I'm writing this article, my proficiency level in this field 
 
 ### Astro
 
-Basically, I managed to develop it within the scope of what Astro offers. Other than that, I used a JS framework, [SolidJS](https://www.solidjs.com/). It goes without saying that all written in TypeScript (and TSX).
+Basically, I managed to develop it within the scope of what Astro offers. Other than that, I used a JS framework, [SolidJS](https://www.solidjs.com/). All written in TypeScript (and TSX).
 
 > [!info]- The tech stack
 > **Languages:** [TypeScript](https://www.typescriptlang.org/), [TSX](https://www.typescriptlang.org/docs/handbook/jsx.html), [YAML](https://yaml.org/)
@@ -72,9 +75,9 @@ Basically, I managed to develop it within the scope of what Astro offers. Other 
 ![Demo: How the search functionality works](../../../assets/images/fulltext-search-demo.gif)
 
 I used [Pagefind](https://pagefind.app/), a Rust based static search library. It's lightweight, lightning fast, and easy to use.
-It's also self-contained on the browser without needing to interact with server. The mechanism is simple; Pagefind creates index files in advance referring to static files that are generated at build time.
+It's also self-contained on the browser without needing to interact with server. The mechanism is simple; Pagefind creates index files in advance based on those generated-at-build-time static files.
 
-Along the way, I got hung up on some key points:
+Along the way, I managed to add these key features:
 
 - Callable via a shortcut key
   - Press `Ctrl + K` if you're on PC
@@ -336,7 +339,9 @@ Here are some points:
   - This feature can easily be topped thanks to the form control of the Modular Forms
 - After the form successfully submitted, it redirects to a thanks page
 
-For bot management, I got hung up on [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/) compared to notorious Google reCAPTCHA. (I never forget the wasted time solving the car puzzles...) It's free and fully compatible with other Cloudflare services, so I had no other choice.
+For bot management, I got hung up on [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/) compared to notorious Google reCAPTCHA. [^3] It's free and fully compatible with other Cloudflare services, so I had no other choice.
+
+[^3]: The car or traffic signal puzzles I guess anybody who's gone through the 2010s ever came across. The total time I spent solving them might be over an hour...
 
 ### Cloudflare
 

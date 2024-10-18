@@ -38,6 +38,7 @@ import {
   youTubeTransformer,
 } from './src/plugins/transformers';
 import remarkCard from './src/plugins/remark-card';
+import { imageService } from "@unpic/astro/service"
 
 // https://astro.build/config
 export default defineConfig({
@@ -50,7 +51,9 @@ export default defineConfig({
     },
   }),
   image: {
-    service: passthroughImageService(),
+    service: imageService({
+      placeholder: "blurhash"
+    }),
   },
   integrations: [
     mdx(),

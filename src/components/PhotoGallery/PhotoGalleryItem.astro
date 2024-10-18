@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Image } from "@unpic/astro";
 import { getEntry } from 'astro:content';
 import { Card } from '@/components/Card';
 import { ProfileIcon } from '@/components/ProfileIcon';
@@ -39,12 +39,10 @@ const dateDiff = getTimeDiff(createdAt, locale);
   >
     <Image
       class="photo"
-      src={`${urls.raw}&auto=format&w=640&q=70`}
+      src={urls.raw}
       alt={alt_description || description || ''}
-      width={width}
-      height={height}
-      format="avif"
-      loading="lazy"
+      {width}
+      {height}
     />
   </a>
   <section slot="content" class="photo-metadata">

@@ -30,6 +30,7 @@ const blog = defineCollection({
         z.literal(5),
       ])
       .optional(),
+    image: z.string().optional(),
   }),
 });
 

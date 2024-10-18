@@ -1,5 +1,4 @@
 ---
-import { Image } from "@unpic/astro";
 import { getEntry } from 'astro:content';
 import { Card } from '@/components/Card';
 import { ProfileIcon } from '@/components/ProfileIcon';
@@ -7,6 +6,7 @@ import type { UnsplashPhoto } from '@/lib/unsplash/types';
 import { getTimeDiff } from '@/utils/get-time-diff';
 import { getLocaleFromUrl } from '@/utils/i18n/utils';
 import { toSnakeCase } from '@/utils/to-snake-case';
+import { Image } from '@unpic/astro';
 
 type Props = {
   photo: UnsplashPhoto;

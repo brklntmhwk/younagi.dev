@@ -1,5 +1,5 @@
-import { locale } from '@/components/LocaleStore/locale-store';
-import { url } from '@/components/UrlStore/url-store';
+import { locale } from '@/components/functional/LocaleStore/locale-store';
+import { url } from '@/components/functional/UrlStore/url-store';
 import { defaultLang, languages } from '@/utils/i18n/data';
 import { getTargetLocaleSlug } from '@/utils/i18n/utils';
 import { useStore } from '@nanostores/solid';

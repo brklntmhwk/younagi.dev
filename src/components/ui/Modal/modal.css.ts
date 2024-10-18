@@ -1,4 +1,4 @@
-import { contactForm } from '@/components/ContactForm/contact-form.css';
+import { contactForm } from '@/components/models/ContactForm/contact-form.css';
 import { createVar, style } from '@vanilla-extract/css';
 
 const fgColor = createVar();

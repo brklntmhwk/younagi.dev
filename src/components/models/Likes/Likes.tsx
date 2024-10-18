@@ -1,4 +1,4 @@
-import { locale } from '@/components/LocaleStore/locale-store';
+import { locale } from '@/components/functional/LocaleStore/locale-store';
 import type { I18nData } from '@/lib/collections/types';
 import type { Language } from '@/utils/i18n/data';
 import { useTranslatedPath } from '@/utils/i18n/utils';

@@ -1,11 +1,11 @@
 ---
 import { getEntry } from 'astro:content';
 import ProfileImage from '@/assets/images/profile.png';
-import { Article } from '@/components/Article';
+import { Article } from '@/components/models/Article';
+import { Icon } from '@/components/ui/Icon';
+import { Modal } from '@/components/ui/Modal/Modal';
+import { ProfileIcon } from '@/components/ui/ProfileIcon';
 import { ContactForm } from '@/components/models/ContactForm/ContactForm';
-import { Icon } from '@/components/Icon';
-import { Modal } from '@/components/Modal/Modal';
-import { ProfileIcon } from '@/components/ProfileIcon';
 import { Toc } from '@/components/models/Toc';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { transparentButton } from '@/styles/styles.css';

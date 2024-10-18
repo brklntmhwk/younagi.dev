@@ -1,8 +1,8 @@
 ---
 import { getEntry } from 'astro:content';
-import { BlogList } from '@/components/BlogList';
+import { BlogList } from '@/components/models/BlogList';
+import { Pager } from '@/components/models/Pager';
 import { formatDate } from '@/components/models/FormattedDate';
-import { Pager } from '@/components/Pager';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import {
   getLocaleContentEntries,

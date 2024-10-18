@@ -1,4 +1,4 @@
-import type { IconName } from '@/components/Icon/types';
+import type { IconName } from '@/components/ui/Icon/types';
 import type { callouts } from './callouts';
 
 type Callout = {

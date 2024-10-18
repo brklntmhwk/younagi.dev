@@ -2,12 +2,12 @@
 import 'katex/dist/katex.min.css';
 import type { CollectionEntry } from 'astro:content';
 import { getEntry } from 'astro:content';
-import { Article } from '@/components/Article';
+import { Article } from '@/components/models/Article';
+import { Icon } from '@/components/ui/Icon';
+import { Likes } from '@/components/models/Likes/Likes';
+import { StarRating } from '@/components/ui/StarRating';
 import { BuyMeACoffee } from '@/components/models/BuyMeACoffee';
 import { FormattedDate } from '@/components/models/FormattedDate';
-import { Icon } from '@/components/Icon';
-import { Likes } from '@/components/Likes/Likes';
-import { StarRating } from '@/components/StarRating';
 import { Taxonomy } from '@/components/models/Taxonomy';
 import { Toc } from '@/components/models/Toc';
 import BaseLayout from '@/layouts/BaseLayout.astro';

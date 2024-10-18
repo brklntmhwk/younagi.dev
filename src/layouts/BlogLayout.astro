@@ -14,7 +14,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getBlogCategory, getBlogTags } from '@/lib/collections/data';
 import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale';
 import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils';
-import { Image } from '@unpic/astro';
+// import { Image } from 'astro:assets';
 import type { MarkdownHeading } from 'astro';
 
 type Props = {
@@ -35,7 +35,7 @@ const {
   publishedAt,
   modifiedAt,
   level,
-  image,
+  // image,
 } = data;
 const slugWithoutLocale = getSlugWithoutLocale(slug);
 const category = await getBlogCategory(blogCategory);
@@ -73,18 +73,16 @@ const tags = await getBlogTags(blogTags);
             )
           }
         </div>
-        {
+        <!-- {
           image && (
             <Image
               class="hero-image"
               alt={title}
               src={image}
-              layout="fullWidth"
-              aspectRatio={1.77777}
               loading="eager"
             />
           )
-        }
+        } -->
         <h1 class="entry-title">{title}</h1>
         <div class="taxonomies">
           {

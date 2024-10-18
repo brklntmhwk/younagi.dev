@@ -39,7 +39,6 @@
     "@solid-primitives/event-listener": "^2.3.3",
     "@solid-primitives/keyboard": "^1.2.8",
     "@unocss/reset": "^0.60.0",
-    "@unpic/astro": "^0.0.47",
     "astro": "^4.12.2",
     "astro-purgecss": "4.1.0",
     "drizzle-orm": "^0.31.1",

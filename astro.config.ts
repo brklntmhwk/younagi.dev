@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import solidJs from '@astrojs/solid-js';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import purgecss from 'astro-purgecss';
-import { defineConfig } from 'astro/config';
+import { defineConfig, passthroughImageService } from 'astro/config';
 import browserslist from 'browserslist';
 import { h } from 'hastscript';
 import { browserslistToTargets } from 'lightningcss';
@@ -38,7 +38,6 @@ import {
   youTubeTransformer,
 } from './src/plugins/transformers';
 import remarkCard from './src/plugins/remark-card';
-import { imageService } from "@unpic/astro/service"
 
 // https://astro.build/config
 export default defineConfig({
@@ -51,9 +50,7 @@ export default defineConfig({
     },
   }),
   image: {
-    service: imageService({
-      placeholder: "blurhash"
-    }),
+    service: passthroughImageService()
   },
   integrations: [
     mdx(),

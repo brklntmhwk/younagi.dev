@@ -99,7 +99,7 @@ export default defineConfig({
       },
     },
     ssr: {
-      external: ['node:fs', 'node:process', 'unfurl.js'],
+      external: ['node:fs', '@unpic/astro', 'unfurl.js'],
     },
   },
   markdown: {

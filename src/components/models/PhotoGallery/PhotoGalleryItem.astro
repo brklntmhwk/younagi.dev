@@ -1,12 +1,12 @@
 ---
+import { Image } from 'astro:assets';
 import { getEntry } from 'astro:content';
-import { ProfileIcon } from '@/components/ui/ProfileIcon';
 import { Card } from '@/components/elements/Card';
+import { ProfileIcon } from '@/components/ui/ProfileIcon';
 import type { UnsplashPhoto } from '@/lib/unsplash/types';
 import { getTimeDiff } from '@/utils/get-time-diff';
 import { getLocaleFromUrl } from '@/utils/i18n/utils';
 import { toSnakeCase } from '@/utils/to-snake-case';
-import { Image } from 'astro:assets';
 
 type Props = {
   photo: UnsplashPhoto;

@@ -1,11 +1,11 @@
 import { Checkbox as KCheckbox, Root as KRoot } from '@kobalte/core/checkbox';
 import { type Component, type JSX, splitProps } from 'solid-js';
-import { CheckIcon } from '../Checkbox/CheckIcon';
 import {
   contactFormError,
   contactLabel,
   fieldGroup,
 } from '../contact-form.css';
+import { CheckIcon } from './CheckIcon';
 import { checkboxArea, checkboxControl } from './checkbox.css';
 
 type Props = {

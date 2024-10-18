@@ -3,7 +3,7 @@ import {
   type TaxonomyColor,
   type TaxonomyColorEnum,
   taxonomyColors,
-} from '@/components/Taxonomy';
+} from '@/components/models/Taxonomy';
 
 const blog = defineCollection({
   type: 'content',

@@ -1,5 +1,5 @@
 import { getEntry } from 'astro:content';
-import { getOgImage } from '@/components/OgImage';
+import { getOgImage } from '@/components/models/OgImage';
 import { getContentEntries } from '@/lib/collections/contents';
 import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale';
 import { defaultLang } from '@/utils/i18n/data';

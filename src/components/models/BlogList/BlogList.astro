@@ -1,0 +1,154 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { FormattedDate } from '@/components/models/FormattedDate';
+import { Taxonomy } from '@/components/models/Taxonomy';
+import { Icon } from '@/components/ui/Icon';
+import { getBlogCategory, getBlogTags } from '@/lib/collections/data';
+import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils';
+
+type Props = {
+  entries: CollectionEntry<'blog'>[];
+  taxonomies: {
+    show: boolean;
+    shouldDisplay?: ('category' | 'tags')[];
+  };
+};
+
+const locale = getLocaleFromUrl(Astro.url);
+const translatePath = useTranslatedPath(locale);
+const { entries, taxonomies } = Astro.props;
+---
+
+<ul class="entry-list">
+  {
+    entries.map(async (entry) => {
+      const {
+        title,
+        description,
+        category: blogCategory,
+        tags: blogTags,
+        publishedAt,
+        modifiedAt,
+      } = entry.data
+      const category = await getBlogCategory(blogCategory)
+      const tags = await getBlogTags(blogTags)
+
+      return (
+        <li class="entry-item fade-in-up">
+          <article class="double-border">
+            <a
+              class="blog-title"
+              href={translatePath(
+                `/${entry.collection}/${entry.slug.split('/').pop()}`
+              )}
+            >
+              {title}
+            </a>
+            <section class="date">
+              <div class="published">
+                <Icon iconName="publish" width={18} height={18} />
+                <FormattedDate date={publishedAt} locale={locale} />
+              </div>
+              {modifiedAt && (
+                <div class="updated">
+                  <Icon iconName="update" width={18} height={18} />
+                  <FormattedDate date={modifiedAt} locale={locale} />
+                </div>
+              )}
+            </section>
+            <span class="blog-description">{description}</span>
+            {taxonomies.show && (
+              <section class="taxonomies">
+                {taxonomies.shouldDisplay?.includes('category') && category && (
+                  <Taxonomy
+                    kind={blogCategory.metadata.collection}
+                    taxonomy={category}
+                  />
+                )}
+                {taxonomies.shouldDisplay?.includes('tags') &&
+                  tags.length !== 0 &&
+                  tags.map((tag) => (
+                    <Taxonomy
+                      kind={blogTags.metadata.collection}
+                      taxonomy={tag}
+                    />
+                  ))}
+              </section>
+            )}
+          </article>
+        </li>
+      )
+    })
+  }
+</ul>
+<style>
+  .entry-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    padding: 1.125rem 0;
+    .entry-item {
+      article {
+        padding: 1rem 0.5rem 0.85rem 0.85rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.825rem;
+        .blog-title {
+          color: var(--fg);
+          font-size: 1.485rem;
+          font-weight: 700;
+          line-height: 1.325;
+          &:hover {
+            background-color: var(--bg-hover);
+          }
+          @media (min-width: 640px) {
+            font-size: 1.585rem;
+          }
+          @media (min-width: 768px) {
+            font-size: 1.825rem;
+          }
+        }
+        .blog-description {
+          font-size: 0.915rem;
+          @media (min-width: 640px) {
+            font-size: 0.95rem;
+          }
+          @media (min-width: 768px) {
+            font-size: 1.025rem;
+          }
+        }
+        .date {
+          font-size: 0.895rem;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.25rem 0.65rem;
+          .published,
+          .updated {
+            display: flex;
+            align-items: center;
+            gap: 0.275rem;
+          }
+          @media (min-width: 640px) {
+            font-size: 0.925rem;
+          }
+          @media (min-width: 768px) {
+            font-size: 1.015rem;
+            gap: 0.25rem 1.15rem;
+          }
+        }
+        .taxonomies {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          gap: 0.95rem 0.85rem;
+          & :global(a) {
+            font-size: 0.785rem;
+            @media (min-width: 640px) {
+              font-size: 0.875rem;
+            }
+          }
+        }
+      }
+    }
+  }
+</style>

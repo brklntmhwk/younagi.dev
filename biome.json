@@ -24,6 +24,7 @@
     "indentStyle": "space"
   },
   "javascript": {
+    "globals": ["Astro"],
     "formatter": {
       "enabled": true,
       "semicolons": "always",

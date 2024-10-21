@@ -1,8 +1,8 @@
 ---
 import { getEntry } from 'astro:content';
-import { FormattedDate } from '@/components/FormattedDate';
-import { Icon } from '@/components/Icon';
-import { Pager } from '@/components/Pager';
+import { FormattedDate } from '@/components/models/FormattedDate';
+import { Pager } from '@/components/models/Pager';
+import { Icon } from '@/components/ui/Icon';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getSortedContentEntries } from '@/lib/collections/contents';
 import { LIMIT_PER_PAGE } from '@/lib/consts';

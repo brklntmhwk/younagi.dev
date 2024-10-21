@@ -153,6 +153,11 @@
           }
         },
         {
+          "title": "Hero Image",
+          "name": "image",
+          "type": "image"
+        },
+        {
           "title": "type",
           "name": "type",
           "type": "string"

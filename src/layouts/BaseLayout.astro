@@ -1,10 +1,10 @@
 ---
-import { BaseHead } from '@/components/BaseHead';
-import { Footer } from '@/components/Footer';
-import { LocaleStore } from '@/components/LocaleStore/LocaleStore';
-import { Navigation } from '@/components/Navigation';
-import { Toaster } from '@/components/Toaster/Toaster';
-import { UrlStore } from '@/components/UrlStore/UrlStore';
+import { BaseHead } from '@/components/common/BaseHead';
+import { Footer } from '@/components/common/Footer';
+import { Navigation } from '@/components/common/Navigation';
+import { LocaleStore } from '@/components/functional/LocaleStore/LocaleStore';
+import { UrlStore } from '@/components/functional/UrlStore/UrlStore';
+import { Toaster } from '@/components/ui/Toaster/Toaster';
 import { getLocaleFromUrl } from '@/utils/i18n/utils';
 
 export type Props = {

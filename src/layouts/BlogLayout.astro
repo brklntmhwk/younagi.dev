@@ -2,18 +2,19 @@
 import 'katex/dist/katex.min.css';
 import type { CollectionEntry } from 'astro:content';
 import { getEntry } from 'astro:content';
-import { Article } from '@/components/Article';
-import { BuyMeACoffee } from '@/components/BuyMeACoffee';
-import { FormattedDate } from '@/components/FormattedDate';
-import { Icon } from '@/components/Icon';
-import { Likes } from '@/components/Likes/Likes';
-import { StarRating } from '@/components/StarRating';
-import { Taxonomy } from '@/components/Taxonomy';
-import { Toc } from '@/components/Toc';
+import { Article } from '@/components/models/Article';
+import { FormattedDate } from '@/components/models/FormattedDate';
+import { Taxonomy } from '@/components/models/Taxonomy';
+import { Toc } from '@/components/models/Toc';
+import { BuyMeACoffee } from '@/components/ui/BuyMeACoffee';
+import { Icon } from '@/components/ui/Icon';
+import { Likes } from '@/components/ui/Likes/Likes';
+import { StarRating } from '@/components/ui/StarRating';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getBlogCategory, getBlogTags } from '@/lib/collections/data';
 import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale';
 import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils';
+// import { Image } from 'astro:assets';
 import type { MarkdownHeading } from 'astro';
 
 type Props = {
@@ -34,6 +35,7 @@ const {
   publishedAt,
   modifiedAt,
   level,
+  // image,
 } = data;
 const slugWithoutLocale = getSlugWithoutLocale(slug);
 const category = await getBlogCategory(blogCategory);
@@ -71,6 +73,16 @@ const tags = await getBlogTags(blogTags);
             )
           }
         </div>
+        <!-- {
+          image && (
+            <Image
+              class="hero-image"
+              alt={title}
+              src={image}
+              loading="eager"
+            />
+          )
+        } -->
         <h1 class="entry-title">{title}</h1>
         <div class="taxonomies">
           {
@@ -144,6 +156,10 @@ const tags = await getBlogTags(blogTags);
         @media (min-width: 640px) {
           font-size: 1.125rem;
         }
+      }
+      .hero-image {
+        border-radius: 0.375rem;
+        margin: 0.625rem 0;
       }
       .entry-title {
         text-align: center;

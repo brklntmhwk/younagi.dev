@@ -2,8 +2,8 @@ import type { RemarkPlugin } from '@astrojs/markdown-remark';
 import type { Parent, Root } from 'mdast';
 import type { Plugin } from 'unified';
 import { visit } from 'unist-util-visit';
-import { isBareLink, isParent } from './mdast-is';
-import { type Transformer, getHName, getHProperties } from './transformers';
+import { isBareLink, isParent } from '../mdast-is';
+import { type Transformer, getHName, getHProperties } from '../transformers';
 
 export type RemarkEmbedOptions = {
   transformers: Transformer[];

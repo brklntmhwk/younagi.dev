@@ -6,7 +6,7 @@ import {
   isFootnoteDefinition,
   isFootnoteReference,
   isTextOrInlineCode,
-} from './mdast-is';
+} from '../mdast-is';
 
 const remarkFootnote: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
   return (tree) => {

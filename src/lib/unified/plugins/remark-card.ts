@@ -2,7 +2,7 @@ import type { RemarkPlugin } from '@astrojs/markdown-remark';
 import type { BlockContent, DefinitionContent, Image, Link, Root } from 'mdast';
 import type { Plugin } from 'unified';
 import { visit } from 'unist-util-visit';
-import { isLink, isList, isParagraph, isParent, isText } from './mdast-is';
+import { isLink, isList, isParagraph, isParent, isText } from '../mdast-is';
 
 const parseSign = (sign: string | undefined): string | undefined => {
   if (sign === undefined || sign === '') return;

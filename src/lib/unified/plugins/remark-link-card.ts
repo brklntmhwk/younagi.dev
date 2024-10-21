@@ -2,7 +2,7 @@ import type { RemarkPlugin } from '@astrojs/markdown-remark';
 import type { Parent, Root } from 'mdast';
 import type { Plugin } from 'unified';
 import { visit } from 'unist-util-visit';
-import { isBareLink, isParent } from './mdast-is';
+import { isBareLink, isParent } from '../mdast-is';
 
 const remarkLinkCard: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
   return (tree) => {

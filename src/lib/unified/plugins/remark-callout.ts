@@ -2,7 +2,7 @@ import type { RemarkPlugin } from '@astrojs/markdown-remark';
 import type { BlockContent, DefinitionContent, Paragraph, Root } from 'mdast';
 import type { Plugin } from 'unified';
 import { visit } from 'unist-util-visit';
-import { isParagraph, isParent, isText } from './mdast-is';
+import { isParagraph, isParent, isText } from '../mdast-is';
 
 type Callout = {
   type: string;

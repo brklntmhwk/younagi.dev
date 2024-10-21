@@ -36,7 +36,7 @@ import {
   googleSlidesTransformer,
   oEmbedTransformer,
   youTubeTransformer,
-} from './src/lib/unified/transformers';
+} from './src/lib/unified/plugins/transformers';
 import remarkCard from './src/lib/unified/plugins/remark-card';
 
 // https://astro.build/config

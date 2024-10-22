@@ -4,25 +4,59 @@ import type { Plugin } from 'unified';
 import { visit } from 'unist-util-visit';
 import { isLink, isList, isParagraph, isParent, isText } from '../mdast-is';
 
-const parseSign = (sign: string | undefined): string | undefined => {
+type BorderStyleMap = {
+  className: string;
+  markdownSymbol: string;
+};
+type RemarkCardOptions = {
+  borderStyles: BorderStyleMap[];
+};
+
+const defaultRemarkCardOptions: Readonly<RemarkCardOptions> = {
+  borderStyles: [
+    {
+      className: 'solid',
+      markdownSymbol: '-',
+    },
+    {
+      className: 'double',
+      markdownSymbol: '=',
+    },
+    {
+      className: 'pixel',
+      markdownSymbol: '.',
+    },
+  ],
+};
+
+const parseSign = (
+  sign: string | undefined,
+  borderStyles: BorderStyleMap[],
+): string | undefined => {
   if (sign === undefined || sign === '') return;
 
-  const matched = sign.match(/@(?<borderType>[-=.])?$/);
+  const defaultSymbol = borderStyles[1]?.markdownSymbol;
+  if (defaultSymbol === undefined) return;
+
+  const symbols = borderStyles.map((style) => style.markdownSymbol);
+  const reg = new RegExp(`@(?<borderType>[${symbols.join()}])?$`);
+  const matched = sign.match(reg);
 
   const borderTypeSign = matched?.groups?.borderType;
-  const borderType =
-    borderTypeSign === '-'
-      ? 'solid'
-      : borderTypeSign === '='
-        ? 'double'
-        : borderTypeSign === '.'
-          ? 'pixel'
-          : 'solid';
+  let borderType: string = defaultSymbol;
+
+  for (const style of borderStyles) {
+    if (borderTypeSign === style.markdownSymbol) {
+      borderType = style.className;
+    }
+  }
 
   return borderType;
 };
 
-const remarkCard: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
+const remarkCard: Plugin<[RemarkCardOptions?], Root> = (
+  options = defaultRemarkCardOptions,
+): ReturnType<RemarkPlugin> => {
   return (tree) => {
     visit(tree, isList, (node) => {
       if (!isParent(node)) return;
@@ -46,7 +80,7 @@ const remarkCard: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
 
         const [sign, ...rest] = cardSignText.split(/\s/);
         const imageAlt = rest.join(' ');
-        const borderType = parseSign(sign);
+        const borderType = parseSign(sign, options.borderStyles);
 
         const cardListNode = listItemNode.children[1];
         if (!isList(cardListNode)) continue;

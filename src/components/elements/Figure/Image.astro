@@ -1,7 +1,11 @@
 ---
 import { Picture } from 'astro:assets';
+// import { findImage } from '@/lib/images';
+// import { encode } from "blurhash";
+// import { getPixels } from "@unpic/pixels";
+import type { HTMLAttributes } from 'astro/types';
 
-type Props = {
+type Props = Omit<HTMLAttributes<'picture'>, 'alt' | 'src'> & {
   alt: string;
   placeholder?: string;
   src: string | ImageMetadata;
@@ -10,17 +14,30 @@ type Props = {
 const { alt, placeholder, src, ...props } = Astro.props;
 
 // Generate a placeholder for and optimize the image if the placeholder is "undefined" here. (This is the case whenever the image comes from outside the scope of the remark processor)
+// let blurHash: string | undefined = undefined;
+
+// if (placeholder === undefined) {
+//   const _image = await findImage(src);
+
+//   if (typeof _image === 'string' && _image.startsWith('http') && typeof src === 'string') {
+//     const imgData = await getPixels(src);
+//     const data = Uint8ClampedArray.from(imgData.data);
+//     blurHash = encode(data, imgData.width, imgData.height, 4, 4);
+//   }
+// } else {
+//   blurHash = placeholder;
+// }
 ---
 
 {
   typeof src === 'string' ? (
-    <img {alt} {src} {...props} />
+    <img {alt} {src} class="image" {...props} />
   ) : (
     <figure>
       <Picture
         {alt}
         {src}
-        class="picture"
+        class="image"
         formats={['avif']}
         widths={[240, 540, 720, src.width]}
         pictureAttributes={{
@@ -47,7 +64,7 @@ const { alt, placeholder, src, ...props } = Astro.props;
   figcaption {
     font-size: 0.95rem;
   }
-  .picture {
+  .image {
     object-fit: contain;
     color: transparent;
     background-image: var(--blurUrl);

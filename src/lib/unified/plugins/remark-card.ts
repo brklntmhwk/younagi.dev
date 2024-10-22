@@ -35,7 +35,7 @@ const parseSign = (
 ): string | undefined => {
   if (sign === undefined || sign === '') return;
 
-  const defaultSymbol = borderStyles[1]?.markdownSymbol;
+  const defaultSymbol = borderStyles[0]?.markdownSymbol;
   if (defaultSymbol === undefined) return;
 
   const symbols = borderStyles.map((style) => style.markdownSymbol);

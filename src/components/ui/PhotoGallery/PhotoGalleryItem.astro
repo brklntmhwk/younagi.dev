@@ -1,14 +1,14 @@
 ---
-// import { Image } from 'astro:assets';
-import { Image } from '@/components/elements/Figure';
 import { getEntry } from 'astro:content';
 import { Card } from '@/components/elements/Card';
+// import { Image } from 'astro:assets';
+import { Image } from '@/components/elements/Figure';
 import { ProfileIcon } from '@/components/ui/ProfileIcon';
 import type { UnsplashPhoto } from '@/lib/unsplash/types';
 import { getTimeDiff } from '@/utils/get-time-diff';
 import { getLocaleFromUrl } from '@/utils/i18n/utils';
 import { toSnakeCase } from '@/utils/to-snake-case';
-import { blurhashToImageCssString } from "@unpic/placeholder";
+import { blurhashToImageCssString } from '@unpic/placeholder';
 
 type Props = {
   photo: UnsplashPhoto;
@@ -33,7 +33,6 @@ const {
 const createdAt = new Date(created_at);
 const dateDiff = getTimeDiff(createdAt, locale);
 const css = blurhashToImageCssString(blur_hash ?? '');
-
 ---
 
 <Card borderType="solid" isAnimated>

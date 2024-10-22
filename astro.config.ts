@@ -21,7 +21,6 @@ import remarkMath from 'remark-math';
 import { iconNameTypes } from './src/lib/astro-integrations/icon-name-type';
 import { pagefind } from './src/lib/astro-integrations/pagefind';
 import { SITE_URL } from './src/lib/consts';
-import rehypeImageFigure from './src/lib/unified/plugins/rehype-image-figure';
 import rehypePagefindIgnore from './src/lib/unified/plugins/rehype-pagefind-ignore';
 import remarkAstroImageAssets from './src/lib/unified/plugins/remark-astro-image-assets';
 import remarkCallout from './src/lib/unified/plugins/remark-callout';
@@ -36,7 +35,7 @@ import {
   googleSlidesTransformer,
   oEmbedTransformer,
   youTubeTransformer,
-} from './src/lib/unified/plugins/transformers';
+} from './src/lib/unified/transformers';
 import remarkCard from './src/lib/unified/plugins/remark-card';
 
 // https://astro.build/config
@@ -131,7 +130,6 @@ export default defineConfig({
     rehypePlugins: [
       rehypeKatex,
       rehypeSlug,
-      rehypeImageFigure,
       [
         rehypeAutolinkHeadings,
         {

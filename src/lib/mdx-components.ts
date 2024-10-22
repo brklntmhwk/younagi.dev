@@ -1,6 +1,6 @@
 import { Callout, CalloutTitle } from '@/components/elements/Callout';
 import { Card, CardGrid } from '@/components/elements/Card';
-import { Figure } from '@/components/elements/Figure';
+import { Figure, Image } from '@/components/elements/Figure';
 import { Link } from '@/components/elements/Link';
 import { OEmbed } from '@/components/elements/OEmbed';
 import { FormattedDate } from '@/components/models/FormattedDate';
@@ -16,6 +16,7 @@ export const mdxComponents = {
   'card-grid': CardGrid,
   figure: Figure,
   FormattedDate,
+  img: Image,
   oembed: OEmbed,
   StarRating,
 };

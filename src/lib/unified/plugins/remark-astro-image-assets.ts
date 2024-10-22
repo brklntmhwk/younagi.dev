@@ -1,106 +1,61 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import type { RemarkPlugin } from '@astrojs/markdown-remark';
-import type { Image, Parent, Root } from 'mdast';
-import sharp from 'sharp';
+import type { Image, Root } from 'mdast';
+import type { FormatEnum } from 'sharp';
 import type { Plugin } from 'unified';
 import { visit } from 'unist-util-visit';
+import { getBlur } from '../../blur';
+import { isLink, isParagraph } from '../mdast-is';
 
 type RemarkAstroImageAssetsOptions = {
   imgDir: string;
   size: number;
-  blurFormat: keyof sharp.FormatEnum;
-  widths: number[];
-  sizes: string;
+  format: keyof FormatEnum;
 };
 
 const defaultRemarkAstroImageAssetsOptions: Readonly<RemarkAstroImageAssetsOptions> =
   {
     imgDir: './assets/images',
     size: 8,
-    blurFormat: 'webp',
-    widths: [240, 540, 720],
-    sizes:
-      '(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px',
+    format: 'webp',
   };
 
 const remarkAstroImageAssets: Plugin<[RemarkAstroImageAssetsOptions?], Root> = (
   options = defaultRemarkAstroImageAssetsOptions,
 ): ReturnType<RemarkPlugin> => {
   return async (tree) => {
-    const imgAndParentPairs: { node: Image; parent: Parent }[] = [];
+    const imgs: Image[] = [];
 
-    visit(tree, 'image', (node, index, parent) => {
+    visit(tree, 'image', (node, _i, parent) => {
       if (
-        parent?.type !== 'paragraph' ||
-        index !== 0 ||
+        (!isParagraph(parent) && !isLink(parent)) ||
         node.url.startsWith('http')
       )
         return;
 
-      imgAndParentPairs.push({ node, parent });
+      imgs.push(node);
     });
 
-    const { imgDir, size, blurFormat, sizes, widths } = options;
+    const { imgDir, size, format } = options;
 
     await Promise.all(
-      imgAndParentPairs.map(async ({ node, parent }) => {
+      imgs.map(async (node) => {
         const basename = path.basename(node.url);
+        // const buffer = await Bun.file(
+        //   path.join(process.cwd(), './src', imgDir, basename),
+        // ).arrayBuffer();
         const buffer = fs.readFileSync(
           path.join(process.cwd(), './src', imgDir, basename),
         );
 
-        const metadataPromise = sharp(buffer)
-          .metadata()
-          .then((data) => {
-            if (!data.width || !data.height) {
-              throw new Error(`Failed to get image metadata: ${node.url}`);
-            }
-
-            return {
-              width: data.width,
-              height: data.height,
-              aspectRatio: `${data.width} / ${data.height}`,
-            };
-          });
-
-        const base64Promise = sharp(buffer)
-          .resize(size, size, { fit: 'inside' })
-          .toFormat(blurFormat, { quality: 60 })
-          .modulate({
-            brightness: 1,
-            saturation: 1.2,
-          })
-          .normalize()
-          .toBuffer()
-          .then(
-            (data) =>
-              `data:image/${blurFormat};base64,${data.toString('base64')}`,
-          );
-
-        const [{ width, aspectRatio }, base64] = await Promise.all([
-          metadataPromise,
-          base64Promise,
-        ]);
+        const base64 = await getBlur(buffer, size, format);
 
         node.data = {
           ...node.data,
           hProperties: {
             ...(node.data?.hProperties ?? {}),
-            widths: [...widths, width],
-            sizes: `${sizes}, ${width}px`,
-            format: 'avif',
-          },
-        };
-
-        parent.data = {
-          ...parent.data,
-          hProperties: {
-            ...(parent.data?.hProperties ?? {}),
-            dataImageFigure: true,
-            dataImageAlt: node.alt,
-            dataImageAspectRatio: aspectRatio,
-            dataImageBlurUrl: `url("${base64}")`,
+            placeholder: base64,
           },
         };
       }),

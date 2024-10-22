@@ -1,16 +1,13 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 import AstroCode from './Code.astro';
-import AstroImage from './Image.astro';
 
 type Props = HTMLAttributes<'figure'> & {
-  'data-image-figure'?: '';
   'data-rehype-pretty-code-figure'?: '';
 };
 
 const props = Astro.props;
 const isCodeFigure = Object.hasOwn(props, 'data-rehype-pretty-code-figure');
-const isImageFigure = Object.hasOwn(props, 'data-image-figure');
 ---
 
 {
@@ -18,10 +15,6 @@ const isImageFigure = Object.hasOwn(props, 'data-image-figure');
     <AstroCode {...props}>
       <slot />
     </AstroCode>
-  ) : isImageFigure ? (
-    <AstroImage {...props}>
-      <slot />
-    </AstroImage>
   ) : (
     <figure {...props}>
       <slot />

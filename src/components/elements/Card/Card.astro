@@ -46,10 +46,19 @@ if (isElementCard(Astro.props)) {
       padding: 0.25rem;
       display: flex;
       justify-content: center;
+      & :global(figure) {
+        margin: 0 auto;
+      }
+      & :global(figcaption) {
+        display: none;
+      }
       & :global(img) {
         object-fit: contain;
         width: 100%;
         height: 100%;
+      }
+      & :global(a) {
+        display: flex;
       }
       @media (min-width: 640px) {
         max-height: 8.75rem;

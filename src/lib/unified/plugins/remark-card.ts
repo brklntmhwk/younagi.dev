@@ -1,5 +1,5 @@
 import type { RemarkPlugin } from '@astrojs/markdown-remark';
-import type { BlockContent, DefinitionContent, Image, Link, Root } from 'mdast';
+import type { BlockContent, DefinitionContent, Root } from 'mdast';
 import type { Plugin } from 'unified';
 import { visit } from 'unist-util-visit';
 import { isLink, isList, isParagraph, isParent, isText } from '../mdast-is';
@@ -66,36 +66,6 @@ const remarkCard: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
         if (cardImageNode.children.length === 0) continue;
 
         const cardImageOrLink = cardImageNode.children[0];
-        const imageMap = new Map<'url' | 'alt', string | null | undefined>();
-        let imageNode: Image | Link;
-        if (cardImageOrLink?.type === 'image') {
-          imageMap.set('url', cardImageOrLink.url);
-          imageMap.set('alt', imageAlt !== '' ? imageAlt : cardImageOrLink.alt);
-          imageNode = {
-            type: 'image',
-            alt: imageMap.get('alt'),
-            url: imageMap.get('url'),
-          } as Image;
-        } else if (isLink(cardImageOrLink)) {
-          const cardImage = cardImageOrLink.children[0];
-          if (cardImage?.type !== 'image') continue;
-
-          imageMap.set('url', cardImage.url);
-          imageMap.set('alt', imageAlt !== '' ? imageAlt : cardImage.alt);
-          imageNode = {
-            type: 'link',
-            url: cardImageOrLink.url,
-            children: [
-              {
-                type: 'image',
-                alt: imageMap.get('alt'),
-                url: imageMap.get('url'),
-              } as Image,
-            ],
-          } as Link;
-        } else {
-          continue;
-        }
 
         const imageWrapperNode: BlockContent | DefinitionContent = {
           type: 'paragraph',
@@ -106,8 +76,21 @@ const remarkCard: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
               className: 'card-image',
             },
           },
-          children: [imageNode],
+          children: [],
         };
+
+        if (cardImageOrLink?.type === 'image') {
+          cardImageOrLink.alt = cardImageOrLink.alt ?? imageAlt;
+        } else if (isLink(cardImageOrLink)) {
+          const cardImage = cardImageOrLink.children[0];
+          if (cardImage?.type !== 'image') continue;
+
+          cardImage.alt = cardImage.alt ?? imageAlt;
+        } else {
+          continue;
+        }
+
+        imageWrapperNode.children.push(cardImageOrLink);
 
         const contentNode: BlockContent | DefinitionContent = {
           type: 'paragraph',

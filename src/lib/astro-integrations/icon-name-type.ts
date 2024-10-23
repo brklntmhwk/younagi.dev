@@ -3,8 +3,8 @@ import { resolve } from 'node:path';
 import type { AstroIntegration, AstroIntegrationLogger } from 'astro';
 
 const generateIconNameType = async () => {
-  const ICONS_DIR = '../../components/Icon/icons';
-  const ICON_TYPES_DIR = '../../components/Icon/types.ts';
+  const ICONS_DIR = '../../components/ui/Icon/icons';
+  const ICON_TYPES_DIR = '../../components/ui/Icon/types.ts';
 
   const iconsDir = resolve(import.meta.dirname, ICONS_DIR);
   const iconFiles = await readdir(iconsDir);

@@ -1,0 +1,97 @@
+---
+import {
+  type CardBorderType,
+  type ComponentCardProps,
+  type ElementCardProps,
+  isElementCard,
+  isValidBorderType,
+} from './card';
+
+type Props = ComponentCardProps | ElementCardProps;
+
+let cardBorderType: CardBorderType = 'solid';
+let isAnimated = false;
+
+if (isElementCard(Astro.props)) {
+  const { 'data-border-type': dataBorderType } = Astro.props;
+  if (isValidBorderType(dataBorderType)) {
+    cardBorderType = dataBorderType;
+  }
+} else {
+  const { borderType, isAnimated: animation } = Astro.props;
+  cardBorderType = borderType;
+  isAnimated = animation;
+}
+---
+
+<div class:list={["card", `${cardBorderType}-border`, { "fade-in-up": isAnimated }]}>
+  <slot name="image" />
+  <slot name="content" />
+</div>
+<style>
+  .card {
+    background-color: var(--bg);
+    max-width: 100%;
+    height: 12rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.325rem;
+    break-inside: avoid;
+    &:hover {
+      background-color: var(--bg-hover);
+    }
+    & :global(.card-image) {
+      max-height: 7.125rem;
+      min-height: 5.25rem;
+      padding: 0.25rem;
+      display: flex;
+      justify-content: center;
+      & :global(figure) {
+        margin: 0 auto;
+      }
+      & :global(figcaption) {
+        display: none;
+      }
+      & :global(img) {
+        object-fit: contain;
+        width: 100%;
+        height: 100%;
+      }
+      & :global(a) {
+        display: flex;
+      }
+      @media (min-width: 640px) {
+        max-height: 8.75rem;
+        min-height: 6.75rem;
+      }
+    }
+    & :global(.card-content) {
+      font-size: 0.725rem;
+      padding: 0.175rem 0.325rem;
+      overflow-y: auto;
+      @media (min-width: 640px) {
+        font-size: 0.925rem;
+      }
+    }
+    @media (min-width: 320px) {
+      max-width: 8.5rem;
+    }
+    @media (min-width: 400px) {
+      max-width: 10.25rem;
+    }
+    @media (min-width: 480px) {
+      max-width: 12.05rem;
+    }
+    @media (min-width: 640px) {
+      max-width: 14.35rem;
+      height: 15rem;
+      gap: 0.525rem;
+    }
+    @media (min-width: 820px) {
+      max-width: 18rem;
+    }
+    @media (min-width: 1280px) {
+      max-width: 20rem;
+    }
+  }
+</style>

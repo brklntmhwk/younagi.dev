@@ -1,0 +1,173 @@
+---
+import '@/styles/pixelmplus.css';
+import { getEntry } from 'astro:content';
+import { LocalePicker } from '@/components/common/LocalePicker/LocalePicker';
+import { Search } from '@/components/common/Search/Search';
+import { Icon } from '@/components/ui/Icon';
+import { Modal } from '@/components/ui/Modal/Modal';
+import { transparentButton } from '@/styles/styles.css';
+import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils';
+import NavLink from './NavLink.astro';
+import NavMenuContainer from './NavMenuContainer.astro';
+
+const locale = getLocaleFromUrl(Astro.url);
+const translatePath = useTranslatedPath(locale);
+const t = await getEntry('i18n', `${locale}/translation`);
+---
+
+<nav class="glassmorphism" data-pagefind-ignore="all">
+  <a class="blog-title" href={translatePath('/')}>
+    {t.data.blog_name}
+  </a>
+  <NavMenuContainer>
+    <div class="nav-links" slot="inside-drawer">
+      <NavLink href={translatePath('/')}>{t.data.nav.nav_links.home}</NavLink>
+      <NavLink href={translatePath('/blog')}
+        >{t.data.nav.nav_links.blog}</NavLink
+      >
+      <NavLink href={translatePath('/news')}
+        >{t.data.nav.nav_links.news}</NavLink
+      >
+      <NavLink href={translatePath('/about')}
+        >{t.data.nav.nav_links.about}</NavLink
+      >
+      <NavLink href={translatePath('/work')}
+        >{t.data.nav.nav_links.work}</NavLink
+      >
+      <NavLink href={translatePath('/tools')}
+        >{t.data.nav.nav_links.tools}</NavLink
+      >
+    </div>
+    <div class="icon-links" slot="outside-drawer">
+      <Modal
+        client:only="solid"
+        modalName="locale"
+        buttonLabel={t.data.locale_picker.button_label}
+        buttonStyle={transparentButton}
+      >
+        <LocalePicker client:only="solid" />
+        <Icon slot="icon" iconName="language" width={28} height={28} />
+      </Modal>
+      <Modal
+        client:only="solid"
+        modalName="search"
+        buttonLabel={t.data.search.button_label}
+        buttonStyle={transparentButton}
+      >
+        <Search client:only="solid" t={t.data.search} />
+        <Icon slot="icon" iconName="magnifier" width={28} height={28} />
+      </Modal>
+    </div>
+  </NavMenuContainer>
+</nav>
+<style>
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    height: 4.25rem;
+    box-sizing: border-box;
+    padding: 0.5rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    a {
+      color: var(--fg);
+      text-decoration: none;
+    }
+    a:not(.blog-title) {
+      border-bottom: 2px solid transparent;
+    }
+    .blog-title {
+      display: none;
+      @media (min-width: 320px) {
+        font-size: 1.125rem;
+        font-family: 'PixelMplus10';
+        font-weight: 400;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      @media (min-width: 1024px) {
+        grid-area: blog-title;
+        place-self: center;
+      }
+    }
+    .nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding: 0.75rem 2.75rem;
+      margin-left: 1.25rem;
+      a {
+        position: relative;
+        font-size: 1.275rem;
+        &.active {
+          font-weight: 700;
+        }
+        &:hover::before {
+          content: '▶';
+          position: absolute;
+          top: 0;
+          left: -1.65rem;
+          font-size: 1.375rem;
+          align-self: center;
+        }
+        @media (min-width: 1024px) {
+          font-size: 1.275rem;
+          position: relative;
+          &:hover::before {
+            content: '▶';
+            position: absolute;
+            top: 0;
+            left: -1.45rem;
+            font-size: 1.25rem;
+            align-self: center;
+          }
+        }
+      }
+      @media (min-width: 1024px) {
+        gap: 2rem;
+        align-self: start;
+        margin-left: 1.5rem;
+        padding: 0;
+      }
+    }
+    .icon-links {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem;
+      @media (min-width: 320px) {
+        gap: 1.25rem;
+        padding: 0.75rem 1.25rem;
+      }
+      @media (min-width: 1024px) {
+        width: 100%;
+        padding: 0 1.25rem;
+        display: flex;
+        justify-content: space-between;
+        gap: 1.75rem;
+      }
+    }
+    @media (min-width: 1024px) {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-rows: 1fr 9fr;
+      grid-template-columns: 1fr;
+      grid-area: navigation;
+      grid-template-areas:
+        'blog-title'
+        'nav-menu';
+      align-items: start;
+      position: sticky;
+      padding: 1.75rem 1.85rem;
+      margin: 0;
+      width: 18rem;
+      height: 100dvh;
+      border-right: 1px solid var(--line);
+    }
+  }
+</style>

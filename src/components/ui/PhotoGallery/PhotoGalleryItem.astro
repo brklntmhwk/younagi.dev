@@ -1,0 +1,94 @@
+---
+import { getEntry } from 'astro:content';
+import { Card } from '@/components/elements/Card';
+import { Image } from '@/components/elements/Figure';
+import { ProfileIcon } from '@/components/ui/ProfileIcon';
+import type { UnsplashPhoto } from '@/lib/unsplash/types';
+import { getTimeDiff } from '@/utils/get-time-diff';
+import { getLocaleFromUrl } from '@/utils/i18n/utils';
+import { toSnakeCase } from '@/utils/to-snake-case';
+import { blurhashToDataUri } from '@unpic/placeholder';
+
+type Props = {
+  photo: UnsplashPhoto;
+  order: number;
+};
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = await getEntry('i18n', `${locale}/translation`);
+const meta = await getEntry('meta', 'en/site-data');
+const { photo, order } = Astro.props;
+const {
+  alt_description,
+  blur_hash,
+  description,
+  created_at,
+  links,
+  urls,
+  user,
+  // height,
+  // width,
+} = photo;
+const createdAt = new Date(created_at);
+const dateDiff = getTimeDiff(createdAt, locale);
+const placeholder = blurhashToDataUri(blur_hash ?? '');
+---
+
+<Card borderType="solid" isAnimated>
+  <a
+    aria-label={`${t.data.photo_gallery_item.photo_label}${order}`}
+    href={`${links.html}?utm_source=${toSnakeCase(meta.data.site.title)}&utm_medium=referral`}
+    slot="image"
+  >
+    <Image
+      class="photo"
+      alt={alt_description || description || ''}
+      src={`${urls.raw}&fm=jpg&w=1080&q=75&fit=max`}
+      {placeholder}
+    />
+  </a>
+  <section slot="content" class="photo-metadata">
+    <div class="photographer">
+      <ProfileIcon
+        alt={photo.user.username}
+        src={photo.user.profile_image.small}
+        size={20}
+      />
+      <span>{user.last_name}</span>
+    </div>
+    <span class="photo-date">
+      {dateDiff}
+    </span>
+  </section>
+</Card>
+<style>
+  .photo {
+    width: 100%;
+    max-height: 7.875rem;
+    object-fit: cover;
+  }
+  .photo-metadata {
+    font-size: 0.685rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.175rem 0.225rem 0.225rem 0.225rem;
+    .photographer {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      @media (min-width: 768px) {
+        gap: 0.5rem;
+      }
+    }
+    .photo-date {
+      margin-left: 0.5rem;
+    }
+    @media (min-width: 768px) {
+      font-size: 0.85rem;
+      padding: 0.375rem 0.5rem 0.5rem 0.5rem;
+    }
+  }
+</style>

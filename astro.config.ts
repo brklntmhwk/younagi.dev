@@ -21,23 +21,22 @@ import remarkMath from 'remark-math';
 import { iconNameTypes } from './src/lib/astro-integrations/icon-name-type';
 import { pagefind } from './src/lib/astro-integrations/pagefind';
 import { SITE_URL } from './src/lib/consts';
-import rehypeImageFigure from './src/plugins/rehype-image-figure';
-import rehypePagefindIgnore from './src/plugins/rehype-pagefind-ignore';
-import remarkAstroImageAssets from './src/plugins/remark-astro-image-assets';
-import remarkCallout from './src/plugins/remark-callout';
+import rehypePagefindIgnore from './src/lib/unified/plugins/rehype-pagefind-ignore';
+import remarkAstroImageAssets from './src/lib/unified/plugins/remark-astro-image-assets';
+import remarkCallout from './src/lib/unified/plugins/remark-callout';
 import remarkEmbed, {
   type RemarkEmbedOptions,
-} from './src/plugins/remark-embed';
-import remarkFootnote from './src/plugins/remark-footnote';
-import remarkLineBreaks from './src/plugins/remark-line-breaks';
-import remarkLinkCard from './src/plugins/remark-link-card';
+} from './src/lib/unified/plugins/remark-embed';
+import remarkFootnote from './src/lib/unified/plugins/remark-footnote';
+import remarkLineBreaks from './src/lib/unified/plugins/remark-line-breaks';
+import remarkLinkCard from './src/lib/unified/plugins/remark-link-card';
 import {
   canvaTransformer,
   googleSlidesTransformer,
   oEmbedTransformer,
   youTubeTransformer,
-} from './src/plugins/transformers';
-import remarkCard from './src/plugins/remark-card';
+} from './src/lib/unified/transformers';
+import remarkCard from './src/lib/unified/plugins/remark-card';
 
 // https://astro.build/config
 export default defineConfig({
@@ -50,7 +49,7 @@ export default defineConfig({
     },
   }),
   image: {
-    service: passthroughImageService(),
+    service: passthroughImageService()
   },
   integrations: [
     mdx(),
@@ -131,7 +130,6 @@ export default defineConfig({
     rehypePlugins: [
       rehypeKatex,
       rehypeSlug,
-      rehypeImageFigure,
       [
         rehypeAutolinkHeadings,
         {

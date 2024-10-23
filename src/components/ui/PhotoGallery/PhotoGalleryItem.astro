@@ -1,14 +1,13 @@
 ---
 import { getEntry } from 'astro:content';
 import { Card } from '@/components/elements/Card';
-// import { Image } from 'astro:assets';
 import { Image } from '@/components/elements/Figure';
 import { ProfileIcon } from '@/components/ui/ProfileIcon';
 import type { UnsplashPhoto } from '@/lib/unsplash/types';
 import { getTimeDiff } from '@/utils/get-time-diff';
 import { getLocaleFromUrl } from '@/utils/i18n/utils';
 import { toSnakeCase } from '@/utils/to-snake-case';
-import { blurhashToImageCssString } from '@unpic/placeholder';
+import { blurhashToDataUri } from '@unpic/placeholder';
 
 type Props = {
   photo: UnsplashPhoto;
@@ -32,7 +31,7 @@ const {
 } = photo;
 const createdAt = new Date(created_at);
 const dateDiff = getTimeDiff(createdAt, locale);
-const css = blurhashToImageCssString(blur_hash ?? '');
+const placeholder = blurhashToDataUri(blur_hash ?? '');
 ---
 
 <Card borderType="solid" isAnimated>
@@ -44,8 +43,8 @@ const css = blurhashToImageCssString(blur_hash ?? '');
     <Image
       class="photo"
       alt={alt_description || description || ''}
-      src={urls.raw}
-      style={css}
+      src={`${urls.raw}&fm=jpg&w=1080&q=75&fit=max`}
+      {placeholder}
     />
   </a>
   <section slot="content" class="photo-metadata">

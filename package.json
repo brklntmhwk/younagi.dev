@@ -43,7 +43,7 @@
     "astro": "^4.12.2",
     "astro-purgecss": "4.1.0",
     "drizzle-orm": "^0.31.1",
-    "purgecss": "5.0.0",
+    "purgecss": "6.0.0",
     "resend": "^3.5.0",
     "solid-js": "^1.8.17",
     "solid-motionone": "^1.0.0",

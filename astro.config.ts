@@ -2,6 +2,7 @@ import cloudflare from '@astrojs/cloudflare';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import solidJs from '@astrojs/solid-js';
+import tailwind from '@astrojs/tailwind';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import purgecss from 'astro-purgecss';
 import { defineConfig, passthroughImageService } from 'astro/config';
@@ -24,6 +25,7 @@ import { SITE_URL } from './src/lib/consts';
 import rehypePagefindIgnore from './src/lib/unified/plugins/rehype-pagefind-ignore';
 import remarkAstroImageAssets from './src/lib/unified/plugins/remark-astro-image-assets';
 import remarkCallout from './src/lib/unified/plugins/remark-callout';
+import remarkCard from './src/lib/unified/plugins/remark-card';
 import remarkEmbed, {
   type RemarkEmbedOptions,
 } from './src/lib/unified/plugins/remark-embed';
@@ -36,7 +38,6 @@ import {
   oEmbedTransformer,
   youTubeTransformer,
 } from './src/lib/unified/transformers';
-import remarkCard from './src/lib/unified/plugins/remark-card';
 
 // https://astro.build/config
 export default defineConfig({
@@ -49,7 +50,7 @@ export default defineConfig({
     },
   }),
   image: {
-    service: passthroughImageService()
+    service: passthroughImageService(),
   },
   integrations: [
     mdx(),
@@ -60,6 +61,7 @@ export default defineConfig({
     sitemap(),
     iconNameTypes(),
     pagefind(),
+    tailwind(),
   ],
   prefetch: {
     defaultStrategy: 'viewport',
@@ -103,7 +105,9 @@ export default defineConfig({
     smartypants: false,
     remarkRehype: {
       footnoteLabel: ' ',
-      footnoteLabelProperties: { className: [''] },
+      footnoteLabelProperties: {
+        className: [''],
+      },
       footnoteLabelTagName: 'hr',
     },
     remarkPlugins: [

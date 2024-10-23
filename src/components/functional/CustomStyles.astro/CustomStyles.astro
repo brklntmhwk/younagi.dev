@@ -1,0 +1,84 @@
+---
+import '@fontsource-variable/inconsolata';
+---
+
+<style is:inline>
+  :root {
+    --font-sans: 'LINE Seed JP';
+    --font-pixelMPlus: 'PixelMplus10';
+    --fg: hsla(248.57, 11.48%, 11.96%, 1);
+    --bg: hsla(0, 0%, 96.7%, 1);
+    --bg-hover: hsla(0, 0%, 91.7%, 1);
+    --line: hsla(260.87, 10.13%, 55.49%, 0.33);
+    --accent: hsla(240.24, 100%, 48.63%, 1);
+    --accent-dark: hsla(240, 98.54%, 26.86%, 1);
+    --pixel-border: hsla(240, 6.9%, 11.37%, 1);
+    --menu-bg: hsla(0, 0%, 91.71%, 1);
+    --modal-bg: hsla(223, 13%, 10%, 0.6);
+    --bulletin-board-fg: hsla(32.94, 100%, 50%, 1);
+    --bulletin-board-bg: hsla(30, 9.8%, 20%, 1);
+    --glass-bg: hsla(0, 0%, 96.7%, 0.9);
+    --gray: hsla(60, 0.52%, 75.55%, 1);
+    --gray-light: hsla(0, 0%, 86.71%, 1);
+    --gray-dark: hsla(0, 1.27%, 20.98%, 1);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fg: hsla(0, 0%, 96.7%, 1);
+      --bg: hsla(248.57, 11.48%, 11.96%, 1);
+      --bg-hover: hsla(248.57, 11.48%, 18.96%, 1);
+      --accent: hsla(215.24, 100%, 52.63%, 1);
+      --accent-dark: hsla(220, 98.54%, 43.86%, 1);
+      --pixel-border: hsla(220, 100%, 98.22%, 1);
+      --menu-bg: hsla(248.57, 11.48%, 20.96%, 1);
+      --modal-bg: hsla(220, 20%, 9%, 0.9);
+      --glass-bg: hsla(248.57, 11.48%, 11.96%, 0.9);
+    }
+  }
+
+  @font-face {
+    font-family: 'LINE Seed JP';
+    src: url('/fonts/LINESeedJP_OTF_Rg.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'LINE Seed JP';
+    src: url('/fonts/LINESeedJP_OTF_Bd.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'LINE Seed JP';
+    src: url('/fonts/LINESeedJP_OTF_Th.woff2') format('woff2');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'LINE Seed JP';
+    src: url('/fonts/LINESeedJP_OTF_Eb.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'PixelMplus10';
+    src: url('/fonts/PixelMplus10-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    font-stretch: 100%;
+  }
+  @font-face {
+    font-family: 'PixelMplus10';
+    src: url('/fonts/PixelMplus10-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    font-stretch: 200%;
+  }
+</style>

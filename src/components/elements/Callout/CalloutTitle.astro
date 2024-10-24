@@ -46,7 +46,7 @@ const calloutTitle: string | undefined = await Astro.slots.render('default');
         type="checkbox"
         class={calloutToggleCheck}
         id={`callout-toggle-check-${dataCalloutType}-${uniqueId}`}
-        checked={isExpanded === true ?? false}
+        checked={isExpanded}
       />
     </>
   ) : (

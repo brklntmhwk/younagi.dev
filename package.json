@@ -42,7 +42,7 @@
     "@unpic/placeholder": "^0.1.2",
     "astro": "^4.12.2",
     "astro-purgecss": "4.1.0",
-    "cssesc": "^3.0.0",
+    "cssesc": "",
     "drizzle-orm": "^0.31.1",
     "purgecss": "6.0.0",
     "resend": "^3.5.0",

@@ -17,6 +17,3 @@ node_modules/
 
 # Wrangler
 .wrangler/
-
-# overrides
-overrides/

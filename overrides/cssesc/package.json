@@ -1,0 +1,16 @@
+ {
+ 	"name": "cssesc",
+ 	"version": "3.0.0",
+ 	"description": "A JavaScript library for escaping CSS strings and identifiers while generating the shortest possible ASCII-only output.",
+ 	"author": {
+ 		"name": "Mathias Bynens",
+ 		"url": "https://mathiasbynens.be/"
+ 	},
+ 	"license": "MIT",
+ 	"exports": {
+ 		".": {
+ 			"import": "./index.mjs",
+ 			"require": "./index.cjs"
+ 		}
+ 	}
+ }

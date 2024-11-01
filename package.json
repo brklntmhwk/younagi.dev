@@ -14,8 +14,8 @@
     "preview": "astro preview",
     "build": "astro check && astro build",
     "sync": "astro sync",
-    "lint": "bunx @biomejs/biome check ./src/",
-    "lint:fix": "bunx @biomejs/biome check --write ./src/",
+    "lint": "bunx biome check ./src/",
+    "lint:fix": "bunx biome check --write ./src/",
     "textlint": "textlint './src/content/'",
     "textlint:fix": "textlint --fix './src/content/'",
     "wrangler:typegen": "wrangler types",
@@ -118,9 +118,6 @@
   },
   "engines": {
     "bun": "^1.0.0"
-  },
-  "overrides": {
-    "cssesc": "./overrides/cssesc"
   },
   "trustedDependencies": ["@biomejs/biome", "esbuild", "sharp"]
 }

@@ -16,6 +16,8 @@ import rehypePrettyCode, {
   type Options as RehypePrettyCodeOptions,
 } from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
+import remarkCard, { type Config as RemarkCardConfig } from 'remark-card';
+import remarkDirective from 'remark-directive';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import { iconNameTypes } from './src/lib/astro-integrations/icon-name-type';
@@ -36,8 +38,6 @@ import {
   oEmbedTransformer,
   youTubeTransformer,
 } from './src/lib/unified/transformers';
-import remarkCard, { type Config as RemarkCardConfig} from 'remark-card';
-import remarkDirective from 'remark-directive'
 
 // https://astro.build/config
 export default defineConfig({
@@ -50,7 +50,7 @@ export default defineConfig({
     },
   }),
   image: {
-    service: passthroughImageService()
+    service: passthroughImageService(),
   },
   integrations: [
     mdx(),
@@ -114,13 +114,14 @@ export default defineConfig({
       remarkAstroImageAssets,
       remarkCallout,
       [
-        remarkCard, {
+        remarkCard,
+        {
           customHTMLTags: {
-            enabled: true
+            enabled: true,
           },
-          cardGridClass: "card-grid",
-          cardClass: "card"
-        } satisfies RemarkCardConfig
+          cardGridClass: 'card-grid',
+          cardClass: 'card',
+        } satisfies RemarkCardConfig,
       ],
       remarkFootnote,
       remarkLineBreaks,

@@ -38,7 +38,6 @@ import {
 } from './src/lib/unified/transformers';
 import remarkCard, { type Config as RemarkCardConfig} from 'remark-card';
 import remarkDirective from 'remark-directive'
-// import remarkCard from './src/lib/unified/plugins/remark-card';
 
 // https://astro.build/config
 export default defineConfig({

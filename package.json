@@ -35,7 +35,7 @@
     "@astrojs/solid-js": "^4.4.2",
     "@fontsource-variable/inconsolata": "^5.1.0",
     "@kobalte/core": "^0.13.7",
-    "@modular-forms/solid": "^0.24.1",
+    "@modular-forms/solid": "^0.23.0",
     "@solid-primitives/event-listener": "^2.3.3",
     "@solid-primitives/keyboard": "^1.2.8",
     "@unocss/reset": "^0.63.6",

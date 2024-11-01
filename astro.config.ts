@@ -36,7 +36,9 @@ import {
   oEmbedTransformer,
   youTubeTransformer,
 } from './src/lib/unified/transformers';
-import remarkCard from './src/lib/unified/plugins/remark-card';
+import remarkCard, { type Config as RemarkCardConfig} from 'remark-card';
+import remarkDirective from 'remark-directive'
+// import remarkCard from './src/lib/unified/plugins/remark-card';
 
 // https://astro.build/config
 export default defineConfig({
@@ -109,9 +111,18 @@ export default defineConfig({
     remarkPlugins: [
       remarkMath,
       remarkGfm,
+      remarkDirective,
       remarkAstroImageAssets,
       remarkCallout,
-      remarkCard,
+      [
+        remarkCard, {
+          customHTMLTags: {
+            enabled: true
+          },
+          cardGridClass: "card-grid",
+          cardClass: "card"
+        } satisfies RemarkCardConfig
+      ],
       remarkFootnote,
       remarkLineBreaks,
       [

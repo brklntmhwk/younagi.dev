@@ -1,32 +1,13 @@
 ---
-import {
-  type CardBorderType,
-  type ComponentCardProps,
-  type ElementCardProps,
-  isElementCard,
-  isValidBorderType,
-} from './card';
+import type { HTMLAttributes } from 'astro/types';
 
-type Props = ComponentCardProps | ElementCardProps;
+type Props = HTMLAttributes<'div'>;
 
-let cardBorderType: CardBorderType = 'solid';
-let isAnimated = false;
-
-if (isElementCard(Astro.props)) {
-  const { 'data-border-type': dataBorderType } = Astro.props;
-  if (isValidBorderType(dataBorderType)) {
-    cardBorderType = dataBorderType;
-  }
-} else {
-  const { borderType, isAnimated: animation } = Astro.props;
-  cardBorderType = borderType;
-  isAnimated = animation;
-}
+const { class: cardClass, ...restProps } = Astro.props;
 ---
 
-<div class:list={["card", `${cardBorderType}-border`, { "fade-in-up": isAnimated }]}>
-  <slot name="image" />
-  <slot name="content" />
+<div class:list={["double-border", "fade-in-up", cardClass]} {...restProps}>
+  <slot />
 </div>
 <style>
   .card {
@@ -40,7 +21,7 @@ if (isElementCard(Astro.props)) {
     &:hover {
       background-color: var(--bg-hover);
     }
-    & :global(.card-image) {
+    & :global(.image-container) {
       max-height: 7.125rem;
       min-height: 5.25rem;
       padding: 0.25rem;
@@ -65,7 +46,7 @@ if (isElementCard(Astro.props)) {
         min-height: 6.75rem;
       }
     }
-    & :global(.card-content) {
+    & :global(.content-container) {
       font-size: 0.725rem;
       padding: 0.175rem 0.325rem;
       overflow-y: auto;

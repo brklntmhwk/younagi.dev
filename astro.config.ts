@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import solidJs from '@astrojs/solid-js';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import purgecss from 'astro-purgecss';
-import { defineConfig, passthroughImageService } from 'astro/config';
+import { defineConfig, sharpImageService } from 'astro/config';
 import browserslist from 'browserslist';
 import { h } from 'hastscript';
 import { browserslistToTargets } from 'lightningcss';
@@ -50,7 +50,7 @@ export default defineConfig({
     },
   }),
   image: {
-    service: passthroughImageService(),
+    service: sharpImageService({ limitInputPixels: false }),
   },
   integrations: [
     mdx(),

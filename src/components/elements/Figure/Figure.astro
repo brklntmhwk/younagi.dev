@@ -1,13 +1,16 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 import AstroCode from './Code.astro';
+import AstroVideo from './Video.astro'
 
 type Props = HTMLAttributes<'figure'> & {
   'data-rehype-pretty-code-figure'?: '';
+  'data-remark-video-figure'?: '';
 };
 
 const props = Astro.props;
 const isCodeFigure = Object.hasOwn(props, 'data-rehype-pretty-code-figure');
+const isVideoFigure = Object.hasOwn(props, 'data-remark-video-figure');
 ---
 
 {
@@ -15,6 +18,10 @@ const isCodeFigure = Object.hasOwn(props, 'data-rehype-pretty-code-figure');
     <AstroCode {...props}>
       <slot />
     </AstroCode>
+  ) : isVideoFigure ? (
+    <AstroVideo {...props}>
+      <slot />
+    </AstroVideo>
   ) : (
     <figure {...props}>
       <slot />

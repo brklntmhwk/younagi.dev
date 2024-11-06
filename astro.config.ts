@@ -22,7 +22,7 @@ import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import { iconNameTypes } from './src/lib/astro-integrations/icon-name-type';
 import { pagefind } from './src/lib/astro-integrations/pagefind';
-import { SITE_URL } from './src/lib/consts';
+import { SITE_URL, VIDEO_FALLBACK_MESSAGE } from './src/lib/consts';
 import rehypePagefindIgnore from './src/lib/unified/plugins/rehype-pagefind-ignore';
 import remarkAstroImageAssets from './src/lib/unified/plugins/remark-astro-image-assets';
 import remarkCallout from './src/lib/unified/plugins/remark-callout';
@@ -38,6 +38,7 @@ import {
   oEmbedTransformer,
   youTubeTransformer,
 } from './src/lib/unified/transformers';
+import remarkVideo, { type Config as RemarkVideoConfig } from 'remark-video'
 
 // https://astro.build/config
 export default defineConfig({
@@ -122,6 +123,18 @@ export default defineConfig({
           cardGridClass: 'card-grid',
           cardClass: 'card',
         } satisfies RemarkCardConfig,
+      ],
+      [
+        remarkVideo,
+        {
+          baseUrl: SITE_URL,
+          publicDir: './public',
+          videoContainerTag: 'figure',
+          fallbackContent: h(
+            'p.fallback-content',
+            VIDEO_FALLBACK_MESSAGE
+          )
+        } satisfies RemarkVideoConfig
       ],
       remarkFootnote,
       remarkLineBreaks,

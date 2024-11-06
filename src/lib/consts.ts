@@ -18,3 +18,5 @@ export const TURNSTILE_SITE_VERIFICATION_URL =
   'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 export const SHOW_DRAFT_PAGES_IN_DEV = true;
 export const CONTACT_NOTIFICATION_SUBJECT = 'younagi.dev: New Contact Message';
+export const VIDEO_FALLBACK_MESSAGE =
+  'Your browser does not support the video tag.';

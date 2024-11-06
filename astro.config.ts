@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import solidJs from '@astrojs/solid-js';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import purgecss from 'astro-purgecss';
-import { defineConfig, passthroughImageService } from 'astro/config';
+import { defineConfig, sharpImageService } from 'astro/config';
 import browserslist from 'browserslist';
 import { h } from 'hastscript';
 import { browserslistToTargets } from 'lightningcss';
@@ -16,11 +16,13 @@ import rehypePrettyCode, {
   type Options as RehypePrettyCodeOptions,
 } from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
+import remarkCard, { type Config as RemarkCardConfig } from 'remark-card';
+import remarkDirective from 'remark-directive';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import { iconNameTypes } from './src/lib/astro-integrations/icon-name-type';
 import { pagefind } from './src/lib/astro-integrations/pagefind';
-import { SITE_URL } from './src/lib/consts';
+import { SITE_URL, VIDEO_FALLBACK_MESSAGE } from './src/lib/consts';
 import rehypePagefindIgnore from './src/lib/unified/plugins/rehype-pagefind-ignore';
 import remarkAstroImageAssets from './src/lib/unified/plugins/remark-astro-image-assets';
 import remarkCallout from './src/lib/unified/plugins/remark-callout';
@@ -36,7 +38,7 @@ import {
   oEmbedTransformer,
   youTubeTransformer,
 } from './src/lib/unified/transformers';
-import remarkCard from './src/lib/unified/plugins/remark-card';
+import remarkVideo, { type Config as RemarkVideoConfig } from 'remark-video'
 
 // https://astro.build/config
 export default defineConfig({
@@ -49,7 +51,7 @@ export default defineConfig({
     },
   }),
   image: {
-    service: passthroughImageService()
+    service: sharpImageService({ limitInputPixels: false }),
   },
   integrations: [
     mdx(),
@@ -109,9 +111,31 @@ export default defineConfig({
     remarkPlugins: [
       remarkMath,
       remarkGfm,
+      remarkDirective,
       remarkAstroImageAssets,
       remarkCallout,
-      remarkCard,
+      [
+        remarkCard,
+        {
+          customHTMLTags: {
+            enabled: true,
+          },
+          cardGridClass: 'card-grid',
+          cardClass: 'card',
+        } satisfies RemarkCardConfig,
+      ],
+      [
+        remarkVideo,
+        {
+          baseUrl: SITE_URL,
+          publicDir: './public',
+          videoContainerTag: 'figure',
+          fallbackContent: h(
+            'p.fallback-content',
+            VIDEO_FALLBACK_MESSAGE
+          )
+        } satisfies RemarkVideoConfig
+      ],
       remarkFootnote,
       remarkLineBreaks,
       [

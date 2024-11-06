@@ -39,6 +39,7 @@ import {
   youTubeTransformer,
 } from './src/lib/unified/transformers';
 import remarkVideo, { type Config as RemarkVideoConfig } from 'remark-video'
+import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
@@ -53,16 +54,9 @@ export default defineConfig({
   image: {
     service: sharpImageService({ limitInputPixels: false }),
   },
-  integrations: [
-    mdx(),
-    solidJs(),
-    purgecss({
-      fontFace: true,
-    }),
-    sitemap(),
-    iconNameTypes(),
-    pagefind(),
-  ],
+  integrations: [mdx(), solidJs(), purgecss({
+    fontFace: true,
+  }), sitemap(), iconNameTypes(), pagefind(), tailwind()],
   prefetch: {
     defaultStrategy: 'viewport',
     prefetchAll: true,

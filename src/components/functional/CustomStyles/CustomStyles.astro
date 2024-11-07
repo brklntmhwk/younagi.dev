@@ -1,0 +1,122 @@
+---
+import '@fontsource-variable/inconsolata';
+---
+
+<style is:inline>
+  :root {
+    --font-sans: 'LINE Seed JP';
+    --font-pixelMPlus: 'PixelMplus10';
+    --fg: hsl(248.57, 11.48%, 11.96%);
+    --bg: hsl(0, 0%, 96.7%);
+    --bg-hover: hsl(0, 0%, 91.7%);
+    --line-solid: hsla(260.87, 10.13%, 55.49%, 0.33);
+    --line-double: hsl(240, 6.9%, 11.37%);
+    --accent: hsl(240.24, 100%, 48.63%);
+    --accent-dark: hsl(240, 98.54%, 26.86%);
+    --menu-bg: hsl(0, 0%, 91.71%);
+    --modal-bg: hsla(223, 13%, 10%, 0.6);
+    --bulletin-fg: hsl(32.94, 100%, 50%);
+    --bulletin-bg: hsla(30, 9.8%, 20%, 1);
+    --glass-bg: hsla(0, 0%, 96.7%, 0.9);
+
+    --gray: hsla(60, 0.52%, 75.55%, 1);
+    --gray-light: hsla(0, 0%, 86.71%, 1);
+    --gray-dark: hsla(0, 1.27%, 20.98%, 1);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fg: hsl(0, 0%, 96.7%);
+      --bg: hsl(248.57, 11.48%, 11.96%);
+      --bg-hover: hsl(248.57, 11.48%, 18.96%);
+      --accent: hsl(215.24, 100%, 52.63%);
+      --accent-dark: hsl(220, 98.54%, 43.86%);
+      --line-double: hsl(220, 100%, 98.22%);
+      --menu-bg: hsl(248.57, 11.48%, 20.96%);
+      --modal-bg: hsla(220, 20%, 9%, 0.9);
+      --glass-bg: hsla(248.57, 11.48%, 11.96%, 0.9);
+    }
+  }
+
+  @font-face {
+    font-family: 'LINE Seed JP';
+    src: url('/fonts/LINESeedJP_OTF_Rg.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'LINE Seed JP';
+    src: url('/fonts/LINESeedJP_OTF_Bd.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'LINE Seed JP';
+    src: url('/fonts/LINESeedJP_OTF_Th.woff2') format('woff2');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'LINE Seed JP';
+    src: url('/fonts/LINESeedJP_OTF_Eb.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'PixelMplus10';
+    src: url('/fonts/PixelMplus10-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    font-stretch: 100%;
+  }
+  @font-face {
+    font-family: 'PixelMplus10';
+    src: url('/fonts/PixelMplus10-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    font-stretch: 200%;
+  }
+
+  main {
+    grid-area: main;
+    padding: 2.25rem 1.5rem;
+    @media (min-width: 768px) {
+      padding: 2.25rem 2.75rem;
+    }
+    @media (min-width: 1024px) {
+      grid-area: main;
+      padding: 3rem 4rem;
+      overflow-y: auto;
+    }
+  }
+
+  li {
+    list-style-type: none;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--line-solid);
+    margin: 1.25rem 0;
+  }
+
+  .border-pixel {
+    border: 5px solid var(--fg);
+    border-image-source: url("data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8' ?><svg version='1.1' width='8' height='8' xmlns='http://www.w3.org/2000/svg'><path d='M3 1 h1 v1 h-1 z M4 1 h1 v1 h-1 z M2 2 h1 v1 h-1 z M5 2 h1 v1 h-1 z M1 3 h1 v1 h-1 z M6 3 h1 v1 h-1 z M1 4 h1 v1 h-1 z M6 4 h1 v1 h-1 z M2 5 h1 v1 h-1 z M5 5 h1 v1 h-1 z M3 6 h1 v1 h-1 z M4 6 h1 v1 h-1 z' fill='rgb(28, 27, 34)' /></svg>");
+    border-image-slice: 3;
+    border-image-width: 3;
+    border-image-repeat: repeat;
+    border-image-outset: 2;
+  }
+  @media (prefers-color-scheme: dark) {
+    .border-pixel {
+      border-image-source: url("data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8' ?><svg version='1.1' width='8' height='8' xmlns='http://www.w3.org/2000/svg'><path d='M3 1 h1 v1 h-1 z M4 1 h1 v1 h-1 z M2 2 h1 v1 h-1 z M5 2 h1 v1 h-1 z M1 3 h1 v1 h-1 z M6 3 h1 v1 h-1 z M1 4 h1 v1 h-1 z M6 4 h1 v1 h-1 z M2 5 h1 v1 h-1 z M5 5 h1 v1 h-1 z M3 6 h1 v1 h-1 z M4 6 h1 v1 h-1 z' fill='rgb(246.59, 246.59, 246.59)' /></svg>");
+    }
+  }
+</style>

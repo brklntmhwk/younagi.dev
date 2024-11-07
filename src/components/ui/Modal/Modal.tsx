@@ -81,7 +81,7 @@ export const Modal: ParentComponent<Props> = (props) => {
         >
           <div
             id={`${props.modalName}-wrapper`}
-            class={`${modalWrapper} pixel-border`}
+            class={`${modalWrapper} border-pixel`}
           >
             {props.children}
           </div>

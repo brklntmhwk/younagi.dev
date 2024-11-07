@@ -15,7 +15,11 @@ const translatePath = useTranslatedPath(locale);
 const t = await getEntry('i18n', `${locale}/translation`);
 ---
 
-<nav class="glassmorphism" data-pagefind-ignore="all">
+<nav class="
+  supports-[backdrop-filter]:backdrop-blur-sm
+  supports-[backdrop-filter]:backdrop-saturate-180
+  supports-[-webkit-backdrop-filter]:backdrop-blur-sm
+  supports-[-webkit-backdrop-filter:backdrop-saturate-180" data-pagefind-ignore="all">
   <a class="blog-title" href={translatePath('/')}>
     {t.data.blog_name}
   </a>
@@ -167,7 +171,7 @@ const t = await getEntry('i18n', `${locale}/translation`);
       margin: 0;
       width: 18rem;
       height: 100dvh;
-      border-right: 1px solid var(--line);
+      border-right: 1px solid var(--line-solid);
     }
   }
 </style>

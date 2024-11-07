@@ -29,7 +29,7 @@ const { title, description, og } = Astro.props;
   <head>
     <BaseHead {title} description={description ?? ''} {og} />
   </head>
-  <body data-pagefind-body>
+  <body class="font-sans antialiased text-default bg-default-reverse break-words touch-manipulation" data-pagefind-body>
     <LocaleStore client:only="solid" {locale} />
     <UrlStore client:only="solid" {url} />
     <div class="base-wrapper">
@@ -37,7 +37,7 @@ const { title, description, og } = Astro.props;
       <slot />
       <Footer />
     </div>
-    <div id="modal"></div>
+    <div id="modal" class="fixed top-0 left-0"></div>
     <Toaster client:only="solid" />
     <style>
       .base-wrapper {
@@ -61,11 +61,6 @@ const { title, description, og } = Astro.props;
             'navigation main'
             'navigation footer';
         }
-      }
-      #modal {
-        position: fixed;
-        top: 0;
-        left: 0;
       }
     </style>
   </body>

@@ -43,7 +43,7 @@ const t = await getEntry('i18n', `${locale}/translation`);
     width: 100%;
     box-sizing: border-box;
     overflow-x: hidden;
-    background-color: var(--bulletin-board-bg);
+    background-color: var(--bulletin-bg);
     border: 2px solid var(--gray-dark);
     border-radius: 0.15rem;
     &::before {
@@ -68,14 +68,14 @@ const t = await getEntry('i18n', `${locale}/translation`);
       li {
         display: inline;
         margin: 0 5rem 0 0;
-        color: var(--bulletin-board-fg);
+        color: var(--bulletin-fg);
         font-family: 'PixelMplus10';
         font-weight: 400;
         font-size: 1.65rem;
         letter-spacing: 0.125rem;
         text-shadow: 0 0 4px;
         a {
-          color: var(--bulletin-board-fg);
+          color: var(--bulletin-fg);
           text-decoration: none;
         }
         @media (min-width: 768px) {

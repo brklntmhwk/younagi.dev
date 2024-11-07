@@ -83,7 +83,7 @@ const tags = await getBlogTags(blogTags);
             />
           )
         } -->
-        <h1 class="entry-title">{title}</h1>
+        <h1 class="text-center text-3xl sm:text-4xl md:text-5xl font-extrabold leading-snug sm:leading-snug md:leading-snug">{title}</h1>
         <div class="taxonomies">
           {
             category && (
@@ -287,7 +287,7 @@ const tags = await getBlogTags(blogTags);
         & th,
         td {
           font-size: 1rem;
-          border: 2px solid var(--line);
+          border: 2px solid var(--line-solid);
           padding: 0.5rem 0.65rem;
         }
       }

@@ -98,7 +98,9 @@ export const Search: Component<Props> = (props) => {
   return (
     <div class={searchWrapper}>
       <form onsubmit={handleSubmit}>
-        <div class={`${searchInputWrapper} double-border`}>
+        <div
+          class={`${searchInputWrapper} relative border-t-4 border-b-2 border-x-2 border-line-double rounded-md before:absolute before:-top-2 before:-bottom-2 before:-left-1.5 before:-right-1.5 before:border-t-2 before:border-b-4 before:border-x-2 before:rounded-lg before:-z-10`}
+        >
           <SearchIcon label={props.t.button_label} width={22} height={22} />
           <input
             id="search-window"

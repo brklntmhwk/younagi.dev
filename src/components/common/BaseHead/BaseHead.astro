@@ -1,9 +1,10 @@
 ---
-import '@unocss/reset/tailwind-compat.css';
+// import '@unocss/reset/tailwind-compat.css';
 import '@fontsource-variable/inconsolata';
 import '@/styles/global.css';
 import { getAbsoluteLocaleUrl } from 'astro:i18n';
 import type { Props as BaseLayoutProps } from '@/layouts/BaseLayout.astro';
+import { CustomStyles } from '@/components/functional/CustomStyles';
 import { languages } from '@/utils/i18n/data';
 
 type Props = BaseLayoutProps;
@@ -76,3 +77,4 @@ const { title, description, og } = Astro.props;
     </>
   )
 }
+<CustomStyles />

@@ -33,7 +33,7 @@ const dateDiff = getTimeDiff(createdAt, locale);
 const placeholder = blurhashToDataUri(blur_hash ?? '');
 ---
 
-<div class="photo-card solid-border fade-in-up">
+<div class="photo-card border-2 border-solid border-line-solid rounded-sm animate-fadeInUp">
   <a
     aria-label={`${t.data.photo_gallery_item.photo_label}${order}`}
     href={`${links.html}?utm_source=${toSnakeCase(meta.data.site.title)}&utm_medium=referral`}

@@ -6,7 +6,6 @@ import {
   onMount,
   splitProps,
 } from 'solid-js';
-import { cfTurnstile } from './turnstile.css';
 
 type Props = {
   siteKey: string;
@@ -59,5 +58,5 @@ export const Turnstile: Component<Props> = (props) => {
     element = el;
   };
 
-  return <div {...others} class={cfTurnstile} ref={setRef} />;
+  return <div {...others} class="mx-auto" ref={setRef} />;
 };

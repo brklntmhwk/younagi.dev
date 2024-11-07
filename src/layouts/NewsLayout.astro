@@ -36,16 +36,16 @@ const slugWithoutLocale = getSlugWithoutLocale(slug);
 >
   <main>
     <Article kind="news">
-      <section slot="metadata" class="news-metadata">
+      <section slot="metadata" class="flex flex-col gap-4">
         <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-snug sm:leading-snug md:leading-snug">{title}</h1>
-        <div class="date-meta">
-          <div>
+        <div class="text-sm xs:text-base sm:text-lg flex flex-wrap gap-x-4 gap-y-1">
+          <div class="flex items-center gap-1.5">
             <Icon iconName="publish" width={20} height={20} />
             <FormattedDate date={publishedAt} locale={locale} />
           </div>
           {
             modifiedAt && (
-              <div>
+              <div class="flex items-center gap-1.5">
                 <Icon iconName="update" width={20} height={20} />
                 <FormattedDate date={modifiedAt} locale={locale} />
               </div>
@@ -64,42 +64,6 @@ const slugWithoutLocale = getSlugWithoutLocale(slug);
 </BaseLayout>
 <style is:global>
   article {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    gap: 0.5rem;
-    hr {
-      width: 100%;
-    }
-    .news-metadata {
-      display: flex;
-      flex-direction: column;
-      gap: 0.975rem;
-      .news-title {
-        font-size: 1.825rem;
-        line-height: 1.275;
-        @media (min-width: 640px) {
-          font-size: 2.015rem;
-        }
-        @media (min-width: 768px) {
-          font-size: 2.365rem;
-        }
-      }
-      .date-meta {
-        font-size: 0.875rem;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.25rem 0.95rem;
-        div {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-        }
-        @media (min-width: 640px) {
-          font-size: 1.125rem;
-        }
-      }
-    }
     .news-content {
       font-size: 1.125rem;
       overflow-wrap: break-word;
@@ -131,18 +95,18 @@ const slugWithoutLocale = getSlugWithoutLocale(slug);
         a {
           text-decoration: none;
           .heading-anchor-icon {
-            color: var(--fg);
+            color: var(--color-fg);
             margin-right: 0.5rem;
           }
           &:hover {
             text-decoration: underline;
             text-underline-offset: 4px;
-            text-decoration-color: var(--fg);
+            text-decoration-color: var(--color-fg);
           }
         }
       }
       & p {
-        color: var(--fg);
+        color: var(--color-fg);
         margin-bottom: 1.25rem;
       }
       & ul,
@@ -163,11 +127,11 @@ const slugWithoutLocale = getSlugWithoutLocale(slug);
       & p,
       & li {
         & a {
-          color: var(--accent);
+          color: var(--color-accent);
           text-decoration: underline;
           text-underline-offset: 3px;
           &:hover {
-            color: var(--accent-dark);
+            color: var(--color-dark-accent);
           }
         }
       }

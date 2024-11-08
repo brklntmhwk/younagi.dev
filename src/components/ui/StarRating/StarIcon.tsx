@@ -1,6 +1,5 @@
 import { type Component, type ComponentProps, splitProps } from 'solid-js';
 import { Motion } from 'solid-motionone';
-import { emptyFillColor, fillColor, glowFillColor } from './star-rating.css';
 
 type Props = {
   label: string;
@@ -14,7 +13,7 @@ export const StarIcon: Component<ComponentProps<'svg'> & Props> = (props) => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 36 36"
-      fill={emptyFillColor}
+      class="fill-star-empty"
       {...others}
     >
       <title>{local.label}</title>
@@ -33,7 +32,7 @@ export const StarIcon: Component<ComponentProps<'svg'> & Props> = (props) => {
           y={0}
           width={36}
           height={36}
-          fill={local.isBright ? fillColor : emptyFillColor}
+          class={local.isBright ? 'fill-star-filled' : 'fill-star-empty'}
           initial={{ opacity: 1 }}
           animate={{
             opacity: local.isBright ? [0, 1, 0, 1, 0, 1] : 1,
@@ -48,7 +47,7 @@ export const StarIcon: Component<ComponentProps<'svg'> & Props> = (props) => {
           y={0}
           width={48}
           height={48}
-          fill={local.isBright ? glowFillColor : emptyFillColor}
+          class={local.isBright ? 'fill-star-glow' : 'fill-star-empty'}
           initial={{ opacity: 1 }}
           animate={{
             opacity: local.isBright ? [0, 1, 0, 1, 0, 1] : 1,

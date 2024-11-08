@@ -19,120 +19,97 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = await getEntry('i18n', `${locale}/translation`);
 ---
 
-<div class:list={['message', direction]}>
-  <div class="icon-wrapper">
+<div
+  class=`max-w-5xl flex gap-2 py-3 ${direction === 'left' ? 'self-start flex-row' : 'self-end flex-row-reverse'}`
+>
+  <div class="flex flex-col place-items-center place-self-end gap-1 shrink-0">
     <ProfileIcon
       class="message-icon"
       src={image ? image.src : profileImage}
       alt={image ? image.alt : t.data.message.fallback_icon_alt}
       size={90}
     />
-    <span>{image ? image.alt : t.data.message.fallback_icon_alt}</span>
+    <span class="text-sm">{image ? image.alt : t.data.message.fallback_icon_alt}</span>
   </div>
   <div class:list={['balloon', 'border-pixel', `from-${direction}`]}>
     <p>{content}</p>
   </div>
 </div>
 <style>
-  .message {
-    max-width: 60rem;
-    display: flex;
-    gap: 0.5rem;
-    padding: 0.75rem 0;
-    &.left {
-      align-self: flex-start;
-      flex-direction: row;
-    }
-    &.right {
-      align-self: flex-end;
-      flex-direction: row-reverse;
-    }
-    .icon-wrapper {
-      display: flex;
-      flex-direction: column;
-      place-items: center;
-      place-self: flex-end;
-      gap: 0.25rem;
-      flex-shrink: 0;
-      span {
-        font-size: 0.95rem;
+  .balloon {
+    display: inline-block;
+    position: relative;
+    padding: 0.8rem 0.75rem;
+    margin: 0.5rem 0.5rem 1.85rem 0.5rem;
+    background-color: var(--color-default-bg);
+    p {
+      font-size: 1.05rem;
+      margin: 0;
+      @media (min-width: 768px) {
+        font-size: 1.175rem;
       }
     }
-    .balloon {
-      display: inline-block;
-      position: relative;
-      padding: 0.8rem 0.75rem;
-      margin: 0.5rem 0.5rem 1.85rem 0.5rem;
-      background-color: var(--color-bg);
-      p {
-        font-size: 1.05rem;
-        margin: 0;
-        @media (min-width: 768px) {
-          font-size: 1.175rem;
-        }
-      }
+    &::before,
+    &::after {
+      position: absolute;
+      content: '';
+    }
+    &.from-left {
       &::before,
       &::after {
-        position: absolute;
-        content: '';
+        left: 2rem;
       }
-      &.from-left {
-        &::before,
-        &::after {
-          left: 2rem;
-        }
-        &::before {
-          bottom: -14px;
-          width: 26px;
-          height: 10px;
-          background-color: var(--color-bg);
-          border-right: 4px solid var(--color-fg);
-          border-left: 4px solid var(--color-fg);
-        }
-        &::after {
-          bottom: -18px;
-          width: 18px;
-          height: 4px;
-          margin-right: 8px;
-          color: var(--color-fg);
-          box-shadow:
-            -4px 0,
-            4px 0,
-            -4px 4px var(--color-bg),
-            0px 4px,
-            -8px 4px,
-            -4px 8px,
-            -8px 8px;
-        }
+      &::before {
+        bottom: -14px;
+        width: 26px;
+        height: 10px;
+        background-color: var(--color-default-bg);
+        border-right: 4px solid var(--color-default-fg);
+        border-left: 4px solid var(--color-default-fg);
       }
-      &.from-right {
-        &::before,
-        &::after {
-          right: 2rem;
-        }
-        &::before {
-          bottom: -14px;
-          width: 26px;
-          height: 10px;
-          background-color: var(--color-bg);
-          border-right: 4px solid var(--color-fg);
-          border-left: 4px solid var(--color-fg);
-        }
-        &::after {
-          bottom: -18px;
-          width: 18px;
-          height: 4px;
-          margin-left: 8px;
-          color: var(--color-fg);
-          box-shadow:
-            -4px 0,
-            4px 0,
-            4px 4px var(--color-bg),
-            0 4px,
-            8px 4px,
-            4px 8px,
-            8px 8px;
-        }
+      &::after {
+        bottom: -18px;
+        width: 18px;
+        height: 4px;
+        margin-right: 8px;
+        color: var(--color-default-fg);
+        box-shadow:
+          -4px 0,
+          4px 0,
+          -4px 4px var(--color-default-bg),
+          0px 4px,
+          -8px 4px,
+          -4px 8px,
+          -8px 8px;
+      }
+    }
+    &.from-right {
+      &::before,
+      &::after {
+        right: 2rem;
+      }
+      &::before {
+        bottom: -14px;
+        width: 26px;
+        height: 10px;
+        background-color: var(--color-default-bg);
+        border-right: 4px solid var(--color-default-fg);
+        border-left: 4px solid var(--color-default-fg);
+      }
+      &::after {
+        bottom: -18px;
+        width: 18px;
+        height: 4px;
+        margin-left: 8px;
+        color: var(--color-default-fg);
+        box-shadow:
+          -4px 0,
+          4px 0,
+          4px 4px var(--color-default-bg),
+          0 4px,
+          8px 4px,
+          4px 8px,
+          8px 8px;
       }
     }
   }

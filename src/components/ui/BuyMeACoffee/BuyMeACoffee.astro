@@ -9,23 +9,25 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = await getEntry('i18n', `${locale}/translation`);
 ---
 
-<!-- TODO: apply valid style to the Modal component -->
-<div class="bmc-container">
+<div class="flex items-center flex-wrap gap-y-2 gap-x-1.5">
   <Modal
     client:only="solid"
     modalName="buy_me_a_coffee"
     buttonLabel={t.data.bmc.button_label}
-    buttonStyle='aaaaa'
+    buttonStyle='text-neutral-100 bg-indigo-400 dark:bg-indigo-400/90 dark:hover:bg-indigo-400/80 hover:bg-indigo-400/90 font-bold justify-center rounded-md py-2 px-4'
     iconLabel={t.data.bmc.button_label}
   >
-    <div class="bmc-modal">
+    <div class="box-border max-h-[77dvh]">
       <iframe
         id="bmc-frame"
         title="Buy Me A Coffee"
         allow="payment"
         src={`https://buymeacoffee.com/widget/page/${ACCOUNT_ID}`}
         fetchpriority="low"
-        loading="lazy"></iframe>
+        loading="lazy"
+        class="w-full h-[55dvh]"
+      >
+      </iframe>
     </div>
     <Icon slot="icon" iconName="bmc" width={27} height={27} />
   </Modal>
@@ -35,20 +37,6 @@ const t = await getEntry('i18n', `${locale}/translation`);
   </div>
 </div>
 <style>
-  .bmc-container {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem 0.375rem;
-  }
-  .bmc-modal {
-    box-sizing: border-box;
-    max-height: 77dvh;
-  }
-  iframe {
-    width: 100%;
-    height: 55dvh;
-  }
   .greeting {
     font-size: 0.785rem;
     position: relative;

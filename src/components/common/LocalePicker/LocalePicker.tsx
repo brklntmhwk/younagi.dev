@@ -4,26 +4,20 @@ import { defaultLang, languages } from '@/utils/i18n/data';
 import { getTargetLocaleSlug } from '@/utils/i18n/utils';
 import { useStore } from '@nanostores/solid';
 import type { Component } from 'solid-js';
-import {
-  localeLink,
-  localeListElem,
-  localeSpan,
-  localeUlList,
-} from './locale-picker.css';
 
 export const LocalePicker: Component = () => {
   const $locale = useStore(locale);
   const $url = useStore(url);
 
   return (
-    <ul class={localeUlList}>
+    <ul class="grid gap-6 ml-5">
       {Object.entries(languages).map(([lang, label]) => (
-        <li class={localeListElem}>
+        <li class="text-xl">
           {lang === $locale() ? (
-            <span class={localeSpan}>{label}</span>
+            <span class="font-bold">{label}</span>
           ) : (
             <a
-              class={localeLink}
+              class="no-underline relative border-solid border-transparent border-b-2 hover:before:content-['▶'] hover:before:absolute hover:before:top-0 hover:before:-left-6 hover:before:text-xl self-center"
               href={
                 lang === defaultLang
                   ? `/${getTargetLocaleSlug($locale(), $url())}`

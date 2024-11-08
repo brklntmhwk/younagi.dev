@@ -12,12 +12,12 @@ const sitePolicyPage = await getEntry('page', `${locale}/site-policy`);
 const year = new Date().getFullYear();
 ---
 
-<footer data-pagefind-ignore="all">
+<footer class="area-footer flex flex-col items-center gap-3.5 px-4 pt-9 pb-16 text-center" data-pagefind-ignore="all">
   <span>
     &copy; {year}
     {t.data.blog_name}. All rights reserved.
   </span>
-  <div class="policies">
+  <div class="flex justify-center gap-7 text-accent hover:text-accent-dark">
     {
       privacyPolicyPage && (
         <a href={translatePath(`/${privacyPolicyPage.slug.split('/').pop()}`)}>
@@ -33,14 +33,14 @@ const year = new Date().getFullYear();
       )
     }
   </div>
-  <div class="social-links">
+  <div class="flex justify-center gap-7 mt-3.5">
     <a
       href={`${GITHUB_BASE_URL}/${ACCOUNT_ID}`}
       title="Github"
       target="_blank"
       aria-label="Github"
     >
-      <Icon iconName="github" width={32} height={32} />
+      <Icon class="fill-default hover:fill-zinc-400" iconName="github" width={32} height={32} />
     </a>
     <a
       href={`${UNSPLASH_BASE_URL}/@${ACCOUNT_ID}`}
@@ -48,55 +48,10 @@ const year = new Date().getFullYear();
       target="_blank"
       aria-label="Unsplash"
     >
-      <Icon iconName="unsplash" width={32} height={32} />
+      <Icon class="fill-default hover:fill-zinc-400" iconName="unsplash" width={32} height={32} />
     </a>
-    <a href={translatePath('/rss.xml')} title="RSS" aria-label="RSS">
-      <Icon iconName="rss" width={32} height={32} />
+    <a href={translatePath('/rss.xml')} title="RSS" aria-label="RSS" class="no-underline">
+      <Icon class="fill-default hover:fill-zinc-400" iconName="rss" width={32} height={32} />
     </a>
   </div>
 </footer>
-<style>
-  footer {
-    grid-area: footer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.85rem;
-    padding: 2.25rem 1rem 3.75rem 1rem;
-    color: var(--color-fg);
-    text-align: center;
-    .buy-me-a-coffee {
-      padding-bottom: 0.75rem;
-      img {
-        height: 55px;
-        width: 215px;
-      }
-    }
-    a {
-      color: var(--color-accent);
-      &:hover {
-        color: var(--color-dark-accent);
-      }
-    }
-    .policies {
-      display: flex;
-      justify-content: center;
-      gap: 1.875rem;
-    }
-    .social-links {
-      display: flex;
-      justify-content: center;
-      gap: 1.875rem;
-      margin-top: 0.875rem;
-      a {
-        text-decoration: none;
-        & svg {
-          fill: var(--color-fg);
-          &:hover {
-            fill: var(--color-gray);
-          }
-        }
-      }
-    }
-  }
-</style>

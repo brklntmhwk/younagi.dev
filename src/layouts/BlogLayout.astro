@@ -127,30 +127,3 @@ const tags = await getBlogTags(blogTags);
     </Article>
   </main>
 </BaseLayout>
-<style is:global>
-  .blog-content {
-    & code:not(figure[data-rehype-pretty-code-figure] code) {
-      font-size: 0.95rem;
-      color: var(--color-dark-gray);
-      background-color: var(--color-ash-gray);
-      padding: 0.1rem 0.25rem;
-      margin: 0 0.1rem;
-      border-radius: 0.25rem;
-    }
-    & table {
-      display: block;
-      max-width: 86vw;
-      border-collapse: collapse;
-      table-layout: fixed;
-      overflow-x: auto;
-      text-align: center;
-      margin: 1.25rem 0;
-      & th,
-      td {
-        font-size: 1rem;
-        border: 2px solid var(--color-line-solid);
-        padding: 0.5rem 0.65rem;
-      }
-    }
-  }
-</style>

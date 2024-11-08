@@ -3,7 +3,6 @@ import {
   Root as KobalteRoot,
 } from '@kobalte/core/text-field';
 import { type Component, type JSX, Show, splitProps } from 'solid-js';
-import { contactFormError } from '../contact-form.css';
 
 type Props = {
   name: string;
@@ -43,7 +42,7 @@ export const TextField: Component<Props> = (props) => {
           <Show
             when={props.type === 'hidden'}
             fallback={
-              <div class="relative border-t-4 border-b-2 border-x-2 border-line-double rounded-md before:absolute before:-top-2 before:-bottom-2 before:-left-1.5 before:-right-1.5 before:border-t-2 before:border-b-4 before:border-x-2 before:rounded-lg before:-z-10">
+              <div class="double-border">
                 <Kobalte.Input
                   {...inputProps}
                   type={props.type}
@@ -60,14 +59,14 @@ export const TextField: Component<Props> = (props) => {
           </Show>
         }
       >
-        <div class="relative border-t-4 border-b-2 border-x-2 border-line-double rounded-md before:absolute before:-top-2 before:-bottom-2 before:-left-1.5 before:-right-1.5 before:border-t-2 before:border-b-4 before:border-x-2 before:rounded-lg before:-z-10">
+        <div class="double-border">
           <Kobalte.TextArea
             {...inputProps}
             class="flex flex-col w-full p-2 bg-transparent outline-none"
           />
         </div>
       </Show>
-      <Kobalte.ErrorMessage class={contactFormError}>
+      <Kobalte.ErrorMessage class="p-2 rounded-sm text-red-500 dark:text-red-300 bg-red-200 dark:bg-red-400">
         {props.error}
       </Kobalte.ErrorMessage>
     </KobalteRoot>

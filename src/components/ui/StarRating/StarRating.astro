@@ -3,14 +3,6 @@ import { getEntry } from 'astro:content';
 import { Icon } from '@/components/ui/Icon';
 import { getLocaleFromUrl } from '@/utils/i18n/utils';
 import { StarIcon } from './StarIcon';
-import {
-  endLabel,
-  labelWrapper,
-  labels,
-  ratingWrapper,
-  spanBase,
-  stars,
-} from './star-rating.css';
 
 type Props = {
   method: 'spectrum' | 'rating';
@@ -32,25 +24,25 @@ if (!isLessThanOrEqualTo(value, total)) {
 const counts = Array.from({ length: total }, (_, i) => i + 1);
 ---
 
-<div class={ratingWrapper}>
-  <div class={labels}>
+<div class="hidden xxs:w-full xxs:flex xxs:flex-col xxs:items-center xxs:justify-center xxs:gap-3.5 xxs:p-3">
+  <div class="w-full max-w-lg flex justify-between">
     {
       leftEnd && rightEnd && (
         <>
-          <div class={`${spanBase} ${labelWrapper}`}>
+          <div class="text-sm sm:text-base flex items-center justify-center max-w-28">
             <Icon iconName="left-arrow" width={20} height={20} />
-            <span class={endLabel}>{leftEnd}</span>
+            <span class="w-full whitespace-nowrap overflow-ellipsis overflow-hidden">{leftEnd}</span>
           </div>
-          <span class={spanBase}>{`${value}/${total}`}</span>
-          <div class={`${spanBase} ${labelWrapper}`}>
-            <span class={endLabel}>{rightEnd}</span>
+          <span class="text-sm sm:text-base">{`${value}/${total}`}</span>
+          <div class="text-sm sm:text-base flex items-center justify-center max-w-28">
+            <span class="w-full whitespace-nowrap overflow-ellipsis overflow-hidden">{rightEnd}</span>
             <Icon iconName="right-arrow" width={20} height={20} />
           </div>
         </>
       )
     }
   </div>
-  <div class={stars}>
+  <div class="w-full flex flex-wrap justify-center items-center gap-3">
     {
       counts.map((n) => {
         switch (method) {

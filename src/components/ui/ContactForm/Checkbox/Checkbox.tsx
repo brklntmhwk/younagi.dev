@@ -1,8 +1,6 @@
 import { Checkbox as KCheckbox, Root as KRoot } from '@kobalte/core/checkbox';
 import { type Component, type JSX, splitProps } from 'solid-js';
-import { contactFormError } from '../contact-form.css';
 import { CheckIcon } from './CheckIcon';
-import { checkboxArea, checkboxControl } from './checkbox.css';
 
 type Props = {
   name: string;
@@ -32,9 +30,9 @@ export const Checkbox: Component<Props> = (props) => {
       class="flex flex-col gap-4 z-10"
       validationState={props.error ? 'invalid' : 'valid'}
     >
-      <KCheckbox class={checkboxArea}>
+      <KCheckbox class="mt-6 inline-flex items-center gap-1">
         <KCheckbox.Input {...inputProps} />
-        <KCheckbox.Control class={checkboxControl}>
+        <KCheckbox.Control class="h-5 w-5 rounded-sm border-solid border-[1px] border-zinc-400">
           <KCheckbox.Indicator>
             <CheckIcon label={iconProps.label} width={18} height={18} />
           </KCheckbox.Indicator>
@@ -43,7 +41,7 @@ export const Checkbox: Component<Props> = (props) => {
           {props.label}
         </KCheckbox.Label>
       </KCheckbox>
-      <KCheckbox.ErrorMessage class={contactFormError}>
+      <KCheckbox.ErrorMessage class="p-2 rounded-sm text-red-500 dark:text-red-300 bg-red-200 dark:bg-red-400">
         {props.error}
       </KCheckbox.ErrorMessage>
     </KRoot>

@@ -5,7 +5,6 @@ import { LocalePicker } from '@/components/common/LocalePicker/LocalePicker';
 import { Search } from '@/components/common/Search/Search';
 import { Icon } from '@/components/ui/Icon';
 import { Modal } from '@/components/ui/Modal/Modal';
-import { transparentButton } from '@/styles/styles.css';
 import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils';
 import NavLink from './NavLink.astro';
 import NavMenuContainer from './NavMenuContainer.astro';
@@ -47,7 +46,7 @@ const t = await getEntry('i18n', `${locale}/translation`);
         client:only="solid"
         modalName="locale"
         buttonLabel={t.data.locale_picker.button_label}
-        buttonStyle={transparentButton}
+        buttonStyle="bg-transparent"
       >
         <LocalePicker client:only="solid" />
         <Icon slot="icon" iconName="language" width={28} height={28} />
@@ -56,7 +55,7 @@ const t = await getEntry('i18n', `${locale}/translation`);
         client:only="solid"
         modalName="search"
         buttonLabel={t.data.search.button_label}
-        buttonStyle={transparentButton}
+        buttonStyle="bg-transparent"
       >
         <Search client:only="solid" t={t.data.search} />
         <Icon slot="icon" iconName="magnifier" width={28} height={28} />
@@ -78,7 +77,7 @@ const t = await getEntry('i18n', `${locale}/translation`);
     align-items: center;
     justify-content: space-between;
     a {
-      color: var(--color-fg);
+      color: var(--color-default-fg);
       text-decoration: none;
     }
     a:not(.blog-title) {

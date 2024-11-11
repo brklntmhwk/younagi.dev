@@ -10,17 +10,6 @@ import {
   onMount,
 } from 'solid-js';
 import { SearchIcon } from './SearchIcon';
-import {
-  hitArticleExcerpt,
-  hitArticleTitle,
-  notFound,
-  notFoundKeyword,
-  searchInput,
-  searchInputWrapper,
-  searchResult,
-  searchResults,
-  searchWrapper,
-} from './search.css';
 import type { PagefindSearchResult, PagefindSearchResults } from './types';
 
 type Pagefind = {
@@ -96,9 +85,9 @@ export const Search: Component<Props> = (props) => {
   };
 
   return (
-    <div class={searchWrapper}>
+    <div class="max-h-[76dvh] flex flex-col gap-6 box-border h-fit">
       <form onsubmit={handleSubmit}>
-        <div class={`${searchInputWrapper} double-border`}>
+        <div class="bg-default-reverse double-border sticky flex items-center gap-2 p-3">
           <SearchIcon label={props.t.button_label} width={22} height={22} />
           <input
             id="search-window"
@@ -107,7 +96,7 @@ export const Search: Component<Props> = (props) => {
             placeholder={props.t.placeholder}
             onInput={(e) => setQuery(e.currentTarget.value)}
             onKeyDown={handleKeyDown}
-            class={searchInput}
+            class="w-full text-base bg-transparent outline-none"
             autocomplete="off"
           />
         </div>
@@ -151,12 +140,11 @@ const SearchResults: Component<SearchResultsProps> = (props) => {
   return (
     <>
       {props.results?.length === 0 ? (
-        <div class={notFound}>
-          {props.notFoundLabel}{' '}
-          <span class={notFoundKeyword}>"{props.query}"</span>
+        <div class="px-5 py-6 pb-3 text-center">
+          {props.notFoundLabel} <span class="font-bold">"{props.query}"</span>
         </div>
       ) : (
-        <ol class={searchResults}>
+        <ol class="flex flex-col flex-auto gap-1 overflow-y-auto pt-3 pb-4">
           {props.results?.map((result, i) => (
             <Suspense>
               <SearchResult
@@ -188,14 +176,17 @@ const SearchResult: Component<SearchResultProps> = (props) => {
   return (
     <li>
       <a
-        class={`${searchResult} ${props.active && 'active'}`}
+        class={`py-3.5 px-2 rounded-sm flex flex-col gap-2.5 border-[1px] border-solid border-line-solid hover:bg-default-reverse-hover ${props.active && 'bg-default-reverse-hover'}`}
         href={result()?.raw_url ?? ''}
         ref={props.ref}
         onFocus={() => props.setActiveIndex(props.index)}
         onMouseEnter={() => props.setActiveIndex(props.index)}
       >
-        <span class={hitArticleTitle}>{result()?.meta.title}</span>
-        <span class={hitArticleExcerpt} innerHTML={result()?.excerpt ?? ''} />
+        <span class="text-xl font-semibold">{result()?.meta.title}</span>
+        <span
+          class="text-base [&>mark]:text-primary [&>mark]:font-semibold"
+          innerHTML={result()?.excerpt ?? ''}
+        />
       </a>
     </li>
   );

@@ -163,20 +163,6 @@ export const calloutTitle = style({
   },
 });
 
-export const calloutTitleText = style({
-  fontSize: '1.05rem',
-  fontWeight: 800,
-});
-
-export const calloutTitleIcon = style({
-  flexBasis: '32px',
-  '@media': {
-    '(min-width: 640px)': {
-      flexBasis: '20px',
-    },
-  },
-});
-
 globalStyle('.callout-content', {
   fontSize: '1rem',
   lineHeight: '1.95',

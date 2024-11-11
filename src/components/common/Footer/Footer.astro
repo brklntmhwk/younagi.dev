@@ -17,7 +17,7 @@ const year = new Date().getFullYear();
     &copy; {year}
     {t.data.blog_name}. All rights reserved.
   </span>
-  <div class="flex justify-center gap-7 text-accent hover:text-accent-dark">
+  <div class="flex justify-center gap-7 text-primary hover:text-primary-dark">
     {
       privacyPolicyPage && (
         <a href={translatePath(`/${privacyPolicyPage.slug.split('/').pop()}`)}>

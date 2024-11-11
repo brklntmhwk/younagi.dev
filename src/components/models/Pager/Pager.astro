@@ -44,7 +44,7 @@ const { page } = Astro.props;
         <a
           aria-label={t.data.pager.left_arrow_label}
           href={page.url.prev}
-          class="text-accent hover:text-accent-dark"
+          class="text-primary hover:text-primary-dark"
         >
           <Icon iconName="left-arrow" width={25} height={25}/>
         </a>
@@ -61,7 +61,7 @@ const { page } = Astro.props;
                 <li>
                   <a
                     href={`/${currentPath.split('/').slice(1, -2).join('/')}/`}
-                    class="text-accent hover:text-accent-dark"
+                    class="text-primary hover:text-primary-dark"
                   >
                     {pg}
                   </a>
@@ -73,14 +73,14 @@ const { page } = Astro.props;
                   {page.currentPage === 1 ? (
                     <a
                       href={`/${currentPath.split('/').slice(1, -1).join('/')}/${pg}/`}
-                      class="text-accent hover:text-accent-dark"
+                      class="text-primary hover:text-primary-dark"
                     >
                       {pg}
                     </a>
                   ) : (
                     <a
                       href={`/${currentPath.split('/').slice(1, -2).join('/')}/${pg}/`}
-                      class="text-accent hover:text-accent-dark"
+                      class="text-primary hover:text-primary-dark"
                     >
                       {pg}
                     </a>
@@ -95,7 +95,7 @@ const { page } = Astro.props;
         <a
           aria-label={t.data.pager.right_arrow_label}
           href={page.url.next}
-          class="text-accent hover:text-accent-dark"
+          class="text-primary hover:text-primary-dark"
         >
           <Icon iconName="right-arrow" width={25} height={25} />
         </a>

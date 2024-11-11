@@ -15,11 +15,11 @@ const { alt, placeholder, src, ...props } = Astro.props;
   typeof src === 'string' ? (
     <img {alt} {src} {...props} />
   ) : (
-    <figure>
+    <figure class="flex flex-col gap-1.5 place-items-center my-7">
       <Picture
         {alt}
         {src}
-        class="image"
+        class="object-contain text-transparent bg-cover bg-repeat bg-center"
         formats={['avif']}
         widths={[240, 540, 720, src.width]}
         pictureAttributes={{
@@ -31,27 +31,12 @@ const { alt, placeholder, src, ...props } = Astro.props;
         }}
         {...props}
       />
-      <figcaption>{alt}</figcaption>
+      <figcaption class="text-sm">{alt}</figcaption>
     </figure>
   )
 }
 <style define:vars={{ blurUrl: `url(${placeholder})` }}>
-  figure {
-    display: flex;
-    flex-direction: column;
-    gap: 0.375rem;
-    place-items: center;
-    margin: 1.75rem 0;
-  }
-  figcaption {
-    font-size: 0.95rem;
-  }
-  .image {
-    object-fit: contain;
-    color: transparent;
+  img {
     background-image: var(--blurUrl);
-    background-size: cover;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
   }
 </style>

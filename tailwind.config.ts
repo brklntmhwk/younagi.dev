@@ -10,7 +10,6 @@ export default {
   darkMode: 'media',
   theme: {
     colors: {
-      ...colors,
       blue: {
         ...colors.blue,
         400: 'hsl(215.24, 100%, 52.63%)',

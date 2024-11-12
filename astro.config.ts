@@ -75,11 +75,11 @@ export default defineConfig({
     locales: ['en', 'ja'],
   },
   vite: {
-    build: {
-      cssMinify: 'lightningcss',
-      sourcemap: 'hidden',
-      // cssTarget: browserslist('>= 0.1%'),
-    },
+    // build: {
+    //   cssMinify: 'lightningcss',
+    //   sourcemap: 'hidden',
+    //   cssTarget: browserslist('>= 0.1%'),
+    // },
     // css: {
     //   devSourcemap: true,
     //   transformer: 'lightningcss',
@@ -93,7 +93,7 @@ export default defineConfig({
     //     targets: browserslistToTargets(browserslist('>= 0.1%')),
     //   },
     // },
-    plugins: [],
+    // plugins: [],
     server: {
       watch: {
         usePolling: true,

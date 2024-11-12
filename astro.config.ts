@@ -5,7 +5,7 @@ import solidJs from '@astrojs/solid-js';
 import tailwind from '@astrojs/tailwind';
 import purgecss from 'astro-purgecss';
 import { defineConfig, passthroughImageService } from 'astro/config';
-import browserslist from 'browserslist';
+// import browserslist from 'browserslist';
 import { h } from 'hastscript';
 // import { browserslistToTargets } from 'lightningcss';
 import rehypeAutolinkHeadings, {
@@ -78,7 +78,7 @@ export default defineConfig({
     build: {
       cssMinify: 'lightningcss',
       sourcemap: 'hidden',
-      cssTarget: browserslist('>= 0.1%'),
+      // cssTarget: browserslist('>= 0.1%'),
     },
     // css: {
     //   devSourcemap: true,

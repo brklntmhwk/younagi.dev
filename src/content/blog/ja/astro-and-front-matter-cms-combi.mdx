@@ -14,7 +14,7 @@ tags:
     - vscode
 level: 1
 description: Astro製ウェブサイトのヘッドレスCMSにどうしてFront Matter CMSなのか？という疑問から、チュートリアルでは学べない詳細な設定まで実際のデモも交えて説明する
-modifiedAt: 2024-10-17T04:36:23.938Z
+modifiedAt: 2024-11-12T04:47:51.945Z
 ---
 
 ## 導入
@@ -108,11 +108,7 @@ younagi.dev/
 
 ```typescript title="src/content/config.ts"
 import { defineCollection, reference, z } from "astro:content";
-import {
-  type TaxonomyColor,
-  type TaxonomyColorEnum,
-  taxonomyColors,
-} from "@/components/Taxonomy";
+import { colors } from '@/components/models/Taxonomy';
 
 const blog = defineCollection({
   type: "content",
@@ -145,9 +141,8 @@ const blog = defineCollection({
 const taxonomySchema = z.object({
   title: z.string(),
   slug: z.string(),
-  color: z.enum<TaxonomyColor, TaxonomyColorEnum>(
-    taxonomyColors as TaxonomyColorEnum,
-  ),
+  ruby: z.string(),
+  color: z.enum(colors),
 });
 
 const categories = defineCollection({

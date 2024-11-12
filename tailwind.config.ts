@@ -9,65 +9,6 @@ export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   darkMode: 'media',
   theme: {
-    colors: {
-      amber: {
-        ...colors.amber,
-      },
-      blue: {
-        ...colors.blue,
-        400: 'hsl(215.24, 100%, 52.63%)',
-        500: 'hsl(220, 98.54%, 43.86%)',
-        600: 'hsl(240.24, 100%, 48.63%)',
-        800: 'hsl(240, 98.54%, 26.86%)',
-      },
-      gray: {
-        ...colors.gray,
-        DEFAULT: colors.gray[500],
-        dark: {
-          DEFAULT: colors.gray[600],
-        },
-      },
-      green: {
-        ...colors.green,
-        DEFAULT: colors.green[500],
-        dark: {
-          DEFAULT: colors.green[600],
-        },
-      },
-      indigo: {
-        ...colors.indigo,
-      },
-      neutral: {
-        ...colors.neutral,
-      },
-      orange: {
-        ...colors.orange,
-      },
-      purple: {
-        ...colors.purple,
-        DEFAULT: colors.purple[500],
-        dark: {
-          DEFAULT: colors.purple[600],
-        },
-      },
-      sky: {
-        ...colors.sky,
-      },
-      stone: {
-        ...colors.stone,
-      },
-      red: {
-        ...colors.red,
-        DEFAULT: colors.red[500],
-        dark: {
-          DEFAULT: colors.red[600],
-        },
-      },
-      teal: {
-        ...colors.teal,
-        600: 'hsl(180, 58%, 42%)',
-      },
-    },
     extend: {
       animation: {
         fadeInUp: 'fadeInUp 800ms ease-out forwards',
@@ -89,6 +30,65 @@ export default {
         'star-filled': 'var(--color-star-filled)',
         'star-glow': 'var(--color-star-glow)',
         'modal-bg': 'var(--color-modal-bg)',
+
+        amber: {
+          ...colors.amber,
+        },
+        blue: {
+          ...colors.blue,
+          400: 'hsl(215.24, 100%, 52.63%)',
+          500: 'hsl(220, 98.54%, 43.86%)',
+          600: 'hsl(240.24, 100%, 48.63%)',
+          800: 'hsl(240, 98.54%, 26.86%)',
+        },
+        gray: {
+          ...colors.gray,
+          DEFAULT: colors.gray[500],
+          dark: {
+            DEFAULT: colors.gray[600],
+          },
+        },
+        green: {
+          ...colors.green,
+          DEFAULT: colors.green[500],
+          dark: {
+            DEFAULT: colors.green[600],
+          },
+        },
+        indigo: {
+          ...colors.indigo,
+        },
+        neutral: {
+          ...colors.neutral,
+        },
+        orange: {
+          ...colors.orange,
+        },
+        purple: {
+          ...colors.purple,
+          DEFAULT: colors.purple[500],
+          dark: {
+            DEFAULT: colors.purple[600],
+          },
+        },
+        red: {
+          ...colors.red,
+          DEFAULT: colors.red[500],
+          dark: {
+            DEFAULT: colors.red[600],
+          },
+        },
+        sky: {
+          ...colors.sky,
+        },
+        stone: {
+          ...colors.stone,
+        },
+        teal: {
+          ...colors.teal,
+          600: 'hsl(180, 58%, 42%)',
+        },
+        transparent: colors.transparent,
       },
       fontFamily: {
         sans: [

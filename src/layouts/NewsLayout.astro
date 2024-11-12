@@ -36,16 +36,16 @@ const slugWithoutLocale = getSlugWithoutLocale(slug);
 >
   <main>
     <Article kind="news">
-      <section slot="metadata" class="news-metadata">
-        <h1 class="news-title">{title}</h1>
-        <div class="date-meta">
-          <div>
+      <section slot="metadata" class="flex flex-col gap-4">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-snug sm:leading-snug md:leading-snug">{title}</h1>
+        <div class="text-sm xs:text-base sm:text-lg flex flex-wrap gap-x-4 gap-y-1">
+          <div class="flex items-center gap-1.5">
             <Icon iconName="publish" width={20} height={20} />
             <FormattedDate date={publishedAt} locale={locale} />
           </div>
           {
             modifiedAt && (
-              <div>
+              <div class="flex items-center gap-1.5">
                 <Icon iconName="update" width={20} height={20} />
                 <FormattedDate date={modifiedAt} locale={locale} />
               </div>
@@ -53,130 +53,12 @@ const slugWithoutLocale = getSlugWithoutLocale(slug);
           }
         </div>
       </section>
-      <section slot="content" class="news-content">
+      <section slot="content" class="prose prose-lg md:prose-xl">
         <slot />
       </section>
-      <section slot="cta" class="cta">
+      <section slot="cta" class="flex flex-wrap items-center gap-x-7 gap-y-3">
         <BuyMeACoffee />
       </section>
     </Article>
   </main>
 </BaseLayout>
-<style is:global>
-  article {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    gap: 0.5rem;
-    hr {
-      width: 100%;
-    }
-    .news-metadata {
-      display: flex;
-      flex-direction: column;
-      gap: 0.975rem;
-      .news-title {
-        font-size: 1.825rem;
-        line-height: 1.275;
-        @media (min-width: 640px) {
-          font-size: 2.015rem;
-        }
-        @media (min-width: 768px) {
-          font-size: 2.365rem;
-        }
-      }
-      .date-meta {
-        font-size: 0.875rem;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.25rem 0.95rem;
-        div {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-        }
-        @media (min-width: 640px) {
-          font-size: 1.125rem;
-        }
-      }
-    }
-    .news-content {
-      font-size: 1.125rem;
-      overflow-wrap: break-word;
-      word-wrap: break-word;
-      line-height: 1.65;
-      & h1 {
-        margin-top: 1.85rem;
-        margin-bottom: 1.85rem;
-      }
-      & h2,
-      & h3 {
-        margin-top: 1.85rem;
-        margin-bottom: 1.85rem;
-      }
-      & h4 {
-        margin-top: 1.85rem;
-        margin-bottom: 1.85rem;
-      }
-      & h5,
-      & h6 {
-        margin-top: 1.85rem;
-        margin-bottom: 1.85rem;
-      }
-      & h2,
-      h3,
-      h4,
-      h5,
-      h6 {
-        a {
-          text-decoration: none;
-          .heading-anchor-icon {
-            color: var(--fg);
-            margin-right: 0.5rem;
-          }
-          &:hover {
-            text-decoration: underline;
-            text-underline-offset: 4px;
-            text-decoration-color: var(--fg);
-          }
-        }
-      }
-      & p {
-        color: var(--fg);
-        margin-bottom: 1.25rem;
-      }
-      & ul,
-      & ol {
-        margin: 1.75rem 0;
-        padding-inline-start: 2.5rem;
-        & li {
-          list-style-type: square;
-        }
-      }
-      & li:has(ul),
-      & li:has(ol) {
-        & ul,
-        & ol {
-          margin: 0.5rem 0;
-        }
-      }
-      & p,
-      & li {
-        & a {
-          color: var(--accent);
-          text-decoration: underline;
-          text-underline-offset: 3px;
-          &:hover {
-            color: var(--accent-dark);
-          }
-        }
-      }
-    }
-    .cta {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.75rem 1.75rem;
-    }
-  }
-</style>

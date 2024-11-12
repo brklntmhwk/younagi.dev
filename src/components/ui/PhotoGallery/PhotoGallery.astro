@@ -17,7 +17,7 @@ const { photos } = Astro.props;
 const username = await getPhotographer();
 ---
 
-<div class="photo-gallery-wrapper">
+<div class="flex flex-col gap-6 py-5 px-1">
   <CardGrid>
     {
       photos &&
@@ -27,37 +27,22 @@ const username = await getPhotographer();
     }
   </CardGrid>
   <aside>
-    <p>
+    <p class="text-sm md:text-base">
       {t.data.photo_gallery.credit_label}
       <cite>
-        <a href={`${UNSPLASH_BASE_URL}/@${ACCOUNT_ID}`}>{username.name}</a>
+        <a
+          href={`${UNSPLASH_BASE_URL}/@${ACCOUNT_ID}`}
+          class="text-primary hover:text-primary-dim"
+        >
+          {username.name}
+        </a>
       </cite>
       /
       <cite>
-        <a href={UNSPLASH_BASE_URL}>Unsplash</a>
+        <a href={UNSPLASH_BASE_URL} class="text-primary hover:text-primary-dim">
+          Unsplash
+        </a>
       </cite>
     </p>
   </aside>
 </div>
-<style>
-  .photo-gallery-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    padding: 1.175rem 0.275rem;
-    aside {
-      p {
-        font-size: 0.875rem;
-        a {
-          color: var(--accent);
-          &:hover {
-            color: var(--accent-dark);
-          }
-        }
-        @media (min-width: 768px) {
-          font-size: 1.025rem;
-        }
-      }
-    }
-  }
-</style>

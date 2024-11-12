@@ -13,58 +13,22 @@ const { headings } = Astro.props;
 {
   headings.length >= TOC_MINIMUM_COUNT && (
     <TocDrawer>
-      <ul class="toc-list">
+      <ul class="flex flex-col gap-4">
         {headings.map((heading) => (
-          <li class={`depth-${heading.depth}`}>
-            <a href={`#${heading.slug}`}>{heading.text.replace('#', '')}</a>
+          <li
+            class={
+              heading.depth === 2 ? "ml-0 before:content-['◆_']"
+             : heading.depth === 3 ? "ml-5 before:content-['▶_']"
+              : heading.depth === 4 ? "ml-10 before:content-['◇_']"
+              : heading.depth === 5 ? "ml-14 before:content-['▷_']"
+              : heading.depth === 6 ? "ml-20 before:content-['・_']"
+              : ""
+            }
+          >
+            <a href={`#${heading.slug}`} class="hover:underline hover:underline-offset-4">{heading.text.replace('#', '')}</a>
           </li>
         ))}
       </ul>
     </TocDrawer>
   )
 }
-<style>
-  .toc-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    li {
-      &.depth-2 {
-        margin-left: 0;
-        &::before {
-          content: '◆ ';
-        }
-      }
-      &.depth-3 {
-        margin-left: 1.25rem;
-        &::before {
-          content: '▶ ';
-        }
-      }
-      &.depth-4 {
-        margin-left: 2.5rem;
-        &::before {
-          content: '◇ ';
-        }
-      }
-      &.depth-5 {
-        margin-left: 3.75rem;
-        &::before {
-          content: '▷ ';
-        }
-      }
-      &.depth-6 {
-        margin-left: 5rem;
-        &::before {
-          content: '・ ';
-        }
-      }
-      a {
-        &:hover {
-          text-decoration: underline;
-          text-underline-offset: 6px;
-        }
-      }
-    }
-  }
-</style>

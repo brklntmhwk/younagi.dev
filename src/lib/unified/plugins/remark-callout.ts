@@ -69,10 +69,7 @@ const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
         {
           type: 'paragraph',
           data: {
-            hName: 'div',
-            hProperties: {
-              className: 'callout-content',
-            },
+            hName: 'callout-content',
           },
           children: [],
         },

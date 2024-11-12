@@ -34,15 +34,23 @@ const image = {
 };
 ---
 
-<div class="double-border link-card-wrapper">
-  <a href={url.href} class="link-card" {...props}>
-    <div class="link-metadata">
-      <span class="link-title">{title}</span>
-      {description && <span class="link-description">{description}</span>}
-      <div class="link-hostname">
+<div class="double-border max-w-2xl h-32 my-7 md:my-10">
+  <a
+    href={url.href}
+    class="
+    h-full bg-default-reverse hover:bg-default-reverse-hover flex justify-between flex-nowrap overflow-hidden
+    "
+    {...props}
+  >
+    <div class="py-2 md:py-2.5 px-3.5 flex flex-col justify-between flex-[1_1_12rem] whitespace-nowrap overflow-hidden">
+      <div class="flex flex-col gap-1 [&>*]:text-ellipsis [&>*]:overflow-hidden">
+        <span class="text-lg md:text-xl font-bold">{title}</span>
+        {description && <span class="text-sm font-light">{description}</span>}
+      </div>
+      <div class="text-base flex items-center gap-3">
         {
           favicon ? (
-            <img class="link-favicon" alt={title} {title} src={favicon} />
+            <img class="w-5 h-5 rounded-full object-cover" alt={title} {title} src={favicon} />
           ) : (
             <Icon iconName="link" width={15} height={15} />
           )
@@ -52,92 +60,16 @@ const image = {
     </div>
     {
       image.url && (
-        <div class="link-image">
+        <div class="max-w-36 md:max-w-40 flex flex-[1_1_6rem] md:basis-28">
           <img
             src={image.url}
             alt={image.alt}
             title={image.alt}
             loading="lazy"
+            class="object-cover w-full h-full"
           />
         </div>
       )
     }
   </a>
 </div>
-<style>
-  .link-card-wrapper {
-    max-width: 40rem;
-    height: 103px;
-    margin: 1.75rem 0;
-    .link-card {
-      height: 100%;
-      background-color: var(--bg);
-      display: flex;
-      flex-wrap: nowrap;
-      justify-content: space-between;
-      overflow: hidden;
-      &:hover {
-        background-color: var(--bg-hover);
-      }
-      .link-metadata {
-        display: flex;
-        flex-direction: column;
-        flex: 1 1 12rem;
-        justify-content: space-between;
-        padding: 0.5rem 0.875rem;
-        white-space: nowrap;
-        overflow: hidden;
-        .link-title {
-          font-size: 1.15rem;
-          font-weight: 700;
-          line-height: 1.25;
-          @media (min-width: 768px) {
-            font-size: 1.25rem;
-          }
-        }
-        .link-description {
-          font-size: 0.875rem;
-          font-weight: 200;
-          line-height: 1.2;
-        }
-        .link-hostname {
-          font-size: 0.95rem;
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-          .link-favicon {
-            width: 1.325rem;
-            height: 1.325rem;
-            border-radius: 9999px;
-            object-fit: cover;
-          }
-        }
-        > * {
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-        @media (min-width: 768px) {
-          padding: 0.65rem 0.875rem;
-        }
-      }
-      .link-image {
-        max-width: 8.75rem;
-        display: flex;
-        flex: 1 1 6rem;
-        & :global(img) {
-          object-fit: cover;
-          width: 100%;
-          height: 100%;
-        }
-        @media (min-width: 768px) {
-          max-width: 9.5rem;
-          flex-basis: 7rem;
-        }
-      }
-    }
-    @media (min-width: 768px) {
-      height: 125px;
-      margin: 2.5rem 0;
-    }
-  }
-</style>

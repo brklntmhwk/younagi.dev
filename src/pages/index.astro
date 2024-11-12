@@ -31,30 +31,30 @@ const latestNews = newsList.slice(0, NEWS_LATEST_MAXIMUM_COUNT);
   description={meta.data.site.description}
   og={{ show: true }}
 >
-  <main data-pagefind-ignore="all">
+  <main class="flex flex-col gap-5 xl:gap-9 xl:pt-10 xl:px-24 xl:pb-24" data-pagefind-ignore="all">
     <BulletinBoard newsList={latestNews} />
-    <section class="about-section">
-      <h2>{t.data.pages.home.about_section.title}</h2>
+    <section class="py-3 px-4 border-2 border-solid border-line-solid rounded-sm flex flex-col gap-2 md:py-6 md:px-9">
+      <h2 class="text-3xl md:text-4xl font-bold">{t.data.pages.home.about_section.title}</h2>
       <span>{t.data.pages.home.about_section.description}</span>
-      <a class="read-more classic-blue-link" href={translatePath('/about')}>
+      <a class="flex items-center gap-1 self-end text-lg md:text-xl text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-500" href={translatePath('/about')}>
         {t.data.pages.home.about_section.read_more}
         <Icon iconName="right-arrow" width={18} height={18} />
       </a>
     </section>
-    <section class="blog-section">
-      <h2>{t.data.pages.home.blog_section.title}</h2>
+    <section class="py-3 px-4 border-2 border-solid border-line-solid rounded-sm flex flex-col gap-2 md:py-6 md:px-9">
+      <h2 class="text-3xl md:text-4xl font-bold">{t.data.pages.home.blog_section.title}</h2>
       <BlogList taxonomies={{ show: true, shouldDisplay: ['category', 'tags'] }} entries={latestBlogEntries} />
-      <a class="read-more classic-blue-link" href={translatePath('/blog')}>
+      <a class="flex items-center gap-1 self-end text-lg md:text-xl text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-500" href={translatePath('/blog')}>
         {t.data.pages.home.blog_section.read_more}
         <Icon iconName="right-arrow" width={18} height={18} />
       </a>
     </section>
-    <section class="photo-section">
-      <h2>{t.data.pages.home.photo_section.title}</h2>
+    <section class="py-3 px-4 border-2 border-solid border-line-solid rounded-sm flex flex-col gap-2 md:py-6 md:px-9">
+      <h2 class="text-3xl md:text-4xl font-bold">{t.data.pages.home.photo_section.title}</h2>
       <span>{t.data.pages.home.photo_section.description}</span>
       <PhotoGallery {photos} />
       <a
-        class="read-more classic-blue-link"
+        class="flex items-center gap-1 self-end text-lg md:text-xl text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-500"
         href={`${UNSPLASH_BASE_URL}/@${ACCOUNT_ID}`}
       >
         {t.data.pages.home.photo_section.read_more}
@@ -63,35 +63,3 @@ const latestNews = newsList.slice(0, NEWS_LATEST_MAXIMUM_COUNT);
     </section>
   </main>
 </BaseLayout>
-<style>
-  main {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    .about-section,
-    .blog-section,
-    .photo-section {
-      padding: 0.85rem 1.05rem;
-      border: 2px solid var(--line);
-      border-radius: 0.15rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.375rem;
-      .read-more {
-        display: flex;
-        align-items: center;
-        gap: 0.25rem;
-        align-self: flex-end;
-      }
-      @media (min-width: 768px) {
-        padding: 1.5rem 2.25rem;
-      }
-    }
-  }
-  @media (min-width: 1280px) {
-    main {
-      padding: 2.85rem 6.175rem 0 6.175rem;
-      gap: 2.25rem;
-    }
-  }
-</style>

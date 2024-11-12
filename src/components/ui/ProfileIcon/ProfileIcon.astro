@@ -17,7 +17,7 @@ const { src, size, alt, class: className, ...rest } = Astro.props;
     <img
       {alt}
       {src}
-      class:list={['icon', className]}
+      class:list={['rounded-full object-cover m-0', className]}
       width={size}
       height={size}
       {...rest}
@@ -26,16 +26,10 @@ const { src, size, alt, class: className, ...rest } = Astro.props;
     <Image
       {alt}
       {src}
-      class:list={['icon', className]}
+      class:list={['rounded-full object-cover m-0', className]}
       width={size}
       height={size}
       loading="eager"
     />
   )
 }
-<style>
-  .icon {
-    border-radius: 9999px;
-    object-fit: cover;
-  }
-</style>

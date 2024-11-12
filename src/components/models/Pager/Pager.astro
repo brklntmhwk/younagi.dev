@@ -39,15 +39,19 @@ const { page } = Astro.props;
 
 {
   page !== undefined && (
-    <nav data-pagefind-ignore="all">
+    <nav class="flex justify-between items-center px-1.5 no-underline" data-pagefind-ignore="all">
       {page.url.prev ? (
-        <a aria-label={t.data.pager.left_arrow_label} href={page.url.prev}>
-          <Icon iconName="left-arrow" width={25} height={25} />
+        <a
+          aria-label={t.data.pager.left_arrow_label}
+          href={page.url.prev}
+          class="text-primary hover:text-primary-dark"
+        >
+          <Icon iconName="left-arrow" width={25} height={25}/>
         </a>
       ) : (
-        <Icon iconName="left-arrow" width={25} height={25} />
+        <Icon class="fill-zinc-400/90" iconName="left-arrow" width={25} height={25} />
       )}
-      <ul>
+      <ul class="text-xl flex gap-7 list-none text-zinc-400/90">
         {paginator(page.currentPage, page.lastPage).map((pg) => {
           if (pg === page.currentPage) {
             return <li>{pg}</li>
@@ -57,6 +61,7 @@ const { page } = Astro.props;
                 <li>
                   <a
                     href={`/${currentPath.split('/').slice(1, -2).join('/')}/`}
+                    class="text-primary hover:text-primary-dark"
                   >
                     {pg}
                   </a>
@@ -68,12 +73,14 @@ const { page } = Astro.props;
                   {page.currentPage === 1 ? (
                     <a
                       href={`/${currentPath.split('/').slice(1, -1).join('/')}/${pg}/`}
+                      class="text-primary hover:text-primary-dark"
                     >
                       {pg}
                     </a>
                   ) : (
                     <a
                       href={`/${currentPath.split('/').slice(1, -2).join('/')}/${pg}/`}
+                      class="text-primary hover:text-primary-dark"
                     >
                       {pg}
                     </a>
@@ -85,41 +92,16 @@ const { page } = Astro.props;
         })}
       </ul>
       {page.url.next ? (
-        <a aria-label={t.data.pager.right_arrow_label} href={page.url.next}>
+        <a
+          aria-label={t.data.pager.right_arrow_label}
+          href={page.url.next}
+          class="text-primary hover:text-primary-dark"
+        >
           <Icon iconName="right-arrow" width={25} height={25} />
         </a>
       ) : (
-        <Icon iconName="right-arrow" width={25} height={25} />
+        <Icon class="fill-zinc-400/90" iconName="right-arrow" width={25} height={25} />
       )}
     </nav>
   )
 }
-<style>
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 0.35rem;
-  }
-  nav ul {
-    display: flex;
-    gap: 1.8rem;
-  }
-  nav li {
-    list-style-type: none;
-    font-size: 1.5rem;
-    &:not(a) {
-      color: var(--gray);
-    }
-  }
-  nav a {
-    text-decoration: none;
-    color: var(--accent);
-    &:hover {
-      color: var(--accent-dark);
-    }
-  }
-  :not(a > svg) {
-    color: var(--gray);
-  }
-</style>

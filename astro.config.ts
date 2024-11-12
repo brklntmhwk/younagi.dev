@@ -2,12 +2,12 @@ import cloudflare from '@astrojs/cloudflare';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import solidJs from '@astrojs/solid-js';
-import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
+import tailwind from '@astrojs/tailwind';
 import purgecss from 'astro-purgecss';
-import { defineConfig, sharpImageService } from 'astro/config';
-import browserslist from 'browserslist';
+import { defineConfig, passthroughImageService } from 'astro/config';
+// import browserslist from 'browserslist';
 import { h } from 'hastscript';
-import { browserslistToTargets } from 'lightningcss';
+// import { browserslistToTargets } from 'lightningcss';
 import rehypeAutolinkHeadings, {
   type Options as RehypeAutoLinkHeadingsOptions,
 } from 'rehype-autolink-headings';
@@ -20,6 +20,7 @@ import remarkCard, { type Config as RemarkCardConfig } from 'remark-card';
 import remarkDirective from 'remark-directive';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
+import remarkVideo, { type Config as RemarkVideoConfig } from 'remark-video';
 import { iconNameTypes } from './src/lib/astro-integrations/icon-name-type';
 import { pagefind } from './src/lib/astro-integrations/pagefind';
 import { SITE_URL, VIDEO_FALLBACK_MESSAGE } from './src/lib/consts';
@@ -38,7 +39,6 @@ import {
   oEmbedTransformer,
   youTubeTransformer,
 } from './src/lib/unified/transformers';
-import remarkVideo, { type Config as RemarkVideoConfig } from 'remark-video'
 
 // https://astro.build/config
 export default defineConfig({
@@ -51,10 +51,13 @@ export default defineConfig({
     },
   }),
   image: {
-    service: sharpImageService({ limitInputPixels: false }),
+    service: passthroughImageService(),
   },
   integrations: [
     mdx(),
+    tailwind({
+      applyBaseStyles: false,
+    }),
     solidJs(),
     purgecss({
       fontFace: true,
@@ -72,24 +75,25 @@ export default defineConfig({
     locales: ['en', 'ja'],
   },
   vite: {
-    build: {
-      cssMinify: 'lightningcss',
-      sourcemap: 'hidden',
-    },
-    css: {
-      devSourcemap: true,
-      transformer: 'lightningcss',
-      lightningcss: {
-        cssModules: {
-          pattern: '[hash]-[local]',
-        },
-        drafts: {
-          customMedia: true,
-        },
-        targets: browserslistToTargets(browserslist('>= 0.1%')),
-      },
-    },
-    plugins: [vanillaExtractPlugin()],
+    // build: {
+    //   cssMinify: 'lightningcss',
+    //   sourcemap: 'hidden',
+    //   cssTarget: browserslist('>= 0.1%'),
+    // },
+    // css: {
+    //   devSourcemap: true,
+    //   transformer: 'lightningcss',
+    //   lightningcss: {
+    //     cssModules: {
+    //       pattern: '[hash]-[local]',
+    //     },
+    //     drafts: {
+    //       customMedia: true,
+    //     },
+    //     targets: browserslistToTargets(browserslist('>= 0.1%')),
+    //   },
+    // },
+    // plugins: [],
     server: {
       watch: {
         usePolling: true,
@@ -130,14 +134,10 @@ export default defineConfig({
           baseUrl: SITE_URL,
           publicDir: './public',
           videoContainerTag: 'figure',
-          fallbackContent: h(
-            'p.fallback-content',
-            VIDEO_FALLBACK_MESSAGE
-          )
-        } satisfies RemarkVideoConfig
+          fallbackContent: h('p.fallback-content', VIDEO_FALLBACK_MESSAGE),
+        } satisfies RemarkVideoConfig,
       ],
       remarkFootnote,
-      remarkLineBreaks,
       [
         remarkEmbed,
         {
@@ -150,6 +150,7 @@ export default defineConfig({
         } satisfies RemarkEmbedOptions,
       ],
       remarkLinkCard,
+      remarkLineBreaks,
     ],
     rehypePlugins: [
       rehypeKatex,

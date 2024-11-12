@@ -25,11 +25,11 @@
 - title: iPad
   slug: ipad
   ruby: iPad
-  color: grey
+  color: gray
 - title: iPhone
   slug: iphone
   ruby: iPhone
-  color: grey
+  color: gray
 - title: Obsidian
   slug: obsidian
   ruby: obsidian
@@ -41,13 +41,12 @@
 - title: Mac
   slug: mac
   ruby: mac
-  color: grey
+  color: gray
 - title: PC
   slug: pc
   ruby: pc
-  color: grey
+  color: gray
 - title: NixOS
   slug: nixos
   ruby: nixos
-  color: grey
-
+  color: gray

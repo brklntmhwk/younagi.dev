@@ -1,4 +1,8 @@
-import { Callout, CalloutTitle } from '@/components/elements/Callout';
+import {
+  Callout,
+  CalloutContent,
+  CalloutTitle,
+} from '@/components/elements/Callout';
 import { Card, CardGrid } from '@/components/elements/Card';
 import { Figure, Image } from '@/components/elements/Figure';
 import { Link } from '@/components/elements/Link';
@@ -12,6 +16,7 @@ export const mdxComponents = {
   Balloon,
   callout: Callout,
   'callout-title': CalloutTitle,
+  'callout-content': CalloutContent,
   card: Card,
   'card-grid': CardGrid,
   figure: Figure,

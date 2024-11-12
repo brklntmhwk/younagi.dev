@@ -18,7 +18,6 @@ const transform = (html: string) => {
 export const OEmbedRich: Component<{ data: OEmbedRichSchema }> = (props) => {
   return (
     <div
-      class=""
       innerHTML={transform(sanitize(props.data.html))}
       data-oembed
       data-oembed-rich

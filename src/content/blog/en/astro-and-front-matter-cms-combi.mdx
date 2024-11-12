@@ -14,7 +14,7 @@ tags:
     - vscode
 level: 1
 description: Detailed explanations of how Front Matter CMS could be the best partner for Astro among all headless CMS, and the configurations I made with some demos.
-modifiedAt: 2024-10-17T04:36:37.548Z
+modifiedAt: 2024-11-12T04:47:06.742Z
 ---
 
 ## Intro
@@ -108,11 +108,7 @@ As you can see, the Content Collections work with the `config.ts` file, in which
 
 ```typescript title="src/content/config.ts"
 import { defineCollection, reference, z } from "astro:content";
-import {
-  type TaxonomyColor,
-  type TaxonomyColorEnum,
-  taxonomyColors,
-} from "@/components/Taxonomy";
+import { colors } from '@/components/models/Taxonomy';
 
 const blog = defineCollection({
   type: "content",
@@ -145,9 +141,8 @@ const blog = defineCollection({
 const taxonomySchema = z.object({
   title: z.string(),
   slug: z.string(),
-  color: z.enum<TaxonomyColor, TaxonomyColorEnum>(
-    taxonomyColors as TaxonomyColorEnum,
-  ),
+  ruby: z.string(),
+  color: z.enum(colors),
 });
 
 const categories = defineCollection({

@@ -5,7 +5,6 @@ import { LocalePicker } from '@/components/common/LocalePicker/LocalePicker';
 import { Search } from '@/components/common/Search/Search';
 import { Icon } from '@/components/ui/Icon';
 import { Modal } from '@/components/ui/Modal/Modal';
-import { transparentButton } from '@/styles/styles.css';
 import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils';
 import NavLink from './NavLink.astro';
 import NavMenuContainer from './NavMenuContainer.astro';
@@ -15,35 +14,56 @@ const translatePath = useTranslatedPath(locale);
 const t = await getEntry('i18n', `${locale}/translation`);
 ---
 
-<nav class="glassmorphism" data-pagefind-ignore="all">
-  <a class="blog-title" href={translatePath('/')}>
+<nav class="
+  supports-[backdrop-filter]:backdrop-blur-sm
+  supports-[backdrop-filter]:backdrop-saturate-180
+  supports-[-webkit-backdrop-filter]:backdrop-blur-sm
+  supports-[-webkit-backdrop-filter]:backdrop-saturate-180
+  h-16 lg:h-dvh lg:w-72 fixed top-0 left-0 right-0 z-10 py-2 lg:py-7 px-5 lg:px-8 lg:m-0 lg:sticky
+  flex lg:grid lg:gap-6 items-center lg:items-start justify-between box-border
+  [&>a]:text-default [&>a]:no-underline
+  lg:area-navigation lg:grid-areas-navigation
+  lg:border-solid lg:border-[1px] lg:border-line-solid
+  lg:grid-rows-[1fr_9fr]
+  lg:grid-cols-[1fr]
+  "
+  data-pagefind-ignore="all">
+  <a class="hidden xxs:font-pixelMPlus xxs:text-lg xxs:flex xxs:justify-center xxs:items-center lg:place-self-center lg:area-blog-title" href={translatePath('/')}>
     {t.data.blog_name}
   </a>
   <NavMenuContainer>
-    <div class="nav-links" slot="inside-drawer">
-      <NavLink href={translatePath('/')}>{t.data.nav.nav_links.home}</NavLink>
-      <NavLink href={translatePath('/blog')}
+    <div class="
+    flex flex-col lg:self-start gap-6 lg:gap-8 py-3 lg:p-0 px-11 ml-5 lg:ml-6"
+    slot="inside-drawer">
+      <NavLink class="relative text-lg active:font-bold hover:before:content-['▶'] hover:before:absolute hover:before:top-0 hover:before:-left-7 lg:hover:before:-left-6 hover:before:text-xl hover:before:self-center"
+      href={translatePath('/')}>{t.data.nav.nav_links.home}</NavLink>
+      <NavLink class="relative text-lg active:font-bold hover:before:content-['▶'] hover:before:absolute hover:before:top-0 hover:before:-left-7 lg:hover:before:-left-6 hover:before:text-xl hover:before:self-center"
+      href={translatePath('/blog')}
         >{t.data.nav.nav_links.blog}</NavLink
       >
-      <NavLink href={translatePath('/news')}
+      <NavLink class="relative text-lg active:font-bold hover:before:content-['▶'] hover:before:absolute hover:before:top-0 hover:before:-left-7 lg:hover:before:-left-6 hover:before:text-xl hover:before:self-center"
+      href={translatePath('/news')}
         >{t.data.nav.nav_links.news}</NavLink
       >
-      <NavLink href={translatePath('/about')}
+      <NavLink class="relative text-lg active:font-bold hover:before:content-['▶'] hover:before:absolute hover:before:top-0 hover:before:-left-7 lg:hover:before:-left-6 hover:before:text-xl hover:before:self-center"
+      href={translatePath('/about')}
         >{t.data.nav.nav_links.about}</NavLink
       >
-      <NavLink href={translatePath('/work')}
+      <NavLink class="relative text-lg active:font-bold hover:before:content-['▶'] hover:before:absolute hover:before:top-0 hover:before:-left-7 lg:hover:before:-left-6 hover:before:text-xl hover:before:self-center"
+      href={translatePath('/work')}
         >{t.data.nav.nav_links.work}</NavLink
       >
-      <NavLink href={translatePath('/tools')}
+      <NavLink class="relative text-lg active:font-bold hover:before:content-['▶'] hover:before:absolute hover:before:top-0 hover:before:-left-7 lg:hover:before:-left-6 hover:before:text-xl hover:before:self-center"
+      href={translatePath('/tools')}
         >{t.data.nav.nav_links.tools}</NavLink
       >
     </div>
-    <div class="icon-links" slot="outside-drawer">
+    <div class="flex justify-center gap-6 p-3 xxs:gap-5 xxs:py-3 xxs:px-5 lg:w-full lg:py-0 lg:px-5 lg:flex lg:justify-between lg:gap-7" slot="outside-drawer">
       <Modal
         client:only="solid"
         modalName="locale"
         buttonLabel={t.data.locale_picker.button_label}
-        buttonStyle={transparentButton}
+        buttonStyle="bg-transparent"
       >
         <LocalePicker client:only="solid" />
         <Icon slot="icon" iconName="language" width={28} height={28} />
@@ -52,7 +72,7 @@ const t = await getEntry('i18n', `${locale}/translation`);
         client:only="solid"
         modalName="search"
         buttonLabel={t.data.search.button_label}
-        buttonStyle={transparentButton}
+        buttonStyle="bg-transparent"
       >
         <Search client:only="solid" t={t.data.search} />
         <Icon slot="icon" iconName="magnifier" width={28} height={28} />
@@ -60,114 +80,3 @@ const t = await getEntry('i18n', `${locale}/translation`);
     </div>
   </NavMenuContainer>
 </nav>
-<style>
-  nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 10;
-    height: 4.25rem;
-    box-sizing: border-box;
-    padding: 0.5rem 1.25rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    a {
-      color: var(--fg);
-      text-decoration: none;
-    }
-    a:not(.blog-title) {
-      border-bottom: 2px solid transparent;
-    }
-    .blog-title {
-      display: none;
-      @media (min-width: 320px) {
-        font-size: 1.125rem;
-        font-family: 'PixelMplus10';
-        font-weight: 400;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      @media (min-width: 1024px) {
-        grid-area: blog-title;
-        place-self: center;
-      }
-    }
-    .nav-links {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      padding: 0.75rem 2.75rem;
-      margin-left: 1.25rem;
-      a {
-        position: relative;
-        font-size: 1.275rem;
-        &.active {
-          font-weight: 700;
-        }
-        &:hover::before {
-          content: '▶';
-          position: absolute;
-          top: 0;
-          left: -1.65rem;
-          font-size: 1.375rem;
-          align-self: center;
-        }
-        @media (min-width: 1024px) {
-          font-size: 1.275rem;
-          position: relative;
-          &:hover::before {
-            content: '▶';
-            position: absolute;
-            top: 0;
-            left: -1.45rem;
-            font-size: 1.25rem;
-            align-self: center;
-          }
-        }
-      }
-      @media (min-width: 1024px) {
-        gap: 2rem;
-        align-self: start;
-        margin-left: 1.5rem;
-        padding: 0;
-      }
-    }
-    .icon-links {
-      display: flex;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0.75rem;
-      @media (min-width: 320px) {
-        gap: 1.25rem;
-        padding: 0.75rem 1.25rem;
-      }
-      @media (min-width: 1024px) {
-        width: 100%;
-        padding: 0 1.25rem;
-        display: flex;
-        justify-content: space-between;
-        gap: 1.75rem;
-      }
-    }
-    @media (min-width: 1024px) {
-      display: grid;
-      gap: 1.5rem;
-      grid-template-rows: 1fr 9fr;
-      grid-template-columns: 1fr;
-      grid-area: navigation;
-      grid-template-areas:
-        'blog-title'
-        'nav-menu';
-      align-items: start;
-      position: sticky;
-      padding: 1.75rem 1.85rem;
-      margin: 0;
-      width: 18rem;
-      height: 100dvh;
-      border-right: 1px solid var(--line);
-    }
-  }
-</style>

@@ -1,6 +1,5 @@
 ---
-import { callout, calloutVariants } from './callout.css';
-import { getCalloutType } from './callouts';
+import { style as calloutStyle, getCalloutType } from './callouts';
 
 export type Props = {
   'data-callout-type': string;
@@ -13,7 +12,7 @@ const validCalloutType = getCalloutType(calloutType);
 ---
 
 <div
-  class:list={[callout, calloutVariants[validCalloutType]]}
+  class:list={[calloutStyle({ type: validCalloutType })]}
   data-callout-type={validCalloutType}
   {...restProps}
 >

@@ -1,12 +1,11 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import { codeFigure } from './figure.css';
 
 type Props = HTMLAttributes<'figure'>;
 
 const props = Astro.props;
 ---
 
-<figure class={codeFigure} {...props}>
+<figure {...props}>
   <slot />
 </figure>

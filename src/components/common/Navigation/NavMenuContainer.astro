@@ -6,119 +6,28 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = await getEntry('i18n', `${locale}/translation`);
 ---
 
-<aside class="nav-menu-container">
+<aside class="w-full h-full flex justify-between items-center xxs:justify-end sm:gap-0.5 md:gap-3 lg:flex-col-reverse lg:justify-between lg:gap-0">
   <slot name="outside-drawer" />
   <input
     type="checkbox"
     id="menu-toggle-check"
+    class="peer appearance-none"
     placeholder={t.data.nav.hamburger_label}
   />
-  <label for="menu-toggle-check" class="hamburger-icon-btn">
-    <span></span>
+  <label
+    for="menu-toggle-check"
+    class="flex place-self-center w-10 h-10 cursor-pointer z-30 items-center justify-center lg:hidden
+    peer-checked:[&>span]:bg-transparent
+    peer-checked:[&>span]:before:bottom-0 peer-checked:[&>span]:before:rotate-45
+    peer-checked:[&>span]:after:top-0
+    peer-checked:[&>span]:after:-rotate-45"
+  >
+    <span class="content-[''] block h-[3px] w-[25px] bg-default absolute
+    before:content-[''] before:block before:h-[3px] before:w-[25px] before:bg-default before:absolute before:bottom-[8px]
+    after:content-[''] after:block after:h-[3px] after:w-[25px] after:bg-default after:absolute after:top-[8px]
+    "></span>
   </label>
-  <div class="nav-menu-drawer">
+  <div class="bg-default-mixed lg:bg-transparent w-full h-dvh fixed top-0 left-full z-20 lg:z-0 flex lg:grid flex-col gap-14 lg:gap-0 pt-12 lg:pt-0 transition-[left] duration-500 ease-in-out will-change-[left] lg:transition-none lg:area-nav-menu lg:h-full lg:static peer-checked:left-0">
     <slot name="inside-drawer" />
   </div>
 </aside>
-<style>
-  .nav-menu-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    @media (min-width: 320px) {
-      justify-content: end;
-    }
-    @media (min-width: 640px) {
-      gap: 0.175rem;
-    }
-    @media (min-width: 768px) {
-      gap: 0.785rem;
-    }
-    @media (min-width: 1024px) {
-      flex-direction: column-reverse;
-      justify-content: space-between;
-      gap: 0;
-    }
-    .nav-menu-drawer {
-      width: 100%;
-      height: 100dvh;
-      position: fixed;
-      top: 0;
-      left: 100%;
-      z-index: 20;
-      display: flex;
-      flex-direction: column;
-      gap: 3.5rem;
-      padding-top: 3rem;
-      /* margin-top: 4.25rem; */
-      background-color: var(--menu-bg);
-      /* transform: translateX(100%);
-    transition: transform 0.4s ease-in-out; */
-      transition: left 0.4s ease-in-out;
-      will-change: left;
-      @media (min-width: 1024px) {
-        grid-area: nav-menu;
-        height: 100%;
-        position: static;
-        z-index: 0;
-        display: grid;
-        gap: 0;
-        padding-top: 0;
-        margin-top: 0;
-        background-color: transparent;
-        transition: unset;
-        transform: unset;
-      }
-    }
-    .hamburger-icon-btn {
-      display: flex;
-      place-self: center;
-      height: 2.5rem;
-      width: 2.5rem;
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 30;
-      @media (min-width: 1024px) {
-        display: none;
-      }
-    }
-    .hamburger-icon-btn span,
-    .hamburger-icon-btn span:before,
-    .hamburger-icon-btn span:after {
-      content: '';
-      display: block;
-      height: 3px;
-      width: 25px;
-      background-color: var(--fg);
-      position: absolute;
-    }
-    .hamburger-icon-btn span:before {
-      bottom: 8px;
-    }
-    .hamburger-icon-btn span:after {
-      top: 8px;
-    }
-    #menu-toggle-check:checked ~ .hamburger-icon-btn span {
-      background-color: transparent;
-    }
-    #menu-toggle-check:checked ~ .hamburger-icon-btn span::before {
-      bottom: 0;
-      transform: rotate(45deg);
-    }
-    #menu-toggle-check:checked ~ .hamburger-icon-btn span::after {
-      top: 0;
-      transform: rotate(-45deg);
-    }
-    #menu-toggle-check:checked ~ .nav-menu-drawer {
-      left: 0;
-      /* transform: translateX(-100%); */
-    }
-    #menu-toggle-check {
-      appearance: none;
-    }
-  }
-</style>

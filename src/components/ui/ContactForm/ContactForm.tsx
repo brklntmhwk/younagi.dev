@@ -27,7 +27,6 @@ import { Checkbox } from './Checkbox/Checkbox';
 import { SubmitButton } from './SubmitButton/SubmitButton';
 import { TextField } from './TextField/TextField';
 import { Turnstile } from './Turnstile/Turnstile';
-import { contactForm as ContactFormStyle } from './contact-form.css';
 import { isWretchError } from './error-is';
 
 type Props = {
@@ -114,7 +113,7 @@ export const ContactForm: Component<Props> = ({ t }) => {
   };
 
   return (
-    <Form class={ContactFormStyle} onSubmit={handleSubmit}>
+    <Form class="flex flex-col gap-4" onSubmit={handleSubmit}>
       <Field name="name">
         {(field, props) => (
           <TextField

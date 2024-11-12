@@ -3,7 +3,6 @@ import {
   type DataCollectionKey,
   type Flatten,
   getCollection,
-  getDataEntryById,
   getEntry,
 } from 'astro:content';
 import { getLocaleFromSlug } from '@/utils/get-locale-from-slug';
@@ -28,10 +27,7 @@ export const getDataEntries = async <T extends DataCollectionKey>(
 };
 
 export const getBlogCategory = async (blogCategory: BlogCategoryData) => {
-  const categories = await getDataEntryById(
-    'categories',
-    blogCategory.metadata.id,
-  );
+  const categories = await getEntry('categories', blogCategory.metadata.id);
 
   return categories.data.find(
     (categoryData) => blogCategory.slug === categoryData.slug,
@@ -42,7 +38,7 @@ export const getCategories = async (locale: Language) =>
   await getEntry('categories', `${locale}/categories`);
 
 export const getBlogTags = async (blogTags: BlogTagsData) => {
-  const tags = await getDataEntryById('tags', blogTags.metadata.id);
+  const tags = await getEntry('tags', blogTags.metadata.id);
 
   return tags.data.filter((tagData) =>
     blogTags.slugList?.some((blogTag) => blogTag === tagData.slug),

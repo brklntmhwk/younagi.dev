@@ -17,12 +17,6 @@ const isActive =
     : pathname.startsWith(href.toString());
 ---
 
-<a href={href} class:list={[className, { active: isActive }]} {...props}>
+<a href={href} class:list={["inline-block no-underline", className, { 'font-bold': isActive }]} {...props}>
   <slot />
 </a>
-<style>
-  a {
-    display: inline-block;
-    text-decoration: none;
-  }
-</style>

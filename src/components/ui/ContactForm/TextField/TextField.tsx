@@ -3,12 +3,6 @@ import {
   Root as KobalteRoot,
 } from '@kobalte/core/text-field';
 import { type Component, type JSX, Show, splitProps } from 'solid-js';
-import {
-  contactFormError,
-  contactLabel,
-  fieldGroup,
-} from '../contact-form.css';
-import { textField } from './text-field.css';
 
 type Props = {
   name: string;
@@ -36,11 +30,11 @@ export const TextField: Component<Props> = (props) => {
   return (
     <KobalteRoot
       {...rootProps}
-      class={fieldGroup}
+      class="flex flex-col gap-4 z-10"
       validationState={props.error ? 'invalid' : 'valid'}
     >
       <Show when={props.label}>
-        <Kobalte.Label class={contactLabel}>{props.label}</Kobalte.Label>
+        <Kobalte.Label class="select-none">{props.label}</Kobalte.Label>
       </Show>
       <Show
         when={props.multiline}
@@ -52,7 +46,7 @@ export const TextField: Component<Props> = (props) => {
                 <Kobalte.Input
                   {...inputProps}
                   type={props.type}
-                  class={textField}
+                  class="flex flex-col w-full p-2 bg-transparent outline-none"
                 />
               </div>
             }
@@ -60,16 +54,19 @@ export const TextField: Component<Props> = (props) => {
             <Kobalte.Input
               {...inputProps}
               type={props.type}
-              class={textField}
+              class="flex flex-col w-full p-2 bg-transparent outline-none"
             />
           </Show>
         }
       >
         <div class="double-border">
-          <Kobalte.TextArea {...inputProps} class={textField} />
+          <Kobalte.TextArea
+            {...inputProps}
+            class="flex flex-col w-full p-2 bg-transparent outline-none"
+          />
         </div>
       </Show>
-      <Kobalte.ErrorMessage class={contactFormError}>
+      <Kobalte.ErrorMessage class="p-2 rounded-sm text-red-500 dark:text-red-300 bg-red-200 dark:bg-red-400">
         {props.error}
       </Kobalte.ErrorMessage>
     </KobalteRoot>

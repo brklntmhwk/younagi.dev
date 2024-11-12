@@ -3,12 +3,6 @@ import { Icon } from '@/components/ui/Icon';
 import { generateUniqueId } from '@/utils/generate-unique-id';
 import { toBoolean } from '@/utils/to-boolean';
 import type { Props as CalloutProps } from './Callout.astro';
-import {
-  calloutTitleIcon,
-  calloutTitleText,
-  calloutToggleCheck,
-  calloutTitle as titleStyle,
-} from './callout.css';
 import { getCallout } from './callouts';
 
 type Props = CalloutProps;
@@ -28,36 +22,36 @@ const calloutTitle: string | undefined = await Astro.slots.render('default');
 {
   isExpandable ? (
     <>
+      <input
+        type="checkbox"
+        class="peer appearance-none"
+        id={`callout-toggle-check-${dataCalloutType}-${uniqueId}`}
+        checked={isExpanded}
+      />
       <label
         for={`callout-toggle-check-${dataCalloutType}-${uniqueId}`}
-        class={titleStyle}
+        class="flex items-center gap-2.5 select-none after:content-['>'] after:text-inherit after:inline-block after:text-xl peer-checked:after:rotate-90 after:ease-linear after:duration-300"
       >
         <Icon
-          class={calloutTitleIcon}
+          class="basis-8 sm:basis-5"
           iconName={callout.icon}
           width={20}
           height={20}
         />
-        <span class={calloutTitleText}>
+        <span class="text-base font-bold">
           {calloutTitle ? <Fragment set:html={calloutTitle} /> : callout.label}
         </span>
       </label>
-      <input
-        type="checkbox"
-        class={calloutToggleCheck}
-        id={`callout-toggle-check-${dataCalloutType}-${uniqueId}`}
-        checked={isExpanded}
-      />
     </>
   ) : (
-    <div class={titleStyle}>
+    <div class="flex items-center gap-2.5 select-none">
       <Icon
-        class={calloutTitleIcon}
+        class="basis-8 sm:basis-5"
         iconName={callout.icon}
         width={20}
         height={20}
       />
-      <span class={calloutTitleText}>
+      <span class="text-base font-bold">
         {calloutTitle ? <Fragment set:html={calloutTitle} /> : callout.label}
       </span>
     </div>

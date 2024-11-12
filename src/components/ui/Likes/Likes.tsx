@@ -7,7 +7,6 @@ import { type Component, createResource } from 'solid-js';
 import toast from 'solid-toast';
 import wretch from 'wretch';
 import { LikeIcon } from './LikeIcon';
-import { likesButton, likesSpan, likesWrapper } from './likes.css';
 
 type FetcherProps = Omit<Props, 't'> & { locale: Language };
 
@@ -67,12 +66,12 @@ export const Likes: Component<Props> = (props) => {
   };
 
   return (
-    <div class={likesWrapper}>
+    <div class="bg-teal-600 hover:bg-teal-600/90 dark:bg-teal-700 dark:hover:bg-teal-700/90 py-2.5 px-4 rounded-lg">
       <button
         id="likes-button"
         title={props.t.button_label}
         type="button"
-        class={likesButton}
+        class="flex bg-transparent items-center gap-2"
         onClick={handleClick}
       >
         <LikeIcon
@@ -82,8 +81,12 @@ export const Likes: Component<Props> = (props) => {
           height={24}
           stroke="none"
         />
-        <span class={likesSpan}>{props.t.button_label}</span>
-        <span class={likesSpan}>{likes()?.likes ?? 0}</span>
+        <span class="text-base md:text-lg font-bold text-neutral-100 pl-0.5">
+          {props.t.button_label}
+        </span>
+        <span class="text-base md:text-lg font-bold text-neutral-100 border-l-[1px] border-solid border-slate-300/45 pl-3.5">
+          {likes()?.likes ?? 0}
+        </span>
       </button>
     </div>
   );

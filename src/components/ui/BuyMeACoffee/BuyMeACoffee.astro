@@ -4,41 +4,94 @@ import { Icon } from '@/components/ui/Icon';
 import { Modal } from '@/components/ui/Modal/Modal';
 import { ACCOUNT_ID } from '@/lib/consts';
 import { getLocaleFromUrl } from '@/utils/i18n/utils';
-import {
-  bmcButton,
-  bmcGreeting,
-  bmcIframe,
-  bmcModalWrapper,
-  bmcWrapper,
-  ornament,
-} from './buy-me-a-coffee.css';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = await getEntry('i18n', `${locale}/translation`);
 ---
 
-<div class={bmcWrapper}>
+<div class="flex items-center flex-wrap gap-y-2 gap-x-1.5">
   <Modal
     client:only="solid"
     modalName="buy_me_a_coffee"
     buttonLabel={t.data.bmc.button_label}
-    buttonStyle={bmcButton}
+    buttonStyle='text-neutral-100 bg-indigo-400 dark:bg-indigo-400/90 dark:hover:bg-indigo-400/80 hover:bg-indigo-400/90 font-bold justify-center rounded-md py-2 px-4'
     iconLabel={t.data.bmc.button_label}
   >
-    <div class={bmcModalWrapper}>
+    <div class="box-border max-h-[77dvh]">
       <iframe
         id="bmc-frame"
-        class={bmcIframe}
         title="Buy Me A Coffee"
         allow="payment"
         src={`https://buymeacoffee.com/widget/page/${ACCOUNT_ID}`}
         fetchpriority="low"
-        loading="lazy"></iframe>
+        loading="lazy"
+        class="w-full h-[55dvh]"
+      >
+      </iframe>
     </div>
     <Icon slot="icon" iconName="bmc" width={27} height={27} />
   </Modal>
-  <div class={bmcGreeting}>
+  <div class="greeting">
     <p>{t.data.bmc.greeting_message}</p>
-    <span class={ornament}></span>
+    <span class="ornament"></span>
   </div>
 </div>
+<style>
+  .greeting {
+    font-size: 0.785rem;
+    position: relative;
+    padding: 0.2rem 0 0.2rem 1.75rem;
+    margin: 1.25rem 0;
+    &::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 0;
+      width: 20px;
+      height: 1px;
+      transform: rotate(-38deg);
+      box-sizing: border-box;
+      background-color: var(--color-gray);
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 20px;
+      height: 1px;
+      transform: rotate(38deg);
+      box-sizing: border-box;
+      background-color: var(--color-gray);
+    }
+  }
+  .ornament {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    &::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 0;
+      width: 28px;
+      height: 1px;
+      transform: rotate(-25deg);
+      box-sizing: border-box;
+      background-color: var(--color-gray);
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 28px;
+      height: 1px;
+      transform: rotate(25deg);
+      box-sizing: border-box;
+      background-color: var(--color-gray);
+    }
+  }
+</style>

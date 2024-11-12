@@ -3,13 +3,6 @@ import { createShortcut } from '@solid-primitives/keyboard';
 import { type ParentComponent, createSignal, onMount } from 'solid-js';
 import { Portal } from 'solid-js/web';
 import { type ModalContent, shortcutKeyMap } from './modal-data';
-import {
-  hidden,
-  modal,
-  modalButton,
-  modalButtonLabel,
-  modalWrapper,
-} from './modal.css';
 
 type Props = {
   modalName: ModalContent;
@@ -64,24 +57,24 @@ export const Modal: ParentComponent<Props> = (props) => {
         type="button"
         id={`${props.modalName}-icon-button`}
         ref={buttonRef}
-        class={`${modalButton} ${props.buttonStyle}`}
+        class={`border-0 flex gap-2 items-center ${props.buttonStyle}`}
         title={props.buttonLabel}
         aria-label={props.buttonLabel}
       >
         {props.icon}
         {props.iconLabel && (
-          <span class={modalButtonLabel}>{props.iconLabel}</span>
+          <span class="text-base font-bold md:text-lg">{props.iconLabel}</span>
         )}
       </button>
       <Portal mount={document.getElementById('#modal')!}>
         <div
           id={`${props.modalName}-modal-overlay`}
           ref={overlayRef}
-          class={`${modal} ${!isOpen() && hidden}`}
+          class={`fixed top-0 left-0 right-0 z-10 pt-14 md:pt-16 w-dvw h-dvh flex justify-center items-start bg-modal-bg ${!isOpen() && 'hidden'}`}
         >
           <div
             id={`${props.modalName}-wrapper`}
-            class={`${modalWrapper} pixel-border`}
+            class="border-pixel w-full max-w-xl max-h-[80dvh] py-6 px-3.5 mx-6 box-border bg-default-mixed z-20 has-[form]:overflow-y-auto"
           >
             {props.children}
           </div>

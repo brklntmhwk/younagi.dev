@@ -8,7 +8,6 @@ import { Icon } from '@/components/ui/Icon';
 import { Modal } from '@/components/ui/Modal/Modal';
 import { ProfileIcon } from '@/components/ui/ProfileIcon';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { transparentButton } from '@/styles/styles.css';
 import { getLocaleFromUrl } from '@/utils/i18n/utils';
 import type { MarkdownHeading } from 'astro';
 
@@ -29,15 +28,15 @@ const { headings } = Astro.props;
 >
   <main data-pagefind-ignore="all">
     <Article kind="about">
-      <section slot="metadata" class="about-metadata">
-        <h1>{t.data.pages.about.title}</h1>
-        <div class="profile">
+      <section slot="metadata" class="flex flex-col gap-4">
+        <h1 class="text-4xl md:text-5xl font-extrabold">{t.data.pages.about.title}</h1>
+        <div class="flex flex-col justify-center lg:justify-start md:flex-row place-items-center gap-4 md:gap-9 lg:gap-10 py-2 md:py-6 lg:py-9">
           <ProfileIcon
             alt={t.data.pages.about.my_name}
             src={ProfileImage}
             size={150}
           />
-          <span class="my-name">{t.data.pages.about.my_name}</span>
+          <span class="text-xl font-bold">{t.data.pages.about.my_name}</span>
         </div>
         <div class="contact">
           <Modal
@@ -45,7 +44,7 @@ const { headings } = Astro.props;
             modalName="contact"
             buttonLabel={t.data.pages.about.contact_me}
             iconLabel={t.data.pages.about.contact_me}
-            buttonStyle={transparentButton}
+            buttonStyle="bg-transparent"
           >
             <ContactForm client:only="solid" t={t.data.contact_form} />
             <Icon slot="icon" iconName="mail" width={28} height={28} />
@@ -53,133 +52,9 @@ const { headings } = Astro.props;
         </div>
         <Toc {headings} />
       </section>
-      <section slot="content" class="about-content">
+      <section slot="content" class="prose prose-lg md:prose-xl">
         <slot />
       </section>
     </Article>
   </main>
 </BaseLayout>
-<style is:global>
-  article {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    gap: 0.5rem;
-    hr {
-      width: 100%;
-    }
-    .about-metadata {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      .profile {
-        padding: 0.5rem 0;
-        display: grid;
-        justify-content: center;
-        place-items: center;
-        gap: 1.05rem;
-        .my-name {
-          font-size: 1.5rem;
-          font-weight: 700;
-        }
-        @media (min-width: 768px) {
-          padding: 1.55rem 0;
-          display: flex;
-          justify-content: center;
-          gap: 2.25rem;
-        }
-        @media (min-width: 1024px) {
-          padding: 2.25rem 0;
-          gap: 2.5rem;
-          justify-content: start;
-        }
-      }
-    }
-    .about-content {
-      font-size: 1.125rem;
-      font-weight: 400;
-      overflow-wrap: break-word;
-      word-wrap: break-word;
-      line-height: 1.65;
-      & h1 {
-        margin-top: 1.85rem;
-        margin-bottom: 1.85rem;
-      }
-      & h2,
-      & h3 {
-        margin-top: 1.85rem;
-        margin-bottom: 1.85rem;
-      }
-      & h4 {
-        margin-top: 1.85rem;
-        margin-bottom: 1.85rem;
-      }
-      & h5,
-      & h6 {
-        margin-top: 1.85rem;
-        margin-bottom: 1.85rem;
-      }
-      & h2,
-      h3,
-      h4,
-      h5,
-      h6 {
-        a {
-          text-decoration: none;
-          .heading-anchor-icon {
-            color: var(--fg);
-            margin-right: 0.5rem;
-          }
-          &:hover {
-            text-decoration: underline;
-            text-underline-offset: 4px;
-            text-decoration-color: var(--fg);
-          }
-        }
-      }
-      & p {
-        color: var(--fg);
-        margin-bottom: 1.25rem;
-      }
-      & ul,
-      & ol {
-        margin: 1.75rem 0;
-        padding-inline-start: 2.5rem;
-        & li {
-          list-style-type: square;
-        }
-      }
-      & li:has(ul),
-      & li:has(ol) {
-        & ul,
-        & ol {
-          margin: 0.5rem 0;
-        }
-      }
-      & p,
-      & li {
-        & a {
-          color: var(--accent);
-          text-decoration: underline;
-          text-underline-offset: 3px;
-          &:hover {
-            color: var(--accent-dark);
-          }
-        }
-      }
-      & code:not(figure[data-rehype-pretty-code-figure] code) {
-        font-size: 0.95rem;
-        background-color: var(--gray);
-        padding: 0.1rem 0.25rem;
-        margin: 0 0.1rem;
-        border-radius: 0.25rem;
-      }
-      & blockquote:not(.callout-blockquote) {
-        border-left: 4px solid var(--gray-dark);
-        padding: 0 0 0 1.5rem;
-        margin: 0px;
-        font-size: 1.05rem;
-      }
-    }
-  }
-</style>

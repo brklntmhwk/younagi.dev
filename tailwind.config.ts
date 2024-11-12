@@ -1,7 +1,7 @@
 import typoGraphy from '@tailwindcss/typography';
 import type { Config } from 'tailwindcss';
 import { gridAreas } from 'tailwindcss-grid-areas';
-import colors from 'tailwindcss/colors';
+import colors, { amber, indigo, neutral, sky } from 'tailwindcss/colors';
 import defaultTheme from 'tailwindcss/defaultTheme';
 import type { PluginAPI } from 'tailwindcss/types/config';
 
@@ -10,6 +10,9 @@ export default {
   darkMode: 'media',
   theme: {
     colors: {
+      amber: {
+        ...colors.amber,
+      },
       blue: {
         ...colors.blue,
         400: 'hsl(215.24, 100%, 52.63%)',
@@ -22,28 +25,43 @@ export default {
         DEFAULT: colors.gray[500],
         dark: {
           DEFAULT: colors.gray[600],
-        }
+        },
       },
       green: {
         ...colors.green,
         DEFAULT: colors.green[500],
         dark: {
           DEFAULT: colors.green[600],
-        }
+        },
+      },
+      indigo: {
+        ...colors.indigo,
+      },
+      neutral: {
+        ...colors.neutral,
+      },
+      orange: {
+        ...colors.orange,
       },
       purple: {
         ...colors.purple,
         DEFAULT: colors.purple[500],
         dark: {
           DEFAULT: colors.purple[600],
-        }
+        },
+      },
+      sky: {
+        ...colors.sky,
+      },
+      stone: {
+        ...colors.stone,
       },
       red: {
         ...colors.red,
         DEFAULT: colors.red[500],
         dark: {
           DEFAULT: colors.red[600],
-        }
+        },
       },
       teal: {
         ...colors.teal,
@@ -275,7 +293,7 @@ export default {
               padding: '0.5rem 0.65rem',
             },
             strong: {
-              color: 'inherit'
+              color: 'inherit',
             },
             '.katex-display': {
               marginTop: '1.875rem',

@@ -3,6 +3,7 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import solidJs from '@astrojs/solid-js';
 import tailwind from '@astrojs/tailwind';
+import compress from 'astro-compress';
 // import purgecss from 'astro-purgecss';
 import { defineConfig, passthroughImageService } from 'astro/config';
 // import browserslist from 'browserslist';
@@ -60,9 +61,7 @@ export default defineConfig({
     }),
     solidJs(),
     sitemap(),
-    iconNameTypes(),
-    pagefind(),
-    // purgecss({
+    iconNameTypes(), // purgecss({
     //   fontFace: true,
     //   extractors: [
     //     {
@@ -73,6 +72,15 @@ export default defineConfig({
     //     }
     //   ]
     // }),
+    pagefind(),
+    compress({
+      CSS: true,
+      HTML: true,
+      Image: false,
+      JavaScript: true,
+      SVG: false,
+      Logger: 1,
+    }),
   ],
   prefetch: {
     defaultStrategy: 'viewport',

@@ -46,9 +46,9 @@ const displayDate = formatDate(convertedDate, defaultLang, {
   description={meta.data.blog.description}
   og={{ show: true }}
 >
-  <main data-pagefind-ignore="all">
+  <main class="flex flex-col justify-between gap-16" data-pagefind-ignore="all">
     <section>
-      <h1 class="text-4xl md:text-5xl font-extrabold">{displayDate}</h1>
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-5">{displayDate}</h1>
       <a class="text-lg md:text-xl text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-500" href={'/blog/archive'}>
         ◀ {t.data.pages.blog.archive.back_to_top}
       </a>
@@ -60,16 +60,3 @@ const displayDate = formatDate(convertedDate, defaultLang, {
     <Pager page={page} />
   </main>
 </BaseLayout>
-<style>
-  main {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 4rem;
-    section {
-      h1 {
-        margin-bottom: 1.25rem;
-      }
-    }
-  }
-</style>

@@ -36,16 +36,16 @@ const t = await getEntry('i18n', `${locale}/translation`);
   description={meta.data.site.description}
   og={{ show: true }}
 >
-  <main data-pagefind-ignore="all">
+  <main class="flex flex-col justify-between gap-16" data-pagefind-ignore="all">
     <section>
-      <h1 class="text-4xl md:text-5xl font-extrabold">{t.data.pages.news.title}</h1>
-      <ul>
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-5">{t.data.pages.news.title}</h1>
+      <ul class="flex flex-col gap-5">
         {
           page.data.map((entry) => (
-            <li>
-              <article>
-                <section class="date">
-                  <div>
+            <li class="[&:not(:last-child)]:border-b-[1px] [&:not(:last-child)]:border-solid [&:not(:last-child)]:border-line-solid [&:not(:last-child)]:pb-5">
+              <article class="flex flex-col gap-3">
+                <section class="pt-4 flex gap-3.5">
+                  <div class="flex items-center gap-1.5">
                     <Icon iconName="publish" width={20} height={20} />
                     <FormattedDate
                       date={entry.data.publishedAt}
@@ -53,7 +53,7 @@ const t = await getEntry('i18n', `${locale}/translation`);
                     />
                   </div>
                   {entry.data.modifiedAt && (
-                    <div>
+                    <div class="flex items-center gap-1.5">
                       <Icon iconName="update" width={20} height={20} />
                       <FormattedDate
                         date={entry.data.modifiedAt}
@@ -64,7 +64,7 @@ const t = await getEntry('i18n', `${locale}/translation`);
                 </section>
                 <a
                   href={`/${locale}/${entry.collection}/${entry.slug.split('/').pop()}`}
-                  class="news-title"
+                  class="text-default text-2xl md:text-3xl font-bold leading-6 no-underline hover:underline hover:underline-offset-4"
                 >
                   {entry.data.title}
                 </a>
@@ -77,50 +77,3 @@ const t = await getEntry('i18n', `${locale}/translation`);
     <Pager page={page} />
   </main>
 </BaseLayout>
-<style>
-  main {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 4rem;
-    ul {
-      display: grid;
-      gap: 1.25rem;
-      padding: 0;
-      li:not(li:last-child) {
-        border-bottom: 1px solid var(--color-line-solid);
-        padding-bottom: 1.25rem;
-      }
-      article {
-        display: grid;
-        gap: 0.75rem;
-        section.date {
-          display: flex;
-          gap: 0.85rem;
-          padding-top: 1rem;
-          div {
-            display: flex;
-            align-items: center;
-            gap: 0.35rem;
-          }
-        }
-        .news-title {
-          color: var(--color-default-fg);
-          font-size: 1.5rem;
-          font-weight: 700;
-          line-height: 1.35;
-          text-decoration: none;
-          &:hover {
-            text-decoration: underline;
-            text-underline-offset: 5px;
-          }
-        }
-      }
-    }
-  }
-  @media (min-width: 768px) {
-    .news-title {
-      font-size: 1.85rem;
-    }
-  }
-</style>

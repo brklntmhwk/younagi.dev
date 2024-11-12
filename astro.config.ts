@@ -3,7 +3,8 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import solidJs from '@astrojs/solid-js';
 import tailwind from '@astrojs/tailwind';
-import purgecss from 'astro-purgecss';
+import compress from 'astro-compress';
+// import purgecss from 'astro-purgecss';
 import { defineConfig, passthroughImageService } from 'astro/config';
 // import browserslist from 'browserslist';
 import { h } from 'hastscript';
@@ -59,12 +60,27 @@ export default defineConfig({
       applyBaseStyles: false,
     }),
     solidJs(),
-    purgecss({
-      fontFace: true,
-    }),
     sitemap(),
-    iconNameTypes(),
+    iconNameTypes(), // purgecss({
+    //   fontFace: true,
+    //   extractors: [
+    //     {
+    //       // Example using a taiwindcss compatible class extractor
+    //       extractor: (content) =>
+    //         content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [],
+    //       extensions: ['astro', 'html']
+    //     }
+    //   ]
+    // }),
     pagefind(),
+    compress({
+      CSS: true,
+      HTML: false,
+      Image: false,
+      JavaScript: true,
+      SVG: false,
+      Logger: 1,
+    }),
   ],
   prefetch: {
     defaultStrategy: 'viewport',
@@ -80,20 +96,19 @@ export default defineConfig({
     //   sourcemap: 'hidden',
     //   cssTarget: browserslist('>= 0.1%'),
     // },
-    // css: {
-    //   devSourcemap: true,
-    //   transformer: 'lightningcss',
-    //   lightningcss: {
-    //     cssModules: {
-    //       pattern: '[hash]-[local]',
-    //     },
-    //     drafts: {
-    //       customMedia: true,
-    //     },
-    //     targets: browserslistToTargets(browserslist('>= 0.1%')),
-    //   },
-    // },
-    // plugins: [],
+    css: {
+      devSourcemap: true,
+      transformer: 'postcss',
+      // lightningcss: {
+      //   cssModules: {
+      //     pattern: '[hash]-[local]',
+      //   },
+      //   drafts: {
+      //     customMedia: true,
+      //   },
+      //   targets: browserslistToTargets(browserslist('>= 0.1%')),
+      // },
+    },
     server: {
       watch: {
         usePolling: true,

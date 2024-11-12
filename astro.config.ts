@@ -75,7 +75,7 @@ export default defineConfig({
     pagefind(),
     compress({
       CSS: true,
-      HTML: true,
+      HTML: false,
       Image: false,
       JavaScript: true,
       SVG: false,

@@ -1,0 +1,11 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'div'>;
+
+const props = Astro.props;
+---
+
+<div class="text-base leading-8 inline-block  peer-checked:inline-block peer-[:not(:checked)]:hidden pt-2.5" data-callout-content {...props}>
+  <slot />
+</div>

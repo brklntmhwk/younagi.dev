@@ -220,6 +220,7 @@ export default {
               },
               '& code': {
                 fontFamily: 'Menlo, Consolas, monospace',
+                fontSize: '0.875rem',
                 counterReset: 'line',
                 display: 'grid',
               },
@@ -228,9 +229,10 @@ export default {
               },
               '& [data-rehype-pretty-code-title]': {
                 fontFamily: 'Menlo, Consolas, monospace',
+                fontSize: '0.875rem',
                 width: '100%',
                 position: 'absolute',
-                top: '-30px',
+                top: '-35px',
                 left: '0',
                 whiteSpace: 'nowrap',
                 textOverflow: 'ellipsis',
@@ -272,6 +274,9 @@ export default {
               borderStyle: 'solid',
               borderWidth: '2px',
               padding: '0.5rem 0.65rem',
+            },
+            strong: {
+              color: 'inherit'
             },
             '.katex-display': {
               marginTop: '1.875rem',

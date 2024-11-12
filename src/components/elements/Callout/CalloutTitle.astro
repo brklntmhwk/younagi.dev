@@ -22,9 +22,15 @@ const calloutTitle: string | undefined = await Astro.slots.render('default');
 {
   isExpandable ? (
     <>
+      <input
+        type="checkbox"
+        class="peer appearance-none"
+        id={`callout-toggle-check-${dataCalloutType}-${uniqueId}`}
+        checked={isExpanded}
+      />
       <label
         for={`callout-toggle-check-${dataCalloutType}-${uniqueId}`}
-        class="flex items-center gap-2.5 select-none"
+        class="flex items-center gap-2.5 select-none after:content-['>'] after:text-inherit after:inline-block after:text-xl peer-checked:after:rotate-90 after:ease-linear after:duration-300"
       >
         <Icon
           class="basis-8 sm:basis-5"
@@ -36,12 +42,6 @@ const calloutTitle: string | undefined = await Astro.slots.render('default');
           {calloutTitle ? <Fragment set:html={calloutTitle} /> : callout.label}
         </span>
       </label>
-      <input
-        type="checkbox"
-        class="hidden"
-        id={`callout-toggle-check-${dataCalloutType}-${uniqueId}`}
-        checked={isExpanded}
-      />
     </>
   ) : (
     <div class="flex items-center gap-2.5 select-none">

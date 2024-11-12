@@ -1,5 +1,5 @@
 ---
-import { getCalloutType } from './callouts';
+import { getCalloutType, style as calloutStyle } from './callouts';
 
 export type Props = {
   'data-callout-type': string;
@@ -12,7 +12,7 @@ const validCalloutType = getCalloutType(calloutType);
 ---
 
 <div
-  class="py-3 px-3.5 my-6 flex flex-col gap-2 rounded-sm"
+  class:list={[calloutStyle({ type: validCalloutType })]}
   data-callout-type={validCalloutType}
   {...restProps}
 >

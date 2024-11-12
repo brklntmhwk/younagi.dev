@@ -5,9 +5,9 @@ import solidJs from '@astrojs/solid-js';
 import tailwind from '@astrojs/tailwind';
 import purgecss from 'astro-purgecss';
 import { defineConfig, passthroughImageService } from 'astro/config';
-import browserslist from 'browserslist';
+// import browserslist from 'browserslist';
 import { h } from 'hastscript';
-import { browserslistToTargets } from 'lightningcss';
+// import { browserslistToTargets } from 'lightningcss';
 import rehypeAutolinkHeadings, {
   type Options as RehypeAutoLinkHeadingsOptions,
 } from 'rehype-autolink-headings';
@@ -59,12 +59,20 @@ export default defineConfig({
       applyBaseStyles: false,
     }),
     solidJs(),
-    purgecss({
-      fontFace: true,
-    }),
     sitemap(),
     iconNameTypes(),
     pagefind(),
+    purgecss({
+      fontFace: true,
+      extractors: [
+        {
+          // Example using a taiwindcss compatible class extractor
+          extractor: (content) =>
+            content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [],
+          extensions: ['astro', 'html']
+        }
+      ]
+    }),
   ],
   prefetch: {
     defaultStrategy: 'viewport',
@@ -83,15 +91,15 @@ export default defineConfig({
     css: {
       devSourcemap: true,
       transformer: 'postcss',
-      lightningcss: {
-        cssModules: {
-          pattern: '[hash]-[local]',
-        },
-        drafts: {
-          customMedia: true,
-        },
-        targets: browserslistToTargets(browserslist('>= 0.1%')),
-      },
+      // lightningcss: {
+      //   cssModules: {
+      //     pattern: '[hash]-[local]',
+      //   },
+      //   drafts: {
+      //     customMedia: true,
+      //   },
+      //   targets: browserslistToTargets(browserslist('>= 0.1%')),
+      // },
     },
     server: {
       watch: {

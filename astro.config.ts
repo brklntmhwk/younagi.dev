@@ -138,7 +138,6 @@ export default defineConfig({
         } satisfies RemarkVideoConfig,
       ],
       remarkFootnote,
-      remarkLineBreaks,
       [
         remarkEmbed,
         {
@@ -151,6 +150,7 @@ export default defineConfig({
         } satisfies RemarkEmbedOptions,
       ],
       remarkLinkCard,
+      remarkLineBreaks,
     ],
     rehypePlugins: [
       rehypeKatex,

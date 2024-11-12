@@ -3,7 +3,6 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import solidJs from '@astrojs/solid-js';
 import tailwind from '@astrojs/tailwind';
-import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import purgecss from 'astro-purgecss';
 import { defineConfig, passthroughImageService } from 'astro/config';
 import browserslist from 'browserslist';
@@ -94,7 +93,7 @@ export default defineConfig({
     //     targets: browserslistToTargets(browserslist('>= 0.1%')),
     //   },
     // },
-    plugins: [vanillaExtractPlugin()],
+    plugins: [],
     server: {
       watch: {
         usePolling: true,

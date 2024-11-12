@@ -5,9 +5,9 @@ import solidJs from '@astrojs/solid-js';
 import tailwind from '@astrojs/tailwind';
 import purgecss from 'astro-purgecss';
 import { defineConfig, passthroughImageService } from 'astro/config';
-// import browserslist from 'browserslist';
+import browserslist from 'browserslist';
 import { h } from 'hastscript';
-// import { browserslistToTargets } from 'lightningcss';
+import { browserslistToTargets } from 'lightningcss';
 import rehypeAutolinkHeadings, {
   type Options as RehypeAutoLinkHeadingsOptions,
 } from 'rehype-autolink-headings';
@@ -80,20 +80,19 @@ export default defineConfig({
     //   sourcemap: 'hidden',
     //   cssTarget: browserslist('>= 0.1%'),
     // },
-    // css: {
-    //   devSourcemap: true,
-    //   transformer: 'lightningcss',
-    //   lightningcss: {
-    //     cssModules: {
-    //       pattern: '[hash]-[local]',
-    //     },
-    //     drafts: {
-    //       customMedia: true,
-    //     },
-    //     targets: browserslistToTargets(browserslist('>= 0.1%')),
-    //   },
-    // },
-    // plugins: [],
+    css: {
+      devSourcemap: true,
+      transformer: 'postcss',
+      lightningcss: {
+        cssModules: {
+          pattern: '[hash]-[local]',
+        },
+        drafts: {
+          customMedia: true,
+        },
+        targets: browserslistToTargets(browserslist('>= 0.1%')),
+      },
+    },
     server: {
       watch: {
         usePolling: true,

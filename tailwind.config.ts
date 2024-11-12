@@ -1,7 +1,7 @@
 import typoGraphy from '@tailwindcss/typography';
 import type { Config } from 'tailwindcss';
 import { gridAreas } from 'tailwindcss-grid-areas';
-import colors, { amber, indigo, neutral, sky } from 'tailwindcss/colors';
+import colors from 'tailwindcss/colors';
 import defaultTheme from 'tailwindcss/defaultTheme';
 import type { PluginAPI } from 'tailwindcss/types/config';
 

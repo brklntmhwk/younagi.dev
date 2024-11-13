@@ -40,7 +40,6 @@ import {
   oEmbedTransformer,
   youTubeTransformer,
 } from './src/lib/unified/transformers';
-import { isDev } from './src/lib/mode';
 
 // https://astro.build/config
 export default defineConfig({
@@ -147,7 +146,7 @@ export default defineConfig({
       [
         remarkVideo,
         {
-          baseUrl: isDev ? SITE_URL : '',
+          baseUrl: '',
           publicDir: './public',
           videoContainerTag: 'figure',
           fallbackContent: h('p.fallback-content', VIDEO_FALLBACK_MESSAGE),

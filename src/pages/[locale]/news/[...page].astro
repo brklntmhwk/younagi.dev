@@ -44,7 +44,7 @@ const t = await getEntry('i18n', `${locale}/translation`);
           page.data.map((entry) => (
             <li class="[&:not(:last-child)]:border-b-[1px] [&:not(:last-child)]:border-solid [&:not(:last-child)]:border-line-solid [&:not(:last-child)]:pb-5">
               <article class="flex flex-col gap-3">
-                <section class="pt-4 flex gap-3.5">
+                <section class="pt-4 flex flex-wrap gap-x-3.5 gap-y-1.5">
                   <div class="flex items-center gap-1.5">
                     <Icon iconName="publish" width={20} height={20} />
                     <FormattedDate
@@ -64,7 +64,7 @@ const t = await getEntry('i18n', `${locale}/translation`);
                 </section>
                 <a
                   href={`/${locale}/${entry.collection}/${entry.slug.split('/').pop()}`}
-                  class="text-default text-2xl md:text-3xl font-bold leading-6 no-underline hover:underline hover:underline-offset-4"
+                  class="text-default text-2xl md:text-3xl font-bold leading-normal no-underline hover:underline hover:underline-offset-4"
                 >
                   {entry.data.title}
                 </a>

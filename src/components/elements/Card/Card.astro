@@ -43,6 +43,9 @@ const { class: cardClass, ...restProps } = Astro.props;
       }
     }
     & :global(.content-container) {
+      & :global(br:first-child) {
+        display: none;
+      }
       font-size: 0.725rem;
       padding: 0.175rem 0.325rem;
       overflow-y: auto;

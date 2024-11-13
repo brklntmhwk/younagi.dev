@@ -167,6 +167,9 @@ export default {
               marginTop: '0',
               marginBottom: '0',
             },
+            'li::marker': {
+              color: theme('colors.neutral.500')
+            },
             'ul li': {
               listStyleType: 'square',
             },

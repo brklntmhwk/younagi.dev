@@ -40,9 +40,8 @@ const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
       if (!isParent(node)) return;
       if (node.children.length === 0) return;
 
-      const paragraphNode = node.children[0]!;
+      const paragraphNode = node.children[0];
       if (!isParagraph(paragraphNode)) return;
-
       if (!isParent(paragraphNode)) return;
       if (paragraphNode.children.length === 0) return;
 
@@ -75,6 +74,7 @@ const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
         },
         ...node.children.splice(1),
       ];
+
       if (!isParagraph(contentNode[0])) return;
       if (calloutContent.length > 0) {
         contentNode[0].children.push({

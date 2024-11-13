@@ -20,7 +20,7 @@ const { alt, placeholder, src, ...props } = Astro.props;
         {alt}
         {src}
         class="object-contain text-transparent bg-cover bg-repeat bg-center"
-        formats={['avif']}
+        formats={['avif', 'webp']}
         widths={[240, 540, 720, src.width]}
         pictureAttributes={{
           style: {

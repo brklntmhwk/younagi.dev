@@ -12,7 +12,7 @@ export const colors = [
 ] as const;
 
 export const style = tv({
-  base: 'text-neutral-100 text-center',
+  base: 'text-neutral-100 text-center text-sm sm:text-base',
   variants: {
     color: {
       primary: 'bg-primary',

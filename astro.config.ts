@@ -146,8 +146,6 @@ export default defineConfig({
       [
         remarkVideo,
         {
-          baseUrl: '',
-          publicDir: './public',
           videoContainerTag: 'figure',
           fallbackContent: h('p.fallback-content', VIDEO_FALLBACK_MESSAGE),
         } satisfies RemarkVideoConfig,

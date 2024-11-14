@@ -101,7 +101,7 @@
     "remark-directive": "^3.0.0",
     "remark-gfm": "4.0.0",
     "remark-math": "6.0.0",
-    "remark-video": "^0.9.0",
+    "remark-video": "^0.10.0",
     "satori": "^0.11.2",
     "sharp": "^0.33.5",
     "shiki": "^1.22.2",

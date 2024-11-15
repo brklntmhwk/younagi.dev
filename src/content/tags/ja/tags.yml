@@ -50,3 +50,8 @@
   slug: nixos
   ruby: nixos
   color: gray
+- title: DIY
+  slug: diy
+  ruby: diy
+  color: green
+

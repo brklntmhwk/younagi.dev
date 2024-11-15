@@ -136,6 +136,9 @@ export default {
         DEFAULT: {
           css: {
             color: theme('colors.default'),
+            'h2, h3, h4, h5, h6': {
+              color: theme('colors.default'),
+            },
             'h5, h6': {
               fontWeight: 600,
             },
@@ -149,7 +152,8 @@ export default {
                 },
               },
             },
-            'h2 a, h3 a, h4 a, h5 a, h6': {
+            'h2 a, h3 a, h4 a, h5 a, h6 a': {
+              color: theme('colors.default'),
               textDecoration: 'none',
               '.heading-anchor-icon': {
                 marginRight: '0.5rem',
@@ -168,7 +172,7 @@ export default {
               marginBottom: '0',
             },
             'li::marker': {
-              color: theme('colors.neutral.500')
+              color: theme('colors.neutral.500'),
             },
             'ul li': {
               listStyleType: 'square',

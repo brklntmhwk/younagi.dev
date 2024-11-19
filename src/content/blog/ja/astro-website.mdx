@@ -1,8 +1,8 @@
 ---
 title: Astro + Cloudflare Pages + D1 + Front Matter CMS で個人ウェブサイトを作った
-description: Astro + Cloudflare Pages + D1 + Front Matter CMSの構成で作った個人ウェブサイトの開発体験を簡単に紹介する
+description: 動画の時代に個人ブログという茨の道を歩みたいオタクなあなたに贈る開発体験記。Astro + Cloudflare Pages + D1 + Front Matter CMS とその他諸々の構成で作った個人ウェブサイトの諸機能を紹介
 publishedAt: 2024-07-13T00:35:10.000Z
-modifiedAt: 2024-11-12T05:52:57.033Z
+modifiedAt: 2024-11-19T08:08:57.572Z
 draft: published
 type: blog
 category:
@@ -16,21 +16,17 @@ tags:
     - front-matter-cms
     - cloudflare
 level: 4
-image: /src/assets/images/younagidev.jpg
 ---
 
 ## 導入
 
-> [!quote] ひと言
-> — この動画の時代に個人ブログで勝負するという縛りプレイ
+「Rust を勉強せねば、Rust を・・・」と思いながらも、フロントエンドの視察にかこつけて Astro で個人ウェブサイトを開発してしまい、極めつけには 4 ヶ月もの月日を費やしてしまった話。尚、後悔はしていないと言ったら噓になる。
 
-個人ウェブサイト開発に 4 ヶ月程費やし、何とか最低限見せられるレベルまで完成しました。その開発体験についてポイントをかいつまんで書きます。
+当サイトのソースコードは下記の Github リポジトリで公開している。百聞は一見(コード)に如かず。
 
-当サイトのソースコードに興味のある方は、[Github レポジトリ](https://github.com/brklntmhwk/younagi.dev)をご覧ください。百文は一見(コード)に如かず。
+https://github.com/brklntmhwk/younagi.dev
 
 ### 想定読者
-
-読者の方は趣味や仕事でフロントエンド開発をしているという想定です。
 
 - Astro でウェブサイトを作りたいが、プロジェクト全体の構成をどうすればいいのか、どんな機能を実装すればいいのかわからない
 - Astro で作ったプロジェクトの全体像を参考にしたい
@@ -38,17 +34,21 @@ image: /src/assets/images/younagidev.jpg
 
 ### 現時点での私の習熟度
 
-記事執筆時点での私の習熟度は次の通りです。
+記事執筆時点での私の習熟度は次の通り。
 
 - ソフトウェアエンジニアとして計 3 年の経験あり(勤続ではない)
-- JavaScript、TypeScript、Astro の基本は理解している
+- JavaScript、TypeScript、Astro の基本は理解している(つもり)
 - Next.js や Astro で何度かウェブサイト制作を経験している
 
 ## 本題
 
 ### Astro
 
-基本は Astro の機能範囲で実装し、一部 JS フレームワーク「[SolidJS](https://www.solidjs.com/)」を使って実装しています。全て TypeScript(と TSX) です。
+まず以て、そもそも Astro とは何ぞや？詳しい説明は[本家ホームページ](https://docs.astro.build/en/getting-started/)に譲るとして、ひと言で言えば「爆速なウェブサイトが簡単に作れる JavaScript(以降 JS と呼ぶ)ベースのメタフレームワーク」である。メタフレームワークと言われる所以は、プロジェクト内で React や Vue、SolidJS などの JS フレームワークを自由に使いまわすことができるところからきている。
+
+どちらかと言えば、EC サイトや SNS サービスのようなユーザとの双方向のやり取りが多くなるものよりも、企業のコーポレートサイトやブログのようにやり取りが一方向なサービスに向いている。
+
+私の場合は、できる限り Astro の標準機能で実装し、一部[SolidJS](https://www.solidjs.com/)を使って実装している。また、コードを書く時は型がないと生まれたての小鹿のように足下が覚束ない気持ちになるので、TypeScript と TSX で書くこととした。
 
 > [!info]- 技術構成
 > **言語:** [TypeScript](https://www.typescriptlang.org/), [TSX](https://www.typescriptlang.org/docs/handbook/jsx.html), [YAML](https://yaml.org/)
@@ -77,10 +77,17 @@ image: /src/assets/images/younagidev.jpg
 /videos/fulltext-search-demo.mp4
 :::
 
-Rust 製の静的検索ライブラリである[Pagefind](https://pagefind.app/)を選びました。とにかく軽量、高速、そして導入が簡単。
-更にサーバーとのやり取りが不要でブラウザ完結なのも魅力的です。仕組みは至ってシンプルで、ビルド時生成ファイルを基に予めインデックスファイルを作成しておき、静的にキーワード検索できるようにしています。
+{/* textlint-disable ja-technical-writing/no-doubled-joshi */}
+ユーザの快適なブラウジングライフを支えるのに欠かせないのが検索機能である。
+古き良きいにしえのウェブサイトに想いを馳せるあまり、敢えて検索機能をつけず、アクセスカウンターを実装することに躍起になっている個人ウェブサイトは後を絶たない。とても格好イイと思う。だがしかし、それとこれとは別である。[^1]
 
-開発に際して、次のポイントにこだわりました。
+[^1]: ネットの海を回遊しているとしばしば散見されるので、是非マグロにでもなった気分で気持ちよく泳いでみて欲しい。
+
+それなりの検索機能を自前実装するのは大変なので、Rust 製の検索ライブラリである[Pagefind](https://pagefind.app/)を採用。とにかく軽量、高速、そして導入が簡単。
+
+サーバーとのやり取りが不要でブラウザ完結である点は魅力的である。仕組みは至ってシンプルで、ビルド時生成ファイルを基に予めインデックスファイルを作成しておき、ブラウザからのキーワード検索に対してこのインデックスファイルを参照して応答するというもの。
+
+開発に際してこだわったポイントは下記の通り。
 
 - ショートカットキーでも呼び出せる
   - PC からであれば`Ctrl + K`で呼び出し可能
@@ -92,21 +99,26 @@ Rust 製の静的検索ライブラリである[Pagefind](https://pagefind.app/)
 
 #### 多言語対応 (i18n)
 
-[Astro の Content Collections API](https://docs.astro.build/en/guides/content-collections/)を活用して、言語ごとにディレクトリを切り出し、手動翻訳をする方針にしました。
+Astro は我々に代わってブログ記事やニュースなどのコンテンツ管理をよろしくやってくれる。それが[Content Collections API](https://docs.astro.build/en/guides/content-collections/)という機能である。
 
-[公式のドキュメント](https://docs.astro.build/ja/recipes/i18n/)に記載されている手順通りに、言語ごとのディレクトリを作成しました。(私の場合は`en`と`ja`です。1 つのファイルに対して、言語の数と同じだけ同名のファイルを作成する必要があります)
+この機能を応用して、言語ディレクトリを切り分けることで多言語化対応をした。昨今の機械翻訳や AI の要約技術の発展には目もくれず、地道な手動翻訳による多言語化という茨の道を歩むことと相成った。「語学学習にもなって一石二鳥じゃん！」と自分に言い聞かせて何とか正気を保っている。
+詳しい方法については、[公式のドキュメント](https://docs.astro.build/ja/recipes/i18n/)を参照されたし。
 
-Astro の [Content Collections](https://docs.astro.build/ja/guides/content-collections/) は Markdown/MDX 形式だけでなく、YAML や JSON 形式にも対応しています。私は記事以外の翻訳文字列群の保存に YAML 形式を選びました。非常に簡潔で好きです。
+ちなみにコンテンツは Markdown/MDX だけでなく、YAML や JSON 形式も可能。私は記事以外の手動翻訳文字列の保存に YAML 形式を採用した。
 
 ![content ディレクトリツリー](../../../assets/images/content-dir.png)
 
 #### OG 画像 (Open Graph)
 
-個々のブログやニュース記事については、OG 画像が[Astro の APIエンドポイント](https://docs.astro.build/en/guides/endpoints/)を介して動的に生成されます。
+当サイトに足繫く通い、SNS で喧伝してまわるようなヘビーな読者が現れる日を夢見て、一応全ページに OG 画像を設定している。
 
-OG 画像の全パスは[Astro の dynamic routes](https://docs.astro.build/en/guides/routing/#dynamic-routes)によって動的に生成され、その意味では動的なのですが、それらがビルド時に生成されるという意味では静的です。
+ホームページやその他固定ページにはあらかじめ拵えた画像を指定しているのだが、ブログ記事やニュースについては、Astro の[Dynamic routes](https://docs.astro.build/en/guides/routing/#dynamic-routes)で記事のファイルパスから動的に生成される仕組みになっている。
+おかげで、記事が増える度にいちいち OG 画像に頭を悩ませる必要がない。ありがとう、Astro。
 
-画像生成に際して、[satori ライブラリ](https://github.com/vercel/satori)に HTML と CSS を渡せばそこから SVG 形式で画像を生成してくれます。そして[Sharp ライブラリ](https://sharp.pixelplumbing.com/)にその結果を渡して画像最適化処理など適宜加えつつ PNG 形式の画像を出力します。
+ちなみに画像生成は、[`satori`](https://github.com/vercel/satori)から[`sharp`](https://sharp.pixelplumbing.com/)へのバケツリレー形式で処理がなされている。
+
+1. `satori`の仕事: 受け取った HTML と CSS に基づき、SVG 形式で画像を生成する
+2. `sharp`の仕事: SVG のバッファを受け取り、画像最適化処理など適宜加えつつ PNG 形式の画像を出力する
 
 ```txt title="パスの例"
 https://younagi.dev/api/og/blog/astro-website.png
@@ -116,19 +128,26 @@ https://younagi.dev/api/og/blog/astro-website.png
 
 #### Remark/Rehype プラグイン
 
-このウェブサイトでは、全ての記事はマークダウン、もしくは MDX 形式で書かれています。しかし、カスタマイズなしの標準記法では最小限の表現しかできず味気ないです。
+Astro ではコンテンツの形式に関して選択肢が豊富である、という話をしたが、私は記事の執筆にはマークダウン/MDX を採用した。
 
-そこで、既製品の[Remark](https://unifiedjs.com/explore/project/remarkjs/remark/)/[Rehype](https://unifiedjs.com/explore/project/rehypejs/rehype/)プラグインを利用、無いものは自作することにしました。書き味はブロガーにとって命です。
+{/* textlint-disable ja-technical-writing/no-double-negative-ja */}
+標準実装されている記法だけでもやってやれないことはないが、どうにも味気ない。舌の肥えた読者は、きっとコードブロックや数式、メディアフレームなどリッチなコンテンツを欲しているに違いない・・！
+
+そうした思い込みに駆られ、[Remark](https://unifiedjs.com/explore/project/remarkjs/remark/)/[Rehype](https://unifiedjs.com/explore/project/rehypejs/rehype/)プラグインで記法を拡張した。主に既製品を使用し、無いものは自作。[^2]
+
+[^2]: このプラグイン自作に凝ってしまい、1 ヶ月余りを費やしてしまった。
 
 > [!info]+Remark & Rehype
 > [Unified](https://unifiedjs.com/)という文書変換系のエコシステムに属するプロセッサ群
 > **Remark:** マークダウンにASTの状態で変換処理を加える(mdast)
 > **Rehype:** HTMLにASTの状態で変換処理を加える(hast)
-> ASTはAbstract Syntax Tree(抽象構文木)の略です。詳細は他の文献をあたってみてください。
+> ASTはAbstract Syntax Tree(抽象構文木)の略。詳細は他の文献を参照されたし。
 
 ##### KaTex
 
-$\KaTeX$ はウェブページ上で数式などをきれいに表示してくれます。その呪文を数式に変換するのに、[remark-math と rehype-katex](https://github.com/remarkjs/remark-math/tree/main/packages/rehype-katex)を追加しました。
+数学に明るい訳でもなく、今後数式を披露する予定がないにもかかわらず、欲望に負けてついやってしまった。万が一、億が一、私が数学を自在に操れる世界線に備えて・・・。
+
+$\KaTeX$ は特定の所作に従って呪文を唱えるとよしなに数式変換してくれる。[`remark-math`と`rehype-katex`](https://github.com/remarkjs/remark-math/tree/main/packages/rehype-katex)を追加し、ほんの少しスタイルを調整するだけで。
 
 入力:
 
@@ -160,9 +179,12 @@ $$
 = \lim_{n \to \infty} \dfrac{1}{n} \sum_{k=0}^{n-1} f \left (\dfrac{k}{n} \right)
 $$
 
+とどのつまり、これがやりたかっただけである。
+
 ##### コードブロック
 
-開☆発☆者として、コードの具体例を交えた説明は避けられない宿命です。 [rehype-pretty-code](https://rehype-pretty.pages.dev/)を使ってコードのシンタックスハイライトを実装しました。ちなみにシンタックスハイライターは[Shiki](https://shiki.style/)です。
+開☆発☆者(デベロッパ)として、コードを交えた説明は避けられない宿命である。
+そこで、[rehype-pretty-code](https://rehype-pretty.pages.dev/)を使用し、シンタックスハイライトを実装した。シンタックスハイライターは[Shiki](https://shiki.style/)を採用。
 
 ```astro title="example.astro" "Astro.props" {6,9}
 ---
@@ -173,14 +195,14 @@ type Props = {
 const { title } = Astro.props
 ---
 
-<div>{`これは例です。タイトルは ${title}`}</div>
+<div>{`これは例。タイトルは ${title}`}</div>
 ```
 
 ##### コールアウト
 
-数年間 [Obsidian](https://obsidian.md/) をナレッジベースとして愛用していて、マークダウン記法で書ける[コールアウト](https://help.obsidian.md/Editing+and+formatting/Callouts)が好きでした。このブログでも使いたくなり、実装しました。
+[Obsidian](https://obsidian.md/) で書ける[コールアウト](https://help.obsidian.md/Editing+and+formatting/Callouts)のマークダウン方言を個人ブログでも摂取したく、こちらにも手を出してしまった。
 
-実装に際して、こだわった点は次の通りです。
+実装に際してこだわった点は次の通り。
 
 - 開閉可能
   - コールアウトタイトルの横に "+" もしくは "-" のマークがある場合、そのコールアウトは開閉可能と判断される
@@ -188,34 +210,34 @@ const { title } = Astro.props
   - 入れ子(入れ孫、入れひ孫、...)のコールアウトはそれぞれ親コールアウトが開閉すると一緒に開閉される
 - 多彩な種類と色
 
-以下がその例です。
+以下がその例である。
 
 ```Markdown title="Info コールアウト"
-> [!info]+Info
+> [!info]+
 > Info コールアウトの例 (デフォルトで開く)
 ```
 
-> [!info]+Info
+> [!info]+
 > Info コールアウトの例 (デフォルトで開く)
 
 ---
 
-```Markdown title="Caution コールアウト"
-> [!warning]-warning
+```Markdown title="Warning コールアウト"
+> [!warning]-
 > Caution コールアウトの例 (デフォルトで閉じる)
 ```
 
-> [!warning]-Caution
+> [!warning]-
 > Caution コールアウトの例 (デフォルトで閉じる)
 
 ---
 
 ```Markdown title="Check コールアウト"
-> [!check] Check
+> [!check]
 > Check コールアウトの例 (開閉なし)
 ```
 
-> [!check] Check
+> [!check]
 > Check コールアウトの例 (開閉なし)
 
 ---
@@ -266,10 +288,12 @@ const { title } = Astro.props
 
 ##### OEmbed(埋め込み)
 
-エディタに直接ペーストされた URL は、埋め込み対応をしているものであればメディアフレームに変身します。
+動画の時代に大手を振って個人ブログに舵を切った私だが、早くも心が揺らいでいる。結局、我々は大手テックカンパニーの掌の上で踊らされる宿命なのか・・・。
 
-自前で Canva、YouTube、そして Google Slides の変換処理を追加し、それ以外のメディアは[OEmbed](https://oembed.com/)の規格に応じて適宜メディアフレームに変身するように Remark プラグインを自作しました。
-ちなみに裏では[unfurlというライブラリ](https://github.com/jacktuck/unfurl)が頑張ってくれていて、上記の規格に必要なメディアのメタデータを URL 経由で取得しています。
+YouTube の呪縛からは完全に逃れることはできないと悟り、恐る恐るメディアの埋め込みを実装した。
+Canva、YouTube、そして Google Slides の変換処理をひとまず作成し、それ以外のメディアは[OEmbed](https://oembed.com/)の規格に応じて適宜メディアフレームに変身するよう、Remark プラグインを自作した。「これはあくまでセーフティネット、ブログで表現できる限りはこんな機能には頼らないんだから・・！」と自分に言い聞かせる。
+
+ちなみに裏では[unfurl](https://github.com/jacktuck/unfurl)というライブラリが健気に働き、上記の規格に必要なメディアのメタデータを URL 経由で取得してくれている。
 
 ###### Canva
 
@@ -304,15 +328,15 @@ https://docs.google.com/presentation/d/1CbeSiVYta0VTuENQ-25OLcIV5vK8pkcBJ-8DfKql
 ![ Google Slides埋め込みイメージ ](../../../assets/images/google-slides-embed.png)
 
 > [!warning]-
-> 埋め込みはしばしばページのロードやSEOに悪影響を及ぼします。
-> これは、ホストから膨大なJSコードや最適化されていない画像などをそのまま使用するからで、現にこのページの[PageSpeed Insights](https://pagespeed.web.dev/)スコアは悲惨なことになっていました。
-> そういう訳で、一部画像にすり替えました。実装したはいいものの、今後埋め込み機能はあまり使わないかも...
+> 埋め込みはしばしばページの読み込みやSEOに悪影響を及ぼす。
+> これは、ホストから膨大なJSコードや最適化されていない画像などをそのまま拝借するからであり、現にこのページの[PageSpeed Insights](https://pagespeed.web.dev/)スコアは悲惨なことになっていた。
+> 然り而して、一部をただの画像にすり替えた。実装にそれなりの年月を費やしただけあって、タンスの肥やしになる運命が見えてしまった今、ただただ後悔の念に押し潰されそうである。・・・と同時に、思いがけず他媒体に頼りづらい状況が生まれ、安堵する自分もそこには居た。
 
 ##### リンクカード
 
-OEmbed 非対応の裸リンクは、フォールバックとして全てリンクカード形式に変身します。先述の OEmbed に加えて、この部分も Remark プラグインを自作しました。
+OEmbed 非対応のメディアの場合は、URL をそのままベタ貼りすると全てリンクカードに変身するよう実装した。先述の OEmbed に加え、この部分も Remark プラグインを自前実装。
 
-ここでも[unfurl](https://github.com/jacktuck/unfurl)が裏で暗躍していて、リンクカードに表示するサイト名やディスクリプション、OG 画像などを取得してくれています。
+ここでも[unfurl](https://github.com/jacktuck/unfurl)が裏で暗躍し、リンクカードに表示するサイト名やディスクリプション、OG 画像などを取得してくれている。
 
 ```txt
 https://younagi.dev
@@ -326,15 +350,21 @@ https://younagi.dev
 /videos/contact-form-demo.mp4
 :::
 
-最も頭を悩ませたのがお問い合わせフォームです。幾度かの大きな仕様変更を経て、最終的に SolidJS + TSX で実装する形に着地しました。
+Remark/Rehype プラグイン群と戯れるのには相当の労力を要したが、お問い合わせフォームも大概だ。
+仕様変更に右往左往し、紆余曲折もあったが、最終的に SolidJS + TSX で実装する形に着地した。
 
-とはいえ、お問い合わせフォームを丸ごとクライアントサイドで読み込ませると[^1]、ページロード時に甚大なレイアウトシフトが発生します。これでは SEO に悪いということで、同じくクライアントサイドでレンダリングされるモーダルの中に押し込むという荒業に着地しました[^2]。
+とはいえ、お問い合わせフォームを丸ごとクライアントサイドで読み込ませると[^3]、ページロード時に甚大なレイアウトシフトが発生し、SEO に悪影響を及ぼす。
+そこで、同じくクライアントサイドでレンダリングされるモーダルの中に押し込むという荒業で緊急着陸した[^4]。
 
-[^1]: 他の JS フレームワーク(私のケースでは SolidJS)を Astro のページやコンポーネント内で使用し、かつそれが JavaScript による処理を含む場合、それがどのフレームワークのコンポーネントなのか、Astro のコンパイラに明示的に教えてあげる必要があります。(クライアントディレクティブなるものをコンポーネント呼び出し箇所に追記すれば OK)これらフレームワークは、Astro の仕様によって、JS を含む時点でクライアントサイドでのレンダリング扱いとなり、故にコンパイラはビルド時やサーバーサイドで全く関知できないからです。お問い合わせフォームはユーザインタラクティブであり、簡素なものでなければ大抵は JavaScript が必要になるため、クライアントサイドのコンポーネントになります。
-[^2]: 前提として、Astro のページを含め、`.astro`のファイルはサーバーサイドでレンダリングされます。その上にクライアントで読み込まれるコンポーネントを置くと、ページ表示後にドサッと降ってくるような見た目の挙動になります。これが小さいコンポーネントならレイアウトシフトは深刻にはなりませんが、お問い合わせフォームのような巨大な部品だと被害は甚大になります。
+[^3]: 他の JS フレームワーク(私のケースでは SolidJS)を Astro のページやコンポーネント内で使用し、かつそれが JavaScript による処理を含む場合、それがどのフレームワークのコンポーネントなのか、Astro のコンパイラに明示的に教えてあげる必要がある。(クライアントディレクティブなるものをコンポーネント呼び出し箇所に追記すれば OK)
+これらフレームワークは、Astro の仕様によって、JS を含む時点でクライアントサイドでのレンダリング扱いとなり、故にコンパイラはビルド時やサーバーサイドで全く関知できないからだ。
+お問い合わせフォームはユーザとの双方向のやり取りが発生し、簡素なものでなければ大抵は JavaScript が必要になるため、クライアントサイドのコンポーネントになる。
+[^4]: 前提として、Astro のページを含め、`.astro`のファイルはサーバーサイドでレンダリングされる。
+その上にクライアントで読み込まれるコンポーネントを置くと、ページ表示後にドサッと降ってくるような見た目の挙動になり、これがお問い合わせフォームのような巨大な部品だと被害は甚大になる。
 
-簡単のため、フォーム制御に[Modular Forms](https://modularforms.dev/)、UI に[Kobalte](https://kobalte.dev/docs/core/overview/introduction)、バリデーションチェックに[Valibot](https://valibot.dev/)など有力なライブラリを使用しました。
-ポイントは下記の通りです。
+簡単のため、フォーム制御に[Modular Forms](https://modularforms.dev/)、UI に[Kobalte](https://kobalte.dev/docs/core/overview/introduction)、バリデーションチェックに[Valibot](https://valibot.dev/)など有力なライブラリを採用した。
+
+ポイントは下記の通り。
 
 - クライアントサイドのバリデーション
   - Modular Forms x Valibot x Cloudflare Turnstile
@@ -345,34 +375,34 @@ https://younagi.dev
   - Modular Forms のフォーム制御機能のおかげで簡単に実装できた
 - 送信完了後、サンクスページにリダイレクトされる
 
-ボット対策にはどうしても Google reCAPTCHA ではなく[Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/)を導入したく、この点はかなりこだわりました。[^3] 無料ですし、他の Cloudflare サービスとの連携も考えると、私にとっては一択でした。
+ボット対策にはどうしても Google reCAPTCHA ではなく[Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/)を導入したく、この点はかなりこだわった。[^5] 他の Cloudflare サービスとの連携も踏まえると、私にとっては一択問題であった。
 
-[^3]: 2010 年代を生き抜いた皆さんであれば恐らく誰もが遭遇しているであろう、例の車や信号をひたすら選ばせるパズルです。私の総プレイ時間は恐らく 1 時間を超えていると思われます・・。
+[^5]: ユーザの立場で reCAPTCHA に虐げられた記憶が、昨日のことのように思い出される。あのパズル問題を出題する側に回るのはさすがに御免である。
 
 ### Cloudflare
 
 #### Cloudflare Pages
 
-[Next.js](https://nextjs.org/) に執心だった頃、 私のお気に入りのホスティングサービスは [Vercel](https://vercel.com/) でしたが、Astro への移行に際して、見直す必要があると感じました。そしてたどり着きました。[Cloudflare Pages](https://developers.cloudflare.com/pages/)という結論に。
+Cloudflare は CDN やサイバーセキュリティ対策、ウェブサイトのホスティングなど、手広いサービスを提供している言わばネットの何でも屋である。今回は、ホスティングサービスである[Cloudflare Pages](https://www.cloudflare.com/ja-jp/developer-platform/products/pages/)を利用してサイトをデプロイすることにした。
 
 ##### どうして Cloudflare Pages?
 
-Cloudflare Pages をホスティング先に選んだのには次のような理由がありました。
+Cloudflare Pages を採用した理由は次の通り。
 
 - 寛大なフリープラン
   - 月あたりの帯域幅上限が無制限という素晴らしさ (2024 年 5 月 9 日現在)
 - 非常に高速なデプロイ
 - ドメイン用のカスタム E メールアドレスが取得できる
   - お問い合わせフォーム用に使用している
-  - フォームから送信されたお問い合わせはこのカスタム E メールアドレス経由で私用のメールアドレスに届くため、プライベートアドレスを公に晒さず済む(もちろん、返信時にもメールの送信元をカスタム E メールアドレスに設定できます)
+  - フォームから送信されたお問い合わせはこのカスタム E メールアドレス経由で私用のメールアドレスに届くため、プライベートアドレスを公に晒さず済む(返信時にもメールの送信元をカスタム E メールアドレスに設定できる)
 - 独自ドメイン取得可能 (有料)
   - `https://younagi.dev`
 
-フリープランでも当サイトのような小規模プロジェクトならば十分運用可能だと思います。この点が最も魅力的でした。
+フリープランでも、当サイトのような小規模プロジェクトならば十分運用可能だ。
 
 #### Cloudflare D1
 
-バックエンドについては、[Cloudflare D1](https://developers.cloudflare.com/d1/)をデータベースとして使用しています。Pages と同様に寛大なフリープランが魅力的だったのですが、ここでは深くは触れません。
+バックエンドについては、[Cloudflare D1](https://developers.cloudflare.com/d1/)をデータベースとして採用。Pages と同様に寛大なフリープランが魅力的なサービスであるが、ここでは深くは触れない。
 
 ##### いいねボタン
 
@@ -380,9 +410,9 @@ Cloudflare Pages をホスティング先に選んだのには次のような理
 /videos/likes-button-demo.mp4
 :::
 
-D1 データベースと[Drizzle ORM(Object-relational Mapping)](https://orm.drizzle.team/)を連携させ、よくあるいいねボタンを実装しました。ブログ記事の各ページに設置しています。
+D1 データベースと[Drizzle ORM(Object-relational Mapping)](https://orm.drizzle.team/)を連携させ、いいねボタンを実装。ブログ記事の各ページ末尾に設置した。大手 SNS と縁を切った身でありながら、無意識のうちにその化身であるところのいいねボタンを実装してしまっていた。そうなるはずの前世からの因縁であったのだろうか・・？
 
-仕組みを簡潔に述べます。
+ちなみに仕組みは次のようになっている。
 
 - その記事のいいねの合計数が表示される
   - ページのロードに際して、いいね用の API エンドポイントに GET リクエストが送られ、その時点でのいいねの合計数を取得、ユーザがいいねをしているか否かはデータベースに登録されているクッキーのセッション ID カラムを照合して判断する
@@ -396,31 +426,37 @@ D1 データベースと[Drizzle ORM(Object-relational Mapping)](https://orm.dri
 /videos/front-matter-cms-demo.mp4
 :::
 
-フレームワーク選定と並んで、CMS(Content Management System)選定にもかなりの時間を要します。私は [Front Matter CMS](https://frontmatter.codes/) に惹かれました。理由は次の通りです。
+「ブログを作ったはいいが、コンテンツ管理はどうしよう？」何らかの CMS(Content Management System)を利用するか、ローカルで管理するか、或いは・・。
+私は [Front Matter CMS](https://frontmatter.codes/) を採用した。理由は次の通り。
 
 - ローカルで記事の執筆や保存ができる
 - マークダウン/MDX 形式
 
-VS Code の拡張機能であり、ローカルで動くという点で、他のヘッドレス CMS とは一線を画しています。つまり、コードの修正や記事の執筆、サイトのデプロイなどの作業が VS Code エディタで一元化できます。 これは特に開発者にとって大きなメリットとなるのではないでしょうか。
+VS Code の拡張機能であり、ローカルで動くという点で、他のヘッドレス CMS とは一線を画している。これはつまり、コードの修正や記事の執筆、サイトのデプロイなどの作業が VS Code エディタで一元化できるということだ。特に開☆発☆者(デベロッパ)においては大きなメリットとなるのではないだろうか。
 
-初期セットアップについては[Front Matter 公式ドキュメント](https://frontmatter.codes/docs/getting-started)をご覧あれ。手順通りに進めると、Astro の`content`フォルダを自動で検知し、その中身に応じて`frontmatter.json`に各コンテンツの項目の定義などを書き出してくれます。基本、Front Matter CMS の設定はプロジェクトルート直下に置かれたこのファイルで管理します。
+初期セットアップについては[Front Matter 公式ドキュメント](https://frontmatter.codes/docs/getting-started)を参照されたし。手順通りに進めると、Astro の`content`フォルダを自動で検知し、その中身に応じて`frontmatter.json`に各コンテンツの項目の定義などを書き出してくれる。基本、Front Matter CMS の設定はプロジェクトルート直下に置かれたこのファイルで管理することになる。
 
 #### Front Matter CMS のカスタマイズ
 
-`frontmatter.json`のカスタマイズについて、幾つか嬉しいポイントがあります。
+`frontmatter.json`のカスタマイズについて、幾つか嬉しいポイントがある。
 
 - [ディレクトリによる多言語化](#多言語対応-i18n)との互換性
-  - コンテンツのディレクトリ内にある言語用のディレクトリを指定して、Front Matter CMS の設定と紐づけができます(私の場合、今のところ`en`と`ja`)
+  - コンテンツのディレクトリ内にある言語用のディレクトリを指定して、Front Matter CMS の設定と連携できる(私の場合、今のところ`en`と`ja`)
   - こうして、VSCode のコマンドから記事を作成する際に、書きたい言語を選べるようになった。記事は自動で指定のディレクトリに作成される
 - Astro の Content Collections との互換性(コンテンツ、データタイプ両方)
-  - Front Matter CMS にもコンテンツ、データの概念があり、それぞれを Astro のコンテンツ、データと関連させられる
+  - Front Matter CMS にもコンテンツ、データの概念があり、それぞれを Astro のコンテンツ、データと連携可能
   - ブログやニュースなどの「コンテンツ」はコンテンツとして、翻訳文字列やサイトメタデータ、ブログのカテゴリ・タグなどの「データ」はデータとして扱う
 
 https://younagi.dev/ja/blog/astro-and-front-matter-cms-combi/
 
 ## 結び
 
-この長い開発の旅の途中で、沢山の情報源にあたりました。これらの先達なしに今回の旅の成功はあり得なかったでしょう。以下に特によく訪問したウェブサイトやページを載せます。有益な情報やコードをありがとうございました。
+長かった・・。
+
+これ以前にも、技術選定の為、あらゆるフレームワークに入門し、一度は[Next.js](https://nextjs.org/) x [Vercel](https://vercel.com/)に照準を定めてしゃかりき奮闘していた。
+しかし数多の失敗作を生み出し続け、「何の成果も得られませんでした・・！」という言葉が口をついて出ようとしたまさにその時、Astro に出会った。
+
+そこからはネットオーシャンが誇る潤沢な情報源をあたり、何とかここまで漕ぎ着けた。これらの先達が居なければ、私は今頃力尽きて海の藻屑と化していただろう。感謝の意を込めて、以下に足しげく通ったウェブサイトを認める。
 
 プロジェクト全般:
 
@@ -434,6 +470,8 @@ https://www.haxibami.net/
 
 https://developers.cloudflare.com/
 
+https://honghong.me/
+
 全文検索:
 
 https://pagefind.app/
@@ -443,8 +481,6 @@ https://pagefind.app/
 https://trap.jp/post/2088/
 
 DB のセットアップ:
-
-https://honghong.me/
 
 https://snorre.io/blog/2024-05-06-likes-cloudflare-d1-astro-api-endpoints/
 

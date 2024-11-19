@@ -288,13 +288,25 @@ export default {
               borderCollapse: 'collapse',
               tableLayout: 'fixed',
               overflowX: 'auto',
-              textAlign: 'center',
+              overflowY: 'scroll',
               marginTop: '1.25rem',
               marginBottom: '1.25rem',
             },
+            th: {
+              '&:last-child': {
+                paddingInlineEnd: '0.5rem'
+              }
+            },
+            td: {
+              '&:first-child': {
+                paddingInlineStart: '0.5rem'
+              }
+            },
             'th, td': {
+              textAlign: 'center',
+              whiteSpace: 'nowrap',
               fontSize: '1rem',
-              borderColor: '(--color-line-solid)',
+              borderColor: 'var(--color-line-solid)',
               borderStyle: 'solid',
               borderWidth: '2px',
               padding: '0.5rem 0.65rem',

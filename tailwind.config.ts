@@ -284,13 +284,14 @@ export default {
             },
             table: {
               display: 'block',
-              maxWidth: '86vw',
+              width: '100%',
+              height: '50vh',
               borderCollapse: 'collapse',
               tableLayout: 'fixed',
               overflowX: 'auto',
               overflowY: 'scroll',
-              marginTop: '1.25rem',
-              marginBottom: '1.25rem',
+              marginTop: '1.5rem',
+              marginBottom: '1.5rem',
             },
             th: {
               '&:last-child': {
@@ -306,7 +307,7 @@ export default {
               textAlign: 'center',
               whiteSpace: 'nowrap',
               fontSize: '1rem',
-              borderColor: 'var(--color-line-solid)',
+              borderColor: theme('colors.neutral.400'),
               borderStyle: 'solid',
               borderWidth: '2px',
               padding: '0.5rem 0.65rem',
@@ -364,6 +365,9 @@ export default {
             '[data-link-card] img': {
               marginTop: '0',
               marginBottom: '0',
+            },
+            table: {
+              maxWidth: '86vw',
             },
           },
         },

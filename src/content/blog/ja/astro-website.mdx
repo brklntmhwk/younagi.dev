@@ -2,7 +2,7 @@
 title: Astro + Cloudflare Pages + D1 + Front Matter CMS で個人ウェブサイトを作った
 description: 動画の時代に個人ブログという茨の道を歩みたいオタクなあなたに贈る開発体験記。Astro + Cloudflare Pages + D1 + Front Matter CMS とその他諸々の構成で作った個人ウェブサイトの諸機能を紹介
 publishedAt: 2024-07-13T00:35:10.000Z
-modifiedAt: 2024-11-20T00:55:27.090Z
+modifiedAt: 2024-11-20T08:49:00.175Z
 draft: published
 type: blog
 category:
@@ -290,8 +290,9 @@ const { title } = Astro.props
 
 動画の時代に大手を振って個人ブログに舵を切った私だが、早くも心が揺らいでいる。結局、我々は大手テックカンパニーの掌の上で踊らされる宿命なのか・・・。
 
-YouTube の呪縛からは完全に逃れることはできないと悟り、恐る恐るメディアの埋め込みを実装した。
-Canva、YouTube、そして Google Slides の変換処理をひとまず作成し、それ以外のメディアは[OEmbed](https://oembed.com/)の規格に応じて適宜メディアフレームに変身するよう、Remark プラグインを自作した。「これはあくまでセーフティネット、ブログで表現できる限りはこんな機能には頼らないんだから・・！」と自分に言い聞かせる。
+YouTube の魔の手からは完全に逃れることはできないと悟り、逡巡しながらもメディアの埋め込みを実装した。
+Canva、YouTube、そして Google Slides の変換処理をひとまず作成し、それ以外のメディアは[OEmbed](https://oembed.com/)の規格に応じて適宜メディアフレームに変身するよう、Remark プラグインを自作した。
+「これはあくまでセーフティネット、ブログで表現できる限りはこんな機能には頼らないんだから・・！」と自分に言い聞かせる。
 
 ちなみに裏では[unfurl](https://github.com/jacktuck/unfurl)というライブラリが健気に働き、上記の規格に必要なメディアのメタデータを URL 経由で取得してくれている。
 
@@ -350,7 +351,7 @@ https://younagi.dev
 /videos/contact-form-demo.mp4
 :::
 
-Remark/Rehype プラグイン群と戯れるのには相当の労力を要したが、お問い合わせフォームも大概だ。
+Remark/Rehype プラグイン群と戯れるのには相当の労力を要したが、お問い合わせフォームも大概である。
 仕様変更に右往左往し、紆余曲折もあったが、最終的に SolidJS + TSX で実装する形に着地した。
 
 とはいえ、お問い合わせフォームを丸ごとクライアントサイドで読み込ませると[^3]、ページロード時に甚大なレイアウトシフトが発生し、SEO に悪影響を及ぼす。
@@ -375,7 +376,7 @@ Remark/Rehype プラグイン群と戯れるのには相当の労力を要した
   - Modular Forms のフォーム制御機能のおかげで簡単に実装できた
 - 送信完了後、サンクスページにリダイレクトされる
 
-ボット対策にはどうしても Google reCAPTCHA ではなく[Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/)を導入したく、この点はかなりこだわった。[^5] 他の Cloudflare サービスとの連携も踏まえると、私にとっては一択問題であった。
+ボット対策にはどうしても Google reCAPTCHA ではなく[Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/)を導入したく、この点はかなりこだわった。[^5] 他の Cloudflare サービスとの連携も踏まえると、私にとっては一択であった。
 
 [^5]: ユーザの立場で reCAPTCHA に虐げられた記憶が、昨日のことのように思い出される。あのパズル問題を出題する側に回るのはさすがに御免である。
 

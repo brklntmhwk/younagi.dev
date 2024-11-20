@@ -136,6 +136,9 @@ export default {
         DEFAULT: {
           css: {
             color: theme('colors.default'),
+            'h2, h3, h4, h5, h6': {
+              color: theme('colors.default'),
+            },
             'h5, h6': {
               fontWeight: 600,
             },
@@ -149,7 +152,8 @@ export default {
                 },
               },
             },
-            'h2 a, h3 a, h4 a, h5 a, h6': {
+            'h2 a, h3 a, h4 a, h5 a, h6 a': {
+              color: theme('colors.default'),
               textDecoration: 'none',
               '.heading-anchor-icon': {
                 marginRight: '0.5rem',
@@ -168,7 +172,7 @@ export default {
               marginBottom: '0',
             },
             'li::marker': {
-              color: theme('colors.neutral.500')
+              color: theme('colors.neutral.500'),
             },
             'ul li': {
               listStyleType: 'square',
@@ -280,17 +284,35 @@ export default {
             },
             table: {
               display: 'block',
-              maxWidth: '86vw',
+              maxHeight: '50vh',
               borderCollapse: 'collapse',
               tableLayout: 'fixed',
               overflowX: 'auto',
-              textAlign: 'center',
-              marginTop: '1.25rem',
-              marginBottom: '1.25rem',
+              overflowY: 'scroll',
+              marginTop: '1.5rem',
+              marginBottom: '1.5rem',
+            },
+            th: {
+              '&:first-child': {
+                paddingInlineStart: '0.5rem'
+              },
+              '&:last-child': {
+                paddingInlineEnd: '0.5rem'
+              }
+            },
+            td: {
+              '&:first-child': {
+                paddingInlineStart: '0.5rem'
+              },
+              '&:last-child': {
+                paddingInlineEnd: '0.5rem'
+              }
             },
             'th, td': {
+              textAlign: 'center',
+              whiteSpace: 'nowrap',
               fontSize: '1rem',
-              borderColor: '(--color-line-solid)',
+              borderColor: theme('colors.neutral.400'),
               borderStyle: 'solid',
               borderWidth: '2px',
               padding: '0.5rem 0.65rem',
@@ -348,6 +370,9 @@ export default {
             '[data-link-card] img': {
               marginTop: '0',
               marginBottom: '0',
+            },
+            table: {
+              maxWidth: '86vw',
             },
           },
         },

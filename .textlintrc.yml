@@ -13,9 +13,10 @@ rules:
       max: 10
     no-mix-dearu-desumasu:
       preferInHeader: ""
-      preferInBody: ですます
+      preferInBody: である
       preferInList: である
       strict: false
+      severity: warning
     ja-no-mixed-period:
       allowPeriodMarks:
         - ":"
@@ -29,6 +30,7 @@ rules:
       allow:
         - ある
         - そう
+        - まあ
         - ・
     no-exclamation-question-mark:
       allowFullWidthExclamation: true

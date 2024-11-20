@@ -284,8 +284,7 @@ export default {
             },
             table: {
               display: 'block',
-              width: '100%',
-              height: '50vh',
+              maxHeight: '50vh',
               borderCollapse: 'collapse',
               tableLayout: 'fixed',
               overflowX: 'auto',
@@ -294,6 +293,9 @@ export default {
               marginBottom: '1.5rem',
             },
             th: {
+              '&:first-child': {
+                paddingInlineStart: '0.5rem'
+              },
               '&:last-child': {
                 paddingInlineEnd: '0.5rem'
               }
@@ -301,6 +303,9 @@ export default {
             td: {
               '&:first-child': {
                 paddingInlineStart: '0.5rem'
+              },
+              '&:last-child': {
+                paddingInlineEnd: '0.5rem'
               }
             },
             'th, td': {

@@ -5,7 +5,7 @@ type: blog
 title: Total newbie builds Mini-ITX Linux PC (Error after Error)
 publishedAt: 2024-09-19T01:48:09.453Z
 fmContentType: blog
-modifiedAt: 2024-11-13T05:48:14.239Z
+modifiedAt: 2024-11-20T04:00:51.671Z
 category:
   metadata: en/categories
   slug: learning
@@ -15,8 +15,7 @@ tags:
     - error
     - pc
     - nixos
-description: A newbie builds Mini-ITX PC. You'll learn some tricky points explained from the beginner's standpoint from parts selection to OS installation.
-image: /src/assets/images/pc-parts.webp
+description: A newbie recklessly builds Mini-ITX PC. From the beginner's view, some tricky points are explained through parts selection to OS installation.
 ---
 
 ## Intro
@@ -24,13 +23,13 @@ image: /src/assets/images/pc-parts.webp
 > [!quote] One phrase
 > — My daily routine: Do something the hardest way in overconfidence, fail to do it, regret doing it, and repeat this
 
-There are bunches of tutorials or instructions on the internet about how to build a PC, but it seems most of them are explained from experts' or advanced users' perspectives.
+I'm a natural-born optimist overconfident in my ability and prone to set higher goals than I can manage. And I did it this time again.
 
-As a total newbie, here are my struggles along the way of building my Linux PC for the first time. (A lot of errors included)
+This is a documentary of a reckless beginner climbing to the top of the Mini-ITX PC build mountain.
 
 ### Reader personas
 
-No special experience required as long as you're keen to build your own PC.
+No special experience or background knowledge required as long as you're keen to build your own PC.
 
 - Want to build a PC from scratch but have no idea what to do or how to start either
 - Struggling with some errors along the way right now
@@ -53,10 +52,11 @@ From parts selection to OS installation, it took me almost a month. Here's the s
 4. **Fix errors:** 2 weeks
 5. **install the OS:** 1 day
 
+Two weeks passed fixing errors... Can you take a hint?
+
 ### Select PC parts
 
 The overview of my parts selection is as follows:
-Newbies like me might find it helpful as a list of necessary PC parts:
 
 ---
 ::::card-grid
@@ -107,11 +107,12 @@ Just in case, "Mini-ITX" is one of the motherboard types. It's the smallest one 
 
 ![ Sizes of motherboard ](../../../assets/images/mobo-size.png)
 
-Basically, you're supposed to choose it at the early stage of parts selection and then later other parts such as the PC case, power supply, and so forth. This is because they have a specific compatible type of motherboard one another.
+Basically, you're supposed to choose it at the early stage of parts selection and then later other parts such as the PC case, power supply, etc. This is because they have a specific compatible type of motherboard one another.
 
 I chose them following the order below. It might not be common to fix your PC case first though. [^1]
 
-[^1]: In my case, what led me to embark on building my PC was the PC case, "Lian Li A4-H2O". When I watched a YouTube video that showed me how to build a PC with it, I sort of fell in love with its sophisticated design. It was far from what I imagined as a self-built PC: A huge gaming PC with a dragon's eye(s).
+[^1]: In my case, what led me to embark on building my PC was the PC case.
+When I watched a YouTube video about how to build a PC with the "Lian Li A4-H2O" case, I sort of fell in love with its sophisticated design. Taken aback and I was like, "Isn't it about the dragon's eyes when it comes to home-built PCs...?!"
 
 1. PC case
 2. CPU, Motherboard
@@ -120,7 +121,7 @@ I chose them following the order below. It might not be common to fix your PC ca
 5. Memory, Storage
 
 > [!warning]+
-> Personally, I don't recommend going with a Mini-ITX PC case if you're a newbie like me because one of the most hardest parts was cable menagement. On top of that, I felt like it's a bit more expensive than other types, guessing it has a fewer lineups or is a niche option. (As of Sep 2024)
+> Personally, I don't recommend going with a Mini-ITX PC case if you're a newbie like me because one of the most hardest parts was cable menagement. Plus, I felt like it's a bit more expensive than other types, guessing it has a fewer lineups or is a niche option. (As of Sep 2024)
 
 #### Requirements
 
@@ -150,7 +151,9 @@ What plagued me most was hands down cable management. I ended up having to unbui
 
 The power cable almost touches the fans of the GPU, the extremely thick cable of the CPU cooler is tricky to handle, the numerous cables from the power supply take up so much space in the Mini-ITX case as it is, to name a few.
 
-Incidentally, I recommend you get velcro tapes for tieing cables. I bought them at DAISO. They are very versatile as you can see in the photo above!
+Incidentally, velcro tapes are a total game-changer in cable management. [^2] They are very versatile as you can see in the photo above.
+
+[^2]: I bought them at DAISO.
 
 > [!note] Lessons
 > \> Cable management is a very deep subject
@@ -158,9 +161,12 @@ Incidentally, I recommend you get velcro tapes for tieing cables. I bought them 
 
 #### Trouble 2: Black screen
 
-Through the cabling hell, I was able to turn on the PC; its CPU cooler was working properly. However, nothing was displayed on the monitor; it kept showing the black screen even after a few minutes.
+Through the cabling hell, I was able to turn on the PC.
+Its CPU cooler was working properly and I was like, "Now I'm coming to around the 7th station, aren't I?" My overoptimistic nature came to the fore.
+However, the monitor displays... NOTHING! It kept showing the black screen even after a few minutes.
 
-Since there's no such thing as a text error message, I had no idea how to fix it. At this time, my googling skill shined. Thanks to a lot of helpful info sources, it became clear that I could spot where the error occurs with the motherboard buzzer and LED lumps.
+Since there's no such thing as a clear error message, I had no idea how to fix it; I got completely stunned.
+But pioneers are everywhere. Thanks to a lot of info sources on the internet, it became clear that I can spot where the error occurs with the motherboard buzzer and LED lumps.
 
 I additionally bought and plugged them in the motherboard.
 
@@ -173,7 +179,7 @@ As a result, it turned out that the error lay in the memories so I tried to plug
 
 ![ The exchanged memories arrived ](../../../assets/images/exchenged-memory.avif)
 
-Surprisingly, replacing the memories fixed the error and the BIOS/UEFI menu successfully appeared on the monitor. How unfortunate I am drawing the short straw from the beginning...
+Surprisingly, replacing the memories fixed the error and the BIOS/UEFI menu successfully appeared on the monitor. How unfortunate I am drawing the short straw from the beginning. Doesn't beginner's luck exist anymore?
 
 > [!note] Lessons
 > \> Go get the motherboard buzzer, LED indicators, and preferably switch module just in case your PC doesn't work
@@ -183,13 +189,17 @@ Surprisingly, replacing the memories fixed the error and the BIOS/UEFI menu succ
 
 #### Trouble 3: SSD not recognized
 
-I was over the moon when I finally saw the BIOS/UEFI menu on the screen, but misfortunes never come alone.
+I was over the moon when I finally encountered the BIOS/UEFI menu on the screen. "Yes, the summit is almost there...!" But misfortunes never come alone.
 
-After looking over some of the BIOS settings, preparing the flash memory for installing the OS, and almost being finished installing it, this error message stood in the way: The installer failed to create a partition table on USB Flash Drive.
+After looking over some of the BIOS settings, preparing the flash memory for installing the OS, and almost being finished installing it, this error message stood in my way:
+
+> [!quote]
+> The installer failed to create a partition table on USB Flash Drive.
 
 ![ The error message captured ](../../../assets/images/nixos-installation-failed.jpg)
 
-As I was also new to installing the Linux OS, I thought there might've been something wrong with my partition settings at first. However, they turned out to have nothing to do with the error - I noticed something amiss: The SSD not recognized in the first place.
+As I was also new to installing the Linux OS, I thought there might've been something wrong with my partition settings at first.
+However, it turned out to be completely missing the point - I noticed something amiss: The SSD not recognized in the first place...
 
 ![ Only is the flash memory for OS installation detected ](../../../assets/images/ssd-not-recognized.avif)
 
@@ -206,7 +216,7 @@ Long story short, I ended up going through the following paths:
 
 By the way, did you notice that the SSD in [the photo](#start-building-a-mini-itx-pc) and that in [the parts list](#select-pc-parts) are different? (WD SN770 1TB vs. Crucial T500 500GB) This was sort of foreshadowing.
 
-At any rate, how clumsy I am, wasting a lot of time not setting up the SSD securely and a lot of money overlooking the support list...
+At any rate, how clumsy I am, wasting a lot of time not setting up the SSD securely and a lot of money overlooking the support list. STOP! "Bullet Climbing".
 
 > [!note] Lessons
 > \> Make sure to have your SSD seated in the slot securely. They don't make any sounds that tell you it's positioned correctly.
@@ -216,7 +226,7 @@ At any rate, how clumsy I am, wasting a lot of time not setting up the SSD secur
 
 ![ The OS successfully installed ](../../../assets/images/nixos-installation-done.jpg)
 
-Now I managed to install the OS. My choice is [NixOS](https://nixos.org/), a purely functional Linux distribution. For more details, see the article below.
+Now I'm finished installing the OS. My choice is [NixOS](https://nixos.org/), a purely functional Linux distribution. For more details, see the article below.
 
 (🚧Coming soon...)
 
@@ -224,9 +234,13 @@ Now I managed to install the OS. My choice is [NixOS](https://nixos.org/), a pur
 
 ![ My sweet Mini-ITX PC ](../../../assets/images/my-mini-itx-pc.avif)
 
+It was indescribably exciting - when I reached the BIOS/UEFI menu - when I spotted the summit for the first time.
+
+I hope this trekking log will be of help to someone else.
+
 ### What I found tricky as a newbie
 
-What's taken for granted by advanced users is not always so by newbies. Here are what I found tricky as a total newbie:
+There's something beginners can notice but not experts. Here are what I found tricky as a total newbie:
 
 - **Memory & storage compatibility:**
   - Even if your choice of the memory or storage is compatible with your motherboard in the types or interface, it cannot accept some of them
@@ -243,7 +257,3 @@ What's taken for granted by advanced users is not always so by newbies. Here are
   - I knew it usually comes with a CPU cooler but couldn't find it (I even turned the box upside down but to no avail..)
   - It was not until I'd spotted something white on my pants that I came to realize that it'd already been applied to the surface!
   - Don't you think it comes in a small container or something?
-
-Although you may bump into unexpected errors like me along the way, things will work out somehow in the end. Just keep it up when you're doing well, and hang in there when you're not!　
-
-I'll never forget the moment when I saw the BIOS/UEFI menu on the monitor for the first time. It was indescribably exciting.

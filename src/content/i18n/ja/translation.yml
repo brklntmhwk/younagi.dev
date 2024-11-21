@@ -39,10 +39,10 @@ photo_gallery_item:
   photo_label: Unsplashに掲載した写真
 bmc:
   button_label: 応援する
-  greeting_message: 励みになります
+  greeting_message: 感謝👏
 likes:
   button_label: 推せる
-  thanks_message: ありがとうございます
+  thanks_message: どうもありがとう👏
 star_rating:
   icon_label: スターアイコン
 contact_form:

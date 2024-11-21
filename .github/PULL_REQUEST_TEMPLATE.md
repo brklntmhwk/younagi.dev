@@ -1,6 +1,6 @@
 <!-- Title Formats of Pull Request:
   docs(content): 📖 xxx
-  refactor(overall): ✨ tweak xxx
+  refactor(some): ✨ tweak xxx
 -->
 
 ## Changes

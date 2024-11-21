@@ -10,7 +10,7 @@ type Props = {
   page?: Page<CollectionEntry<'blog' | 'news'>>;
 };
 
-const getValidPath = (path: string) => isDev ? path : `${path}/`
+const getValidPath = (path: string) => !isDev ? path : `${path}/`
 
 const paginator = (
   curPageNum: number,

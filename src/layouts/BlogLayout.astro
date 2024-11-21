@@ -14,7 +14,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getBlogCategory, getBlogTags } from '@/lib/collections/data';
 import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale';
 import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils';
-// import { Image } from 'astro:assets';
 import type { MarkdownHeading } from 'astro';
 
 type Props = {
@@ -35,7 +34,6 @@ const {
   publishedAt,
   modifiedAt,
   level,
-  // image,
 } = data;
 const slugWithoutLocale = getSlugWithoutLocale(slug);
 const category = await getBlogCategory(blogCategory);
@@ -73,16 +71,6 @@ const tags = await getBlogTags(blogTags);
             )
           }
         </div>
-        <!-- {
-          image && (
-            <Image
-              class="hero-image"
-              alt={title}
-              src={image}
-              loading="eager"
-            />
-          )
-        } -->
         <h1 class="text-center text-3xl sm:text-4xl xl:text-5xl font-extrabold leading-snug sm:leading-snug md:leading-snug xl:leading-normal">{title}</h1>
         <div class="text-[0.825rem] sm:text-[1.045rem] pt-2.5 pb-3.5 flex flex-wrap justify-center items-center gap-y-7 gap-x-3">
           {

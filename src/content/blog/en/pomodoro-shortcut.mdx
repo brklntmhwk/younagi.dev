@@ -3,7 +3,7 @@ title: Free pomodoro timer shortcut built only with the genuine Apple Clock app
 draft: published
 publishedAt: 2024-08-08T03:05:43.193Z
 type: blog
-modifiedAt: 2024-10-17T03:34:50.184Z
+modifiedAt: 2024-11-21T04:41:55.539Z
 category:
   slug: learning
   metadata: en/categories
@@ -13,17 +13,20 @@ tags:
     - ipad
   metadata: en/tags
 level: 1
-description: Learn how to create a pomodoro timer shortcut with the Apple Clock app
+description: Now that I've made up my mind on going through my life with Apple as a lifetime partner, I made a pomodoro timer shortcut as a memorial only using the clock app. Here are the description with the download link.
 ---
 
 ## Intro
 
-> [!quote] One Phrase
-> — Sometimes, something seemingly unproductive turns into the reverse.
+In modern society where productivity and time management are of top priority, there are a constellation of products and service coming and going day and night. They all serve the purpose of accelerating people's lives, especially those who've turned into prisoners of time.
 
-[The Pomodoro® Technique](https://www.pomodorotechnique.com/) plays a pivotal role in enhancing our productivity in modern society and there has been a bunch of pomodoro timer apps available in app stores.
+[The Pomodoro® Technique](https://www.pomodorotechnique.com/) plays a pivotal role as the accelerator and there've been a street full of pomodoro timer apps available in the app stores.
 
-That said, it turned out that few of them were really my cup of tea. Some have very limited features for free tier users, whereas some have a lot of bells and whistles that I mightn't use. Given that, I embarked on creating it on my own with the Apple shortcut.
+I, a prisoner of time like most people, went to the market and stuck around for a while.
+Having tried those tomatoes from A to Z that looked delicious, I couldn't still find anything that made me say "This is it!".
+Some have very limited features for free tier users, whereas some have a lot of bells and whistles that I mightn't use.
+
+So I embarked on creating it on my own with the Apple shortcut. As it's a rush job, I can't guarantee you its quality.
 
 > [!info]-What's the Pomodoro® Technique?
 > The Pomodoro® Technique utilizes fixed time intervals for focused work, usually 25 minutes, followed by short breaks. This structured approach keeps the mind alert and engaged, significantly reducing the inclination to procrastinate and enabling a deeper focus on tasks.
@@ -66,7 +69,7 @@ To start the pomodoro timer, all you have to do are:
 2. Set your working interval(25mins by default)
 3. Set your breaking interval(5mins by default)
 
-You'll see the timer counting down appear and now it's time to get your work started!
+You'll see the timer counting down appear. Now, let's get started!
 
 ![ The timer tab ](../../../assets/images/timer-display.png)
 
@@ -112,7 +115,8 @@ Hereafter, it runs on the same process
 This shortcut can take a parameter in text and then retrieves the interval times separately from it if it exists, which makes it recursive.
 If not, it asks you how long, which is supposed to be the case only the first time.
 
-Another important point is that the Apple shortcut doesn't have a feature like the [async/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) from JavaScript. [^1] That's why I had to use the "Wait xxx" block instead of the await operator to make it align with the timer in terms of the timing, which is a bit of a workaround.
+Another important point is that the Apple shortcut doesn't have a feature like the [async/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) from JavaScript. [^1]
+That's why I had to use the "Wait xxx" block instead of the await operator to make it align with the timer in terms of the timing. I know it's a bit of a workaround.
 
 [^1]: To the best of my knowledge, there's no such feature as asynchronous as of Oct 2024.
 

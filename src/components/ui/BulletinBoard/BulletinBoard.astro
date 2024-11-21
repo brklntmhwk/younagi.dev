@@ -23,10 +23,10 @@ const t = await getEntry('i18n', `${locale}/translation`);
     {
       newsList.length > 0 ? (
         newsList.map((news) => (
-          <li class="font-pixelMPlus text-[1.65rem] lg:text-3xl text-bulletin-fg inline mr-20 tracking-[0.125rem] [text-shadow:_0_0_4px]">
+          <li class="font-pixelMPlus text-[1.75rem] lg:text-3xl text-bulletin-fg inline mr-20 tracking-[0.125rem] [text-shadow:_0_0_4px]">
             <a
               href={translatePath(
-                `/${news.collection}/${news.slug.split('/').pop()}`
+                `/${news.collection}/${news.slug.split('/').pop()}/`
               )}
             >
               {news.data.title}

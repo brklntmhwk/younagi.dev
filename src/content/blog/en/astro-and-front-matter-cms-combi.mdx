@@ -13,24 +13,27 @@ tags:
     - astro
     - vscode
 level: 1
-description: Detailed explanations of how Front Matter CMS could be the best partner for Astro among all headless CMS, and the configurations I made with some demos.
-modifiedAt: 2024-11-12T04:47:06.742Z
+description: In the CMS community, a commet appeared all of a sudden as if putting an end to the chaos. It's Front Matter CMS. It might be the best match for websites built using Astro.
+modifiedAt: 2024-11-21T06:42:35.096Z
 ---
 
 ## Intro
 
-> [!quote] One Phrase
-> — My favorite words: "All-in-One".
+This website is built using [Astro](https://astro.build/), a JS (meta)framework. Along the way of building, I suffered a great deal from a certain thing irrelevant to the implementation of features: Choice of CMS.
 
-Unlike other headless CMS, articles of this website are edited in and posted from local, in the VSCode editor. I believe this is especially beneficial to developers who build and run their own tech blog or the likes.
+As of 2024, the headless CMS community, in particular, is so chaotic that CMS services are sprouting like mashrooms.
+While having a lot of options is grateful, it's nothing but hell for newbies.
+"I just wanted to build my blog but a large amount of time melted away while working on tutorials for CMS before I noticed..." I'm one of them.
 
-Here, I'm walking you through the beautiful harmony between [Astro](https://astro.build/) and [Front Matter CMS](https://frontmatter.codes/) taking my website's example. For more information about it, see this article.
+Then, I bumped into [Front Matter CMS](https://frontmatter.codes/).
+"It's obvious this star is shining differently than others...!" I was certain about that so decided to leave my content's fate up to it.
+
+Hereafter you'll see how Front Matter CMS works together with [Astro](https://astro.build/) as an example, which is my website.
+For more details of it, see the article below.
 
 https://younagi.dev/blog/astro-website/
 
 ### Reader personas
-
-This article is written assuming readers are a front-end developer whether hobby or work.
 
 - Want to build and run one's own website or blog but overwhelmed by countless options for headless CMS
 - Struggling to find a headless CMS for a website built with Astro
@@ -56,11 +59,14 @@ There are three reasons:
 
 Especially the first one is what makes it different from other headless CMS and makes me decide using it.
 
-Plus, it also offers [an AI assistance feature](https://frontmatter.codes/docs/sponsor-features#front-matter-ai) where you can ask them whatever via the VSCode command. So you don't even have to have an internet connection to look up something, which is pretty cool coupled with the capability of editing articles offline.
+And surprisingly, it offers an [AI assistance feature](https://frontmatter.codes/docs/sponsor-features#front-matter-ai) where you can ask them whatever via the VSCode command.
+So you don't even have to access the internet to look up something, which is pretty cool coupled with the capability of editing articles offline.
 
 ![ Demo: Front Matter AI ](../../../assets/images/front-matter-cms-ai-assitance.png)
 
 ### Downsides of Front Matter CMS
+
+Having said that, there are still some downsides:
 
 - Exclusive to VSCode users
 - Available languages are limited
@@ -71,7 +77,7 @@ Plus, it also offers [an AI assistance feature](https://frontmatter.codes/docs/s
 
 ### My Astro project's overview
 
-Thanks to [the Astro Content Collections API](https://docs.astro.build/en/guides/content-collections/), content management is very easy. You can manage contents and data collections under the `src/content` directory.
+Thanks to [the Astro Content Collections API](https://docs.astro.build/en/guides/content-collections/), you can easily manage content and data collections under the `src/content` directory.
 
 Below is my project's structural overview. For brevity, most irrelevant parts are omitted from the directory tree.
 
@@ -104,7 +110,7 @@ younagi.dev/
 └── astro.config.ts
 ```
 
-As you can see, the Content Collections work with the `config.ts` file, in which all the contents' types & fields are defined.
+Off-topic, the Content Collections work with the `config.ts` file, in which all the contents' types & fields are defined.
 
 ```typescript title="src/content/config.ts"
 import { defineCollection, reference, z } from "astro:content";
@@ -160,7 +166,9 @@ const tags = defineCollection({
 export const collections = { blog, categories, tags /* ... */ };
 ```
 
-In the `astro.config.ts`, within the scope of this article, I topped up the i18n feature. You're going to have to make Front Matter CMS settings consistent with this later.
+The `astro.config.ts` is a config file for the Astro project overall. As far as it's concerned with this article, I added the i18n feature here.
+
+You're going to have to make Front Matter CMS settings consistent with this later.
 
 ```typescript title="astro.config.ts"
 import { defineConfig /* ... */ } from "astro/config";
@@ -178,12 +186,12 @@ export default defineConfig({
 
 ### Configurations
 
-When it comes to the setup, consult [the Front Matter official doc](https://frontmatter.codes/docs/getting-started). You cannot get lost with the doc and support of the AI assistance.
+When it comes to the setup, consult [the Front Matter official doc](https://frontmatter.codes/docs/getting-started). I suppose you cannot get lost with the doc and support of the AI assistance.
 
 After the setup, you're supposed to tweak the `frontmatter.json` to make it consistent with your contents and data configurations.
 
-In my case, the framework is Astro, but you can do this with other frameworks too as long as you have Markdown/MDX contents in it.
-The thing is how correctly and accurately you can specify your contents' locations in the config file. Here is mine.
+The framework is Astro this time, but you'll probably be able to do this with other frameworks too as long as you have Markdown/MDX contents in it.
+The thing is how correctly you specify your content's locations in the config file.
 
 ````json title="frontmatter.json"
 {
@@ -575,7 +583,7 @@ The thing is how correctly and accurately you can specify your contents' locatio
 }
 ````
 
-Some are automatically added during the setup process and some are not. Here are some important items that I manually added:
+In the above options, some are automatically added during the setup process and some are not. Here are some important items that I manually added:
 
 - `frontMatter.content.publicFolder`: Specify your assets directory if needed
   - In my case, I wanted to modify it for leveraging [the Astro's assets optimization](https://docs.astro.build/en/guides/images/#where-to-store-images). It's set to the `public` directory by default
@@ -649,11 +657,12 @@ You can view and manage all assets from your dashboard. Advantages are:
 
 ## Outro
 
-Front Matter CMS is a VSCode extension. Even if it stops developing, migrating to other CMS is easy, which I think would be one of the most important factors considering the pace as which modern technology is advancing.
+Front Matter CMS is a VSCode extension. Even if it stops developing, migrating to other CMS is easy.
+That would be one of the most important factors considering the pace as which modern technology is advancing.
 
 For the same reason, I've been using [Obsidian](https://obsidian.md/) as my knowledge base and [Astro](https://astro.build/) as a meta framework of this website. The common ground is "**portability**".
 
 - **Obsidian**: All contents are written in Markdown and managed in local unlike Notion
   - All you need to do for migration is move all the `.md` files
-- **Astro**: In `.astro` files, HTML, CSS, and vanilla JS can be used and all contents are written in Markdown/MDX.
+- **Astro**: In `.astro` files, HTML, CSS, and vanilla JS can be used. Content is written in Markdown/MDX.
   - Even if Astro reaches its end of life, still you'll be able to reuse them(HTML, CSS, etc..) since those basic technologies aren't supposed to be deprecated that rapidly

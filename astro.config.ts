@@ -73,6 +73,7 @@ export default defineConfig({
     defaultStrategy: 'viewport',
     prefetchAll: true,
   },
+  trailingSlash: "always",
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'ja'],

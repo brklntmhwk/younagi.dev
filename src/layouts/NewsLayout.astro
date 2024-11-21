@@ -28,7 +28,7 @@ const slugWithoutLocale = getSlugWithoutLocale(slug);
     height: 630,
     width: 1200,
     image: new URL(
-      translatePath(`/api/og/${collection}/${slugWithoutLocale}.png`),
+      translatePath(`/api/og/${collection}/${slugWithoutLocale}.png/`),
       Astro.site
     ),
     type: 'article',

@@ -39,13 +39,13 @@ const t = await getEntry('i18n', `${locale}/translation`);
     <section>
       <h1 class="text-4xl md:text-5xl font-extrabold mb-5">{t.data.pages.blog.title}</h1>
       <div class="flex flex-wrap gap-y-2 md:gap-y-3 gap-x-4 md:gap-x-6">
-        <a class="text-base md:text-lg no-underline text-primary hover:text-primary-dim" href=`/${locale}/blog/categories`>
+        <a class="text-base md:text-lg no-underline text-primary hover:text-primary-dim" href=`/${locale}/blog/categories/`>
           {t.data.pages.blog.categories.title}
         </a>
-        <a class="text-base md:text-lg no-underline text-primary hover:text-primary-dim" href=`/${locale}/blog/tags`>
+        <a class="text-base md:text-lg no-underline text-primary hover:text-primary-dim" href=`/${locale}/blog/tags/`>
           {t.data.pages.blog.tags.title}
         </a>
-        <a class="text-base md:text-lg no-underline text-primary hover:text-primary-dim" href=`/${locale}/blog/archive`>
+        <a class="text-base md:text-lg no-underline text-primary hover:text-primary-dim" href=`/${locale}/blog/archive/`>
           {t.data.pages.blog.archive.title}
         </a>
       </div>

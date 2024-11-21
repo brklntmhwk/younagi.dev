@@ -95,7 +95,7 @@ export const ContactForm: Component<Props> = ({ t }) => {
   const handleSubmit: SubmitHandler<FormFields> = async (values) => {
     try {
       await wretch()
-        .url(translatePath('/api/form'))
+        .url(translatePath('/api/form/'))
         .post(values)
         .error(422, (err) => handleError(err))
         .badRequest((err) => handleError(err))

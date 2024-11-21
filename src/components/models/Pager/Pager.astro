@@ -60,7 +60,7 @@ const { page } = Astro.props;
               return (
                 <li>
                   <a
-                    href={`/${currentPath.split('/').slice(1, -1).join('/')}/`}
+                    href={`/${currentPath.split('/').slice(1, -2).join('/')}/`}
                     class="text-primary hover:text-primary-dark"
                   >
                     {pg}
@@ -72,14 +72,14 @@ const { page } = Astro.props;
                 <li>
                   {page.currentPage === 1 ? (
                     <a
-                      href={`/${currentPath.split('/').slice(1).join('/')}/${pg}/`}
+                      href={`/${currentPath.split('/').slice(1, -1).join('/')}/${pg}/`}
                       class="text-primary hover:text-primary-dark"
                     >
                       {pg}
                     </a>
                   ) : (
                     <a
-                      href={`/${currentPath.split('/').slice(1, -1).join('/')}/${pg}/`}
+                      href={`/${currentPath.split('/').slice(1, -2).join('/')}/${pg}/`}
                       class="text-primary hover:text-primary-dark"
                     >
                       {currentPath}

@@ -39,10 +39,10 @@ photo_gallery_item:
   photo_label: From Unsplash, My photo No.
 bmc:
   button_label: Buy Me A Coffee
-  greeting_message: Caffeine helps me create more
+  greeting_message: Thanks👏
 likes:
   button_label: Like it
-  thanks_message: Thank you
+  thanks_message: Thanks👏
 star_rating:
   icon_label: A star icon
 contact_form:

@@ -13,7 +13,7 @@ type FetcherProps = Omit<Props, 't'> & { locale: Language };
 const fetchLikes = async ({ slug, collection, locale }: FetcherProps) => {
   const translatePath = useTranslatedPath(locale);
   const data = (await wretch()
-    .url(translatePath(`/api/likes?slug=${slug}&collection=${collection}`))
+    .url(translatePath(`/api/likes/?slug=${slug}&collection=${collection}`))
     .get()
     .json()) as { likes: number; liked: boolean };
 
@@ -40,7 +40,7 @@ export const Likes: Component<Props> = (props) => {
 
   const handleClick = async () => {
     await wretch()
-      .url(translatePath('/api/likes'))
+      .url(translatePath('/api/likes/'))
       .post({
         slug: props.slug,
         collection: props.collection,

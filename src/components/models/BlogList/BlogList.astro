@@ -39,7 +39,7 @@ const { entries, taxonomies } = Astro.props;
             <a
               class="font-bold text-xl xs:text-2xl xl:text-3xl hover:bg-default-mixed"
               href={translatePath(
-                `/${entry.collection}/${entry.slug.split('/').pop()}`
+                `/${entry.collection}/${entry.slug.split('/').pop()}/`
               )}
             >
               {title}

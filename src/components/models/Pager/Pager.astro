@@ -4,13 +4,10 @@ import { Icon } from '@/components/ui/Icon';
 import { DEFAULT_PAGINATION_WIDTH } from '@/lib/consts';
 import { getLocaleFromUrl } from '@/utils/i18n/utils';
 import type { Page } from 'astro';
-import { isDev } from '@/lib/mode'
 
 type Props = {
   page?: Page<CollectionEntry<'blog' | 'news'>>;
 };
-
-const getValidPath = (path: string) => !isDev ? path : `${path}/`
 
 const paginator = (
   curPageNum: number,
@@ -63,7 +60,7 @@ const { page } = Astro.props;
               return (
                 <li>
                   <a
-                    href={getValidPath(`/${currentPath.split('/').slice(1, -1).join('/')}`)}
+                    href={`/${currentPath.split('/').slice(1, -2).join('/')}/`}
                     class="text-primary hover:text-primary-dark"
                   >
                     {pg}
@@ -75,14 +72,14 @@ const { page } = Astro.props;
                 <li>
                   {page.currentPage === 1 ? (
                     <a
-                      href={getValidPath(`/${currentPath.split('/').slice(1).join('/')}/${pg}`)}
+                      href={`/${currentPath.split('/').slice(1, -1).join('/')}/${pg}/`}
                       class="text-primary hover:text-primary-dark"
                     >
                       {pg}
                     </a>
                   ) : (
                     <a
-                      href={getValidPath(`/${currentPath.split('/').slice(1, -1).join('/')}/${pg}`)}
+                      href={`/${currentPath.split('/').slice(1, -2).join('/')}/${pg}/`}
                       class="text-primary hover:text-primary-dark"
                     >
                       {currentPath}

@@ -16,7 +16,7 @@ const { kind, taxonomy } = Astro.props;
 
 <a
   class="align-top select-none whitespace-nowrap"
-  href={translatePath(`/blog/${kind}/${slugify(taxonomy.slug)}`)}
+  href={translatePath(`/blog/${kind}/${slugify(taxonomy.slug)}/`)}
 >
   <span class={taxonomyStyle({ color: taxonomy.color, taxonomy: kind })}>
     {kind === 'tags' ? `# ${taxonomy.title}` : taxonomy.title}

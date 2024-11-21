@@ -20,14 +20,14 @@ const year = new Date().getFullYear();
   <div class="flex justify-center gap-7 text-primary hover:text-primary-dark">
     {
       privacyPolicyPage && (
-        <a href={translatePath(`/${privacyPolicyPage.slug.split('/').pop()}`)}>
+        <a href={translatePath(`/${privacyPolicyPage.slug.split('/').pop()}/`)}>
           {privacyPolicyPage.data.title}
         </a>
       )
     }
     {
       sitePolicyPage && (
-        <a href={translatePath(`/${sitePolicyPage.slug.split('/').pop()}`)}>
+        <a href={translatePath(`/${sitePolicyPage.slug.split('/').pop()}/`)}>
           {sitePolicyPage.data.title}
         </a>
       )
@@ -50,7 +50,7 @@ const year = new Date().getFullYear();
     >
       <Icon class="fill-default hover:fill-zinc-400" iconName="unsplash" width={32} height={32} />
     </a>
-    <a href={translatePath('/rss.xml')} title="RSS" aria-label="RSS" class="no-underline">
+    <a href={translatePath('/rss.xml/')} title="RSS" aria-label="RSS" class="no-underline">
       <Icon class="fill-default hover:fill-zinc-400" iconName="rss" width={32} height={32} />
     </a>
   </div>

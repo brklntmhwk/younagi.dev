@@ -33,27 +33,27 @@ const t = await getEntry('i18n', `${locale}/translation`);
   </a>
   <NavMenuContainer>
     <div class="
-    flex flex-col lg:self-start gap-6 lg:gap-8 py-3 lg:p-0 px-11 ml-5 lg:ml-6"
+    flex flex-col self-center lg:self-start gap-6 lg:gap-8 py-3 lg:p-0 px-11 ml-5 lg:ml-6"
     slot="inside-drawer">
-      <NavLink class="relative text-lg active:font-bold hover:before:content-['▶'] hover:before:absolute hover:before:top-0 hover:before:-left-7 lg:hover:before:-left-6 hover:before:text-xl hover:before:self-center"
+      <NavLink class="relative text-lg sm:text-xl lg:text-lg active:font-bold hover:before:content-['▶'] hover:before:absolute hover:before:top-0 hover:before:-left-7 lg:hover:before:-left-6 hover:before:text-xl hover:before:self-center"
       href={translatePath('/')}>{t.data.nav.nav_links.home}</NavLink>
-      <NavLink class="relative text-lg active:font-bold hover:before:content-['▶'] hover:before:absolute hover:before:top-0 hover:before:-left-7 lg:hover:before:-left-6 hover:before:text-xl hover:before:self-center"
+      <NavLink class="relative text-lg sm:text-xl lg:text-lg active:font-bold hover:before:content-['▶'] hover:before:absolute hover:before:top-0 hover:before:-left-7 lg:hover:before:-left-6 hover:before:text-xl hover:before:self-center"
       href={translatePath('/blog/')}
         >{t.data.nav.nav_links.blog}</NavLink
       >
-      <NavLink class="relative text-lg active:font-bold hover:before:content-['▶'] hover:before:absolute hover:before:top-0 hover:before:-left-7 lg:hover:before:-left-6 hover:before:text-xl hover:before:self-center"
+      <NavLink class="relative text-lg sm:text-xl lg:text-lg active:font-bold hover:before:content-['▶'] hover:before:absolute hover:before:top-0 hover:before:-left-7 lg:hover:before:-left-6 hover:before:text-xl hover:before:self-center"
       href={translatePath('/news/')}
         >{t.data.nav.nav_links.news}</NavLink
       >
-      <NavLink class="relative text-lg active:font-bold hover:before:content-['▶'] hover:before:absolute hover:before:top-0 hover:before:-left-7 lg:hover:before:-left-6 hover:before:text-xl hover:before:self-center"
+      <NavLink class="relative text-lg sm:text-xl lg:text-lg active:font-bold hover:before:content-['▶'] hover:before:absolute hover:before:top-0 hover:before:-left-7 lg:hover:before:-left-6 hover:before:text-xl hover:before:self-center"
       href={translatePath('/about/')}
         >{t.data.nav.nav_links.about}</NavLink
       >
-      <NavLink class="relative text-lg active:font-bold hover:before:content-['▶'] hover:before:absolute hover:before:top-0 hover:before:-left-7 lg:hover:before:-left-6 hover:before:text-xl hover:before:self-center"
+      <NavLink class="relative text-lg sm:text-xl lg:text-lg active:font-bold hover:before:content-['▶'] hover:before:absolute hover:before:top-0 hover:before:-left-7 lg:hover:before:-left-6 hover:before:text-xl hover:before:self-center"
       href={translatePath('/work/')}
         >{t.data.nav.nav_links.work}</NavLink
       >
-      <NavLink class="relative text-lg active:font-bold hover:before:content-['▶'] hover:before:absolute hover:before:top-0 hover:before:-left-7 lg:hover:before:-left-6 hover:before:text-xl hover:before:self-center"
+      <NavLink class="relative text-lg sm:text-xl lg:text-lg active:font-bold hover:before:content-['▶'] hover:before:absolute hover:before:top-0 hover:before:-left-7 lg:hover:before:-left-6 hover:before:text-xl hover:before:self-center"
       href={translatePath('/tools/')}
         >{t.data.nav.nav_links.tools}</NavLink
       >

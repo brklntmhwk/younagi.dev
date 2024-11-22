@@ -46,11 +46,12 @@ const { class: cardClass, ...restProps } = Astro.props;
       & :global(br:first-child) {
         display: none;
       }
-      font-size: 0.725rem;
-      padding: 0.175rem 0.325rem;
+      font-size: 0.75rem;
+      padding: 0.125rem 0.325rem;
       overflow-y: auto;
       @media (min-width: 640px) {
         font-size: 0.925rem;
+        padding: 0.125rem 0.5rem
       }
     }
   }

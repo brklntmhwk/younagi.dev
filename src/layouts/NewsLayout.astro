@@ -28,7 +28,7 @@ const slugWithoutLocale = getSlugWithoutLocale(slug);
     height: 630,
     width: 1200,
     image: new URL(
-      translatePath(`/api/og/${collection}/${slugWithoutLocale}.png/`),
+      translatePath(`/api/og/${collection}/${slugWithoutLocale}.png`),
       Astro.site
     ),
     type: 'article',
@@ -53,7 +53,7 @@ const slugWithoutLocale = getSlugWithoutLocale(slug);
           }
         </div>
       </section>
-      <section slot="content" class="prose prose-lg md:prose-xl">
+      <section slot="content" class="prose prose-lg md:prose-xl dark:prose-dark">
         <slot />
       </section>
       <section slot="cta" class="flex flex-wrap items-center gap-x-7 gap-y-3">

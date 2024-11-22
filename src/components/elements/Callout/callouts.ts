@@ -57,7 +57,7 @@ export const style = tv({
       info: 'bg-sky-100 dark:bg-sky-700 text-sky-600 dark:text-sky-300',
       check: 'bg-teal-100 dark:bg-teal-700 text-teal-600 dark:text-teal-300',
       question:
-        'bg-indigo-100 dark:bg-indigo-800 text-indigo-500 dark:text-indigo-300',
+        'bg-indigo-200 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300',
       note: 'bg-amber-100 dark:bg-amber-700 text-amber-600 dark:text-amber-400',
       failure: 'bg-red-100 dark:bg-red-900 text-red-500 dark:text-red-300',
       quote:

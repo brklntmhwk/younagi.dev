@@ -54,4 +54,11 @@
   slug: diy
   ruby: diy
   color: green
-
+- title: Keyboard
+  slug: keyboard
+  ruby: keyboard
+  color: gray
+- title: Electronics
+  slug: electronics
+  ruby: electronics
+  color: green

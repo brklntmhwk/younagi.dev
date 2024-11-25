@@ -54,4 +54,11 @@
   slug: diy
   ruby: diy
   color: green
-
+- title: キーボード
+  slug: keyboard
+  ruby: きーぼーど
+  color: gray
+- title: 電子工作
+  slug: electronics
+  ruby: でんしこうさく
+  color: green

@@ -24,7 +24,7 @@ const calloutTitle: string | undefined = await Astro.slots.render('default');
     <>
       <input
         type="checkbox"
-        class="peer appearance-none"
+        class="peer hidden"
         id={`callout-toggle-check-${dataCalloutType}-${uniqueId}`}
         checked={isExpanded}
       />

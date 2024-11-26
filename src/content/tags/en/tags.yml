@@ -62,3 +62,12 @@
   slug: electronics
   ruby: electronics
   color: green
+- title: Markdown
+  slug: markdown
+  ruby: markdown
+  color: primary
+- title: Linux
+  slug: linux
+  ruby: linux
+  color: gray
+

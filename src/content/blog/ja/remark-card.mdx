@@ -1,0 +1,297 @@
+---
+draft: draft
+level: 2
+type: blog
+title: Remark プラグイン「remark-card」を作って Astro 製ウェブサイトで使ってみた
+publishedAt: 2024-11-26T01:30:34.391Z
+fmContentType: blog
+modifiedAt: 2024-11-26T08:42:45.816Z
+category:
+  metadata: en/categories
+  slug: attempt
+tags:
+  metadata: en/tags
+  slugList:
+    - typescript
+    - astro
+    - markdown
+description: 古来、我々はカードの形をしたものに目がない。プレーンテキストと並んでいるとどうしてもカードの方に目を奪われてしまう。しかし、マークダウンでは構文的にサポート外である。それならプラグインで拡張すればいいじゃない？
+---
+
+## 導入
+
+{/* textlint-disable ja-technical-writing/ja-no-mixed-period */}
+幼い頃から、魔法使いになることを夢見ていた——
+
+この度、ようやくその念願が叶った。
+しかしその能力は限定的で、リンゴをアップルパイに変えたり、嫌いな人をマリモッコリに変えたりはできない。代わりに、マークダウンを望み通りの HTML に変えることならできる。
+
+ところで、Remark や Rehype を擁する文書変換エコシステム「[Unified](https://unifiedjs.com/)」の下では、世界各地に点在する有志たちによって、数多のプラグインが日夜開発・メンテナンスされている。
+しかしザっと見渡す限り、「マークダウン記法でフィールド上にカードコンポーネントを召喚できる」と謳うものは存在しなかった。[^1]
+
+[^1]: カードはカードでも、リンクカードなら沢山ヒットしたのだが・・。
+
+そういう訳で、無いなら自分で作ろうということに相成った。今なら、空だって飛べる気がする。
+
+### 想定読者
+
+- Remark プラグインを自分で作ってみたい
+- `remark-card`に興味がある
+- マークダウン/MDX のブログに彩りを添えようと躍起になっている
+
+### 現時点での私の習熟度
+
+記事執筆時点での私の習熟度は次の通り。
+
+- ソフトウェアエンジニアとして計 3 年の経験あり(勤続ではない)
+- JavaScript、TypeScript の基本は理解している(つもり)
+- NPM パッケージは公開したことがない
+
+## 本題
+
+Github リポジトリはこちら。インストール方法については README に認めてあるので、ここでは触れない。
+
+https://github.com/brklntmhwk/remark-card
+
+### 使い方
+
+`remark-card`は`card-grid`、`card`の 2 つのマークダウン方言を提供する。
+前者はカードを複数表示する場合にラッパーの役割を果たし、後者はカード単体である。
+
+> [!note]
+> 以降の具体例では、簡単のため、HTML に限って本記事の趣旨から外れる記述(`class`等)を削ぎ落としている。
+
+#### card
+
+まずカード単体の記法はこちら。
+
+```markdown title="Markdown"
+:::card
+![younagi.dev](../../../assets/images/younagidev.jpg)
+younagi.dev
+:::
+```
+
+これがイイ感じの HTML に変換され・・。
+
+```html title="HTML"
+<div>
+  <div class="image-container">
+    <figure>
+      <picture>
+        <source srcset="...">
+        <source srcset="...">
+        <img src="..." alt="younagi.dev">
+      </picture>
+      <figcaption>younagi.dev</figcaption>
+    </figure>
+  </div>
+  <div class="content-container">
+    younagi.dev
+  </div>
+</div>
+```
+
+最終的な出力はコレだ。
+
+:::card
+![younagi.dev](../../../assets/images/younagidev.jpg)
+younagi.dev
+:::
+
+#### card-grid
+
+次にカードグリッドの中に複数のカードを並べてみよう。
+
+```markdown title="Markdown"
+::::card-grid
+:::card
+![younagi.dev](../../../assets/images/younagidev.jpg)
+younagi.dev 其の一
+:::
+:::card
+![younagi.dev](../../../assets/images/younagidev.jpg)
+younagi.dev 其の二
+:::
+:::card
+![younagi.dev](../../../assets/images/younagidev.jpg)
+younagi.dev 其の三
+:::
+::::
+```
+
+これが HTML に変換されると次のようになる。
+
+```html title="HTML"
+<div>
+  <div>
+    <div class="image-container">
+      <figure>
+        <picture>
+          <source srcset="...">
+          <source srcset="...">
+          <img src="..." alt="younagi.dev 其の一">
+        </picture>
+        <figcaption>younagi.dev 其の一</figcaption>
+      </figure>
+    </div>
+    <div class="content-container">
+      younagi.dev 其の一
+    </div>
+  </div>
+  <div>
+    <div class="image-container">
+      <figure>
+        <picture>
+          <source srcset="...">
+          <source srcset="...">
+          <img src="..." alt="younagi.dev 其の二">
+        </picture>
+        <figcaption>younagi.dev 其の二</figcaption>
+      </figure>
+    </div>
+    <div class="content-container">
+      younagi.dev 其の二
+    </div>
+  </div>
+  <div>
+    <div class="image-container">
+      <figure>
+        <picture>
+          <source srcset="...">
+          <source srcset="...">
+          <img src="..." alt="younagi.dev 其の三">
+        </picture>
+        <figcaption>younagi.dev 其の三</figcaption>
+      </figure>
+    </div>
+    <div class="content-container">
+      younagi.dev 其の三
+    </div>
+  </div>
+</div>
+```
+
+そして最終的な出力はこちら。
+
+::::card-grid
+:::card
+![younagi.dev](../../../assets/images/younagidev.jpg)
+younagi.dev 其の一
+:::
+:::card
+![younagi.dev](../../../assets/images/younagidev.jpg)
+younagi.dev 其の二
+:::
+:::card
+![younagi.dev](../../../assets/images/younagidev.jpg)
+younagi.dev 其の三
+:::
+::::
+
+#### Astro で使う
+
+実は、当サイトでも既にカードコンポーネントが随所に鏤められている。
+
+https://younagi.dev/ja/work/
+
+Astro で Remark や Rehype のプラグインを利用するには、ルート直下にある専用のコンフィグファイルで下記の手続きが必要となる。
+
+```ts title="astro.config.ts" {2,10-19}
+import { defineConfig /* ... */ } from "astro/config";
+import remarkCard, { type Config as RemarkCardConfig } from 'remark-card';
+// ...
+
+export default defineConfig({
+  // ...
+  markdown: {
+    remarkPlugins: [
+      // ...
+      [
+        remarkCard,
+        {
+          customHTMLTags: {
+            enabled: true,
+          },
+          cardGridClass: 'card-grid',
+          cardClass: 'card',
+        } satisfies RemarkCardConfig,
+      ],
+      // ...
+    ],
+    // ...
+  }
+  // ...
+});
+```
+
+一応これだけでプラグインは動くようになるのだが、Astro コンポーネントを使って HTML タグやスタイルを細かく調整したい場合は、もうひと手間必要となる。
+
+私の場合、`remark-card`によって`card`、`card-grid`タグに変換された箇所を、更にそれぞれ`Card.astro`、`CardGrid.astro`へと変換している。詳細は下記ソースコードを確認してほしい。
+
+https://github.com/brklntmhwk/younagi.dev/tree/main/src/components/elements/Card
+
+そして [MDX の作法](https://docs.astro.build/ja/guides/integrations-guide/mdx/#custom-components-with-imported-mdx)に倣い、カスタムコンポーネントとして`<Content />`タグにこれらを引き渡せば取引完了だ。下記がその一例である。
+
+```ts title="~/lib/mdx-components.ts"
+import { Card, CardGrid } from '@/components/elements/Card';
+// ...
+
+export const mdxComponents = {
+  // ...
+  card: Card,
+  'card-grid': CardGrid,
+  // ...
+};
+```
+
+```astro title="~/pages/blog/[slug].astro"
+---
+import BlogLayout from '@/layouts/BlogLayout.astro';
+import { mdxComponents } from '@/lib/mdx-components';
+import type { GetStaticPaths } from 'astro';
+// ...
+
+export const getStaticPaths = (async () => {
+  // ...
+}) satisfies GetStaticPaths;
+
+const { entry } = Astro.props;
+const { Content, headings } = await entry.render();
+---
+
+<BlogLayout entry={{ ...entry }} {headings}>
+  <Content components={mdxComponents} />
+</BlogLayout>
+```
+
+### 開発後記
+
+このままでは README と書いてあることがほとんど変わらないので、技術選定について少し真面目に振り返ろうと思う。
+
+- 言語: ~~JavaScript~~ TypeScript
+  - 型がないと生まれたての小鹿くらい足元が覚束なくなるため TypeScript で書くことにした
+  - ~~CommonJS~~ ESM の作法に倣って書いている
+- マークダウン記法: [Generic directives/plugins syntax](https://talk.commonmark.org/t/generic-directives-plugins-syntax/444)
+  - はじめは知る人が見たらひっくり返るようなド方言を編み出し、開発を進めていたが、より一般に浸透していそうなこちらの記法をチョイス
+  - `:::`や`::::`など
+- テストランナー & パッケージマネージャ: [Bun](https://bun.sh/)
+  - JavaScript ランタイム、テストランナー、パッケージマネージャ、と複数の顔を併せ持つ肉まん君
+  - テストコードが [Jest](https://jestjs.io/ja/) 互換で馴染みがあり、移行しやすい
+  - 目新しさとパフォーマンスの高さに惹かれ、採用
+
+開発にあたり、先人たちの記したソースコードを浴びるように摂取したのだが、大半が JavaScript に JSDoc の組み合わせで書かれていた。
+製品コードを書く場合は総じてこの組み合わせの方が良いと思う [^2] が、今回は零細なプロジェクトなので慣れ親しんだ TypeScript で書くことにした。
+
+[^2]: TypeScript で書かない為、トランスパイルの手間が省ける。しかし同時に、JSDoc の補助機能により型定義の恩恵に与ることもできる。
+更に JSDoc には元々ドキュメントの側面もあり、その作法に則って書くだけで読み手とコードの意図についてコミュニケーションが取りやすい。
+
+## 結び
+
+実は`remark-card`の後、立て続けに`remark-video`という Remark プラグインも開発・リリースした。
+
+https://github.com/brklntmhwk/remark-video
+
+当初はそちらも記事にしようと画策していたが、`remark-card`程の手間がかかっておらず、また本記事の執筆を以ってそこはかとない満足感に包まれてしまったため、断念した。[^3]
+
+[^3]: 有り体に言えば、面倒くさくなっただけである。

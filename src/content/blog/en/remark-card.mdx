@@ -1,0 +1,298 @@
+---
+draft: draft
+level: 2
+type: blog
+title: Create a Remark plugin "remark-card" and use it in my Astro website
+publishedAt: 2024-11-26T01:30:34.391Z
+fmContentType: blog
+modifiedAt: 2024-11-26T08:42:33.557Z
+category:
+  metadata: en/categories
+  slug: attempt
+tags:
+  metadata: en/tags
+  slugList:
+    - typescript
+    - astro
+    - markdown
+description: Cards always enthrall us just being there; we are hardwired to pay more attention to them than plain text. However, Markdown doesn't support it syntaxically. Why not create a plugin for it then?
+---
+
+## Intro
+
+Ever since childhood, I had dreamed of becoming a wizard——
+
+The dream's come true this time.
+But the ability is very limited; you cannot turn apples into apple pies, or someone you hate into Gudetama either. Instead, you can transform Markdown into whatever you want is HTML.
+
+By the way, [Unified](https://unifiedjs.com/), a huge ecosystem of document conversion as best represented by Remark and Rehype, has many volunteers scattered around the world who are developing and maintaining a lot of the plugins.
+However, none of them says, "You can summon card components on the field in Markdown with me", as far as I can see. [^1]
+
+[^1]: There are a lot of plugins for "Linkcard" instead.
+
+Why not create it on your own then?—— Now that I feel like I can even fly.
+
+### Reader personas
+
+- Want to create a Remark plugin on their own
+- Interested in `remark-card`
+- Working hard on embellishing their Markdown/MDX blog
+
+### My proficiency level
+
+As of the day I'm writing this article, my proficiency level in this field is as follows:
+
+- Have a three-year experience as a software engineer in total (Not in a row)
+- Understand the basics of JavaScript and TypeScript(I hope so)
+- Have never published an NPM package before
+
+## Main
+
+Here's the Github repository.
+
+https://github.com/brklntmhwk/remark-card
+
+### How to use
+
+`remark-card` offers two Markdown dialects: `card-grid` and `card`.
+The former plays a role as a wrapper for multiple cards and the latter is self-explanatory.
+
+> [!note]
+> Hereafter, some HTML code in examples will be omitted for brevity if it's not relevant to the main theme here. (e.g., `class`)
+
+#### card
+
+The card is written in Markdown like:
+
+```markdown title="Markdown"
+:::card
+![younagi.dev](../../../assets/images/younagidev.jpg)
+younagi.dev
+:::
+```
+
+This turns into...
+
+```html title="HTML"
+<div>
+  <div class="image-container">
+    <figure>
+      <picture>
+        <source srcset="...">
+        <source srcset="...">
+        <img src="..." alt="younagi.dev">
+      </picture>
+      <figcaption>younagi.dev</figcaption>
+    </figure>
+  </div>
+  <div class="content-container">
+    younagi.dev
+  </div>
+</div>
+```
+
+And the final output is:
+
+:::card
+![younagi.dev](../../../assets/images/younagidev.jpg)
+younagi.dev
+:::
+
+#### card-grid
+
+Next up, let's line up some cards in the card grid component.
+
+```markdown title="Markdown"
+::::card-grid
+:::card
+![younagi.dev](../../../assets/images/younagidev.jpg)
+younagi.dev Part 1
+:::
+:::card
+![younagi.dev](../../../assets/images/younagidev.jpg)
+younagi.dev Part 2
+:::
+:::card
+![younagi.dev](../../../assets/images/younagidev.jpg)
+younagi.dev Part 3
+:::
+::::
+```
+
+This turns into:
+
+```html title="HTML"
+<div>
+  <div>
+    <div class="image-container">
+      <figure>
+        <picture>
+          <source srcset="...">
+          <source srcset="...">
+          <img src="..." alt="younagi.dev Part 1">
+        </picture>
+        <figcaption>younagi.dev Part 1</figcaption>
+      </figure>
+    </div>
+    <div class="content-container">
+      younagi.dev Part 1
+    </div>
+  </div>
+  <div>
+    <div class="image-container">
+      <figure>
+        <picture>
+          <source srcset="...">
+          <source srcset="...">
+          <img src="..." alt="younagi.dev Part 2">
+        </picture>
+        <figcaption>younagi.dev Part 2</figcaption>
+      </figure>
+    </div>
+    <div class="content-container">
+      younagi.dev Part 2
+    </div>
+  </div>
+  <div>
+    <div class="image-container">
+      <figure>
+        <picture>
+          <source srcset="...">
+          <source srcset="...">
+          <img src="..." alt="younagi.dev Part 3">
+        </picture>
+        <figcaption>younagi.dev Part 3</figcaption>
+      </figure>
+    </div>
+    <div class="content-container">
+      younagi.dev Part 3
+    </div>
+  </div>
+</div>
+```
+
+And the final output is:
+
+::::card-grid
+:::card
+![younagi.dev](../../../assets/images/younagidev.jpg)
+younagi.dev Part 1
+:::
+:::card
+![younagi.dev](../../../assets/images/younagidev.jpg)
+younagi.dev Part 2
+:::
+:::card
+![younagi.dev](../../../assets/images/younagidev.jpg)
+younagi.dev Part 3
+:::
+::::
+
+#### Use it in Astro
+
+Incidentally, the card components are already all over there in this website.
+
+https://younagi.dev/work/
+
+To use Remark/Rehype plugins in Astro, you need to do something in the Astro config file at the root like this:
+
+```ts title="astro.config.ts" {2,10-19}
+import { defineConfig /* ... */ } from "astro/config";
+import remarkCard, { type Config as RemarkCardConfig } from 'remark-card';
+// ...
+
+export default defineConfig({
+  // ...
+  markdown: {
+    remarkPlugins: [
+      // ...
+      [
+        remarkCard,
+        {
+          customHTMLTags: {
+            enabled: true,
+          },
+          cardGridClass: 'card-grid',
+          cardClass: 'card',
+        } satisfies RemarkCardConfig,
+      ],
+      // ...
+    ],
+    // ...
+  }
+  // ...
+});
+```
+
+This is actually enough to make it work, but it requires a bit more steps if you use Astro components to customize the HTML tags and styles.
+
+In my case, twe Astro components are used: `Card.astro` and `CardGrid.astro`. The resultant `card` and `card-grid` tags generated by `remark-card` will in turn be transformed into them respectively.
+For more details, see the source code below.
+
+https://github.com/brklntmhwk/younagi.dev/tree/main/src/components/elements/Card
+
+Following [the MDX's manners](https://docs.astro.build/ja/guides/integrations-guide/mdx/#custom-components-with-imported-mdx), pass them onto the `<Content />` tag as custom components and the deal is all done. Below is an example of it:
+
+```ts title="~/lib/mdx-components.ts"
+import { Card, CardGrid } from '@/components/elements/Card';
+// ...
+
+export const mdxComponents = {
+  // ...
+  card: Card,
+  'card-grid': CardGrid,
+  // ...
+};
+```
+
+```astro title="~/pages/blog/[slug].astro"
+---
+import BlogLayout from '@/layouts/BlogLayout.astro';
+import { mdxComponents } from '@/lib/mdx-components';
+import type { GetStaticPaths } from 'astro';
+// ...
+
+export const getStaticPaths = (async () => {
+  // ...
+}) satisfies GetStaticPaths;
+
+const { entry } = Astro.props;
+const { Content, headings } = await entry.render();
+---
+
+<BlogLayout entry={{ ...entry }} {headings}>
+  <Content components={mdxComponents} />
+</BlogLayout>
+```
+
+### Post-development notes
+
+It doesn't look different from README up until this point, so let me seriously think back on the dev experience here.
+
+- Language: ~~JavaScript~~ TypeScript
+  - I can't help shaking like a leaf without type safety
+  - ~~CommonJS~~ Following the ESM's manners
+- Markdown syntax: [Generic directives/plugins syntax](https://talk.commonmark.org/t/generic-directives-plugins-syntax/444)
+  - I made up such a dialect that anyone familiar with it will get taken aback at, and was going to adopt it at first, but ended up transitioning to the more general-looking syntax
+  - e.g., `:::`, `::::`, etc.
+- Test runner & Package manager: [Bun](https://bun.sh/)
+  - It's a versatile meat bun being a JavaScript runtime, test runner, and package manager simultaneously
+  - Test-wise, it's compatible with [Jest](https://jestjs.io/ja/) and thus familiar to me and easy to migrate
+  - Its novelty and high performance were the determining factors
+
+I consumed the code written by forerunners as if bathing and it turned out to be written in the JavaScript and JSDoc combi in most cases.
+It's agreeable if writing code for a product by and large [^2], but this time I went with TypeScript since it's such a small project.
+
+[^2]: Not writing in TypeScript saves you the time for transpiling while ensuring you type safety with JSDoc.
+Plus, JSDoc helps you make decs in its manners, which make it easier to communicate with readers on the purposes of the code.
+
+## Outro
+
+Actually, I've developed and released another Remark plugin called `remark-video` soon after the `remark-card`.
+
+https://github.com/brklntmhwk/remark-video
+
+I was planning to make a new article about it at first, but gave up in the end.
+After all, it didn't take me as much time and energy as the `remark-card` and therefore there's not enough thing to mention. On top of that, this article made me feel a tinge of contentment somehow. [^3]
+
+[^3]: Frankly speaking, I just found it tedious.

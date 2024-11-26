@@ -309,6 +309,7 @@ export default {
               }
             },
             'th, td': {
+              color: theme('colors.default'),
               textAlign: 'center',
               whiteSpace: 'nowrap',
               fontSize: '1rem',

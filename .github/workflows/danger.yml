@@ -18,6 +18,14 @@ jobs:
         uses: actions/checkout@v4
       - name: Set up Bun with Mise
         uses: jdx/mise-action@v2
+      - name: Set up bun store and build artifact cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-
       - name: Install dependencies
         run: bun i --no-save
       - name: Danger

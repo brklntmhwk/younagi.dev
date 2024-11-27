@@ -37,14 +37,14 @@ const { entries, taxonomies } = Astro.props;
         <li class="animate-fadeInUp">
           <article class="double-border pt-4 pr-2 pb-3.5 pl-3.5 flex flex-col gap-3.5">
             <a
-              class="font-bold text-xl xs:text-2xl xl:text-3xl hover:bg-default-mixed"
+              class="font-bold text-xl xxs:text-[1.375rem] xxs:leading-7 xs:text-2xl xl:text-3xl hover:bg-default-mixed"
               href={translatePath(
                 `/${entry.collection}/${entry.slug.split('/').pop()}/`
               )}
             >
               {title}
             </a>
-            <section class="text-sm sm:text-base flex flex-wrap gap-y-1 gap-x-2.5 md:gap-x-5">
+            <section class="text-xs xxs:text-[0.825rem] xxs:leading-4 xs:text-sm sm:text-base flex flex-wrap gap-y-1 gap-x-2.5 md:gap-x-5">
               <div class="flex items-center gap-1.5">
                 <Icon iconName="publish" width={18} height={18} />
                 <FormattedDate date={publishedAt} locale={locale} />
@@ -56,7 +56,7 @@ const { entries, taxonomies } = Astro.props;
                 </div>
               )}
             </section>
-            <span class="text-sm sm:text-base">{description}</span>
+            <span class="text-xs xxs:text-sm sm:text-base">{description}</span>
             {taxonomies.show && (
               <section class="text-xs sm:text-sm pt-2 flex flex-wrap items-center gap-y-7 gap-x-3.5">
                 {taxonomies.shouldDisplay?.includes('category') && category && (

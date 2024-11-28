@@ -4,7 +4,7 @@ level: 4
 type: blog
 title: Build a Personal Website using Astro, Cloudflare Pages, D1, and Front Matter CMS
 publishedAt: 2024-07-13T00:34:54.000Z
-modifiedAt: 2024-11-26T08:45:55.918Z
+modifiedAt: 2024-11-28T02:40:22.022Z
 category:
   metadata: en/categories
   slug: attempt
@@ -21,7 +21,8 @@ description: A dev story behind building my website for geeks wanting to have th
 
 ## Intro
 
-While I thought to myself "I gotta learn Rust real quick...", I built my personal website using Astro against my will on the pretext of investigation into frontend and ended up spending about 4 months. I'd be lying if I said I never regret.
+While I thought to myself, "I gotta learn Rust real quick...", against my will, I built my personal website using Astro on the pretext of investigation into frontend.
+And even worse, I ended up spending about 4 months. I'd be lying if I said I never regret.
 
 You can see the source code published below. Code is worth a thousand words.
 
@@ -53,7 +54,8 @@ For more details, see [the official homepage](https://docs.astro.build/en/gettin
 
 It's geared toward service like corporate websites or blog where user interactions are unilateral rather than bilateral (e.g. EC, SNS)
 
-In my case, I mainly use what Astro offers and partly rely on [SolidJS](https://www.solidjs.com/). Also, almost all code is written in TypeScript and TSX. I couldn't have helped shaking like a leaf without them.
+In my case, I mainly use what Astro offers and partly rely on [SolidJS](https://www.solidjs.com/).
+Almost all code is written in TypeScript and TSX. I couldn't have helped shaking like a leaf without them.
 
 > [!info]- The tech stack
 > **Languages:** [TypeScript](https://www.typescriptlang.org/), [TSX](https://www.typescriptlang.org/docs/handbook/jsx.html), [YAML](https://yaml.org/)
@@ -84,15 +86,15 @@ In my case, I mainly use what Astro offers and partly rely on [SolidJS](https://
 
 Search functionality plays an integral part of users' comfortable browsing lives.
 
-A lot of personal websites are going all out to add the ancient access counter while dragging their feet on a search window pining for the good old days, which I think is very cool. But it's a different story here. [^1]
+Pining for the good old days, a lot of personal websites are going all out to add the ancient access counter while dragging their feet on a search window. While I think that's very cool, it's a different story here. [^1]
 
 [^1]: They can be seen when wandering around the internet ocean, so I highly recommend you giving it a try like a tuna.
 
 Developing a decent search functionality by myself is laborious, so I use [Pagefind](https://pagefind.app/), a Rust based static search library. It's lightweight, lightning fast, and easy to use.
 
-It's also self-contained on the client side without needing to interact with server. The mechanism is simple; Pagefind creates index files beforehand based on those generated-at-build-time static files and responds to searching by keyword(s) referring to them.
+It works exclusively on the client side without needing to interact with server. The mechanism is simple; Pagefind creates index files beforehand based on those generated-at-build-time static files and responds to searching by keyword(s) referring to them.
 
-Along the way, I stick to these key features:
+Along the way, I stuck to these key features:
 
 - Callable via a shortcut key
   - Press `Ctrl + K` if you're on PC
@@ -142,6 +144,10 @@ Driven by that belief, I extended the default syntax using the [Remark](https://
 
 [^2]: I spent about a month creating and being focused on the plugins.
 
+One of the plugins I made on my own:
+
+https://younagi.dev/blog/remark-card/
+
 > [!info]+Remark & Rehype
 > They belong to the ecosystem called [Unified](https://unifiedjs.com/).
 > **Remark:** Process and handle Markdown in the form of AST(mdast)
@@ -152,7 +158,7 @@ Driven by that belief, I extended the default syntax using the [Remark](https://
 
 Despite that I'm neither well versed in maths nor going to do maths here, I gave in to the temptation... in preparation for the world line where I'm a master of maths.
 
-$\KaTeX$ converts specific magic spells into beautifully styled mathematical expressions for us. All you need to do are add [`the remark-math` and `rehype-katex`](https://github.com/remarkjs/remark-math/tree/main/packages/rehype-katex) plugins and tweak the styles a little bit.
+$\KaTeX$ converts specific magic spells into beautifully styled mathematical expressions for us. All you need to do are add [the `remark-math` and `rehype-katex`](https://github.com/remarkjs/remark-math/tree/main/packages/rehype-katex) plugins and tweak the styles a little bit.
 
 Input
 
@@ -206,7 +212,7 @@ const { title } = Astro.props
 
 I was missing [the Obsidian callout](https://help.obsidian.md/Editing+and+formatting/Callouts) dialect and succumbed to the temptation again.
 
-Along the way, I stick to some key points:
+Along the way, I stuck to some key points:
 
 - Expandable/foldable
   - If there are either "+" or "-" mark beside the callout title, it's regarded as expandable/foldable
@@ -381,7 +387,7 @@ Here are some points:
   - This feature can easily be topped thanks to the form control of the Modular Forms
 - After the form successfully submitted, it redirects to a thanks page
 
-For bot management, I strongly stick to [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/) compared to the notorious Google reCAPTCHA. [^5] It's free and fully compatible with other Cloudflare services, so it's no brainer for me.
+For bot management, I strongly stuck to [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/) compared to the notorious Google reCAPTCHA. [^5] It's free and fully compatible with other Cloudflare services, so it's no brainer for me.
 
 [^5]: I remember being plagued by the reCAPTCHA as a user as if it were just yesterday. There's no way I'd be the questioner of that puzzle quizzes.
 

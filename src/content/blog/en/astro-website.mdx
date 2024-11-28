@@ -4,7 +4,7 @@ level: 4
 type: blog
 title: Build a Personal Website using Astro, Cloudflare Pages, D1, and Front Matter CMS
 publishedAt: 2024-07-13T00:34:54.000Z
-modifiedAt: 2024-11-28T02:40:22.022Z
+modifiedAt: 2024-11-28T03:10:54.637Z
 category:
   metadata: en/categories
   slug: attempt
@@ -108,7 +108,7 @@ Along the way, I stuck to these key features:
 
 Astro thankfully takes responsibility for content management: [the Content Collections API](https://docs.astro.build/en/guides/content-collections/). For more details, see [the official doc](https://docs.astro.build/ja/recipes/i18n/).
 
-Applying that feature, I add multiligual support by separating language directories... which means, I have to go through a rough patch of manual translation.
+Applying that feature, I added multiligual support by separating language directories... which means, I have to go through a rough patch of manual translation.
 "I'm in luck I can learn languages at the same time! It kills two birds with one stone!" I'm talking to myself to stay sane.
 
 Speaking of the content formats, it covers YAML and JSON formats as well as Markdown/MDX. I use YAML for storing translation data because of its brevity.
@@ -117,7 +117,7 @@ Speaking of the content formats, it covers YAML and JSON formats as well as Mark
 
 #### OG Image (Open Graph)
 
-Just in case, I add OG images to every page dreaming of some heavy readers frequently visiting this website and singing its praises on SNS.
+Just in case, I added OG images to every page dreaming of some heavy readers frequently visiting this website and singing its praises on SNS.
 
 For the homepage and other fixed pages, static images are applied but when it comes to individual blog and news pages, their OG Images are dynamically generated via [the Astro dynamic routes](https://docs.astro.build/en/guides/routing/#dynamic-routes).
 Thanks to the feature, I don't have to rack my brain around them every time a new article is posted. Thank you, Astro.
@@ -300,9 +300,10 @@ Below are some examples.
 
 I confidently steered in the direction of personal blog in the modern era of video but my resolve is already wavering. Are we meant to dance in the palm of those major tech companies after all...?
 
-I've sort of convinced myself that we cannot run away from  YouTube and inevitably added a remark plugin for media frames.
+I've sort of accepted that we're destined to live with YouTube and added a remark plugin for media frames.
 
-In design, bare URLs will be transformed into media frames if they are compatible with [the OEmbed](https://oembed.com/) format. Integrations with Canva, YouTube, and Google Slides are also supported.
+In design, bare URLs will be transformed into media frames if they are compatible with [the OEmbed](https://oembed.com/) format.
+Integrations with Canva, YouTube, and Google Slides are also supported.
 
 "This is merely a safety net. I will never resort to such a feature as long as it can be expressed in the blog...!", I tell myself repeatedly.
 
@@ -393,9 +394,11 @@ For bot management, I strongly stuck to [Cloudflare Turnstile](https://developer
 
 ### Cloudflare
 
+Cloudflare is, so to speak, a jack of all trades for internet service. it offers CDN, cybersecurity tools, hosting, etc.
+
 #### Cloudflare Pages
 
-Cloudflare is, so to speak, a jack of all trades for internet service. it offers CDN, cybersecurity tools, hosting, etc. This time, I deploy my website using [Cloudflare Pages](https://developers.cloudflare.com/pages/).
+This time, I deploy my website using [Cloudflare Pages](https://developers.cloudflare.com/pages/).
 
 ##### Why Cloudflare Pages?
 
@@ -444,23 +447,7 @@ My choice is [Front Matter CMS](https://frontmatter.codes/). The reasons are:
 It's unlike other headless CMS in that it's a VS Code extension and works in local, in your code editor.
 This centralizes all the editing work: code tweaks, blog writing, and deployment. Woundn't it especially be a huge advantage to developers?
 
-When it comes to the setup, consult [the official doc](https://frontmatter.codes/docs/getting-started).
-Along the way, it automatically detects Astro's content folder and creates each content's fields' definitions in the `frontmatter.json` accordingly. Basically, you're supposed to tweak the settings in this file at the root of your project.
-
-#### Customization of Front Matter CMS
-
-:::video[Demo: Create a new article]
-/videos/front-matter-cms-demo.mp4
-:::
-
-In the `frontmatter.json`, there are some notable customizations:
-
-- [Compatible with directory-based internationalization(i18n)](#internationalization-i18n)
-  - You can specify locale directories (in my case, `en` and `ja` as of now) inside the content directory
-  - By doing so, you can select in which language you're creating a post via the VSCode command and it does create the file under the designated directory for you
-- Compatible with the Astro's Content Collections (with both the content and data types)
-  - You can use the Data functionality for Astro's data collections, not to mention the Contents for Astro's content collections
-  - Contents like blog and news are treated as "content" while data like translations, site metadata, and blog categories & tags as "data"
+For more details, see this article:
 
 https://younagi.dev/blog/astro-and-front-matter-cms-combi/
 

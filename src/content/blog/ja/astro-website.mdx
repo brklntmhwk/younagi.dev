@@ -2,7 +2,7 @@
 title: Astro + Cloudflare Pages + D1 + Front Matter CMS で個人ウェブサイトを作った
 description: 動画の時代に個人ブログという茨の道を歩みたいオタクなあなたに贈る開発体験記。Astro + Cloudflare Pages + D1 + Front Matter CMS とその他諸々の構成で作った個人ウェブサイトの諸機能を紹介
 publishedAt: 2024-07-13T00:35:10.000Z
-modifiedAt: 2024-11-28T02:31:19.690Z
+modifiedAt: 2024-11-28T03:11:27.264Z
 draft: published
 type: blog
 category:
@@ -295,7 +295,7 @@ const { title } = Astro.props
 
 動画の時代に大手を振って個人ブログに舵を切った私だが、早くも心が揺らいでいる。結局、我々は大手テックカンパニーの掌の上で踊らされる宿命なのか・・・。
 
-YouTube の魔の手からは完全に逃れることはできないと悟り、逡巡しながらもメディアの埋め込みを実装した。
+YouTube の魔の手から逃れることはできないと観念し、辿々しくメディアの埋め込みを実装した。
 Canva、YouTube、そして Google Slides の変換処理をひとまず作成し、それ以外のメディアは[OEmbed](https://oembed.com/)の規格に応じて適宜メディアフレームに変身するよう、Remark プラグインを自作した。
 「これはあくまでセーフティネット、ブログで表現できる限りはこんな機能には頼らないんだから・・！」と自分に言い聞かせる。
 
@@ -443,18 +443,7 @@ D1 データベースと[Drizzle ORM(Object-relational Mapping)](https://orm.dri
 
 VS Code の拡張機能であり、ローカルで動くという点で、他のヘッドレス CMS とは一線を画している。これはつまり、コードの修正や記事の執筆、サイトのデプロイなどの作業が VS Code エディタで一元化できるということだ。特に開☆発☆者(デベロッパ)においては大きなメリットとなるのではないだろうか。
 
-初期セットアップについては[Front Matter 公式ドキュメント](https://frontmatter.codes/docs/getting-started)を参照されたし。手順通りに進めると、Astro の`content`フォルダを自動で検知し、その中身に応じて`frontmatter.json`に各コンテンツの項目の定義などを書き出してくれる。基本、Front Matter CMS の設定はプロジェクトルート直下に置かれたこのファイルで管理することになる。
-
-#### Front Matter CMS のカスタマイズ
-
-`frontmatter.json`のカスタマイズについて、幾つか嬉しいポイントがある。
-
-- [ディレクトリによる多言語化](#多言語対応-i18n)との互換性
-  - コンテンツのディレクトリ内にある言語用のディレクトリを指定して、Front Matter CMS の設定と連携できる(私の場合、今のところ`en`と`ja`)
-  - こうして、VSCode のコマンドから記事を作成する際に、書きたい言語を選べるようになった。記事は自動で指定のディレクトリに作成される
-- Astro の Content Collections との互換性(コンテンツ、データタイプ両方)
-  - Front Matter CMS にもコンテンツ、データの概念があり、それぞれを Astro のコンテンツ、データと連携可能
-  - ブログやニュースなどの「コンテンツ」はコンテンツとして、翻訳文字列やサイトメタデータ、ブログのカテゴリ・タグなどの「データ」はデータとして扱う
+詳細は下記の記事を参照されたし。
 
 https://younagi.dev/ja/blog/astro-and-front-matter-cms-combi/
 

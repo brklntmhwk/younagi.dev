@@ -2,20 +2,20 @@
 draft: published
 level: 2
 type: blog
-title: Remark プラグイン「remark-card」を作って Astro 製ウェブサイトで使ってみた
+title: Remark プラグイン「remark-card」を自作して Astro 製ウェブサイトで使ってみた
 publishedAt: 2024-11-26T01:30:34.391Z
 fmContentType: blog
-modifiedAt: 2024-11-27T00:21:48.180Z
+modifiedAt: 2024-11-28T02:05:55.610Z
 category:
-  metadata: en/categories
+  metadata: ja/categories
   slug: attempt
 tags:
-  metadata: en/tags
+  metadata: ja/tags
   slugList:
     - typescript
     - astro
     - markdown
-description: 古来、我々はカードの形をしたものに目がない。プレーンテキストと並んでいるとどうしてもカードの方に目を奪われてしまう。ところが、マークダウンにはカードの構文など存在しない。それならプラグインで拡張すればいいじゃない？
+description: 古来、我々はカードの形をしたものに目がない。どうしてもプレーンテキストよりもカードの方に目を奪われてしまう。ところが、マークダウンにはカードの構文など存在しない。それならプラグインで拡張すればいいじゃない？
 ---
 
 ## 導入
@@ -27,7 +27,7 @@ description: 古来、我々はカードの形をしたものに目がない。�
 しかしその能力は限定的で、リンゴをアップルパイに変えたり、嫌いな人をマリモッコリに変えたりはできない。代わりに、マークダウンを望み通りの HTML に変えることならできる。
 
 ところで、Remark や Rehype を擁する文書変換エコシステム「[Unified](https://unifiedjs.com/)」の下では、世界各地に点在する有志たちによって、数多のプラグインが日夜開発・メンテナンスされている。
-しかしザっと見渡す限り、「マークダウン記法でフィールド上にカードコンポーネントを召喚できる」と謳うものは存在しなかった。[^1]
+しかし調べた限りでは、「フィールド上にカードコンポーネントをマークダウン記法で召喚できる」と謳うものは存在しなかった。[^1]
 
 [^1]: カードはカードでも、リンクカードなら沢山ヒットしたのだが・・。
 
@@ -270,10 +270,10 @@ const { Content, headings } = await entry.render();
 このままでは README と書いてあることがほとんど変わらないので、技術選定について少し真面目に振り返ろうと思う。
 
 - 言語: ~~JavaScript~~ TypeScript
-  - 型がないと生まれたての小鹿くらい足元が覚束なくなるため TypeScript で書くことにした
+  - 型がないと生まれたての小鹿のように足元が覚束なくなるため TypeScript で書くことにした
   - ~~CommonJS~~ ESM の作法に倣って書いている
 - マークダウン記法: [Generic directives/plugins syntax](https://talk.commonmark.org/t/generic-directives-plugins-syntax/444)
-  - はじめは知る人が見たらひっくり返るようなド方言を編み出し、開発を進めていたが、より一般に浸透していそうなこちらの記法をチョイス
+  - はじめは知る人が見たらひっくり返るようなド方言を編み出し、開発を進めていたが、より一般に浸透していそうなこちらの記法に方向転換
   - `:::`や`::::`など
 - テストランナー & パッケージマネージャ: [Bun](https://bun.sh/)
   - JavaScript ランタイム、テストランナー、パッケージマネージャ、と複数の顔を併せ持つ肉まん君

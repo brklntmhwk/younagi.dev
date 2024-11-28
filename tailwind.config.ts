@@ -95,7 +95,10 @@ export default {
           'var(--font-sans, ui-sans-serif)',
           ...defaultTheme.fontFamily.sans,
         ],
-        pixelMPlus: ['var(--font-pixelMPlus)'],
+        pixelMPlus: [
+          'var(--font-pixelMPlus)',
+          ...defaultTheme.fontFamily.serif
+        ],
       },
       fontSize: {},
       lineHeight: {

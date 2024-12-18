@@ -96,7 +96,7 @@ export const Search: Component<Props> = (props) => {
             placeholder={props.t.placeholder}
             onInput={(e) => setQuery(e.currentTarget.value)}
             onKeyDown={handleKeyDown}
-            class="w-full text-base bg-transparent outline-none"
+            class="font-pixelMPlus w-full text-lg bg-transparent outline-none"
             autocomplete="off"
           />
         </div>

@@ -34,6 +34,7 @@ rules:
         - ・
         - ！
         - ？
+        - ─
     no-exclamation-question-mark:
       allowFullWidthExclamation: true
       allowFullWidthQuestion: true

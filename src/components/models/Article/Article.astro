@@ -13,7 +13,7 @@ const backToPath = kind === 'blog' || kind === 'news' ? `/${kind}/` : '/';
 const t = await getEntry('i18n', `${locale}/translation`);
 ---
 
-<article class="flex flex-col flex-grow gap-2">
+<article class="flex flex-col flex-1 gap-2">
   <slot name="metadata" />
   <hr class="w-full my-5" />
   <slot name="content" />

@@ -92,7 +92,7 @@ export default {
       },
       fontFamily: {
         sans: [
-          'var(--font-sans, ui-sans-serif)',
+          'var(--font-base, ui-sans-serif)',
           ...defaultTheme.fontFamily.sans,
         ],
         pixelMPlus: [

@@ -324,6 +324,10 @@ export default {
             strong: {
               color: 'inherit',
             },
+            hr: {
+              marginTop: '1.75rem',
+              marginBottom: '1.75rem',
+            },
             '.katex-display': {
               marginTop: '1.875rem',
               marginBottom: '1.875rem',
@@ -377,6 +381,10 @@ export default {
             },
             table: {
               maxWidth: '86vw',
+            },
+            hr: {
+              marginTop: '1.785rem',
+              marginBottom: '1.785rem',
             },
           },
         },

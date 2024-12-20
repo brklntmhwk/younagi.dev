@@ -1,7 +1,7 @@
 ---
 title: 運営者
 type: page
-modifiedAt: 2024-11-22T01:06:35.580Z
+modifiedAt: 2024-12-20T02:53:05.299Z
 ---
 
 {/* textlint-disable ja-technical-writing/ja-no-weak-phrase */}
@@ -59,7 +59,7 @@ https://younagi.dev/ja/blog/astro-website/
 <StarRating method="rating" value={3} leftEnd="易しい" rightEnd="難しい" />
 ---
 
-主に「[学び](https://younagi.dev/ja/blog/categories/learning/)」カテゴリの記事は 5 つ星で難易度が設定されているが、これは以下の基準に沿って完全に主観で決めたものである。
+「[学び](https://younagi.dev/ja/blog/categories/learning/)」、「[試み](https://younagi.dev/ja/blog/categories/attempt/)」カテゴリの記事は 5 つ星で難易度が設定されているが、これは以下の基準に沿って完全に主観で決めたものである。
 
 - 所要時間
   - 一通り学び終えるまでにどれだけの時間と手間がかかるか
@@ -74,11 +74,16 @@ https://younagi.dev/ja/blog/astro-website/
 
 <Balloon
   direction="left"
-  content="座右の銘はパスカルの「人間は考える葦である」"
+  content={`
+  座右の銘はパスカルの「人間は考える葦である」
+  `}
 />
 
 > [!quote] 引用
 > Man is only a reed, the weakest in nature, but he is a thinking reed. ― Blaise Pascal, Pensees
+
+概して抽象的なモノが好き。かと思えば極端に具象へ振り切ったモノも好き。
+音楽で喩えると、難解なジャズも好きだが生々しいリリックで訴えかけてくるヒップホップも好き。
 
 ### 性格
 
@@ -99,11 +104,31 @@ https://younagi.dev/ja/blog/astro-website/
 
 ---
 
-- 気質
+- キャリア
 
 <StarRating
   method="spectrum"
   value={1}
   leftEnd="ゼネラリスト"
   rightEnd="スペシャリスト"
+/>
+---
+
+- 活発さ
+
+<StarRating
+  method="spectrum"
+  value={5}
+  leftEnd="ナマケモノ"
+  rightEnd="マグロ"
+/>
+---
+
+- クロノタイプ
+
+<StarRating
+  method="spectrum"
+  value={4}
+  leftEnd="ヒバリ"
+  rightEnd="フクロウ"
 />

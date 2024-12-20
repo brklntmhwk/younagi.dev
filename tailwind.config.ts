@@ -31,9 +31,6 @@ export default {
         'star-glow': 'var(--color-star-glow)',
         'modal-bg': 'var(--color-modal-bg)',
 
-        amber: {
-          ...colors.amber,
-        },
         blue: {
           ...colors.blue,
           400: 'hsl(215.24, 100%, 52.63%)',
@@ -55,15 +52,6 @@ export default {
             DEFAULT: colors.green[600],
           },
         },
-        indigo: {
-          ...colors.indigo,
-        },
-        neutral: {
-          ...colors.neutral,
-        },
-        orange: {
-          ...colors.orange,
-        },
         purple: {
           ...colors.purple,
           DEFAULT: colors.purple[500],
@@ -78,17 +66,10 @@ export default {
             DEFAULT: colors.red[600],
           },
         },
-        sky: {
-          ...colors.sky,
-        },
-        stone: {
-          ...colors.stone,
-        },
         teal: {
           ...colors.teal,
           600: 'hsl(180, 58%, 42%)',
         },
-        transparent: colors.transparent,
       },
       fontFamily: {
         sans: [
@@ -100,7 +81,6 @@ export default {
           ...defaultTheme.fontFamily.serif
         ],
       },
-      fontSize: {},
       lineHeight: {
         extraloose: '2.25',
       },
@@ -324,6 +304,10 @@ export default {
             strong: {
               color: 'inherit',
             },
+            hr: {
+              marginTop: '1.75rem',
+              marginBottom: '1.75rem',
+            },
             '.katex-display': {
               marginTop: '1.875rem',
               marginBottom: '1.875rem',
@@ -378,6 +362,10 @@ export default {
             table: {
               maxWidth: '86vw',
             },
+            hr: {
+              marginTop: '1.785rem',
+              marginBottom: '1.785rem',
+            },
           },
         },
         xl: {
@@ -388,6 +376,10 @@ export default {
             '[data-link-card] img': {
               marginTop: '0',
               marginBottom: '0',
+            },
+            hr: {
+              marginTop: '1.875rem',
+              marginBottom: '1.875rem',
             },
           },
         },

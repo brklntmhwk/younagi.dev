@@ -1,11 +1,12 @@
 ---
-import '@fontsource-variable/inconsolata';
+import '@fontsource/dotgothic16';
+import '@fontsource/yuji-syuku';
 ---
 
 <style is:inline>
   :root {
-    --font-base: 'JMH Typewriter', 'ShipporiMincho';
-    --font-pixelMPlus: 'PixelMplus10';
+    --font-base: 'JMH Typewriter', 'Yuji Syuku';
+    --font-pixelMPlus: 'PixelMplus10', 'DotGothic16';
     --color-default-fg: hsl(248.57, 11.48%, 11.96%);
     --color-default-bg: hsl(0, 0%, 96.7%);
     --color-default-mixed: color-mix(in hsl, var(--color-default-bg) 90%, var(--color-default-fg) 10%);
@@ -20,13 +21,13 @@ import '@fontsource-variable/inconsolata';
     --color-ash-gray: hsl(0, 0%, 86.71%);
     --color-dark-gray: hsl(0, 1.27%, 20.98%);
     --color-star-empty: hsl(60, 0.52%, 75.55%);
-    --color-star-filled: hsl(35, 100%, 49%);
+    --color-star-filled: hsl(42, 100%, 52%);
     --color-star-glow: hsl(41, 100%, 65%);
     --color-menu-bg: hsl(0, 0%, 91.71%);
     --color-bulletin-fg: hsl(32.94, 100%, 50%);
     --color-bulletin-bg: hsla(30, 9.8%, 20%, 1);
     --color-likes-button-bg: hsla(180, 58%, 42%, 1);
-    --color-likes-button-bg-hover: hsla(180, 58%, 42%, 0.9);
+    --color-likes-button-bg-hover: hsla(180, 66%, 15%, 0.9);
     --color-modal-bg: hsla(223, 13%, 10%, 0.6);
   }
   @media (prefers-color-scheme: dark) {
@@ -38,7 +39,7 @@ import '@fontsource-variable/inconsolata';
       --color-secondary: hsl(29, 96%, 42%);
       --color-primary-dim: hsl(220, 98.54%, 43.86%);
       --color-line-double: hsl(220, 100%, 98.22%);
-      --color-star-filled: hsl(35, 100%, 60%);
+      --color-star-filled: hsl(40, 100%, 62%);
       --color-star-glow: hsl(41, 100%, 75%);
       --color-menu-bg: hsl(248.57, 11.48%, 20.96%);
       --color-likes-button-bg: hsla(180, 58%, 32%, 1);
@@ -72,48 +73,6 @@ import '@fontsource-variable/inconsolata';
     font-family: 'JMH Typewriter';
     src: url('/fonts/jmh_typewriter-black.woff2') format('woff2');
     font-weight: 800;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'ShipporiMincho';
-    src: url('/fonts/ShipporiMincho-Regular.woff2') format('woff2');
-    font-weight: 200;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'ShipporiMincho';
-    src: url('/fonts/ShipporiMincho-Medium.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'ShipporiMincho';
-    src: url('/fonts/ShipporiMincho-SemiBold.woff2') format('woff2');
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'ShipporiMincho';
-    src: url('/fonts/ShipporiMincho-Bold.woff2') format('woff2');
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'ShipporiMincho';
-    src: url('/fonts/ShipporiMincho-ExtraBold.woff2') format('woff2');
-    font-weight: 800;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'OldNewspaperTypes';
-    src: url('/fonts/OldNewspaperTypes.woff2') format('woff2');
-    font-weight: 400;
     font-style: normal;
     font-display: swap;
   }

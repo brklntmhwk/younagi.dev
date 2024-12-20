@@ -12,8 +12,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Set up Bun with Mise
-        uses: jdx/mise-action@v2
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+      - name: Set up bun store and build artifact cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.bun/install/cache
+            node_modules
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-
       - name: Install dependencies
         run: bun i --no-save
       - name: Format & Lint code
@@ -24,8 +33,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Set up Bun with Mise
-        uses: jdx/mise-action@v2
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+      - name: Set up bun store and build artifact cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.bun/install/cache
+            node_modules
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-
       - name: Install dependencies
         run: bun i --no-save
       - name: Textlint
@@ -36,13 +54,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Set up Bun with Mise
-        uses: jdx/mise-action@v2
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
       - name: Set up bun store and build artifact cache
         uses: actions/cache@v4
         with:
           path: |
             ~/.bun/install/cache
+            node_modules
           key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
           restore-keys: |
             ${{ runner.os }}-bun-

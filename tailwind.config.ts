@@ -397,6 +397,10 @@ export default {
               marginTop: '0',
               marginBottom: '0',
             },
+            hr: {
+              marginTop: '1.875rem',
+              marginBottom: '1.875rem',
+            },
           },
         },
       }),

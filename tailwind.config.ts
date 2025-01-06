@@ -125,6 +125,10 @@ export default {
             'h5, h6': {
               fontWeight: 600,
             },
+            'p, li': {
+              fontSize: '1.025rem',
+              fontWeight: 500,
+            },
             a: {
               '&:not(h2 a, h3 a, h4 a, h5 a, h6 a, a[data-link-card])': {
                 color: theme('colors.primary'),

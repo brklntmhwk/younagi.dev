@@ -126,7 +126,7 @@ export default {
               fontWeight: 600,
             },
             'p, li': {
-              fontSize: '1.025rem',
+              fontSize: '1.075rem',
               fontWeight: 500,
             },
             a: {

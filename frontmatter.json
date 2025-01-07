@@ -153,9 +153,9 @@
           }
         },
         {
-          "title": "Hero Image",
-          "name": "image",
-          "type": "image"
+          "title": "Thumbnail",
+          "name": "thumbnail",
+          "type": "string"
         },
         {
           "title": "type",

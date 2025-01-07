@@ -12,7 +12,7 @@ export const LocalePicker: Component = () => {
   return (
     <ul class="grid gap-6 ml-5">
       {Object.entries(languages).map(([lang, label]) => (
-        <li class="text-xl">
+        <li class="text-xl font-pixelMPlus">
           {lang === $locale() ? (
             <span class="font-bold">{label}</span>
           ) : (

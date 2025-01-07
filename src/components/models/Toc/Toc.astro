@@ -18,7 +18,7 @@ const { headings } = Astro.props;
           <li
             class={
               heading.depth === 2 ? "ml-0 before:content-['◆_']"
-             : heading.depth === 3 ? "ml-5 before:content-['▶_']"
+              : heading.depth === 3 ? "ml-5 before:content-['▶_']"
               : heading.depth === 4 ? "ml-10 before:content-['◇_']"
               : heading.depth === 5 ? "ml-14 before:content-['▷_']"
               : heading.depth === 6 ? "ml-20 before:content-['・_']"

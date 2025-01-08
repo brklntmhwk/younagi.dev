@@ -15,7 +15,7 @@ tags:
     - markdown
 level: 1
 description: In the CMS community, a commet appeared all of a sudden as if putting an end to the chaos. It's Front Matter CMS. It might be the best match for websites built using Astro.
-modifiedAt: 2025-01-07T08:22:41.671Z
+modifiedAt: 2025-01-08T02:42:46.260Z
 thumbnail: 📝🚀(｡ゝω･)b
 ---
 
@@ -56,6 +56,7 @@ As of the day when I'm writing this article, my proficiency level in this field 
 There are three reasons:
 
 - Writing and storing articles in local
+  - It works as a VSCode or Gitpod extension
 - Markdown/MDX file format
 - Compatible with directory-based internationalization(i18n)
 
@@ -70,7 +71,7 @@ So you don't even have to access the internet to look up something, which is pre
 
 Having said that, there are still some downsides:
 
-- Exclusive to VSCode users
+- Exclusive to VSCode or Gitpod users
 - Available languages are limited
   - As of Jul 2024, `en`, `de`, and `ja` are supported
   - Of course you [can be a contributor](https://frontmatter.codes/docs/contributing#translating-the-extension) by translating the strings and sent a pull request!
@@ -193,7 +194,10 @@ When it comes to the setup, consult [the Front Matter official doc](https://fron
 After the setup, you're supposed to tweak the `frontmatter.json` to make it consistent with your contents and data configurations.
 
 The framework is Astro this time, but you'll probably be able to do this with other frameworks too as long as you have Markdown/MDX contents in it.
-The thing is how correctly you specify your content's locations in the config file.
+The thing is how correctly you specify your content's locations in the config file. [^1]
+
+[^1]: As of Jan 2025, Officially supported SSG frameworks are: Astro, Hugo and Next.js.
+Reference: https://frontmatter.codes/docs/ssg-and-frameworks
 
 ````json title="frontmatter.json"
 {

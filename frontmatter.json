@@ -170,7 +170,7 @@
       "previewPath": "'news'",
       "filePrefix": null,
       "clearEmpty": true,
-      "template": "[[workspace]]/.frontmatter/templates/news.md",
+      "template": "[[workspace]]/.frontmatter/templates/news.mdx",
       "fileType": "mdx",
       "fields": [
         {

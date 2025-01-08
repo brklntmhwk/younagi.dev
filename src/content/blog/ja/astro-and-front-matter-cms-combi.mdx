@@ -15,7 +15,7 @@ tags:
     - markdown
 level: 1
 description: 混沌とするCMS界隈に終止符を打つかのように突如として舞い降りた彗星「Front Matter CMS」Astro製ウェブサイトに最適かも？という話
-modifiedAt: 2024-11-26T08:43:38.778Z
+modifiedAt: 2025-01-08T02:41:28.680Z
 thumbnail: 📝🚀(｡ゝω･)b
 ---
 
@@ -54,13 +54,13 @@ https://younagi.dev/ja/blog/astro-website/
 大きく 3 つの理由がある。
 
 - ローカルで記事の執筆・管理ができる
+  - Front Matter CMS はあくまで VSCode や GitPod の拡張機能
 - マークダウン/MDX フォーマット
 - ディレクトリで分ける多言語化(i18n)に対応している
 
 特に 1 つ目が他のヘッドレス CMS と大きく異なる点で、私が Front Matter CMS を選んだ最たる理由だ。
 
-そして驚くべきことに、[AIアシスタンス機能](https://frontmatter.codes/docs/sponsor-features#front-matter-ai)まで搭載している。
-この機能は VSCode コマンドから呼び出し可能で、基本何でも聞ける。
+また驚くべきことに、Front Matter CMS は [AI アシスタンス機能](https://frontmatter.codes/docs/sponsor-features#front-matter-ai)まで搭載しており、VSCode コマンドから呼び出しが可能である。
 つまり、調べものをするのにインターネット接続が不要となるのだ。これはオフラインで記事が編集できるメリットと相まって、かなり魅力的ではないだろうか。
 
 ![ デモ: Front Matter AI ](../../../assets/images/front-matter-cms-ai-assitance.png)
@@ -69,7 +69,7 @@ https://younagi.dev/ja/blog/astro-website/
 
 とはいえ、苦しい点も幾つかある。
 
-- VSCode ユーザしか使えない
+- VSCode or Gitpod ユーザしか使えない
 - 利用できる言語は少ない
   - 2024 年 7 月時点で、`en`、`de`、`ja`がサポートされている
   - [翻訳のお手伝いをしてプロジェクトに貢献する](https://frontmatter.codes/docs/contributing#translating-the-extension)ことも可能
@@ -192,7 +192,10 @@ export default defineConfig({
 セットアップが完了したら、`frontmatter.json`がプロジェクトのルート直下に自動生成される。このファイル内で Astro のコンテンツやデータとの連携など行っていく。
 
 今回は Astro を使用しているが、マークダウン/MDX で記事を作成している限りはその他のフレームワークでも同じことが実現可能と思う。
-大事なのは、コンテンツ用のディレクトリを Front Matter CMS 側で正確に指定することである。
+大事なのは、コンテンツ用のディレクトリを Front Matter CMS 側で正確に指定することである。[^1]
+
+[^1]: 2025 年 1 月現在、公式にサポートされているのは Astro、Hugo、Next.js の 3 つであった。
+参考: https://frontmatter.codes/docs/ssg-and-frameworks
 
 ````json title="frontmatter.json"
 {
@@ -608,7 +611,7 @@ export default defineConfig({
 
 ### 使い心地
 
-ここまでの編集内容を踏まえ、私のダッシュボードはこのようになってる。
+ここまでの編集内容を踏まえ、私のダッシュボードはこのようになっている。
 
 #### 新規記事の作成
 
@@ -643,7 +646,7 @@ export default defineConfig({
 
 ![編集モード](../../../assets/images/front-matter-cms-editing.png)
 
-何かやりたいことがあった時に、アクセス手段が複数あるという点で、非常に快適だ。(例: スニペット機能はマークダウンパレットだけでなく VSCode コマンドからも呼び出せる)
+何かやりたいことがあった時に、アクセス手段が複数ある。これは非常に快適だ。(例: スニペット機能はマークダウンパレットだけでなく VSCode コマンドからも呼び出せる)
 
 #### メディアの管理
 

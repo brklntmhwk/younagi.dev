@@ -18,6 +18,7 @@ import remarkCard, { type Config as RemarkCardConfig } from 'remark-card';
 import remarkDirective from 'remark-directive';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
+import remarkRubyDirective from 'remark-ruby-directive';
 import remarkVideo, { type Config as RemarkVideoConfig } from 'remark-video';
 import { iconNameTypes } from './src/lib/astro-integrations/icon-name-type';
 import { pagefind } from './src/lib/astro-integrations/pagefind';
@@ -137,6 +138,7 @@ export default defineConfig({
         } satisfies RemarkEmbedOptions,
       ],
       remarkLinkCard,
+      remarkRubyDirective,
       remarkLineBreaks,
     ],
     rehypePlugins: [

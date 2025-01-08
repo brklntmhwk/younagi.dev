@@ -97,6 +97,7 @@
     "remark-directive": "^3.0.0",
     "remark-gfm": "4.0.0",
     "remark-math": "6.0.0",
+    "remark-ruby-directive": "^0.2.0",
     "remark-video": "^0.10.0",
     "satori": "^0.12.0",
     "sharp": "^0.33.5",

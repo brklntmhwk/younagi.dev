@@ -37,7 +37,7 @@ const slugWithoutLocale = getSlugWithoutLocale(slug);
   <main>
     <Article kind="news">
       <section slot="metadata" class="flex flex-col gap-4">
-        <h1 class="text-3xl sm:text-4xl xl:text-5xl font-extrabold leading-snug sm:leading-snug md:leading-snug xl:leading-normal">{title}</h1>
+        <h1 class="text-2xl sm:text-3xl xl:text-4xl font-extrabold leading-snug sm:leading-snug md:leading-snug xl:leading-normal">{title}</h1>
         <div class="text-sm xs:text-base sm:text-lg flex flex-wrap gap-x-4 gap-y-1">
           <div class="flex items-center gap-1.5">
             <Icon iconName="publish" width={20} height={20} />
@@ -53,7 +53,7 @@ const slugWithoutLocale = getSlugWithoutLocale(slug);
           }
         </div>
       </section>
-      <section slot="content" class="prose prose-lg md:prose-xl dark:prose-dark min-w-full">
+      <section slot="content" class="prose sm:prose-lg dark:prose-dark min-w-full">
         <slot />
       </section>
       <section slot="cta" class="flex flex-wrap items-center gap-x-7 gap-y-3">

@@ -27,8 +27,8 @@ export const style = tv({
       teal: 'bg-teal-500 dark:bg-teal-700',
     },
     taxonomy: {
-      categories: 'py-1.5 px-3.5 m-0 rounded-[0.185rem]',
-      tags: 'py-0.5 px-[0.35rem] my-1 mx-2',
+      categories: 'py-1 xs:py-1.5 px-3 xs:px-3.5 m-0 rounded-[0.185rem]',
+      tags: 'py-0 xs:py-0.5 px-[0.25rem] xs:px-[0.35rem] my-0.5 xs:my-1 mx-1.5 xs:mx-2',
     },
   },
   compoundVariants: [

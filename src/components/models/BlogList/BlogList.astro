@@ -58,7 +58,7 @@ const { entries, taxonomies } = Astro.props;
             </section>
             <span class="text-sm xs:text-base">{description}</span>
             {taxonomies.show && (
-              <section class="text-xs sm:text-sm pt-2 flex flex-wrap items-center gap-y-7 gap-x-3.5">
+              <section class="text-xs sm:text-sm my-2.5 flex flex-wrap items-center gap-y-5 sm:gap-y-7 gap-x-3">
                 {taxonomies.shouldDisplay?.includes('category') && category && (
                   <Taxonomy
                     kind={blogCategory.metadata.collection}

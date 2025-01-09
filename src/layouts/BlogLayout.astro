@@ -57,7 +57,7 @@ const tags = await getBlogTags(blogTags);
 >
   <main>
     <Article kind="blog">
-      <section slot="metadata" class="md:max-w-3xl flex flex-col items-center gap-4 mx-auto">
+      <section slot="metadata" class="md:max-w-3xl flex flex-col items-center gap-3 sm:gap-4 mx-auto">
         {
           thumbnail && (
             <p class="text-center text-3xl sm:text-4xl font-extrabold mb-4">{thumbnail}</p>
@@ -77,8 +77,8 @@ const tags = await getBlogTags(blogTags);
             )
           }
         </div>
-        <h1 class="text-center text-3xl sm:text-4xl xl:text-5xl font-extrabold leading-snug sm:leading-snug md:leading-snug xl:leading-normal">{title}</h1>
-        <div class="text-[0.825rem] sm:text-[1.045rem] pt-2.5 pb-3.5 flex flex-wrap justify-center items-center gap-y-7 gap-x-3">
+        <h1 class="text-center text-2xl sm:text-3xl xl:text-4xl font-extrabold leading-snug sm:leading-snug md:leading-snug xl:leading-normal">{title}</h1>
+        <div class="text-[0.825rem] sm:text-[1.045rem] pt-2.5 pb-3.5 flex flex-wrap justify-center items-center gap-y-6 sm:gap-y-7 gap-x-3">
           {
             category && (
               <Taxonomy

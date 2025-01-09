@@ -123,8 +123,9 @@ export default {
               fontWeight: 600,
             },
             'p, li': {
-              fontSize: '1.025rem',
+              fontSize: '1.0125rem',
               fontWeight: 500,
+              lineHeight: '1.825rem',
             },
             a: {
               '&:not(h2 a, h3 a, h4 a, h5 a, h6 a, a[data-link-card])': {
@@ -308,15 +309,6 @@ export default {
             hr: {
               marginTop: '1.75rem',
               marginBottom: '1.75rem',
-            },
-            ruby: {
-              textAlign: 'start',
-              rubyAlign: 'space-around',
-              paddingTop: '1em',
-              transform: 'translateY(.8em)',
-            },
-            rt: {
-              textAlign: 'inherit',
             },
             '.katex-display': {
               marginTop: '1.875rem',

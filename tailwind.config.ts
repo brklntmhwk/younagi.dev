@@ -81,9 +81,6 @@ export default {
           ...defaultTheme.fontFamily.serif
         ],
       },
-      lineHeight: {
-        extraloose: '2.25',
-      },
       backdropBlur: {
         xs: '4px',
         sm: '6px',
@@ -126,7 +123,7 @@ export default {
               fontWeight: 600,
             },
             'p, li': {
-              fontSize: '1.075rem',
+              fontSize: '1.025rem',
               fontWeight: 500,
             },
             a: {
@@ -356,6 +353,10 @@ export default {
         },
         lg: {
           css: {
+            'p, li': {
+              fontSize: '1.075rem',
+              fontWeight: 500,
+            },
             'ul, ol': {
               paddingInlineStart: '2.5rem',
             },
@@ -369,21 +370,6 @@ export default {
             hr: {
               marginTop: '1.785rem',
               marginBottom: '1.785rem',
-            },
-          },
-        },
-        xl: {
-          css: {
-            'ul, ol': {
-              paddingInlineStart: '2.75rem',
-            },
-            '[data-link-card] img': {
-              marginTop: '0',
-              marginBottom: '0',
-            },
-            hr: {
-              marginTop: '1.875rem',
-              marginBottom: '1.875rem',
             },
           },
         },

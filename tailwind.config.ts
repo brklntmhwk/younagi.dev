@@ -309,6 +309,15 @@ export default {
               marginTop: '1.75rem',
               marginBottom: '1.75rem',
             },
+            ruby: {
+              textAlign: 'start',
+              rubyAlign: 'space-around',
+              paddingTop: '1em',
+              transform: 'translateY(.8em)',
+            },
+            rt: {
+              textAlign: 'inherit',
+            },
             '.katex-display': {
               marginTop: '1.875rem',
               marginBottom: '1.875rem',

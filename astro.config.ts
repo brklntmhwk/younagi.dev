@@ -71,11 +71,11 @@ export default defineConfig({
     //   Logger: 1,
     // }),
     purgecss({
-      fontFace: false,
+      fontFace: true,
       keyframes: true,
       variables: true,
       safelist: {
-        standard: [/:hover/, /:before/, /:after/, /^peer-checked:/, /^\[&>\*\]/],
+        standard: [/hover:/, /before:/, /after:/, /^peer-checked:/, /^\[&>\*\]/],
         deep: [/prose/],
       },
       extractors: [

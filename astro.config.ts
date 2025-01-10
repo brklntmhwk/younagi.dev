@@ -3,7 +3,7 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import solidJs from '@astrojs/solid-js';
 import tailwind from '@astrojs/tailwind';
-// import compress from 'astro-compress';
+import compress from 'astro-compress';
 import purgecss from 'astro-purgecss';
 import { defineConfig, passthroughImageService } from 'astro/config';
 import { h } from 'hastscript';
@@ -62,14 +62,14 @@ export default defineConfig({
     sitemap(),
     iconNameTypes(),
     pagefind(),
-    // compress({
-    //   CSS: true,
-    //   HTML: false,
-    //   Image: false,
-    //   JavaScript: true,
-    //   SVG: false,
-    //   Logger: 1,
-    // }),
+    compress({
+      CSS: true,
+      HTML: false,
+      Image: false,
+      JavaScript: true,
+      SVG: false,
+      Logger: 1,
+    }),
     purgecss({
       fontFace: true,
       keyframes: true,

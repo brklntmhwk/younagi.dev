@@ -72,13 +72,13 @@ export default {
         },
       },
       fontFamily: {
-        sans: [
-          'var(--font-base, ui-sans-serif)',
-          ...defaultTheme.fontFamily.sans,
+        base: [
+          'var(--font-base)',
+          ...defaultTheme.fontFamily.mono,
         ],
         pixel: [
           'var(--font-pixel)',
-          ...defaultTheme.fontFamily.serif
+          ...defaultTheme.fontFamily.mono,
         ],
       },
       backdropBlur: {

@@ -73,6 +73,7 @@ export default defineConfig({
     purgecss({
       fontFace: true,
       keyframes: true,
+      safelist: [/:hover/, /:before/, /:after/, /^\[&>\*\]/, /prose/],
       extractors: [
         {
           extractor: (content) =>

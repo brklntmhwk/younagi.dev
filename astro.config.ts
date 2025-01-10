@@ -4,6 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import solidJs from '@astrojs/solid-js';
 import tailwind from '@astrojs/tailwind';
 import compress from 'astro-compress';
+import purgecss from 'astro-purgecss';
 import { defineConfig, passthroughImageService } from 'astro/config';
 import { h } from 'hastscript';
 import rehypeAutolinkHeadings, {
@@ -69,12 +70,23 @@ export default defineConfig({
       SVG: false,
       Logger: 1,
     }),
+    purgecss({
+      fontFace: true,
+      keyframes: true,
+      extractors: [
+        {
+          extractor: (content) =>
+            content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [],
+          extensions: ['astro', 'html'],
+        },
+      ],
+    }),
   ],
   prefetch: {
     defaultStrategy: 'viewport',
     prefetchAll: true,
   },
-  trailingSlash: "always",
+  trailingSlash: 'always',
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'ja'],

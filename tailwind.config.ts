@@ -77,7 +77,7 @@ export default {
           ...defaultTheme.fontFamily.sans,
         ],
         pixelMPlus: [
-          'var(--font-pixelMPlus)',
+          'var(--font-pixel)',
           ...defaultTheme.fontFamily.serif
         ],
       },

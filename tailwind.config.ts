@@ -74,7 +74,7 @@ export default {
       fontFamily: {
         base: [
           'var(--font-base)',
-          ...defaultTheme.fontFamily.mono,
+          ...defaultTheme.fontFamily.sans,
         ],
         pixel: [
           'var(--font-pixel)',

@@ -31,7 +31,7 @@ const { title, description, og } = Astro.props;
   <head>
     <BaseHead {title} description={description ?? ''} {og} />
   </head>
-  <body class="font-base antialiased text-default bg-default-reverse break-words touch-manipulation" data-pagefind-body>
+  <body class="antialiased text-default bg-default-reverse break-words touch-manipulation" data-pagefind-body>
     <LocaleStore client:only="solid" {locale} />
     <UrlStore client:only="solid" {url} />
     <div class="mx-auto lg:m-m-0 pt-14 md:pt-20 lg:pt-0 grid grid-areas-main grid-rows-[1fr_auto] grid-cols-[100%] lg:grid-cols-[18rem_1fr]">

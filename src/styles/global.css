@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 :root {
-  --font-base: "Inter Variable", "Noto Sans JP Variable";
   --font-pixel: "PixelMplus10";
   --color-default-fg: hsl(248.57, 11.48%, 11.96%);
   --color-default-bg: hsl(0, 0%, 96.7%);
@@ -53,8 +52,9 @@
 
 html {
   font-size: 16px;
-  font-family: var(--font-base), ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: "Inter Variable", "Noto Sans JP Variable", ui-sans-serif,
+    system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
   color: var(--color-default-fg);
   background-color: var(--color-default-bg);
 }

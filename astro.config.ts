@@ -76,7 +76,7 @@ export default defineConfig({
       variables: true,
       safelist: {
         standard: [/hover:/, /before:/, /after:/, /^peer-checked:/, /^\[&>\*\]/],
-        deep: [/prose/],
+        greedy: [/prose/],
       },
       extractors: [
         {

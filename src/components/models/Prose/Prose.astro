@@ -1,0 +1,118 @@
+---
+
+---
+
+<section class="proseeee">
+  <slot />
+</section>
+<style is:global>
+  .proseeee {
+    color: var(--color-default-fg);
+    & h2, h3 {
+      font-weight: 700;
+      line-height: 1.75;
+    }
+    & h4, h5, h6 {
+      font-weight: 600;
+      line-height: 1.5;
+    }
+    & h2 {
+      font-size: 1.875rem;
+      margin-top: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    & h3 {
+      font-size: 1.625rem;
+      margin-top: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    & h4 {
+      font-size: 1.5rem;
+      margin-top: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+    & h5, h6 {
+      font-size: 1.25rem;
+      margin-top: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+    & a:not(:has(.heading-anchor-icon), [data-link-card]) {
+      color: var(--color-primary);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      &:hover {
+        color: var(--color-primary-dim);
+      }
+    }
+    & p, li {
+      font-size: 1.0125rem;
+      font-weight: 400;
+      line-height: 1.825rem;
+    }
+    & ul, ol {
+      padding-inline-start: 2.5rem;
+    }
+    & p {
+      margin-top: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    & li {
+      margin-top: 0.375rem;
+      margin-bottom: 0.375rem;
+    }
+    & li::marker {
+      color: var(--color-default-fg);
+    }
+    & ul li {
+      list-style-type: square;
+    }
+    & ol li {
+      list-style-type: decimal;
+    }
+    & blockquote {
+      font-size: 1.125rem;
+      font-style: italic;
+      line-height: 1.825rem;
+      border-color: var(--color-dark-gray);
+      border-style: solid;
+      border-left-width: 4px;
+      margin-left: 0;
+      padding-left: 1.5rem;
+    }
+    & table {
+      display: block;
+      max-height: 50vh;
+      border-collapse: collapse;
+      table-layout: fixed;
+      overflow-x: auto;
+      overflow-y: scroll;
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    & th, td {
+      text-align: center;
+      white-space: nowrap;
+      border-color: var(--color-gray);
+      border-style: solid;
+      border-width: 2px;
+      padding: 0.5rem 0.625rem;
+    }
+    & th::first-child, td::first-child {
+      padding-inline-start: 0.5rem;
+    }
+    & th::last-child, td::last-child {
+      padding-inline-end: 0.5rem;
+    }
+    .heading-anchor-icon {
+      margin-right: 0.5rem;
+    }
+    .katex-display {
+      marginTop: 1.875rem;
+      marginBottom: 1.875rem;
+      paddingTop: 0.25rem;
+      paddingBottom: 0.25rem;
+      overflowX: auto;
+      overflowY: hidden;
+    }
+  }
+</style>

@@ -52,9 +52,8 @@
 
 html {
   font-size: 16px;
-  font-family: "Inter Variable", "Noto Sans JP Variable", ui-sans-serif,
-    system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: "Inter Variable", ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   color: var(--color-default-fg);
   background-color: var(--color-default-bg);
 }

@@ -1,3 +1,4 @@
+import '@/styles/pixel-m-plus.css';
 import { locale } from '@/components/functional/LocaleStore/locale-store';
 import { url } from '@/components/functional/UrlStore/url-store';
 import { defaultLang, languages } from '@/utils/i18n/data';
@@ -12,7 +13,7 @@ export const LocalePicker: Component = () => {
   return (
     <ul class="grid gap-6 ml-5">
       {Object.entries(languages).map(([lang, label]) => (
-        <li class="text-xl font-pixelMPlus">
+        <li class="text-xl font-pixel">
           {lang === $locale() ? (
             <span class="font-bold">{label}</span>
           ) : (

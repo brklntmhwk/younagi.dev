@@ -1,3 +1,4 @@
+import '@/styles/pixel-m-plus.css';
 import type { I18nData } from '@/lib/collections/types';
 import { isDev } from '@/lib/mode';
 import {
@@ -96,7 +97,7 @@ export const Search: Component<Props> = (props) => {
             placeholder={props.t.placeholder}
             onInput={(e) => setQuery(e.currentTarget.value)}
             onKeyDown={handleKeyDown}
-            class="font-pixelMPlus w-full text-lg bg-transparent outline-none"
+            class="font-pixel w-full text-lg bg-transparent outline-none"
             autocomplete="off"
           />
         </div>

@@ -76,7 +76,7 @@ export default {
           'var(--font-base, ui-sans-serif)',
           ...defaultTheme.fontFamily.sans,
         ],
-        pixelMPlus: [
+        pixel: [
           'var(--font-pixel)',
           ...defaultTheme.fontFamily.serif
         ],

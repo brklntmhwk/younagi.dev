@@ -71,9 +71,13 @@ export default defineConfig({
       Logger: 1,
     }),
     purgecss({
-      fontFace: true,
+      fontFace: false,
       keyframes: true,
-      safelist: [/:hover/, /:before/, /:after/, /^\[&>\*\]/, /prose/],
+      variables: true,
+      safelist: {
+        standard: [/:hover/, /:before/, /:after/, /^\[&>\*\]/],
+        deep: [/prose/],
+      },
       extractors: [
         {
           extractor: (content) =>

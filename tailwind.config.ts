@@ -124,7 +124,7 @@ export default {
             },
             'p, li': {
               fontSize: '1.0125rem',
-              fontWeight: 500,
+              fontWeight: 400,
               lineHeight: '1.825rem',
             },
             a: {

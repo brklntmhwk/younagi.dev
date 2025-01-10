@@ -34,6 +34,8 @@
     "@astrojs/sitemap": "^3.2.1",
     "@astrojs/solid-js": "^4.4.2",
     "@astrojs/tailwind": "^5.1.2",
+    "@fontsource-variable/inter": "^5.1.1",
+    "@fontsource-variable/noto-sans-jp": "^5.1.1",
     "@fontsource-variable/piazzolla": "^5.1.2",
     "@fontsource/dotgothic16": "^5.1.0",
     "@fontsource/shippori-mincho-b1": "^5.1.1",

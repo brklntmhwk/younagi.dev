@@ -11,9 +11,6 @@ import rehypeAutolinkHeadings, {
   type Options as RehypeAutoLinkHeadingsOptions,
 } from 'rehype-autolink-headings';
 import rehypeKatex from 'rehype-katex';
-import rehypePrettyCode, {
-  type Options as RehypePrettyCodeOptions,
-} from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import remarkCard, { type Config as RemarkCardConfig } from 'remark-card';
 import remarkDirective from 'remark-directive';
@@ -39,6 +36,9 @@ import {
   oEmbedTransformer,
   youTubeTransformer,
 } from './src/lib/unified/transformers';
+import expressiveCode from "astro-expressive-code";
+import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
+
 
 // https://astro.build/config
 export default defineConfig({
@@ -54,6 +54,10 @@ export default defineConfig({
     service: passthroughImageService(),
   },
   integrations: [
+    expressiveCode({
+      themes: ['github-dark', 'catppuccin-latte'],
+      plugins: [pluginLineNumbers()],
+    }),
     mdx(),
     tailwind({
       applyBaseStyles: false,
@@ -173,16 +177,6 @@ export default defineConfig({
             ['#'],
           ),
         } satisfies RehypeAutoLinkHeadingsOptions,
-      ],
-      [
-        rehypePrettyCode,
-        {
-          theme: {
-            light: 'catppuccin-latte',
-            dark: 'github-dark',
-          },
-          grid: false,
-        } satisfies RehypePrettyCodeOptions,
       ],
       rehypePagefindIgnore,
     ],

@@ -173,100 +173,6 @@ export default {
               paddingLeft: '1.5rem',
               margin: '0',
             },
-            code: {
-              '&:not(figure[data-rehype-pretty-code-figure] code)': {
-                fontSize: '0.95rem',
-                color: theme('colors.gray.800'),
-                backgroundColor: theme('colors.gray.200'),
-                padding: '0.1rem 0.25rem',
-                marginLeft: '0.1rem',
-                marginRight: '0.1rem',
-                borderRadius: '0.25rem',
-                '&::before': {
-                  display: 'none',
-                },
-                '&::after': {
-                  display: 'none',
-                },
-              },
-              '& [data-line]': {
-                borderLeft: '4px solid transparent',
-                padding: '0 0.55rem',
-                '&::before': {
-                  counterIncrement: 'line',
-                  content: 'counter(line)',
-                  display: 'inline-block',
-                  width: '1rem',
-                  marginRight: '1.05rem',
-                  textAlign: 'right',
-                  color: 'hsla(60, 0.52%, 55.55%, 1)',
-                },
-              },
-              '& [data-highlighted-line]': {
-                backgroundColor: 'hsla(242, 100%, 90%, 0.3)',
-                borderLeftColor: 'hsla(242, 94.78%, 82.45%, 0.8)',
-                '& span': {
-                  backgroundColor: 'unset',
-                },
-              },
-              '& [data-highlighted-chars]': {
-                backgroundColor: 'hsla(242, 100%, 90%, 0.3)',
-                padding: '0.25rem',
-                borderRadius: '0.25rem',
-                '& span': {
-                  backgroundColor: 'unset',
-                },
-              },
-            },
-            'figure[data-rehype-pretty-code-figure]': {
-              margin: '3.75rem 0 1.75rem 0',
-              position: 'relative',
-              fontSize: '0.875rem',
-              '& pre': {
-                maxHeight: '30rem',
-                borderRadius: '0.25rem',
-                overflow: 'auto',
-              },
-              '& code': {
-                fontFamily: 'Menlo, Consolas, monospace',
-                fontSize: '0.875rem',
-                counterReset: 'line',
-                display: 'grid',
-              },
-              '&:not(:has([data-rehype-pretty-code-title]))': {
-                margin: '1.75rem 0',
-              },
-              '& [data-rehype-pretty-code-title]': {
-                fontFamily: 'Menlo, Consolas, monospace',
-                fontSize: '0.875rem',
-                width: '100%',
-                position: 'absolute',
-                top: '-35px',
-                left: '0',
-                whiteSpace: 'nowrap',
-                textOverflow: 'ellipsis',
-                overflow: 'hidden',
-                padding: '0.25rem 0.75rem',
-                color: 'hsla(0, 1.27%, 20.98%, 1)',
-                backgroundColor: 'hsla(220, 1.5%, 87.55%, 1)',
-                borderRadius: '0.15rem 0.15rem 0.15rem 0',
-              },
-              '& [data-rehype-pretty-code-title] + pre': {
-                marginTop: '2.85rem',
-                padding: '0.85rem 0',
-              },
-              'pre:not([data-rehype-pretty-code-title] + pre)': {
-                padding: '0.75rem 0',
-              },
-            },
-            'pre[data-theme*=" "]': {
-              color: 'var(--shiki-light)',
-              backgroundColor: 'var(--shiki-light-bg)',
-            },
-            'pre[data-theme*=" "] span': {
-              color: 'var(--shiki-light)',
-              backgroundColor: 'var(--shiki-light-bg)',
-            },
             table: {
               display: 'block',
               maxHeight: '50vh',
@@ -317,38 +223,6 @@ export default {
               paddingBottom: '0.25rem',
               overflowX: 'auto',
               overflowY: 'hidden',
-            },
-          },
-        },
-        dark: {
-          css: {
-            code: {
-              '& [data-line]': {
-                '&::before': {
-                  color: 'hsla(60, 0.52%, 75.55%, 1)',
-                },
-              },
-              '& [data-highlighted-line]': {
-                backgroundColor: 'hsla(213.49, 87.31%, 82%, 0.2)',
-                borderLeftColor: 'hsla(213.49, 84.31%, 70%, 0.8)',
-              },
-              '& [data-highlighted-chars]': {
-                backgroundColor: 'hsla(213.49, 87.31%, 82%, 0.2)',
-              },
-            },
-            'figure[data-rehype-pretty-code-figure]': {
-              '& [data-rehype-pretty-code-title]': {
-                color: 'hsla(60, 0.52%, 85.55%, 1)',
-                backgroundColor: 'hsla(0, 1.27%, 30.98%, 1)',
-              },
-            },
-            'pre[data-theme*=" "]': {
-              color: 'var(--shiki-dark)',
-              backgroundColor: 'var(--shiki-dark-bg)',
-            },
-            'pre[data-theme*=" "] span': {
-              color: 'var(--shiki-dark)',
-              backgroundColor: 'var(--shiki-dark-bg)',
             },
           },
         },

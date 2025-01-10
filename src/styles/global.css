@@ -51,6 +51,14 @@
   }
 }
 
+html {
+  font-size: 16px;
+  font-family: var(--font-base), ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  color: var(--color-default-fg);
+  background-color: var(--color-default-bg);
+}
+
 main {
   grid-area: main;
   padding: 2.25rem 1.5rem;
@@ -76,6 +84,7 @@ hr {
 
 .double-border {
   position: relative;
+  z-index: 1;
   border-color: var(--color-line-double);
   border-style: solid;
   border-top-width: 4px;

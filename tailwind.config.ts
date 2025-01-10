@@ -72,10 +72,10 @@ export default {
         },
       },
       fontFamily: {
-        base: [
-          'var(--font-base)',
-          ...defaultTheme.fontFamily.sans,
-        ],
+        // base: [
+        //   'var(--font-base)',
+        //   ...defaultTheme.fontFamily.sans,
+        // ],
         pixel: [
           'var(--font-pixel)',
           ...defaultTheme.fontFamily.mono,

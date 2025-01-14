@@ -77,7 +77,6 @@ export default defineConfig({
     purgecss({
       fontFace: true,
       keyframes: true,
-      variables: true,
       safelist: {
         standard: [/hover:/, /before:/, /after:/, /^peer-checked:/, /^\[&>\*\]/],
         greedy: [/prose/],

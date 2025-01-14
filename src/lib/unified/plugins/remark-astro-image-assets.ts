@@ -1,6 +1,5 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import type { RemarkPlugin } from '@astrojs/markdown-remark';
 import type { Image, Root } from 'mdast';
 import type { FormatEnum } from 'sharp';
 import type { Plugin } from 'unified';
@@ -23,7 +22,7 @@ const defaultRemarkAstroImageAssetsOptions: Readonly<RemarkAstroImageAssetsOptio
 
 const remarkAstroImageAssets: Plugin<[RemarkAstroImageAssetsOptions?], Root> = (
   options = defaultRemarkAstroImageAssetsOptions,
-): ReturnType<RemarkPlugin> => {
+) => {
   return async (tree) => {
     const imgs: Image[] = [];
 

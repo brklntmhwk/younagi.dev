@@ -1,4 +1,3 @@
-import type { RemarkPlugin } from '@astrojs/markdown-remark';
 import type { Parent, Root } from 'mdast';
 import type { Plugin } from 'unified';
 import { visit } from 'unist-util-visit';
@@ -15,11 +14,11 @@ const defaultRemarkEmbedOptions: Readonly<RemarkEmbedOptions> = {
 
 const remarkEmbed: Plugin<[RemarkEmbedOptions?], Root> = (
   options = defaultRemarkEmbedOptions,
-): ReturnType<RemarkPlugin> => {
+) => {
   return async (tree, file) => {
     const transforms: Promise<void>[] = [];
 
-    visit(tree, isBareLink, (node, _index, parent: Parent | undefined) => {
+    visit(tree, isBareLink, (node, _i, parent: Parent | undefined) => {
       if (!isParent(parent)) return;
 
       const link = node.children[0];

@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 :root {
+  --font-code: "Menlo", "Monaco", "MonoLisa", "Consolas", "ui-monospace",
+    "monospace";
   --font-pixel: "PixelMplus10";
   --color-default-fg: hsl(248.57, 11.48%, 11.96%);
   --color-default-bg: hsl(0, 0%, 96.7%);
@@ -19,8 +21,6 @@
   --color-primary: hsl(240.24, 100%, 48.63%);
   --color-primary-dim: hsl(240, 98.54%, 26.86%);
   --color-gray: hsl(60, 0.52%, 75.55%);
-  --color-ash-gray: hsl(0, 0%, 86.71%);
-  --color-dark-gray: hsl(0, 1.27%, 20.98%);
   --color-star-empty: hsl(60, 0.52%, 75.55%);
   --color-star-filled: hsl(42, 100%, 52%);
   --color-star-glow: hsl(41, 100%, 65%);
@@ -40,6 +40,7 @@
     --color-primary: hsl(215.24, 100%, 52.63%);
     --color-secondary: hsl(29, 96%, 42%);
     --color-primary-dim: hsl(220, 98.54%, 43.86%);
+    --color-gray: hsl(60, 0.52%, 42.55%);
     --color-line-double: hsl(220, 100%, 98.22%);
     --color-star-filled: hsl(40, 100%, 62%);
     --color-star-glow: hsl(41, 100%, 75%);
@@ -51,7 +52,7 @@
 }
 
 html {
-  font-size: 16px;
+  font-size: 1rem;
   font-family: "Inter Variable", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   color: var(--color-default-fg);

@@ -14,7 +14,7 @@ export const colors = [
 ] as const;
 
 export const style = tv({
-  base: 'text-neutral-100 text-center text-xs xxs:text-[0.825rem] xxs:leading-4 xs:text-sm sm:text-base',
+  base: 'text-neutral-100 text-center text-xs sm:text-sm',
   variants: {
     color: {
       primary: 'bg-primary',
@@ -27,7 +27,7 @@ export const style = tv({
       teal: 'bg-teal-500 dark:bg-teal-700',
     },
     taxonomy: {
-      categories: 'py-1 xs:py-1.5 px-3 xs:px-3.5 m-0 rounded-[0.185rem]',
+      categories: 'py-1.5 xs:py-2 px-3 xs:px-3.5 m-0 rounded-[0.185rem]',
       tags: 'py-0 xs:py-0.5 px-[0.25rem] xs:px-[0.35rem] my-0.5 xs:my-1 mx-1.5 xs:mx-2',
     },
   },

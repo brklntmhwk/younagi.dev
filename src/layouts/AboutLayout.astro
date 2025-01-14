@@ -2,6 +2,7 @@
 import { getEntry } from 'astro:content';
 import ProfileImage from '@/assets/images/profile.png';
 import { Article } from '@/components/models/Article';
+import { Prose } from '@/components/models/Prose';
 import { Toc } from '@/components/models/Toc';
 import { ContactForm } from '@/components/ui/ContactForm/ContactForm';
 import { Icon } from '@/components/ui/Icon';
@@ -10,7 +11,6 @@ import { ProfileIcon } from '@/components/ui/ProfileIcon';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getLocaleFromUrl } from '@/utils/i18n/utils';
 import type { MarkdownHeading } from 'astro';
-import { Prose } from '@/components/models/Prose';
 
 type Props = {
   headings: MarkdownHeading[];

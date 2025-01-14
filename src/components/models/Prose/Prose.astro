@@ -8,13 +8,14 @@
 <style is:global>
   .proseeee {
     color: var(--color-default-fg);
+    & h2, h3, h4, h5, h6 {
+      line-height: 1.5;
+    }
     & h2, h3 {
       font-weight: 700;
-      line-height: 1.75;
     }
     & h4, h5, h6 {
       font-weight: 600;
-      line-height: 1.5;
     }
     & h2 {
       font-size: 1.875rem;
@@ -73,7 +74,7 @@
       font-size: 1.125rem;
       font-style: italic;
       line-height: 1.825rem;
-      border-color: var(--color-dark-gray);
+      border-color: var(--color-gray);
       border-style: solid;
       border-left-width: 4px;
       margin-left: 0;
@@ -102,6 +103,20 @@
     }
     & th::last-child, td::last-child {
       padding-inline-end: 0.5rem;
+    }
+    & code:not(.expressive-code code) {
+      background-color: var(--color-gray);
+      font-family: var(--font-code);
+      font-size: 0.95rem;
+      padding: 0.125rem;
+      border-radius: 0.25rem;
+      margin-inline: 0.15rem;
+    }
+    .expressive-code {
+      margin-block: 1.25rem;
+    }
+    .expressive-code pre {
+      max-height: 30rem;
     }
     .heading-anchor-icon {
       margin-right: 0.5rem;

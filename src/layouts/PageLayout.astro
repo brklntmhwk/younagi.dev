@@ -2,10 +2,10 @@
 import type { CollectionEntry } from 'astro:content';
 import { Article } from '@/components/models/Article';
 import { FormattedDate } from '@/components/models/FormattedDate';
+import { Prose } from '@/components/models/Prose';
 import { Icon } from '@/components/ui/Icon';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getLocaleFromUrl } from '@/utils/i18n/utils';
-import { Prose } from '@/components/models/Prose';
 
 type Props = {
   page: CollectionEntry<'page'>;

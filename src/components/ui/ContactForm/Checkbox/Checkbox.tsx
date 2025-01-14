@@ -32,7 +32,7 @@ export const Checkbox: Component<Props> = (props) => {
     >
       <KCheckbox class="mt-6 inline-flex items-center gap-1">
         <KCheckbox.Input {...inputProps} />
-        <KCheckbox.Control class="h-5 w-5 rounded-sm border-solid border-[1px] border-zinc-400">
+        <KCheckbox.Control class="h-5 w-5 rounded-sm border-solid border-2 border-zinc-400">
           <KCheckbox.Indicator>
             <CheckIcon label={iconProps.label} width={18} height={18} />
           </KCheckbox.Indicator>

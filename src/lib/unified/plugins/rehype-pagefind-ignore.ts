@@ -1,4 +1,3 @@
-import type { RehypePlugin } from '@astrojs/markdown-remark';
 import type { Element, Root } from 'hast';
 import type { Plugin } from 'unified';
 import { visit } from 'unist-util-visit';
@@ -17,7 +16,7 @@ const shouldIgnore = (node: Element) => {
   return isLinkCard || isCodeBlock || isKatex;
 };
 
-const rehypePagefindIgnore: Plugin<[], Root> = (): ReturnType<RehypePlugin> => {
+const rehypePagefindIgnore: Plugin<[], Root> = () => {
   return (tree) => {
     visit(tree, 'element', (node) => {
       if (shouldIgnore(node)) {

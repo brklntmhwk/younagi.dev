@@ -1,4 +1,3 @@
-import type { RemarkPlugin } from '@astrojs/markdown-remark';
 import type { InlineCode, Root, Text } from 'mdast';
 import type { Plugin } from 'unified';
 import { visit } from 'unist-util-visit';
@@ -8,7 +7,7 @@ import {
   isTextOrInlineCode,
 } from '../mdast-is';
 
-const remarkFootnote: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
+const remarkFootnote: Plugin<[], Root> = () => {
   return (tree) => {
     const footnotes = new Map<string, string>();
 

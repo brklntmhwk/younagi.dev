@@ -2,6 +2,7 @@
 import { getEntry } from 'astro:content';
 import ProfileImage from '@/assets/images/profile.png';
 import { Article } from '@/components/models/Article';
+import { Prose } from '@/components/models/Prose';
 import { Toc } from '@/components/models/Toc';
 import { ContactForm } from '@/components/ui/ContactForm/ContactForm';
 import { Icon } from '@/components/ui/Icon';
@@ -52,9 +53,9 @@ const { headings } = Astro.props;
         </div>
         <Toc {headings} />
       </section>
-      <section slot="content" class="prose sm:prose-lg dark:prose-dark min-w-full">
+      <Prose slot="content">
         <slot />
-      </section>
+      </Prose>
     </Article>
   </main>
 </BaseLayout>

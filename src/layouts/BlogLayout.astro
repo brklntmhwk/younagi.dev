@@ -4,6 +4,7 @@ import type { CollectionEntry } from 'astro:content';
 import { getEntry } from 'astro:content';
 import { Article } from '@/components/models/Article';
 import { FormattedDate } from '@/components/models/FormattedDate';
+import { Prose } from '@/components/models/Prose';
 import { Taxonomy } from '@/components/models/Taxonomy';
 import { Toc } from '@/components/models/Toc';
 import { BuyMeACoffee } from '@/components/ui/BuyMeACoffee';
@@ -60,7 +61,7 @@ const tags = await getBlogTags(blogTags);
       <section slot="metadata" class="md:max-w-3xl flex flex-col items-center gap-3 sm:gap-4 mx-auto">
         {
           thumbnail && (
-            <p class="text-center text-3xl sm:text-4xl font-extrabold mb-4">{thumbnail}</p>
+            <p class="text-center text-3xl sm:text-4xl font-bold mb-4">{thumbnail}</p>
           )
         }
         <div class="text-sm xs:text-base sm:text-lg flex flex-wrap gap-x-4 gap-y-1">
@@ -106,9 +107,9 @@ const tags = await getBlogTags(blogTags);
         }
         <Toc {headings} />
       </section>
-      <section slot="content" class="prose sm:prose-lg dark:prose-dark min-w-full">
+      <Prose slot="content">
         <slot />
-      </section>
+      </Prose>
       <section slot="cta" class="flex flex-wrap items-center gap-x-7 gap-y-3">
         <Likes
           client:only="solid"

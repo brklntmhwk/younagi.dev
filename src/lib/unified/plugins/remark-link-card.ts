@@ -1,12 +1,11 @@
-import type { RemarkPlugin } from '@astrojs/markdown-remark';
 import type { Parent, Root } from 'mdast';
 import type { Plugin } from 'unified';
 import { visit } from 'unist-util-visit';
 import { isBareLink, isParent } from '../mdast-is';
 
-const remarkLinkCard: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
+const remarkLinkCard: Plugin<[], Root> = () => {
   return (tree) => {
-    visit(tree, isBareLink, (node, _index, parent: Parent | undefined) => {
+    visit(tree, isBareLink, (node, _i, parent: Parent | undefined) => {
       if (!isParent(parent)) return;
 
       const link = node.children[0];

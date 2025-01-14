@@ -4,19 +4,16 @@ import sitemap from '@astrojs/sitemap';
 import solidJs from '@astrojs/solid-js';
 import tailwind from '@astrojs/tailwind';
 import compress from 'astro-compress';
+import purgecss from 'astro-purgecss';
 import { defineConfig, passthroughImageService } from 'astro/config';
 import { h } from 'hastscript';
 import rehypeAutolinkHeadings, {
   type Options as RehypeAutoLinkHeadingsOptions,
 } from 'rehype-autolink-headings';
 import rehypeKatex from 'rehype-katex';
-import rehypePrettyCode, {
-  type Options as RehypePrettyCodeOptions,
-} from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import remarkCard, { type Config as RemarkCardConfig } from 'remark-card';
 import remarkDirective from 'remark-directive';
-import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import remarkRubyDirective from 'remark-ruby-directive';
 import remarkVideo, { type Config as RemarkVideoConfig } from 'remark-video';
@@ -30,7 +27,6 @@ import remarkEmbed, {
   type RemarkEmbedOptions,
 } from './src/lib/unified/plugins/remark-embed';
 import remarkFootnote from './src/lib/unified/plugins/remark-footnote';
-import remarkLineBreaks from './src/lib/unified/plugins/remark-line-breaks';
 import remarkLinkCard from './src/lib/unified/plugins/remark-link-card';
 import {
   canvaTransformer,
@@ -38,6 +34,9 @@ import {
   oEmbedTransformer,
   youTubeTransformer,
 } from './src/lib/unified/transformers';
+import expressiveCode from "astro-expressive-code";
+import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
+
 
 // https://astro.build/config
 export default defineConfig({
@@ -53,6 +52,10 @@ export default defineConfig({
     service: passthroughImageService(),
   },
   integrations: [
+    expressiveCode({
+      themes: ['github-dark', 'catppuccin-latte'],
+      plugins: [pluginLineNumbers()],
+    }),
     mdx(),
     tailwind({
       applyBaseStyles: false,
@@ -69,12 +72,26 @@ export default defineConfig({
       SVG: false,
       Logger: 1,
     }),
+    purgecss({
+      fontFace: true,
+      keyframes: true,
+      safelist: {
+        standard: [/hover:/, /before:/, /after:/, /^peer-checked:/, /^\[&>\*\]/],
+      },
+      extractors: [
+        {
+          extractor: (content) =>
+            content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [],
+          extensions: ['astro', 'html'],
+        },
+      ],
+    }),
   ],
   prefetch: {
     defaultStrategy: 'viewport',
     prefetchAll: true,
   },
-  trailingSlash: "always",
+  trailingSlash: 'always',
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'ja'],
@@ -104,7 +121,6 @@ export default defineConfig({
     },
     remarkPlugins: [
       remarkMath,
-      remarkGfm,
       remarkDirective,
       remarkAstroImageAssets,
       remarkCallout,
@@ -139,7 +155,6 @@ export default defineConfig({
       ],
       remarkLinkCard,
       remarkRubyDirective,
-      remarkLineBreaks,
     ],
     rehypePlugins: [
       rehypeKatex,
@@ -156,16 +171,6 @@ export default defineConfig({
             ['#'],
           ),
         } satisfies RehypeAutoLinkHeadingsOptions,
-      ],
-      [
-        rehypePrettyCode,
-        {
-          theme: {
-            light: 'catppuccin-latte',
-            dark: 'github-dark',
-          },
-          grid: false,
-        } satisfies RehypePrettyCodeOptions,
       ],
       rehypePagefindIgnore,
     ],

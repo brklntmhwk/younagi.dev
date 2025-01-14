@@ -1,4 +1,3 @@
-import type { RemarkPlugin } from '@astrojs/markdown-remark';
 import type { BlockContent, DefinitionContent, Paragraph, Root } from 'mdast';
 import type { Plugin } from 'unified';
 import { visit } from 'unist-util-visit';
@@ -34,7 +33,7 @@ const parseCallout = (text: string | undefined): Callout | undefined => {
   };
 };
 
-const remarkCallout: Plugin<[], Root> = (): ReturnType<RemarkPlugin> => {
+const remarkCallout: Plugin<[], Root> = () => {
   return (tree) => {
     visit(tree, 'blockquote', (node) => {
       if (!isParent(node)) return;

@@ -7,6 +7,7 @@ import { Icon } from '@/components/ui/Icon';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale';
 import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils';
+import { Prose } from '@/components/models/Prose';
 
 type Props = {
   entry: CollectionEntry<'news'>;
@@ -53,9 +54,9 @@ const slugWithoutLocale = getSlugWithoutLocale(slug);
           }
         </div>
       </section>
-      <section slot="content" class="prose sm:prose-lg dark:prose-dark min-w-full">
+      <Prose slot="content">
         <slot />
-      </section>
+      </Prose>
       <section slot="cta" class="flex flex-wrap items-center gap-x-7 gap-y-3">
         <BuyMeACoffee />
       </section>

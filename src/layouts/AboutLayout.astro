@@ -10,6 +10,7 @@ import { ProfileIcon } from '@/components/ui/ProfileIcon';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getLocaleFromUrl } from '@/utils/i18n/utils';
 import type { MarkdownHeading } from 'astro';
+import { Prose } from '@/components/models/Prose';
 
 type Props = {
   headings: MarkdownHeading[];
@@ -52,9 +53,9 @@ const { headings } = Astro.props;
         </div>
         <Toc {headings} />
       </section>
-      <section slot="content" class="prose sm:prose-lg dark:prose-dark min-w-full">
+      <Prose slot="content">
         <slot />
-      </section>
+      </Prose>
     </Article>
   </main>
 </BaseLayout>

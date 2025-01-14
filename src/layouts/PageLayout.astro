@@ -5,6 +5,7 @@ import { FormattedDate } from '@/components/models/FormattedDate';
 import { Icon } from '@/components/ui/Icon';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getLocaleFromUrl } from '@/utils/i18n/utils';
+import { Prose } from '@/components/models/Prose';
 
 type Props = {
   page: CollectionEntry<'page'>;
@@ -31,9 +32,9 @@ const { title, description, modifiedAt } = page.data;
           }
         </div>
       </section>
-      <section slot="content" class="prose sm:prose-lg dark:prose-dark min-w-full">
+      <Prose slot="content">
         <slot />
-      </section>
+      </Prose>
     </Article>
   </main>
 </BaseLayout>

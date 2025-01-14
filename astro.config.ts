@@ -79,7 +79,6 @@ export default defineConfig({
       keyframes: true,
       safelist: {
         standard: [/hover:/, /before:/, /after:/, /^peer-checked:/, /^\[&>\*\]/],
-        greedy: [/prose/],
       },
       extractors: [
         {

@@ -14,7 +14,6 @@ import rehypeKatex from 'rehype-katex';
 import rehypeSlug from 'rehype-slug';
 import remarkCard, { type Config as RemarkCardConfig } from 'remark-card';
 import remarkDirective from 'remark-directive';
-import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import remarkRubyDirective from 'remark-ruby-directive';
 import remarkVideo, { type Config as RemarkVideoConfig } from 'remark-video';
@@ -28,7 +27,6 @@ import remarkEmbed, {
   type RemarkEmbedOptions,
 } from './src/lib/unified/plugins/remark-embed';
 import remarkFootnote from './src/lib/unified/plugins/remark-footnote';
-import remarkLineBreaks from './src/lib/unified/plugins/remark-line-breaks';
 import remarkLinkCard from './src/lib/unified/plugins/remark-link-card';
 import {
   canvaTransformer,
@@ -123,7 +121,6 @@ export default defineConfig({
     },
     remarkPlugins: [
       remarkMath,
-      remarkGfm,
       remarkDirective,
       remarkAstroImageAssets,
       remarkCallout,
@@ -158,7 +155,6 @@ export default defineConfig({
       ],
       remarkLinkCard,
       remarkRubyDirective,
-      remarkLineBreaks,
     ],
     rehypePlugins: [
       rehypeKatex,

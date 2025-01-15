@@ -104,7 +104,7 @@
     & th::last-child, td::last-child {
       padding-inline-end: 0.5rem;
     }
-    & code:not(.expressive-code code) {
+    & code:not(div.expressive-code code) {
       background-color: var(--color-gray);
       font-family: var(--font-code);
       font-size: 0.95rem;
@@ -112,13 +112,13 @@
       border-radius: 0.25rem;
       margin-inline: 0.15rem;
     }
-    & .expressive-code {
+    & div.expressive-code {
       margin-block: 1.25rem;
     }
-    & .expressive-code pre {
+    & div.expressive-code pre {
       max-height: 30rem;
     }
-    & .heading-anchor-icon {
+    & span.heading-anchor-icon {
       margin-right: 0.5rem;
     }
     & .katex-display {

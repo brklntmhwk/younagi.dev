@@ -11,11 +11,20 @@ import {
   onMount,
 } from 'solid-js';
 import { SearchIcon } from './SearchIcon';
-import type { PagefindSearchResult, PagefindSearchResults } from './types';
+import type {
+  PagefindFilterCounts,
+  PagefindSearchOptions,
+  PagefindSearchResult,
+  PagefindSearchResults,
+} from './types';
 
 type Pagefind = {
   init: () => void;
-  search: (query: string) => Promise<PagefindSearchResults>;
+  search: (
+    query: string,
+    options?: PagefindSearchOptions,
+  ) => Promise<PagefindSearchResults>;
+  filters: () => Promise<PagefindFilterCounts>;
 };
 
 const initPagefind = async () => {
@@ -40,14 +49,20 @@ export const Search: Component<Props> = (props) => {
   });
 
   const [query, setQuery] = createSignal('');
+  const [filter, setFilter] = createSignal({});
   const isQuerying = createMemo(() => query().length > 0);
   const [searchResultRefs, setSearchResultRefs] = createSignal<
     HTMLAnchorElement[]
   >([]);
+  const [filters] = createResource<PagefindFilterCounts>(
+    async () => await pagefind.filters(),
+  );
   const [searchResults] = createResource(query, async (query: string) => {
     if (query.length === 0) return undefined;
 
-    const searchResults = await pagefind?.search(query);
+    const searchResults = await pagefind.search(query, {
+      filters: filter(),
+    });
     setSearchResultRefs(Array(searchResults?.results.length ?? 0).fill(null));
     setActiveIndex(0);
 
@@ -87,7 +102,7 @@ export const Search: Component<Props> = (props) => {
 
   return (
     <div class="max-h-[76dvh] flex flex-col gap-6 box-border h-fit">
-      <form onsubmit={handleSubmit}>
+      <form class="flex flex-col gap-2" onsubmit={handleSubmit}>
         <div class="bg-default-reverse double-border sticky flex items-center gap-2 p-3">
           <SearchIcon label={props.t.button_label} width={22} height={22} />
           <input
@@ -100,6 +115,34 @@ export const Search: Component<Props> = (props) => {
             class="font-pixel w-full text-lg bg-transparent outline-none"
             autocomplete="off"
           />
+        </div>
+        <div class="flex gap-2 py-3 border-b-2 border-solid border-line-solid">
+          {Object.entries(filters() ?? {}).map(([title, filter]) => (
+            <details>
+              <summary>{title}</summary>
+              <fieldset>
+                <legend>{title}</legend>
+                {Object.entries(filter).map(([value, count]) => (
+                  <div class="flex flex-col gap-1">
+                    <input
+                      type="checkbox"
+                      name={title}
+                      value={value}
+                      onChange={(e) =>
+                        setFilter((prev) => ({
+                          ...prev,
+                          [value]: e.currentTarget.checked,
+                        }))
+                      }
+                    />
+                    <label for={value}>
+                      {value} ({count})
+                    </label>
+                  </div>
+                ))}
+              </fieldset>
+            </details>
+          ))}
         </div>
       </form>
       <Suspense>

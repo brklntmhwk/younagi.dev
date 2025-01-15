@@ -124,7 +124,7 @@ export const Search: Component<Props> = (props) => {
               <summary class="cursor-pointer select-none list-none font-semibold after:ml-2 after:content-['≫'] after:text-inherit after:inline-block after:ease-linear after:duration-300">
                 {title}
               </summary>
-              <fieldset class="flex flex-col gap-2 pt-3">
+              <fieldset class="flex gap-2 pt-3">
                 <legend class="sr-only">{title}</legend>
                 {Object.entries(filter).map(([value, count]) => (
                   <div class="relative flex items-center gap-2">

@@ -31,7 +31,7 @@ const sortedTags = tags.data.sort((a, b) =>
       ◀ {t.data.pages.blog.back_to_top}
     </a>
     <hr class="my-5" />
-    <section class="py-2 flex flex-wrap gap-y-6 gap-x-3.5">
+    <section class="py-2 flex flex-wrap gap-y-5 gap-x-3.5">
       {sortedTags.map((tag) => <Taxonomy kind="tags" taxonomy={tag} />)}
     </section>
   </main>

@@ -21,12 +21,14 @@ import { iconNameTypes } from './src/lib/astro-integrations/icon-name-type';
 import { pagefind } from './src/lib/astro-integrations/pagefind';
 import { SITE_URL, VIDEO_FALLBACK_MESSAGE } from './src/lib/consts';
 import rehypePagefindIgnore from './src/lib/unified/plugins/rehype-pagefind-ignore';
+import rehypeTrimEmptyParagraph from './src/lib/unified/plugins/rehype-trim-empty-paragraph';
 import remarkAstroImageAssets from './src/lib/unified/plugins/remark-astro-image-assets';
 import remarkCallout from './src/lib/unified/plugins/remark-callout';
 import remarkEmbed, {
   type RemarkEmbedOptions,
 } from './src/lib/unified/plugins/remark-embed';
 import remarkFootnote from './src/lib/unified/plugins/remark-footnote';
+import remarkLineBreaks from './src/lib/unified/plugins/remark-line-breaks';
 import remarkLinkCard from './src/lib/unified/plugins/remark-link-card';
 import {
   canvaTransformer,
@@ -76,13 +78,13 @@ export default defineConfig({
       fontFace: true,
       keyframes: true,
       safelist: {
-        standard: [/hover:/, /before:/, /after:/, /^peer-checked:/, /^\[&>\*\]/],
+        standard: [/hover:/, /before:/, /after:/, /^peer-checked:/, /^\[&>.*]/],
       },
       extractors: [
         {
           extractor: (content) =>
             content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [],
-          extensions: ['astro', 'html'],
+          extensions: ['astro', 'html', 'tsx'],
         },
       ],
     }),
@@ -155,6 +157,7 @@ export default defineConfig({
       ],
       remarkLinkCard,
       remarkRubyDirective,
+      remarkLineBreaks,
     ],
     rehypePlugins: [
       rehypeKatex,
@@ -173,6 +176,7 @@ export default defineConfig({
         } satisfies RehypeAutoLinkHeadingsOptions,
       ],
       rehypePagefindIgnore,
+      rehypeTrimEmptyParagraph,
     ],
   },
 });

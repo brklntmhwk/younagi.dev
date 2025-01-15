@@ -185,7 +185,7 @@ const SearchResult: Component<SearchResultProps> = (props) => {
       >
         <span class="text-xl font-semibold">{result()?.meta.title}</span>
         <span
-          class="text-base [&>mark]:text-primary [&>mark]:font-semibold"
+          class="text-base [&>mark]:text-primary [&>mark]:font-semibold [&>mark]:bg-transparent"
           innerHTML={result()?.excerpt ?? ''}
         />
       </a>

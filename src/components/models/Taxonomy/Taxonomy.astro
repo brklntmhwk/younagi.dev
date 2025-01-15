@@ -18,7 +18,10 @@ const { kind, taxonomy } = Astro.props;
   class="align-top select-none whitespace-nowrap"
   href={translatePath(`/blog/${kind}/${slugify(taxonomy.slug)}/`)}
 >
-  <span class={taxonomyStyle({ color: taxonomy.color, taxonomy: kind })}>
+  <span
+    class={taxonomyStyle({ color: taxonomy.color, taxonomy: kind })}
+    data-pagefind-filter={`${kind}:${taxonomy.title}`}
+  >
     {kind === 'tags' ? `# ${taxonomy.title}` : taxonomy.title}
   </span>
 </a>

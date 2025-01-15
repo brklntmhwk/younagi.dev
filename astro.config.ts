@@ -27,6 +27,7 @@ import remarkEmbed, {
   type RemarkEmbedOptions,
 } from './src/lib/unified/plugins/remark-embed';
 import remarkFootnote from './src/lib/unified/plugins/remark-footnote';
+import remarkLineBreaks from './src/lib/unified/plugins/remark-line-breaks';
 import remarkLinkCard from './src/lib/unified/plugins/remark-link-card';
 import {
   canvaTransformer,
@@ -155,6 +156,7 @@ export default defineConfig({
       ],
       remarkLinkCard,
       remarkRubyDirective,
+      remarkLineBreaks,
     ],
     rehypePlugins: [
       rehypeKatex,

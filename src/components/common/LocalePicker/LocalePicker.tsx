@@ -18,7 +18,7 @@ export const LocalePicker: Component = () => {
             <span class="font-bold">{label}</span>
           ) : (
             <a
-              class="no-underline relative border-solid border-transparent border-b-2 hover:before:content-['▶'] hover:before:absolute hover:before:top-0 hover:before:-left-6 hover:before:text-xl self-center"
+              class="no-underline relative border-solid border-transparent border-b-2 hover:before:font-pixel hover:before:content-['▶'] hover:before:absolute hover:before:top-0 hover:before:-left-6 hover:before:text-xl self-center"
               href={
                 lang === defaultLang
                   ? `/${getTargetLocaleSlug($locale(), $url())}`

@@ -46,21 +46,17 @@ export const Search: Component<Props> = (props) => {
 
   onMount(async () => {
     pagefind = await initPagefind();
+    setFilters(await pagefind.filters());
   });
 
-  // let filters = async () => await pagefind.filters();
-
+  const [filters, setFilters] = createSignal<PagefindFilterCounts>({});
   const [query, setQuery] = createSignal('');
   const [filter, setFilter] = createSignal({});
   const isQuerying = createMemo(() => query().length > 0);
   const [searchResultRefs, setSearchResultRefs] = createSignal<
     HTMLAnchorElement[]
   >([]);
-  const [filters] = createResource<PagefindFilterCounts>(async () => {
-    const filters = await pagefind.filters();
 
-    return filters;
-  });
   const [searchResults] = createResource(query, async (query: string) => {
     if (query.length === 0) return undefined;
 

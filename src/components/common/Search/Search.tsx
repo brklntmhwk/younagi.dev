@@ -116,35 +116,38 @@ export const Search: Component<Props> = (props) => {
             autocomplete="off"
           />
         </div>
-        <div class="flex gap-2 py-3 border-b-2 border-solid border-line-solid">
-          {Object.entries(filters() ?? { category: { Gourmet: 5 } }).map(
-            ([title, filter]) => (
-              <details>
-                <summary>{title}</summary>
-                <fieldset>
-                  <legend>{title}</legend>
-                  {Object.entries(filter).map(([value, count]) => (
-                    <div class="flex flex-col gap-1">
-                      <input
-                        type="checkbox"
-                        name={title}
-                        value={value}
-                        onChange={(e) =>
-                          setFilter((prev) => ({
-                            ...prev,
-                            [value]: e.currentTarget.checked,
-                          }))
-                        }
-                      />
-                      <label for={value}>
-                        {value} ({count})
-                      </label>
-                    </div>
-                  ))}
-                </fieldset>
-              </details>
-            ),
-          )}
+        <div class="p-2 flex flex-col gap-2 py-3">
+          {Object.entries(
+            filters() ?? { category: { Gourmet: 5 }, tag: { DIY: 7 } },
+          ).map(([title, filter]) => (
+            <details class="w-full py-3 border-b-2 border-solid border-line-solid [&>summary:after]:open:rotate-90">
+              <summary class="cursor-pointer select-none list-none font-semibold after:ml-2 after:content-['≫'] after:text-inherit after:inline-block after:ease-linear after:duration-300">
+                {title}
+              </summary>
+              <fieldset class="flex flex-col gap-2 pt-3">
+                <legend class="sr-only">{title}</legend>
+                {Object.entries(filter).map(([value, count]) => (
+                  <div class="relative flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      id={value}
+                      name={title}
+                      value={value}
+                      onChange={(e) =>
+                        setFilter((prev) => ({
+                          ...prev,
+                          [value]: e.currentTarget.checked,
+                        }))
+                      }
+                    />
+                    <label for={value} class="select-none">
+                      {value} ({count})
+                    </label>
+                  </div>
+                ))}
+              </fieldset>
+            </details>
+          ))}
         </div>
       </form>
       <Suspense>

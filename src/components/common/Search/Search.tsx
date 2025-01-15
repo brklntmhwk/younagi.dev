@@ -28,6 +28,10 @@ type Pagefind = {
   filters: () => Promise<PagefindFilterCounts>;
 };
 
+type EnabledFilters = {
+  [key: string]: string[];
+};
+
 const initPagefind = async () => {
   const pagefindPath = isDev
     ? '../../../dist/pagefind/pagefind.js'
@@ -52,7 +56,7 @@ export const Search: Component<Props> = (props) => {
 
   const [filters, setFilters] = createSignal<PagefindFilterCounts>({});
   const [query, setQuery] = createSignal('');
-  const [filter, setFilter] = createSignal({});
+  const [enabledFilters, setEnabledFilters] = createSignal<EnabledFilters>({});
   const isQuerying = createMemo(() => query().length > 0);
   const [searchResultRefs, setSearchResultRefs] = createSignal<
     HTMLAnchorElement[]
@@ -62,7 +66,7 @@ export const Search: Component<Props> = (props) => {
     if (query.length === 0) return undefined;
 
     const searchResults = await pagefind.search(query, {
-      filters: filter(),
+      filters: enabledFilters(),
     });
     setSearchResultRefs(Array(searchResults?.results.length ?? 0).fill(null));
     setActiveIndex(0);
@@ -133,14 +137,14 @@ export const Search: Component<Props> = (props) => {
               },
               tag: { DIY: 7 },
             },
-          ).map(([title, filter]) => (
+          ).map(([title, filterMap]) => (
             <details class="w-full py-3 border-b-2 border-solid border-line-solid [&>summary:after]:open:rotate-90">
               <summary class="cursor-pointer select-none list-none text-lg font-bold after:ml-2 after:content-['≫'] after:text-inherit after:inline-block after:ease-linear after:duration-300">
                 {title}
               </summary>
               <fieldset class="flex flex-wrap gap-2 py-4">
                 <legend class="sr-only">{title}</legend>
-                {Object.entries(filter).map(([value, count]) => (
+                {Object.entries(filterMap).map(([value, count]) => (
                   <div class="relative flex items-center before:content-[''] before:text-xl before:w-4 before:h-4 before:absolute before:left-0 before:top-1 before:border-2 before:border-solid before:border-line-solid">
                     <input
                       type="checkbox"
@@ -148,12 +152,17 @@ export const Search: Component<Props> = (props) => {
                       id={value}
                       name={title}
                       value={value}
-                      onChange={(e) =>
-                        setFilter((prev) => ({
+                      onChange={(e) => {
+                        setEnabledFilters((prev) => ({
                           ...prev,
-                          [value]: e.currentTarget.checked,
-                        }))
-                      }
+                          // ここで直前までに配列に入れた値をそのまま保持しながら追加していきたい
+                          [title]: [
+                            ...(prev[title] || []),
+                            e.currentTarget.value,
+                          ],
+                        }));
+                        console.log(enabledFilters());
+                      }}
                     />
                     <CheckIcon
                       label={value}

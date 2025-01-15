@@ -118,20 +118,22 @@ export const Search: Component<Props> = (props) => {
           />
         </div>
         <div class="p-1 flex flex-col gap-2 py-3">
-          {Object.entries({
-            category: {
-              Gourmet: 5,
-              Outdoor: 4,
-              Something1: 5,
-              Something2: 1,
-              Something3: 1,
-              Something4: 1,
-              Something5: 1,
-              Something6: 1,
-              Something7: 1,
+          {Object.entries(
+            filters() ?? {
+              category: {
+                Gourmet: 5,
+                Outdoor: 4,
+                Something1: 5,
+                Something2: 1,
+                Something3: 1,
+                Something4: 1,
+                Something5: 1,
+                Something6: 1,
+                Something7: 1,
+              },
+              tag: { DIY: 7 },
             },
-            tag: { DIY: 7 },
-          }).map(([title, filter]) => (
+          ).map(([title, filter]) => (
             <details class="w-full py-3 border-b-2 border-solid border-line-solid [&>summary:after]:open:rotate-90">
               <summary class="cursor-pointer select-none list-none text-lg font-bold after:ml-2 after:content-['≫'] after:text-inherit after:inline-block after:ease-linear after:duration-300">
                 {title}

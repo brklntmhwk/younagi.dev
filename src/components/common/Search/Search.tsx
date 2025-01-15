@@ -1,4 +1,5 @@
 import '@/styles/pixel-m-plus.css';
+import { CheckIcon } from '@/components/ui/ContactForm/Checkbox/CheckIcon';
 import type { I18nData } from '@/lib/collections/types';
 import { isDev } from '@/lib/mode';
 import {
@@ -101,7 +102,7 @@ export const Search: Component<Props> = (props) => {
   };
 
   return (
-    <div class="max-h-[76dvh] flex flex-col gap-6 box-border h-fit">
+    <div class="max-h-[76dvh] flex flex-col gap-4 box-border h-fit">
       <form class="flex flex-col gap-2" onsubmit={handleSubmit}>
         <div class="bg-default-reverse double-border sticky flex items-center gap-2 p-3">
           <SearchIcon label={props.t.button_label} width={22} height={22} />
@@ -116,20 +117,34 @@ export const Search: Component<Props> = (props) => {
             autocomplete="off"
           />
         </div>
-        <div class="p-2 flex flex-col gap-2 py-3">
+        <div class="p-1 flex flex-col gap-2 py-3">
           {Object.entries(
-            filters() ?? { category: { Gourmet: 5 }, tag: { DIY: 7 } },
+            filters() ?? {
+              category: {
+                Gourmet: 5,
+                Outdoor: 4,
+                Something1: 5,
+                Something2: 1,
+                Something3: 1,
+                Something4: 1,
+                Something5: 1,
+                Something6: 1,
+                Something7: 1,
+              },
+              tag: { DIY: 7 },
+            },
           ).map(([title, filter]) => (
             <details class="w-full py-3 border-b-2 border-solid border-line-solid [&>summary:after]:open:rotate-90">
-              <summary class="cursor-pointer select-none list-none font-semibold after:ml-2 after:content-['≫'] after:text-inherit after:inline-block after:ease-linear after:duration-300">
+              <summary class="cursor-pointer select-none list-none font-bold after:ml-2 after:content-['≫'] after:text-inherit after:inline-block after:ease-linear after:duration-300">
                 {title}
               </summary>
-              <fieldset class="flex gap-2 pt-3">
+              <fieldset class="flex flex-wrap gap-2 pt-4">
                 <legend class="sr-only">{title}</legend>
                 {Object.entries(filter).map(([value, count]) => (
-                  <div class="relative flex items-center gap-2">
+                  <div class="relative flex items-center">
                     <input
                       type="checkbox"
+                      class="peer appearance-none"
                       id={value}
                       name={title}
                       value={value}
@@ -140,7 +155,16 @@ export const Search: Component<Props> = (props) => {
                         }))
                       }
                     />
-                    <label for={value} class="select-none">
+                    <CheckIcon
+                      label={value}
+                      width={16}
+                      height={16}
+                      class="hidden absolute top-1 left-0 peer-checked:inline"
+                    />
+                    <label
+                      for={value}
+                      class="select-none pl-5 peer-checked:font-semibold"
+                    >
                       {value} ({count})
                     </label>
                   </div>
@@ -225,7 +249,7 @@ const SearchResult: Component<SearchResultProps> = (props) => {
   return (
     <li>
       <a
-        class={`py-3.5 px-2 rounded-sm flex flex-col gap-2.5 border-2 border-solid border-line-solid hover:bg-default-reverse-hover ${props.active && 'bg-default-reverse-hover'}`}
+        class={`py-3 px-2 rounded-sm flex flex-col gap-2.5 border-2 border-solid border-line-solid hover:bg-default-reverse-hover ${props.active && 'bg-default-reverse-hover'}`}
         href={result()?.raw_url ?? ''}
         ref={props.ref}
         onFocus={() => props.setActiveIndex(props.index)}

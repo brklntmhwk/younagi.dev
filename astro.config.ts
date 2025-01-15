@@ -76,13 +76,13 @@ export default defineConfig({
       fontFace: true,
       keyframes: true,
       safelist: {
-        standard: [/hover:/, /before:/, /after:/, /^peer-checked:/, /^\[&>\*\]/, /^\[&>mark]/],
+        standard: [/hover:/, /before:/, /after:/, /^peer-checked:/, /^\[&>.*]/],
       },
       extractors: [
         {
           extractor: (content) =>
             content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [],
-          extensions: ['astro', 'html'],
+          extensions: ['astro', 'html', 'tsx'],
         },
       ],
     }),

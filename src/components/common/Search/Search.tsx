@@ -177,7 +177,7 @@ const SearchResult: Component<SearchResultProps> = (props) => {
   return (
     <li>
       <a
-        class={`py-3.5 px-2 rounded-sm flex flex-col gap-2.5 border-[1px] border-solid border-line-solid hover:bg-default-reverse-hover ${props.active && 'bg-default-reverse-hover'}`}
+        class={`py-3.5 px-2 rounded-sm flex flex-col gap-2.5 border-2 border-solid border-line-solid hover:bg-default-reverse-hover ${props.active && 'bg-default-reverse-hover'}`}
         href={result()?.raw_url ?? ''}
         ref={props.ref}
         onFocus={() => props.setActiveIndex(props.index)}

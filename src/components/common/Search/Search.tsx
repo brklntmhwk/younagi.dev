@@ -48,15 +48,19 @@ export const Search: Component<Props> = (props) => {
     pagefind = await initPagefind();
   });
 
+  // let filters = async () => await pagefind.filters();
+
   const [query, setQuery] = createSignal('');
   const [filter, setFilter] = createSignal({});
   const isQuerying = createMemo(() => query().length > 0);
   const [searchResultRefs, setSearchResultRefs] = createSignal<
     HTMLAnchorElement[]
   >([]);
-  const [filters] = createResource<PagefindFilterCounts>(
-    async () => await pagefind.filters(),
-  );
+  const [filters] = createResource<PagefindFilterCounts>(async () => {
+    const filters = await pagefind.filters();
+
+    return filters;
+  });
   const [searchResults] = createResource(query, async (query: string) => {
     if (query.length === 0) return undefined;
 
@@ -117,32 +121,34 @@ export const Search: Component<Props> = (props) => {
           />
         </div>
         <div class="flex gap-2 py-3 border-b-2 border-solid border-line-solid">
-          {Object.entries(filters() ?? {}).map(([title, filter]) => (
-            <details>
-              <summary>{title}</summary>
-              <fieldset>
-                <legend>{title}</legend>
-                {Object.entries(filter).map(([value, count]) => (
-                  <div class="flex flex-col gap-1">
-                    <input
-                      type="checkbox"
-                      name={title}
-                      value={value}
-                      onChange={(e) =>
-                        setFilter((prev) => ({
-                          ...prev,
-                          [value]: e.currentTarget.checked,
-                        }))
-                      }
-                    />
-                    <label for={value}>
-                      {value} ({count})
-                    </label>
-                  </div>
-                ))}
-              </fieldset>
-            </details>
-          ))}
+          {Object.entries(filters() ?? { category: { Gourmet: 5 } }).map(
+            ([title, filter]) => (
+              <details>
+                <summary>{title}</summary>
+                <fieldset>
+                  <legend>{title}</legend>
+                  {Object.entries(filter).map(([value, count]) => (
+                    <div class="flex flex-col gap-1">
+                      <input
+                        type="checkbox"
+                        name={title}
+                        value={value}
+                        onChange={(e) =>
+                          setFilter((prev) => ({
+                            ...prev,
+                            [value]: e.currentTarget.checked,
+                          }))
+                        }
+                      />
+                      <label for={value}>
+                        {value} ({count})
+                      </label>
+                    </div>
+                  ))}
+                </fieldset>
+              </details>
+            ),
+          )}
         </div>
       </form>
       <Suspense>

@@ -21,6 +21,7 @@ import { iconNameTypes } from './src/lib/astro-integrations/icon-name-type';
 import { pagefind } from './src/lib/astro-integrations/pagefind';
 import { SITE_URL, VIDEO_FALLBACK_MESSAGE } from './src/lib/consts';
 import rehypePagefindIgnore from './src/lib/unified/plugins/rehype-pagefind-ignore';
+import rehypeTrimEmptyParagraph from './src/lib/unified/plugins/rehype-trim-empty-paragraph';
 import remarkAstroImageAssets from './src/lib/unified/plugins/remark-astro-image-assets';
 import remarkCallout from './src/lib/unified/plugins/remark-callout';
 import remarkEmbed, {
@@ -175,6 +176,7 @@ export default defineConfig({
         } satisfies RehypeAutoLinkHeadingsOptions,
       ],
       rehypePagefindIgnore,
+      rehypeTrimEmptyParagraph,
     ],
   },
 });

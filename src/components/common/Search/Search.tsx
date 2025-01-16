@@ -155,12 +155,15 @@ export const Search: Component<Props> = (props) => {
                     <input
                       type="checkbox"
                       class="checked:border-transparent checked:accent-default"
-                      id={value}
+                      id={`${title}-${value}`}
                       name={title}
                       value={value}
                       onChange={handleCheckboxChange}
                     />
-                    <label for={value} class="select-none font-medium pl-2">
+                    <label
+                      for={`${title}-${value}`}
+                      class="select-none font-medium pl-2"
+                    >
                       {value} ({count})
                     </label>
                   </div>

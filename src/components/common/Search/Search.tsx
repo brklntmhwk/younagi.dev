@@ -11,7 +11,6 @@ import {
   createSignal,
   onMount,
 } from 'solid-js';
-import { createStore } from 'solid-js/store';
 import { SearchIcon } from './SearchIcon';
 import type {
   PagefindFilterCounts,
@@ -57,7 +56,8 @@ export const Search: Component<Props> = (props) => {
 
   const [filters, setFilters] = createSignal<PagefindFilterCounts>({});
   const [query, setQuery] = createSignal('');
-  const [enabledFilters, setEnabledFilters] = createStore<EnabledFilters>({});
+  // This should preferably be a store but it's not possible to use stores in createResource
+  const [enabledFilters, setEnabledFilters] = createSignal<EnabledFilters>({});
   const isQuerying = createMemo(() => query().length > 0);
   const [searchResultRefs, setSearchResultRefs] = createSignal<
     HTMLAnchorElement[]
@@ -65,10 +65,12 @@ export const Search: Component<Props> = (props) => {
 
   const [searchResults] = createResource(
     () => {
-      return { query: query(), filters: enabledFilters };
+      return { query: query(), filters: enabledFilters() };
     },
     async ({ query, filters }) => {
       if (query.length === 0) return undefined;
+
+      console.log('feching search results...');
 
       const searchResults = await pagefind.search(query, {
         filters: filters,
@@ -115,7 +117,7 @@ export const Search: Component<Props> = (props) => {
         : [...(prev[name] ?? []), value],
     }));
 
-    console.log(enabledFilters);
+    console.log(enabledFilters());
   };
 
   const handleSubmit = (e: SubmitEvent) => {

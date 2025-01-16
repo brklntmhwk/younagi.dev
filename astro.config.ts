@@ -67,7 +67,7 @@ export default defineConfig({
     iconNameTypes(),
     pagefind(),
     compress({
-      CSS: true,
+      CSS: false,
       HTML: false,
       Image: false,
       JavaScript: true,

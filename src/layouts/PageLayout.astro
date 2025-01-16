@@ -13,7 +13,7 @@ type Props = {
 
 const locale = getLocaleFromUrl(Astro.url);
 const { page } = Astro.props;
-const { title, description, modifiedAt } = page.data;
+const { title, description, updatedAt } = page.data;
 ---
 
 <BaseLayout title={title} description={description ?? ''} og={{ show: true }}>
@@ -23,10 +23,10 @@ const { title, description, modifiedAt } = page.data;
         <h1 class="text-3xl sm:text-4xl xl:text-5xl font-extrabold leading-snug sm:leading-snug md:leading-snug xl:leading-normal">{title}</h1>
         <div class="text-sm xs:text-base sm:text-lg flex flex-wrap gap-x-4 gap-y-1">
           {
-            modifiedAt && (
+            updatedAt && (
               <div class="flex items-center gap-1.5">
                 <Icon iconName="update" width={20} height={20} />
-                <FormattedDate date={modifiedAt} locale={locale} />
+                <FormattedDate date={updatedAt} locale={locale} />
               </div>
             )
           }

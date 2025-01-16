@@ -7,8 +7,8 @@ import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils';
 const locale = getLocaleFromUrl(Astro.url);
 const translatePath = useTranslatedPath(locale);
 const t = await getEntry('i18n', `${locale}/translation`);
-// const privacyPolicyPage = await getEntry('page', `${locale}/privacy-policy`);
-// const sitePolicyPage = await getEntry('page', `${locale}/site-policy`);
+const privacyPolicyPage = await getEntry('page', `${locale}/privacy-policy`);
+const sitePolicyPage = await getEntry('page', `${locale}/site-policy`);
 const year = new Date().getFullYear();
 ---
 
@@ -17,7 +17,7 @@ const year = new Date().getFullYear();
     &copy; {year}
     {t.data.blog_name}. All rights reserved.
   </span>
-  <!-- <div class="flex justify-center gap-7 text-primary hover:text-primary-dark">
+  <div class="flex justify-center gap-7 text-primary hover:text-primary-dark">
     {
       privacyPolicyPage && (
         <a href={translatePath(`/${privacyPolicyPage.slug.split('/').pop()}/`)}>
@@ -32,7 +32,7 @@ const year = new Date().getFullYear();
         </a>
       )
     }
-  </div> -->
+  </div>
   <div class="flex justify-center gap-7 mt-3.5">
     <a
       href={`${GITHUB_BASE_URL}/${ACCOUNT_ID}`}

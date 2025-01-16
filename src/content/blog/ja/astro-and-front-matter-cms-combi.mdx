@@ -15,7 +15,7 @@ tags:
     - markdown
 level: 1
 description: 混沌とするCMS界隈に終止符を打つかのように突如として舞い降りた彗星「Front Matter CMS」Astro製ウェブサイトに最適かも？という話
-modifiedAt: 2025-01-15T00:30:39.545Z
+updatedAt: 2025-01-15T00:30:39.545Z
 thumbnail: 📝🚀(｡ゝω･)b
 ---
 
@@ -123,7 +123,7 @@ const blog = defineCollection({
     title: z.string(),
     description: z.string().optional(),
     publishedAt: z.coerce.date(),
-    modifiedAt: z.coerce.date().optional(),
+    updatedAt: z.coerce.date().optional(),
     category: z.object({
       metadata: reference("categories"),
       slug: z.string(),
@@ -327,7 +327,7 @@ export default defineConfig({
         },
         {
           "title": "Modified At",
-          "name": "modifiedAt",
+          "name": "updatedAt",
           "type": "datetime",
           "isModifiedDate": true
         },
@@ -372,7 +372,7 @@ export default defineConfig({
         },
         {
           "title": "Modified At",
-          "name": "modifiedAt",
+          "name": "updatedAt",
           "type": "datetime",
           "isModifiedDate": true
         },
@@ -410,7 +410,7 @@ export default defineConfig({
         },
         {
           "title": "Modified At",
-          "name": "modifiedAt",
+          "name": "updatedAt",
           "type": "datetime",
           "isModifiedDate": true
         }

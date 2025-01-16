@@ -33,7 +33,7 @@ const {
   category: blogCategory,
   tags: blogTags,
   publishedAt,
-  modifiedAt,
+  updatedAt,
   level,
   thumbnail,
 } = data;
@@ -67,13 +67,13 @@ const tags = await getBlogTags(blogTags);
         <div class="text-sm xs:text-base sm:text-lg flex flex-wrap gap-x-4 gap-y-1">
           <div class="flex items-center gap-1.5">
             <Icon iconName="publish" width={20} height={20} />
-            <FormattedDate date={publishedAt} locale={locale} kind="published" />
+            <FormattedDate date={publishedAt} locale={locale} filterTitle={t.data.layouts.common.published_label} />
           </div>
           {
-            modifiedAt && (
+            updatedAt && (
               <div class="flex items-center gap-1.5">
                 <Icon iconName="update" width={20} height={20} />
-                <FormattedDate date={modifiedAt} locale={locale} kind="updated" />
+                <FormattedDate date={updatedAt} locale={locale} filterTitle={t.data.layouts.common.updated_label} />
               </div>
             )
           }
@@ -90,13 +90,18 @@ const tags = await getBlogTags(blogTags);
               <Taxonomy
                 kind={blogCategory.metadata.collection}
                 taxonomy={category}
+                filterTitle={t.data.layouts.blog.category_label}
               />
             )
           }
           {
             tags.length !== 0 &&
               tags.map((tag) => (
-                <Taxonomy kind={blogTags.metadata.collection} taxonomy={tag} />
+                <Taxonomy
+                  kind={blogTags.metadata.collection}
+                  taxonomy={tag}
+                  filterTitle={t.data.layouts.blog.tag_label}
+                />
               ))
           }
         </div>

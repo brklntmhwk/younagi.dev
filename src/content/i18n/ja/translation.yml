@@ -26,6 +26,7 @@ locale_picker:
 search:
   placeholder: 検索...
   button_label: Ctrl + K で検索
+  reset_label: リセット
   result_not_found: 記事がヒットしませんでした：
 toc:
   button_label: 目次
@@ -113,6 +114,11 @@ pages:
     message: ページが見つかりませんでした
     back_to_top: *back_to_top
 layouts:
+  common:
+    published_label: 投稿日
+    updated_label: 更新日
   blog:
     level_easy: 易しい
     level_hard: 難しい
+    category_label: カテゴリ
+    tag_label: タグ

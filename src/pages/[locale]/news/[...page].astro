@@ -52,11 +52,11 @@ const t = await getEntry('i18n', `${locale}/translation`);
                       locale={locale}
                     />
                   </div>
-                  {entry.data.modifiedAt && (
+                  {entry.data.updatedAt && (
                     <div class="flex items-center gap-1.5">
                       <Icon iconName="update" width={20} height={20} />
                       <FormattedDate
-                        date={entry.data.modifiedAt}
+                        date={entry.data.updatedAt}
                         locale={locale}
                       />
                     </div>

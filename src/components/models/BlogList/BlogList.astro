@@ -28,7 +28,7 @@ const { entries, taxonomies } = Astro.props;
         category: blogCategory,
         tags: blogTags,
         publishedAt,
-        modifiedAt,
+        updatedAt,
       } = entry.data
       const category = await getBlogCategory(blogCategory)
       const tags = await getBlogTags(blogTags)
@@ -49,10 +49,10 @@ const { entries, taxonomies } = Astro.props;
                 <Icon iconName="publish" width={18} height={18} />
                 <FormattedDate date={publishedAt} locale={locale} />
               </div>
-              {modifiedAt && (
+              {updatedAt && (
                 <div class="flex items-center gap-1.5">
                   <Icon iconName="update" width={18} height={18} />
-                  <FormattedDate date={modifiedAt} locale={locale} />
+                  <FormattedDate date={updatedAt} locale={locale} />
                 </div>
               )}
             </section>

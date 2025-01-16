@@ -174,14 +174,16 @@ export const Search: Component<Props> = (props) => {
         </div>
         <input
           type="reset"
-          class="font-semibold cursor-pointer py-1 px-2 rounded-sm self-center border-2 border-solid border-line-solid hover:underline hover:underline-offset-4"
+          class="font-semibold cursor-pointer py-1 px-2 rounded-sm self-center border-2 border-solid border-line-solid hover:bg-default-reverse-hover"
           value={props.t.reset_label}
           onClick={handleReset}
         />
-        {searchResults()?.results.length !== 0 && (
-          <p class="fong-medium">
-            {props.t.results_label} "{query()}":{' '}
-            {searchResults()?.results.length}
+        {isQuerying() && (
+          <p class="text-center">
+            {props.t.results_label}
+            <span class="font-medium">
+              {query()}: {searchResults()?.results.length}
+            </span>
           </p>
         )}
       </form>

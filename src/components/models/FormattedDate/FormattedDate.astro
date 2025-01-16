@@ -5,10 +5,13 @@ type Props = {
   date: FormattedDate[0];
   locale: FormattedDate[1];
   show?: FormattedDate[2];
+  kind?: 'published' | 'updated';
 };
 
-const { date, locale, show } = Astro.props;
+const { date, locale, show, kind } = Astro.props;
 const displayDate = formatDate(date, locale, show);
 ---
 
-<time datetime={date.toISOString()}>{displayDate}</time>
+<time datetime={date.toISOString()} data-pagefind-filter={kind}>
+  {displayDate}
+</time>

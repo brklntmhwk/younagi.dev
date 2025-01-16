@@ -176,7 +176,7 @@ export const Search: Component<Props> = (props) => {
         </div>
         <input
           type="reset"
-          class="font-semibold hover:underline hover:underline-offset-4"
+          class="font-semibold cursor-pointer self-center hover:underline hover:underline-offset-4"
           value={props.t.reset_label}
           onClick={handleReset}
         />
@@ -262,9 +262,9 @@ const SearchResult: Component<SearchResultProps> = (props) => {
         onFocus={() => props.setActiveIndex(props.index)}
         onMouseEnter={() => props.setActiveIndex(props.index)}
       >
-        <span class="text-xl font-semibold">{result()?.meta.title}</span>
+        <span class="text-xl font-bold">{result()?.meta.title}</span>
         <span
-          class="text-base [&>mark]:text-primary [&>mark]:font-semibold [&>mark]:bg-transparent"
+          class="text-base [&>mark]:text-primary [&>mark]:font-medium [&>mark]:bg-transparent"
           innerHTML={result()?.excerpt ?? ''}
         />
       </a>

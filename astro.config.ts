@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import solidJs from '@astrojs/solid-js';
 import tailwind from '@astrojs/tailwind';
 import compress from 'astro-compress';
-// import purgecss from 'astro-purgecss';
+import purgecss from 'astro-purgecss';
 import { defineConfig, passthroughImageService } from 'astro/config';
 import { h } from 'hastscript';
 import rehypeAutolinkHeadings, {
@@ -74,20 +74,20 @@ export default defineConfig({
       SVG: false,
       Logger: 1,
     }),
-    // purgecss({
-    //   fontFace: true,
-    //   keyframes: true,
-    //   safelist: {
-    //     standard: [/hover:/, /before:/, /after:/, /^peer-checked:/, /^has-\[.*]/, /^\[&>.*]/],
-    //   },
-    //   extractors: [
-    //     {
-    //       extractor: (content) =>
-    //         content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [],
-    //       extensions: ['astro', 'html', 'tsx'],
-    //     },
-    //   ],
-    // }),
+    purgecss({
+      fontFace: true,
+      keyframes: true,
+      safelist: {
+        standard: [/hover:/, /before:/, /after:/, /^peer-checked:/, /^has-\[.*]/, /^\[&>.*]/],
+      },
+      extractors: [
+        {
+          extractor: (content) =>
+            content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [],
+          extensions: ['astro', 'html', 'tsx'],
+        },
+      ],
+    }),
   ],
   prefetch: {
     defaultStrategy: 'viewport',

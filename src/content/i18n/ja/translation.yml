@@ -27,6 +27,7 @@ search:
   placeholder: 検索...
   button_label: Ctrl + K で検索
   reset_label: リセット
+  results_label: 検索結果
   result_not_found: 記事がヒットしませんでした：
 toc:
   button_label: 目次

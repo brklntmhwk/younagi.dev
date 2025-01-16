@@ -27,6 +27,7 @@ search:
   placeholder: Search...
   button_label: Hit Ctrl + K to search contents
   reset_label: Reset
+  results_label: Search results for
   result_not_found: No results found for
 toc:
   button_label: Table of Content

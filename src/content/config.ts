@@ -127,6 +127,7 @@ const i18n = defineCollection({
       placeholder: z.string(),
       button_label: z.string(),
       reset_label: z.string(),
+      results_label: z.string(),
       result_not_found: z.string(),
     }),
     toc: z.object({

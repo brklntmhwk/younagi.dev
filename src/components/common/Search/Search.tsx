@@ -11,6 +11,7 @@ import {
   createSignal,
   onMount,
 } from 'solid-js';
+import { createStore } from 'solid-js/store';
 import { SearchIcon } from './SearchIcon';
 import type {
   PagefindFilterCounts,
@@ -56,7 +57,7 @@ export const Search: Component<Props> = (props) => {
 
   const [filters, setFilters] = createSignal<PagefindFilterCounts>({});
   const [query, setQuery] = createSignal('');
-  const [enabledFilters, setEnabledFilters] = createSignal<EnabledFilters>({});
+  const [enabledFilters, setEnabledFilters] = createStore<EnabledFilters>({});
   const isQuerying = createMemo(() => query().length > 0);
   const [searchResultRefs, setSearchResultRefs] = createSignal<
     HTMLAnchorElement[]
@@ -66,7 +67,7 @@ export const Search: Component<Props> = (props) => {
     if (query.length === 0) return undefined;
 
     const searchResults = await pagefind.search(query, {
-      filters: enabledFilters(),
+      filters: enabledFilters,
     });
     setSearchResultRefs(Array(searchResults?.results.length ?? 0).fill(null));
     setActiveIndex(0);
@@ -96,6 +97,20 @@ export const Search: Component<Props> = (props) => {
           ?.scrollIntoView({ block: 'nearest' });
         break;
     }
+  };
+
+  const handleCheckboxChange = (e: Event) => {
+    const target = e.target as HTMLInputElement;
+    const { name, value } = target;
+
+    setEnabledFilters((prev) => ({
+      ...prev,
+      [name]: prev[name]?.includes(value)
+        ? prev[name]?.filter((v) => v !== value)
+        : [...(prev[name] ?? []), value],
+    }));
+
+    console.log(enabledFilters);
   };
 
   const handleSubmit = (e: SubmitEvent) => {
@@ -152,17 +167,7 @@ export const Search: Component<Props> = (props) => {
                       id={value}
                       name={title}
                       value={value}
-                      onChange={(e) => {
-                        setEnabledFilters((prev) => ({
-                          ...prev,
-                          // ここで直前までに配列に入れた値をそのまま保持しながら追加していきたい
-                          [title]: [
-                            ...(prev[title] || []),
-                            e.currentTarget.value,
-                          ],
-                        }));
-                        console.log(enabledFilters());
-                      }}
+                      onChange={handleCheckboxChange}
                     />
                     <CheckIcon
                       label={value}

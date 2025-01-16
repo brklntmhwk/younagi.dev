@@ -63,17 +63,22 @@ export const Search: Component<Props> = (props) => {
     HTMLAnchorElement[]
   >([]);
 
-  const [searchResults] = createResource(query, async (query: string) => {
-    if (query.length === 0) return undefined;
+  const [searchResults] = createResource(
+    () => {
+      return { query: query(), filters: enabledFilters };
+    },
+    async ({ query, filters }) => {
+      if (query.length === 0) return undefined;
 
-    const searchResults = await pagefind.search(query, {
-      filters: enabledFilters,
-    });
-    setSearchResultRefs(Array(searchResults?.results.length ?? 0).fill(null));
-    setActiveIndex(0);
+      const searchResults = await pagefind.search(query, {
+        filters: filters,
+      });
+      setSearchResultRefs(Array(searchResults?.results.length ?? 0).fill(null));
+      setActiveIndex(0);
 
-    return searchResults;
-  });
+      return searchResults;
+    },
+  );
   const [activeIndex, setActiveIndex] = createSignal(0);
   const incrementActiveIndex = () =>
     setActiveIndex(Math.min(activeIndex() + 1, searchResultRefs().length - 1));

@@ -180,9 +180,9 @@ export const Search: Component<Props> = (props) => {
         />
         {isQuerying() && (
           <p class="text-center">
-            {props.t.results_label}
-            <span class="font-medium">
-              {query()}: {searchResults()?.results.length}
+            {props.t.results_label}{' '}
+            <span class="font-bold">
+              "{query()}": {searchResults()?.results.length}
             </span>
           </p>
         )}

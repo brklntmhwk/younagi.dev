@@ -1,7 +1,7 @@
 import { type Component, type Setter, createResource } from 'solid-js';
 import type { PagefindSearchResult } from './types';
 
-type SearchResultProps = {
+type Props = {
   index: number;
   result: PagefindSearchResult;
   ref: (el: HTMLAnchorElement) => void;
@@ -9,7 +9,7 @@ type SearchResultProps = {
   setActiveIndex: Setter<number>;
 };
 
-export const SearchResult: Component<SearchResultProps> = (props) => {
+export const SearchResult: Component<Props> = (props) => {
   const [result] = createResource(() => props.result.data());
 
   return (

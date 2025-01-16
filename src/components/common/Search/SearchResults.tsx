@@ -2,7 +2,7 @@ import { type Component, type Setter, Suspense } from 'solid-js';
 import { SearchResult } from './SearchResult';
 import type { PagefindSearchResults } from './types';
 
-type SearchResultsProps = {
+type Props = {
   query: string;
   results: PagefindSearchResults['results'] | undefined;
   resultRefs: HTMLAnchorElement[];
@@ -12,7 +12,7 @@ type SearchResultsProps = {
   notFoundLabel: string;
 };
 
-export const SearchResults: Component<SearchResultsProps> = (props) => {
+export const SearchResults: Component<Props> = (props) => {
   const setResultRef = (i: number) => (el: HTMLAnchorElement) => {
     props.setResultRefs((refs) => {
       refs[i] = el;

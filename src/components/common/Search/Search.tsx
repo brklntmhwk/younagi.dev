@@ -11,11 +11,24 @@ import {
   onMount,
 } from 'solid-js';
 import { SearchIcon } from './SearchIcon';
-import type { PagefindSearchResult, PagefindSearchResults } from './types';
+import type {
+  PagefindFilterCounts,
+  PagefindSearchOptions,
+  PagefindSearchResult,
+  PagefindSearchResults,
+} from './types';
 
 type Pagefind = {
   init: () => void;
-  search: (query: string) => Promise<PagefindSearchResults>;
+  search: (
+    query: string,
+    options?: PagefindSearchOptions,
+  ) => Promise<PagefindSearchResults>;
+  filters: () => Promise<PagefindFilterCounts>;
+};
+
+type EnabledFilters = {
+  [key: string]: string[];
 };
 
 const initPagefind = async () => {
@@ -37,22 +50,34 @@ export const Search: Component<Props> = (props) => {
 
   onMount(async () => {
     pagefind = await initPagefind();
+    setFilters(await pagefind.filters());
   });
 
+  const [filters, setFilters] = createSignal<PagefindFilterCounts>({});
   const [query, setQuery] = createSignal('');
+  // This should preferably be a store but it's not possible to use stores in createResource
+  const [enabledFilters, setEnabledFilters] = createSignal<EnabledFilters>({});
   const isQuerying = createMemo(() => query().length > 0);
   const [searchResultRefs, setSearchResultRefs] = createSignal<
     HTMLAnchorElement[]
   >([]);
-  const [searchResults] = createResource(query, async (query: string) => {
-    if (query.length === 0) return undefined;
 
-    const searchResults = await pagefind?.search(query);
-    setSearchResultRefs(Array(searchResults?.results.length ?? 0).fill(null));
-    setActiveIndex(0);
+  const [searchResults] = createResource(
+    () => {
+      return { query: query(), filters: enabledFilters() };
+    },
+    async ({ query, filters }) => {
+      if (query.length === 0) return undefined;
 
-    return searchResults;
-  });
+      const searchResults = await pagefind.search(query, {
+        filters: filters,
+      });
+      setSearchResultRefs(Array(searchResults?.results.length ?? 0).fill(null));
+      setActiveIndex(0);
+
+      return searchResults;
+    },
+  );
   const [activeIndex, setActiveIndex] = createSignal(0);
   const incrementActiveIndex = () =>
     setActiveIndex(Math.min(activeIndex() + 1, searchResultRefs().length - 1));
@@ -78,6 +103,23 @@ export const Search: Component<Props> = (props) => {
     }
   };
 
+  const handleCheckboxChange = (e: Event) => {
+    const target = e.target as HTMLInputElement;
+    const { name, value } = target;
+
+    setEnabledFilters((prev) => ({
+      ...prev,
+      [name]: prev[name]?.includes(value)
+        ? prev[name]?.filter((v) => v !== value)
+        : [...(prev[name] ?? []), value],
+    }));
+  };
+
+  const handleReset = () => {
+    setQuery('');
+    setEnabledFilters({});
+  };
+
   const handleSubmit = (e: SubmitEvent) => {
     e.preventDefault();
     if (searchResultRefs().length <= 0) return;
@@ -86,9 +128,9 @@ export const Search: Component<Props> = (props) => {
   };
 
   return (
-    <div class="max-h-[76dvh] flex flex-col gap-6 box-border h-fit">
-      <form onsubmit={handleSubmit}>
-        <div class="bg-default-reverse double-border sticky flex items-center gap-2 p-3">
+    <div class="max-h-[76dvh] flex flex-col gap-4 box-border h-fit">
+      <form class="flex flex-col gap-2" onsubmit={handleSubmit}>
+        <div class="bg-default-reverse double-border flex items-center gap-2 p-3">
           <SearchIcon label={props.t.button_label} width={22} height={22} />
           <input
             id="search-window"
@@ -99,8 +141,45 @@ export const Search: Component<Props> = (props) => {
             onKeyDown={handleKeyDown}
             class="font-pixel w-full text-lg bg-transparent outline-none"
             autocomplete="off"
+            onReset={() => setQuery('')}
           />
         </div>
+        <div class="p-1 flex flex-col gap-2 py-3">
+          {Object.entries(filters() ?? {}).map(([title, filterMap]) => (
+            <details class="w-full py-3 border-b-2 border-solid border-line-solid [&>summary:after]:open:rotate-90">
+              <summary class="cursor-pointer select-none list-none text-lg font-bold after:ml-2 after:content-['≫'] after:text-inherit after:inline-block after:ease-linear after:duration-300">
+                {title}
+              </summary>
+              <fieldset class="flex flex-wrap gap-4 py-4">
+                <legend class="sr-only">{title}</legend>
+                {Object.entries(filterMap).map(([value, count]) => (
+                  <div class="relative flex items-center">
+                    <input
+                      type="checkbox"
+                      class="checked:border-transparent checked:accent-default"
+                      id={`${title}-${value}`}
+                      name={title}
+                      value={value}
+                      onChange={handleCheckboxChange}
+                    />
+                    <label
+                      for={`${title}-${value}`}
+                      class="select-none font-medium pl-2"
+                    >
+                      {value} ({count})
+                    </label>
+                  </div>
+                ))}
+              </fieldset>
+            </details>
+          ))}
+        </div>
+        <input
+          type="reset"
+          class="font-semibold cursor-pointer self-center hover:underline hover:underline-offset-4"
+          value={props.t.reset_label}
+          onClick={handleReset}
+        />
       </form>
       <Suspense>
         {isQuerying() && (
@@ -145,7 +224,7 @@ const SearchResults: Component<SearchResultsProps> = (props) => {
           {props.notFoundLabel} <span class="font-bold">"{props.query}"</span>
         </div>
       ) : (
-        <ol class="flex flex-col flex-auto gap-1 overflow-y-auto pt-3 pb-4">
+        <ol class="flex flex-col flex-auto gap-1 pt-3 pb-4">
           {props.results?.map((result, i) => (
             <Suspense>
               <SearchResult
@@ -177,15 +256,15 @@ const SearchResult: Component<SearchResultProps> = (props) => {
   return (
     <li>
       <a
-        class={`py-3.5 px-2 rounded-sm flex flex-col gap-2.5 border-2 border-solid border-line-solid hover:bg-default-reverse-hover ${props.active && 'bg-default-reverse-hover'}`}
+        class={`py-3 px-2 rounded-sm flex flex-col gap-2.5 border-2 border-solid border-line-solid hover:bg-default-reverse-hover ${props.active && 'bg-default-reverse-hover'}`}
         href={result()?.raw_url ?? ''}
         ref={props.ref}
         onFocus={() => props.setActiveIndex(props.index)}
         onMouseEnter={() => props.setActiveIndex(props.index)}
       >
-        <span class="text-xl font-semibold">{result()?.meta.title}</span>
+        <span class="text-xl font-bold">{result()?.meta.title}</span>
         <span
-          class="text-base [&>mark]:text-primary [&>mark]:font-semibold [&>mark]:bg-transparent"
+          class="text-base [&>mark]:text-primary [&>mark]:font-medium [&>mark]:bg-transparent"
           innerHTML={result()?.excerpt ?? ''}
         />
       </a>

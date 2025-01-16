@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { getEntry } from 'astro:content';
 import { Article } from '@/components/models/Article';
 import { FormattedDate } from '@/components/models/FormattedDate';
 import { Prose } from '@/components/models/Prose';
@@ -14,10 +15,11 @@ type Props = {
 };
 
 const locale = getLocaleFromUrl(Astro.url);
+const t = await getEntry('i18n', `${locale}/translation`);
 const translatePath = useTranslatedPath(locale);
 const { entry } = Astro.props;
 const { data, collection, slug } = entry;
-const { title, publishedAt, modifiedAt } = data;
+const { title, publishedAt, updatedAt } = data;
 const slugWithoutLocale = getSlugWithoutLocale(slug);
 ---
 
@@ -38,17 +40,22 @@ const slugWithoutLocale = getSlugWithoutLocale(slug);
   <main>
     <Article kind="news">
       <section slot="metadata" class="flex flex-col gap-4">
-        <h1 class="text-2xl sm:text-3xl xl:text-4xl font-extrabold leading-snug sm:leading-snug md:leading-snug xl:leading-normal">{title}</h1>
+        <h1
+          class="text-2xl sm:text-3xl xl:text-4xl font-extrabold leading-snug sm:leading-snug md:leading-snug xl:leading-normal"
+          data-pagefind-weight="10"
+        >
+          {title}
+        </h1>
         <div class="text-sm xs:text-base sm:text-lg flex flex-wrap gap-x-4 gap-y-1">
           <div class="flex items-center gap-1.5">
             <Icon iconName="publish" width={20} height={20} />
-            <FormattedDate date={publishedAt} locale={locale} />
+            <FormattedDate date={publishedAt} locale={locale} filterTitle={t.data.layouts.common.published_label} />
           </div>
           {
-            modifiedAt && (
+            updatedAt && (
               <div class="flex items-center gap-1.5">
                 <Icon iconName="update" width={20} height={20} />
-                <FormattedDate date={modifiedAt} locale={locale} />
+                <FormattedDate date={updatedAt} locale={locale} filterTitle={t.data.layouts.common.updated_label} />
               </div>
             )
           }

@@ -7,18 +7,22 @@ import { style as taxonomyStyle } from './taxonomy';
 type Props = {
   kind: TaxonomyKind;
   taxonomy: TaxonomyData;
+  filterTitle?: string;
 };
 
 const locale = getLocaleFromUrl(Astro.url);
 const translatePath = useTranslatedPath(locale);
-const { kind, taxonomy } = Astro.props;
+const { kind, taxonomy, filterTitle } = Astro.props;
 ---
 
 <a
   class="align-top select-none whitespace-nowrap"
   href={translatePath(`/blog/${kind}/${slugify(taxonomy.slug)}/`)}
 >
-  <span class={taxonomyStyle({ color: taxonomy.color, taxonomy: kind })}>
+  <span
+    class={taxonomyStyle({ color: taxonomy.color, taxonomy: kind })}
+    data-pagefind-filter={`${filterTitle}:${taxonomy.title}`}
+  >
     {kind === 'tags' ? `# ${taxonomy.title}` : taxonomy.title}
   </span>
 </a>

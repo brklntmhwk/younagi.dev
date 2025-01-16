@@ -15,7 +15,7 @@ tags:
     - markdown
 level: 1
 description: In the CMS community, a commet appeared all of a sudden as if putting an end to the chaos. It's Front Matter CMS. It might be the best match for websites built using Astro.
-modifiedAt: 2025-01-15T00:30:39.543Z
+updatedAt: 2025-01-15T00:30:39.543Z
 thumbnail: 📝🚀(｡ゝω･)b
 ---
 
@@ -125,7 +125,7 @@ const blog = defineCollection({
     title: z.string(),
     description: z.string().optional(),
     publishedAt: z.coerce.date(),
-    modifiedAt: z.coerce.date().optional(),
+    updatedAt: z.coerce.date().optional(),
     category: z.object({
       metadata: reference("categories"),
       slug: z.string(),
@@ -329,7 +329,7 @@ Reference: https://frontmatter.codes/docs/ssg-and-frameworks
         },
         {
           "title": "Modified At",
-          "name": "modifiedAt",
+          "name": "updatedAt",
           "type": "datetime",
           "isModifiedDate": true
         },
@@ -374,7 +374,7 @@ Reference: https://frontmatter.codes/docs/ssg-and-frameworks
         },
         {
           "title": "Modified At",
-          "name": "modifiedAt",
+          "name": "updatedAt",
           "type": "datetime",
           "isModifiedDate": true
         },
@@ -412,7 +412,7 @@ Reference: https://frontmatter.codes/docs/ssg-and-frameworks
         },
         {
           "title": "Modified At",
-          "name": "modifiedAt",
+          "name": "updatedAt",
           "type": "datetime",
           "isModifiedDate": true
         }

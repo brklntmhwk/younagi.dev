@@ -78,7 +78,7 @@ export default defineConfig({
       fontFace: true,
       keyframes: true,
       safelist: {
-        standard: [/hover:/, /before:/, /after:/, /^peer-checked:/, /^\[&>.*]/],
+        standard: [/hover:/, /before:/, /after:/, /^peer-checked:/, /^has-\[.*]/, /^\[&>.*]/],
       },
       extractors: [
         {

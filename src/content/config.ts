@@ -7,7 +7,7 @@ const blog = defineCollection({
     title: z.string(),
     description: z.string().optional(),
     publishedAt: z.coerce.date(),
-    modifiedAt: z.coerce.date().optional(),
+    updatedAt: z.coerce.date().optional(),
     category: z.object({
       metadata: reference('categories'),
       slug: z.string(),
@@ -52,7 +52,7 @@ const news = defineCollection({
   schema: z.object({
     title: z.string(),
     publishedAt: z.coerce.date(),
-    modifiedAt: z.coerce.date().optional(),
+    updatedAt: z.coerce.date().optional(),
     draft: z.enum(['draft', 'in progress', 'published']),
   }),
 });
@@ -62,7 +62,7 @@ const page = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),
-    modifiedAt: z.coerce.date().optional(),
+    updatedAt: z.coerce.date().optional(),
   }),
 });
 
@@ -126,6 +126,7 @@ const i18n = defineCollection({
     search: z.object({
       placeholder: z.string(),
       button_label: z.string(),
+      reset_label: z.string(),
       result_not_found: z.string(),
     }),
     toc: z.object({
@@ -242,9 +243,15 @@ const i18n = defineCollection({
       }),
     }),
     layouts: z.object({
+      common: z.object({
+        published_label: z.string(),
+        updated_label: z.string(),
+      }),
       blog: z.object({
         level_easy: z.string(),
         level_hard: z.string(),
+        category_label: z.string(),
+        tag_label: z.string(),
       }),
     }),
   }),

@@ -26,6 +26,7 @@ locale_picker:
 search:
   placeholder: Search...
   button_label: Hit Ctrl + K to search contents
+  reset_label: Reset
   result_not_found: No results found for
 toc:
   button_label: Table of Content
@@ -113,6 +114,11 @@ pages:
     message: Page Not Found
     back_to_top: *back_to_top
 layouts:
+  common:
+    published_label: Published
+    updated_label: Updated
   blog:
     level_easy: Easy
     level_hard: Hard
+    category_label: Categories
+    tag_label: Tags

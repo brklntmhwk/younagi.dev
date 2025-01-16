@@ -137,8 +137,8 @@
           "isPublishDate": true
         },
         {
-          "title": "Modified At",
-          "name": "modifiedAt",
+          "title": "Updated At",
+          "name": "updatedAt",
           "type": "datetime",
           "isModifiedDate": true
         },
@@ -189,7 +189,7 @@
         },
         {
           "title": "Modified At",
-          "name": "modifiedAt",
+          "name": "updatedAt",
           "type": "datetime",
           "isModifiedDate": true
         },
@@ -227,7 +227,7 @@
         },
         {
           "title": "Modified At",
-          "name": "modifiedAt",
+          "name": "updatedAt",
           "type": "datetime",
           "isModifiedDate": true
         }

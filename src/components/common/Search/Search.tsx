@@ -145,36 +145,34 @@ export const Search: Component<Props> = (props) => {
           />
         </div>
         <div class="p-1 flex flex-col gap-2 py-3">
-          {Object.entries({ categories: { c1: 1, c2: 2, c3: 3 } }).map(
-            ([title, filterMap]) => (
-              <details class="w-full py-3 border-b-2 border-solid border-line-solid [&>summary:after]:open:rotate-90">
-                <summary class="cursor-pointer select-none list-none text-lg font-bold after:ml-2 after:content-['≫'] after:text-inherit after:inline-block after:ease-linear after:duration-300">
-                  {title}
-                </summary>
-                <fieldset class="flex flex-wrap gap-4 py-4">
-                  <legend class="sr-only">{title}</legend>
-                  {Object.entries(filterMap).map(([value, count]) => (
-                    <div class="relative flex items-center">
-                      <input
-                        type="checkbox"
-                        class="checked:border-transparent checked:accent-default"
-                        id={`${title}-${value}`}
-                        name={title}
-                        value={value}
-                        onChange={handleCheckboxChange}
-                      />
-                      <label
-                        for={`${title}-${value}`}
-                        class="select-none font-medium pl-2"
-                      >
-                        {value} ({count})
-                      </label>
-                    </div>
-                  ))}
-                </fieldset>
-              </details>
-            ),
-          )}
+          {Object.entries(filters() ?? {}).map(([title, filterMap]) => (
+            <details class="w-full py-3 border-b-2 border-solid border-line-solid [&>summary:after]:open:rotate-90">
+              <summary class="cursor-pointer select-none list-none text-lg font-bold after:ml-2 after:content-['≫'] after:text-inherit after:inline-block after:ease-linear after:duration-300">
+                {title}
+              </summary>
+              <fieldset class="flex flex-wrap gap-4 py-4">
+                <legend class="sr-only">{title}</legend>
+                {Object.entries(filterMap).map(([value, count]) => (
+                  <div class="relative flex items-center">
+                    <input
+                      type="checkbox"
+                      class="checked:border-transparent checked:accent-default"
+                      id={`${title}-${value}`}
+                      name={title}
+                      value={value}
+                      onChange={handleCheckboxChange}
+                    />
+                    <label
+                      for={`${title}-${value}`}
+                      class="select-none font-medium pl-2"
+                    >
+                      {value} ({count})
+                    </label>
+                  </div>
+                ))}
+              </fieldset>
+            </details>
+          ))}
         </div>
         <input
           type="reset"

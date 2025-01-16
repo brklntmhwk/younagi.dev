@@ -1,5 +1,4 @@
 import '@/styles/pixel-m-plus.css';
-import { CheckIcon } from '@/components/ui/ContactForm/Checkbox/CheckIcon';
 import type { I18nData } from '@/lib/collections/types';
 import { isDev } from '@/lib/mode';
 import {
@@ -144,45 +143,24 @@ export const Search: Component<Props> = (props) => {
           />
         </div>
         <div class="p-1 flex flex-col gap-2 py-3">
-          {Object.entries(
-            filters() ?? {
-              category: {
-                Gourmet: 5,
-                Outdoor: 4,
-                Something1: 5,
-                Something2: 1,
-                Something3: 1,
-                Something4: 1,
-                Something5: 1,
-                Something6: 1,
-                Something7: 1,
-              },
-              tag: { DIY: 7 },
-            },
-          ).map(([title, filterMap]) => (
+          {Object.entries(filters() ?? {}).map(([title, filterMap]) => (
             <details class="w-full py-3 border-b-2 border-solid border-line-solid [&>summary:after]:open:rotate-90">
               <summary class="cursor-pointer select-none list-none text-lg font-bold after:ml-2 after:content-['≫'] after:text-inherit after:inline-block after:ease-linear after:duration-300">
                 {title}
               </summary>
-              <fieldset class="flex flex-wrap gap-2 py-4">
+              <fieldset class="flex flex-wrap gap-4 py-4">
                 <legend class="sr-only">{title}</legend>
                 {Object.entries(filterMap).map(([value, count]) => (
-                  <div class="relative flex items-center before:content-[''] before:text-xl before:w-4 before:h-4 before:absolute before:left-0 before:top-1 before:border-2 before:border-solid before:border-line-solid">
+                  <div class="relative flex items-center">
                     <input
                       type="checkbox"
-                      class="peer appearance-none"
+                      class="checked:border-transparent checked:accent-default"
                       id={value}
                       name={title}
                       value={value}
                       onChange={handleCheckboxChange}
                     />
-                    <CheckIcon
-                      label={value}
-                      width={16}
-                      height={16}
-                      class="hidden absolute top-1 left-0 peer-checked:inline"
-                    />
-                    <label for={value} class="select-none pl-5 font-medium">
+                    <label for={value} class="select-none font-medium pl-2">
                       {value} ({count})
                     </label>
                   </div>

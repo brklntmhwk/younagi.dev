@@ -78,6 +78,10 @@ hr {
   margin: 1.25rem 0;
 }
 
+summary::-webkit-details-marker {
+  display: none;
+}
+
 .double-border {
   position: relative;
   z-index: 1;

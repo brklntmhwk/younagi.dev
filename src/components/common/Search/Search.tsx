@@ -123,7 +123,7 @@ export const Search: Component<Props> = (props) => {
   return (
     <div class="max-h-[76dvh] flex flex-col gap-4 box-border h-fit">
       <form class="flex flex-col gap-2" onsubmit={handleSubmit}>
-        <div class="bg-default-reverse double-border sticky flex items-center gap-2 p-3">
+        <div class="bg-default-reverse double-border flex items-center gap-2 p-3">
           <SearchIcon label={props.t.button_label} width={22} height={22} />
           <input
             id="search-window"
@@ -137,22 +137,20 @@ export const Search: Component<Props> = (props) => {
           />
         </div>
         <div class="p-1 flex flex-col gap-2 py-3">
-          {Object.entries(
-            filters() ?? {
-              category: {
-                Gourmet: 5,
-                Outdoor: 4,
-                Something1: 5,
-                Something2: 1,
-                Something3: 1,
-                Something4: 1,
-                Something5: 1,
-                Something6: 1,
-                Something7: 1,
-              },
-              tag: { DIY: 7 },
+          {Object.entries({
+            category: {
+              Gourmet: 5,
+              Outdoor: 4,
+              Something1: 5,
+              Something2: 1,
+              Something3: 1,
+              Something4: 1,
+              Something5: 1,
+              Something6: 1,
+              Something7: 1,
             },
-          ).map(([title, filterMap]) => (
+            tag: { DIY: 7 },
+          }).map(([title, filterMap]) => (
             <details class="w-full py-3 border-b-2 border-solid border-line-solid [&>summary:after]:open:rotate-90">
               <summary class="cursor-pointer select-none list-none text-lg font-bold after:ml-2 after:content-['≫'] after:text-inherit after:inline-block after:ease-linear after:duration-300">
                 {title}
@@ -228,7 +226,7 @@ const SearchResults: Component<SearchResultsProps> = (props) => {
           {props.notFoundLabel} <span class="font-bold">"{props.query}"</span>
         </div>
       ) : (
-        <ol class="flex flex-col flex-auto gap-1 overflow-y-auto pt-3 pb-4">
+        <ol class="flex flex-col flex-auto gap-1 pt-3 pb-4">
           {props.results?.map((result, i) => (
             <Suspense>
               <SearchResult

@@ -37,7 +37,7 @@
       margin-top: 1.25rem;
       margin-bottom: 0.75rem;
     }
-    & a:not(:has(.heading-anchor-icon), [data-link-card]) {
+    & a:not(:has(span.heading-anchor-icon), [data-link-card]) {
       color: var(--color-primary);
       text-decoration: underline;
       text-underline-offset: 3px;
@@ -64,10 +64,10 @@
     & li::marker {
       color: var(--color-default-fg);
     }
-    & ul li {
+    & ul {
       list-style-type: square;
     }
-    & ol li {
+    & ol {
       list-style-type: decimal;
     }
     & blockquote {
@@ -89,34 +89,34 @@
       overflow-y: scroll;
       margin-top: 1.5rem;
       margin-bottom: 1.5rem;
-    }
-    & th, td {
-      text-align: center;
-      white-space: nowrap;
-      border-color: var(--color-gray);
-      border-style: solid;
-      border-width: 2px;
-      padding: 0.5rem 0.625rem;
-    }
-    & th::first-child, td::first-child {
-      padding-inline-start: 0.5rem;
-    }
-    & th::last-child, td::last-child {
-      padding-inline-end: 0.5rem;
-    }
-    & code:not(div.expressive-code code) {
-      background-color: var(--color-gray);
-      font-family: var(--font-code);
-      font-size: 0.95rem;
-      padding: 0.125rem;
-      border-radius: 0.25rem;
-      margin-inline: 0.15rem;
+      & th, td {
+        text-align: center;
+        white-space: nowrap;
+        border-color: var(--color-gray);
+        border-style: solid;
+        border-width: 2px;
+        padding: 0.5rem 0.625rem;
+      }
+      & th::first-child, td::first-child {
+        padding-inline-start: 0.5rem;
+      }
+      & th::last-child, td::last-child {
+        padding-inline-end: 0.5rem;
+      }
     }
     & div.expressive-code {
       margin-block: 1.25rem;
     }
     & div.expressive-code pre {
       max-height: 30rem;
+    }
+    & code:not(div.expressive-code code) {
+      background: var(--color-gray);
+      font-family: var(--font-code);
+      font-size: 0.95rem;
+      padding: 0.125rem;
+      border-radius: 0.25rem;
+      margin-inline: 0.15rem;
     }
     & span.heading-anchor-icon {
       margin-right: 0.5rem;

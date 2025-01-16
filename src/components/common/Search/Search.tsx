@@ -3,7 +3,6 @@ import type { I18nData } from '@/lib/collections/types';
 import { isDev } from '@/lib/mode';
 import {
   type Component,
-  type Setter,
   Suspense,
   createMemo,
   createResource,
@@ -11,10 +10,10 @@ import {
   onMount,
 } from 'solid-js';
 import { SearchIcon } from './SearchIcon';
+import { SearchResults } from './SearchResults';
 import type {
   PagefindFilterCounts,
   PagefindSearchOptions,
-  PagefindSearchResult,
   PagefindSearchResults,
 } from './types';
 
@@ -141,13 +140,12 @@ export const Search: Component<Props> = (props) => {
             onKeyDown={handleKeyDown}
             class="font-pixel w-full text-lg bg-transparent outline-none"
             autocomplete="off"
-            onReset={() => setQuery('')}
           />
         </div>
         <div class="p-1 flex flex-col gap-2 py-3">
           {Object.entries(filters() ?? {}).map(([title, filterMap]) => (
             <details class="w-full py-3 border-b-2 border-solid border-line-solid [&>summary:after]:open:rotate-90">
-              <summary class="cursor-pointer select-none list-none text-lg font-bold after:ml-2 after:content-['≫'] after:text-inherit after:inline-block after:ease-linear after:duration-300">
+              <summary class="cursor-pointer select-none list-none text-base sm:text-lg font-bold after:ml-2 after:content-['≫'] after:text-inherit after:inline-block">
                 {title}
               </summary>
               <fieldset class="flex flex-wrap gap-4 py-4">
@@ -176,10 +174,18 @@ export const Search: Component<Props> = (props) => {
         </div>
         <input
           type="reset"
-          class="font-semibold cursor-pointer self-center hover:underline hover:underline-offset-4"
+          class="font-semibold cursor-pointer py-1 px-2 rounded-sm self-center border-2 border-solid border-line-solid hover:bg-default-reverse-hover"
           value={props.t.reset_label}
           onClick={handleReset}
         />
+        {isQuerying() && (
+          <p class="text-center">
+            {props.t.results_label}{' '}
+            <span class="font-bold">
+              "{query()}": {searchResults()?.results.length}
+            </span>
+          </p>
+        )}
       </form>
       <Suspense>
         {isQuerying() && (
@@ -195,79 +201,5 @@ export const Search: Component<Props> = (props) => {
         )}
       </Suspense>
     </div>
-  );
-};
-
-type SearchResultsProps = {
-  query: string;
-  results: PagefindSearchResults['results'] | undefined;
-  resultRefs: HTMLAnchorElement[];
-  setResultRefs: Setter<HTMLAnchorElement[]>;
-  activeIndex: number;
-  setActiveIndex: Setter<number>;
-  notFoundLabel: string;
-};
-
-const SearchResults: Component<SearchResultsProps> = (props) => {
-  const setResultRef = (i: number) => (el: HTMLAnchorElement) => {
-    props.setResultRefs((refs) => {
-      refs[i] = el;
-
-      return refs;
-    });
-  };
-
-  return (
-    <>
-      {props.results?.length === 0 ? (
-        <div class="px-5 py-6 pb-3 text-center">
-          {props.notFoundLabel} <span class="font-bold">"{props.query}"</span>
-        </div>
-      ) : (
-        <ol class="flex flex-col flex-auto gap-1 pt-3 pb-4">
-          {props.results?.map((result, i) => (
-            <Suspense>
-              <SearchResult
-                index={i}
-                result={result}
-                ref={setResultRef(i)}
-                active={i === props.activeIndex}
-                setActiveIndex={props.setActiveIndex}
-              />
-            </Suspense>
-          ))}
-        </ol>
-      )}
-    </>
-  );
-};
-
-type SearchResultProps = {
-  index: number;
-  result: PagefindSearchResult;
-  ref: (el: HTMLAnchorElement) => void;
-  active: boolean;
-  setActiveIndex: Setter<number>;
-};
-
-const SearchResult: Component<SearchResultProps> = (props) => {
-  const [result] = createResource(() => props.result.data());
-
-  return (
-    <li>
-      <a
-        class={`py-3 px-2 rounded-sm flex flex-col gap-2.5 border-2 border-solid border-line-solid hover:bg-default-reverse-hover ${props.active && 'bg-default-reverse-hover'}`}
-        href={result()?.raw_url ?? ''}
-        ref={props.ref}
-        onFocus={() => props.setActiveIndex(props.index)}
-        onMouseEnter={() => props.setActiveIndex(props.index)}
-      >
-        <span class="text-xl font-bold">{result()?.meta.title}</span>
-        <span
-          class="text-base [&>mark]:text-primary [&>mark]:font-medium [&>mark]:bg-transparent"
-          innerHTML={result()?.excerpt ?? ''}
-        />
-      </a>
-    </li>
   );
 };

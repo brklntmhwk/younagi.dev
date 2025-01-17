@@ -44,7 +44,6 @@ import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 export default defineConfig({
   site: SITE_URL,
   adapter: cloudflare({
-    imageService: 'compile',
     platformProxy: {
       enabled: true,
       persist: true,

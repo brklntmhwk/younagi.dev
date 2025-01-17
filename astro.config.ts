@@ -5,7 +5,7 @@ import solidJs from '@astrojs/solid-js';
 import tailwind from '@astrojs/tailwind';
 import compress from 'astro-compress';
 import purgecss from 'astro-purgecss';
-import { defineConfig, passthroughImageService } from 'astro/config';
+import { defineConfig/* , passthroughImageService */ } from 'astro/config';
 import { h } from 'hastscript';
 import rehypeAutolinkHeadings, {
   type Options as RehypeAutoLinkHeadingsOptions,
@@ -44,14 +44,15 @@ import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 export default defineConfig({
   site: SITE_URL,
   adapter: cloudflare({
+    imageService: 'compile',
     platformProxy: {
       enabled: true,
       persist: true,
     },
   }),
-  image: {
-    service: passthroughImageService(),
-  },
+  // image: {
+  //   service: passthroughImageService(),
+  // },
   integrations: [
     expressiveCode({
       themes: ['github-dark', 'catppuccin-latte'],

@@ -7,7 +7,7 @@ import { Prose } from '@/components/models/Prose';
 import { BuyMeACoffee } from '@/components/ui/BuyMeACoffee';
 import { Icon } from '@/components/ui/Icon';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale';
+import { getIdWithoutLocale } from '@/utils/get-id-without-locale';
 import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils';
 
 type Props = {
@@ -18,9 +18,9 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = await getEntry('i18n', `${locale}/translation`);
 const translatePath = useTranslatedPath(locale);
 const { entry } = Astro.props;
-const { data, collection, slug } = entry;
+const { data, collection, id } = entry;
 const { title, publishedAt, updatedAt } = data;
-const slugWithoutLocale = getSlugWithoutLocale(slug);
+const idWithoutLocale = getIdWithoutLocale(id);
 ---
 
 <BaseLayout
@@ -31,7 +31,7 @@ const slugWithoutLocale = getSlugWithoutLocale(slug);
     height: 630,
     width: 1200,
     image: new URL(
-      translatePath(`/api/og/${collection}/${slugWithoutLocale}.png`),
+      translatePath(`/api/og/${collection}/${idWithoutLocale}.png`),
       Astro.site
     ),
     type: 'article',
@@ -49,13 +49,13 @@ const slugWithoutLocale = getSlugWithoutLocale(slug);
         <div class="text-sm xs:text-base sm:text-lg flex flex-wrap gap-x-4 gap-y-1">
           <div class="flex items-center gap-1.5">
             <Icon iconName="publish" width={20} height={20} />
-            <FormattedDate date={publishedAt} locale={locale} filterTitle={t.data.layouts.common.published_label} />
+            <FormattedDate date={publishedAt} locale={locale} filterTitle={t!.data.layouts.common.published_label} />
           </div>
           {
             updatedAt && (
               <div class="flex items-center gap-1.5">
                 <Icon iconName="update" width={20} height={20} />
-                <FormattedDate date={updatedAt} locale={locale} filterTitle={t.data.layouts.common.updated_label} />
+                <FormattedDate date={updatedAt} locale={locale} filterTitle={t!.data.layouts.common.updated_label} />
               </div>
             )
           }

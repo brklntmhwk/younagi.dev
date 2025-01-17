@@ -1,8 +1,9 @@
 import { defineCollection, reference, z } from 'astro:content';
 import { colors } from '@/components/models/Taxonomy';
+import { glob } from 'astro/loaders';
 
 const blog = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/blog' }),
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),
@@ -38,17 +39,20 @@ const taxonomySchema = z.object({
 });
 
 const categories = defineCollection({
-  type: 'data',
+  loader: glob({
+    pattern: '**/*.{yml,yaml}',
+    base: './src/content/categories',
+  }),
   schema: z.array(taxonomySchema),
 });
 
 const tags = defineCollection({
-  type: 'data',
+  loader: glob({ pattern: '**/*.{yml,yaml}', base: './src/content/tags' }),
   schema: z.array(taxonomySchema),
 });
 
 const news = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/news' }),
   schema: z.object({
     title: z.string(),
     publishedAt: z.coerce.date(),
@@ -58,7 +62,7 @@ const news = defineCollection({
 });
 
 const page = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/page' }),
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),
@@ -67,7 +71,7 @@ const page = defineCollection({
 });
 
 const meta = defineCollection({
-  type: 'data',
+  loader: glob({ pattern: '**/*.{yml,yaml}', base: './src/content/meta' }),
   schema: z.object({
     site: z.object({
       title: z.string(),
@@ -101,7 +105,7 @@ const meta = defineCollection({
 });
 
 const i18n = defineCollection({
-  type: 'data',
+  loader: glob({ pattern: '**/*.{yml,yaml}', base: './src/content/i18n' }),
   schema: z.object({
     blog_name: z.string(),
     author_name: z.string(),

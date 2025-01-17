@@ -10,7 +10,7 @@ const t = await getEntry('i18n', `${locale}/translation`);
 <details class="[&_svg]:open:rotate-[30deg]">
   <summary class="cursor-pointer select-none list-none flex gap-1.5 items-center justify-center">
     <Icon class="toc-icon" iconName="toc" width={28} height={28} />
-    {t.data.toc.button_label}
+    {t!.data.toc.button_label}
   </summary>
   <div class="bg-default-mixed overflow-y-auto w-full xxs:w-[unset] max-h-80 p-6 mt-5 rounded-sm min-w-[unset] xxs:min-w-64 xs:min-w-80 sm:min-w-96">
     <slot />

@@ -13,7 +13,7 @@ import { Likes } from '@/components/ui/Likes/Likes';
 import { StarRating } from '@/components/ui/StarRating';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getBlogCategory, getBlogTags } from '@/lib/collections/data';
-import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale';
+import { getIdWithoutLocale } from '@/utils/get-id-without-locale';
 import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils';
 import type { MarkdownHeading } from 'astro';
 
@@ -26,7 +26,7 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = await getEntry('i18n', `${locale}/translation`);
 const translatePath = useTranslatedPath(locale);
 const { entry, headings } = Astro.props;
-const { data, collection, slug } = entry;
+const { collection, data, id } = entry;
 const {
   title,
   description,
@@ -37,7 +37,7 @@ const {
   level,
   thumbnail,
 } = data;
-const slugWithoutLocale = getSlugWithoutLocale(slug);
+const idWithoutLocale = getIdWithoutLocale(id);
 const category = await getBlogCategory(blogCategory);
 const tags = await getBlogTags(blogTags);
 ---
@@ -50,7 +50,7 @@ const tags = await getBlogTags(blogTags);
     height: 630,
     width: 1200,
     image: new URL(
-      translatePath(`/api/og/${collection}/${slugWithoutLocale}.png`),
+      translatePath(`/api/og/${collection}/${idWithoutLocale}.png`),
       Astro.site
     ),
     type: 'article',
@@ -67,13 +67,13 @@ const tags = await getBlogTags(blogTags);
         <div class="text-sm xs:text-base sm:text-lg flex flex-wrap gap-x-4 gap-y-1">
           <div class="flex items-center gap-1.5">
             <Icon iconName="publish" width={20} height={20} />
-            <FormattedDate date={publishedAt} locale={locale} filterTitle={t.data.layouts.common.published_label} />
+            <FormattedDate date={publishedAt} locale={locale} filterTitle={t!.data.layouts.common.published_label} />
           </div>
           {
             updatedAt && (
               <div class="flex items-center gap-1.5">
                 <Icon iconName="update" width={20} height={20} />
-                <FormattedDate date={updatedAt} locale={locale} filterTitle={t.data.layouts.common.updated_label} />
+                <FormattedDate date={updatedAt} locale={locale} filterTitle={t!.data.layouts.common.updated_label} />
               </div>
             )
           }
@@ -90,17 +90,17 @@ const tags = await getBlogTags(blogTags);
               <Taxonomy
                 kind={blogCategory.metadata.collection}
                 taxonomy={category}
-                filterTitle={t.data.layouts.blog.category_label}
+                filterTitle={t!.data.layouts.blog.category_label}
               />
             )
           }
           {
-            tags.length !== 0 &&
-              tags.map((tag) => (
+            tags!.length !== 0 &&
+              tags!.map((tag) => (
                 <Taxonomy
                   kind={blogTags.metadata.collection}
                   taxonomy={tag}
-                  filterTitle={t.data.layouts.blog.tag_label}
+                  filterTitle={t!.data.layouts.blog.tag_label}
                 />
               ))
           }
@@ -110,8 +110,8 @@ const tags = await getBlogTags(blogTags);
             <StarRating
               method="rating"
               value={level}
-              leftEnd={t.data.layouts.blog.level_easy}
-              rightEnd={t.data.layouts.blog.level_hard}
+              leftEnd={t!.data.layouts.blog.level_easy}
+              rightEnd={t!.data.layouts.blog.level_hard}
             />
           )
         }
@@ -123,9 +123,9 @@ const tags = await getBlogTags(blogTags);
       <section slot="cta" class="flex flex-wrap items-center gap-x-7 gap-y-3">
         <Likes
           client:only="solid"
-          slug={slugWithoutLocale}
+          slug={idWithoutLocale}
           {collection}
-          t={t.data.likes}
+          t={t!.data.likes}
         />
         <BuyMeACoffee />
       </section>

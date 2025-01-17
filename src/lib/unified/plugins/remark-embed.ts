@@ -55,7 +55,7 @@ const remarkEmbed: Plugin<[RemarkEmbedOptions?], Root> = (
       };
       transforms.push(
         transform().catch((e) => {
-          const msg = `Failed to embed ${link.url} in ${file.path} at line ${link.position?.start?.line}`;
+          const msg = `Failed to embed ${link.url} in ${file.path} at line ${link.position?.start!.line}`;
           file.message(
             `${msg}; ${JSON.stringify(e)}`,
             link.position,

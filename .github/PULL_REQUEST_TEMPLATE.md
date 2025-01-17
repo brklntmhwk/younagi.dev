@@ -1,6 +1,8 @@
 <!-- Title Formats of Pull Request:
+  chore(deps): 🤖 xxx
   docs(content): 📖 xxx
-  refactor(some): ✨ tweak xxx
+  refactor(some): ✨ tweak
+  style(ui): 💄 xxx
 -->
 
 ## Changes
@@ -15,5 +17,3 @@
 
 ## Notes
 <!-- Add whatever you want to let team members know about the changes. Leave it blank if you have nothing special. -->
-
-- xxxxx

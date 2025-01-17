@@ -26,10 +26,10 @@ const t = await getEntry('i18n', `${locale}/translation`);
     <ProfileIcon
       class="my-0"
       src={image ? image.src : profileImage}
-      alt={image ? image.alt : t.data.message.fallback_icon_alt}
+      alt={image ? image.alt : t!.data.message.fallback_icon_alt}
       size={90}
     />
-    <span class="text-sm">{image ? image.alt : t.data.message.fallback_icon_alt}</span>
+    <span class="text-sm">{image ? image.alt : t!.data.message.fallback_icon_alt}</span>
   </div>
   <div class:list={['balloon', 'border-pixel', `from-${direction}`]}>
     <p class="text-sm leading-normal">{content}</p>

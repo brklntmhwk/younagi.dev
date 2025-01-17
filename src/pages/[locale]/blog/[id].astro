@@ -1,28 +1,29 @@
 ---
+import { render } from 'astro:content';
 import BlogLayout from '@/layouts/BlogLayout.astro';
 import { getSortedContentEntries } from '@/lib/collections/contents';
 import { mdxComponents } from '@/lib/mdx-components';
-import { getLocaleFromSlug } from '@/utils/get-locale-from-slug';
-import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale';
+import { getLocaleFromId } from '@/utils/get-locale-from-id';
+import { getIdWithoutLocale } from '@/utils/get-id-without-locale';
 import { defaultLang } from '@/utils/i18n/data';
 import type { GetStaticPaths } from 'astro';
 
 export const getStaticPaths = (async () => {
   const entries = await getSortedContentEntries('blog');
   const LocaleEntries = entries.filter(
-    (entry) => getLocaleFromSlug(entry.slug) !== defaultLang,
+    (entry) => getLocaleFromId(entry.id) !== defaultLang,
   );
 
   return LocaleEntries.map((entry) => {
-    const locale = getLocaleFromSlug(entry.slug);
-    const slug = getSlugWithoutLocale(entry.slug);
+    const locale = getLocaleFromId(entry.id);
+    const id = getIdWithoutLocale(entry.id);
 
-    return { params: { locale, slug }, props: { entry } };
+    return { params: { locale, id }, props: { entry } };
   });
 }) satisfies GetStaticPaths;
 
 const { entry } = Astro.props;
-const { Content, headings } = await entry.render();
+const { Content, headings } = await render(entry);
 ---
 
 <BlogLayout entry={{ ...entry }} {headings}>

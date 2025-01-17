@@ -16,20 +16,20 @@ export const useTranslatedPath = (lang: Language) => {
 export const isLocale = (locale: string | undefined): locale is Language =>
   locale !== undefined && Object.hasOwn(languages, locale);
 
-export const getTargetLocaleSlug = (
+export const getTargetLocaleId = (
   curLocale: Language | string,
   curUrl: URL,
 ) => {
-  let slug: string;
+  let id: string;
   if (curLocale === defaultLang) {
     const [_blank, ...rest] = curUrl.pathname.split('/');
-    slug = rest.join('/');
+    id = rest.join('/');
   } else {
     const [_blank, _prevLocale, ...rest] = curUrl.pathname.split('/');
-    slug = rest.join('/');
+    id = rest.join('/');
   }
 
-  return slug;
+  return id;
 };
 
 export const compareCharsInLocale = (

@@ -42,8 +42,8 @@ const placeholder = blurhashToDataUri(blur_hash ?? '');
   "
 >
   <a
-    aria-label={`${t.data.photo_gallery_item.photo_label}${order}`}
-    href={`${links.html}?utm_source=${toSnakeCase(meta.data.site.title)}&utm_medium=referral`}
+    aria-label={`${t!.data.photo_gallery_item.photo_label}${order}`}
+    href={`${links.html}?utm_source=${toSnakeCase(meta!.data.site.title)}&utm_medium=referral`}
     slot="image"
   >
     <Image

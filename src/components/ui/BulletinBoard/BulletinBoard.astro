@@ -26,7 +26,7 @@ const t = await getEntry('i18n', `${locale}/translation`);
           <li class="font-pixel text-[1.585rem] sm:text-[1.675rem] md:text-[1.75rem] lg:text-3xl text-bulletin-fg inline mr-20 tracking-[0.125rem] [text-shadow:_0_0_4px]">
             <a
               href={translatePath(
-                `/${news.collection}/${news.slug.split('/').pop()}/`
+                `/${news.collection}/${news.id.split('/').pop()}/`
               )}
             >
               {news.data.title}
@@ -34,7 +34,7 @@ const t = await getEntry('i18n', `${locale}/translation`);
           </li>
         ))
       ) : (
-        <li>{t.data.bulleting_board.no_news}</li>
+        <li>{t!.data.bulleting_board.no_news}</li>
       )
     }
   </ul>

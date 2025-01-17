@@ -10,7 +10,7 @@ type Props = {
 };
 
 export const SearchResult: Component<Props> = (props) => {
-  const [result] = createResource(() => props.result.data());
+  const [result] = createResource(() => props.result!.data());
 
   return (
     <li>

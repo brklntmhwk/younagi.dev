@@ -23,13 +23,13 @@ const t = await getEntry('i18n', `${defaultLang}/translation`);
 ---
 
 <BaseLayout
-  title={meta.data.site.title}
-  description={meta.data.site.description}
+  title={meta!.data.site.title}
+  description={meta!.data.site.description}
   og={{ show: true }}
 >
   <main class="flex flex-col justify-between gap-16" data-pagefind-ignore="all">
     <section>
-      <h1 class="text-3xl md:text-4xl font-extrabold mb-5">{t.data.pages.news.title}</h1>
+      <h1 class="text-3xl md:text-4xl font-extrabold mb-5">{t!.data.pages.news.title}</h1>
       <ul class="flex flex-col gap-5">
         {
           page.data.map((entry) => (
@@ -54,7 +54,7 @@ const t = await getEntry('i18n', `${defaultLang}/translation`);
                   )}
                 </section>
                 <a
-                  href={`/${entry.collection}/${entry.slug.split('/').pop()}/`}
+                  href={`/${entry.collection}/${entry.id.split('/').pop()}/`}
                   class="text-default text-2xl md:text-3xl font-bold leading-normal no-underline hover:underline hover:underline-offset-4"
                 >
                   {entry.data.title}

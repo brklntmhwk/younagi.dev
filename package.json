@@ -79,7 +79,7 @@
     "hast-util-to-html": "^9.0.3",
     "hastscript": "^9.0.0",
     "isomorphic-dompurify": "^2.16.0",
-    "katex": "0.16.11",
+    "katex": "0.16.21",
     "lefthook": "^1.8.2",
     "mdast": "^3.0.0",
     "mdast-util-newline-to-break": "^2.0.0",

@@ -154,7 +154,7 @@ export const Search: Component<Props> = (props) => {
                   <div class="relative flex items-center">
                     <input
                       type="checkbox"
-                      class="checked:border-transparent checked:accent-default bg-default-reverse"
+                      class="checked:accent-neutral-500"
                       id={`${title}-${value}`}
                       name={title}
                       value={value}

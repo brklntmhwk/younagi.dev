@@ -10,10 +10,18 @@ type Props = {
   rightEnd?: string;
   value: number;
   total?: number;
+  filterTitle?: string;
 };
 
 const locale = getLocaleFromUrl(Astro.url);
-const { method, leftEnd, rightEnd, value, total = 5 } = Astro.props;
+const {
+  method,
+  leftEnd,
+  rightEnd,
+  value,
+  total = 5,
+  filterTitle,
+} = Astro.props;
 const t = await getEntry('i18n', `${locale}/translation`);
 const isLessThanOrEqualTo = (a: number, b: number) => a <= b;
 
@@ -24,18 +32,26 @@ if (!isLessThanOrEqualTo(value, total)) {
 const counts = Array.from({ length: total }, (_, i) => i + 1);
 ---
 
-<div class="hidden xxs:w-full xxs:flex xxs:flex-col xxs:items-center xxs:justify-center xxs:gap-3.5 xxs:p-3" data-pagefind-ignore="all">
+<div class="hidden xxs:w-full xxs:flex xxs:flex-col xxs:items-center xxs:justify-center xxs:gap-3.5 xxs:p-3">
   <div class="w-full max-w-lg flex justify-between">
     {
       leftEnd && rightEnd && (
         <>
           <div class="text-sm sm:text-base flex items-center justify-center max-w-28">
             <Icon iconName="left-arrow" width={20} height={20} />
-            <span class="w-full whitespace-nowrap overflow-ellipsis overflow-hidden">{leftEnd}</span>
+            <span class="w-full whitespace-nowrap overflow-ellipsis overflow-hidden" data-pagefind-ignore>{leftEnd}</span>
           </div>
-          <span class="text-sm sm:text-base">{`${value}/${total}`}</span>
+          {
+            filterTitle ? (
+              <span class="text-sm sm:text-base" data-pagefind-filter={`${filterTitle}:${value}`}>
+                {`${value}/${total}`}
+              </span>
+            ) : (
+              <span class="text-sm sm:text-base">{`${value}/${total}`}</span>
+            )
+          }
           <div class="text-sm sm:text-base flex items-center justify-center max-w-28">
-            <span class="w-full whitespace-nowrap overflow-ellipsis overflow-hidden">{rightEnd}</span>
+            <span class="w-full whitespace-nowrap overflow-ellipsis overflow-hidden" data-pagefind-ignore>{rightEnd}</span>
             <Icon iconName="right-arrow" width={20} height={20} />
           </div>
         </>

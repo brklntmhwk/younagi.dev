@@ -54,16 +54,18 @@ export const style = tv({
   base: 'block py-3 px-3.5 my-6 flex flex-col rounded-sm',
   variants: {
     type: {
-      info: 'bg-sky-100 dark:bg-sky-700 text-sky-600 dark:text-sky-300',
-      check: 'bg-teal-100 dark:bg-teal-700 text-teal-600 dark:text-teal-300',
+      info: 'text-sky-600 dark:text-sky-300 border-2 border-sky-600 dark:border-sky-300',
+      check:
+        'text-teal-600 dark:text-teal-300 border-2 border-teal-600 dark:border-teal-300',
       question:
-        'bg-indigo-200 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300',
-      note: 'bg-amber-100 dark:bg-amber-700 text-amber-600 dark:text-amber-400',
-      failure: 'bg-red-100 dark:bg-red-900 text-red-500 dark:text-red-300',
+        'text-indigo-600 dark:text-indigo-300 border-2 border-indigo-600 dark:border-indigo-300',
+      note: 'text-amber-600 dark:text-amber-400 border-2 border-amber-600 dark:border-amber-400',
+      failure:
+        'text-red-500 dark:text-red-300 border-2 border-red-500 dark:border-red-300',
       quote:
-        'bg-stone-200 dark:bg-stone-600 text-stone-600 dark:text-stone-300',
+        'text-stone-600 dark:text-stone-300 border-2 border-stone-600 dark:border-stone-300',
       warning:
-        'bg-orange-200 dark:bg-orange-800 text-orange-500 dark:text-orange-400',
+        'text-orange-500 dark:text-orange-400 border-2 border-orange-500 dark:border-orange-400',
     },
   },
 });

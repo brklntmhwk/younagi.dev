@@ -36,38 +36,6 @@ export default {
           600: 'hsl(240.24, 100%, 48.63%)',
           800: 'hsl(240, 98.54%, 26.86%)',
         },
-        gray: {
-          ...colors.gray,
-          DEFAULT: colors.gray[500],
-          dark: {
-            DEFAULT: colors.gray[600],
-          },
-        },
-        green: {
-          ...colors.green,
-          DEFAULT: colors.green[500],
-          dark: {
-            DEFAULT: colors.green[600],
-          },
-        },
-        purple: {
-          ...colors.purple,
-          DEFAULT: colors.purple[500],
-          dark: {
-            DEFAULT: colors.purple[600],
-          },
-        },
-        red: {
-          ...colors.red,
-          DEFAULT: colors.red[500],
-          dark: {
-            DEFAULT: colors.red[600],
-          },
-        },
-        teal: {
-          ...colors.teal,
-          600: 'hsl(180, 58%, 42%)',
-        },
       },
       fontFamily: {
         pixel: [
@@ -76,7 +44,6 @@ export default {
         ],
       },
       backdropBlur: {
-        xs: '4px',
         sm: '6px',
       },
       backdropSaturate: {

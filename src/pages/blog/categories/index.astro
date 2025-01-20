@@ -25,7 +25,7 @@ const sortedCategories = categories.data.sort((a, b) =>
       >◀ {t.data.pages.blog.back_to_top}</a
     >
     <hr class="my-5" />
-    <section class="pt-1 flex flex-wrap gap-3">
+    <section class="pt-1 flex flex-wrap gap-2.5">
       {
         sortedCategories.map((category) => (
           <Taxonomy kind="categories" taxonomy={category} />

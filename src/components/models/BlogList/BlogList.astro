@@ -35,9 +35,9 @@ const { entries, taxonomies } = Astro.props;
 
       return (
         <li class="animate-fadeInUp">
-          <article class="double-border pt-4 pr-2 pb-2 pl-3.5 flex flex-col gap-2.5">
+          <article class="double-border pt-3 px-3 pb-2.5 flex flex-col gap-2.5">
             <a
-              class="font-extrabold text-xl xxs:text-[1.375rem] xxs:leading-7 xs:text-2xl xl:text-3xl hover:bg-default-mixed"
+              class="font-extrabold text-xl xs:text-2xl xl:text-3xl hover:bg-default-mixed"
               href={translatePath(
                 `/${entry.collection}/${entry.slug.split('/').pop()}/`
               )}
@@ -58,7 +58,7 @@ const { entries, taxonomies } = Astro.props;
             </section>
             <span class="text-sm xs:text-base">{description}</span>
             {taxonomies.show && (
-              <section class="my-1.5 sm:my-2.5 flex flex-wrap items-center gap-y-4 sm:gap-y-5 gap-x-3">
+              <section class="flex flex-wrap items-center gap-2.5">
                 {taxonomies.shouldDisplay?.includes('category') && category && (
                   <Taxonomy
                     kind={blogCategory.metadata.collection}

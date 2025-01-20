@@ -123,3 +123,4 @@ layouts:
     level_hard: 難しい
     category_label: カテゴリ
     tag_label: タグ
+    difficulty_label: 難易度(一部ブログ記事のみ対象)

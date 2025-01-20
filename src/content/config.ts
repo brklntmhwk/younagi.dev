@@ -1,5 +1,4 @@
 import { defineCollection, reference, z } from 'astro:content';
-import { colors } from '@/components/models/Taxonomy';
 
 const blog = defineCollection({
   type: 'content',
@@ -34,7 +33,6 @@ const taxonomySchema = z.object({
   title: z.string(),
   slug: z.string(),
   ruby: z.string(),
-  color: z.enum(colors),
 });
 
 const categories = defineCollection({
@@ -253,6 +251,7 @@ const i18n = defineCollection({
         level_hard: z.string(),
         category_label: z.string(),
         tag_label: z.string(),
+        difficulty_label: z.string(),
       }),
     }),
   }),

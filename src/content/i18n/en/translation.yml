@@ -123,3 +123,4 @@ layouts:
     level_hard: Hard
     category_label: Categories
     tag_label: Tags
+    difficulty_label: Difficulty(Targeted for some blog articles)

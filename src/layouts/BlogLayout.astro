@@ -79,12 +79,12 @@ const tags = await getBlogTags(blogTags);
           }
         </div>
         <h1
-          class="text-center text-2xl sm:text-3xl xl:text-4xl font-extrabold leading-snug sm:leading-snug md:leading-snug xl:leading-normal"
+          class="text-center text-3xl xl:text-4xl font-extrabold leading-snug xl:leading-normal"
           data-pagefind-weight="10"
         >
           {title}
         </h1>
-        <div class="text-[0.825rem] sm:text-[1.045rem] pt-2.5 pb-3.5 flex flex-wrap justify-center items-center gap-y-5 sm:gap-y-6 gap-x-3">
+        <div class="flex flex-wrap justify-center items-center gap-x-2 gap-y-4">
           {
             category && (
               <Taxonomy
@@ -112,6 +112,7 @@ const tags = await getBlogTags(blogTags);
               value={level}
               leftEnd={t.data.layouts.blog.level_easy}
               rightEnd={t.data.layouts.blog.level_hard}
+              filterTitle={t.data.layouts.blog.difficulty_label}
             />
           )
         }

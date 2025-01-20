@@ -1,73 +1,54 @@
 - title: Astro
   slug: astro
   ruby: Astro
-  color: primary
 - title: Cloudflare
   slug: cloudflare
   ruby: Cloudflare
-  color: primary
 - title: TypeScript
   slug: typescript
   ruby: TypeScript
-  color: primary
 - title: Front Matter CMS
   slug: front-matter-cms
   ruby: Front Matter CMS
-  color: primary
 - title: エラー
   slug: error
   ruby: えらー
-  color: red
 - title: VSCode
   slug: vscode
   ruby: VSCode
-  color: primary
 - title: iPad
   slug: ipad
   ruby: iPad
-  color: gray
 - title: iPhone
   slug: iphone
   ruby: iPhone
-  color: gray
 - title: Obsidian
   slug: obsidian
   ruby: obsidian
-  color: purple
 - title: JavaScript
   slug: javascript
   ruby: javascript
-  color: primary
 - title: Mac
   slug: mac
   ruby: mac
-  color: gray
 - title: PC
   slug: pc
   ruby: pc
-  color: gray
 - title: NixOS
   slug: nixos
   ruby: nixos
-  color: gray
 - title: DIY
   slug: diy
   ruby: diy
-  color: green
 - title: キーボード
   slug: keyboard
   ruby: きーぼーど
-  color: gray
 - title: 電子工作
   slug: electronics
   ruby: でんしこうさく
-  color: green
 - slug: markdown
   ruby: markdown
-  color: primary
   title: Markdown
 - slug: linux
   ruby: linux
   title: Linux
-  color: gray
-

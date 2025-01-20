@@ -243,8 +243,7 @@
         "required": [
           "title",
           "slug",
-          "ruby",
-          "color"
+          "ruby"
         ],
         "properties": {
           "title": {
@@ -258,10 +257,6 @@
           "ruby": {
             "type": "string",
             "title": "Ruby"
-          },
-          "color": {
-            "type": "string",
-            "title": "Color"
           }
         }
       }
@@ -274,8 +269,7 @@
         "required": [
           "title",
           "slug",
-          "ruby",
-          "color"
+          "ruby"
         ],
         "properties": {
           "title": {
@@ -289,10 +283,6 @@
           "ruby": {
             "type": "string",
             "title": "Ruby"
-          },
-          "color": {
-            "type": "string",
-            "title": "Color"
           }
         }
       }

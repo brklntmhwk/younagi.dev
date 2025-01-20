@@ -16,9 +16,14 @@ tags:
     - markdown
 level: 4
 description: A dev story behind building my website for geeks wanting to have their own in the era of video. It's built using Astro, Cloudflare Pages, D1, Front Matter CMS, etc.
-updatedAt: 2025-01-15T03:32:56.575Z
+updatedAt: 2025-01-20T04:02:25.955Z
 thumbnail: 🚀🌐🔧 ( •̀ᴗ•́ )و
 ---
+
+## Updates
+
+- Jan 2025
+  - migrate from `rehype-pretty-code` to `astro-expressive-code` as to code blocks
 
 ## Intro
 
@@ -194,7 +199,21 @@ At the end of the day, I just wanted to do this.
 
 ##### Code blocks
 
-As a developer, sharing some code examples is inevitable destiny. [The rehype-pretty-code](https://rehype-pretty.pages.dev/) did all the heavy lifting in adding code syntax highlighting for me. The syntax highlighter is [Shiki](https://shiki.style/).
+As a developer, sharing some code examples is inevitable destiny. [astro-expressive-code](https://expressive-code.com/installation/#astro) does all the heavy lifting for me from styling the code blocks to adding the copy-to-clipboard buttton.
+
+````txt
+```astro title="example.astro" "Astro.props" {6,9}
+---
+type Props = {
+  title: string
+}
+
+const { title } = Astro.props
+---
+
+<div>{`This is an example page titled ${title}.`}</div>
+```
+````
 
 ```astro title="example.astro" "Astro.props" {6,9}
 ---

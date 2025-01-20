@@ -128,7 +128,7 @@ export const Search: Component<Props> = (props) => {
 
   return (
     <div class="max-h-[76dvh] flex flex-col gap-4 box-border h-fit">
-      <form class="my-2 flex flex-col gap-2" onsubmit={handleSubmit}>
+      <form class="my-2 flex flex-col gap-3" onsubmit={handleSubmit}>
         <div class="bg-default-reverse double-border flex items-center gap-2 p-3">
           <SearchIcon label={props.t.button_label} width={22} height={22} />
           <input

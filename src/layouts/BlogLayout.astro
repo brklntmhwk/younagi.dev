@@ -14,7 +14,6 @@ import { StarRating } from '@/components/ui/StarRating';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getBlogCategory, getBlogTags } from '@/lib/collections/data';
 import { getIdWithoutLocale } from '@/utils/get-id-without-locale';
-import { getIdWithoutLocale } from '@/utils/get-id-without-locale';
 import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils';
 import type { MarkdownHeading } from 'astro';
 
@@ -39,7 +38,6 @@ const {
   thumbnail,
 } = data;
 const idWithoutLocale = getIdWithoutLocale(id);
-const idWithoutLocale = getIdWithoutLocale(id);
 const category = await getBlogCategory(blogCategory);
 const tags = await getBlogTags(blogTags);
 ---
@@ -52,7 +50,6 @@ const tags = await getBlogTags(blogTags);
     height: 630,
     width: 1200,
     image: new URL(
-      translatePath(`/api/og/${collection}/${idWithoutLocale}.png`),
       translatePath(`/api/og/${collection}/${idWithoutLocale}.png`),
       Astro.site
     ),

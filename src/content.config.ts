@@ -255,7 +255,7 @@ const i18n = defineCollection({
         level_hard: z.string(),
         category_label: z.string(),
         tag_label: z.string(),
-        difficulty_label: z.string(),
+        difficulty_level: z.string(),
       }),
     }),
   }),

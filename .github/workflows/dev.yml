@@ -37,7 +37,7 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       - name: Deploy to Cloudflare Pages
         id: cloudflare_pages_deploy
-        run: bunx wrangler pages deploy ./dist --project-name=younagidev --branch preview --commit-dirty=true
+        run: bunx wrangler pages deploy ./dist --project-name=younagidev --branch dev --commit-dirty=true
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -45,7 +45,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const sha = context.payload.pull_request!.head.sha ?? context.sha;
+            const sha = context.payload.pull_request?.head.sha ?? context.sha;
             await github.rest.repos.createCommitStatus({
               owner: context.repo.owner,
               repo: context.repo.repo,

@@ -39,7 +39,7 @@ const { entries, taxonomies } = Astro.props;
             <a
               class="font-extrabold text-xl xs:text-2xl xl:text-3xl hover:bg-default-mixed"
               href={translatePath(
-                `/${entry.collection}/${entry.slug.split('/').pop()}/`
+                `/${entry.collection}/${entry.id.split('/').pop()}/`
               )}
             >
               {title}
@@ -66,8 +66,8 @@ const { entries, taxonomies } = Astro.props;
                   />
                 )}
                 {taxonomies.shouldDisplay?.includes('tags') &&
-                  tags.length !== 0 &&
-                  tags.map((tag) => (
+                  tags!.length !== 0 &&
+                  tags!.map((tag) => (
                     <Taxonomy
                       kind={blogTags.metadata.collection}
                       taxonomy={tag}

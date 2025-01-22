@@ -31,17 +31,3 @@ export const getPhotographer = async () => {
 
   return res.response;
 };
-
-export const getCollections = async () => {
-  const res = await unsplashApiClient.users.getCollections({
-    username: ACCOUNT_ID,
-    page: 1,
-    perPage: 5,
-  });
-
-  if (res.errors) {
-    throw new Error('Error occurred when trying to get my photos..');
-  }
-
-  return res.response;
-};

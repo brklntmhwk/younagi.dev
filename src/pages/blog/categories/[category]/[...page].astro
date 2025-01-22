@@ -14,7 +14,7 @@ export const getStaticPaths = (async ({ paginate }) => {
   const entries = await getSortedContentEntries('blog', defaultLang);
   const categories = await getCategories(defaultLang);
 
-  return categories.data.flatMap((category) => {
+  return categories!.data.flatMap((category) => {
     const displayEntries = entries.filter(
       (entry) => entry.data.category.slug === category.slug,
     );
@@ -34,15 +34,15 @@ const t = await getEntry('i18n', `${defaultLang}/translation`);
 ---
 
 <BaseLayout
-  title={`${meta.data.blog.title} - ${meta.data.blog.categories.title}: ${category}`}
-  description={meta.data.blog.description}
+  title={`${meta!.data.blog.title} - ${meta!.data.blog.categories.title}: ${category}`}
+  description={meta!.data.blog.description}
   og={{ show: true }}
 >
   <main class="flex flex-col justify-between gap-16" data-pagefind-ignore="all">
     <section>
       <h1 class="text-3xl md:text-4xl font-extrabold mb-5">{title}</h1>
       <a class="text-base text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-500" href={'/blog/categories/'}>
-        ◀ {t.data.pages.blog.categories.back_to_top}
+        ◀ {t!.data.pages.blog.categories.back_to_top}
       </a>
       <BlogList
         entries={page.data}

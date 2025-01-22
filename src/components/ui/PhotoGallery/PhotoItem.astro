@@ -2,11 +2,13 @@
 import { getEntry } from 'astro:content';
 import { Image } from '@/components/elements/Figure';
 import { ProfileIcon } from '@/components/ui/ProfileIcon';
+import { getBlur } from '@/lib/blur';
 import type { UnsplashPhoto } from '@/lib/unsplash/types';
 import { getTimeDiff } from '@/utils/get-time-diff';
 import { getLocaleFromUrl } from '@/utils/i18n/utils';
 import { toSnakeCase } from '@/utils/to-snake-case';
-import { blurhashToDataUri } from '@unpic/placeholder';
+import wretch from 'wretch';
+import PhotoItemFrame from './PhotoItemFrame.astro';
 
 type Props = {
   photo: UnsplashPhoto;
@@ -17,34 +19,20 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = await getEntry('i18n', `${locale}/translation`);
 const meta = await getEntry('meta', 'en/site-data');
 const { photo, order } = Astro.props;
-const {
-  alt_description,
-  blur_hash,
-  description,
-  created_at,
-  links,
-  urls,
-  user,
-  // height,
-  // width,
-} = photo;
+const { alt_description, description, created_at, links, urls, user } = photo;
+const buffer = await wretch(urls.raw)
+  .get()
+  .arrayBuffer()
+  .then((data) => Buffer.from(data));
+const placeholder = await getBlur(buffer, 8, 'webp');
 const createdAt = new Date(created_at);
 const dateDiff = getTimeDiff(createdAt, locale);
-const placeholder = blurhashToDataUri(blur_hash ?? '');
 ---
 
-<div class="
-  bg-default-reverse hover:bg-default-reverse-hover
-  max-w-full h-48 sm:h-60 flex flex-col
-  gap-1.5 sm:gap-2 break-inside-avoid
-  border-2 border-solid border-line-solid rounded-sm animate-fadeInUp
-  xxs:max-w-32 xs:max-w-48 sm:max-w-56 md:max-w-72 xl:max-w-80
-  "
->
+<PhotoItemFrame>
   <a
-    aria-label={`${t.data.photo_gallery_item.photo_label}${order}`}
-    href={`${links.html}?utm_source=${toSnakeCase(meta.data.site.title)}&utm_medium=referral`}
-    slot="image"
+    aria-label={`${t!.data.photo_gallery_item.photo_label}${order}`}
+    href={`${links.html}?utm_source=${toSnakeCase(meta!.data.site.title)}&utm_medium=referral`}
   >
     <Image
       class="w-full max-h-32 object-cover"
@@ -53,7 +41,7 @@ const placeholder = blurhashToDataUri(blur_hash ?? '');
       {placeholder}
     />
   </a>
-  <section slot="content" class="text-xs md:text-sm flex items-center flex-wrap justify-between gap-2 pt-0.5 md:pt-1.5 pb-1 md:pb-2 px-1 md:px-2">
+  <section class="text-xs md:text-sm flex items-center flex-wrap justify-between gap-2 pt-0.5 md:pt-1.5 pb-1 md:pb-2 px-1 md:px-2">
     <div class="flex items-center gap-1.5 md:gap-2">
       <ProfileIcon
         alt={photo.user.username}
@@ -66,4 +54,4 @@ const placeholder = blurhashToDataUri(blur_hash ?? '');
       {dateDiff}
     </span>
   </section>
-</div>
+</PhotoItemFrame>

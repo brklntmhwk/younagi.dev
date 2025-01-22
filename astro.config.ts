@@ -43,7 +43,6 @@ import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 // https://astro.build/config
 export default defineConfig({
   site: SITE_URL,
-  output: 'hybrid',
   adapter: cloudflare({
     platformProxy: {
       enabled: true,
@@ -52,6 +51,10 @@ export default defineConfig({
   }),
   image: {
     service: passthroughImageService(),
+    remotePatterns: [{
+      protocol: 'https',
+      hostname: 'images.unsplash.com',
+    }],
   },
   integrations: [
     expressiveCode({

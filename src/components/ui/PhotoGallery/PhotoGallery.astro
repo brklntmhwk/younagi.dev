@@ -3,17 +3,14 @@ import { getEntry } from 'astro:content';
 import { CardGrid } from '@/components/elements/Card';
 import { ACCOUNT_ID, UNSPLASH_BASE_URL } from '@/lib/consts';
 import { getPhotographer } from '@/lib/unsplash/contents';
-import type { UnsplashPhotoData } from '@/lib/unsplash/types';
+import { getPhotos } from '@/lib/unsplash/contents';
 import { getLocaleFromUrl } from '@/utils/i18n/utils';
-import PhotoGalleryItem from '../PhotoGallery/PhotoGalleryItem.astro';
-
-type Props = {
-  photos: UnsplashPhotoData;
-};
+import PhotoItem from './PhotoItem.astro';
+import PhotoSkelton from './PhotoSkelton.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = await getEntry('i18n', `${locale}/translation`);
-const { photos } = Astro.props;
+const photos = await getPhotos();
 const username = await getPhotographer();
 ---
 
@@ -22,13 +19,15 @@ const username = await getPhotographer();
     {
       photos &&
         photos.results.map((photo, i) => (
-          <PhotoGalleryItem {photo} order={i + 1} />
+          <PhotoItem server:defer {photo} order={i + 1}>
+            <PhotoSkelton slot="fallback" />
+          </PhotoItem>
         ))
     }
   </CardGrid>
   <aside>
     <p class="text-sm md:text-base">
-      {t.data.photo_gallery.credit_label}
+      {t!.data.photo_gallery.credit_label}
       <cite>
         <a
           href={`${UNSPLASH_BASE_URL}/@${ACCOUNT_ID}`}

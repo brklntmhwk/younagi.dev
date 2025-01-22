@@ -1,8 +1,8 @@
 import { getEntry } from 'astro:content';
 import { getOgImage } from '@/components/models/OgImage';
 import { getContentEntries } from '@/lib/collections/contents';
-import { getLocaleFromSlug } from '@/utils/get-locale-from-slug';
-import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale';
+import { getIdWithoutLocale } from '@/utils/get-id-without-locale';
+import { getLocaleFromId } from '@/utils/get-locale-from-id';
 import { type Language, langList } from '@/utils/i18n/data';
 import type {
   APIContext,
@@ -20,17 +20,17 @@ const newsEntries = await getContentEntries('news');
 const articles = [...blogEntries, ...newsEntries];
 
 export const GET: APIRoute = async ({ props, params }: APIContext) => {
-  const { rawSlug } = props as Props;
-  const { collection, locale, slug } = params as Params;
+  const { rawId } = props as Props;
+  const { collection, locale, id } = params as Params;
 
-  const article = await getEntry(collection, rawSlug);
+  const article = await getEntry(collection, rawId);
   if (!article) {
-    return new Response(`Article not found: ${slug}`, {
+    return new Response(`Article not found: ${id}`, {
       status: 404,
     });
   }
   const t = await getEntry('i18n', `${locale}/translation`);
-  const ogImg = await getOgImage(article.data.title, t.data.og_image);
+  const ogImg = await getOgImage(article.data.title, t!.data.og_image);
 
   return new Response(ogImg, {
     headers: {
@@ -42,17 +42,17 @@ export const GET: APIRoute = async ({ props, params }: APIContext) => {
 // e.g., /api/og/blog/astro-website.png, /ja/api/og/blog/astro-website.png
 export const getStaticPaths = (async () => {
   const localeArticles = articles.filter((article) =>
-    langList.some((lang) => lang === getLocaleFromSlug(article.slug)),
+    langList.some((lang) => lang === getLocaleFromId(article.id)),
   );
   const ogArticlePaths = [
     ...localeArticles.map((article) => {
-      const locale = getLocaleFromSlug(article.slug) as Language;
+      const locale = getLocaleFromId(article.id) as Language;
       const collection = article.collection;
-      const slugWithoutLocale = getSlugWithoutLocale(article.slug);
+      const idWithoutLocale = getIdWithoutLocale(article.id);
 
       return {
-        params: { locale, collection, slug: slugWithoutLocale },
-        props: { rawSlug: article.slug },
+        params: { locale, collection, id: idWithoutLocale },
+        props: { rawId: article.id },
       };
     }),
   ];

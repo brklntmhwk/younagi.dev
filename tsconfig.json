@@ -42,6 +42,5 @@
   "exclude": [
     "./dist",
     "./node_modules",
-    "./overrides"
   ],
 }

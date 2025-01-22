@@ -15,19 +15,19 @@ const year = new Date().getFullYear();
 <footer class="area-footer flex flex-col items-center gap-3.5 px-4 pt-9 pb-16 text-center" data-pagefind-ignore="all">
   <span>
     &copy; {year}
-    {t.data.blog_name}. All rights reserved.
+    {t!.data.blog_name}. All rights reserved.
   </span>
   <div class="flex justify-center gap-7 text-primary hover:text-primary-dark">
     {
       privacyPolicyPage && (
-        <a href={translatePath(`/${privacyPolicyPage.slug.split('/').pop()}/`)}>
+        <a href={translatePath(`/${privacyPolicyPage.id.split('/').pop()}/`)}>
           {privacyPolicyPage.data.title}
         </a>
       )
     }
     {
       sitePolicyPage && (
-        <a href={translatePath(`/${sitePolicyPage.slug.split('/').pop()}/`)}>
+        <a href={translatePath(`/${sitePolicyPage.id.split('/').pop()}/`)}>
           {sitePolicyPage.data.title}
         </a>
       )

@@ -31,22 +31,25 @@ export const POST: APIRoute = async ({
   const meta = await getEntry('meta', `${defaultLang}/site-data`);
 
   const formSchema = object({
-    name: pipe(string(), nonEmpty(t.data.contact_form.name.required)),
+    name: pipe(string(), nonEmpty(t!.data.contact_form.name.required)),
     email: pipe(
       string(),
-      nonEmpty(t.data.contact_form.email.required),
-      email(t.data.contact_form.email.invalid),
+      nonEmpty(t!.data.contact_form.email.required),
+      email(t!.data.contact_form.email.invalid),
     ),
     message: pipe(
       string(),
-      nonEmpty(t.data.contact_form.message.required),
-      minLength(FORM_TEXTAREA_MINLENGTH, t.data.contact_form.message.minlength),
+      nonEmpty(t!.data.contact_form.message.required),
+      minLength(
+        FORM_TEXTAREA_MINLENGTH,
+        t!.data.contact_form.message.minlength,
+      ),
     ),
     confirmation: pipe(
       boolean(),
       check(
         (input) => input === true,
-        t.data.contact_form.confirmation.required,
+        t!.data.contact_form.confirmation.required,
       ),
     ),
     'cf-turnstile-response': string(),
@@ -125,7 +128,7 @@ export const POST: APIRoute = async ({
   const resend = new Resend(resendApiKey);
 
   const mailContent = {
-    from: `${meta.data.site.title} <${myCustomAddress}>`,
+    from: `${meta!.data.site.title} <${myCustomAddress}>`,
     to: [myCustomAddress],
     subject: `${CONTACT_NOTIFICATION_SUBJECT} from ${data.name}`,
     text: `Name:\n${data.name}\n\n

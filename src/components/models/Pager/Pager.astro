@@ -42,7 +42,7 @@ const { page } = Astro.props;
     <nav class="flex justify-between items-center px-1.5 no-underline" data-pagefind-ignore="all">
       {page.url.prev ? (
         <a
-          aria-label={t.data.pager.left_arrow_label}
+          aria-label={t!.data.pager.left_arrow_label}
           href={page.url.prev}
           class="text-primary hover:text-primary-dark"
         >
@@ -93,7 +93,7 @@ const { page } = Astro.props;
       </ul>
       {page.url.next ? (
         <a
-          aria-label={t.data.pager.right_arrow_label}
+          aria-label={t!.data.pager.right_arrow_label}
           href={page.url.next}
           class="text-primary hover:text-primary-dark"
         >

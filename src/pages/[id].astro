@@ -1,31 +1,22 @@
 ---
+import { render } from 'astro:content';
 import AboutLayout from '@/layouts/AboutLayout.astro';
 import PageLayout from '@/layouts/PageLayout.astro';
 import { getSortedContentEntries } from '@/lib/collections/contents';
 import { mdxComponents } from '@/lib/mdx-components';
-import { getLocaleFromSlug } from '@/utils/get-locale-from-slug';
-import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale';
+import { getIdWithoutLocale } from '@/utils/get-id-without-locale';
 import { defaultLang } from '@/utils/i18n/data';
 import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
 
 export const getStaticPaths = (async () => {
-  const pages = await getSortedContentEntries('page');
-  const LocalePages = pages.filter(
-    (page) => getLocaleFromSlug(page.slug) !== defaultLang,
-  );
+  const pages = await getSortedContentEntries('page', defaultLang);
 
-  return LocalePages.map((page) => {
-    const locale = getLocaleFromSlug(page.slug);
-    const slug = getSlugWithoutLocale(page.slug);
+  return pages.map((page) => {
+    const id = getIdWithoutLocale(page.id);
 
     return {
-      params: {
-        slug,
-        locale,
-      },
-      props: {
-        page,
-      },
+      params: { id },
+      props: { page },
     };
   });
 }) satisfies GetStaticPaths;
@@ -33,12 +24,12 @@ export const getStaticPaths = (async () => {
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { page } = Astro.props;
-const { Content, headings } = await page.render();
-const slugWithoutLocale = getSlugWithoutLocale(page.slug);
+const { Content, headings } = await render(page);
+const idWithoutLocale = getIdWithoutLocale(page.id);
 ---
 
 {
-  slugWithoutLocale === 'about' ? (
+  idWithoutLocale === 'about' ? (
     <AboutLayout {headings}>
       <Content components={mdxComponents} />
     </AboutLayout>

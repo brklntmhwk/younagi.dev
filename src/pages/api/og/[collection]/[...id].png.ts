@@ -1,7 +1,7 @@
 import { getEntry } from 'astro:content';
 import { getOgImage } from '@/components/models/OgImage';
 import { getContentEntries } from '@/lib/collections/contents';
-import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale';
+import { getIdWithoutLocale } from '@/utils/get-id-without-locale';
 import { defaultLang } from '@/utils/i18n/data';
 import type {
   APIContext,
@@ -19,17 +19,17 @@ const newsEntries = await getContentEntries('news', defaultLang);
 const articles = [...blogEntries, ...newsEntries];
 
 export const GET: APIRoute = async ({ props, params }: APIContext) => {
-  const { rawSlug } = props as Props;
-  const { collection, slug } = params as Params;
+  const { rawId } = props as Props;
+  const { collection, id } = params as Params;
 
-  const article = await getEntry(collection, rawSlug);
+  const article = await getEntry(collection, rawId);
   if (!article) {
-    return new Response(`Article not found: ${slug}`, {
+    return new Response(`Article not found: ${id}`, {
       status: 404,
     });
   }
   const t = await getEntry('i18n', `${defaultLang}/translation`);
-  const ogImg = await getOgImage(article.data.title, t.data.og_image);
+  const ogImg = await getOgImage(article.data.title, t!.data.og_image);
 
   return new Response(ogImg, {
     headers: {
@@ -43,11 +43,11 @@ export const getStaticPaths = (async () => {
   const ogArticlePaths = [
     ...articles.map((article) => {
       const collection = article.collection;
-      const slug = getSlugWithoutLocale(article.slug);
+      const id = getIdWithoutLocale(article.id);
 
       return {
-        params: { collection, slug },
-        props: { rawSlug: article.slug },
+        params: { collection, id },
+        props: { rawId: article.id },
       };
     }),
   ];

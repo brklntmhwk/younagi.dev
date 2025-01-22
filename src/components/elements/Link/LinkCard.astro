@@ -30,7 +30,7 @@ const image = {
   alt:
     metadata?.open_graph?.images?.[0]?.alt ??
     metadata?.twitter_card?.images?.[0]?.alt ??
-    `${title} ${t.data.link_card.image_fallback_alt}`,
+    `${title} ${t!.data.link_card.image_fallback_alt}`,
 };
 ---
 

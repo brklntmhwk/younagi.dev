@@ -1,5 +1,4 @@
 ---
-// import '@unocss/reset/tailwind-compat.css';
 import { getAbsoluteLocaleUrl } from 'astro:i18n';
 import type { Props as BaseLayoutProps } from '@/layouts/BaseLayout.astro';
 import { languages } from '@/utils/i18n/data';
@@ -8,7 +7,7 @@ type Props = BaseLayoutProps;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const [_firstSlash, _locale, ...rest] = Astro.url.pathname.split('/');
-const slug = rest.join('/');
+const id = rest.join('/');
 const { title, description, og } = Astro.props;
 ---
 
@@ -22,7 +21,7 @@ const { title, description, og } = Astro.props;
     <>
       <link
         rel="alternate"
-        href={getAbsoluteLocaleUrl(lang, slug)}
+        href={getAbsoluteLocaleUrl(lang, id)}
         hreflang={lang}
       />
       <link

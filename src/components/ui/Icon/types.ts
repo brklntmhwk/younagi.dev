@@ -9,6 +9,7 @@ export type IconName =
   | 'language'
   | 'left-arrow'
   | 'link'
+  | 'loading'
   | 'magnifier'
   | 'mail'
   | 'moon'

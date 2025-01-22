@@ -51,6 +51,9 @@ export default defineConfig({
   }),
   image: {
     service: passthroughImageService(),
+    remotePatterns: [{
+      protocol: 'https',
+    }],
   },
   integrations: [
     expressiveCode({

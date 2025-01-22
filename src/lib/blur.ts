@@ -1,11 +1,11 @@
 import sharp from 'sharp';
 
 export const getBlur = async (
-  buffer: Buffer,
+  input: Buffer | string,
   size: number,
   format: keyof sharp.FormatEnum,
 ) => {
-  return await sharp(buffer)
+  return await sharp(input)
     .resize(size, size, { fit: 'inside' })
     .toFormat(format, { quality: 60 })
     .modulate({

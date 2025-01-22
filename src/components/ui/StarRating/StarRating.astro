@@ -11,9 +11,18 @@ type Props = {
   value: number;
   total?: number;
   filterTitle?: string;
+  filterTitle?: string;
 };
 
 const locale = getLocaleFromUrl(Astro.url);
+const {
+  method,
+  leftEnd,
+  rightEnd,
+  value,
+  total = 5,
+  filterTitle,
+} = Astro.props;
 const {
   method,
   leftEnd,
@@ -40,6 +49,7 @@ const counts = Array.from({ length: total }, (_, i) => i + 1);
           <div class="text-sm sm:text-base flex items-center justify-center max-w-28">
             <Icon iconName="left-arrow" width={20} height={20} />
             <span class="w-full whitespace-nowrap overflow-ellipsis overflow-hidden" data-pagefind-ignore>{leftEnd}</span>
+            <span class="w-full whitespace-nowrap overflow-ellipsis overflow-hidden" data-pagefind-ignore>{leftEnd}</span>
           </div>
           {
             filterTitle ? (
@@ -51,6 +61,7 @@ const counts = Array.from({ length: total }, (_, i) => i + 1);
             )
           }
           <div class="text-sm sm:text-base flex items-center justify-center max-w-28">
+            <span class="w-full whitespace-nowrap overflow-ellipsis overflow-hidden" data-pagefind-ignore>{rightEnd}</span>
             <span class="w-full whitespace-nowrap overflow-ellipsis overflow-hidden" data-pagefind-ignore>{rightEnd}</span>
             <Icon iconName="right-arrow" width={20} height={20} />
           </div>

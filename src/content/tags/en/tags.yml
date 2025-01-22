@@ -52,3 +52,7 @@
 - title: Linux
   slug: linux
   ruby: linux
+- title: Revisited
+  slug: revisited
+  ruby: revisited
+

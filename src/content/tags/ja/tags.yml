@@ -52,3 +52,7 @@
 - slug: linux
   ruby: linux
   title: Linux
+- slug: revisited
+  title: 再訪
+  ruby: 再訪
+

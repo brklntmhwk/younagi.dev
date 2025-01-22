@@ -1,8 +1,5 @@
 ---
-import { getEntry } from 'astro:content';
 import { Icon } from '@/components/ui/Icon';
-import { getLocaleFromUrl } from '@/utils/i18n/utils';
-import { StarIcon } from './StarIcon';
 
 type Props = {
   method: 'spectrum' | 'rating';
@@ -13,7 +10,6 @@ type Props = {
   filterTitle?: string;
 };
 
-const locale = getLocaleFromUrl(Astro.url);
 const {
   method,
   leftEnd,
@@ -22,7 +18,6 @@ const {
   total = 5,
   filterTitle,
 } = Astro.props;
-const t = await getEntry('i18n', `${locale}/translation`);
 const isLessThanOrEqualTo = (a: number, b: number) => a <= b;
 
 if (!isLessThanOrEqualTo(value, total)) {
@@ -65,46 +60,22 @@ const counts = Array.from({ length: total }, (_, i) => i + 1);
           case 'spectrum': {
             if (n === value) {
               return (
-                <StarIcon
-                  client:only="solid"
-                  width={28}
-                  height={28}
-                  label={t!.data.star_rating.icon_label}
-                  isBright={true}
-                />
+                <Icon iconName="star" width={28} height={28} class="fill-star-filled" />
               )
             } else {
               return (
-                <StarIcon
-                  client:only="solid"
-                  width={28}
-                  height={28}
-                  label={t!.data.star_rating.icon_label}
-                  isBright={false}
-                />
+                <Icon iconName="star" width={28} height={28} class="fill-star-empty" />
               )
             }
           }
           case 'rating': {
             if (isLessThanOrEqualTo(n, value)) {
               return (
-                <StarIcon
-                  client:only="solid"
-                  width={28}
-                  height={28}
-                  label={t!.data.star_rating.icon_label}
-                  isBright={true}
-                />
+                <Icon iconName="star" width={28} height={28} class="fill-star-filled" />
               )
             } else {
               return (
-                <StarIcon
-                  client:only="solid"
-                  width={28}
-                  height={28}
-                  label={t!.data.star_rating.icon_label}
-                  isBright={false}
-                />
+                <Icon iconName="star" width={28} height={28} class="fill-star-empty" />
               )
             }
           }

@@ -6,59 +6,68 @@ import {
   // DEFAULT_PHOTO_COUNT,
   UNSPLASH_BASE_URL,
 } from '@/lib/consts';
-// import { isDev } from '@/lib/mode';
-import { getPhotographer } from '@/lib/unsplash/contents';
-import { getPhotos } from '@/lib/unsplash/contents';
+import { isDev } from '@/lib/mode';
+// import { getPhotographer } from '@/lib/unsplash/contents';
+// import { getPhotos } from '@/lib/unsplash/contents';
 import { getLocaleFromUrl } from '@/utils/i18n/utils';
 // import { createApi } from 'unsplash-js';
 import PhotoItem from './PhotoItem.astro';
-// import PhotoSkelton from './PhotoSkelton.astro';
+import PhotoSkelton from './PhotoSkelton.astro';
+// import wretch from 'wretch';
+import type { UnsplashPhotoData } from '@/lib/unsplash/types';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = await getEntry('i18n', `${locale}/translation`);
-// const accessKey = isDev
-//   ? import.meta.env.UNSPLASH_API_ACCESS_KEY
-//   : Astro.locals.runtime.env.UNSPLASH_API_ACCESS_KEY;
+const accessKey = isDev
+  ? import.meta.env.UNSPLASH_API_ACCESS_KEY
+  : Astro.locals.runtime.env.UNSPLASH_API_ACCESS_KEY;
 // const unsplashApiClient = createApi({ accessKey });
 
-// const getPhotos = async (pageNum?: number) => {
-//   const res = await unsplashApiClient.users.getPhotos({
-//     username: ACCOUNT_ID,
-//     page: 1,
-//     perPage: pageNum ?? DEFAULT_PHOTO_COUNT,
-//   });
+console.log("API access key: ", accessKey);
 
-//   if (res.errors) {
-//     throw new Error(
-//       `Error occurred when trying to get photos..: ${res.errors[0]}`,
-//     );
-//   }
+const getPhotos = async () => {
+  const res = await fetch("https://api.unsplash.com/search/photos?page=1&per_page=15&query=flowers", { headers: {'Authorization': `Client-ID ${accessKey}`}});
 
-//   return res.response;
-// };
+  if (!res.ok) {
+    console.error(res.status);
+    console.error(res.statusText);
+    throw new Error(
+      `Error occurred when trying to get photos..: ${res.statusText}`,
+    );
+  }
 
-// const getPhotographer = async () => {
-//   const res = await unsplashApiClient.users.get({ username: ACCOUNT_ID });
+  const data = await res.json() as UnsplashPhotoData;
 
-//   if (res.errors) {
-//     throw new Error('Error occurred when trying to get my user data..');
-//   }
+  return data;
+};
 
-//   return res.response;
-// };
+const getPhotographer = async () => {
+  const res = await fetch(`https://api.unsplash.com/users/${ACCOUNT_ID}`, { headers: {'Authorization': `Client-ID ${accessKey}`}})
 
-const photos = await getPhotos();
+  if (!res.ok) {
+    console.error(res.status);
+    console.error(res.statusText);
+    throw new Error(
+      "Error occurred when trying to get my user data..",
+    );
+  }
+
+  const data = await res.json();
+
+  return data;
+};
+
+const photos = await getPhotos() as UnsplashPhotoData;
 const username = await getPhotographer();
 ---
 
 <div class="flex flex-col gap-6 py-5 px-1">
   <CardGrid>
     {
-      photos.results.map((photo, i) => (
-        // <PhotoItem server:defer {photo} order={i + 1}>
-        //   <PhotoSkelton slot="fallback" />
-        // </PhotoItem>
-        <PhotoItem {photo} order={i + 1} />
+      photos && photos.results.map((photo, i) => (
+        <PhotoItem server:defer {photo} order={i + 1}>
+          <PhotoSkelton slot="fallback" />
+        </PhotoItem>
       ))
     }
   </CardGrid>

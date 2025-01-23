@@ -1,19 +1,16 @@
 ---
 import { getEntry } from 'astro:content';
 import { CardGrid } from '@/components/elements/Card';
-import {
-  ACCOUNT_ID,
-  UNSPLASH_BASE_URL,
-} from '@/lib/consts';
+import { ACCOUNT_ID, UNSPLASH_BASE_URL } from '@/lib/consts';
 import { getPhotographer } from '@/lib/unsplash/contents';
 import { getPhotos } from '@/lib/unsplash/contents';
+import type { UnsplashPhotoData } from '@/lib/unsplash/types';
 import { getLocaleFromUrl } from '@/utils/i18n/utils';
 import PhotoItem from './PhotoItem.astro';
-import type { UnsplashPhotoData } from '@/lib/unsplash/types';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = await getEntry('i18n', `${locale}/translation`);
-const photos = await getPhotos() as UnsplashPhotoData;
+const photos = (await getPhotos()) as UnsplashPhotoData;
 const username = await getPhotographer();
 ---
 

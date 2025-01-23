@@ -20,10 +20,8 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = await getEntry('i18n', `${locale}/translation`);
 const accessKey = isDev
   ? import.meta.env.UNSPLASH_API_ACCESS_KEY
-  : Astro.locals.runtime.env.UNSPLASH_API_ACCESS_KEY;
+  : process.env.UNSPLASH_API_ACCESS_KEY!;
 // const unsplashApiClient = createApi({ accessKey });
-
-console.log("API access key: ", accessKey);
 
 const getPhotos = async () => {
   const res = await fetch("https://api.unsplash.com/search/photos?page=1&per_page=15&query=flowers", { headers: {'Authorization': `Client-ID ${accessKey}`}});

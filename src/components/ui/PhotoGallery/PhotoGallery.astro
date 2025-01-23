@@ -7,7 +7,7 @@ import {
   UNSPLASH_BASE_URL,
 } from '@/lib/consts';
 import { isDev } from '@/lib/mode';
-// import { getPhotographer } from '@/lib/unsplash/contents';
+import { getPhotographer } from '@/lib/unsplash/contents';
 // import { getPhotos } from '@/lib/unsplash/contents';
 import { getLocaleFromUrl } from '@/utils/i18n/utils';
 import { createApi } from 'unsplash-js';
@@ -19,10 +19,7 @@ const t = await getEntry('i18n', `${locale}/translation`);
 const accessKey = isDev
   ? import.meta.env.UNSPLASH_API_ACCESS_KEY
   : Astro.locals.runtime.env.UNSPLASH_API_ACCESS_KEY;
-const unsplashApiClient = createApi({
-  accessKey,
-  headers: {  },
-});
+const unsplashApiClient = createApi({ accessKey });
 
 const getPhotos = async (pageNum?: number) => {
   const res = await unsplashApiClient.users.getPhotos({
@@ -40,15 +37,15 @@ const getPhotos = async (pageNum?: number) => {
   return res.response;
 };
 
-const getPhotographer = async () => {
-  const res = await unsplashApiClient.users.get({ username: ACCOUNT_ID });
+// const getPhotographer = async () => {
+//   const res = await unsplashApiClient.users.get({ username: ACCOUNT_ID });
 
-  if (res.errors) {
-    throw new Error('Error occurred when trying to get my user data..');
-  }
+//   if (res.errors) {
+//     throw new Error('Error occurred when trying to get my user data..');
+//   }
 
-  return res.response;
-};
+//   return res.response;
+// };
 const photos = await getPhotos();
 const username = await getPhotographer();
 ---
@@ -67,6 +64,7 @@ const username = await getPhotographer();
   <aside>
     <p class="text-sm md:text-base">
       {t!.data.photo_gallery.credit_label}
+      {accessKey ? 'access!' : 'no access...'}
       <cite>
         <a
           href={`${UNSPLASH_BASE_URL}/@${ACCOUNT_ID}`}

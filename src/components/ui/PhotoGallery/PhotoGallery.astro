@@ -6,7 +6,7 @@ import {
   DEFAULT_PHOTO_COUNT,
   UNSPLASH_BASE_URL,
 } from '@/lib/consts';
-// import { isDev } from '@/lib/mode';
+import { isDev } from '@/lib/mode';
 // import { getPhotographer } from '@/lib/unsplash/contents';
 // import { getPhotos } from '@/lib/unsplash/contents';
 import { getLocaleFromUrl } from '@/utils/i18n/utils';
@@ -16,11 +16,13 @@ import PhotoSkelton from './PhotoSkelton.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = await getEntry('i18n', `${locale}/translation`);
-const accessKey = Astro.locals.runtime.env.UNSPLASH_API_ACCESS_KEY;
-// const accessKey = isDev
-//   ? import.meta.env.UNSPLASH_API_ACCESS_KEY
-//   : Astro.locals.runtime.env.UNSPLASH_API_ACCESS_KEY;
-const unsplashApiClient = createApi({ accessKey });
+const accessKey = isDev
+  ? import.meta.env.UNSPLASH_API_ACCESS_KEY
+  : Astro.locals.runtime.env.UNSPLASH_API_ACCESS_KEY;
+const unsplashApiClient = createApi({
+  accessKey,
+  headers: {  },
+});
 
 const getPhotos = async (pageNum?: number) => {
   const res = await unsplashApiClient.users.getPhotos({

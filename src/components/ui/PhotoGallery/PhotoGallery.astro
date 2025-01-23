@@ -3,47 +3,16 @@ import { getEntry } from 'astro:content';
 import { CardGrid } from '@/components/elements/Card';
 import {
   ACCOUNT_ID,
-  /* DEFAULT_PHOTO_COUNT, */
   UNSPLASH_BASE_URL,
 } from '@/lib/consts';
-// import { isDev } from '@/lib/mode';
 import { getPhotographer } from '@/lib/unsplash/contents';
 import { getPhotos } from '@/lib/unsplash/contents';
 import { getLocaleFromUrl } from '@/utils/i18n/utils';
-// import { createApi } from 'unsplash-js';
 import PhotoItem from './PhotoItem.astro';
 import PhotoSkelton from './PhotoSkelton.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = await getEntry('i18n', `${locale}/translation`);
-// const accessKey = import.meta.env.UNSPLASH_API_ACCESS_KEY;
-// const unsplashApiClient = createApi({ accessKey });
-
-// const getPhotos = async (pageNum?: number) => {
-//   const res = await unsplashApiClient.users.getPhotos({
-//     username: ACCOUNT_ID,
-//     page: 1,
-//     perPage: pageNum ?? DEFAULT_PHOTO_COUNT,
-//   });
-
-//   if (res.errors) {
-//     throw new Error(
-//       `Error occurred when trying to get photos..: ${res.errors[0]} ${accessKey}`,
-//     );
-//   }
-
-//   return res.response;
-// };
-
-// const getPhotographer = async () => {
-//   const res = await unsplashApiClient.users.get({ username: ACCOUNT_ID });
-
-//   if (res.errors) {
-//     throw new Error('Error occurred when trying to get my user data..');
-//   }
-
-//   return res.response;
-// };
 const photos = await getPhotos();
 const username = await getPhotographer();
 ---
@@ -62,7 +31,6 @@ const username = await getPhotographer();
   <aside>
     <p class="text-sm md:text-base">
       {t!.data.photo_gallery.credit_label}
-      {photos.results.map(photo => <span>ID: {photo.id}</span>)}
       <cite>
         <a
           href={`${UNSPLASH_BASE_URL}/@${ACCOUNT_ID}`}

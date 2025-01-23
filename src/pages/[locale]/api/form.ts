@@ -1,3 +1,5 @@
+export const prerender = false;
+
 import { getEntry } from 'astro:content';
 import {
   CONTACT_NOTIFICATION_SUBJECT,

@@ -4,25 +4,22 @@ import { CardGrid } from '@/components/elements/Card';
 import { ACCOUNT_ID, UNSPLASH_BASE_URL } from '@/lib/consts';
 import { getPhotographer } from '@/lib/unsplash/contents';
 import { getPhotos } from '@/lib/unsplash/contents';
+import type { UnsplashPhotoData } from '@/lib/unsplash/types';
 import { getLocaleFromUrl } from '@/utils/i18n/utils';
 import PhotoItem from './PhotoItem.astro';
-import PhotoSkelton from './PhotoSkelton.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = await getEntry('i18n', `${locale}/translation`);
-const photos = await getPhotos();
+const photos = (await getPhotos()) as UnsplashPhotoData;
 const username = await getPhotographer();
 ---
 
 <div class="flex flex-col gap-6 py-5 px-1">
   <CardGrid>
     {
-      photos &&
-        photos.results.map((photo, i) => (
-          <PhotoItem server:defer {photo} order={i + 1}>
-            <PhotoSkelton slot="fallback" />
-          </PhotoItem>
-        ))
+      photos && photos.results.map((photo, i) => (
+        <PhotoItem {photo} order={i + 1} />
+      ))
     }
   </CardGrid>
   <aside>

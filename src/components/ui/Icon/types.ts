@@ -21,6 +21,7 @@ export type IconName =
   | 'quote'
   | 'right-arrow'
   | 'rss'
+  | 'star'
   | 'sun'
   | 'toc'
   | 'unsplash'

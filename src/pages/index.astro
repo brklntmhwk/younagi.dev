@@ -51,7 +51,7 @@ const latestNews = newsList.slice(0, NEWS_LATEST_MAXIMUM_COUNT);
       <h2 class="text-3xl md:text-4xl font-bold leading-snug">{t!.data.pages.home.photo_section.title}</h2>
       <span>{t!.data.pages.home.photo_section.description}</span>
       <PhotoGallery server:defer>
-        <p class="text-2xl">Loading...</p>
+        <p class="text-2xl" slot="fallback">Loading...</p>
       </PhotoGallery>
       <!-- <PhotoGallery server:defer /> -->
       <a

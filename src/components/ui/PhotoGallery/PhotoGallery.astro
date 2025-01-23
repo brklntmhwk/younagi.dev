@@ -63,6 +63,8 @@ const username = await getPhotographer();
     <p class="text-sm md:text-base">
       {t!.data.photo_gallery.credit_label}
       {accessKey ? 'access!' : 'no access...'}
+      {username.first_name}
+      {photos.results.map(photo => <span>ID: {photo.id}</span>)}
       <cite>
         <a
           href={`${UNSPLASH_BASE_URL}/@${ACCOUNT_ID}`}

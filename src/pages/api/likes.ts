@@ -1,5 +1,3 @@
-export const prerender = false;
-
 import { likes } from '@/db/schema';
 import type { APIContext, APIRoute } from 'astro';
 import { and, count, eq } from 'drizzle-orm';

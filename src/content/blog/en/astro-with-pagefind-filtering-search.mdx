@@ -5,7 +5,7 @@ type: blog
 title: "Enhance Astro with Pagefind: Add Filtering Search Without Default UI"
 publishedAt: 2025-01-23T08:57:53.655Z
 fmContentType: blog
-updatedAt: 2025-01-24T06:39:07.928Z
+updatedAt: 2025-01-24T06:45:41.425Z
 category:
   metadata: en/categories
   slug: attempt
@@ -342,7 +342,7 @@ export const Search: Component<Props> = (props) => {
               <fieldset class="flex flex-wrap gap-4 py-4">
                 <legend class="sr-only">{title}</legend>
                 {Object.entries(filterMap).map(([value, count]) => (
-                  <div class="flex items-center">
+                  <div class="font-pixel flex items-center">
                     <input
                       type="checkbox"
                       class="checked:accent-neutral-500"
@@ -353,7 +353,7 @@ export const Search: Component<Props> = (props) => {
                     />
                     <label
                       for={`${title}-${value}`}
-                      class="select-none font-pixel font-medium pl-2"
+                      class="select-none font-medium pl-2"
                     >
                       {value} ({count})
                     </label>

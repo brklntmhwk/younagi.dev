@@ -151,7 +151,7 @@ export const Search: Component<Props> = (props) => {
               <fieldset class="flex flex-wrap gap-4 py-4">
                 <legend class="sr-only">{title}</legend>
                 {Object.entries(filterMap).map(([value, count]) => (
-                  <div class="flex items-center">
+                  <div class="font-pixel flex items-center">
                     <input
                       type="checkbox"
                       class="checked:accent-neutral-500"
@@ -162,7 +162,7 @@ export const Search: Component<Props> = (props) => {
                     />
                     <label
                       for={`${title}-${value}`}
-                      class="select-none font-pixel font-medium pl-2"
+                      class="select-none font-medium pl-2"
                     >
                       {value} ({count})
                     </label>

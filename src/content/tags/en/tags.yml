@@ -55,3 +55,10 @@
 - title: Revisited
   slug: revisited
   ruby: revisited
+- title: Pagefind
+  slug: pagefind
+  ruby: pagefind
+- slug: solidjs
+  ruby: solidjs
+  title: SolidJS
+

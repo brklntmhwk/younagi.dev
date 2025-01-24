@@ -1,0 +1,440 @@
+---
+draft: draft
+level: 2
+type: blog
+title: PagefindでAstroウェブサイトにフィルター検索機能を実装する～デフォルトUIには頼らずに～
+publishedAt: 2025-01-23T08:57:53.655Z
+fmContentType: blog
+updatedAt: 2025-01-24T06:25:08.625Z
+category:
+  metadata: ja/categories
+  slug: attempt
+tags:
+  metadata: ja/tags
+  slugList:
+    - astro
+    - typescript
+    - revisited
+    - pagefind
+    - solidjs
+thumbnail: 🚀📄🔍 ( •̀ᴗ•́ )و
+description: Pagefindが提供するフィルタリング検索や重みづけを利用し、当サイトの検索窓を強化した。デフォルトUIに頼らず、デザインや検索結果の表示ロジックは自作。SolidJS x TSX の組み合わせで実装。
+---
+
+## 導入
+
+当ウェブサイトでは、黎明期よりサイト内のコンテンツをキーワード検索できるようになっている。[^1]
+舞台裏では、[Pagefind](https://pagefind.app/) という Rust 製のライブラリが暗躍しており、訪問客に快適なブラウジングライフを提供し続けている。実装初期の様子については、こちらを参照されたし。
+
+[^1]: 具体的には、ブログ記事とニュースが検索対象となっている。
+
+https://younagi.dev/ja/blog/astro-website/
+
+ところが、今日に至るまで重大な"何か"が欠落していた──:ruby[絞り込み(フィルタリング)]機能である。
+そこで漸く重たい腰を上げ、最後の:ruby[ワンピース(ひとつなぎの財宝)]を探し求める旅に出た。
+
+### 想定読者
+
+- 個人ウェブサイトに Pagefind で検索機能を実装したい
+- 軽量で高速に動く検索ライブラリを探している
+- 当ウェブサイトのグローバル検索機能がどのように実装されているか興味がある
+
+### 現時点での私の習熟度
+
+記事執筆時点での私の習熟度は次の通り。
+
+- Pagefind を使い始めて 1 年弱が経った
+- Astro とはかれこれ 2 年程の付き合いになる
+- TypeScript(TSX) とはかれこれ 3 年程の付き合いになる
+
+## 本題
+
+まず、完全体となった検索機能の全貌はこちら。
+
+![ フィルター検索デモ ](../../../assets/images/pagefind-filtering-demo.png)
+
+### 絞り込み項目の設定は簡単
+
+私の場合、次の項目で絞り込みを行えるようにした。
+
+- カテゴリ
+- タグ
+- 投稿日
+- 更新日
+- 難易度
+
+絞り込み項目の設定をするには、各記事ページ内の該当項目に下記のデータ属性を追加すれば OK だ。
+
+```html "data-pagefind-filter"
+<span data-pagefind-filter="カテゴリ">カテゴリ1</span>
+```
+
+この例の場合、「カテゴリ」という絞り込み項目が作られ、その 1 つの選択肢として「カテゴリ 1」が追加される。
+
+例えば当ウェブサイトの記事投稿日・更新日に対する設定は次のようになっている。
+
+```astro title="FormattedDate.astro" "data-pagefind-filter"
+---
+import { type FormattedDate, formatDate } from './format-date';
+
+type Props = {
+  date: FormattedDate[0];
+  locale: FormattedDate[1];
+  show?: FormattedDate[2];
+  filterTitle?: string;
+};
+
+const { date, locale, show, filterTitle } = Astro.props;
+const displayDate = formatDate(date, locale, show);
+---
+
+<time datetime={date.toISOString()} data-pagefind-filter={filterTitle}>
+  {displayDate}
+</time>
+```
+
+そしてこのコンポーネントをブログ用のレイアウト内で使用し、適宜フィルターのタイトルや日付のデータを渡している。
+
+```astro title="BlogLayout.astro" {23,29}
+---
+/* ... */
+
+const { entry, /* ... */ } = Astro.props;
+const { data, /* ... */ } = entry;
+const {
+  /* ... */
+  publishedAt,
+  updatedAt,
+} = data;
+
+/* ... */
+---
+
+<BaseLayout {/* ... */}>
+  <main>
+    <Article kind="blog">
+      <section slot="metadata" {/* ... */}>
+        {/* ... */}
+        <div {/* ... */}>
+          <div {/* ... */}>
+            <Icon iconName="publish" width={20} height={20} />
+            <FormattedDate date={publishedAt} locale={locale} filterTitle={t!.data.layouts.common.published_label} />
+          </div>
+          {
+            updatedAt && (
+              <div {/* ... */}>
+                <Icon iconName="update" width={20} height={20} />
+                <FormattedDate date={updatedAt} locale={locale} filterTitle={t!.data.layouts.common.updated_label} />
+              </div>
+            )
+          }
+        </div>
+        {/* ... */}
+      </section>
+      <Prose slot="content">
+        <slot />
+      </Prose>
+      <section slot="cta" {/* ... */}>
+        {/* ... */}
+      </section>
+    </Article>
+  </main>
+</BaseLayout>
+```
+
+この他にも様々な使い方があるが、ここでは深堀りはしない。詳細はこちらを参照されたし。
+
+https://pagefind.app/docs/filtering/
+
+### Pagefind デフォルトUIは便利だけど・・
+
+Pagefind は[デフォルトUI](https://pagefind.app/docs/ui-usage/)なるものを提供してくれており、それを利用すれば、なんとこれで絞り込み検索の完成である──そう、大人しくデフォルト UI を利用しさえすれば。
+
+デフォルト UI とは、詰まるところ検索コンポーネント一式であり、HTML から CSS、JS まで全部入りのドリームパックである。使い方は簡単で、`@pagefind/default-ui`をプロジェクトに追加し、適宜 UI コンポーネントや CSS をインポートして使えばよい。
+
+```astro title="Astroコンポーネントの簡単な例"
+---
+import "@pagefind/default-ui/css/ui.css"
+
+/* ... */
+---
+
+<div id="search"></div>
+<script>
+  import { PagefindUI } from "@pagefind/default-ui";
+
+  function init() {
+    new PagefindUI({
+      element: "#search",
+      /* ... */
+    });
+
+    /* ... */
+  }
+
+  document.addEventListener("DOMContentLoaded", init);
+</script>
+```
+
+以上で、検索窓と一緒に良さげなフィルター検索の UI も表示されるようになる。
+便利な時代になったものだ・・と関心してみせるが、私はこれを利用しなかった。何故か？どことなく「コレジャナイ感」を放っていたからだ。
+
+大半の人にとっては満足のいくデザインなのだろう。しかし私は検索窓を含むナビゲーション一式をレトロなピクセルフォントで統一してしまっていた為、デフォルト UI の洗練された:ruby[現代風(モダン)]なスタイルとは相容れない外観になってしまっていたのだ。[^2]
+
+[^2]: とは言え、デフォルト UI でも大雑把なスタイルのカスタマイズ程度であれば可能だ。用意されている CSS Variables の値を上書きすれば、文字や背景色、ボーダーなどは変更できる。
+
+そこで、仕方なく既存の検索コンポーネントを拡張し、新たにフィルター用のチェックボックス群が現れるようにした。以下のコードは SolidJS x TSX で書かれている。
+
+```tsx title="Search.tsx" del={64,72} ins={15,17,26,29-31,52,55,58,65-69,73-75,107-122,147-190}
+import '@/styles/pixel-m-plus.css';
+import type { I18nData } from '@/lib/collections/types';
+import { isDev } from '@/lib/mode';
+import {
+  type Component,
+  Suspense,
+  createMemo,
+  createResource,
+  createSignal,
+  onMount,
+} from 'solid-js';
+import { SearchIcon } from './SearchIcon';
+import { SearchResults } from './SearchResults';
+import type {
+  PagefindFilterCounts,
+  PagefindSearchOptions,
+  PagefindSearchResults,
+} from './types';
+
+type Pagefind = {
+  init: () => void;
+  search: (
+    query: string,
+    options?: PagefindSearchOptions,
+  ) => Promise<PagefindSearchResults>;
+  filters: () => Promise<PagefindFilterCounts>;
+};
+
+type EnabledFilters = {
+  [key: string]: string[];
+};
+
+const initPagefind = async () => {
+  const pagefindPath = isDev
+    ? '../../../dist/pagefind/pagefind.js'
+    : '/pagefind/pagefind.js';
+  const pagefind = (await import(/* @vite-ignore */ pagefindPath)) as Pagefind;
+  pagefind.init();
+
+  return pagefind;
+};
+
+type Props = {
+  t: I18nData<'search'>;
+};
+
+export const Search: Component<Props> = (props) => {
+  let pagefind: Pagefind;
+
+  onMount(async () => {
+    pagefind = await initPagefind();
+    setFilters(await pagefind.filters());
+  });
+
+  const [filters, setFilters] = createSignal<PagefindFilterCounts>({});
+  const [query, setQuery] = createSignal('');
+  // This should preferably be a store but it's not possible to use stores in createResource
+  const [enabledFilters, setEnabledFilters] = createSignal<EnabledFilters>({});
+  const isQuerying = createMemo(() => query().length > 0);
+  const [searchResultRefs, setSearchResultRefs] = createSignal<
+    HTMLAnchorElement[]
+  >([]);
+
+  const [searchResults] = createResource(query, async (query: string) => {
+  const [searchResults] = createResource(
+    () => {
+      return { query: query(), filters: enabledFilters() };
+    },
+    async ({ query, filters }) => {
+      if (query.length === 0) return undefined;
+
+      const searchResults = await pagefind?.search(query);
+      const searchResults = await pagefind.search(query, {
+        filters: filters,
+      });
+      setSearchResultRefs(Array(searchResults?.results.length ?? 0).fill(null));
+      setActiveIndex(0);
+
+      return searchResults;
+    },
+  );
+  const [activeIndex, setActiveIndex] = createSignal(0);
+  const incrementActiveIndex = () =>
+    setActiveIndex(Math.min(activeIndex() + 1, searchResultRefs().length - 1));
+  const decrementActiveIndex = () =>
+    setActiveIndex(Math.max(activeIndex() - 1, 0));
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        incrementActiveIndex();
+        searchResultRefs()
+          .at(activeIndex())
+          ?.scrollIntoView({ block: 'nearest' });
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        decrementActiveIndex();
+        searchResultRefs()
+          .at(activeIndex())
+          ?.scrollIntoView({ block: 'nearest' });
+        break;
+    }
+  };
+
+  const handleCheckboxChange = (e: Event) => {
+    const target = e.target as HTMLInputElement;
+    const { name, value } = target;
+
+    setEnabledFilters((prev) => ({
+      ...prev,
+      [name]: prev[name]?.includes(value)
+        ? prev[name]?.filter((v) => v !== value)
+        : [...(prev[name] ?? []), value],
+    }));
+  };
+
+  const handleReset = () => {
+    setQuery('');
+    setEnabledFilters({});
+  };
+
+  const handleSubmit = (e: SubmitEvent) => {
+    e.preventDefault();
+    if (searchResultRefs().length <= 0) return;
+
+    searchResultRefs().at(activeIndex())?.click();
+  };
+
+  return (
+    <div class="...">
+      <form class="..." onsubmit={handleSubmit}>
+        <div class="...">
+          <SearchIcon label={props.t.button_label} width={22} height={22} />
+          <input
+            id="search-window"
+            type="text"
+            value={query()}
+            placeholder={props.t.placeholder}
+            onInput={(e) => setQuery(e.currentTarget.value)}
+            onKeyDown={handleKeyDown}
+            class="..."
+            autocomplete="off"
+          />
+        </div>
+        <div class="p-1 flex flex-col gap-2 py-3">
+          {Object.entries(filters() ?? {}).map(([title, filterMap]) => (
+            <details class="w-full py-3 border-b-2 border-solid border-line-solid [&>summary:after]:open:rotate-90">
+              <summary class="cursor-pointer select-none list-none text-base sm:text-lg font-bold after:ml-2 after:content-['≫'] after:text-inherit after:inline-block">
+                {title}
+              </summary>
+              <fieldset class="flex flex-wrap gap-4 py-4">
+                <legend class="sr-only">{title}</legend>
+                {Object.entries(filterMap).map(([value, count]) => (
+                  <div class="flex items-center">
+                    <input
+                      type="checkbox"
+                      class="checked:accent-neutral-500"
+                      id={`${title}-${value}`}
+                      name={title}
+                      value={value}
+                      onChange={handleCheckboxChange}
+                    />
+                    <label
+                      for={`${title}-${value}`}
+                      class="select-none font-medium pl-2"
+                    >
+                      {value} ({count})
+                    </label>
+                  </div>
+                ))}
+              </fieldset>
+            </details>
+          ))}
+        </div>
+        <input
+          type="reset"
+          class="font-semibold cursor-pointer py-1 px-2 rounded-sm self-center border-2 border-solid border-line-solid hover:bg-default-reverse-hover"
+          value={props.t.reset_label}
+          onClick={handleReset}
+        />
+        {isQuerying() && (
+          <p class="text-center">
+            {props.t.results_label}{' '}
+            <span class="font-bold">
+              "{query()}": {searchResults()?.results.length}
+            </span>
+          </p>
+        )}
+      </form>
+      <Suspense>
+        {isQuerying() && (
+          <SearchResults
+            query={query()}
+            results={searchResults()?.results}
+            resultRefs={searchResultRefs()}
+            setResultRefs={setSearchResultRefs}
+            activeIndex={activeIndex()}
+            setActiveIndex={setActiveIndex}
+            notFoundLabel={props.t.result_not_found}
+          />
+        )}
+      </Suspense>
+    </div>
+  );
+};
+```
+
+大まかにだが、変更点をまとめておく。
+
+- Pagefind インスタンスが持っているフィルターのデータを取得する
+  - 先ほど設定したフィルター群のデータが`Record<string, Record<string, number>>`型で手に入る
+- 初期レンダリング後、要素がページにマウントされる際に、Pagefind インスタンスの初期化と同時にフィルターを Solid のシグナルに格納する
+- チェックボックスでフィルターを実装し、`onChange`で現在有効なフィルターをシグナルに格納する
+- Solid のリソースで、検索クエリに加え、現在有効なフィルターの変更も監視する
+  - 変更があった場合は検索クエリとフィルターで都度絞り込み検索を行い、検索結果をリソースに格納する
+- リセットボタンを実装し、`onClick`で検索条件を全てクリアする
+
+これにてフィルター検索の自前実装が完了だ。ちなみに、検索ロジックは`AND`検索となっている。
+
+### おまけで検索結果に重みづけを加えて完成
+
+Pagefind はあろうことか、検索結果の重みづけ機能まで提供してくれる。検索機能の総合デパートかあなたは。
+
+そういう訳で、もらえるモノはとりあえずもらってしまう性格の私は、記事タイトルの質量を大きめに設定してみた。正確には、ブログ記事内の`h1`タグの重みを 10.0 にした。[^3]
+
+[^3]: 正直、これに何の意味があるのかは自分でもよく解っていない。
+
+```html "data-pagefind-weight"
+<h1 data-pagefind-weight="10">{title}</h1>
+```
+
+ちなみにデフォルトの重みづけ設定は次のようになっている。
+
+| 要素 | ランキング |
+| --- | --- |
+| h1 | 7.0 |
+| h2 | 6.0 |
+| h3 | 5.0 |
+| h4 | 4.0 |
+| h5 | 3.0 |
+| h6 | 2.0 |
+| その他 | 1.0 |
+
+## 結び
+
+Pagefind 様様である。
+
+ここまで軽量でパフォーマンスの高い検索機能を自前実装しようとすれば、途方もない時間を費やさなくてはならなかっただろう。おまけに Pagefind はとにかく分かり易くて親切だ。先述のデフォルト UI も然り、大抵のことは"最低限の努力"で実装できるようになっている。
+
+いずれ当サイトがちょっとした図書館に比肩する位の規模に育ったならば、その時になって漸く Pagefind の有難みが身に沁みて分かるのだろう。いつか分かる時が来ることを願っている。

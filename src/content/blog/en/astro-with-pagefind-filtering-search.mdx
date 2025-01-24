@@ -5,7 +5,7 @@ type: blog
 title: "Enhance Astro with Pagefind: Add Filtering Search Without Default UI"
 publishedAt: 2025-01-23T08:57:53.655Z
 fmContentType: blog
-updatedAt: 2025-01-24T07:05:26.533Z
+updatedAt: 2025-01-24T09:01:17.159Z
 category:
   metadata: en/categories
   slug: attempt
@@ -64,7 +64,7 @@ My website has the following filters:
 - Updated dates
 - Difficulty
 
-To set them up, All you have to do is add the following data attribute to your filter items.
+To set them up, All you have to do is add the following data attribute to your choices of filter items.
 
 ```html "data-pagefind-filter"
 <span data-pagefind-filter="Categories">Category 1</span>
@@ -408,11 +408,29 @@ Here are a rough review of the changes:
 
 Now it's all taken care of. Incidentally, the search logic is `AND`.
 
+```javascript title="My filter data example"
+{
+    "Categories": {
+        "Attempt": 9,
+        "Learning": 2,
+        "Others": 1,
+        // ...
+    },
+    "Tags": {
+        "Astro": 4,
+        "Cloudflare": 2,
+        "DIY": 1,
+        // ...
+    }
+    // ...
+}
+```
+
 ### Extra stage: Add weights to search results
 
 Believe it or not, Pagefind also offers search weighting. Are you a department store of search functionality or something?
 
-As someone who is a "Take whatever you can get" type of person, I tweaked the weight of articles' titles. More precisely, I set it to 10.0. [^3]
+As someone who is a "Take whatever you can get" type of person, I tweaked the weight of articles' titles. More precisely, I set `h1` to 10.0. [^3]
 
 [^3]: To be honest, I don't even know what the point of this is.
 
@@ -434,7 +452,7 @@ Incidentally, the default weights are as follows:
 
 ## Outro
 
-I can't thank you enough, Pagefind.
+I can't thank you enough, Pagefind. Awesome!
 
 If I had to implement such lightweight and performant search functionality, it would've taken me ages. Plus, Pagefind is so kind and easy-going; you can add the bulk of the features with an "absolutely minimum efforts" as the default UI shows.
 

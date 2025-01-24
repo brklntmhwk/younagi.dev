@@ -144,14 +144,14 @@ export const Search: Component<Props> = (props) => {
         </div>
         <div class="p-1 flex flex-col gap-2 py-3">
           {Object.entries(filters() ?? {}).map(([title, filterMap]) => (
-            <details class="w-full py-3 border-b-2 border-solid border-line-solid [&>summary:after]:open:rotate-90">
+            <details class="font-pixel w-full py-3 border-b-2 border-solid border-line-solid [&>summary:after]:open:rotate-90">
               <summary class="cursor-pointer select-none list-none text-base sm:text-lg font-bold after:ml-2 after:content-['≫'] after:text-inherit after:inline-block">
                 {title}
               </summary>
               <fieldset class="flex flex-wrap gap-4 py-4">
                 <legend class="sr-only">{title}</legend>
                 {Object.entries(filterMap).map(([value, count]) => (
-                  <div class="font-pixel flex items-center">
+                  <div class="flex items-center">
                     <input
                       type="checkbox"
                       class="checked:accent-neutral-500"

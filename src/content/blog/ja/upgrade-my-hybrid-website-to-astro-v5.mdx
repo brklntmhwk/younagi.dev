@@ -1,0 +1,90 @@
+---
+draft: draft
+level: 1
+type: blog
+title: hybridモードのウェブサイトをAstro v5にアップグレード完了するまでの記録
+publishedAt: 2025-01-24T09:14:04.682Z
+fmContentType: blog
+updatedAt: 2025-01-24T10:28:48.015Z
+description: 破壊神もといAstro v5への完全移行を目指し、v4と蜜月関係であった当サイトもアップブレードを試みた。その際、必要に駆られて変更した点をまとめておく。
+category:
+  metadata: ja/categories
+  slug: attempt
+tags:
+  metadata: ja/tags
+  slugList:
+    - astro
+    - revisited
+---
+
+## 導入
+
+{/* textlint-disable ja-technical-writing/no-doubled-joshi */}
+2024 年 12 月上旬、[Astro](https://astro.build/) がメジャーバージョンアップである [5.0.0](https://github.com/withastro/astro/releases/tag/astro%405.0.0) をリリースした。
+多くの人にとって、これは地球の裏側の出来事のようで、イマイチ関心が湧かないかもしれない。しかし私にとっては他人事ではない。何を隠そう、このウェブサイトは [Astro](https://astro.build/) で構築されているからだ。
+
+そこで早速、鼻息を荒くしながらリリースノートなどの文書を読み漁り、この度、満を持して移行作業に着手した。これはその一部始終を収めた記録である。
+
+### 想定読者
+
+- Astro プロジェクトを抱えていて、バージョン 5 系へのアップグレードを検討している
+- Astro プロジェクトで部分的に SSR を導入しているケースとして参考にしたい
+- なんかよく分からないけど見届けようと思う
+
+### 現時点での私の習熟度
+
+記事執筆時点での私の習熟度は次の通り。
+
+- Astro とはかれこれ 2 年程の付き合いになる
+- Astro は v3 の頃から使っている
+
+## 本題
+
+移行前、私の Astro に関する環境設定はこのようであった。
+
+```typescript title="astro.config.ts"
+
+```
+
+また移行に際しては、下記の公式ドキュメントを参照した。
+
+https://docs.astro.build/ja/guides/upgrade-to/v5/
+
+### hybrid 民はどうなる？
+
+まずは先述の`astro.config`ファイルに関する変更から。
+
+Astro v5 では、`output: 'hybrid'`が廃止された。ハイブリッドは SSR と SSG のいいとこどりを可能とし、静と動の狭間で揺れ動きし私のような人間を長きにわたって救済してきた。
+代わりに、v5 からは"static"と"server"の二者択一となる。これまでは、これらと"hybrid"を含めた三択であったが、今後は"hybrid"が"static"に吸収される形となるようだ。
+
+> [!note]+
+> static, hybrid, server ---> static(hybrid), server
+
+また、本オプションについて特に指定しなかった場合は、自動的に`output: 'static'`が採用されるとのことだ。
+
+よって、まずは次のような修正を行った。
+
+```ts title="astro.config.ts" del={4}
+/* ... */
+
+export default defineConfig({
+  output: 'hybrid',
+  /* ... */
+})
+```
+
+#### 小噺：ビルドログに"server"モードと出力される
+
+### Content Collections → Content Layer への対応
+
+今回のアップグレードで最大の山場がここだ。
+
+#### 要変更 slug → id
+
+#### YAMLで管理してた旧dataコンテンツをglobで取得したいのだが・・
+
+### env.d.ts の扱いが変わった
+
+### 挿話：Cloudflare Pages デプロイ中の SIGSEGV エラーに苦しむ
+
+## 結び

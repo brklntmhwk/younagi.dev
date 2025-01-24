@@ -5,7 +5,7 @@ type: blog
 title: PagefindでAstroウェブサイトにフィルター検索機能を実装する～デフォルトUIには頼らずに～
 publishedAt: 2025-01-23T08:57:53.655Z
 fmContentType: blog
-updatedAt: 2025-01-24T08:01:00.276Z
+updatedAt: 2025-01-24T08:13:11.986Z
 category:
   metadata: ja/categories
   slug: attempt
@@ -399,7 +399,7 @@ export const Search: Component<Props> = (props) => {
 
 - Pagefind インスタンスが持っているフィルターのデータを取得する
   - 先ほど設定したフィルター群のデータが`Record<string, Record<string, number>>`型で手に入る
-- 初期レンダリング後、要素がページにマウントされる際に、Pagefind インスタンスの初期化と同時にフィルターを Solid のシグナルへ格納する
+- 初期レンダリング後、要素がページにマウントされる際、Pagefind インスタンスの初期化と同時にフィルターを Solid のシグナルへ格納する
 - チェックボックスでフィルターを実装し、`onChange`で現在有効なフィルターをシグナルに格納する
 - Solid のリソースで、検索クエリに加え、現在有効なフィルターの変更も監視する
   - 変更があった場合は検索クエリとフィルターで都度絞り込み検索を行い、検索結果をリソースに格納する

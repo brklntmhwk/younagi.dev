@@ -1,6 +1,3 @@
-/// <reference path="../.astro/types.d.ts" />
-/// <reference types="astro/client" />
-
 type D1Database = import('@cloudflare/workers-types').D1Database;
 type ExtendedEnv = Env & {
   DB: D1Database;

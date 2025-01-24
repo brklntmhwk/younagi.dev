@@ -144,7 +144,7 @@ export const Search: Component<Props> = (props) => {
         </div>
         <div class="p-1 flex flex-col gap-2 py-3">
           {Object.entries(filters() ?? {}).map(([title, filterMap]) => (
-            <details class="w-full py-3 border-b-2 border-solid border-line-solid [&>summary:after]:open:rotate-90">
+            <details class="font-pixel w-full py-3 border-b-2 border-solid border-line-solid [&>summary:after]:open:rotate-90">
               <summary class="cursor-pointer select-none list-none text-base sm:text-lg font-bold after:ml-2 after:content-['≫'] after:text-inherit after:inline-block">
                 {title}
               </summary>
@@ -174,7 +174,7 @@ export const Search: Component<Props> = (props) => {
         </div>
         <input
           type="reset"
-          class="font-semibold cursor-pointer py-1 px-2 rounded-sm self-center border-2 border-solid border-line-solid hover:bg-default-reverse-hover"
+          class="font-pixel font-medium cursor-pointer py-1 px-2 rounded-sm self-center border-2 border-solid border-line-solid hover:bg-default-reverse-hover"
           value={props.t.reset_label}
           onClick={handleReset}
         />

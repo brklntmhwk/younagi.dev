@@ -162,7 +162,7 @@ export const Search: Component<Props> = (props) => {
                     />
                     <label
                       for={`${title}-${value}`}
-                      class="select-none font-medium pl-2"
+                      class="select-none font-pixel font-medium pl-2"
                     >
                       {value} ({count})
                     </label>
@@ -174,7 +174,7 @@ export const Search: Component<Props> = (props) => {
         </div>
         <input
           type="reset"
-          class="font-semibold cursor-pointer py-1 px-2 rounded-sm self-center border-2 border-solid border-line-solid hover:bg-default-reverse-hover"
+          class="font-pixel font-medium cursor-pointer py-1 px-2 rounded-sm self-center border-2 border-solid border-line-solid hover:bg-default-reverse-hover"
           value={props.t.reset_label}
           onClick={handleReset}
         />

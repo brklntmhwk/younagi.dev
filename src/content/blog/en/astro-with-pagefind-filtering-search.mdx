@@ -1,11 +1,11 @@
 ---
 draft: published
-level: 2
+level: 1
 type: blog
 title: "Enhance Astro with Pagefind: Add Filtering Search Without Default UI"
 publishedAt: 2025-01-23T08:57:53.655Z
 fmContentType: blog
-updatedAt: 2025-01-24T07:05:26.533Z
+updatedAt: 2025-01-27T08:11:29.029Z
 category:
   metadata: en/categories
   slug: attempt
@@ -64,7 +64,7 @@ My website has the following filters:
 - Updated dates
 - Difficulty
 
-To set them up, All you have to do is add the following data attribute to your filter items.
+To set them up, All you have to do is add the following data attribute to your choices of filter items.
 
 ```html "data-pagefind-filter"
 <span data-pagefind-filter="Categories">Category 1</span>
@@ -178,9 +178,9 @@ import "@pagefind/default-ui/css/ui.css"
 ```
 
 Now you'll see the search window together with the filtering UI appear on your page.
-We're living in such a convenient era, aren't we?──Having said that, I DON'T use it. How come? Because it was giving off the "This is not what I expected" mood.
+We're living in such a convenient era, aren't we?──Having said that, I DON'T use it. How come? Because it was giving off the "This is not what I expected" mood once it was set in the navigation.
 
-I suppose it's good enough to most people and I'm one of them. However, my website has already come a long way with its pixelated retro design for the navigation menus; it looks out of harmony with the sophisticated and modern UI. [^2]
+I would've decided to use it immediately if it were another project. However, my website has already come a long way with its pixelated retro design for the navigation menus; it looks out of harmony with the sophisticated and modern UI. [^2]
 
 [^2]: That said, it's still possible to customize the styles of the default UI to some extent. For instance, you can overwrite the values of CSS Variables such as text or background colors, borders, etc.
 
@@ -408,11 +408,29 @@ Here are a rough review of the changes:
 
 Now it's all taken care of. Incidentally, the search logic is `AND`.
 
+```javascript title="My filter data example"
+{
+    "Categories": {
+        "Attempt": 9,
+        "Learning": 2,
+        "Others": 1,
+        // ...
+    },
+    "Tags": {
+        "Astro": 4,
+        "Cloudflare": 2,
+        "DIY": 1,
+        // ...
+    }
+    // ...
+}
+```
+
 ### Extra stage: Add weights to search results
 
 Believe it or not, Pagefind also offers search weighting. Are you a department store of search functionality or something?
 
-As someone who is a "Take whatever you can get" type of person, I tweaked the weight of articles' titles. More precisely, I set it to 10.0. [^3]
+As someone who is a "Take whatever you can get" type of person, I tweaked the weight of articles' titles. More precisely, I set `h1` to 10.0. [^3]
 
 [^3]: To be honest, I don't even know what the point of this is.
 
@@ -434,8 +452,8 @@ Incidentally, the default weights are as follows:
 
 ## Outro
 
-I can't thank you enough, Pagefind.
+I can't thank you enough, Pagefind. Awesome!
 
-If I had to implement such lightweight and performant search functionality, it would've taken me ages. Plus, Pagefind is so kind and easy-going; you can add the bulk of the features with an "absolutely minimum efforts" as the default UI shows.
+If I had to implement such lightweight and performant search functionality, it would've taken me ages. Plus, Pagefind is so kind and easy-going; you can add the bulk of the features with "absolutely minimum efforts" as the default UI shows.
 
 When this website's grown up enough to be called something of a library, I'll realize how much I appreciate it. Anyway, I hope that day will come someday.

@@ -1,0 +1,323 @@
+---
+draft: published
+level: 1
+type: blog
+title: "Upgrading My 'hybrid' Website to Astro v5: The Ins and Outs"
+publishedAt: 2025-01-24T09:14:04.682Z
+fmContentType: blog
+updatedAt: 2025-01-27T09:32:22.789Z
+description: The ins and outs of my website upgraded to the destroyer, no, Astro v5. All the changes required along the way are mentioned.
+category:
+  metadata: en/categories
+  slug: attempt
+tags:
+  metadata: en/tags
+  slugList:
+    - astro
+    - revisited
+thumbnail: 🚀🔄👹⚡∑(O_O；)
+---
+
+## Intro
+
+In the early Dec 2024, [Astro](https://astro.build/) announced that its newer major version [5.0.0](https://github.com/withastro/astro/releases/tag/astro%405.0.0) was finally released, which has been a year since the last major upgrade.
+For most people, that might sound like something happened on the other side of the earth and therefore not interesting...But I'm not one of them. As a matter of fact, this website is built using  [Astro](https://astro.build/).
+
+I read through some release notes and the likes, and then started working on the migration fully prepared.
+Here's the ins and outs of the whole experience.
+
+### Reader personas
+
+- Thinking about migrating to the v5 for one's Astro project
+- Want to refer to as one example of Astro projects with partial SSR
+- Not sure what you're talking about but will see your efforts throught to the end
+
+### My proficiency level
+
+As of the day I'm writing this article, my proficiency level in this field is as follows:
+
+- Have been around Astro for about two years
+- Have been using Astro since the v3
+
+## Main
+
+As to my old `astro.config.{js,mjs,ts}`, here are some notable points:
+
+- [The Cloudflare adapter](https://docs.astro.build/en/guides/integrations-guide/cloudflare/) is added because I partially use SSR in my website
+- The rendering mode is `output: "hybrid"`
+
+Along the way, I consulted the official doc below.
+
+https://docs.astro.build/ja/guides/upgrade-to/v5/
+
+### Where do "hybrid" citizens go?
+
+First off, changes made to the aforementioned `astro.config.{js,mjs,ts}` file.
+
+Since the v5, `output: "hybrid"` has been removed. The hybrid option enabled people to get the best of both worlds: SSR and SSG. By doing so, it bailed someone like me out, who's incessantly going back and forth between "dynamic" and "static".
+Now you have only two options to choose from, "static" or "server"; the "hybrid" option was sort of absorbed into "static".
+
+This means we the "hybrid" citizens will have to migrate to "static" but be able to continue life as usual.
+
+> [!info]+
+> static, hybrid, server ---> static(hybrid), server
+
+Incidentally, it'll automatically be set to `output: "static"` if you don't specify explicitly.
+
+So I tweaked the config like this:
+
+```ts title="astro.config.ts" del={5}
+import cloudflare from '@astrojs/cloudflare';
+/* ... */
+
+export default defineConfig({
+  output: 'hybrid',
+  adapter: cloudflare({
+    platformProxy: {
+      enabled: true,
+      persist: true,
+    },
+  }),
+  /* ... */
+})
+```
+
+#### Anecdote: "server" mode in the build log
+
+That's all for fixing around rendering mode, but here's one particular thing I encountered.
+
+One day, I was leaning back in the chair and absent-mindedly looking at a waterfall of build log traversing on the monitor. At that moment, I spotted something unbelievable──`output: "server"`. [^1] I was taken aback for a moment, but after a while, the build of prerendered pages started as if nothing happened. "What was that..?"
+
+[^1]: In the Astro v4, `output: "hybrid"` was logged out as expected.
+
+Consulting the source code of [the Cloudflare adapter](https://github.com/withastro/adapters/blob/641d7d588d2d77f519201e583f0275db4260575c/packages/cloudflare/src/index.ts), that seems to be working properly.
+Come to think of it, the log I witnessed was merely what the adapter'd logged out as an [Astro integration](https://docs.astro.build/ja/guides/integrations-guide/); given that adapters play a role in bridging between Astro projects that need SSR and hosting services, it's quite plausible that it reads out loud, "We are working in...'server' mode!!!" And then the whole build process is "static" in and of itself once it passes the tunnel.
+
+Long story short, you don't have to worry about the `output: "server"` log. Reducing the modes down to two sounds refreshing but I can't help feeling like "Is it, in some parts, even more confusing..?"
+
+### Content Collections changes to Content Layer
+
+In the upgrade, this is the toughest part.
+It's not some "tried to make it sound a bit cooler!" sort of half-hearted change whatsoever. Here perfected the destroyer. [^2]
+
+[^2]: It's undeniably the destroyer but not a tyrant.
+You can still use the legacy Content Collections in the Astro v5. To enable it, the only thing you have to do is to set the `legacy.collection` option of the `defineConfig` function to `true` in `astro.config.{js,mjs,ts}`. You're the such warm-hearted destroyer, Astro v5.
+
+#### config changes to content.config
+
+First thing first, the name and the location of the content's definition file have changed.
+
+- Before v5: `src/content/config.ts` (in the same directory as content)
+- After v5: `src/content.config.ts` (under the `src` directory)
+
+#### IN: loader, OUT: type
+
+Secondly, the way you define content collections has been breaking-changed; the properties of the object passed onto the `defineCollection` function must be as follows now:
+
+```ts title="src/content.config.ts" del={5,41,50} ins={2,6,42-45,51}
+import { defineCollection, reference, z } from 'astro:content';
+import { glob } from 'astro/loaders';
+
+const blog = defineCollection({
+  type: 'content',
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/blog' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string().optional(),
+    publishedAt: z.coerce.date(),
+    updatedAt: z.coerce.date().optional(),
+    category: z.object({
+      metadata: reference('categories'),
+      slug: z.string(),
+    }),
+    tags: z.object({
+      metadata: reference('tags'),
+      slugList: z.array(z.string()).optional(),
+    }),
+    draft: z.enum(['draft', 'in progress', 'published']),
+    level: z
+      .union([
+        z.literal(1),
+        z.literal(2),
+        z.literal(3),
+        z.literal(4),
+        z.literal(5),
+      ])
+      .optional(),
+    thumbnail: z.string().optional(),
+  }),
+});
+
+const taxonomySchema = z.object({
+  title: z.string(),
+  slug: z.string(),
+  ruby: z.string(),
+});
+
+const categories = defineCollection({
+  type: 'data',
+  loader: glob({
+    pattern: '**/*.{yml,yaml}',
+    base: './src/content/categories',
+  }),
+  schema: z.array(taxonomySchema),
+});
+
+const tags = defineCollection({
+  type: 'data',
+  loader: glob({ pattern: '**/*.{yml,yaml}', base: './src/content/tags' }),
+  schema: z.array(taxonomySchema),
+});
+
+/* ... */
+
+export const collections = { blog, categories, tags, /* ... */ };
+```
+
+The conventional `type: 'content' | 'data'` property becomes deprecated and you're now supposed to specify content's paths by using functions called `glob` & `file`.
+
+> [!info]
+> `glob` allows you to use pattern matching for file paths
+> `file` only allows for specifying a single local path
+
+#### slug changes to id
+
+Lastly, the content's property to access its slug has changed; it's changed from `slug` to `id`.
+
+Let's say you want to display the above-mentioned blog content on each page using [the dynamic routing](https://docs.astro.build/en/guides/routing/#%E5%8B%95%E7%9A%84%E3%83%AB%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0). To do so, you need to set page paths like `src/pages/blog/[id].astro` instead of `src/pages/blog/[slug].astro` with the v5. Coupled with the modification, I fixed my pages like this:
+
+```astro title="src/pages/blog/[id].astro" del={6,15,18} ins={7,16,19}
+---
+import { render } from 'astro:content';
+import BlogLayout from '@/layouts/BlogLayout.astro';
+import { getSortedContentEntries } from '@/lib/collections/contents';
+import { mdxComponents } from '@/lib/mdx-components';
+import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale';
+import { getIdWithoutLocale } from '@/utils/get-id-without-locale';
+import { defaultLang } from '@/utils/i18n/data';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths = (async () => {
+  const entries = await getSortedContentEntries('blog', defaultLang);
+
+  return entries.map((entry) => {
+    const slug = getSlugWithoutLocale(entry.slug);
+    const id = getIdWithoutLocale(entry.id);
+
+    return { params: { slug }, props: { entry } };
+    return { params: { id }, props: { entry } };
+  });
+}) satisfies GetStaticPaths;
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+---
+
+<BlogLayout entry={{ ...entry }} {headings}>
+  <Content components={mdxComponents} />
+</BlogLayout>
+```
+
+However, in terms of naming, "slug" is better than "id" in some cases. Blog, for instance, is a case in point where many people might think `src/pages/blog/[slug].astro` makes more sense.
+In that case, you can handle it like this:
+
+```astro title="src/pages/blog/[slug].astro" {14}
+---
+import { getSortedContentEntries } from '@/lib/collections/contents';
+import { getIdWithoutLocale } from '@/utils/get-id-without-locale';
+import { defaultLang } from '@/utils/i18n/data';
+import type { GetStaticPaths } from 'astro';
+/* ... */
+
+export const getStaticPaths = (async () => {
+  const entries = await getSortedContentEntries('blog', defaultLang);
+
+  return entries.map((entry) => {
+    const id = getIdWithoutLocale(entry.id);
+
+    return { params: { slug: id }, props: { entry } };
+  });
+}) satisfies GetStaticPaths;
+
+/* ... */
+---
+
+{/* ... */}
+```
+
+#### render is independent of content
+
+The `render` method's become a function independent of content.
+
+```astro title="src/pages/blog/[id].astro" del={21} ins={2,22}
+---
+import { render } from 'astro:content';
+import BlogLayout from '@/layouts/BlogLayout.astro';
+import { getSortedContentEntries } from '@/lib/collections/contents';
+import { mdxComponents } from '@/lib/mdx-components';
+import { getIdWithoutLocale } from '@/utils/get-id-without-locale';
+import { defaultLang } from '@/utils/i18n/data';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths = (async () => {
+  const entries = await getSortedContentEntries('blog', defaultLang);
+
+  return entries.map((entry) => {
+    const id = getIdWithoutLocale(entry.id);
+
+    return { params: { id }, props: { entry } };
+  });
+}) satisfies GetStaticPaths;
+
+const { entry } = Astro.props;
+const { Content, headings } = await entry.render();
+const { Content, headings } = await render(entry);
+---
+
+<BlogLayout entry={{ ...entry }} {headings}>
+  <Content components={mdxComponents} />
+</BlogLayout>
+```
+
+### Changes in how to handle env.d.ts
+
+Before the v5, `src/env.d.ts` was required for type inferencing and module definitions of automatically generated types. But now, from the v5, it's not necessarily required.
+
+The conventional `src/env.d.ts` file requires the following lines but from the v5, Astro seems to use `.astro/types.d.ts` for type inferencing directly.
+
+```ts title="src/env.d.ts"
+/// <reference path="../.astro/types.d.ts" />
+/// <reference types="astro/client" />
+
+// Hereafter, add your custom type definitions if you have.
+```
+
+Accordingly, I added the following change to benefit from type inference in dev mode.
+
+```json title="tsconfig.json" ins={7-10}
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "astro/tsconfigs/strictest",
+  "compilerOptions": {
+    /* ... */
+  },
+  "include": [
+    ".astro/types.d.ts",
+    "**/*"
+  ],
+  "exclude": [
+    "./dist",
+    "./node_modules",
+  ],
+}
+```
+
+That said, `src/env.d.ts` is still necessary in my case because custom type definitions of Cloudflare Turnstile and D1 database are added to it. In such a case and for a project without `tsconfig.json`, it's still required.
+That's the reason why I said earlier "it's not necessarily required" in a roundabout way.
+
+## Outro
+
+It took me longer than I expected.
+I didn't mention this above but spent the better part of the time working on introducing "[the Server Islands](https://docs.astro.build/en/guides/server-islands/)" feature that's another signature one officially added from the v5. It didn't work well and I gave up in the end though. (That's why I didn't mention)
+
+Honestly, I haven't seen any outstanding benefits from the upgrade so far. Hoping to catch a glimpse of Astro v5 the destroyer working in its element someday along my dev journey.

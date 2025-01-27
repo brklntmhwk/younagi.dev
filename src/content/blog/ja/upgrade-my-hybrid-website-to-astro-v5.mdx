@@ -1,0 +1,319 @@
+---
+draft: published
+level: 1
+type: blog
+title: hybridモードのウェブサイトをAstro v5にアップグレード完了するまでの一部始終
+publishedAt: 2025-01-24T09:14:04.682Z
+fmContentType: blog
+updatedAt: 2025-01-27T09:26:36.410Z
+description: 破壊神もといAstro v5への完全移行を目指し、v4と蜜月関係であった当サイトもアップブレードを試みた。その際、必要に駆られて変更した点をまとめておく。
+category:
+  metadata: ja/categories
+  slug: attempt
+tags:
+  metadata: ja/tags
+  slugList:
+    - astro
+    - revisited
+thumbnail: 🚀🔄👹⚡∑(O_O；)
+---
+
+## 導入
+
+{/* textlint-disable ja-technical-writing/no-doubled-joshi */}
+2024 年 12 月上旬、[Astro](https://astro.build/) がバージョン[5.0.0](https://github.com/withastro/astro/releases/tag/astro%405.0.0) をリリースした。約 1 年ぶりのメジャーバージョンアップである。
+多くの人にとって、これは地球の裏側の出来事のようで、イマイチ関心が湧かないかもしれない。しかし私にとっては一大事である。何を隠そう、このウェブサイトは [Astro](https://astro.build/) で構築されているからだ。
+
+そこで早速、鼻息を荒くしながらリリースノートなどの文書を読み漁り、この度、満を持して移行作業に着手した。これはその一部始終を収めた記録である。
+
+### 想定読者
+
+- Astro プロジェクトを抱えていて、バージョン 5 系へのアップグレードを検討している
+- Astro プロジェクトで部分的に SSR を導入しているケースとして参考にしたい
+- なんかよく分からないけど見届けようと思う
+
+### 現時点での私の習熟度
+
+記事執筆時点での私の習熟度は次の通り。
+
+- Astro とはかれこれ 2 年程の付き合いになる
+- Astro は v3 の頃から使っている
+
+## 本題
+
+私の旧`astro.config.{js,mjs,ts}`に関して、特筆すべき点は次の通り。
+
+- 一部サービスで SSR を使用しているため、[Cloudflare アダプタ](https://docs.astro.build/en/guides/integrations-guide/cloudflare/)を追加している
+- レンダリングモードは`output: "hybrid"`
+
+また移行に際しては、下記の公式ドキュメントを参照した。
+
+https://docs.astro.build/ja/guides/upgrade-to/v5/
+
+### hybrid 民はどうなる？
+
+まずは先述の`astro.config.{js,mjs,ts}`ファイルに関する変更から。
+
+Astro v5 では、`output: "hybrid"`が廃止された。ハイブリッドは SSR と SSG のいいとこどりを可能とし、静と動の狭間で揺れ動きし私のような人間を長きにわたって救済してきた。
+代わりに、v5 からは"static"と"server"の二者択一となる。これまでは、これらと"hybrid"を含めた三択であったが、今後は"hybrid"が"static"に吸収される形となるようだ。
+
+つまり、我々 hybrid 民は粗方"static"への鞍替えを強いられるが、実質これまで通りの暮らしを続けられるということだ。
+
+> [!info]+
+> static, hybrid, server ---> static(hybrid), server
+
+また、本オプションについて特に指定しなかった場合は、自動的に`output: "static"`が採用されるとのことだ。
+
+よって、次のような修正をした。
+
+```ts title="astro.config.ts" del={5}
+import cloudflare from '@astrojs/cloudflare';
+/* ... */
+
+export default defineConfig({
+  output: 'hybrid',
+  adapter: cloudflare({
+    platformProxy: {
+      enabled: true,
+      persist: true,
+    },
+  }),
+  /* ... */
+})
+```
+
+#### 小噺：ビルドログに"server"モードと出力される
+
+以上でレンダリングモード周りの修正は完了なのだが、気になった点もあった。
+
+或る日、椅子にふんぞり返って眼前のモニターを縦断する:ruby[瀑布(ビルドログ)]を漫然と眺めていると、刹那、思いがけない記述──`output: "server"`──を見出した。[^1] あまりの不意打ちに一瞬呆気に取られていたが、暫く眺めていると、ページのビルドが慌しく始まった。「果てな・・？」
+
+[^1]: Astro v4 時代には想定通り`output: "hybrid"`が出力されていた
+
+Astro が提供する[Cloudflareアダプタのソースコード](https://github.com/withastro/adapters/blob/641d7d588d2d77f519201e583f0275db4260575c/packages/cloudflare/src/index.ts)をあたってみると、これは正常な挙動であるようだ。
+冷静になって考えてみると、私が目撃したあのログは[Astroインテグレーション](https://docs.astro.build/ja/guides/integrations-guide/)として Cloudflare アダプタが出力したものに過ぎない。アダプタは SSR が必要なサイトを各ホスティングサービスにデプロイする為の架け橋であるからして、「"server"モードで動いてますよ」と:ruby[宣(のたま)]うのは自然な話ではある。そして、:ruby[一度(ひとたび)]トンネルを抜けると、ビルドプロセス全体としては"static"である、と。
+
+とどのつまり、`output: "server"`のログは気にしなくてよいということだ。モードが 2 つに絞られてスッキリした一方で、この辺りについては「少し紛らわしくなったかも・・？」という感を禁じ得ない。
+
+### Content Collections が Content Layer に変更
+
+今回のアップグレードにおいて、最大の山場がこのコンテンツ周りの修正だ。
+「ちょっと名前をカッコよくしてみました！」といった生ぬるい変更ではない。破壊神、ここに極まれり。[^2]
+
+[^2]: 破壊神ではあるが、暴君ではない。
+その証拠に、Astro v5 でも従来の Content Collections を使い続けることは可能だ。`astro.config.{js,mjs,ts}`の`defineConfig`で`legacy.collection`オプションを`true`とすれば OK だ。心優しき破壊神である。
+
+#### config が content.config に変更
+
+まず第一に、コンテンツ定義ファイルの名前と配置場所が変更となった。これまでは、`src/content/config.ts`のようなファイルがコンテンツと同階層に配置されていたが、v5 では`src/content.config.ts`のように`src`直下に配置することになる。
+
+#### IN: loader, OUT: type
+
+次にコンテンツの定義方法が変更された。`defineCollection`関数に渡すオブジェクトのプロパティが、この通り交代となった。
+
+```ts title="src/content.config.ts" del={5,41,50} ins={2,6,42-45,51}
+import { defineCollection, reference, z } from 'astro:content';
+import { glob } from 'astro/loaders';
+
+const blog = defineCollection({
+  type: 'content',
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/blog' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string().optional(),
+    publishedAt: z.coerce.date(),
+    updatedAt: z.coerce.date().optional(),
+    category: z.object({
+      metadata: reference('categories'),
+      slug: z.string(),
+    }),
+    tags: z.object({
+      metadata: reference('tags'),
+      slugList: z.array(z.string()).optional(),
+    }),
+    draft: z.enum(['draft', 'in progress', 'published']),
+    level: z
+      .union([
+        z.literal(1),
+        z.literal(2),
+        z.literal(3),
+        z.literal(4),
+        z.literal(5),
+      ])
+      .optional(),
+    thumbnail: z.string().optional(),
+  }),
+});
+
+const taxonomySchema = z.object({
+  title: z.string(),
+  slug: z.string(),
+  ruby: z.string(),
+});
+
+const categories = defineCollection({
+  type: 'data',
+  loader: glob({
+    pattern: '**/*.{yml,yaml}',
+    base: './src/content/categories',
+  }),
+  schema: z.array(taxonomySchema),
+});
+
+const tags = defineCollection({
+  type: 'data',
+  loader: glob({ pattern: '**/*.{yml,yaml}', base: './src/content/tags' }),
+  schema: z.array(taxonomySchema),
+});
+
+/* ... */
+
+export const collections = { blog, categories, tags, /* ... */ };
+```
+
+従来の`type: 'content' | 'data'`が廃止され、`glob`と`file`という関数を使ってコンテンツのパスを指定する方式になった。
+
+> [!info]
+> `glob`はファイルパスの指定にパターンマッチを使用できる
+> `file`は単一のファイルパスを指定するもの
+
+#### slug が id に変更
+
+最後に、コンテンツのスラッグにアクセスする為のプロパティが変更された。これまで`slug`だったものが`id`になった。
+
+例えば、先述の定義ファイル内で定義したブログコンテンツを、[動的ルーティング](https://docs.astro.build/ja/guides/routing/#%E5%8B%95%E7%9A%84%E3%83%AB%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0)で記事毎に個別に出し分けたいという場合。これまでは`src/pages/blog/[slug].astro`のようにページのパスを設定していたが、v5 では`src/pages/blog/[id].astro`のように修正することになる。これに伴い、ページの修正を下記の通り行った。
+
+```astro title="src/pages/blog/[id].astro" del={6,15,18} ins={7,16,19}
+---
+import { render } from 'astro:content';
+import BlogLayout from '@/layouts/BlogLayout.astro';
+import { getSortedContentEntries } from '@/lib/collections/contents';
+import { mdxComponents } from '@/lib/mdx-components';
+import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale';
+import { getIdWithoutLocale } from '@/utils/get-id-without-locale';
+import { defaultLang } from '@/utils/i18n/data';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths = (async () => {
+  const entries = await getSortedContentEntries('blog', defaultLang);
+
+  return entries.map((entry) => {
+    const slug = getSlugWithoutLocale(entry.slug);
+    const id = getIdWithoutLocale(entry.id);
+
+    return { params: { slug }, props: { entry } };
+    return { params: { id }, props: { entry } };
+  });
+}) satisfies GetStaticPaths;
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+---
+
+<BlogLayout entry={{ ...entry }} {headings}>
+  <Content components={mdxComponents} />
+</BlogLayout>
+```
+
+しかし、"id"よりも"slug"の方が命名として優れているケースもあるだろう。ブログはその典型例で、`src/pages/blog/[slug].astro`の方がしっくりくると思う人は一定数居ると推察する。そういった場合は、次のような方法で対応してもよいだろう。
+
+```astro title="src/pages/blog/[slug].astro" {14}
+---
+import { getSortedContentEntries } from '@/lib/collections/contents';
+import { getIdWithoutLocale } from '@/utils/get-id-without-locale';
+import { defaultLang } from '@/utils/i18n/data';
+import type { GetStaticPaths } from 'astro';
+/* ... */
+
+export const getStaticPaths = (async () => {
+  const entries = await getSortedContentEntries('blog', defaultLang);
+
+  return entries.map((entry) => {
+    const id = getIdWithoutLocale(entry.id);
+
+    return { params: { slug: id }, props: { entry } };
+  });
+}) satisfies GetStaticPaths;
+
+/* ... */
+---
+
+{/* ... */}
+```
+
+#### render メソッドが関数として独立
+
+コンテンツをレンダリングする際に使用していた`render`が、コンテンツのメソッドではなく関数として独立することになった。
+
+```astro title="src/pages/blog/[id].astro" del={21} ins={2,22}
+---
+import { render } from 'astro:content';
+import BlogLayout from '@/layouts/BlogLayout.astro';
+import { getSortedContentEntries } from '@/lib/collections/contents';
+import { mdxComponents } from '@/lib/mdx-components';
+import { getIdWithoutLocale } from '@/utils/get-id-without-locale';
+import { defaultLang } from '@/utils/i18n/data';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths = (async () => {
+  const entries = await getSortedContentEntries('blog', defaultLang);
+
+  return entries.map((entry) => {
+    const id = getIdWithoutLocale(entry.id);
+
+    return { params: { id }, props: { entry } };
+  });
+}) satisfies GetStaticPaths;
+
+const { entry } = Astro.props;
+const { Content, headings } = await entry.render();
+const { Content, headings } = await render(entry);
+---
+
+<BlogLayout entry={{ ...entry }} {headings}>
+  <Content components={mdxComponents} />
+</BlogLayout>
+```
+
+### env.d.ts の扱いが変更
+
+これまでは、自動生成される型の推論やモジュール定義に際して`src/env.d.ts`ファイルが必要であったが、v5 では:ruby[必ずしも必要ではなくなった(• • • • • • • • • • • • •)]。
+
+従来の`src/env.d.ts`では下記のような記述が必要であったが、v5 では`.astro/types.d.ts`ファイルをそのまま型推論に使用する方針になったようだ。
+
+```ts title="src/env.d.ts"
+/// <reference path="../.astro/types.d.ts" />
+/// <reference types="astro/client" />
+
+// 以下、カスタムで型定義などがあれば追加
+```
+
+これに伴い、開発時に型推論の恩恵に与る為、次のような変更を加えた。
+
+```json title="tsconfig.json" ins={7-10}
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "astro/tsconfigs/strictest",
+  "compilerOptions": {
+    /* ... */
+  },
+  "include": [
+    ".astro/types.d.ts",
+    "**/*"
+  ],
+  "exclude": [
+    "./dist",
+    "./node_modules",
+  ],
+}
+```
+
+とは言え、私の場合は`src/env.d.ts`を消すことはできなかった。同ファイル内に Cloudflare Turnstile や D1 データベースなどのカスタム型定義を追加していたからだ。このようなケースや、そもそも`tsconfig.json`を置いていないプロジェクトでは、`src/env.d.ts`は依然必要となるようだ。
+先ほど「:ruby[必ずしも必要ではなくなった(• • • • • • • • • • • • •)]」という回りくどい表現をしたのには、こうした理由があった。
+
+## 結び
+
+思いの外移行に時間がかかってしまった。
+というのも、v5 で正式に追加された「[Server Islands](https://docs.astro.build/en/guides/server-islands/)」の導入も試みていたが、結局上手くいかずそれなりに時間を費やしてしまったからだ。
+
+今回のアップグレードについて、現時点ではまだ目を見張る程の恩恵は実感できていないが、今後サイトを改善していく中で:ruby[破壊神(v5)]の本領が垣間見えれば嬉しい。

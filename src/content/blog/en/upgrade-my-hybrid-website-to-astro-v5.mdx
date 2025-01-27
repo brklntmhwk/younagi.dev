@@ -2,10 +2,10 @@
 draft: draft
 level: 1
 type: blog
-title: "Upgrading My 'hybrid' Website to Astro v5: A Personal Journey"
+title: "Upgrading My 'hybrid' Website to Astro v5: The Ins and Outs"
 publishedAt: 2025-01-24T09:14:04.682Z
 fmContentType: blog
-updatedAt: 2025-01-27T07:09:25.010Z
+updatedAt: 2025-01-27T07:21:14.400Z
 description: The ins and outs of my website upgraded to the destroyer, no, Astro v5. All the changes required along the way are mentioned.
 category:
   metadata: en/categories
@@ -287,6 +287,8 @@ The conventional `src/env.d.ts` file requires the following lines but from the v
 ```ts title="src/env.d.ts"
 /// <reference path="../.astro/types.d.ts" />
 /// <reference types="astro/client" />
+
+// Hereafter, add your custom type definitions if you have.
 ```
 
 Accordingly, I added the following change to benefit from type inference in dev mode.

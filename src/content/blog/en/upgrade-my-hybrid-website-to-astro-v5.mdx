@@ -5,7 +5,7 @@ type: blog
 title: "Upgrading My 'hybrid' Website to Astro v5: The Ins and Outs"
 publishedAt: 2025-01-24T09:14:04.682Z
 fmContentType: blog
-updatedAt: 2025-01-27T09:26:28.659Z
+updatedAt: 2025-01-27T09:32:22.789Z
 description: The ins and outs of my website upgraded to the destroyer, no, Astro v5. All the changes required along the way are mentioned.
 category:
   metadata: en/categories
@@ -86,7 +86,7 @@ export default defineConfig({
 
 That's all for fixing around rendering mode, but here's one particular thing I encountered.
 
-One day, I was leaning back in the chair and absent-mindedly looking at a waterfall of build log traversing on the monitor. At that moment, I spotted something surprising──`output: "server"`. [^1] I was taken aback for a moment, but after a while, the build of prerendered pages started as if nothing happened. "What was that..?"
+One day, I was leaning back in the chair and absent-mindedly looking at a waterfall of build log traversing on the monitor. At that moment, I spotted something unbelievable──`output: "server"`. [^1] I was taken aback for a moment, but after a while, the build of prerendered pages started as if nothing happened. "What was that..?"
 
 [^1]: In the Astro v4, `output: "hybrid"` was logged out as expected.
 

@@ -5,7 +5,7 @@ type: blog
 title: "Upgrading My 'hybrid' Website to Astro v5: The Ins and Outs"
 publishedAt: 2025-01-24T09:14:04.682Z
 fmContentType: blog
-updatedAt: 2025-01-27T08:43:30.619Z
+updatedAt: 2025-01-27T09:26:28.659Z
 description: The ins and outs of my website upgraded to the destroyer, no, Astro v5. All the changes required along the way are mentioned.
 category:
   metadata: en/categories
@@ -41,9 +41,9 @@ As of the day I'm writing this article, my proficiency level in this field is as
 
 ## Main
 
-As to my `astro.config.{js,mjs,ts}`, here are some notable points:
+As to my old `astro.config.{js,mjs,ts}`, here are some notable points:
 
-- The Cloudflare adapter is added because I partially use SSR in my website
+- [The Cloudflare adapter](https://docs.astro.build/en/guides/integrations-guide/cloudflare/) is added because I partially use SSR in my website
 - The rendering mode is `output: "hybrid"`
 
 Along the way, I consulted the official doc below.
@@ -249,7 +249,7 @@ export const getStaticPaths = (async () => {
 
 The `render` method's become a function independent of content.
 
-```astro title="src/pages/blog/[slug].astro" del={21} ins={2,22}
+```astro title="src/pages/blog/[id].astro" del={21} ins={2,22}
 ---
 import { render } from 'astro:content';
 import BlogLayout from '@/layouts/BlogLayout.astro';

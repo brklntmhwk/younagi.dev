@@ -5,7 +5,7 @@ type: blog
 title: hybridモードのウェブサイトをAstro v5にアップグレード完了するまでの一部始終
 publishedAt: 2025-01-24T09:14:04.682Z
 fmContentType: blog
-updatedAt: 2025-01-27T08:43:16.789Z
+updatedAt: 2025-01-27T09:26:36.410Z
 description: 破壊神もといAstro v5への完全移行を目指し、v4と蜜月関係であった当サイトもアップブレードを試みた。その際、必要に駆られて変更した点をまとめておく。
 category:
   metadata: ja/categories
@@ -41,9 +41,9 @@ thumbnail: 🚀🔄👹⚡∑(O_O；)
 
 ## 本題
 
-私の`astro.config.{js,mjs,ts}`に関して、特筆すべき点は次の通り。
+私の旧`astro.config.{js,mjs,ts}`に関して、特筆すべき点は次の通り。
 
-- 一部サービスで SSR を使用しているため、Cloudflare アダプタを追加している
+- 一部サービスで SSR を使用しているため、[Cloudflare アダプタ](https://docs.astro.build/en/guides/integrations-guide/cloudflare/)を追加している
 - レンダリングモードは`output: "hybrid"`
 
 また移行に際しては、下記の公式ドキュメントを参照した。
@@ -245,7 +245,7 @@ export const getStaticPaths = (async () => {
 
 コンテンツをレンダリングする際に使用していた`render`が、コンテンツのメソッドではなく関数として独立することになった。
 
-```astro title="src/pages/blog/[slug].astro" del={21} ins={2,22}
+```astro title="src/pages/blog/[id].astro" del={21} ins={2,22}
 ---
 import { render } from 'astro:content';
 import BlogLayout from '@/layouts/BlogLayout.astro';

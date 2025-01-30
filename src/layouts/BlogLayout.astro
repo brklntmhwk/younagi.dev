@@ -4,6 +4,7 @@ import type { CollectionEntry } from 'astro:content';
 import { getEntry } from 'astro:content';
 import { Article } from '@/components/models/Article';
 import { FormattedDate } from '@/components/models/FormattedDate';
+import { Giscus } from '@/components/models/Giscus';
 import { Prose } from '@/components/models/Prose';
 import { Taxonomy } from '@/components/models/Taxonomy';
 import { Toc } from '@/components/models/Toc';
@@ -16,7 +17,6 @@ import { getBlogCategory, getBlogTags } from '@/lib/collections/data';
 import { getIdWithoutLocale } from '@/utils/get-id-without-locale';
 import { getLocaleFromUrl, useTranslatedPath } from '@/utils/i18n/utils';
 import type { MarkdownHeading } from 'astro';
-import { Giscus } from '@/components/models/Giscus';
 
 type Props = {
   entry: CollectionEntry<'blog'>;

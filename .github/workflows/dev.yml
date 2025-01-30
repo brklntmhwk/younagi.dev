@@ -1,7 +1,6 @@
 name: Alpha Deployment
 
 on:
-  pull_request:
   push:
     branches-ignore:
       - main

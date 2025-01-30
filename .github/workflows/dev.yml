@@ -1,6 +1,7 @@
 name: Alpha Deployment
 
 on:
+  pull_request:
   push:
     branches-ignore:
       - main
@@ -26,7 +27,7 @@ jobs:
       - name: Install dependencies
         run: bun i --no-save
       - name: Build project
-        run: bun --bun run build --verbose
+        run: bun --bun run build
         env:
           PUBLIC_TURNSTILE_SITE_KEY: ${{ secrets.PUBLIC_TURNSTILE_SITE_KEY }}
           UNSPLASH_API_ACCESS_KEY: ${{ secrets.UNSPLASH_API_ACCESS_KEY }}

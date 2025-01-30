@@ -11,6 +11,7 @@ const { locale } = Astro.props;
 
 <script
   is:inline
+  define:vars={{ ACCOUNT_ID, SITE_DOMAIN }}
   src="https://giscus.app/client.js"
   data-repo={`${ACCOUNT_ID}/${SITE_DOMAIN}`}
   data-repo-id="R_kgDOLWVAxA"

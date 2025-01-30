@@ -1,9 +1,9 @@
 ---
 import LinkCard from '../Link/LinkCard.astro';
 import { OEmbedPhoto } from './OEmbedPhoto';
-// import { OEmbedRich } from './OEmbedRich';
+import { OEmbedRich } from './OEmbedRich';
 import { OEmbedVideo } from './OEmbedVideo';
-import { isPhoto,  isVideo } from './embed-is';
+import { isPhoto, isRich, isVideo } from './embed-is';
 import type { OEmbedSchema } from './types';
 
 export type Props = {
@@ -22,6 +22,8 @@ oEmbedData = JSON.parse(oEmbedData as unknown as string);
     <OEmbedPhoto client:only="solid" data={oEmbedData} />
   ) : isVideo(oEmbedData) ? (
     <OEmbedVideo client:only="solid" data={oEmbedData} />
+  ) : isRich(oEmbedData) ? (
+    <OEmbedRich client:only="solid" data={oEmbedData} />
   ) : (
     <LinkCard {href} data-link-card />
   )

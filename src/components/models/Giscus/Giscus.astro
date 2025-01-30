@@ -7,13 +7,14 @@ type Props = {
 };
 
 const { locale } = Astro.props;
+const repo = `${ACCOUNT_ID}/${SITE_DOMAIN}`;
 ---
 
 <script
   is:inline
-  define:vars={{ ACCOUNT_ID, SITE_DOMAIN }}
+  define:vars={{ repo, locale }}
   src="https://giscus.app/client.js"
-  data-repo={`${ACCOUNT_ID}/${SITE_DOMAIN}`}
+  data-repo={repo}
   data-repo-id="R_kgDOLWVAxA"
   data-category="General"
   data-category-id="DIC_kwDOLWVAxM4Cmb3g"

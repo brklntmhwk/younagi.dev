@@ -1,9 +1,8 @@
 ---
-import { getEntry } from 'astro:content';
+import { getEntry, type CollectionEntry } from 'astro:content';
 import { Image } from '@/components/elements/Figure';
 import { ProfileIcon } from '@/components/ui/ProfileIcon';
 import { getBlur } from '@/lib/blur';
-import type { UnsplashPhoto } from '@/lib/unsplash/types';
 import { getTimeDiff } from '@/utils/get-time-diff';
 import { getLocaleFromUrl } from '@/utils/i18n/utils';
 import { toSnakeCase } from '@/utils/to-snake-case';
@@ -11,7 +10,7 @@ import wretch from 'wretch';
 import PhotoItemFrame from './PhotoItemFrame.astro';
 
 type Props = {
-  photo: UnsplashPhoto;
+  photo: CollectionEntry<'photo'>;
   order: number;
 };
 
@@ -19,7 +18,7 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = await getEntry('i18n', `${locale}/translation`);
 const meta = await getEntry('meta', 'en/site-data');
 const { photo, order } = Astro.props;
-const { alt_description, description, created_at, links, urls, user } = photo;
+const { alt_description, description, created_at, links, urls, user } = photo.data;
 const buffer = await wretch(urls.raw)
   .get()
   .arrayBuffer()
@@ -44,8 +43,8 @@ const dateDiff = getTimeDiff(createdAt, locale);
   <section class="text-xs md:text-sm flex items-center flex-wrap justify-between gap-2 pt-0.5 md:pt-1.5 pb-1 md:pb-2 px-1 md:px-2">
     <div class="flex items-center gap-1.5 md:gap-2">
       <ProfileIcon
-        alt={photo.user.username}
-        src={photo.user.profile_image.small}
+        alt={user.username}
+        src={user.profile_image.small}
         size={20}
       />
       <span>{user.last_name}</span>

@@ -1,4 +1,5 @@
 import { defineCollection, reference, z } from 'astro:content';
+import { unsplashPhotoLoader } from '@/lib/unsplash/contents';
 import { glob } from 'astro/loaders';
 
 const blog = defineCollection({
@@ -65,6 +66,66 @@ const page = defineCollection({
     title: z.string(),
     description: z.string().optional(),
     updatedAt: z.coerce.date().optional(),
+  }),
+});
+
+const photo = defineCollection({
+  loader: unsplashPhotoLoader,
+  schema: z.object({
+    id: z.string(),
+    created_at: z.string(),
+    updated_at: z.string(),
+    urls: z.object({
+      full: z.string(),
+      raw: z.string(),
+      regular: z.string(),
+      small: z.string(),
+      thumb: z.string(),
+    }),
+    alt_description: z.nullable(z.string()),
+    blur_hash: z.nullable(z.string()),
+    color: z.nullable(z.string()),
+    description: z.nullable(z.string()),
+    height: z.number(),
+    likes: z.number(),
+    links: z.object({
+      self: z.string(),
+      html: z.string(),
+      download: z.string(),
+      download_location: z.string(),
+    }),
+    promoted_at: z.nullable(z.string()),
+    width: z.number(),
+    user: z.object({
+      id: z.string(),
+      bio: z.nullable(z.string()),
+      first_name: z.string(),
+      instagram_username: z.nullable(z.string()),
+      last_name: z.nullable(z.string()),
+      links: z.object({
+        followers: z.string(),
+        following: z.string(),
+        html: z.string(),
+        likes: z.string(),
+        photos: z.string(),
+        portfolio: z.string(),
+        self: z.string(),
+      }),
+      location: z.nullable(z.string()),
+      name: z.string(),
+      portfolio_url: z.nullable(z.string()),
+      profile_image: z.object({
+        small: z.string(),
+        medium: z.string(),
+        large: z.string(),
+      }),
+      total_collections: z.number(),
+      total_likes: z.number(),
+      total_photos: z.number(),
+      twitter_username: z.nullable(z.string()),
+      updated_at: z.string(),
+      username: z.string(),
+    }),
   }),
 });
 
@@ -261,4 +322,13 @@ const i18n = defineCollection({
   }),
 });
 
-export const collections = { blog, categories, tags, news, page, meta, i18n };
+export const collections = {
+  blog,
+  categories,
+  tags,
+  news,
+  page,
+  photo,
+  meta,
+  i18n,
+};

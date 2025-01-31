@@ -16,7 +16,7 @@ tags:
     - cloudflare
     - markdown
     - pagefind
-updatedAt: 2025-01-31T08:34:47.457Z
+updatedAt: 2025-01-31T09:18:22.661Z
 description: 動画の時代に個人ブログという茨の道を歩みたいオタクなあなたに贈る開発体験記。Astro + Cloudflare Pages + D1 とその他諸々の構成で作った個人ウェブサイトの諸機能を紹介
 thumbnail: 🚀🌐🔧 ( •̀ᴗ•́ )و
 ---
@@ -27,6 +27,7 @@ thumbnail: 🚀🌐🔧 ( •̀ᴗ•́ )و
   - コードブロックの実装を`rehype-pretty-code`から`astro-expressive-code`へ移行した
   - Pagefind による検索にフィルター機能を追加した
   - Astro v5 へのアップグレードに伴い、Content Collections を Content Layer API に変更した
+  - Canva と Google Slides の埋め込みサポートを止めた
 
 ## 導入
 
@@ -335,14 +336,6 @@ Canva、YouTube、そして Google Slides の変換処理をひとまず作成�
 
 ちなみに裏では[unfurl](https://github.com/jacktuck/unfurl)というライブラリが健気に働き、上記の規格に必要なメディアのメタデータを URL 経由で取得してくれている。
 
-###### Canva
-
-```txt
-https://www.canva.com/design/DAGKC41Tjws/zSEw1hvi9r30o5KiF96AGA/view
-```
-
-![ Canva埋め込みイメージ ](../../../assets/images/canva-embed.png)
-
 ###### YouTube
 
 ```txt
@@ -359,18 +352,7 @@ https://open.spotify.com/intl-ja/track/04z1fwsw1gXI8HWQpoETa9?si=862c02d3e52a49b
 
 https://open.spotify.com/intl-ja/track/04z1fwsw1gXI8HWQpoETa9?si=862c02d3e52a49b0
 
-###### Google Slides
-
-```txt
-https://docs.google.com/presentation/d/1CbeSiVYta0VTuENQ-25OLcIV5vK8pkcBJ-8DfKqlE2I/edit?usp=sharing
-```
-
-![ Google Slides埋め込みイメージ ](../../../assets/images/google-slides-embed.png)
-
-> [!warning]-
-> 埋め込みはしばしばページの読み込みやSEOに悪影響を及ぼす。
-> これは、ホストから膨大なJSコードや最適化されていない画像などをそのまま拝借するからであり、現にこのページの[PageSpeed Insights](https://pagespeed.web.dev/)スコアは悲惨なことになっていた。
-> 然り而して、一部をただの画像にすり替えた。実装にそれなりの年月を費やしただけあって、タンスの肥やしになる運命が見えてしまった今、ただただ後悔の念に押し潰されそうである。・・・と同時に、思いがけず他媒体に頼りづらい状況が生まれ、安堵する自分もそこには居た。
+2025 年 1 月現在、全然使わないので Canva と Google Slides の埋め込みサポートを止めた。愈々足し算が終わり、引き算を始める段階に差し掛かったのかもしれない。
 
 ##### リンクカード
 

@@ -5,7 +5,7 @@ type: blog
 title: "Upgrading My 'hybrid' Website to Astro v5: The Ins and Outs"
 publishedAt: 2025-01-24T09:14:04.682Z
 fmContentType: blog
-updatedAt: 2025-01-27T09:32:22.789Z
+updatedAt: 2025-01-31T09:13:46.516Z
 description: The ins and outs of my website upgraded to the destroyer, no, Astro v5. All the changes required along the way are mentioned.
 category:
   metadata: en/categories
@@ -91,11 +91,11 @@ One day, I was leaning back in the chair and absent-mindedly looking at a waterf
 [^1]: In the Astro v4, `output: "hybrid"` was logged out as expected.
 
 Consulting the source code of [the Cloudflare adapter](https://github.com/withastro/adapters/blob/641d7d588d2d77f519201e583f0275db4260575c/packages/cloudflare/src/index.ts), that seems to be working properly.
-Come to think of it, the log I witnessed was merely what the adapter'd logged out as an [Astro integration](https://docs.astro.build/ja/guides/integrations-guide/); given that adapters play a role in bridging between Astro projects that need SSR and hosting services, it's quite plausible that it reads out loud, "We are working in...'server' mode!!!" And then the whole build process is "static" in and of itself once it passes the tunnel.
+Come to think of it, the log I witnessed was merely the output of what the adapter specified as an [Astro integration](https://docs.astro.build/ja/guides/integrations-guide/); given that adapters play a role in bridging between Astro projects that need SSR and hosting services, it's quite plausible that it reads out loud, "We are working in...'server' mode!!!" And then the whole build process is "static" in and of itself once it passes through the server tunnel.
 
 Long story short, you don't have to worry about the `output: "server"` log. Reducing the modes down to two sounds refreshing but I can't help feeling like "Is it, in some parts, even more confusing..?"
 
-### Content Collections changes to Content Layer
+### Content Collections change to Content Layer
 
 In the upgrade, this is the toughest part.
 It's not some "tried to make it sound a bit cooler!" sort of half-hearted change whatsoever. Here perfected the destroyer. [^2]

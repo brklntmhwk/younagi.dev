@@ -17,7 +17,7 @@ tags:
     - pagefind
 level: 4
 description: Dev experience behind building this website for geeks who want to have their own ones in this video era. Built using Astro, Cloudflare Pages, D1, etc.
-updatedAt: 2025-01-31T08:34:50.442Z
+updatedAt: 2025-01-31T09:23:41.346Z
 thumbnail: 🚀🌐🔧 ( •̀ᴗ•́ )و
 ---
 
@@ -27,6 +27,7 @@ thumbnail: 🚀🌐🔧 ( •̀ᴗ•́ )و
   - migrate from `rehype-pretty-code` to `astro-expressive-code` as to code blocks
   - add a filtering feature to the Pagefind search
   - migrating to Astro v5, change the deprecated Content Collections to the Content Layer API
+  - stop supporting Canva and Google Slides as embedded media
 
 ## Intro
 
@@ -339,14 +340,6 @@ Integrations with Canva, YouTube, and Google Slides are also supported.
 
 Incidentally, [`unfurl`](https://github.com/jacktuck/unfurl) works diligently behind the scenes fetching the media metadata necessary for the format.
 
-###### Canva
-
-```txt
-https://www.canva.com/design/DAGKC41Tjws/zSEw1hvi9r30o5KiF96AGA/view
-```
-
-![ Canva embed image ](../../../assets/images/canva-embed.png)
-
 ###### YouTube
 
 ```txt
@@ -363,18 +356,7 @@ https://open.spotify.com/intl-ja/track/04z1fwsw1gXI8HWQpoETa9?si=862c02d3e52a49b
 
 https://open.spotify.com/intl-ja/track/04z1fwsw1gXI8HWQpoETa9?si=862c02d3e52a49b0
 
-###### Google Slides
-
-```txt
-https://docs.google.com/presentation/d/1CbeSiVYta0VTuENQ-25OLcIV5vK8pkcBJ-8DfKqlE2I/edit?usp=sharing
-```
-
-![ Google Slides embed image ](../../../assets/images/google-slides-embed.png)
-
-> [!warning]-
-> Embeds often affect page loading and SEO badly due to their original sources' formats: a large amount of JS, unoptimized image assets, etc.
-> In reality, The [PageSpeed Insights](https://pagespeed.web.dev/) score of this page was miserable. That's why I replaced them with their screenshots.
-> I can't stop feeling a pang of regret now that it's obvious this feature seems destined to be a white elephant despite that I spent a considerable amount of time. But at the same time, I sort of feel relieved that it's unexpectedly become harder to rely on other media.
+As of Jan 2025, this website stopped supporting Canva and Google because I never used them up until now. I suppose it's finally entering the subtraction phase after the addition part.
 
 ##### Link cards
 

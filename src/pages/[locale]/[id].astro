@@ -6,13 +6,13 @@ import { getSortedContentEntries } from '@/lib/collections/contents';
 import { mdxComponents } from '@/lib/mdx-components';
 import { getIdWithoutLocale } from '@/utils/get-id-without-locale';
 import { getLocaleFromId } from '@/utils/get-locale-from-id';
-import { defaultLang } from '@/utils/i18n/data';
+import { defaultLocale } from '@/utils/i18n/data';
 import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
 
 export const getStaticPaths = (async () => {
   const pages = await getSortedContentEntries('page');
   const LocalePages = pages.filter(
-    (page) => getLocaleFromId(page.id) !== defaultLang,
+    (page) => getLocaleFromId(page.id) !== defaultLocale,
   );
 
   return LocalePages.map((page) => {

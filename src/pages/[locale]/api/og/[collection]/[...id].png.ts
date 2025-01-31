@@ -3,7 +3,7 @@ import { getOgImage } from '@/components/models/OgImage';
 import { getContentEntries } from '@/lib/collections/contents';
 import { getIdWithoutLocale } from '@/utils/get-id-without-locale';
 import { getLocaleFromId } from '@/utils/get-locale-from-id';
-import { type Language, langList } from '@/utils/i18n/data';
+import { type Locale, nonDefaultLocaleList } from '@/utils/i18n/data';
 import type {
   APIContext,
   APIRoute,
@@ -42,11 +42,11 @@ export const GET: APIRoute = async ({ props, params }: APIContext) => {
 // e.g., /api/og/blog/astro-website.png, /ja/api/og/blog/astro-website.png
 export const getStaticPaths = (async () => {
   const localeArticles = articles.filter((article) =>
-    langList.some((lang) => lang === getLocaleFromId(article.id)),
+    nonDefaultLocaleList.some((lang) => lang === getLocaleFromId(article.id)),
   );
   const ogArticlePaths = [
     ...localeArticles.map((article) => {
-      const locale = getLocaleFromId(article.id) as Language;
+      const locale = getLocaleFromId(article.id) as Locale;
       const collection = article.collection;
       const idWithoutLocale = getIdWithoutLocale(article.id);
 

@@ -2,7 +2,7 @@ import { getEntry } from 'astro:content';
 import { getOgImage } from '@/components/models/OgImage';
 import { getContentEntries } from '@/lib/collections/contents';
 import { getIdWithoutLocale } from '@/utils/get-id-without-locale';
-import { defaultLang } from '@/utils/i18n/data';
+import { defaultLocale } from '@/utils/i18n/data';
 import type {
   APIContext,
   APIRoute,
@@ -14,8 +14,8 @@ import type {
 type Params = InferGetStaticParamsType<typeof getStaticPaths>;
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
-const blogEntries = await getContentEntries('blog', defaultLang);
-const newsEntries = await getContentEntries('news', defaultLang);
+const blogEntries = await getContentEntries('blog', defaultLocale);
+const newsEntries = await getContentEntries('news', defaultLocale);
 const articles = [...blogEntries, ...newsEntries];
 
 export const GET: APIRoute = async ({ props, params }: APIContext) => {
@@ -28,7 +28,7 @@ export const GET: APIRoute = async ({ props, params }: APIContext) => {
       status: 404,
     });
   }
-  const t = await getEntry('i18n', `${defaultLang}/translation`);
+  const t = await getEntry('i18n', `${defaultLocale}/translation`);
   const ogImg = await getOgImage(article.data.title, t!.data.og_image);
 
   return new Response(ogImg, {

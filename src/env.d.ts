@@ -8,7 +8,7 @@ declare namespace App {
   interface Locals extends Runtime {}
 }
 
-type Language = import('./utils/i18n/data').Language;
+type Language = import('./utils/i18n/data').Locale;
 
 type TurnstileRenderParameters = {
   sitekey: string;
@@ -22,7 +22,7 @@ type TurnstileRenderParameters = {
   'after-interactive-callback'?: () => void;
   'unsupported-callback'?: () => void;
   theme?: 'light' | 'dark' | 'auto';
-  language?: Language | 'auto';
+  language?: Locale | 'auto';
   tabindex?: number;
   'timeout-callback'?: () => void;
   'response-field'?: boolean;

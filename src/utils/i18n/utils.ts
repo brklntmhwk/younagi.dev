@@ -1,27 +1,24 @@
-import { type Language, defaultLang, languages } from './data';
+import { type Locale, defaultLocale, locales } from './data';
 
 export const getLocaleFromUrl = (url: URL) => {
   const [, lang] = url.pathname.split('/');
-  if (lang && lang in languages) return lang as Language;
+  if (lang && lang in locales) return lang as Locale;
 
-  return defaultLang;
+  return defaultLocale;
 };
 
-export const useTranslatedPath = (lang: Language) => {
+export const useTranslatedPath = (lang: Locale) => {
   return function translatePath(path: string, l = lang) {
-    return l === defaultLang ? path : `/${l}${path}`;
+    return l === defaultLocale ? path : `/${l}${path}`;
   };
 };
 
-export const isLocale = (locale: string | undefined): locale is Language =>
-  locale !== undefined && Object.hasOwn(languages, locale);
+export const isLocale = (locale: string | undefined): locale is Locale =>
+  locale !== undefined && Object.hasOwn(locales, locale);
 
-export const getTargetLocaleId = (
-  curLocale: Language | string,
-  curUrl: URL,
-) => {
+export const getTargetLocaleId = (curLocale: Locale | string, curUrl: URL) => {
   let id: string;
-  if (curLocale === defaultLang) {
+  if (curLocale === defaultLocale) {
     const [_blank, ...rest] = curUrl.pathname.split('/');
     id = rest.join('/');
   } else {
@@ -32,11 +29,7 @@ export const getTargetLocaleId = (
   return id;
 };
 
-export const compareCharsInLocale = (
-  a: string,
-  b: string,
-  locale: Language,
-) => {
+export const compareCharsInLocale = (a: string, b: string, locale: Locale) => {
   const collator = new Intl.Collator(locale);
 
   return collator.compare(a, b);

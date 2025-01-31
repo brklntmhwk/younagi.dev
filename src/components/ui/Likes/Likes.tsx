@@ -1,6 +1,6 @@
 import { locale } from '@/components/functional/LocaleStore/locale-store';
 import type { I18nData } from '@/lib/collections/types';
-import type { Language } from '@/utils/i18n/data';
+import type { Locale } from '@/utils/i18n/data';
 import { useTranslatedPath } from '@/utils/i18n/utils';
 import { useStore } from '@nanostores/solid';
 import { type Component, createResource } from 'solid-js';
@@ -8,7 +8,7 @@ import toast from 'solid-toast';
 import wretch from 'wretch';
 import { LikeIcon } from './LikeIcon';
 
-type FetcherProps = Omit<Props, 't'> & { locale: Language };
+type FetcherProps = Omit<Props, 't'> & { locale: Locale };
 
 const fetchLikes = async ({ slug, collection, locale }: FetcherProps) => {
   const translatePath = useTranslatedPath(locale);

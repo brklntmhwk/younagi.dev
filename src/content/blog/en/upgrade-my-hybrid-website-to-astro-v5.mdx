@@ -5,7 +5,7 @@ type: blog
 title: "Upgrading My 'hybrid' Website to Astro v5: The Ins and Outs"
 publishedAt: 2025-01-24T09:14:04.682Z
 fmContentType: blog
-updatedAt: 2025-01-31T09:13:46.516Z
+updatedAt: 2025-01-31T09:50:53.099Z
 description: The ins and outs of my website upgraded to the destroyer, no, Astro v5. All the changes required along the way are mentioned.
 category:
   metadata: en/categories
@@ -194,11 +194,11 @@ import { getSortedContentEntries } from '@/lib/collections/contents';
 import { mdxComponents } from '@/lib/mdx-components';
 import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale';
 import { getIdWithoutLocale } from '@/utils/get-id-without-locale';
-import { defaultLang } from '@/utils/i18n/data';
+import { defaultLocale } from '@/utils/i18n/data';
 import type { GetStaticPaths } from 'astro';
 
 export const getStaticPaths = (async () => {
-  const entries = await getSortedContentEntries('blog', defaultLang);
+  const entries = await getSortedContentEntries('blog', defaultLocale);
 
   return entries.map((entry) => {
     const slug = getSlugWithoutLocale(entry.slug);
@@ -225,12 +225,12 @@ In that case, you can handle it like this:
 ---
 import { getSortedContentEntries } from '@/lib/collections/contents';
 import { getIdWithoutLocale } from '@/utils/get-id-without-locale';
-import { defaultLang } from '@/utils/i18n/data';
+import { defaultLocale } from '@/utils/i18n/data';
 import type { GetStaticPaths } from 'astro';
 /* ... */
 
 export const getStaticPaths = (async () => {
-  const entries = await getSortedContentEntries('blog', defaultLang);
+  const entries = await getSortedContentEntries('blog', defaultLocale);
 
   return entries.map((entry) => {
     const id = getIdWithoutLocale(entry.id);
@@ -256,11 +256,11 @@ import BlogLayout from '@/layouts/BlogLayout.astro';
 import { getSortedContentEntries } from '@/lib/collections/contents';
 import { mdxComponents } from '@/lib/mdx-components';
 import { getIdWithoutLocale } from '@/utils/get-id-without-locale';
-import { defaultLang } from '@/utils/i18n/data';
+import { defaultLocale } from '@/utils/i18n/data';
 import type { GetStaticPaths } from 'astro';
 
 export const getStaticPaths = (async () => {
-  const entries = await getSortedContentEntries('blog', defaultLang);
+  const entries = await getSortedContentEntries('blog', defaultLocale);
 
   return entries.map((entry) => {
     const id = getIdWithoutLocale(entry.id);

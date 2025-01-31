@@ -8,11 +8,11 @@ import { getSortedContentEntries } from '@/lib/collections/contents';
 import { LIMIT_PER_PAGE } from '@/lib/consts';
 import { ArchiveSlugify } from '@/utils/archive-slugify';
 import { convertDateStr } from '@/utils/convert-date-str';
-import { defaultLang } from '@/utils/i18n/data';
+import { defaultLocale } from '@/utils/i18n/data';
 import type { GetStaticPaths } from 'astro';
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const entries = await getSortedContentEntries('blog', defaultLang);
+  const entries = await getSortedContentEntries('blog', defaultLocale);
   const dates = [
     ...new Set(entries.map((entry) => ArchiveSlugify(entry.data.publishedAt))),
   ];
@@ -31,10 +31,10 @@ export const getStaticPaths = (async ({ paginate }) => {
 
 const { page } = Astro.props;
 const { date } = Astro.params;
-const meta = await getEntry('meta', `${defaultLang}/site-data`);
-const t = await getEntry('i18n', `${defaultLang}/translation`);
+const meta = await getEntry('meta', `${defaultLocale}/site-data`);
+const t = await getEntry('i18n', `${defaultLocale}/translation`);
 const convertedDate = convertDateStr(date);
-const displayDate = formatDate(convertedDate, defaultLang, {
+const displayDate = formatDate(convertedDate, defaultLocale, {
   year: true,
   month: true,
   day: false,
@@ -48,7 +48,7 @@ const displayDate = formatDate(convertedDate, defaultLang, {
 >
   <main class="flex flex-col justify-between gap-16" data-pagefind-ignore="all">
     <section>
-      <h1 class="text-3xl md:text-4xl font-extrabold mb-5">{displayDate}</h1>
+      <h1 class="text-3xl sm:text-4xl font-extrabold mb-5">{displayDate}</h1>
       <a class="text-base text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-500" href={'/blog/archive/'}>
         ◀ {t!.data.pages.blog.archive.back_to_top}
       </a>

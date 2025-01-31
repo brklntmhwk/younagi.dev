@@ -1,16 +1,16 @@
 import { getCollection } from 'astro:content';
 import { getEntry } from 'astro:content';
 import { getLocaleFromId } from '@/utils/get-locale-from-id';
-import { defaultLang } from '@/utils/i18n/data';
+import { defaultLocale } from '@/utils/i18n/data';
 import rss from '@astrojs/rss';
 import type { APIContext } from 'astro';
 
 export async function GET(context: APIContext) {
   const entries = await getCollection('blog');
   const defaultLocaleEntries = entries.filter(
-    (entry) => getLocaleFromId(entry.id) === defaultLang,
+    (entry) => getLocaleFromId(entry.id) === defaultLocale,
   );
-  const meta = await getEntry('meta', `${defaultLang}/site-data`);
+  const meta = await getEntry('meta', `${defaultLocale}/site-data`);
 
   const { body } = await rss({
     title: meta!.data.site.title!,
@@ -21,7 +21,7 @@ export async function GET(context: APIContext) {
       pubDate: entry.data.publishedAt,
       link: `/${entry.collection}/${entry.id}`,
     })),
-    customData: `<language>${defaultLang}</language>`,
+    customData: `<language>${defaultLocale}</language>`,
   });
 
   return new Response(body, {

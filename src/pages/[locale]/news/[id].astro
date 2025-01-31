@@ -5,13 +5,13 @@ import { getSortedContentEntries } from '@/lib/collections/contents';
 import { mdxComponents } from '@/lib/mdx-components';
 import { getIdWithoutLocale } from '@/utils/get-id-without-locale';
 import { getLocaleFromId } from '@/utils/get-locale-from-id';
-import { defaultLang } from '@/utils/i18n/data';
+import { defaultLocale } from '@/utils/i18n/data';
 import type { GetStaticPaths } from 'astro';
 
 export const getStaticPaths = (async () => {
   const entries = await getSortedContentEntries('news');
   const LocaleEntries = entries.filter(
-    (entry) => getLocaleFromId(entry.id) !== defaultLang,
+    (entry) => getLocaleFromId(entry.id) !== defaultLocale,
   );
 
   return LocaleEntries.map((entry) => {

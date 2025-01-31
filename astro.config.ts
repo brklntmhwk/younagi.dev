@@ -36,7 +36,6 @@ import {
 import expressiveCode from "astro-expressive-code";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 
-
 // https://astro.build/config
 export default defineConfig({
   site: SITE_URL,

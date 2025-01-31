@@ -7,7 +7,7 @@ import {
 } from 'astro:content';
 import { SHOW_DRAFT_PAGES_IN_DEV } from '@/lib/consts';
 import { getLocaleFromId } from '@/utils/get-locale-from-id';
-import type { Language } from '@/utils/i18n/data';
+import type { Locale } from '@/utils/i18n/data';
 
 const hasDraft = (
   data: object,
@@ -21,12 +21,12 @@ export const isContentCollectionKey = (
 
 export const getLocaleContentEntries = <T extends DataCollectionKey>(
   entries: Flatten<AnyEntryMap[T]>[],
-  locale: Language,
+  locale: Locale,
 ) => entries.filter((entry) => getLocaleFromId(entry.id) === locale);
 
 export const getContentEntries = async <T extends DataCollectionKey>(
   key: T,
-  locale?: Language,
+  locale?: Locale,
 ) => {
   let entries = await getCollection(key);
   if (locale) {
@@ -46,7 +46,7 @@ export const getContentEntries = async <T extends DataCollectionKey>(
 
 export const getSortedContentEntries = async <T extends DataCollectionKey>(
   key: T,
-  locale?: Language,
+  locale?: Locale,
 ) => {
   const entries = await getContentEntries(key, locale);
 

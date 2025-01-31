@@ -6,7 +6,7 @@ import {
   FORM_TEXTAREA_MINLENGTH,
   TURNSTILE_SITE_VERIFICATION_URL,
 } from '@/lib/consts';
-import type { Language } from '@/utils/i18n/data';
+import type { Locale } from '@/utils/i18n/data';
 import type { APIContext, APIRoute } from 'astro';
 import { Resend } from 'resend';
 import {
@@ -39,7 +39,7 @@ export const POST: APIRoute = async ({
     );
   }
 
-  const curLocale = locale as Language;
+  const curLocale = locale as Locale;
   const t = await getEntry('i18n', `${curLocale}/translation`);
   const meta = await getEntry('meta', `${curLocale}/site-data`);
 

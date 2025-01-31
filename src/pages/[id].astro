@@ -5,11 +5,11 @@ import PageLayout from '@/layouts/PageLayout.astro';
 import { getSortedContentEntries } from '@/lib/collections/contents';
 import { mdxComponents } from '@/lib/mdx-components';
 import { getIdWithoutLocale } from '@/utils/get-id-without-locale';
-import { defaultLang } from '@/utils/i18n/data';
+import { defaultLocale } from '@/utils/i18n/data';
 import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
 
 export const getStaticPaths = (async () => {
-  const pages = await getSortedContentEntries('page', defaultLang);
+  const pages = await getSortedContentEntries('page', defaultLocale);
 
   return pages.map((page) => {
     const id = getIdWithoutLocale(page.id);

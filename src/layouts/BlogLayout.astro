@@ -4,6 +4,7 @@ import type { CollectionEntry } from 'astro:content';
 import { getEntry } from 'astro:content';
 import { Article } from '@/components/models/Article';
 import { FormattedDate } from '@/components/models/FormattedDate';
+import { Giscus } from '@/components/models/Giscus';
 import { Prose } from '@/components/models/Prose';
 import { Taxonomy } from '@/components/models/Taxonomy';
 import { Toc } from '@/components/models/Toc';
@@ -80,19 +81,16 @@ const tags = await getBlogTags(blogTags);
         </div>
         <h1
           class="text-center text-3xl xl:text-4xl font-extrabold leading-snug xl:leading-normal"
-          class="text-center text-3xl xl:text-4xl font-extrabold leading-snug xl:leading-normal"
           data-pagefind-weight="10"
         >
           {title}
         </h1>
-        <div class="flex flex-wrap justify-center items-center gap-x-2 gap-y-4">
         <div class="flex flex-wrap justify-center items-center gap-x-2 gap-y-4">
           {
             category && (
               <Taxonomy
                 kind={blogCategory.metadata.collection}
                 taxonomy={category}
-                filterTitle={t!.data.layouts.blog.category_label}
                 filterTitle={t!.data.layouts.blog.category_label}
               />
             )
@@ -124,16 +122,17 @@ const tags = await getBlogTags(blogTags);
       <Prose slot="content">
         <slot />
       </Prose>
-      <section slot="cta" class="flex flex-wrap items-center gap-x-7 gap-y-3">
-        <Likes
-          client:only="solid"
-          slug={idWithoutLocale}
-          slug={idWithoutLocale}
-          {collection}
-          t={t!.data.likes}
-          t={t!.data.likes}
-        />
-        <BuyMeACoffee />
+      <section slot="cta" class="flex flex-col gap-5">
+        <div class="flex flex-wrap items-center gap-x-7 gap-y-3">
+          <Likes
+            client:only="solid"
+            slug={idWithoutLocale}
+            {collection}
+            t={t!.data.likes}
+          />
+          <BuyMeACoffee />
+        </div>
+        <Giscus {locale} />
       </section>
     </Article>
   </main>

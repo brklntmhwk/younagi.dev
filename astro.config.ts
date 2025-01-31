@@ -42,7 +42,6 @@ import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 // https://astro.build/config
 export default defineConfig({
   site: SITE_URL,
-  output: 'static',
   adapter: cloudflare({
     platformProxy: {
       enabled: true,

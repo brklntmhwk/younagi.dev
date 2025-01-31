@@ -19,6 +19,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Set up Bun
         uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: ".tool-versions"
       - name: Set up bun store and build artifact cache
         uses: actions/cache@v4
         with:

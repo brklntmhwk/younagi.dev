@@ -35,7 +35,7 @@ COPY --from=cacher /$PROJECT_DIR/node_modules node_modules
 COPY . .
 
 # Build the app
-RUN bun --bun run build
+# RUN bun run build
 
 ############################################################################
 # Runtime Stage
@@ -67,7 +67,7 @@ COPY --from=builder --chown=$USERNAME:$USERNAME /$PROJECT_DIR /$PROJECT_DIR
 # Install packages
 RUN apt-get update \
     && apt-get -y install --no-install-recommends \
-    ca-certificates curl git \
+    ca-certificates curl git unzip \
     && apt-get auto-remove -y \
     && apt-get clean -y
 
@@ -97,14 +97,14 @@ RUN pnpm install -g git-cz
 USER $USERNAME
 
 # Copy the tool-versions file
-COPY .tool-versions ./.tool-versions
+# COPY .tool-versions ./.tool-versions
 
 # Define the user's home path
 ARG USER_HOME=/home/$USERNAME
 
 # Install Mise & other tools specified in the tool-versions file
-RUN curl https://mise.run | sh \
-    && $USER_HOME/.local/bin/mise install \
-    && $USER_HOME/.local/bin/mise reshim \
-    && echo 'eval "$('$USER_HOME'/.local/bin/mise activate bash)"' >> ~/.bashrc \
-    && echo 'export PS1="\[\e[1;32m\]\u@\h\[\e[0m\]:\[\e[1;31m\]\w\[\e[0m\]\$ "' >> ~/.bashrc
+# RUN curl https://mise.run | sh \
+#     && $USER_HOME/.local/bin/mise install \
+#     && $USER_HOME/.local/bin/mise reshim \
+#     && echo 'eval "$('$USER_HOME'/.local/bin/mise activate bash)"' >> ~/.bashrc \
+#     && echo 'export PS1="\[\e[1;32m\]\u@\h\[\e[0m\]:\[\e[1;31m\]\w\[\e[0m\]\$ "' >> ~/.bashrc

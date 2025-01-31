@@ -1,6 +1,6 @@
 import { createApi } from 'unsplash-js';
 
-const accessKey = import.meta.env.UNSPLASH_API_ACCESS_KEY;
+const accessKey = import.meta.env.UNSPLASH_API_ACCESS_KEY as string | undefined;
 
 if (accessKey === undefined)
   throw new Error('Unsplash API access key not found.');

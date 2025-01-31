@@ -30,8 +30,6 @@ import remarkFootnote from './src/lib/unified/plugins/remark-footnote';
 import remarkLineBreaks from './src/lib/unified/plugins/remark-line-breaks';
 import remarkLinkCard from './src/lib/unified/plugins/remark-link-card';
 import {
-  canvaTransformer,
-  googleSlidesTransformer,
   oEmbedTransformer,
   youTubeTransformer,
 } from './src/lib/unified/transformers';
@@ -150,8 +148,6 @@ export default defineConfig({
         remarkEmbed,
         {
           transformers: [
-            canvaTransformer,
-            googleSlidesTransformer,
             youTubeTransformer,
             oEmbedTransformer,
           ],

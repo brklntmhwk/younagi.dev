@@ -17,14 +17,14 @@ services:
       - project-data:/workspace:consistent
       # - .:/workspace:cached
     user: dev
-  db:
-    container_name: younagi-db
-    image: sqlite:latest
-    volumes:
-      - db-data:/var/lib/sqlite/data
-    ports:
-      - "5432:5432"
-    restart: unless-stopped
+  # db:
+  #   container_name: younagi-db
+  #   image: sqlite:latest
+  #   volumes:
+  #     - db-data:/var/lib/sqlite/data
+  #   ports:
+  #     - "5432:5432"
+  #   restart: unless-stopped
 volumes:
   project-data:
-  db-data:
+  # db-data:

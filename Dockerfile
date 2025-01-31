@@ -35,7 +35,7 @@ COPY --from=cacher /$PROJECT_DIR/node_modules node_modules
 COPY . .
 
 # Build the app
-RUN bun --bun run build
+# RUN bun run build
 
 ############################################################################
 # Runtime Stage

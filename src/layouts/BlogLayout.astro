@@ -122,7 +122,7 @@ const tags = await getBlogTags(blogTags);
       <Prose slot="content">
         <slot />
       </Prose>
-      <section slot="cta" class="flex flex-col gap-5">
+      <section slot="cta" class="flex flex-col gap-7">
         <div class="flex flex-wrap items-center gap-x-7 gap-y-3">
           <Likes
             client:only="solid"
@@ -134,6 +134,7 @@ const tags = await getBlogTags(blogTags);
         </div>
         <Giscus {locale} />
       </section>
+      <hr class="w-full my-5" />
     </Article>
   </main>
 </BaseLayout>

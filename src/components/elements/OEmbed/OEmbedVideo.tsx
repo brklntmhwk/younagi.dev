@@ -5,7 +5,7 @@ import type { OEmbedVideo as OEmbedVideoSchema } from './types';
 export const OEmbedVideo: Component<{ data: OEmbedVideoSchema }> = (props) => {
   return (
     <div
-      class="double-border"
+      class="border-double"
       innerHTML={sanitize(props.data.html)}
       data-oembed
       data-oembed-video

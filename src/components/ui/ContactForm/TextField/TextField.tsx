@@ -42,7 +42,7 @@ export const TextField: Component<Props> = (props) => {
           <Show
             when={props.type === 'hidden'}
             fallback={
-              <div class="double-border">
+              <div class="border-double">
                 <Kobalte.Input
                   {...inputProps}
                   type={props.type}
@@ -59,7 +59,7 @@ export const TextField: Component<Props> = (props) => {
           </Show>
         }
       >
-        <div class="double-border">
+        <div class="border-double">
           <Kobalte.TextArea
             {...inputProps}
             class="flex flex-col w-full p-2 bg-transparent outline-none"

@@ -129,7 +129,7 @@ export const Search: Component<Props> = (props) => {
   return (
     <div class="max-h-[76dvh] my-2 flex flex-col gap-4 box-border h-fit">
       <form class="flex flex-col gap-3" onsubmit={handleSubmit}>
-        <div class="bg-default-reverse double-border flex items-center gap-2 p-3">
+        <div class="bg-default-reverse border-double flex items-center gap-2 p-3">
           <SearchIcon label={props.t.button_label} width={22} height={22} />
           <input
             id="search-window"
@@ -172,12 +172,14 @@ export const Search: Component<Props> = (props) => {
             </details>
           ))}
         </div>
-        <input
-          type="reset"
-          class="font-pixel font-medium cursor-pointer py-1 px-2 rounded-sm self-center border-2 border-solid border-line-solid hover:bg-default-reverse-hover"
-          value={props.t.reset_label}
-          onClick={handleReset}
-        />
+        <div class="border-double self-center py-1 px-2 hover:bg-default-reverse-hover">
+          <input
+            type="reset"
+            class="font-pixel font-medium cursor-pointer"
+            value={props.t.reset_label}
+            onClick={handleReset}
+          />
+        </div>
         {isQuerying() && (
           <p class="text-center">
             {props.t.results_label}{' '}

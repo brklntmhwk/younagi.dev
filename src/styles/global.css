@@ -80,7 +80,7 @@ summary::-webkit-details-marker {
   display: none;
 }
 
-.double-border {
+.border-double {
   position: relative;
   z-index: 1;
   border-color: var(--color-line-double);

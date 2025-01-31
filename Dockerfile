@@ -97,14 +97,14 @@ RUN pnpm install -g git-cz
 USER $USERNAME
 
 # Copy the tool-versions file
-# COPY .tool-versions ./.tool-versions
+COPY .tool-versions ./.tool-versions
 
 # Define the user's home path
 ARG USER_HOME=/home/$USERNAME
 
 # Install Mise & other tools specified in the tool-versions file
-# RUN curl https://mise.run | sh \
-#     && $USER_HOME/.local/bin/mise install \
-#     && $USER_HOME/.local/bin/mise reshim \
-#     && echo 'eval "$('$USER_HOME'/.local/bin/mise activate bash)"' >> ~/.bashrc \
-#     && echo 'export PS1="\[\e[1;32m\]\u@\h\[\e[0m\]:\[\e[1;31m\]\w\[\e[0m\]\$ "' >> ~/.bashrc
+RUN curl https://mise.run | sh \
+    && $USER_HOME/.local/bin/mise install \
+    && $USER_HOME/.local/bin/mise reshim \
+    && echo 'eval "$('$USER_HOME'/.local/bin/mise activate bash)"' >> ~/.bashrc \
+    && echo 'export PS1="\[\e[1;32m\]\u@\h\[\e[0m\]:\[\e[1;31m\]\w\[\e[0m\]\$ "' >> ~/.bashrc

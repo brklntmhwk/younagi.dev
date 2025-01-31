@@ -1,5 +1,5 @@
 ---
-import { getEntry, type CollectionEntry } from 'astro:content';
+import { type CollectionEntry, getEntry } from 'astro:content';
 import { Image } from '@/components/elements/Figure';
 import { ProfileIcon } from '@/components/ui/ProfileIcon';
 import { getBlur } from '@/lib/blur';
@@ -18,7 +18,8 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = await getEntry('i18n', `${locale}/translation`);
 const meta = await getEntry('meta', 'en/site-data');
 const { photo, order } = Astro.props;
-const { alt_description, description, created_at, links, urls, user } = photo.data;
+const { alt_description, description, created_at, links, urls, user } =
+  photo.data;
 const buffer = await wretch(urls.raw)
   .get()
   .arrayBuffer()

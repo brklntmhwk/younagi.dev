@@ -41,11 +41,7 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {
         "likes_session_id_collection_slug_pk": {
-          "columns": [
-            "session_id",
-            "collection",
-            "slug"
-          ],
+          "columns": ["session_id", "collection", "slug"],
           "name": "likes_session_id_collection_slug_pk"
         }
       },

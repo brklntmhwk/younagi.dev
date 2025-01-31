@@ -2,11 +2,11 @@
 draft: published
 level: 1
 type: blog
-title: hybridモードのウェブサイトをAstro v5にアップグレード完了するまでの一部始終
+title: hybridモードのウェブサイトをAstro v5にアップグレードするまでの一部始終
 publishedAt: 2025-01-24T09:14:04.682Z
 fmContentType: blog
-updatedAt: 2025-01-27T09:26:36.410Z
-description: 破壊神もといAstro v5への完全移行を目指し、v4と蜜月関係であった当サイトもアップブレードを試みた。その際、必要に駆られて変更した点をまとめておく。
+updatedAt: 2025-01-31T09:50:53.099Z
+description: 破壊神もといAstro v5への完全移行を目指し、v4と蜜月関係であった当サイトもアップグレードを試みた。その際、必要に駆られて変更した点をまとめておく。
 category:
   metadata: ja/categories
   slug: attempt
@@ -91,7 +91,7 @@ export default defineConfig({
 [^1]: Astro v4 時代には想定通り`output: "hybrid"`が出力されていた
 
 Astro が提供する[Cloudflareアダプタのソースコード](https://github.com/withastro/adapters/blob/641d7d588d2d77f519201e583f0275db4260575c/packages/cloudflare/src/index.ts)をあたってみると、これは正常な挙動であるようだ。
-冷静になって考えてみると、私が目撃したあのログは[Astroインテグレーション](https://docs.astro.build/ja/guides/integrations-guide/)として Cloudflare アダプタが出力したものに過ぎない。アダプタは SSR が必要なサイトを各ホスティングサービスにデプロイする為の架け橋であるからして、「"server"モードで動いてますよ」と:ruby[宣(のたま)]うのは自然な話ではある。そして、:ruby[一度(ひとたび)]トンネルを抜けると、ビルドプロセス全体としては"static"である、と。
+冷静になって考えてみると、私が目撃したあのログは[Astroインテグレーション](https://docs.astro.build/ja/guides/integrations-guide/)としての Cloudflare アダプタが"server"と指定したものを出力したに過ぎない。アダプタは SSR が必要なサイトを各ホスティングサービスにデプロイする為の架け橋であるからして、「"server"モードで動いてますよ」と:ruby[宣(のたま)]うのは自然な話ではある。そして、:ruby[一度(ひとたび)]トンネルを抜けると、ビルドプロセス全体としては"static"であると。
 
 とどのつまり、`output: "server"`のログは気にしなくてよいということだ。モードが 2 つに絞られてスッキリした一方で、この辺りについては「少し紛らわしくなったかも・・？」という感を禁じ得ない。
 
@@ -191,11 +191,11 @@ import { getSortedContentEntries } from '@/lib/collections/contents';
 import { mdxComponents } from '@/lib/mdx-components';
 import { getSlugWithoutLocale } from '@/utils/get-slug-without-locale';
 import { getIdWithoutLocale } from '@/utils/get-id-without-locale';
-import { defaultLang } from '@/utils/i18n/data';
+import { defaultLocale } from '@/utils/i18n/data';
 import type { GetStaticPaths } from 'astro';
 
 export const getStaticPaths = (async () => {
-  const entries = await getSortedContentEntries('blog', defaultLang);
+  const entries = await getSortedContentEntries('blog', defaultLocale);
 
   return entries.map((entry) => {
     const slug = getSlugWithoutLocale(entry.slug);
@@ -221,12 +221,12 @@ const { Content, headings } = await render(entry);
 ---
 import { getSortedContentEntries } from '@/lib/collections/contents';
 import { getIdWithoutLocale } from '@/utils/get-id-without-locale';
-import { defaultLang } from '@/utils/i18n/data';
+import { defaultLocale } from '@/utils/i18n/data';
 import type { GetStaticPaths } from 'astro';
 /* ... */
 
 export const getStaticPaths = (async () => {
-  const entries = await getSortedContentEntries('blog', defaultLang);
+  const entries = await getSortedContentEntries('blog', defaultLocale);
 
   return entries.map((entry) => {
     const id = getIdWithoutLocale(entry.id);
@@ -252,11 +252,11 @@ import BlogLayout from '@/layouts/BlogLayout.astro';
 import { getSortedContentEntries } from '@/lib/collections/contents';
 import { mdxComponents } from '@/lib/mdx-components';
 import { getIdWithoutLocale } from '@/utils/get-id-without-locale';
-import { defaultLang } from '@/utils/i18n/data';
+import { defaultLocale } from '@/utils/i18n/data';
 import type { GetStaticPaths } from 'astro';
 
 export const getStaticPaths = (async () => {
-  const entries = await getSortedContentEntries('blog', defaultLang);
+  const entries = await getSortedContentEntries('blog', defaultLocale);
 
   return entries.map((entry) => {
     const id = getIdWithoutLocale(entry.id);

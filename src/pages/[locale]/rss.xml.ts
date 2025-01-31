@@ -1,16 +1,16 @@
 import { getCollection, getEntry } from 'astro:content';
 import { getLocaleFromId } from '@/utils/get-locale-from-id';
-import { langList } from '@/utils/i18n/data';
+import { nonDefaultLocaleList } from '@/utils/i18n/data';
 import rss from '@astrojs/rss';
 import type { APIContext } from 'astro';
 
 export function getStaticPaths() {
-  return langList.map((lang) => ({ params: { locale: lang } }));
+  return nonDefaultLocaleList.map((lang) => ({ params: { locale: lang } }));
 }
 
 export async function GET(context: APIContext) {
   const localeParam = context.params.locale;
-  const locale = langList.find((lang) => lang === localeParam);
+  const locale = nonDefaultLocaleList.find((lang) => lang === localeParam);
   if (!locale) {
     return new Response(null, {
       status: 400,

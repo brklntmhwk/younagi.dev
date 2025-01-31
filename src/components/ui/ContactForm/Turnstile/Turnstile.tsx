@@ -1,4 +1,4 @@
-import type { Language } from '@/utils/i18n/data';
+import type { Locale } from '@/utils/i18n/data';
 import {
   type Component,
   type JSX,
@@ -10,7 +10,7 @@ import {
 type Props = {
   siteKey: string;
   size?: 'normal' | 'compact';
-  locale?: Language;
+  locale?: Locale;
   onVerify?: (token: string) => void;
 } & Omit<JSX.HTMLAttributes<HTMLDivElement>, 'class'>;
 

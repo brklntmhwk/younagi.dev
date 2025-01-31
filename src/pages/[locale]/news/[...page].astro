@@ -9,13 +9,13 @@ import {
   getSortedContentEntries,
 } from '@/lib/collections/contents';
 import { LIMIT_PER_PAGE } from '@/lib/consts';
-import { langList } from '@/utils/i18n/data';
+import { nonDefaultLocaleList } from '@/utils/i18n/data';
 import type { GetStaticPaths } from 'astro';
 
 export const getStaticPaths = (async ({ paginate }) => {
   const entries = await getSortedContentEntries('news');
 
-  return langList.flatMap((lang) => {
+  return nonDefaultLocaleList.flatMap((lang) => {
     const displayEntries = getLocaleContentEntries<'news'>(entries, lang);
 
     return paginate(displayEntries, {
@@ -38,7 +38,7 @@ const t = await getEntry('i18n', `${locale}/translation`);
 >
   <main class="flex flex-col justify-between gap-16" data-pagefind-ignore="all">
     <section>
-      <h1 class="text-3xl md:text-4xl font-extrabold mb-5">{t!.data.pages.news.title}</h1>
+      <h1 class="text-3xl sm:text-4xl font-extrabold mb-5">{t!.data.pages.news.title}</h1>
       <ul class="flex flex-col gap-5">
         {
           page.data.map((entry) => (

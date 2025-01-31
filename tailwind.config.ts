@@ -26,7 +26,6 @@ export default {
         'bulletin-bg': 'var(--color-bulletin-bg)',
         'star-empty': 'var(--color-star-empty)',
         'star-filled': 'var(--color-star-filled)',
-        'star-glow': 'var(--color-star-glow)',
         'modal-bg': 'var(--color-modal-bg)',
 
         blue: {

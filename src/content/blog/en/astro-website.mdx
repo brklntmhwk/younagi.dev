@@ -1,5 +1,5 @@
 ---
-title: Build a Personal Website using Astro, Cloudflare Pages, D1, and Front Matter CMS
+title: Build a Personal Website using Astro, Cloudflare Pages, and D1
 draft: published
 publishedAt: 2024-07-13T00:34:54.000Z
 type: blog
@@ -16,8 +16,8 @@ tags:
     - markdown
     - pagefind
 level: 4
-description: A dev story behind building my website for geeks wanting to have their own in the era of video. It's built using Astro, Cloudflare Pages, D1, Front Matter CMS, etc.
-updatedAt: 2025-01-24T02:57:08.681Z
+description: Dev experience behind building this website for geeks who want to have their own ones in this video era. Built using Astro, Cloudflare Pages, D1, etc.
+updatedAt: 2025-01-31T10:11:21.417Z
 thumbnail: 🚀🌐🔧 ( •̀ᴗ•́ )و
 ---
 
@@ -25,6 +25,9 @@ thumbnail: 🚀🌐🔧 ( •̀ᴗ•́ )و
 
 - Jan 2025
   - migrate from `rehype-pretty-code` to `astro-expressive-code` as to code blocks
+  - add a filtering feature to the Pagefind search
+  - migrating to Astro v5, change the deprecated Content Collections to the Content Layer API
+  - stop supporting Canva and Google Slides as embedded media
 
 ## Intro
 
@@ -92,7 +95,7 @@ Almost all code is written in TypeScript and TSX. I couldn't have helped shaking
 
 Search functionality plays an integral part of users' comfortable browsing lives.
 
-Pining for the good old days, a lot of personal websites are going all out to add the ancient access counter while dragging their feet on a search window. While I think that's very cool, it's a different story here. [^1]
+Pining for the good old days, a lot of personal websites are going all out to add the ancient access counter while dragging their feet on a search window. I think that's pretty cool, but it's a different story here. [^1]
 
 [^1]: They can be seen when wandering around the internet ocean, so I highly recommend you giving it a try like a tuna.
 
@@ -110,6 +113,10 @@ Along the way, I stuck to these key features:
 - Automatic input cursor focus
   - Once you open the search modal, the cursor is automatically focused on the window
 
+As of Jan 2025, I finally added the filtering search feature, which I was dragging my feet on for so long. See the article below for more details.
+
+https://younagi.dev/blog/astro-with-pagefind-filtering-search/
+
 #### Internationalization (i18n)
 
 Astro thankfully takes responsibility for content management: [the Content Collections API](https://docs.astro.build/en/guides/content-collections/). For more details, see [the official doc](https://docs.astro.build/ja/recipes/i18n/).
@@ -120,6 +127,10 @@ Applying that feature, I added multiligual support by separating language direct
 Speaking of the content formats, it covers YAML and JSON formats as well as Markdown/MDX. I use YAML for storing translation data because of its brevity.
 
 ![content directory tree](../../../assets/images/content-dir.png)
+
+As of Jan 2025, this website has successfully migrated to Astro v5 and a major change was made to the directory shown above. Below is the article where you can see the ins and outs.
+
+https://younagi.dev/blog/upgrade-my-hybrid-website-to-astro-v5/
 
 #### OG Image (Open Graph)
 
@@ -320,7 +331,7 @@ Below are some examples.
 
 I confidently steered in the direction of personal blog in the modern era of video but my resolve is already wavering. Are we meant to dance in the palm of those major tech companies after all...?
 
-I've sort of accepted that we're destined to live with YouTube and amenably added a remark plugin for media frames.
+I ended up dancing all night long and adding a remark plugin for media frames.
 
 In design, bare URLs will be transformed into media frames if they are compatible with [the OEmbed](https://oembed.com/) format.
 Integrations with Canva, YouTube, and Google Slides are also supported.
@@ -328,14 +339,6 @@ Integrations with Canva, YouTube, and Google Slides are also supported.
 "This is merely a safety net. I will never resort to such a feature as long as it can be expressed in the blog...!", I tell myself repeatedly.
 
 Incidentally, [`unfurl`](https://github.com/jacktuck/unfurl) works diligently behind the scenes fetching the media metadata necessary for the format.
-
-###### Canva
-
-```txt
-https://www.canva.com/design/DAGKC41Tjws/zSEw1hvi9r30o5KiF96AGA/view
-```
-
-![ Canva embed image ](../../../assets/images/canva-embed.png)
 
 ###### YouTube
 
@@ -353,18 +356,7 @@ https://open.spotify.com/intl-ja/track/04z1fwsw1gXI8HWQpoETa9?si=862c02d3e52a49b
 
 https://open.spotify.com/intl-ja/track/04z1fwsw1gXI8HWQpoETa9?si=862c02d3e52a49b0
 
-###### Google Slides
-
-```txt
-https://docs.google.com/presentation/d/1CbeSiVYta0VTuENQ-25OLcIV5vK8pkcBJ-8DfKqlE2I/edit?usp=sharing
-```
-
-![ Google Slides embed image ](../../../assets/images/google-slides-embed.png)
-
-> [!warning]-
-> Embeds often affect page loading and SEO badly due to their original sources' formats: a large amount of JS, unoptimized image assets, etc.
-> In reality, The [PageSpeed Insights](https://pagespeed.web.dev/) score of this page was miserable. That's why I replaced them with their screenshots.
-> I can't stop feeling a pang of regret now that it's obvious this feature seems destined to be a white elephant despite that I spent a considerable amount of time. But at the same time, I sort of feel relieved that it's unexpectedly become harder to rely on other media.
+As of Jan 2025, this website stopped supporting Canva and Google because I never used them up until now. I suppose it's finally entering the subtraction phase after the addition part.
 
 ##### Link cards
 

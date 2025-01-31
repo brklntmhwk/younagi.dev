@@ -12,12 +12,12 @@ import {
   NEWS_LATEST_MAXIMUM_COUNT,
   UNSPLASH_BASE_URL,
 } from '@/lib/consts';
-import { langList } from '@/utils/i18n/data';
+import { nonDefaultLocaleList } from '@/utils/i18n/data';
 import { useTranslatedPath } from '@/utils/i18n/utils';
 import type { GetStaticPaths } from 'astro';
 
 export const getStaticPaths = (() => {
-  return langList.map((lang) => ({ params: { locale: lang } }));
+  return nonDefaultLocaleList.map((lang) => ({ params: { locale: lang } }));
 }) satisfies GetStaticPaths;
 
 const { locale } = Astro.params;

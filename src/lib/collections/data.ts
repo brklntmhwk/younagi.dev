@@ -6,17 +6,17 @@ import {
   getEntry,
 } from 'astro:content';
 import { getLocaleFromId } from '@/utils/get-locale-from-id';
-import type { Language } from '@/utils/i18n/data';
+import type { Locale } from '@/utils/i18n/data';
 import type { BlogCategoryData, BlogTagsData } from './types';
 
 export const getLocaleDataEntries = <T extends DataCollectionKey>(
   entries: Flatten<AnyEntryMap[T]>[],
-  locale: Language,
+  locale: Locale,
 ) => entries.filter((entry) => getLocaleFromId(entry.id) === locale);
 
 export const getDataEntries = async <T extends DataCollectionKey>(
   kind: T,
-  locale?: Language,
+  locale?: Locale,
 ) => {
   let entries = await getCollection(kind);
   if (locale) {
@@ -34,7 +34,7 @@ export const getBlogCategory = async (blogCategory: BlogCategoryData) => {
   );
 };
 
-export const getCategories = async (locale: Language) =>
+export const getCategories = async (locale: Locale) =>
   await getEntry('categories', `${locale}/categories`);
 
 export const getBlogTags = async (blogTags: BlogTagsData) => {
@@ -44,5 +44,5 @@ export const getBlogTags = async (blogTags: BlogTagsData) => {
     blogTags.slugList!.some((blogTag) => blogTag === tagData.slug),
   );
 };
-export const getTags = async (locale: Language) =>
+export const getTags = async (locale: Locale) =>
   await getEntry('tags', `${locale}/tags`);

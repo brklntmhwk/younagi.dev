@@ -6,11 +6,11 @@ import { Icon } from '@/components/ui/Icon';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getSortedContentEntries } from '@/lib/collections/contents';
 import { LIMIT_PER_PAGE } from '@/lib/consts';
-import { defaultLang } from '@/utils/i18n/data';
+import { defaultLocale } from '@/utils/i18n/data';
 import type { GetStaticPaths } from 'astro';
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const entries = await getSortedContentEntries('news', defaultLang);
+  const entries = await getSortedContentEntries('news', defaultLocale);
 
   return paginate(entries, {
     pageSize: LIMIT_PER_PAGE,
@@ -18,8 +18,8 @@ export const getStaticPaths = (async ({ paginate }) => {
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
-const meta = await getEntry('meta', `${defaultLang}/site-data`);
-const t = await getEntry('i18n', `${defaultLang}/translation`);
+const meta = await getEntry('meta', `${defaultLocale}/site-data`);
+const t = await getEntry('i18n', `${defaultLocale}/translation`);
 ---
 
 <BaseLayout
@@ -29,7 +29,7 @@ const t = await getEntry('i18n', `${defaultLang}/translation`);
 >
   <main class="flex flex-col justify-between gap-16" data-pagefind-ignore="all">
     <section>
-      <h1 class="text-3xl md:text-4xl font-extrabold mb-5">{t!.data.pages.news.title}</h1>
+      <h1 class="text-3xl sm:text-4xl font-extrabold mb-5">{t!.data.pages.news.title}</h1>
       <ul class="flex flex-col gap-5">
         {
           page.data.map((entry) => (
@@ -40,7 +40,7 @@ const t = await getEntry('i18n', `${defaultLang}/translation`);
                     <Icon iconName="publish" width={20} height={20} />
                     <FormattedDate
                       date={entry.data.publishedAt}
-                      locale={defaultLang}
+                      locale={defaultLocale}
                     />
                   </div>
                   {entry.data.updatedAt && (
@@ -48,7 +48,7 @@ const t = await getEntry('i18n', `${defaultLang}/translation`);
                       <Icon iconName="update" width={20} height={20} />
                       <FormattedDate
                         date={entry.data.updatedAt}
-                        locale={defaultLang}
+                        locale={defaultLocale}
                       />
                     </div>
                   )}

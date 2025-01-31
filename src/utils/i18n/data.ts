@@ -1,11 +1,11 @@
-export type Language = keyof typeof languages;
-export type LangsWithoutDefault = typeof langList;
+export type Locale = keyof typeof locales;
+export type LangsWithoutDefault = typeof nonDefaultLocaleList;
 
-/* Add languages on an as-needed basis here */
-export const languages = {
+/* Add locales on an as-needed basis here */
+export const locales = {
   en: 'English',
   ja: '日本語',
-};
-export const langList = ['ja'] as const;
-
-export const defaultLang = 'en' as const;
+} as const;
+export const nonDefaultLocaleList = ['ja'] as const;
+export const localeList = ['en', 'ja'] as const;
+export const defaultLocale = 'en' as const;

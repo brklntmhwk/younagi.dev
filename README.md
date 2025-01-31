@@ -4,7 +4,7 @@
 
 ![younagi.dev site image](/public/placeholder.jpg)
 
-A website where Nagi, just another engineer & creator, posts his work and writings every so often.
+Website of Nagi, by Nagi, and for nobody.
 
 ## Tech stack
 
@@ -19,10 +19,8 @@ A website where Nagi, just another engineer & creator, posts his work and writin
 - **Framework:**
   - [SolidJS](https://www.solidjs.com/): A declarative, efficient and flexible JavaScript library for building UIs
 - **Styling:**
-  - ~~[Vanilla CSS](https://www.w3.org/Style/CSS/Overview.en.html): A simple mechanism for adding style to Web documents~~
-  - ~~[Vanilla Extract](https://vanilla-extract.style/): Zero-runtime stylesheets in TypeScript~~
-  - 👉 [Tailwind CSS](https://tailwindcss.com/): A utility-first CSS framework
   - [Astro's Scoped CSS](https://docs.astro.build/en/guides/styling/#scoped-styles): Vanilla CSS encapsulated inside Astro components
+  - [Tailwind CSS](https://tailwindcss.com/): A utility-first CSS framework
 - **DB:**
   - [Cloudflare D1](https://developers.cloudflare.com/d1/)([Sqlite](https://www.sqlite.org/)): Cloudflare’s native serverless database
 - **ORM:**

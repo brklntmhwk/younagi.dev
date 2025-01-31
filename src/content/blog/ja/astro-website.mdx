@@ -2,7 +2,7 @@
 draft: published
 level: 4
 type: blog
-title: Astro + Cloudflare Pages + D1 + Front Matter CMS で個人ウェブサイトを作った
+title: Astro + Cloudflare Pages + D1 で個人ウェブサイトを作った
 publishedAt: 2024-07-13T00:35:10.000Z
 category:
   metadata: ja/categories
@@ -16,15 +16,18 @@ tags:
     - cloudflare
     - markdown
     - pagefind
-updatedAt: 2025-01-24T02:57:17.355Z
-description: 動画の時代に個人ブログという茨の道を歩みたいオタクなあなたに贈る開発体験記。Astro + Cloudflare Pages + D1 + Front Matter CMS とその他諸々の構成で作った個人ウェブサイトの諸機能を紹介
+updatedAt: 2025-01-31T10:09:18.265Z
+description: 動画の時代に個人ブログという茨の道を歩みたいオタクなあなたに贈る開発体験記。Astro + Cloudflare Pages + D1 とその他諸々の構成で作った個人ウェブサイトの諸機能を紹介
 thumbnail: 🚀🌐🔧 ( •̀ᴗ•́ )و
 ---
 
 ## 更新
 
 - 2025 年 1 月
-  - コードブロックに関して、`rehype-pretty-code`から`astro-expressive-code`へ移行した
+  - コードブロックの実装を`rehype-pretty-code`から`astro-expressive-code`へ移行した
+  - Pagefind による検索にフィルター機能を追加した
+  - Astro v5 へのアップグレードに伴い、Content Collections を Content Layer API に変更した
+  - Canva と Google Slides の埋め込みサポートを止めた
 
 ## 導入
 
@@ -90,7 +93,7 @@ https://github.com/brklntmhwk/younagi.dev
 
 {/* textlint-disable ja-technical-writing/no-doubled-joshi */}
 ユーザの快適なブラウジングライフを支えるのに欠かせないのが検索機能である。
-インターネットの:ruby[古き良き日々(グッド・オールド・デイズ)]に想いを馳せるあまり、検索機能の実装を先延ばしにしてアクセスカウンターを実装することに躍起になっている個人ウェブサイトは後を絶たない。その生き様はとても格好イイと思う。だがしかし、それとこれとは別である。[^1]
+インターネットの:ruby[古き良き日々(グッド・オールド・デイズ)]に想いを馳せるあまり、アクセスカウンターを実装することに躍起になっている個人ウェブサイトは後を絶たない。その結果、検索機能の実装を先延ばしにしているケースも少なくない。その生き様はとても格好イイと思う。だがしかし、それとこれとは話が別である。[^1]
 
 [^1]: ネットの海を回遊しているとしばしば散見される。是非マグロにでもなった気分で海中遊泳を愉しんでみて欲しい。
 
@@ -108,6 +111,10 @@ https://github.com/brklntmhwk/younagi.dev
 - 検索窓にオートフォーカス
   - 検索モーダルを開くとカーソルが検索窓にオートフォーカスされる
 
+2025 年 1 月現在、長らく先延ばしにしていたフィルター検索機能を追加した。詳細は下記を参照されたし。
+
+https://younagi.dev/ja/blog/astro-with-pagefind-filtering-search/
+
 #### 多言語対応 (i18n)
 
 Astro は我々に代わってブログ記事やニュースなどのコンテンツ管理をよろしくやってくれる。それが[Content Collections API](https://docs.astro.build/en/guides/content-collections/)という機能である。
@@ -118,6 +125,10 @@ Astro は我々に代わってブログ記事やニュースなどのコンテ�
 ちなみにコンテンツは Markdown/MDX だけでなく、YAML や JSON 形式も可能。私は記事以外の手動翻訳文字列の保存に YAML 形式を採用した。
 
 ![content ディレクトリツリー](../../../assets/images/content-dir.png)
+
+2025 年 1 月現在、Astro v5 へのアップグレードを果たし、上記のディレクトリ構造にも大きな変更があった。その一部始終はこちらの記事に収めている。
+
+https://younagi.dev/ja/blog/upgrade-my-hybrid-website-to-astro-v5/
 
 #### OG 画像 (Open Graph)
 
@@ -317,21 +328,13 @@ const { title } = Astro.props
 
 ##### OEmbed(埋め込み)
 
-動画の時代に大手を振って個人ブログに舵を切った私だが、早くも心が揺らいでいる。結局、我々は大手テックカンパニーの掌の上で踊らされる宿命なのか・・・。
+動画の時代に大手を振って個人ブログに舵を切った私だが、早くも心が揺らいでいる。何処までいっても、我々は大手テックカンパニーの掌の上で踊らされる:ruby[宿命(さだめ)]なのか・・・。
 
-YouTube の魔の手から逃れることはできないと観念し、大人しくメディアの埋め込みを実装した。
-Canva、YouTube、そして Google Slides の変換処理をひとまず作成し、それ以外のメディアは[OEmbed](https://oembed.com/)の規格に応じて適宜メディアフレームに変身するよう、Remark プラグインを自作した。
-「これはあくまでセーフティネット、ブログで表現できる限りはこんな機能には頼らないんだから・・！」と自分に言い聞かせる。
+結局あっさりと:ruby[踊(ダンス)]っちまった私は、メディアの埋め込みを実装した。
+Canva、YouTube、そして Google Slides の変換処理をひとまず作成し、それ以外のメディアは[OEmbed](https://oembed.com/)の規格に応じて適宜メディアフレームに変身するよう Remark プラグインを自作した。
+「これはあくまでセーフティネット！ブログで表現できる域を出なければこんな機能には頼らないんだから・・！」と自分に言い聞かせる。
 
 ちなみに裏では[unfurl](https://github.com/jacktuck/unfurl)というライブラリが健気に働き、上記の規格に必要なメディアのメタデータを URL 経由で取得してくれている。
-
-###### Canva
-
-```txt
-https://www.canva.com/design/DAGKC41Tjws/zSEw1hvi9r30o5KiF96AGA/view
-```
-
-![ Canva埋め込みイメージ ](../../../assets/images/canva-embed.png)
 
 ###### YouTube
 
@@ -349,18 +352,7 @@ https://open.spotify.com/intl-ja/track/04z1fwsw1gXI8HWQpoETa9?si=862c02d3e52a49b
 
 https://open.spotify.com/intl-ja/track/04z1fwsw1gXI8HWQpoETa9?si=862c02d3e52a49b0
 
-###### Google Slides
-
-```txt
-https://docs.google.com/presentation/d/1CbeSiVYta0VTuENQ-25OLcIV5vK8pkcBJ-8DfKqlE2I/edit?usp=sharing
-```
-
-![ Google Slides埋め込みイメージ ](../../../assets/images/google-slides-embed.png)
-
-> [!warning]-
-> 埋め込みはしばしばページの読み込みやSEOに悪影響を及ぼす。
-> これは、ホストから膨大なJSコードや最適化されていない画像などをそのまま拝借するからであり、現にこのページの[PageSpeed Insights](https://pagespeed.web.dev/)スコアは悲惨なことになっていた。
-> 然り而して、一部をただの画像にすり替えた。実装にそれなりの年月を費やしただけあって、タンスの肥やしになる運命が見えてしまった今、ただただ後悔の念に押し潰されそうである。・・・と同時に、思いがけず他媒体に頼りづらい状況が生まれ、安堵する自分もそこには居た。
+2025 年 1 月現在、全然使わないので Canva と Google Slides の埋め込みサポートを止めた。愈々足し算が終わり、引き算の段階に差し掛かったのかもしれない。
 
 ##### リンクカード
 

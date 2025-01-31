@@ -20,7 +20,7 @@ export const getHProperties = async (transformer: Transformer, url: URL) => {
   return transformer.hProperties;
 };
 
-type MediaKind = 'canva' | 'google_slides' | 'youtube';
+type MediaKind = 'youtube';
 type Medium = {
   name: string;
   regExp: RegExp;
@@ -32,18 +32,6 @@ type MediaMap = {
 };
 
 const media = {
-  canva: {
-    name: 'Canva',
-    regExp: /^.*(design\/)([^#&?]*)(\/view).*/,
-    uidPosition: 2,
-    createSrc: (uid) => `https://www.canva.com/design/${uid}/view?embed`,
-  },
-  google_slides: {
-    name: 'Google Slides',
-    regExp: /^.*(d\/)(e\/[^/#&?]*|[^/#&?]*)\/(edit|pub)?(\?[^#]+)?(#.*)?$/,
-    uidPosition: 2,
-    createSrc: (uid) => `https://docs.google.com/presentation/d/${uid}/embed`,
-  },
   youtube: {
     name: 'YouTube',
     regExp: /^.*(watch\?v=|embed\/)([^/#&?]*).*/,
@@ -63,20 +51,6 @@ const convertToEmbedUrl = (url: URL, kind: MediaKind): string => {
   throw new Error(`Invalid ${medium.name} URL`);
 };
 
-export const canvaTransformer: Readonly<Transformer> = {
-  hName: 'iframe',
-  hProperties: async (url): Promise<HProperties> => {
-    return {
-      src: convertToEmbedUrl(url, 'canva'),
-      width: '100%',
-      height: '360',
-    };
-  },
-  shouldTransform: async (url) => {
-    return url.hostname === 'www.canva.com';
-  },
-};
-
 export const youTubeTransformer: Readonly<Transformer> = {
   hName: 'iframe',
   hProperties: async (url): Promise<HProperties> => {
@@ -88,27 +62,6 @@ export const youTubeTransformer: Readonly<Transformer> = {
   },
   shouldTransform: async (url) => {
     return url.hostname === 'www.youtube.com';
-  },
-};
-
-export const googleSlidesTransformer: Readonly<Transformer> = {
-  hName: 'iframe',
-  hProperties: async (url): Promise<HProperties> => {
-    return {
-      src: convertToEmbedUrl(url, 'google_slides'),
-      width: '100%',
-      frameBorder: '0',
-      allowFullScreen: 'true',
-      mozAllowFullScreen: 'true',
-      msAllowFullScreen: 'true',
-      style: 'aspect-ratio: 960/569;',
-    };
-  },
-  shouldTransform: async (url) => {
-    const isGoogleDocs = url.hostname === 'docs.google.com';
-    const isGoogleSlides = url.pathname.startsWith('/presentation/d/');
-
-    return isGoogleDocs && isGoogleSlides;
   },
 };
 

@@ -30,14 +30,11 @@ import remarkFootnote from './src/lib/unified/plugins/remark-footnote';
 import remarkLineBreaks from './src/lib/unified/plugins/remark-line-breaks';
 import remarkLinkCard from './src/lib/unified/plugins/remark-link-card';
 import {
-  canvaTransformer,
-  googleSlidesTransformer,
   oEmbedTransformer,
   youTubeTransformer,
 } from './src/lib/unified/transformers';
 import expressiveCode from "astro-expressive-code";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
-
 
 // https://astro.build/config
 export default defineConfig({
@@ -150,8 +147,6 @@ export default defineConfig({
         remarkEmbed,
         {
           transformers: [
-            canvaTransformer,
-            googleSlidesTransformer,
             youTubeTransformer,
             oEmbedTransformer,
           ],

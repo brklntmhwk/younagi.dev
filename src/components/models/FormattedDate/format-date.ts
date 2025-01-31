@@ -1,8 +1,8 @@
-import type { Language } from '@/utils/i18n/data';
+import type { Locale } from '@/utils/i18n/data';
 
 type FormateDate = (
   date: Date,
-  locale: Language,
+  locale: Locale,
   show?: {
     year: boolean;
     month: boolean;

@@ -6,7 +6,7 @@ import {
   FORM_TEXTAREA_MINLENGTH,
   TURNSTILE_SITE_VERIFICATION_URL,
 } from '@/lib/consts';
-import { defaultLang } from '@/utils/i18n/data';
+import { defaultLocale } from '@/utils/i18n/data';
 import type { APIContext, APIRoute } from 'astro';
 import { Resend } from 'resend';
 import {
@@ -27,8 +27,8 @@ export const POST: APIRoute = async ({
   redirect,
   locals,
 }: APIContext) => {
-  const t = await getEntry('i18n', `${defaultLang}/translation`);
-  const meta = await getEntry('meta', `${defaultLang}/site-data`);
+  const t = await getEntry('i18n', `${defaultLocale}/translation`);
+  const meta = await getEntry('meta', `${defaultLocale}/site-data`);
 
   const formSchema = object({
     name: pipe(string(), nonEmpty(t!.data.contact_form.name.required)),

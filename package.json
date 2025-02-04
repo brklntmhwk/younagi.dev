@@ -19,9 +19,8 @@
     "textlint": "textlint './src/content/'",
     "textlint:fix": "textlint --fix './src/content/'",
     "wrangler:typegen": "wrangler types",
-    "wrangler:dev": "wrangler pages dev --compatibility-date=2024-05-24 --proxy 3000 -- astro dev",
     "db:generate": "drizzle-kit generate",
-    "db:studio:prod": "drizzle-kit studio",
+    "db:studio": "drizzle-kit studio",
     "db:migrate:local": "wrangler d1 migrations apply younagi_dev_db --local",
     "db:migrate:prod": "wrangler d1 migrations apply younagi_dev_db"
   },

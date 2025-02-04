@@ -1,8 +1,8 @@
 {
-  description = "Pure Dev Environment for younagi.dev Built with Nix";
+  description = "Dev Environment for younagi.dev Built with Nix";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
   outputs = { self, nixpkgs }@inputs:
@@ -18,15 +18,21 @@
             bun
             commitizen
             lefthook
+            nodejs # Necessary to run `bun dev`
+            sqlite
             tailwindcss-language-server
             typescript-language-server
           ];
 
+          # This is required to make the `sharp` lib work properly.
+          # Refer to: https://discourse.nixos.org/t/how-to-solve-libstdc-not-found-in-shell-nix/25458
+          LD_LIBRARY_PATH="${pkgs.stdenv.cc.cc.lib}/lib";
+
           shellHook = ''
-            echo "Welcome to the development environment for younagi.dev!"
             lefthook install
+            echo "Welcome to the development environment for younagi.dev!"
           '';
         };
       });
-    }
+    };
 }

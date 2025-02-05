@@ -3,9 +3,11 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import solidJs from '@astrojs/solid-js';
 import tailwind from '@astrojs/tailwind';
+import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers';
 import compress from 'astro-compress';
+import expressiveCode from 'astro-expressive-code';
 import purgecss from 'astro-purgecss';
-import { defineConfig, passthroughImageService } from 'astro/config';
+import { defineConfig, envField, passthroughImageService } from 'astro/config';
 import { h } from 'hastscript';
 import rehypeAutolinkHeadings, {
   type Options as RehypeAutoLinkHeadingsOptions,
@@ -33,8 +35,6 @@ import {
   oEmbedTransformer,
   youTubeTransformer,
 } from './src/lib/unified/transformers';
-import expressiveCode from "astro-expressive-code";
-import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 
 // https://astro.build/config
 export default defineConfig({
@@ -45,12 +45,26 @@ export default defineConfig({
       persist: true,
     },
   }),
+  env: {
+    schema: {
+      // UNSPLASH_API_ACCESS_KEY: envField.string({
+      //   context: 'server',
+      //   access: 'secret',
+      // }),
+      TURNSTILE_SITE_KEY: envField.string({
+        context: 'client',
+        access: 'public',
+      }),
+    },
+  },
   image: {
     service: passthroughImageService(),
-    remotePatterns: [{
-      protocol: 'https',
-      hostname: 'images.unsplash.com',
-    }],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+    ],
   },
   integrations: [
     expressiveCode({
@@ -77,7 +91,14 @@ export default defineConfig({
       fontFace: true,
       keyframes: true,
       safelist: {
-        standard: [/hover:/, /before:/, /after:/, /^peer-checked:/, /^has-\[.*]/, /^\[&>.*]/],
+        standard: [
+          /hover:/,
+          /before:/,
+          /after:/,
+          /^peer-checked:/,
+          /^has-\[.*]/,
+          /^\[&>.*]/,
+        ],
       },
       extractors: [
         {
@@ -146,10 +167,7 @@ export default defineConfig({
       [
         remarkEmbed,
         {
-          transformers: [
-            youTubeTransformer,
-            oEmbedTransformer,
-          ],
+          transformers: [youTubeTransformer, oEmbedTransformer],
         } satisfies RemarkEmbedOptions,
       ],
       remarkLinkCard,

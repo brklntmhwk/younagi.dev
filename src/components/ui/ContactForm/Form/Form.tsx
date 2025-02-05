@@ -1,3 +1,4 @@
+import { TURNSTILE_SITE_KEY } from 'astro:env/client';
 import { locale } from '@/components/functional/LocaleStore/locale-store';
 import type { I18nData } from '@/lib/collections/types';
 import { FORM_TEXTAREA_MINLENGTH } from '@/lib/consts';
@@ -9,7 +10,7 @@ import {
   valiForm,
 } from '@modular-forms/solid';
 import { useStore } from '@nanostores/solid';
-import type { Component } from 'solid-js';
+import { type Component, splitProps } from 'solid-js';
 import toast from 'solid-toast';
 import {
   type InferOutput,
@@ -23,41 +24,46 @@ import {
   string,
 } from 'valibot';
 import wretch, { type WretchError } from 'wretch';
-import { Checkbox } from './Checkbox/Checkbox';
-import { SubmitButton } from './SubmitButton/SubmitButton';
-import { TextField } from './TextField/TextField';
-import { Turnstile } from './Turnstile/Turnstile';
-import { isWretchError } from './error-is';
+import { Checkbox } from '../Checkbox/Checkbox';
+import { SubmitButton } from '../SubmitButton/SubmitButton';
+import { TextField } from '../TextField/TextField';
+import { Turnstile } from '../Turnstile/Turnstile';
+import { isWretchError } from '../error-is';
 
 type Props = {
   t: I18nData<'contact_form'>;
-  turnstileSiteKey: string;
 };
 
-export const ContactForm: Component<Props> = ({ t, turnstileSiteKey }) => {
+export const Form: Component<Props> = (props) => {
+  const [local, _] = splitProps(props, ['t']);
+
   /** Form schema must be inside this component to apply translated strings.
    * Putting the async getEntry function for i18n outside and using it here is also possible,
    * but it brings about a warning that using async functions from Astro Content Collections in that way will be deprecated in the future. (As of July 2024)
    * */
   const formSchema = object({
-    name: pipe(string(), nonEmpty(t.name.required)),
-    email: pipe(string(), nonEmpty(t.email.required), email(t.email.invalid)),
+    name: pipe(string(), nonEmpty(local.t.name.required)),
+    email: pipe(
+      string(),
+      nonEmpty(local.t.email.required),
+      email(local.t.email.invalid),
+    ),
     message: pipe(
       string(),
-      nonEmpty(t.message.required),
-      minLength(FORM_TEXTAREA_MINLENGTH, t.message.minlength),
+      nonEmpty(local.t.message.required),
+      minLength(FORM_TEXTAREA_MINLENGTH, local.t.message.minlength),
     ),
     confirmation: pipe(
       boolean(),
-      check((input) => input === true, t.confirmation.required),
+      check((input) => input === true, local.t.confirmation.required),
     ),
     'cf-turnstile-response': string(),
   });
 
-  type FormFields = InferOutput<typeof formSchema>;
-
   const $locale = useStore(locale);
   const translatePath = useTranslatedPath($locale());
+
+  type FormFields = InferOutput<typeof formSchema>;
 
   const [contactForm, { Form, Field }] = createForm<FormFields>({
     validateOn: 'submit',
@@ -73,7 +79,7 @@ export const ContactForm: Component<Props> = ({ t, turnstileSiteKey }) => {
 
       toast.error(
         `${errorMessage}\n
-        ${t.error_handler_message}`,
+        ${local.t.error_handler_message}`,
         {
           position: 'bottom-right',
           duration: 8000,
@@ -82,14 +88,14 @@ export const ContactForm: Component<Props> = ({ t, turnstileSiteKey }) => {
       console.error(errorMessage);
     } else {
       toast.error(
-        `${t.unexpected_error_message}: ${e}\n
-        ${t.error_handler_message}`,
+        `${local.t.unexpected_error_message}: ${e}\n
+        ${local.t.error_handler_message}`,
         {
           position: 'bottom-right',
           duration: 8000,
         },
       );
-      console.trace(`${t.unexpected_error_message}: ${e}`);
+      console.trace(`${local.t.unexpected_error_message}: ${e}`);
     }
   };
 
@@ -120,7 +126,7 @@ export const ContactForm: Component<Props> = ({ t, turnstileSiteKey }) => {
           <TextField
             {...props}
             type="text"
-            label={t.name.label}
+            label={local.t.name.label}
             value={field.value || ''}
             error={field.error}
           />
@@ -131,7 +137,7 @@ export const ContactForm: Component<Props> = ({ t, turnstileSiteKey }) => {
           <TextField
             {...props}
             type="email"
-            label={t.email.label}
+            label={local.t.email.label}
             value={field.value || ''}
             error={field.error}
           />
@@ -142,7 +148,7 @@ export const ContactForm: Component<Props> = ({ t, turnstileSiteKey }) => {
           <TextField
             {...props}
             type="text"
-            label={t.message.label}
+            label={local.t.message.label}
             value={field.value || ''}
             error={field.error}
             multiline
@@ -153,7 +159,7 @@ export const ContactForm: Component<Props> = ({ t, turnstileSiteKey }) => {
         {(field, props) => (
           <Checkbox
             {...props}
-            label={t.confirmation.label}
+            label={local.t.confirmation.label}
             checked={field.value ?? false}
             error={field.error}
           />
@@ -163,7 +169,7 @@ export const ContactForm: Component<Props> = ({ t, turnstileSiteKey }) => {
         {(field, props) => (
           <>
             <Turnstile
-              siteKey={turnstileSiteKey}
+              siteKey={TURNSTILE_SITE_KEY}
               size="normal"
               locale={$locale()}
               onVerify={handleVerify}
@@ -177,7 +183,9 @@ export const ContactForm: Component<Props> = ({ t, turnstileSiteKey }) => {
           </>
         )}
       </Field>
-      <SubmitButton label={contactForm.submitting ? t.submitting : t.submit} />
+      <SubmitButton
+        label={contactForm.submitting ? local.t.submitting : local.t.submit}
+      />
     </Form>
   );
 };

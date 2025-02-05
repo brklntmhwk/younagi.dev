@@ -2,7 +2,7 @@
   description = "Dev Environment for younagi.dev Built with Nix";
 
   inputs = {
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
   outputs = { self, nixpkgs }@inputs:
@@ -19,7 +19,6 @@
             commitizen
             lefthook
             nodejs # Necessary to run `bun dev`
-            sqlite
             tailwindcss-language-server
             typescript-language-server
           ];
@@ -29,8 +28,7 @@
           LD_LIBRARY_PATH="${pkgs.stdenv.cc.cc.lib}/lib";
 
           shellHook = ''
-            lefthook install
-            echo "Welcome to the development environment for younagi.dev!"
+            echo "+++ Welcome to the Nix dev land for younagi.dev +++"
           '';
         };
       });

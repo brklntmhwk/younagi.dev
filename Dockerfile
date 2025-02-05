@@ -87,6 +87,9 @@ ARG BIN_BASE_PATH=/usr/local/bin
 ENV PNPM_HOME="$BIN_BASE_PATH/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 
+# Explicitly install corepack
+RUN npm install -g corepack
+
 # Enable pnpm
 RUN corepack enable pnpm
 

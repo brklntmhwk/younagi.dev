@@ -6,6 +6,9 @@
   "version": "0.0.1",
   "author": "Nagi",
   "license": "MIT",
+  "engines": {
+    "bun": "^1.0.0"
+  },
   "scripts": {
     "preinstall": "npx only-allow bun",
     "astro": "astro",
@@ -19,9 +22,8 @@
     "textlint": "textlint './src/content/'",
     "textlint:fix": "textlint --fix './src/content/'",
     "wrangler:typegen": "wrangler types",
-    "wrangler:dev": "wrangler pages dev --compatibility-date=2024-05-24 --proxy 3000 -- astro dev",
     "db:generate": "drizzle-kit generate",
-    "db:studio:prod": "drizzle-kit studio",
+    "db:studio": "drizzle-kit studio",
     "db:migrate:local": "wrangler d1 migrations apply younagi_dev_db --local",
     "db:migrate:prod": "wrangler d1 migrations apply younagi_dev_db"
   },
@@ -71,6 +73,7 @@
     "autoprefixer": "^10.4.20",
     "better-sqlite3": "^11.5.0",
     "blurhash": "^2.0.5",
+    "cz-git": "^1.11.0",
     "danger": "^12.3.3",
     "drizzle-kit": "^0.28.0",
     "hast": "^1.0.0",
@@ -116,9 +119,6 @@
     "unist-util-visit": "^5.0.0",
     "unsplash-js": "^7.0.19",
     "wrangler": "^3.84.1"
-  },
-  "engines": {
-    "bun": "^1.0.0"
   },
   "trustedDependencies": ["@biomejs/biome", "esbuild", "sharp"]
 }

@@ -12,6 +12,7 @@ Website of Nagi, by Nagi, and for nobody.
   - [TypeScript](https://www.typescriptlang.org/): JavaScript with syntax for types
   - [TSX](https://www.typescriptlang.org/docs/handbook/jsx.html): JSX, an embeddable XML-like syntax, written in TypeScript
   - [YAML](https://yaml.org/): A human-friendly data serialization language
+  - [The Nix Language](https://nix.dev/manual/nix/2.18/language/): Nix's DSL
 - **Data format**:
   - [JSON](https://www.json.org/json-en.html): A lightweight data-interchange format
 - **Meta framework:**
@@ -26,6 +27,7 @@ Website of Nagi, by Nagi, and for nobody.
 - **ORM:**
   - [Drizzle ORM](https://orm.drizzle.team/): A lightweight and performant TypeScript ORM
 - **Dev:**
+  - [Nix](https://nixos.org/): A tool to make reproducible, declarative, and reliable systems
   - [Dev Containers](https://code.visualstudio.com/docs/devcontainers/containers): Docker containers that are specifically configured to provide a fully featured development environment
   - [Docker](https://www.docker.com/): An open platform for developing, shipping, and running applications
 - **CI/CD:**
@@ -54,9 +56,9 @@ Website of Nagi, by Nagi, and for nobody.
 
 ## Ready, Set, Go!
 
-This section is a memo for myself assuming there are other project members or contributers.
+This section is a reminder for myself assuming there are other project members or contributers.
 
-### Prerequisites
+### Prerequisites [WIP]
 
 You need to:
 
@@ -66,7 +68,7 @@ You need to:
 > [!IMPORTANT]
 > You can also start coding without them, but need to install required packages and libraries in your local in that case.
 
-### The Dev Workflow
+### The Dev Workflow [WIP]
 
 This project adopts Issue-driven Development.
 
@@ -112,7 +114,7 @@ This project adopts Issue-driven Development.
 9. Confirm if the merge is done without any problem and then delete the remote branch from [this page](https://github.com/brklntmhwk/younagi.dev/branches)
     - Execute `git switch main` > `git branch -d [[the branch name]]` to delete the one in local
 
-### Setup for coding
+### Setup for coding [WIP]
 
 #### Outside the container
 

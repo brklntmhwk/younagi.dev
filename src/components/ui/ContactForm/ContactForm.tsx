@@ -31,9 +31,10 @@ import { isWretchError } from './error-is';
 
 type Props = {
   t: I18nData<'contact_form'>;
+  turnstileSiteKey: string;
 };
 
-export const ContactForm: Component<Props> = ({ t }) => {
+export const ContactForm: Component<Props> = ({ t, turnstileSiteKey }) => {
   /** Form schema must be inside this component to apply translated strings.
    * Putting the async getEntry function for i18n outside and using it here is also possible,
    * but it brings about a warning that using async functions from Astro Content Collections in that way will be deprecated in the future. (As of July 2024)
@@ -162,7 +163,7 @@ export const ContactForm: Component<Props> = ({ t }) => {
         {(field, props) => (
           <>
             <Turnstile
-              siteKey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY}
+              siteKey={turnstileSiteKey}
               size="normal"
               locale={$locale()}
               onVerify={handleVerify}

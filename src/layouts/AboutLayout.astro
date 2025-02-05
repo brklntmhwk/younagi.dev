@@ -4,9 +4,10 @@ import ProfileImage from '@/assets/images/profile.png';
 import { Article } from '@/components/models/Article';
 import { Prose } from '@/components/models/Prose';
 import { Toc } from '@/components/models/Toc';
-import { ContactForm } from '@/components/ui/ContactForm/ContactForm';
-import { Icon } from '@/components/ui/Icon';
-import { Modal } from '@/components/ui/Modal/Modal';
+import { ContactForm } from '@/components/ui/ContactForm';
+// import { ContactForm } from '@/components/ui/ContactForm';
+// import { Icon } from '@/components/ui/Icon';
+// import { Modal } from '@/components/ui/Modal/Modal';
 import { ProfileIcon } from '@/components/ui/ProfileIcon';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getLocaleFromUrl } from '@/utils/i18n/utils';
@@ -20,7 +21,7 @@ const locale = getLocaleFromUrl(Astro.url);
 const meta = await getEntry('meta', `${locale}/site-data`);
 const t = await getEntry('i18n', `${locale}/translation`);
 const { headings } = Astro.props;
-const turnstileSiteKey = Astro.locals.runtime.env.TURNSTILE_SITE_KEY;
+// const turnstileSiteKey = Astro.locals.runtime.env.TURNSTILE_SITE_KEY;
 ---
 
 <BaseLayout
@@ -40,7 +41,8 @@ const turnstileSiteKey = Astro.locals.runtime.env.TURNSTILE_SITE_KEY;
           />
           <span class="text-xl font-bold">{t!.data.pages.about.my_name}</span>
         </div>
-        <div class="contact">
+        <ContactForm server:defer />
+        <!-- <div class="contact">
           <Modal
             client:only="solid"
             modalName="contact"
@@ -51,7 +53,7 @@ const turnstileSiteKey = Astro.locals.runtime.env.TURNSTILE_SITE_KEY;
             <ContactForm client:only="solid" t={t!.data.contact_form} {turnstileSiteKey} />
             <Icon slot="icon" iconName="mail" width={28} height={28} />
           </Modal>
-        </div>
+        </div> -->
         <Toc {headings} />
       </section>
       <Prose slot="content">

@@ -1,23 +1,21 @@
 ---
-import { getCollection, getEntry } from 'astro:content';
+import { getEntry } from 'astro:content';
 import { CardGrid } from '@/components/elements/Card';
 import { ACCOUNT_ID, UNSPLASH_BASE_URL } from '@/lib/consts';
 import { getLocaleFromUrl } from '@/utils/i18n/utils';
-import PhotoItem from './PhotoItem.astro';
+
+type Props = {
+  username: string;
+};
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = await getEntry('i18n', `${locale}/translation`);
-const photos = await getCollection('photo');
-const username = photos[0]?.data.user.name;
+const { username } = Astro.props;
 ---
 
 <div class="flex flex-col gap-6 py-5 px-1">
   <CardGrid>
-    {
-      photos.map((photo, i) => (
-        <PhotoItem {photo} order={i + 1} />
-      ))
-    }
+    <slot />
   </CardGrid>
   <aside>
     <p class="text-sm md:text-base">

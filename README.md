@@ -120,13 +120,11 @@ This project adopts Issue-driven Development.
 
 1. Create `.env` and `.dev.vars` at the root
     - see `.env.example` and `.dev.vars.example` for reference, respectively
-    - At this moment, you can't set the `LOCAL_DB_PATH` var yet
 
 #### Inside the container
 
-1. Set the `LOCAL_DB_PATH` var looking up the dir ".wrangler/state/v3/d1/miniflare-D1DatabaseObject/"
-2. Run `bun dev --host` to start the dev server
-3. Access the localhost URL shown
+1. Run `bun dev --host` to start the dev server
+2. Access the localhost URL
 
 ## License
 

@@ -18,14 +18,13 @@ export const form = {
       locale: z.string(),
     }),
     handler: async (input, ctx) => {
-      if (!input.locale) {
-        throw new ActionError({
-          code: 'NOT_FOUND',
-          message: 'Locale not found. It must be specified.',
-        });
-      }
-
-      const locale = input.locale;
+      const {
+        name,
+        email,
+        message,
+        'cf-turnstile-response': turnstileToken,
+        locale,
+      } = input;
       const t = await getEntry('i18n', `${locale}/translation`);
       const meta = await getEntry('meta', `${locale}/site-data`);
 
@@ -54,7 +53,6 @@ export const form = {
             'error-codes': TurnstileErrorCode[];
           };
 
-      const turnstileToken = input['cf-turnstile-response'];
       const secretKey = ctx.locals.runtime.env.TURNSTILE_SECRET_KEY;
 
       const turnstileResult = await wretch(TURNSTILE_SITE_VERIFICATION_URL)
@@ -84,9 +82,9 @@ export const form = {
       const mailContent = {
         from: `${meta!.data.site.title} <${myCustomAddress}>`,
         to: [myCustomAddress],
-        subject: `${CONTACT_NOTIFICATION_SUBJECT} from ${input.name}`,
-        text: `Name:\n${input.name}\nEmail:\n${input.email}\nMessage:\n${input.message}`,
-        reply_to: `${input.name} <${input.email}>`,
+        subject: `${CONTACT_NOTIFICATION_SUBJECT} from ${name}`,
+        text: `Name:\n${name}\nEmail:\n${email}\nMessage:\n${message}`,
+        reply_to: `${name} <${email}>`,
       };
 
       const resendResult = await resend.emails.send(mailContent);

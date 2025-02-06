@@ -3,7 +3,6 @@ export const DEFAULT_PAGINATION_WIDTH = 2;
 export const TOC_MINIMUM_COUNT = 3;
 export const BLOG_LATEST_MAXIMUM_COUNT = 3;
 export const NEWS_LATEST_MAXIMUM_COUNT = 3;
-export const DEFAULT_PHOTO_COUNT = 6;
 export const FORM_TEXTAREA_ROWS = 5;
 export const FORM_TEXTAREA_MINLENGTH = 25;
 export const TURNSTILE_RETRY_INTERVAL = 15000;

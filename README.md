@@ -34,7 +34,7 @@ Website of Nagi, by Nagi, and for nobody.
   - [Github Actions](https://github.co.jp/features/actions): A CI/CD platform fully based in Github
   - [DangerJS](https://danger.systems/js/): An automation tool for your team's conventions surrounding code review
 - **Commit management:**
-  - [Git-cz](https://ttys3.github.io/git-cz/): A Conventional commit CLI
+  - [czg](https://cz-git.qbb.sh/cli/): A Conventional commit CLI
 - **Deployment:**
   - [Cloudflare Pages](https://pages.cloudflare.com/): A JAMstack platform for frontend developers to collaborate and deploy websites
 - **CMS:**

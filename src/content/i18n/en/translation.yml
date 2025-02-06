@@ -66,6 +66,7 @@ contact_form:
   submitting: Submitting...
   error_handler_message: Please try again.
   unexpected_error_message: Unexpected error occurred
+  thanks_message: Thank you for taking your time! I will usually get back to you in a week, but that might change depending on my schedule.
 link_card:
   image_fallback_alt: site or page image
 og_image:

@@ -66,6 +66,7 @@ contact_form:
   submitting: 送信中...
   error_handler_message: 再度お試しください
   unexpected_error_message: 予期せぬエラーが発生しました
+  thanks_message: ありがとうございます。大抵の場合、返信は一週間以内に行いますが、スケジュールによっては前後する場合があります。何卒ご了承ください。
 link_card:
   image_fallback_alt: サイト・ページのイメージ
 og_image:

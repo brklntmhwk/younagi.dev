@@ -1,0 +1,21 @@
+---
+import { getEntry } from 'astro:content';
+import { Icon } from '@/components/ui/Icon';
+import { Modal } from '@/components/ui/Modal/Modal';
+import { getLocaleFromUrl } from '@/utils/i18n/utils';
+import { Form } from './Form/Form';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = await getEntry('i18n', `${locale}/translation`);
+---
+
+<Modal
+  client:only="solid"
+  modalName="contact"
+  buttonLabel={t!.data.pages.about.contact_me}
+  iconLabel={t!.data.pages.about.contact_me}
+  buttonStyle="bg-transparent"
+>
+  <Form client:only="solid" t={t!.data.contact_form} />
+  <Icon slot="icon" iconName="mail" width={28} height={28} />
+</Modal>

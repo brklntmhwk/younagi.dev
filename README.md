@@ -34,7 +34,7 @@ Website of Nagi, by Nagi, and for nobody.
   - [Github Actions](https://github.co.jp/features/actions): A CI/CD platform fully based in Github
   - [DangerJS](https://danger.systems/js/): An automation tool for your team's conventions surrounding code review
 - **Commit management:**
-  - [Git-cz](https://ttys3.github.io/git-cz/): A Conventional commit CLI
+  - [czg](https://cz-git.qbb.sh/cli/): A Conventional commit CLI
 - **Deployment:**
   - [Cloudflare Pages](https://pages.cloudflare.com/): A JAMstack platform for frontend developers to collaborate and deploy websites
 - **CMS:**
@@ -120,13 +120,11 @@ This project adopts Issue-driven Development.
 
 1. Create `.env` and `.dev.vars` at the root
     - see `.env.example` and `.dev.vars.example` for reference, respectively
-    - At this moment, you can't set the `LOCAL_DB_PATH` var yet
 
 #### Inside the container
 
-1. Set the `LOCAL_DB_PATH` var looking up the dir ".wrangler/state/v3/d1/miniflare-D1DatabaseObject/"
-2. Run `bun dev --host` to start the dev server
-3. Access the localhost URL shown
+1. Run `bun dev --host` to start the dev server
+2. Access the localhost URL
 
 ## License
 

@@ -49,7 +49,7 @@
         "autoprefixer": "^10.4.20",
         "better-sqlite3": "^11.5.0",
         "blurhash": "^2.0.5",
-        "cz-git": "^1.11.0",
+        "czg": "^1.11.0",
         "danger": "^12.3.3",
         "drizzle-kit": "^0.28.0",
         "hast": "^1.0.0",
@@ -912,7 +912,7 @@
 
     "csstype": ["csstype@3.1.3", "", {}, "sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw=="],
 
-    "cz-git": ["cz-git@1.11.0", "", {}, "sha512-FCNkpyVmNPX0P8kHtX8uoFcXsJ4bjivMXVS5vc/qCyM8jj+Tuqo6CXQjGQKwKl0Lk9VNz7o6JfPoU/mM/XhxqA=="],
+    "czg": ["czg@1.11.0", "", { "bin": { "czg": "bin/index.js", "git-czg": "bin/index.js" } }, "sha512-go39avnHPvDn1HF4LS1qxj5XPGCQexZ9+y8f+0VlE9plZgRyWUOl4rUCwE4vD1azouIhz/KaauB45A7jPfMxpw=="],
 
     "danger": ["danger@12.3.3", "", { "dependencies": { "@gitbeaker/rest": "^38.0.0", "@octokit/rest": "^18.12.0", "async-retry": "1.2.3", "chalk": "^2.3.0", "commander": "^2.18.0", "core-js": "^3.8.2", "debug": "^4.1.1", "fast-json-patch": "^3.0.0-1", "get-stdin": "^6.0.0", "http-proxy-agent": "^5.0.0", "https-proxy-agent": "^5.0.1", "hyperlinker": "^1.0.0", "json5": "^2.2.3", "jsonpointer": "^5.0.0", "jsonwebtoken": "^9.0.0", "lodash.find": "^4.6.0", "lodash.includes": "^4.3.0", "lodash.isobject": "^3.0.2", "lodash.keys": "^4.0.8", "lodash.mapvalues": "^4.6.0", "lodash.memoize": "^4.1.2", "memfs-or-file-map-to-github-branch": "^1.2.1", "micromatch": "^4.0.4", "node-cleanup": "^2.1.2", "node-fetch": "^2.6.7", "override-require": "^1.1.1", "p-limit": "^2.1.0", "parse-diff": "^0.7.0", "parse-git-config": "^2.0.3", "parse-github-url": "^1.0.2", "parse-link-header": "^2.0.0", "pinpoint": "^1.1.0", "prettyjson": "^1.2.1", "readline-sync": "^1.4.9", "regenerator-runtime": "^0.13.9", "require-from-string": "^2.0.2", "supports-hyperlinks": "^1.0.1" }, "bin": { "danger": "distribution/commands/danger.js", "danger-ci": "distribution/commands/danger-ci.js", "danger-init": "distribution/commands/danger-init.js", "danger-js": "distribution/commands/danger.js", "danger-local": "distribution/commands/danger-local.js", "danger-pr": "distribution/commands/danger-pr.js", "danger-process": "distribution/commands/danger-process.js", "danger-reset-status": "distribution/commands/danger-reset-status.js", "danger-runner": "distribution/commands/danger-runner.js" } }, "sha512-nZKzpgXN21rr4dwa6bFhM7G2JEa79dZRJiT3RVRSyi4yk1/hgZ2f8HDGoa7tMladTmu8WjJFyE3LpBIihh+aDw=="],
 

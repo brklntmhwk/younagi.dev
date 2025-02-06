@@ -21,11 +21,12 @@
     "lint:fix": "bunx biome check --write ./src/",
     "textlint": "textlint './src/content/'",
     "textlint:fix": "textlint --fix './src/content/'",
-    "wrangler:typegen": "wrangler types",
+    "wrangler:type": "wrangler types",
     "db:generate": "drizzle-kit generate",
     "db:studio": "drizzle-kit studio",
     "db:migrate:local": "wrangler d1 migrations apply younagi_dev_db --local",
-    "db:migrate:prod": "wrangler d1 migrations apply younagi_dev_db"
+    "db:migrate:prod": "wrangler d1 migrations apply younagi_dev_db",
+    "cz": "czg"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -73,7 +74,7 @@
     "autoprefixer": "^10.4.20",
     "better-sqlite3": "^11.5.0",
     "blurhash": "^2.0.5",
-    "cz-git": "^1.11.0",
+    "czg": "^1.11.0",
     "danger": "^12.3.3",
     "drizzle-kit": "^0.28.0",
     "hast": "^1.0.0",

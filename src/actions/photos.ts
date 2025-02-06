@@ -23,7 +23,7 @@ export const photos = {
       if (res.type === 'error') {
         throw new ActionError({
           code: 'INTERNAL_SERVER_ERROR',
-          message: `Failed to fetch Unsplash photos: ${res.errors[0]} ${accessKey}`,
+          message: `Failed to fetch Unsplash photos: ${res.errors[0]}`,
         });
       }
 

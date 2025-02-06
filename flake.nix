@@ -16,7 +16,6 @@
           buildInputs = with pkgs; [
             astro-language-server
             bun
-            commitizen
             lefthook
             nodejs # Necessary to run `bun dev`
             tailwindcss-language-server

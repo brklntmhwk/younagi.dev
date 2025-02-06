@@ -1,21 +1,15 @@
+import { actions } from 'astro:actions';
 import { locale } from '@/components/functional/LocaleStore/locale-store';
 import type { I18nData } from '@/lib/collections/types';
-import type { Locale } from '@/utils/i18n/data';
-import { useTranslatedPath } from '@/utils/i18n/utils';
 import { useStore } from '@nanostores/solid';
 import { type Component, createResource } from 'solid-js';
 import toast from 'solid-toast';
-import wretch from 'wretch';
 import { LikeIcon } from './LikeIcon';
 
-type FetcherProps = Omit<Props, 't'> & { locale: Locale };
+type FetcherProps = Omit<Props, 't'>;
 
-const fetchLikes = async ({ slug, collection, locale }: FetcherProps) => {
-  const translatePath = useTranslatedPath(locale);
-  const data = (await wretch()
-    .url(translatePath(`/api/likes/?slug=${slug}&collection=${collection}`))
-    .get()
-    .json()) as { likes: number; liked: boolean };
+const fetchLikes = async ({ slug, collection }: FetcherProps) => {
+  const data = await actions.likes.fetch.orThrow({ slug, collection });
 
   return data;
 };
@@ -28,7 +22,6 @@ type Props = {
 
 export const Likes: Component<Props> = (props) => {
   const $locale = useStore(locale);
-  const translatePath = useTranslatedPath($locale());
   const [likes, { refetch, mutate }] = createResource(
     () => ({
       slug: props.slug,
@@ -39,13 +32,10 @@ export const Likes: Component<Props> = (props) => {
   );
 
   const handleClick = async () => {
-    await wretch()
-      .url(translatePath('/api/likes/'))
-      .post({
-        slug: props.slug,
-        collection: props.collection,
-      })
-      .res();
+    await actions.likes.update({
+      slug: props.slug,
+      collection: props.collection,
+    });
 
     mutate((prev) => {
       const previous = prev ?? { likes: 0, liked: false };
@@ -58,7 +48,7 @@ export const Likes: Component<Props> = (props) => {
       }
 
       return {
-        likes: previous.likes + (previous.liked ? -1 : 1),
+        likes: previous.likes! + (previous.liked ? -1 : 1),
         liked: !previous.liked,
       };
     });

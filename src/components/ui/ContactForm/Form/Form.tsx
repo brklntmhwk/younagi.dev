@@ -1,11 +1,12 @@
+import { type ActionError, actions } from 'astro:actions';
 import { TURNSTILE_SITE_KEY } from 'astro:env/client';
 import { locale } from '@/components/functional/LocaleStore/locale-store';
 import type { I18nData } from '@/lib/collections/types';
 import { FORM_TEXTAREA_MINLENGTH } from '@/lib/consts';
-import { useTranslatedPath } from '@/utils/i18n/utils';
 import {
   type SubmitHandler,
   createForm,
+  reset,
   setValue,
   valiForm,
 } from '@modular-forms/solid';
@@ -23,12 +24,11 @@ import {
   pipe,
   string,
 } from 'valibot';
-import wretch, { type WretchError } from 'wretch';
 import { Checkbox } from '../Checkbox/Checkbox';
 import { SubmitButton } from '../SubmitButton/SubmitButton';
 import { TextField } from '../TextField/TextField';
 import { Turnstile } from '../Turnstile/Turnstile';
-import { isWretchError } from '../error-is';
+import { isAstroActionError } from './error-is';
 
 type Props = {
   t: I18nData<'contact_form'>;
@@ -61,7 +61,6 @@ export const Form: Component<Props> = (props) => {
   });
 
   const $locale = useStore(locale);
-  const translatePath = useTranslatedPath($locale());
 
   type FormFields = InferOutput<typeof formSchema>;
 
@@ -71,21 +70,21 @@ export const Form: Component<Props> = (props) => {
     validate: valiForm(formSchema),
   });
 
-  const handleError = (e: unknown | WretchError) => {
-    if (isWretchError(e)) {
-      const errorMessage = `
-      ${e.status} ${e.response.statusText}
+  const handleError = (e: ActionError | unknown) => {
+    if (isAstroActionError(e)) {
+      const errLog = `
+      ${e.status} ${e.code}
       ${e.message}`;
 
       toast.error(
-        `${errorMessage}\n
+        `${errLog}\n
         ${local.t.error_handler_message}`,
         {
           position: 'bottom-right',
           duration: 8000,
         },
       );
-      console.error(errorMessage);
+      console.error(errLog);
     } else {
       toast.error(
         `${local.t.unexpected_error_message}: ${e}\n
@@ -100,19 +99,19 @@ export const Form: Component<Props> = (props) => {
   };
 
   const handleSubmit: SubmitHandler<FormFields> = async (values) => {
-    try {
-      await wretch()
-        .url(translatePath('/api/form/'))
-        .post(values)
-        .error(422, (err) => handleError(err))
-        .badRequest((err) => handleError(err))
-        .internalError((err) => handleError(err))
-        .notFound((err) => handleError(err))
-        .fetchError((err) => handleError(err))
-        .res((r) => window.location.replace(r.url));
-    } catch (err) {
-      handleError(err);
+    const { data, error } = await actions.form.submit({
+      locale: $locale(),
+      ...values,
+    });
+    if (error) {
+      handleError(error);
+    } else {
+      toast.success(data.message, {
+        position: 'bottom-right',
+        duration: 8000,
+      });
     }
+    reset(contactForm);
   };
 
   const handleVerify = (token: string) => {

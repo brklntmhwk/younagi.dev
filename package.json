@@ -21,7 +21,7 @@
     "lint:fix": "bunx biome check --write ./src/",
     "textlint": "textlint './src/content/'",
     "textlint:fix": "textlint --fix './src/content/'",
-    "wrangler:typegen": "wrangler types",
+    "wrangler:type": "wrangler types",
     "db:generate": "drizzle-kit generate",
     "db:studio": "drizzle-kit studio",
     "db:migrate:local": "wrangler d1 migrations apply younagi_dev_db --local",

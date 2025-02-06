@@ -1,21 +1,27 @@
 ---
+import { actions } from 'astro:actions';
 import { getEntry } from 'astro:content';
 import { CardGrid } from '@/components/elements/Card';
 import { ACCOUNT_ID, UNSPLASH_BASE_URL } from '@/lib/consts';
 import { getLocaleFromUrl } from '@/utils/i18n/utils';
-
-type Props = {
-  username: string;
-};
+import PhotoItem from './PhotoItem.astro';
+// import PhotoSkelton from './PhotoSkelton.astro';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = await getEntry('i18n', `${locale}/translation`);
-const { username } = Astro.props;
+const photos = await Astro.callAction(actions.photos.fetch.orThrow, {
+  username: ACCOUNT_ID,
+});
+const username = photos[0]?.user.username!;
 ---
 
 <div class="flex flex-col gap-6 py-5 px-1">
   <CardGrid>
-    <slot />
+    {
+      photos.map((photo, i) => (
+        <PhotoItem {photo} order={i + 1} />
+      ))
+    }
   </CardGrid>
   <aside>
     <p class="text-sm md:text-base">

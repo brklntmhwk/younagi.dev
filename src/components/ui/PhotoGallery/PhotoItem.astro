@@ -1,5 +1,5 @@
 ---
-import { /* type CollectionEntry, */ getEntry } from 'astro:content';
+import { getEntry } from 'astro:content';
 import { Image } from '@/components/elements/Figure';
 import { ProfileIcon } from '@/components/ui/ProfileIcon';
 import { getBlur } from '@/lib/blur';
@@ -11,7 +11,6 @@ import wretch from 'wretch';
 import PhotoItemFrame from './PhotoItemFrame.astro';
 
 type Props = {
-  // photo: CollectionEntry<'photo'>;
   photo: Basic;
   order: number;
 };
@@ -21,8 +20,6 @@ const t = await getEntry('i18n', `${locale}/translation`);
 const meta = await getEntry('meta', 'en/site-data');
 const { photo, order } = Astro.props;
 const { alt_description, description, created_at, links, urls, user } = photo;
-// const { alt_description, description, created_at, links, urls, user } =
-//   photo.data;
 const buffer = await wretch(urls.raw)
   .get()
   .arrayBuffer()

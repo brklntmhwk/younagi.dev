@@ -6,6 +6,7 @@ import { FORM_TEXTAREA_MINLENGTH } from '@/lib/consts';
 import {
   type SubmitHandler,
   createForm,
+  reset,
   setValue,
   valiForm,
 } from '@modular-forms/solid';
@@ -110,6 +111,7 @@ export const Form: Component<Props> = (props) => {
         duration: 8000,
       });
     }
+    reset(contactForm);
   };
 
   const handleVerify = (token: string) => {

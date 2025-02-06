@@ -97,7 +97,7 @@ export const form = {
         });
       }
 
-      return { message: t!.data.contact_form.submitting };
+      return { message: t!.data.contact_form.thanks_message };
     },
   }),
 };

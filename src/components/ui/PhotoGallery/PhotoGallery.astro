@@ -12,8 +12,12 @@ const { data: photos, error } = await Astro.callAction(actions.photos.fetch, {
   username: ACCOUNT_ID,
 });
 if (error) {
-  console.error(`Failed to fetch photos.\nstatus:${error.status}\ncode:${error.code}\nmessage:${error.message}\nname:${error.name}\nstack:${error.stack}`);
-  throw new Error(`Failed to fetch photos.\nstatus:${error.status}\ncode:${error.code}\nmessage:${error.message}\nname:${error.name}\nstack:${error.stack}`);
+  console.error(
+    `Failed to fetch photos.\nstatus:${error.status}\ncode:${error.code}\nmessage:${error.message}\nname:${error.name}\nstack:${error.stack}`,
+  );
+  throw new Error(
+    `Failed to fetch photos.\nstatus:${error.status}\ncode:${error.code}\nmessage:${error.message}\nname:${error.name}\nstack:${error.stack}`,
+  );
 }
 const username = photos[0]?.user.username!;
 ---

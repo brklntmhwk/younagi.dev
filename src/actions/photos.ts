@@ -1,5 +1,6 @@
 import { ActionError, defineAction } from 'astro:actions';
 import { z } from 'astro:content';
+import { UNSPLASH_API_ACCESS_KEY } from 'astro:env/server';
 import { createApi } from 'unsplash-js';
 
 export const photos = {
@@ -8,9 +9,9 @@ export const photos = {
       username: z.string(),
       perPage: z.number().default(6),
     }),
-    handler: async (input, ctx) => {
-      const accessKey = ctx.locals.runtime.env.UNSPLASH_API_ACCESS_KEY;
-      const apiClient = createApi({ accessKey });
+    handler: async (input) => {
+      // const accessKey = ctx.locals.runtime.env.UNSPLASH_API_ACCESS_KEY;
+      const apiClient = createApi({ accessKey: UNSPLASH_API_ACCESS_KEY });
 
       const { username, perPage } = input;
 

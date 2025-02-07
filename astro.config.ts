@@ -47,10 +47,10 @@ export default defineConfig({
   }),
   env: {
     schema: {
-      // UNSPLASH_API_ACCESS_KEY: envField.string({
-      //   context: 'server',
-      //   access: 'secret',
-      // }),
+      UNSPLASH_API_ACCESS_KEY: envField.string({
+        context: 'server',
+        access: 'secret',
+      }),
       TURNSTILE_SITE_KEY: envField.string({
         context: 'client',
         access: 'public',

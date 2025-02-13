@@ -13,37 +13,20 @@ const checkPRTitle = () => {
     'refactor',
     'revert',
     'style',
+    'build',
     'ci',
     'perf',
   ];
-  const scopeAllowList = [
-    'api',
-    'cms',
-    'config',
-    'content',
-    'db',
-    'dev',
-    'deps',
-    'lang',
-    'others',
-    'some',
-    'ui',
-    'utils',
-  ];
 
   const typePattern = typeAllowList.join('|');
-  const scopePattern = scopeAllowList.join('|');
-  const titleRegex = new RegExp(`^(${typePattern})\\((${scopePattern})\\): .+`);
+  const titleRegex = new RegExp(`^(${typePattern})(\([^\)]+\))?: .+$`);
 
   if (!titleRegex.test(title)) {
     fail(`**:x: Invalid PR title: ${title}**\n`);
     markdown(
-      `Use either of the following type & scope instead.\n
+      `Use either of the following type instead.\n
         **Allowed type list:**\n
-        - ${typeAllowList.join(',')}\n
-        **Allowed scope list:**\n
-        - ${scopeAllowList.join(',')}\n
-        e.g., feat(ui): 🆕 add a likes button\n`,
+        - ${typeAllowList.join(', ')}\n`,
     );
   }
 };

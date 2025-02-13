@@ -1,8 +1,9 @@
 <!-- Title Formats of Pull Request:
-  chore(deps): 🤖 xxx
-  docs(content): 📖 xxx
-  refactor(some): ✨ tweak
-  style(ui): 💄 xxx
+  chore(deps): xxx
+  docs(content): xxx
+  refactor(api): xxx
+  style(ui): xxx
+  ci: xxx
 -->
 
 ## Changes

@@ -2,6 +2,17 @@
 
 [![Production deployment](https://github.com/brklntmhwk/younagi.dev/actions/workflows/prod.yml/badge.svg)](https://github.com/brklntmhwk/younagi.dev/actions/workflows/prod.yml)
 
+![Astro](https://img.shields.io/badge/Astro-333333?logo=astro&logoColor=white&style=for-the-badge)
+![SolidJS](https://img.shields.io/badge/SolidJS-2E4EAD?logo=solid&logoColor=white&style=for-the-badge)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white&style=for-the-badge)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-06B6D4?logo=tailwindcss&logoColor=white&style=for-the-badge)
+![Nix](https://img.shields.io/badge/Nix-5277C3?logo=nixos&logoColor=white&style=for-the-badge)
+![Bun](https://img.shields.io/badge/Bun-000000?logo=bun&logoColor=white&style=for-the-badge)
+![Drizzle ORM](https://img.shields.io/badge/Drizzle_ORM-181717?logo=drizzle&logoColor=white&style=for-the-badge)
+![Cloudflare Pages](https://img.shields.io/badge/Cloudflare%20Pages-F38020?logo=cloudflare&logoColor=white&style=for-the-badge)
+![Cloudflare D1](https://img.shields.io/badge/Cloudflare%20D1-FF7139?logo=databricks&logoColor=white&style=for-the-badge)
+![Cloudflare Turnstile](https://img.shields.io/badge/Cloudflare%20Turnstile-F38020?logo=cloudflare&logoColor=white&style=for-the-badge)
+
 ![younagi.dev site image](/public/placeholder.jpg)
 
 Website of Nagi, by Nagi, and for nobody.
@@ -28,8 +39,6 @@ Website of Nagi, by Nagi, and for nobody.
   - [Drizzle ORM](https://orm.drizzle.team/): A lightweight and performant TypeScript ORM
 - **Dev:**
   - [Nix](https://nixos.org/): A tool to make reproducible, declarative, and reliable systems
-  - [Dev Containers](https://code.visualstudio.com/docs/devcontainers/containers): Docker containers that are specifically configured to provide a fully featured development environment
-  - [Docker](https://www.docker.com/): An open platform for developing, shipping, and running applications
 - **CI/CD:**
   - [Github Actions](https://github.co.jp/features/actions): A CI/CD platform fully based in Github
   - [DangerJS](https://danger.systems/js/): An automation tool for your team's conventions surrounding code review
@@ -37,8 +46,6 @@ Website of Nagi, by Nagi, and for nobody.
   - [czg](https://cz-git.qbb.sh/cli/): A Conventional commit CLI
 - **Deployment:**
   - [Cloudflare Pages](https://pages.cloudflare.com/): A JAMstack platform for frontend developers to collaborate and deploy websites
-- **CMS:**
-  - [Front Matter CMS](https://frontmatter.codes/): The CMS that runs within VSCode, GitPod, etc
 - **Bot management:**
   - [Cloudflare Turnstile](https://www.cloudflare.com/products/turnstile/): Cloudflare's CAPTCHA alternative solution
 - **Package manager:**
@@ -53,78 +60,6 @@ Website of Nagi, by Nagi, and for nobody.
   - [Lefthook](https://github.com/evilmartians/lefthook): A polyglot Git hooks manager
 - **Email sender:**
   - [Resend](https://resend.com/docs/introduction): A simple email API for developers
-
-## Ready, Set, Go!
-
-This section is a reminder for myself assuming there are other project members or contributers.
-
-### Prerequisites [WIP]
-
-You need to:
-
-- install [VSCode](https://code.visualstudio.com/) on your local machine
-- install [the Remote Development extension](https://github.com/Microsoft/vscode-remote-release) in your VSCode editor
-
-> [!IMPORTANT]
-> You can also start coding without them, but need to install required packages and libraries in your local in that case.
-
-### The Dev Workflow [WIP]
-
-This project adopts Issue-driven Development.
-
-> [!NOTE]
-> Issue-driven Development is a dev process where:
-> - developers are always supposed to create a Github issue first whenever starting coding
-> - issues are associated with specific branches one-to-one, in which development proceeds
-> - After peer code reviews and passing your team's conventional rules, changes are finally merged into the main branch
-
-1. On [the issue page](https://github.com/brklntmhwk/younagi.dev/issues), create an issue
-    - Select a template that matches the purpose of your issue
-    - Add a label that describes the purpose well on an as-needed basis
-      - Some templates has the default setting so you don't have to do so
-    - In your issue, clarify the following points
-        - The purpose
-        - As-is
-        - To-be
-2. Select "Create a branch for this issue or link a pull request" to create a branch for your issue
-    - e.g., "18-refine-readme" for an issue #18 to refine the README doc
-3. In your local dev environment, execute `git switch -c [[the branch name]]`
-    - If you haven't had a clone of this project, execute `git clone https://github.com/brklntmhwk/younagi.dev.git` first
-        - In a real project run by a team, fork this project first via [the Github repo](https://github.com/brklntmhwk/younagi.dev) and then clone it
-    - Hereafter, you're supposed to be at the project root
-4. Execute `git pull origin [[the branch name]]` to keep your local up to date
-5. Start coding!
-    1. [Setup outside the container](#setup-for-coding)
-    2. Open the VSCode command palette
-    3. Select "Dev Containers: Reopen Container"
-        - It starts rebuilding the container if needed
-        - It might take longer the first time
-    4. [Setup inside the container](#setup-for-coding)
-6. After you're finished coding, execute `git add .` > `git cz`, add commit info answering prompts, and then execute `git push origin [[the branch name]]`
-7. Go to [the project's repo](https://github.com/brklntmhwk/younagi.dev) and create a pull request for changes you've made
-    - The title of pull requests must be in this format: `<type>(<scope>): detailed descriptions here...`
-      - Check the changelog config or dangerfile for allowed types & scopes
-      - e.g., "feat(ui): 🆕 add a likes button"
-    - Use a template by hitting the URL like below
-      - `https://github.com/brklntmhwk/younagi.dev/compare/main...${BRANCH_NAME}?template=${TEMPLATE_NAME}`
-      - For the `TEMPLATE_NAME`, see under the ".github/PULL_REQUEST_TEMPLATE/" directory
-        - e.g., `...?template=01_basic.md`
-8. Fix your code over the course of peer code review on an as-needed basis
-    - Once the whole team gives you the green light, changes you've made will be merged into the main branch
-9. Confirm if the merge is done without any problem and then delete the remote branch from [this page](https://github.com/brklntmhwk/younagi.dev/branches)
-    - Execute `git switch main` > `git branch -d [[the branch name]]` to delete the one in local
-
-### Setup for coding [WIP]
-
-#### Outside the container
-
-1. Create `.env` and `.dev.vars` at the root
-    - see `.env.example` and `.dev.vars.example` for reference, respectively
-
-#### Inside the container
-
-1. Run `bun dev --host` to start the dev server
-2. Access the localhost URL
 
 ## License
 

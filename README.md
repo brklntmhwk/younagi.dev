@@ -3,11 +3,15 @@
 [![Production deployment](https://github.com/brklntmhwk/younagi.dev/actions/workflows/prod.yml/badge.svg)](https://github.com/brklntmhwk/younagi.dev/actions/workflows/prod.yml)
 
 ![Astro](https://img.shields.io/badge/Astro-333333?logo=astro&logoColor=white&style=for-the-badge)
-![Nix](https://img.shields.io/badge/Nix-5277C3?logo=nixos&logoColor=white&style=for-the-badge)
 ![SolidJS](https://img.shields.io/badge/SolidJS-2E4EAD?logo=solid&logoColor=white&style=for-the-badge)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white&style=for-the-badge)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-06B6D4?logo=tailwindcss&logoColor=white&style=for-the-badge)
-![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?logo=cloudflare&logoColor=white&style=for-the-badge)
+![Nix](https://img.shields.io/badge/Nix-5277C3?logo=nixos&logoColor=white&style=for-the-badge)
+![Bun](https://img.shields.io/badge/Bun-000000?logo=bun&logoColor=white&style=for-the-badge)
+![Drizzle ORM](https://img.shields.io/badge/Drizzle_ORM-181717?logo=drizzle&logoColor=white&style=for-the-badge)
+![Cloudflare Pages](https://img.shields.io/badge/Cloudflare%20Pages-F38020?logo=cloudflare&logoColor=white&style=for-the-badge)
+![Cloudflare D1](https://img.shields.io/badge/Cloudflare%20D1-FF7139?logo=databricks&logoColor=white&style=for-the-badge)
+![Cloudflare Turnstile](https://img.shields.io/badge/Cloudflare%20Turnstile-F38020?logo=cloudflare&logoColor=white&style=for-the-badge)
 
 ![younagi.dev site image](/public/placeholder.jpg)
 

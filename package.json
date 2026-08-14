@@ -42,7 +42,7 @@
     "@modular-forms/solid": "^0.23.0",
     "@solid-primitives/event-listener": "^2.3.3",
     "@solid-primitives/keyboard": "^1.2.8",
-    "astro": "5.1.7",
+    "astro": "7.1.0",
     "astro-expressive-code": "^0.38.3",
     "astro-purgecss": "^5.1.0",
     "drizzle-orm": "^0.36.0",

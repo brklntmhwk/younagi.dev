@@ -75,7 +75,7 @@
     "better-sqlite3": "^11.5.0",
     "blurhash": "^2.0.5",
     "czg": "^1.11.0",
-    "danger": "^12.3.3",
+    "danger": "^13.0.8",
     "drizzle-kit": "^0.28.0",
     "hast": "^1.0.0",
     "hast-util-from-html": "^2.0.3",

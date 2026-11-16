@@ -101,7 +101,7 @@
     "remark-math": "6.0.0",
     "remark-ruby-directive": "^0.3.0",
     "remark-video": "^0.10.0",
-    "satori": "^0.12.0",
+    "satori": "^0.63.0",
     "sharp": "^0.33.5",
     "shiki": "^1.22.2",
     "sirv": "^3.0.0",
